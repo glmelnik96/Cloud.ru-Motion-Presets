@@ -41,19 +41,12 @@
     }
   }
 
-  var BRAND_KEYWORDS = {
-    logo_reveal: ['логошот', 'logoshot', 'logo reveal', 'brand logo', 'лого ревил', 'cloud.ru logo'],
-    lower_third: ['lower third', 'нижняя плашка', 'подпись спикера', 'титры спикера', 'name plate'],
-    text_card: ['text card', 'текстовая плашка', 'плашка', 'smm плашка', 'карточка']
-  }
-
   if (typeof window !== 'undefined') {
     window.BRAND_PRESETS_CONFIG = {
       colors: BRAND_COLORS,
       fonts: BRAND_FONTS,
       labels: BRAND_PRESET_LABELS,
-      defaults: BRAND_PRESET_DEFAULTS,
-      keywords: BRAND_KEYWORDS
+      defaults: BRAND_PRESET_DEFAULTS
     }
   }
 })()
