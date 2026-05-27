@@ -19,3 +19,6 @@ node_modules/
 
 # Local project memory/artifacts
 .omc/
+
+# Cloud.ru API key — copy fm-secrets.example.js to fm-secrets.local.js and fill apiKey
+client/fm-secrets.local.js

@@ -65,6 +65,48 @@
             </div>
             <button id="apply-brand-btn" class="btn btn-secondary" title="Create brand preset in active comp">Apply</button>
           </div>
+
+          <!-- Subtitles -->
+          <div class="section-label" style="margin-top:8px">Subtitles (Cloud.ru Whisper)</div>
+          <div class="preset-bar subtitles-bar">
+            <div class="preset-field">
+              <label class="preset-field-label">Source</label>
+              <span class="subtitles-hint" title="Выделите AVLayer (аудио или видео) с файловым source в активной композиции.">Selected layer</span>
+            </div>
+            <div class="preset-field">
+              <label class="preset-field-label" for="sub-language">Lang</label>
+              <select id="sub-language" class="preset-input subtitles-select" title="Язык распознавания (Whisper)">
+                <option value="ru" selected>ru</option>
+                <option value="en">en</option>
+                <option value="auto">auto</option>
+              </select>
+            </div>
+            <div class="preset-field">
+              <label class="preset-field-label" for="sub-max-chars">Max chars</label>
+              <input id="sub-max-chars" class="preset-input" type="number" min="20" max="120" step="1" value="42" title="Максимум символов в одном cue" />
+            </div>
+            <div class="preset-field">
+              <label class="preset-field-label" for="sub-min-dur">Min cue (s)</label>
+              <input id="sub-min-dur" class="preset-input" type="number" min="0.3" max="5" step="0.1" value="0.8" title="Минимальная длительность cue" />
+            </div>
+            <div class="preset-field">
+              <label class="preset-field-label" for="sub-font-size">Font (px)</label>
+              <input id="sub-font-size" class="preset-input" type="number" min="12" max="240" step="1" value="64" />
+            </div>
+            <div class="preset-field">
+              <label class="preset-field-label" for="sub-anim">Animation</label>
+              <select id="sub-anim" class="preset-input subtitles-select">
+                <option value="fade" selected>Fade</option>
+                <option value="char_reveal">Char reveal</option>
+                <option value="none">None</option>
+              </select>
+            </div>
+            <button id="apply-subtitles-btn" class="btn btn-primary" title="Транскрибировать выделенный слой и создать subtitle text layers">Transcribe & create</button>
+            <button id="cancel-subtitles-btn" class="btn btn-secondary subtitles-cancel-btn" title="Прервать текущую транскрибацию" disabled>Cancel</button>
+          </div>
+          <div id="subtitles-progress" class="subtitles-progress" style="display:none">
+            <span id="subtitles-progress-text">…</span>
+          </div>
         </div>
 
         <!-- Tool Call Log -->
@@ -87,6 +129,13 @@
     <!-- Preset modules -->
     <script src="./brandPresets.js"></script>
     <script src="./hostBridge.js"></script>
+
+    <!-- Subtitle pipeline (Cloud.ru Whisper) -->
+    <script src="./client/fm-defaults.js"></script>
+    <script src="./client/fm-secrets.local.js"></script>
+    <script src="./client/cloudru-client.js"></script>
+    <script src="./client/timeline-transcribe.js"></script>
+    <script src="./client/subtitle-pipeline.js"></script>
 
     <!-- Main runtime (must be last) -->
     <script src="./main.js"></script>

@@ -1,7 +1,8 @@
 # Brand Presets — Implementation Spec
 
-> Точные параметры анимаций из AE-проектов для создания детерминированных пресетов.
-> Источники: Логошот.aep, Titles.aep, SMM_pack.aep
+> Эталонные параметры анимаций трёх реализованных brand-пресетов.
+> Источник: extraction из AE-проектов Логошот.aep, Titles.aep, SMM_pack.aep.
+> Соответствие реализации: см. `host/index.jsx` функции `motionPresets_applyBrand*`.
 
 ---
 
@@ -26,7 +27,7 @@
 
 ---
 
-## Preset 1: brand_logo_reveal (P0)
+## Preset 1: brand_logo_reveal
 
 ### Источник: Логошот без саблайна (1920×1080, 3s, 25fps)
 
@@ -116,7 +117,7 @@ t=2.200s  [49.3, 59.5]    → финальный размер
 
 ---
 
-## Preset 2: brand_lower_third (P0)
+## Preset 2: brand_lower_third
 
 ### Источник: Titles / Антон Нефедов (1500×500, 6.04s, 25fps)
 
@@ -201,7 +202,7 @@ t=5.800s  scaleX=0     (close earlier)
 
 ---
 
-## Preset 3: brand_text_card (P1)
+## Preset 3: brand_text_card
 
 ### Источник: SMM_Pack / Плашки_1x1 (1440×1440, 7.84s)
 
@@ -255,44 +256,6 @@ Phase 3 (exit):
 2. Shape bar под каждой парой строк: scaleX 0→~100%→hold→0
 3. Stagger 400ms между bars
 4. Easing: eIn influence=100% (smooth deceleration)
-
----
-
-## Preset 4: brand_transition (P2)
-
-### Источник: SMM_Pack / Transition_gray (1080×1920, 0.875s)
-
-### Структура
-
-2 shape layers, каждый с 5 прямоугольников разного размера, движутся навстречу:
-
-**Layer 1 (Transition_1)**: движение слева→вправо
-```
-t=0.000s  pos=[-1476, 753]   (за левым краем)
-t=0.833s  pos=[2241, 753]    (за правым краем)
-```
-
-**Layer 2 (Transition_2)**: движение справа→влево
-```
-t=0.000s  pos=[2130, 753]    (за правым краем)
-t=0.833s  pos=[-1162, 753]   (за левым краем)
-```
-
-Easing: linear (inf=17 ≈ default).
-
-### Цвета transition
-
-| Вариант | Fill |
-|---------|------|
-| gray | [0.133, 0.133, 0.133] |
-| green | [0.149, 0.816, 0.486] |
-| white | [1, 1, 1] |
-
-### Упрощённая модель
-
-2 shape layers с набором прямоугольников разного размера.
-Встречное движение за 0.83s (20 frames @24fps).
-Опционально: logo precomp поверх в середине перехода.
 
 ---
 

@@ -5,42 +5,47 @@
 (function () {
   'use strict'
 
-  var hostScriptPath = null
   var hostScriptLoaded = false
   var hostScriptLoadPromise = null
+
+  /**
+   * Load one .jsx file via $.evalFile, with read+evalScript fallback.
+   */
+  function loadHostFile (cs, absPath) {
+    return new Promise(function (resolve, reject) {
+      var escapedPath = absPath.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+      cs.evalScript('$.evalFile("' + escapedPath + '"); "ok"', function (resultStr) {
+        if (resultStr === 'ok') return resolve()
+        try {
+          var fs = require('fs')
+          var content = fs.readFileSync(absPath, 'utf8')
+          cs.evalScript(content + '\n"ok"', function (r2) {
+            if (r2 === 'ok' || (r2 && r2.indexOf('EvalScript error') !== 0)) resolve()
+            else reject(new Error('Inline eval failed for ' + absPath + ': ' + (r2 || 'unknown')))
+          })
+        } catch (eFallback) {
+          reject(new Error('Failed to load ' + absPath + ': ' + (resultStr || eFallback.message)))
+        }
+      })
+    })
+  }
 
   function ensureHostScriptLoaded () {
     if (hostScriptLoaded) return Promise.resolve()
     if (hostScriptLoadPromise) return hostScriptLoadPromise
 
-    hostScriptLoadPromise = new Promise(function (resolve, reject) {
+    hostScriptLoadPromise = (function () {
       try {
         var cs = new CSInterface()
         var ext = cs.getSystemPath(SystemPath.EXTENSION)
-        hostScriptPath = ext + '/host/index.jsx'
-        var escapedPath = hostScriptPath.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
-        cs.evalScript('$.evalFile("' + escapedPath + '"); "ok"', function (resultStr) {
-          if (resultStr === 'ok') {
-            hostScriptLoaded = true
-            resolve()
-          } else {
-            // Fallback: read & inline.
-            try {
-              var fs = require('fs')
-              var content = fs.readFileSync(hostScriptPath, 'utf8')
-              cs.evalScript(content + '\n"ok"', function () {
-                hostScriptLoaded = true
-                resolve()
-              })
-            } catch (eFallback) {
-              reject(new Error('Failed to load host script: ' + (resultStr || eFallback.message)))
-            }
-          }
-        })
+        /* Order matters: index.jsx defines helpers reused by subtitles.jsx. */
+        return loadHostFile(cs, ext + '/host/index.jsx')
+          .then(function () { return loadHostFile(cs, ext + '/host/subtitles.jsx') })
+          .then(function () { hostScriptLoaded = true })
       } catch (e) {
-        reject(new Error('ensureHostScriptLoaded error: ' + e.message))
+        return Promise.reject(new Error('ensureHostScriptLoaded error: ' + e.message))
       }
-    })
+    })()
 
     return hostScriptLoadPromise
   }
@@ -156,6 +161,18 @@
             line4: args.line4,
             display_duration: args.display_duration
           }) + ')'
+        break
+      case 'get_audio_source':
+        call = 'motionPresets_getAudioSourceForLayer(' +
+          toESLiteral(args.layer_index) + ',' +
+          toESLiteral(args.layer_id || null) + ')'
+        break
+      case 'create_subtitle_layers':
+        call = 'motionPresets_createSubtitleLayers(' +
+          toESLiteral(args.cues) + ',' +
+          toESLiteral(args.style) + ',' +
+          toESLiteral(args.animation || 'fade') + ',' +
+          toESLiteral(args.parent_to_null !== false) + ')'
         break
       default:
         return Promise.reject(new Error('Unknown tool: ' + toolName))

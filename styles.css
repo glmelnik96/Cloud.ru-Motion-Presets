@@ -57,6 +57,41 @@ body {
   background-color: #2a3530;
 }
 
+.subtitles-bar {
+  background-color: #2b2f3a;
+}
+
+.subtitles-select {
+  width: 80px;
+  padding: 3px 6px;
+}
+
+.subtitles-hint {
+  display: inline-block;
+  padding: 3px 6px;
+  background-color: #1f1f1f;
+  border: 1px solid #444;
+  border-radius: 3px;
+  color: #aaa;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.subtitles-cancel-btn {
+  margin-left: 0;
+}
+
+.subtitles-progress {
+  margin-top: 4px;
+  padding: 4px 8px;
+  background-color: #1f1f1f;
+  border: 1px solid #3a4a5a;
+  border-radius: 3px;
+  color: #9cf;
+  font-size: 10px;
+  font-family: Menlo, Consolas, monospace;
+}
+
 .preset-dropdown {
   position: relative;
   flex-shrink: 0;

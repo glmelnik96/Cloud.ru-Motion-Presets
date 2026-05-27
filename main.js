@@ -29,7 +29,9 @@
     selectedPresetKey: 'fade_in',
     selectedBrandPresetKey: 'logo_reveal',
     lastMutatingToolCount: 0,
-    toolLog: []
+    toolLog: [],
+    isSubtitlesInFlight: false,
+    subtitlesAbortFlag: false
   }
 
   // ── DOM refs ───────────────────────────────────────────────────────────
@@ -56,6 +58,15 @@
     els.brandField2Wrap = document.getElementById('brand-field2-wrap')
     els.brandDuration = document.getElementById('brand-duration')
     els.applyBrandBtn = document.getElementById('apply-brand-btn')
+    els.subLanguage = document.getElementById('sub-language')
+    els.subMaxChars = document.getElementById('sub-max-chars')
+    els.subMinDur = document.getElementById('sub-min-dur')
+    els.subFontSize = document.getElementById('sub-font-size')
+    els.subAnim = document.getElementById('sub-anim')
+    els.applySubtitlesBtn = document.getElementById('apply-subtitles-btn')
+    els.cancelSubtitlesBtn = document.getElementById('cancel-subtitles-btn')
+    els.subtitlesProgress = document.getElementById('subtitles-progress')
+    els.subtitlesProgressText = document.getElementById('subtitles-progress-text')
   }
 
   var PRESET_LABELS = {
@@ -394,6 +405,107 @@
     els.toolLog.scrollTop = els.toolLog.scrollHeight
   }
 
+  // ── Subtitles (Cloud.ru Whisper) ───────────────────────────────────────
+  function setSubtitlesUiBusy (busy) {
+    state.isSubtitlesInFlight = !!busy
+    if (els.applySubtitlesBtn) els.applySubtitlesBtn.disabled = !!busy
+    if (els.cancelSubtitlesBtn) els.cancelSubtitlesBtn.disabled = !busy
+    if (els.subLanguage) els.subLanguage.disabled = !!busy
+    if (els.subMaxChars) els.subMaxChars.disabled = !!busy
+    if (els.subMinDur) els.subMinDur.disabled = !!busy
+    if (els.subFontSize) els.subFontSize.disabled = !!busy
+    if (els.subAnim) els.subAnim.disabled = !!busy
+    if (els.subtitlesProgress) els.subtitlesProgress.style.display = busy ? '' : 'none'
+  }
+
+  function setSubtitlesProgress (text) {
+    if (els.subtitlesProgressText) els.subtitlesProgressText.textContent = String(text || '')
+  }
+
+  function handleApplySubtitles () {
+    if (state.isSubtitlesInFlight) {
+      addToolLogEntry('subtitles', 'info', 'Busy: уже идёт транскрибация')
+      return
+    }
+    if (!window.SubtitlePipeline || typeof window.SubtitlePipeline.transcribeAndCreate !== 'function') {
+      addToolLogEntry('subtitles', 'error', 'SubtitlePipeline не загружен (проверьте client/*.js)')
+      return
+    }
+    if (!window.HOST_BRIDGE) {
+      addToolLogEntry('subtitles', 'error', 'Host bridge not ready')
+      return
+    }
+    /* Verify API key presence early to give a clean error before ffmpeg runs. */
+    var secrets = window.FM_SECRETS || {}
+    if (!secrets.apiKey) {
+      addToolLogEntry('subtitles', 'error', 'API ключ не задан в client/fm-secrets.local.js')
+      return
+    }
+
+    state.subtitlesAbortFlag = false
+    setSubtitlesUiBusy(true)
+    setSubtitlesProgress('Подготовка…')
+    addToolLogEntry('subtitles', 'info', 'Запуск транскрибации')
+
+    /* Resolve selected layer through the same host context call presets use. */
+    window.HOST_BRIDGE.executeToolCall('get_host_context', {})
+      .then(function (ctx) {
+        var sel = (ctx && ctx.selectedLayers && ctx.selectedLayers.length) ? ctx.selectedLayers[0] : null
+        if (!sel) throw new Error('Выделите аудио или видео слой в активной композиции.')
+
+        var maxChars = parseFloat(els.subMaxChars && els.subMaxChars.value) || 42
+        var minDur = parseFloat(els.subMinDur && els.subMinDur.value) || 0.8
+        var fontSize = parseFloat(els.subFontSize && els.subFontSize.value) || 64
+        var lang = (els.subLanguage && els.subLanguage.value) || 'ru'
+        var anim = (els.subAnim && els.subAnim.value) || 'fade'
+        var langArg = (lang === 'auto') ? null : lang
+
+        return window.SubtitlePipeline.transcribeAndCreate({
+          layerIndex: sel.index,
+          layerId: typeof sel.id === 'number' ? sel.id : null,
+          maxCharsPerCue: maxChars,
+          minCueSec: minDur,
+          fontSize: fontSize,
+          language: langArg,
+          animation: anim,
+          parentToNull: true,
+          onProgress: function (msg) {
+            setSubtitlesProgress(msg)
+            addToolLogEntry('subtitles', 'info', String(msg).substring(0, 80))
+          },
+          abortCheck: function () { return state.subtitlesAbortFlag === true }
+        })
+      })
+      .then(function (res) {
+        if (res && res.ok) {
+          addToolLogEntry('subtitles', 'ok', res.message || ('cues: ' + res.cuesCreated))
+          state.lastMutatingToolCount = (res.cuesCreated || 0) + (res.controllerLayerIndex ? 1 : 0)
+        } else {
+          addToolLogEntry('subtitles', 'error', (res && res.message) || 'Unknown error')
+        }
+      })
+      .catch(function (err) {
+        var msg = err && err.message ? err.message : String(err)
+        if (err && err.name === 'AbortError') {
+          addToolLogEntry('subtitles', 'warn', 'Прервано пользователем')
+        } else {
+          addToolLogEntry('subtitles', 'error', msg)
+        }
+      })
+      .then(function () {
+        state.subtitlesAbortFlag = false
+        setSubtitlesUiBusy(false)
+        setSubtitlesProgress('')
+      })
+  }
+
+  function handleCancelSubtitles () {
+    if (!state.isSubtitlesInFlight) return
+    state.subtitlesAbortFlag = true
+    setSubtitlesProgress('Останавливаю…')
+    addToolLogEntry('subtitles', 'info', 'Запрошена отмена')
+  }
+
   // ── Footer actions ─────────────────────────────────────────────────────
   function handleUndo () {
     if (!window.HOST_BRIDGE) return
@@ -469,6 +581,10 @@
       if (!els.brandDropdownMenu.contains(e.target) && !els.brandDropdownBtn.contains(e.target)) closeBrandDropdown()
     })
     if (els.applyBrandBtn) els.applyBrandBtn.addEventListener('click', handleApplyBrandPreset)
+
+    // Subtitles
+    if (els.applySubtitlesBtn) els.applySubtitlesBtn.addEventListener('click', handleApplySubtitles)
+    if (els.cancelSubtitlesBtn) els.cancelSubtitlesBtn.addEventListener('click', handleCancelSubtitles)
   }
 
   // ── Init ───────────────────────────────────────────────────────────────
