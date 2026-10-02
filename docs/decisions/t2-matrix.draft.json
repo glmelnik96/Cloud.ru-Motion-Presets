@@ -1,0 +1,135 @@
+{
+  "status": "draft",
+  "note_ru": "Черновик матрицы T2 для D24. Длительности — минимальные бесшовные периоды по аудиту пакетов (spec §4.1: 10–15 с, дрейф рамки лекции 60 с, портал вебинара 30 с). copies — число вариантов опций (цвет, логотип, подпись, раскладка). rateFactor — поправка к битрейту для почти статичных кадров по замерам пакета; у плотных паттернов 1. Форматы по spec §4.3: 16:9 FHD, 9:16, 1:1 в установке по умолчанию, 16:9 4K — отдельной опцией (D24); 4:5 и 4:3 делаются по запросу и не считаются.",
+  "items": [
+    {
+      "id": "BG_Arrows",
+      "title_ru": "Фон «стрелки», петля",
+      "codec": "prores4444",
+      "seconds": 15,
+      "copies": 1,
+      "rateFactor": 1,
+      "formats": ["16x9", "9x16", "1x1"],
+      "optionalFormats": ["16x9_4K"],
+      "basis_ru": "spec §5 «Фоны»; SMM BG_pattern_*_1, рендер 30 с не бесшовный — петля 15 с"
+    },
+    {
+      "id": "BG_Plus",
+      "title_ru": "Фон «плюсы», петля",
+      "codec": "prores4444",
+      "seconds": 10,
+      "copies": 1,
+      "rateFactor": 1,
+      "formats": ["16x9", "9x16", "1x1"],
+      "optionalFormats": ["16x9_4K"],
+      "basis_ru": "spec §5 «Фоны»; аудит SMM: Evolution = time*144 даёт бесшовные 10 с"
+    },
+    {
+      "id": "BG_Rack",
+      "title_ru": "Фон «стеллаж», петля",
+      "codec": "prores4444",
+      "seconds": 10,
+      "copies": 1,
+      "rateFactor": 1,
+      "formats": ["16x9", "9x16", "1x1"],
+      "optionalFormats": ["16x9_4K"],
+      "basis_ru": "spec §5 «Фоны»; PATTERN RACK вебинаров, период не измерен — нижняя граница 10 с"
+    },
+    {
+      "id": "SMM_FrameNotched",
+      "title_ru": "SMM: рамка с вырезами, петля",
+      "codec": "prores4444",
+      "seconds": 15,
+      "copies": 3,
+      "rateFactor": 0.15,
+      "formats": ["1x1", "9x16", "16x9"],
+      "optionalFormats": [],
+      "basis_ru": "spec §5 «SMM»; 3 цвета (#222222, #26D07C, #FFFFFF); Оверлей_1x1.mov 2,0 МБ/с против 15,8 у фона — коэф. 0,15"
+    },
+    {
+      "id": "CRS_LectureDrift",
+      "title_ru": "Курсы: дрейф рамки лекции, петля 60 с",
+      "codec": "prores4444",
+      "seconds": 60,
+      "copies": 3,
+      "rateFactor": 0.5,
+      "formats": ["16x9"],
+      "optionalFormats": ["16x9_4K"],
+      "basis_ru": "spec §5, D9; 3 раскладки (16:9, 3:2, со спикером); оверлей курсов 7,1 МБ/с — коэф. 0,5. Если блоки дрейфа не зависят от раскладки, copies = 1"
+    },
+    {
+      "id": "WEB_PortalBG",
+      "title_ru": "Вебинары: фон экрана (портал), петля 30 с",
+      "codec": "prores4444",
+      "seconds": 30,
+      "copies": 2,
+      "rateFactor": 1,
+      "formats": ["16x9"],
+      "optionalFormats": ["16x9_4K"],
+      "basis_ru": "spec §4.1, §5; 2 раскладки (с визуалом, со спикером); замера нет — коэф. 1"
+    },
+    {
+      "id": "TRN_Stairs",
+      "title_ru": "Переход «ступенчатая шторка»",
+      "codec": "prores4444",
+      "seconds": 2.04,
+      "copies": 3,
+      "rateFactor": 1,
+      "formats": ["16x9", "9x16", "1x1"],
+      "optionalFormats": ["16x9_4K"],
+      "basis_ru": "spec §5 «Переходы»; Переход.mov 2,04 с; цвета — предположение 3 (#26D07C, #222222, #FFFFFF)"
+    },
+    {
+      "id": "TRN_Bars",
+      "title_ru": "Переход «шторка-полосы»",
+      "codec": "prores4444",
+      "seconds": 1.04,
+      "copies": 6,
+      "rateFactor": 1,
+      "formats": ["16x9", "9x16", "1x1"],
+      "optionalFormats": ["16x9_4K"],
+      "basis_ru": "spec §5; 3 цвета × с логотипом и без; 26 кадров при 25 fps"
+    },
+    {
+      "id": "POD_Intro",
+      "title_ru": "Подкаст: интро",
+      "codec": "prores4444",
+      "seconds": 7,
+      "copies": 1,
+      "rateFactor": 0.5,
+      "formats": ["16x9", "9x16"],
+      "optionalFormats": ["16x9_4K"],
+      "basis_ru": "spec §5 «Подкаст»; Заставка 4K 24,9 МБ/с = 6,2 МБ/с на 2 Мп — коэф. 0,5"
+    },
+    {
+      "id": "POD_Outro",
+      "title_ru": "Подкаст: аутро",
+      "codec": "prores4444",
+      "seconds": 10,
+      "copies": 1,
+      "rateFactor": 0.1,
+      "formats": ["16x9", "9x16"],
+      "optionalFormats": ["16x9_4K"],
+      "basis_ru": "OUTRO.mov 4K 5,1 МБ/с = 1,3 МБ/с на 2 Мп — коэф. 0,1"
+    },
+    {
+      "id": "LOGO_SloganPrerenders",
+      "title_ru": "Логошот: предрендеры фиксированных подписей",
+      "codec": "prores4444",
+      "seconds": 5,
+      "copies": 6,
+      "rateFactor": 0.25,
+      "formats": ["16x9", "9x16"],
+      "optionalFormats": ["16x9_4K"],
+      "basis_ru": "spec §5, D5: 3 подписи × 2 темы; 5 с (рабочая область логошота 0–5,02 с); плоская графика — коэф. 0,25"
+    }
+  ],
+  "extras": [
+    { "title_ru": "MOGRT: ~100 файлов по ~3 МБ (оценка без замера)", "count": 100, "mbEach": 3 },
+    { "title_ru": "Одноэлементные .aep: ~25 по ~3 МБ", "count": 25, "mbEach": 3 },
+    { "title_ru": "Превью 480 px MP4 и постеры: ~60 по ~1,5 МБ", "count": 60, "mbEach": 1.5 },
+    { "title_ru": "Звуки WAV: ~30 по ~2 МБ", "count": 30, "mbEach": 2 },
+    { "title_ru": "Стиллы SVG/PNG: ~60 по ~0,5 МБ", "count": 60, "mbEach": 0.5 },
+    { "title_ru": "Пресеты .ffx, .epr, .aom и CR_Templates.prproj", "count": 1, "mbEach": 5 }
+  ]
+}
