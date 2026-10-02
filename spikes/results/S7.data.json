@@ -1,0 +1,1221 @@
+{
+  "meta": {
+    "runDir": "C:/CRBK/work/s7/run-20261002-193927",
+    "startedAt": "2026-10-02T19:39:27.958Z"
+  },
+  "stages": {
+    "media": {
+      "at": "2026-10-02T19:39:28.620Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_test.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj"
+        },
+        {
+          "name": "work clone of CRT_Seq_1080p25 is active",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRT_S7_media",
+            "id": "aa76cade-8686-41ce-95de-dc295939eebf",
+            "rv": "true"
+          }
+        },
+        {
+          "name": "media bin CRT_Media ready",
+          "pass": true,
+          "required": true,
+          "detail": "CRT_Media"
+        },
+        {
+          "name": "ProRes 4444 with alpha imported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "importInfo": {
+              "attempts": 1,
+              "ms": 73,
+              "reused": false
+            },
+            "interpretation": {
+              "alphaUsage": 0,
+              "ignoreAlpha": false,
+              "invertAlpha": false,
+              "frameRate": 25
+            }
+          }
+        },
+        {
+          "name": "WAV imported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "attempts": 1,
+            "ms": 73,
+            "reused": false
+          }
+        },
+        {
+          "name": "frame alphaBefore (50) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:02:00",
+            "playhead": "508032000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "alpha clip overwritten onto the first free video track above V1 at 0 s",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "track": "V2",
+            "times": {
+              "startF": 0,
+              "endF": 125,
+              "inF": 0,
+              "outF": 125,
+              "onGrid": true,
+              "startTicks": "0",
+              "endTicks": "1270080000000"
+            }
+          }
+        },
+        {
+          "name": "frame alphaAfter (50) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:02:00",
+            "playhead": "508032000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "WAV overwritten onto the first free audio track at 0 s",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "track": "A1",
+            "times": {
+              "startF": 0,
+              "endF": 125,
+              "inF": 0,
+              "outF": 125,
+              "onGrid": true,
+              "startTicks": "0",
+              "endTicks": "1270080000000"
+            }
+          }
+        },
+        {
+          "name": "WAV clip edges lie on the 25p frame grid",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "startF": 0,
+            "endF": 125,
+            "inF": 0,
+            "outF": 125,
+            "onGrid": true,
+            "startTicks": "0",
+            "endTicks": "1270080000000"
+          }
+        }
+      ],
+      "data": {
+        "frames": {
+          "alphaBefore": "C:/CRBK/work/s7/run-20261002-193927/frames/alphaBefore.png",
+          "alphaAfter": "C:/CRBK/work/s7/run-20261002-193927/frames/alphaAfter.png"
+        },
+        "workSeq": "CRT_S7_media",
+        "workSeqId": "aa76cade-8686-41ce-95de-dc295939eebf",
+        "alphaImport": {
+          "attempts": 1,
+          "ms": 73,
+          "reused": false
+        },
+        "alphaInterp": {
+          "alphaUsage": 0,
+          "ignoreAlpha": false,
+          "invertAlpha": false,
+          "frameRate": 25
+        },
+        "alphaTrack": "V2",
+        "alphaTimes": {
+          "startF": 0,
+          "endF": 125,
+          "inF": 0,
+          "outF": 125,
+          "onGrid": true,
+          "startTicks": "0",
+          "endTicks": "1270080000000"
+        },
+        "wavTrack": "A1",
+        "wavTimes": {
+          "startF": 0,
+          "endF": 125,
+          "inF": 0,
+          "outF": 125,
+          "onGrid": true,
+          "startTicks": "0",
+          "endTicks": "1270080000000"
+        },
+        "hostVersion": "26.5.2"
+      },
+      "evidence": [
+        "C:/CRBK/work/s7/run-20261002-193927/frames/alphaBefore.png",
+        "C:/CRBK/work/s7/run-20261002-193927/frames/alphaAfter.png"
+      ],
+      "notes": ""
+    },
+    "media-check": {
+      "at": "2026-10-02T19:39:29.257Z",
+      "host": "node",
+      "hostVersion": null,
+      "checks": [
+        {
+          "name": "frame alphaBefore is a complete 1920x1080 PNG",
+          "pass": true,
+          "required": true,
+          "detail": "1920x1080"
+        },
+        {
+          "name": "frame alphaAfter is a complete 1920x1080 PNG",
+          "pass": true,
+          "required": true,
+          "detail": "1920x1080"
+        },
+        {
+          "name": "media: the ProRes 4444 clip shows over the bars",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "fraction": 0.019290123456790122,
+            "box": {
+              "x0": 700,
+              "y0": 440,
+              "x1": 899,
+              "y1": 639,
+              "w": 200,
+              "h": 200
+            }
+          }
+        },
+        {
+          "name": "media: alpha honoured, the clip covers only its box",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "fraction": 0.019290123456790122,
+            "box": {
+              "x0": 700,
+              "y0": 440,
+              "x1": 899,
+              "y1": 639,
+              "w": 200,
+              "h": 200
+            }
+          }
+        }
+      ],
+      "data": {},
+      "evidence": [],
+      "notes": ""
+    },
+    "export": {
+      "at": "2026-10-02T19:39:31.704Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_test.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj"
+        },
+        {
+          "name": "work sequence of an earlier stage is active",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "found": "CRT_S7_media",
+            "wanted": "aa76cade-8686-41ce-95de-dc295939eebf"
+          }
+        },
+        {
+          "name": "AME launched (app.encoder.launchEncoder)",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "name": "In/Out set to 0-5 s",
+          "pass": true,
+          "required": true,
+          "detail": [
+            0,
+            125
+          ]
+        },
+        {
+          "name": "file extension of the brand preset",
+          "pass": true,
+          "required": false,
+          "detail": "mp4"
+        },
+        {
+          "name": "exportAsMediaDirect with the brand .epr wrote a file",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:/CRBK/work/s7/run-20261002-193927/export/direct_FullHD.mp4",
+            "returned": "No Error",
+            "ms": 2184,
+            "bytes": 6408292
+          }
+        },
+        {
+          "name": "AME job queued with the brand .epr (app.encoder.encodeSequence)",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "file": "C:/CRBK/work/s7/run-20261002-193927/export/ame_FullHD.mp4",
+            "job": "a048f2ae-815d-4e21-8ade-9b1499644028"
+          }
+        },
+        {
+          "name": "AME batch started (app.encoder.startBatch)",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "data": {
+        "workSeq": "CRT_S7_media",
+        "workSeqId": "aa76cade-8686-41ce-95de-dc295939eebf",
+        "ext": "mp4",
+        "direct": {
+          "file": "C:/CRBK/work/s7/run-20261002-193927/export/direct_FullHD.mp4",
+          "returned": "No Error",
+          "ms": 2184,
+          "bytes": 6408292
+        },
+        "ame": {
+          "file": "C:/CRBK/work/s7/run-20261002-193927/export/ame_FullHD.mp4",
+          "job": "a048f2ae-815d-4e21-8ade-9b1499644028"
+        },
+        "hostVersion": "26.5.2",
+        "startedAt": 1790969969273
+      },
+      "evidence": [],
+      "notes": ""
+    },
+    "export-check": {
+      "at": "2026-10-02T19:39:43.300Z",
+      "host": "node",
+      "hostVersion": null,
+      "checks": [
+        {
+          "name": "direct: H.264 1920x1080, 25 fps, 5 s, AAC 48 kHz stereo",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "container": "mov,mp4,m4a,3gp,3g2,mj2",
+            "duration": 5,
+            "video": {
+              "codec": "h264",
+              "profile": "High",
+              "width": 1920,
+              "height": 1080,
+              "fps": 25,
+              "pixFmt": "yuv420p",
+              "frames": 125
+            },
+            "audio": {
+              "codec": "aac",
+              "sampleRate": 48000,
+              "channels": 2
+            }
+          }
+        },
+        {
+          "name": "direct: the 1 kHz tone is in the export (mean volume above -40 dB)",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "meanVolume": -24.1
+          }
+        },
+        {
+          "name": "ame: H.264 1920x1080, 25 fps, 5 s, AAC 48 kHz stereo",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "container": "mov,mp4,m4a,3gp,3g2,mj2",
+            "duration": 5,
+            "video": {
+              "codec": "h264",
+              "profile": "High",
+              "width": 1920,
+              "height": 1080,
+              "fps": 25,
+              "pixFmt": "yuv420p",
+              "frames": 125
+            },
+            "audio": {
+              "codec": "aac",
+              "sampleRate": 48000,
+              "channels": 2
+            }
+          }
+        },
+        {
+          "name": "ame: the 1 kHz tone is in the export (mean volume above -40 dB)",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "meanVolume": -24.1
+          }
+        }
+      ],
+      "data": {
+        "direct": {
+          "probe": {
+            "container": "mov,mp4,m4a,3gp,3g2,mj2",
+            "duration": 5,
+            "video": {
+              "codec": "h264",
+              "profile": "High",
+              "width": 1920,
+              "height": 1080,
+              "fps": 25,
+              "pixFmt": "yuv420p",
+              "frames": 125
+            },
+            "audio": {
+              "codec": "aac",
+              "sampleRate": 48000,
+              "channels": 2
+            }
+          },
+          "meanVolume": -24.1,
+          "bytes": 6408292
+        },
+        "ame": {
+          "probe": {
+            "container": "mov,mp4,m4a,3gp,3g2,mj2",
+            "duration": 5,
+            "video": {
+              "codec": "h264",
+              "profile": "High",
+              "width": 1920,
+              "height": 1080,
+              "fps": 25,
+              "pixFmt": "yuv420p",
+              "frames": 125
+            },
+            "audio": {
+              "codec": "aac",
+              "sampleRate": 48000,
+              "channels": 2
+            }
+          },
+          "meanVolume": -24.1,
+          "bytes": 6408292
+        }
+      },
+      "evidence": [
+        "C:/CRBK/work/s7/run-20261002-193927/export/direct_FullHD.mp4",
+        "C:/CRBK/work/s7/run-20261002-193927/export/ame_FullHD.mp4"
+      ],
+      "notes": ""
+    },
+    "fit-place": {
+      "at": "2026-10-02T19:39:43.745Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_test.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj"
+        },
+        {
+          "name": "work clone of CRT_Seq_1080p25 is active",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRT_S7_fit",
+            "id": "06700814-0932-4580-b95d-cb87e88ec6a3",
+            "rv": "true"
+          }
+        },
+        {
+          "name": "slot_b.png placed at 40 s",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "track": 1,
+            "name": "slot_b.png",
+            "times": {
+              "startF": 1000,
+              "endF": 1125,
+              "inF": 89999,
+              "outF": 90124,
+              "onGrid": true,
+              "startTicks": "10160640000000",
+              "endTicks": "11430720000000"
+            }
+          }
+        },
+        {
+          "name": "second bars2 instance placed at 50 s",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "track": 1,
+            "times": {
+              "startF": 1250,
+              "endF": 1500,
+              "inF": 0,
+              "outF": 250,
+              "onGrid": true,
+              "startTicks": "12700800000000",
+              "endTicks": "15240960000000"
+            }
+          }
+        },
+        {
+          "name": "Motion found by match name AE.ADBE Motion",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "components": [
+              {
+                "index": 0,
+                "matchName": "AE.ADBE Opacity",
+                "displayName": "Opacity"
+              },
+              {
+                "index": 1,
+                "matchName": "AE.ADBE Motion",
+                "displayName": "Motion"
+              }
+            ],
+            "motion": [
+              {
+                "index": 0,
+                "displayName": "Position",
+                "value": {
+                  "type": "object",
+                  "value": "[0.5,0.5]"
+                }
+              },
+              {
+                "index": 1,
+                "displayName": "Scale",
+                "value": {
+                  "type": "number",
+                  "value": 100
+                }
+              },
+              {
+                "index": 2,
+                "displayName": "Scale Width",
+                "value": {
+                  "type": "number",
+                  "value": 100
+                }
+              },
+              {
+                "index": 3,
+                "displayName": "Uniform Scale",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              },
+              {
+                "index": 4,
+                "displayName": "Rotation",
+                "value": {
+                  "type": "number",
+                  "value": 0
+                }
+              },
+              {
+                "index": 5,
+                "displayName": "Anchor Point",
+                "value": {
+                  "type": "object",
+                  "value": "[0.5,0.5]"
+                }
+              },
+              {
+                "index": 6,
+                "displayName": "Anti-flicker Filter",
+                "value": {
+                  "type": "number",
+                  "value": 0
+                }
+              },
+              {
+                "index": 7,
+                "displayName": "Crop Left",
+                "value": {
+                  "type": "number",
+                  "value": 0
+                }
+              },
+              {
+                "index": 8,
+                "displayName": "Crop Top",
+                "value": {
+                  "type": "number",
+                  "value": 0
+                }
+              },
+              {
+                "index": 9,
+                "displayName": "Crop Right",
+                "value": {
+                  "type": "number",
+                  "value": 0
+                }
+              },
+              {
+                "index": 10,
+                "displayName": "Crop Bottom",
+                "value": {
+                  "type": "number",
+                  "value": 0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "frame fitBase (1025) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:41:00",
+            "playhead": "10414656000000",
+            "attempts": []
+          }
+        }
+      ],
+      "data": {
+        "frames": {
+          "fitBase": "C:/CRBK/work/s7/run-20261002-193927/frames/fitBase.png"
+        },
+        "workSeq": "CRT_S7_fit",
+        "workSeqId": "06700814-0932-4580-b95d-cb87e88ec6a3",
+        "still": {
+          "track": 1,
+          "name": "slot_b.png",
+          "times": {
+            "startF": 1000,
+            "endF": 1125,
+            "inF": 89999,
+            "outF": 90124,
+            "onGrid": true,
+            "startTicks": "10160640000000",
+            "endTicks": "11430720000000"
+          }
+        },
+        "wide": {
+          "track": 1,
+          "times": {
+            "startF": 1250,
+            "endF": 1500,
+            "inF": 0,
+            "outF": 250,
+            "onGrid": true,
+            "startTicks": "12700800000000",
+            "endTicks": "15240960000000"
+          }
+        },
+        "components": [
+          {
+            "index": 0,
+            "matchName": "AE.ADBE Opacity",
+            "displayName": "Opacity"
+          },
+          {
+            "index": 1,
+            "matchName": "AE.ADBE Motion",
+            "displayName": "Motion"
+          }
+        ],
+        "motion": [
+          {
+            "index": 0,
+            "displayName": "Position",
+            "value": {
+              "type": "object",
+              "value": "[0.5,0.5]"
+            }
+          },
+          {
+            "index": 1,
+            "displayName": "Scale",
+            "value": {
+              "type": "number",
+              "value": 100
+            }
+          },
+          {
+            "index": 2,
+            "displayName": "Scale Width",
+            "value": {
+              "type": "number",
+              "value": 100
+            }
+          },
+          {
+            "index": 3,
+            "displayName": "Uniform Scale",
+            "value": {
+              "type": "boolean",
+              "value": true
+            }
+          },
+          {
+            "index": 4,
+            "displayName": "Rotation",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          },
+          {
+            "index": 5,
+            "displayName": "Anchor Point",
+            "value": {
+              "type": "object",
+              "value": "[0.5,0.5]"
+            }
+          },
+          {
+            "index": 6,
+            "displayName": "Anti-flicker Filter",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          },
+          {
+            "index": 7,
+            "displayName": "Crop Left",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          },
+          {
+            "index": 8,
+            "displayName": "Crop Top",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          },
+          {
+            "index": 9,
+            "displayName": "Crop Right",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          },
+          {
+            "index": 10,
+            "displayName": "Crop Bottom",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          }
+        ],
+        "hostVersion": "26.5.2"
+      },
+      "evidence": [
+        "C:/CRBK/work/s7/run-20261002-193927/frames/fitBase.png"
+      ],
+      "notes": ""
+    },
+    "fit-base": {
+      "at": "2026-10-02T19:39:44.049Z",
+      "host": "node",
+      "hostVersion": null,
+      "checks": [
+        {
+          "name": "frame fitBase is a complete 1920x1080 PNG",
+          "pass": true,
+          "required": true,
+          "detail": "1920x1080"
+        },
+        {
+          "name": "fit: the still arrives as a centred square, its size measured",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "x": 960,
+            "y": 540,
+            "count": 160000,
+            "box": {
+              "x0": 760,
+              "y0": 340,
+              "x1": 1159,
+              "y1": 739,
+              "w": 400,
+              "h": 400
+            },
+            "currentScale": 100,
+            "baseW": 400
+          }
+        }
+      ],
+      "data": {
+        "baseW": 400,
+        "currentScale": 100
+      },
+      "evidence": [],
+      "notes": ""
+    },
+    "fit-apply": {
+      "at": "2026-10-02T19:39:44.246Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_test.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj"
+        },
+        {
+          "name": "work sequence of an earlier stage is active",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "found": "CRT_S7_fit",
+            "wanted": "06700814-0932-4580-b95d-cb87e88ec6a3"
+          }
+        },
+        {
+          "name": "clips of stage fit-place found",
+          "pass": true,
+          "required": true,
+          "detail": [
+            1,
+            1
+          ]
+        },
+        {
+          "name": "fit recipe on the still: Position and Scale set and read back",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "normalized": true,
+            "pos0": {
+              "type": "object",
+              "value": "[0.5,0.5]"
+            },
+            "target": [
+              0.20833333333333,
+              0.37037037037037
+            ],
+            "scale": 150,
+            "backPos": {
+              "type": "object",
+              "value": "[0.20833333333333,0.37037037037037]"
+            },
+            "backScale": 150,
+            "names": [
+              "Position",
+              "Scale"
+            ],
+            "ok": true
+          }
+        },
+        {
+          "name": "frame fitWindow (1025) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:41:00",
+            "playhead": "10414656000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "16:9 recipe on bars2: Position and Scale set and read back",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "normalized": true,
+            "pos0": {
+              "type": "object",
+              "value": "[0.5,0.5]"
+            },
+            "target": [
+              0.76041666666667,
+              0.32638888888889
+            ],
+            "scale": 37.5,
+            "backPos": {
+              "type": "object",
+              "value": "[0.76041666666667,0.32638888888889]"
+            },
+            "backScale": 37.5,
+            "names": [
+              "Position",
+              "Scale"
+            ],
+            "ok": true
+          }
+        },
+        {
+          "name": "Crop found through QE (the name depends on the UI language)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "by": "Crop",
+            "tries": [
+              "Crop: found",
+              "Обрезка: no",
+              "AE.ADBE Crop: no"
+            ],
+            "listed": [
+              "Crop",
+              "Rounded Crop"
+            ]
+          }
+        },
+        {
+          "name": "Crop added to the still through QE and seen in the DOM",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "before": [
+              {
+                "index": 0,
+                "matchName": "AE.ADBE Opacity",
+                "displayName": "Opacity"
+              },
+              {
+                "index": 1,
+                "matchName": "AE.ADBE Motion",
+                "displayName": "Motion"
+              }
+            ],
+            "after": [
+              {
+                "index": 0,
+                "matchName": "AE.ADBE Opacity",
+                "displayName": "Opacity"
+              },
+              {
+                "index": 1,
+                "matchName": "AE.ADBE Motion",
+                "displayName": "Motion"
+              },
+              {
+                "index": 2,
+                "matchName": "AE.ADBE AECrop",
+                "displayName": "Crop"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Crop parameter 0 set to 50 and read back",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "params": [
+              {
+                "index": 0,
+                "displayName": "Left",
+                "value": {
+                  "type": "number",
+                  "value": 0
+                }
+              },
+              {
+                "index": 1,
+                "displayName": "Top",
+                "value": {
+                  "type": "number",
+                  "value": 0
+                }
+              },
+              {
+                "index": 2,
+                "displayName": "Right",
+                "value": {
+                  "type": "number",
+                  "value": 0
+                }
+              },
+              {
+                "index": 3,
+                "displayName": "Bottom",
+                "value": {
+                  "type": "number",
+                  "value": 0
+                }
+              },
+              {
+                "index": 4,
+                "displayName": "Zoom",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "index": 5,
+                "displayName": "Edge Feather",
+                "value": {
+                  "type": "number",
+                  "value": 0
+                }
+              }
+            ],
+            "back": 50
+          }
+        },
+        {
+          "name": "frame fitCrop (1025) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:41:00",
+            "playhead": "10414656000000",
+            "attempts": []
+          }
+        }
+      ],
+      "data": {
+        "frames": {
+          "fitWindow": "C:/CRBK/work/s7/run-20261002-193927/frames/fitWindow.png",
+          "fitCrop": "C:/CRBK/work/s7/run-20261002-193927/frames/fitCrop.png"
+        },
+        "undoApi": "undefined",
+        "workSeq": "CRT_S7_fit",
+        "workSeqId": "06700814-0932-4580-b95d-cb87e88ec6a3",
+        "fitStill": {
+          "normalized": true,
+          "pos0": {
+            "type": "object",
+            "value": "[0.5,0.5]"
+          },
+          "target": [
+            0.20833333333333,
+            0.37037037037037
+          ],
+          "scale": 150,
+          "backPos": {
+            "type": "object",
+            "value": "[0.20833333333333,0.37037037037037]"
+          },
+          "backScale": 150,
+          "names": [
+            "Position",
+            "Scale"
+          ],
+          "ok": true
+        },
+        "fitWide": {
+          "normalized": true,
+          "pos0": {
+            "type": "object",
+            "value": "[0.5,0.5]"
+          },
+          "target": [
+            0.76041666666667,
+            0.32638888888889
+          ],
+          "scale": 37.5,
+          "backPos": {
+            "type": "object",
+            "value": "[0.76041666666667,0.32638888888889]"
+          },
+          "backScale": 37.5,
+          "names": [
+            "Position",
+            "Scale"
+          ],
+          "ok": true
+        },
+        "cropBy": "Crop",
+        "effectCount": 194,
+        "cropTries": [
+          "Crop: found",
+          "Обрезка: no",
+          "AE.ADBE Crop: no"
+        ],
+        "cropListed": [
+          "Crop",
+          "Rounded Crop"
+        ],
+        "cropComponent": {
+          "index": 2,
+          "matchName": "AE.ADBE AECrop",
+          "displayName": "Crop"
+        },
+        "cropParams": [
+          {
+            "index": 0,
+            "displayName": "Left",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          },
+          {
+            "index": 1,
+            "displayName": "Top",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          },
+          {
+            "index": 2,
+            "displayName": "Right",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          },
+          {
+            "index": 3,
+            "displayName": "Bottom",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          },
+          {
+            "index": 4,
+            "displayName": "Zoom",
+            "value": {
+              "type": "boolean",
+              "value": false
+            }
+          },
+          {
+            "index": 5,
+            "displayName": "Edge Feather",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          }
+        ],
+        "hostVersion": "26.5.2"
+      },
+      "evidence": [
+        "C:/CRBK/work/s7/run-20261002-193927/frames/fitWindow.png",
+        "C:/CRBK/work/s7/run-20261002-193927/frames/fitCrop.png"
+      ],
+      "notes": ""
+    },
+    "fit-check": {
+      "at": "2026-10-02T19:39:44.824Z",
+      "host": "node",
+      "hostVersion": null,
+      "checks": [
+        {
+          "name": "frame fitWindow is a complete 1920x1080 PNG",
+          "pass": true,
+          "required": true,
+          "detail": "1920x1080"
+        },
+        {
+          "name": "frame fitCrop is a complete 1920x1080 PNG",
+          "pass": true,
+          "required": true,
+          "detail": "1920x1080"
+        },
+        {
+          "name": "fit: the still lands on the window 100,100 600x600",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "x": 400,
+            "y": 400,
+            "count": 360000,
+            "box": {
+              "x0": 100,
+              "y0": 100,
+              "x1": 699,
+              "y1": 699,
+              "w": 600,
+              "h": 600
+            }
+          }
+        },
+        {
+          "name": "crop: Crop left 50 % added through QE cuts the left half of the window",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "x": 550,
+            "y": 400,
+            "count": 180000,
+            "box": {
+              "x0": 400,
+              "y0": 100,
+              "x1": 699,
+              "y1": 699,
+              "w": 300,
+              "h": 600
+            }
+          }
+        }
+      ],
+      "data": {},
+      "evidence": [],
+      "notes": ""
+    },
+    "template-import": {
+      "at": "2026-10-02T19:39:44.826Z",
+      "host": "pr",
+      "hostVersion": null,
+      "checks": [
+        {
+          "name": "stage template-import completed",
+          "pass": false,
+          "required": true,
+          "detail": "missing C:/CRBK/work/pr/CR_Templates_test.prproj: build it by hand first (Task 18, step 13)"
+        }
+      ],
+      "data": {},
+      "evidence": [],
+      "notes": ""
+    }
+  }
+}
