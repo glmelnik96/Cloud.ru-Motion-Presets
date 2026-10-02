@@ -1,0 +1,157 @@
+{
+  "id": "S1",
+  "title": "Essential Graphics по скрипту",
+  "host": "ae",
+  "hostVersion": "26.5x89",
+  "date": "2026-10-02",
+  "verdict": "yes",
+  "verdictLocked": false,
+  "checks": [
+    {
+      "name": "fixture opened from disk",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\fixtures\\CRT_fixture.aep"
+    },
+    {
+      "name": "without openInEssentialGraphics: canAdd on a comp copy (report #504)",
+      "pass": true,
+      "required": false,
+      "detail": "canAdd=true (report not reproduced)"
+    },
+    {
+      "name": "openInEssentialGraphics(CRT_LowerThird_v1)",
+      "pass": true,
+      "required": true,
+      "detail": "opened"
+    },
+    {
+      "name": "add text: TXT_NAME",
+      "pass": true,
+      "required": true,
+      "detail": "canAdd=true, addAs=true"
+    },
+    {
+      "name": "add text: TXT_ROLE",
+      "pass": true,
+      "required": true,
+      "detail": "canAdd=true, addAs=true"
+    },
+    {
+      "name": "add checkbox: CTRL/ShowRole",
+      "pass": true,
+      "required": true,
+      "detail": "canAdd=true, addAs=true"
+    },
+    {
+      "name": "add slider: CTRL/Duration",
+      "pass": true,
+      "required": true,
+      "detail": "canAdd=true, addAs=true"
+    },
+    {
+      "name": "add color: CTRL/Accent",
+      "pass": true,
+      "required": false,
+      "detail": "canAdd=true, addAs=true"
+    },
+    {
+      "name": "add dropdown: CTRL/Style",
+      "pass": true,
+      "required": false,
+      "detail": "canAdd=true, addAs=true"
+    },
+    {
+      "name": "add media: SLOT_PHOTO",
+      "pass": true,
+      "required": true,
+      "detail": "canAdd=true, addAs=true"
+    },
+    {
+      "name": "controller names read back intact (Cyrillic) in CRT_LowerThird_v1",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "count": 7,
+        "base": 1,
+        "reverse": true,
+        "names": [
+          "Имя",
+          "Должность",
+          "Показать должность",
+          "Длительность (служебное, не менять)",
+          "Акцент",
+          "Стиль",
+          "Фото"
+        ]
+      }
+    },
+    {
+      "name": "openInEssentialGraphics(CRT_Hatch_v1) and add slider Duration",
+      "pass": true,
+      "required": true,
+      "detail": "canAdd=true, addAs=true"
+    },
+    {
+      "name": "controller name read back in CRT_Hatch_v1",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "count": 1,
+        "base": 1,
+        "reverse": true,
+        "names": [
+          "Длительность (служебное, не менять)"
+        ]
+      }
+    },
+    {
+      "name": "protected-region markers survive save and open",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "time": 0,
+          "comment": "in",
+          "duration": 1,
+          "protectedRegion": true
+        },
+        {
+          "time": 9,
+          "comment": "out",
+          "duration": 1,
+          "protectedRegion": true
+        }
+      ]
+    },
+    {
+      "name": "saved as C:/CRBK/work/fixtures/CRT_fixture_egp.aep",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "path": "C:\\CRBK\\work\\fixtures\\CRT_fixture_egp.aep",
+        "bytes": 303439,
+        "dirty": false
+      }
+    },
+    {
+      "required": true,
+      "detail": "7 names read back intact via getMotionGraphicsTemplateControllerName (1-based, newest first in AE 26.5); the panel itself was not inspected visually",
+      "name": "EGP panel shows the Russian labels",
+      "pass": true,
+      "manual": true
+    },
+    {
+      "required": false,
+      "detail": "-",
+      "name": "no dialogs during the run",
+      "pass": true,
+      "manual": true
+    }
+  ],
+  "fallback": "Essential Graphics каждого мастера собирается вручную один раз (~25 композиций); скрипт делает имена, маркеры и экспорт",
+  "notes": "Цвет и выпадающий список — необязательные проверки: цвет в шаблонах задаётся списком палитры (§4.2), список при отказе добавляется вручную (§4.4). «Без openInEssentialGraphics» — проверка отчёта #504; конвейер всегда сначала открывает композицию в EGP.",
+  "evidence": [
+    "spikes/results/S1.data.json"
+  ]
+}

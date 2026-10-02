@@ -1,0 +1,45 @@
+{
+  "base": 1,
+  "reverse": true,
+  "noEgpCanAdd": true,
+  "controllers": {
+    "CRT_LowerThird_v1": {
+      "count": 7,
+      "base": 1,
+      "reverse": true,
+      "names": [
+        "Имя",
+        "Должность",
+        "Показать должность",
+        "Длительность (служебное, не менять)",
+        "Акцент",
+        "Стиль",
+        "Фото"
+      ]
+    },
+    "CRT_Hatch_v1": {
+      "count": 1,
+      "base": 1,
+      "reverse": true,
+      "names": [
+        "Длительность (служебное, не менять)"
+      ]
+    }
+  },
+  "markers": [
+    {
+      "time": 0,
+      "comment": "in",
+      "duration": 1,
+      "protectedRegion": true
+    },
+    {
+      "time": 9,
+      "comment": "out",
+      "duration": 1,
+      "protectedRegion": true
+    }
+  ],
+  "project": "C:\\CRBK\\work\\fixtures\\CRT_fixture_egp.aep",
+  "hostVersion": "26.5x89"
+}
