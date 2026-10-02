@@ -1,0 +1,28 @@
+{
+  "id": "LOGO_Shot",
+  "_note": "Golden comparison of the master against the pack (spec §4.4 step 6). Times are golden milliseconds; only multiples of 40 ms exist at 25 fps. The master keeps the pack timing up to 3.32 s and starts its outro 0.64 s later (hold 2.12–3.96 s), hence the shift. gate = static frames that must pass SSIM; view = moving frames (motion blur in the pack, none in the master, C35), checked by eye.",
+  "cases": [
+    {
+      "name": "egr",
+      "title": "«есть где развернуться», светлая тема, прозрачный фон",
+      "golden": { "slug": "logo", "compSlug": "logoshot_est_gde_razvernutsya" },
+      "variant": "16x9_4K",
+      "ctrl": { "Caption": 3, "Theme": 1, "Background": 1 },
+      "shift": [{ "from": 0, "to": 3.32, "by": 0 }, { "from": 3.32, "to": 60, "by": 0.64 }],
+      "gate": [2760, 3000],
+      "view": [760, 1000, 1760, 2000, 3760, 4000],
+      "note": "Hold 2.40–3.32 s in the pack (its slide ends later than in «Умное облако», whose curves the master uses)."
+    },
+    {
+      "name": "uo",
+      "title": "«облачные и ИИ-сервисы», светлая тема, фон #F2F2F2",
+      "golden": { "slug": "logo", "compSlug": "logoshot_umnoe_oblako" },
+      "variant": "16x9_4K",
+      "ctrl": { "Caption": 1, "Theme": 1, "Background": 3 },
+      "shift": [{ "from": 0, "to": 3.32, "by": 0 }, { "from": 3.32, "to": 60, "by": 0.64 }],
+      "gate": [],
+      "view": [760, 1000, 1760, 2000, 2760, 3000, 3760, 4000],
+      "note": "No gate: between 2.14 and 3.30 s the pack render lacks ~25 px of the logo plate (a render quirk of the original, both packs), the rest is moving."
+    }
+  ]
+}

@@ -26,7 +26,8 @@ const DEF = {
     { id: 'b', type: 1, uiName: ui('Показать должность') },
     { id: 'c', type: 2, uiName: ui('Длительность (служебное, не менять)') },
     { id: 'd', type: 8, uiName: ui('') },
-    { id: 'e', type: 13, uiName: ui('Фото') },
+    { id: 'e', type: 14, uiName: ui('Фото') },
+    { id: 'f', type: 13, uiName: ui('Стиль') },
   ],
 };
 
@@ -41,7 +42,7 @@ describe('mogrt', () => {
     expect(m.hasDefinition).toBe(true);
     expect(m.hasAegraphic).toBe(true);
     expect(m.capsuleID).toBe(DEF.capsuleID);
-    expect(m.controls.map((c) => c.kind)).toEqual(['text', 'checkbox', 'slider', 'group', 'type13']);
+    expect(m.controls.map((c) => c.kind)).toEqual(['text', 'checkbox', 'slider', 'group', 'media', 'dropdown']);
     expect(m.controls[0].names).toEqual(['Имя']);
   });
 
@@ -51,8 +52,8 @@ describe('mogrt', () => {
 
   it('matches expected labels and counts controls without groups', () => {
     const m = readMogrt(makeMogrt(DEF));
-    expect(matchControls(m.controls, ['Имя', 'Фото', 'Стиль'])).toEqual({
-      found: ['Имя', 'Фото'], missing: ['Стиль'], count: 4,
+    expect(matchControls(m.controls, ['Имя', 'Фото', 'Акцент'])).toEqual({
+      found: ['Имя', 'Фото'], missing: ['Акцент'], count: 5,
     });
   });
 });

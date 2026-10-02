@@ -5,8 +5,8 @@
 // writing their own reader. Reading and patching a capsuleID on its own: tools/mogrt/capsule.mjs (task 17).
 import AdmZip from 'adm-zip';
 
-// clientControls[].type in those MOGRTs. Dropdown and media replacement do not occur there; S2 records them.
-export const CONTROL_TYPES = { 1: 'checkbox', 2: 'slider', 4: 'color', 6: 'text', 8: 'group' };
+// clientControls[].type in those MOGRTs; dropdown (13) and media replacement (14) as S2 recorded them on AE 26.5.
+export const CONTROL_TYPES = { 1: 'checkbox', 2: 'slider', 4: 'color', 6: 'text', 8: 'group', 13: 'dropdown', 14: 'media' };
 
 export function controlNames(control) {
   const db = (control && control.uiName && control.uiName.strDB) || [];
