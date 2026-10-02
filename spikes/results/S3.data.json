@@ -1,0 +1,288 @@
+{
+  "setup": {
+    "stage": "setup",
+    "colorDefault": {
+      "workingSpace": "None",
+      "linearize": false,
+      "linearBlending": false,
+      "bpc": 16,
+      "gamma": 2.4,
+      "engine": "javascript-1.0"
+    },
+    "userCompId": 1,
+    "ltCompId": 39,
+    "hatchCompId": 23,
+    "footage": [
+      {
+        "id": 22,
+        "name": "slot_a.png",
+        "path": "C:\\CRBK\\work\\fixtures\\media\\slot_a.png",
+        "missing": false
+      }
+    ],
+    "ltLayerId": 59,
+    "hostVersion": "26.5x89"
+  },
+  "fields": {
+    "stage": "fields",
+    "ep": [
+      {
+        "path": "1",
+        "name": "Фото",
+        "matchName": "ADBE Layer Source Alternate",
+        "type": "NO_VALUE",
+        "media": true,
+        "source": {
+          "kind": "layer",
+          "layer": "SLOT_PHOTO"
+        }
+      },
+      {
+        "path": "2",
+        "name": "Стиль",
+        "matchName": "Pseudo/@@H9+Z0L1YQfegdADzjPemfg-0001",
+        "type": "OneD",
+        "media": false,
+        "source": {
+          "kind": "property",
+          "matchName": "Pseudo/@@H9+Z0L1YQfegdADzjPemfg-0001",
+          "group": "Style",
+          "layer": "CTRL"
+        }
+      },
+      {
+        "path": "3",
+        "name": "Акцент",
+        "matchName": "ADBE Color Control-0001",
+        "type": "COLOR",
+        "media": false,
+        "source": {
+          "kind": "property",
+          "matchName": "ADBE Color Control-0001",
+          "group": "Accent",
+          "layer": "CTRL"
+        }
+      },
+      {
+        "path": "4",
+        "name": "Длительность (служебное, не менять)",
+        "matchName": "ADBE Slider Control-0001",
+        "type": "OneD",
+        "media": false,
+        "source": {
+          "kind": "property",
+          "matchName": "ADBE Slider Control-0001",
+          "group": "Duration",
+          "layer": "CTRL"
+        }
+      },
+      {
+        "path": "5",
+        "name": "Показать должность",
+        "matchName": "ADBE Checkbox Control-0001",
+        "type": "OneD",
+        "media": false,
+        "source": {
+          "kind": "property",
+          "matchName": "ADBE Checkbox Control-0001",
+          "group": "ShowRole",
+          "layer": "CTRL"
+        }
+      },
+      {
+        "path": "6",
+        "name": "Должность",
+        "matchName": "ADBE EP Text Document",
+        "type": "TEXT_DOCUMENT",
+        "media": false,
+        "source": {
+          "kind": "property",
+          "matchName": "ADBE Text Document",
+          "group": "Text",
+          "layer": "TXT_ROLE"
+        }
+      },
+      {
+        "path": "7",
+        "name": "Имя",
+        "matchName": "ADBE EP Text Document",
+        "type": "TEXT_DOCUMENT",
+        "media": false,
+        "source": {
+          "kind": "property",
+          "matchName": "ADBE Text Document",
+          "group": "Text",
+          "layer": "TXT_NAME"
+        }
+      }
+    ],
+    "hostVersion": "26.5x89"
+  },
+  "rdt": {
+    "intro": {
+      "frame": 62,
+      "x": 132,
+      "count": 1600,
+      "expected": {
+        "rdt": 148,
+        "uniform": 132,
+        "none": 148
+      },
+      "explainedBy": [
+        "uniform"
+      ]
+    },
+    "outro": {
+      "frame": 412,
+      "x": 265.5,
+      "count": 1560,
+      "expected": {
+        "rdt": 248,
+        "uniform": 265.33,
+        "none": null
+      },
+      "explainedBy": [
+        "uniform"
+      ]
+    }
+  },
+  "patchDefault": {
+    "r": 38,
+    "g": 208,
+    "b": 124
+  },
+  "trimOut": {
+    "stage": "trim-out",
+    "trimOut": {
+      "stretch": 100,
+      "inPt": 2,
+      "outPt": 12
+    },
+    "hostVersion": "26.5x89"
+  },
+  "trimOutFrames": {
+    "intro": {
+      "frame": 62,
+      "x": 148,
+      "count": 1600,
+      "expected": {
+        "rdt": 148,
+        "uniform": 132,
+        "none": 148
+      },
+      "explainedBy": [
+        "rdt",
+        "none"
+      ]
+    },
+    "outro": {
+      "frame": 412,
+      "x": null,
+      "count": 0,
+      "expected": {
+        "rdt": 248,
+        "uniform": 265.33,
+        "none": null
+      },
+      "explainedBy": [
+        "none"
+      ]
+    }
+  },
+  "trim": {
+    "stage": "trim",
+    "hostVersion": "26.5x89"
+  },
+  "trimFrames": [
+    {
+      "frame": 262,
+      "x": 100,
+      "count": 1600,
+      "expected": 100,
+      "ifDurationIgnored": 200
+    },
+    {
+      "frame": 287,
+      "x": 148,
+      "count": 1600,
+      "expected": 148,
+      "ifDurationIgnored": 200
+    }
+  ],
+  "remap": {
+    "stage": "remap",
+    "remapAdded": [
+      [
+        2,
+        0
+      ],
+      [
+        12,
+        10
+      ]
+    ],
+    "hostVersion": "26.5x89"
+  },
+  "remapFrames": {
+    "intro": {
+      "frame": 62,
+      "x": 148,
+      "count": 1600,
+      "expected": {
+        "remap": 148,
+        "none": 148
+      },
+      "explainedBy": [
+        "remap",
+        "none"
+      ]
+    },
+    "outro": {
+      "frame": 412,
+      "x": 248,
+      "count": 1600,
+      "expected": {
+        "remap": 248,
+        "none": null
+      },
+      "explainedBy": [
+        "remap"
+      ]
+    }
+  },
+  "mechanism": "remap",
+  "mechanismReason": "time-remap keys keep the intro and outro at template speed; RDT failed: RDT stretch: intro keeps its speed (PROBE_SQ x~148 at 0.48 s into the instance); RDT stretch: outro keeps its speed (PROBE_SQ x~248 at 14.48 s into the instance)",
+  "linear": {
+    "probe": {
+      "stage": "linear",
+      "color": {
+        "workingSpace": "sRGB IEC61966-2.1",
+        "linearize": true,
+        "linearBlending": false,
+        "bpc": 16,
+        "gamma": 2.4,
+        "engine": "javascript-1.0"
+      },
+      "hostVersion": "26.5x89"
+    },
+    "measured": {
+      "patch": {
+        "mean": "#26D07C",
+        "dE": 0,
+        "dEvsDefaultProject": 0,
+        "color": {
+          "workingSpace": "sRGB IEC61966-2.1",
+          "linearize": true,
+          "linearBlending": false,
+          "bpc": 16,
+          "gamma": 2.4,
+          "engine": "javascript-1.0"
+        }
+      },
+      "slot": {
+        "mean": "#0020FF",
+        "dE": 15.659
+      }
+    }
+  }
+}

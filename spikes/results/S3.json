@@ -1,0 +1,892 @@
+{
+  "id": "S3",
+  "title": "Экземпляр шаблона в проекте пользователя",
+  "host": "ae",
+  "hostVersion": "26.5x89",
+  "date": "2026-10-02",
+  "verdict": "no",
+  "verdictLocked": false,
+  "checks": [
+    {
+      "name": "precondition: the open project has no unsaved changes",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "dirty": false
+      }
+    },
+    {
+      "name": "precondition: SB Sans fonts installed, not substituted",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "ps": "SBSansDisplay-Semibold",
+          "found": true,
+          "location": "C:\\Windows\\Fonts\\SBSansDisplay-SemiBold.otf"
+        },
+        {
+          "ps": "SBSansText-Regular",
+          "found": true,
+          "location": "C:\\Windows\\Fonts\\SBSansText-Regular.otf"
+        }
+      ]
+    },
+    {
+      "name": "new project (app.newProject)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "numItems": 0
+      }
+    },
+    {
+      "name": "user project saved to its ASCII path",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\s3\\user_s3.aep"
+    },
+    {
+      "name": "project colour settings and expression engine read",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "workingSpace": "None",
+        "linearize": false,
+        "linearBlending": false,
+        "bpc": 16,
+        "gamma": 2.4,
+        "engine": "javascript-1.0"
+      }
+    },
+    {
+      "name": "USER_Comp 1920x1080, 25 fps, 30 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "id": 1
+      }
+    },
+    {
+      "name": "saveFrameToPng exists on CompItem (undocumented, ae-quirks #27)",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "import of the template .aep returns a FolderItem",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "asProject": true,
+        "typeName": "Folder",
+        "name": "CRT_fixture_egp.aep"
+      }
+    },
+    {
+      "name": "template comps found exactly once in the imported folder",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "lowerThird": 1,
+        "hatch": 1
+      }
+    },
+    {
+      "name": "lower third has protected regions 0-1 s and 9-10 s",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "t": 0,
+          "dur": 1,
+          "protectedRegion": true,
+          "comment": "in"
+        },
+        {
+          "t": 9,
+          "dur": 1,
+          "protectedRegion": true,
+          "comment": "out"
+        }
+      ]
+    },
+    {
+      "name": "no expression errors in the template comps (read before any render)",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "no missing or substituted fonts after the import",
+      "pass": true,
+      "required": false,
+      "detail": 0
+    },
+    {
+      "name": "template folder moved into the Cloud.ru BrandKit bin, id@version in its comment",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "bin": "Cloud.ru BrandKit",
+        "folder": "CRT_fixture_egp.aep"
+      }
+    },
+    {
+      "name": "template footage listed for copying next to the project",
+      "pass": true,
+      "required": true,
+      "detail": 1
+    },
+    {
+      "name": "lower third added as a layer at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "inPt": 2,
+        "outPt": 12,
+        "stretch": 100
+      }
+    },
+    {
+      "name": "baseline frame requested (8 s, template defaults)",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "setup: user project saved",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\s3\\user_s3.aep"
+    },
+    {
+      "name": "frames at full resolution 1920x1080: lt_before_f200.png",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "file": "lt_before_f200.png",
+          "w": 1920,
+          "h": 1080
+        }
+      ]
+    },
+    {
+      "name": "template footage copied into Cloud.ru BrandKit/CRT_LowerThird@1 (Node)",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "src": "C:/CRBK/work/fixtures/media/slot_a.png",
+          "dst": "C:/CRBK/work/s3/Cloud.ru BrandKit/CRT_LowerThird@1/slot_a.png",
+          "same": true
+        }
+      ]
+    },
+    {
+      "name": "instance found by id (itemByID, layerByID)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "layer": "CRT_LowerThird_v1"
+      }
+    },
+    {
+      "name": "Essential Properties group on the instance",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "count": 7,
+        "matchName": "ADBE Layer Overrides",
+        "viaAttribute": true,
+        "viaMatchName": true
+      }
+    },
+    {
+      "name": "instance exposes every S1 property by its display name",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "EP name (text, Cyrillic): written and read back",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "back": "Анна-Мария Ёлкина"
+      }
+    },
+    {
+      "name": "EP showRole (checkbox): written and read back",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": 1,
+        "back": 0,
+        "type": "OneD"
+      }
+    },
+    {
+      "name": "EP duration (slider): written and read back",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": 10,
+        "back": 15,
+        "type": "OneD"
+      }
+    },
+    {
+      "name": "EP style (dropdown): written and read back",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": 1,
+        "back": 2,
+        "type": "OneD"
+      }
+    },
+    {
+      "name": "slot_b.png imported, media-replacement compatible",
+      "pass": true,
+      "required": true,
+      "detail": "slot_b.png"
+    },
+    {
+      "name": "EP photo: setAlternateSource(slot_b) and read back",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "alternate": "Фото_slot_b",
+        "type": "Composition",
+        "sameItem": false,
+        "wrapped": true
+      }
+    },
+    {
+      "name": "template footage relinked into Cloud.ru BrandKit/<id>@<version> (FootageItem.replace)",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "name": "slot_a.png",
+          "file": "C:\\CRBK\\work\\s3\\Cloud.ru BrandKit\\CRT_LowerThird@1\\slot_a.png",
+          "missing": false
+        }
+      ]
+    },
+    {
+      "name": "RDT fit: a time stretch makes the instance last 15 s from 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "stretch": 150,
+        "startTime": 2,
+        "inPt": 2,
+        "outPt": 17
+      }
+    },
+    {
+      "name": "frames requested: intro, outro, hold (after the writes)",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "fields: user project saved",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "frames at full resolution 1920x1080: lt_rdt_f062.png, lt_rdt_f412.png, lt_after_f200.png",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "file": "lt_rdt_f062.png",
+          "w": 1920,
+          "h": 1080
+        },
+        {
+          "file": "lt_rdt_f412.png",
+          "w": 1920,
+          "h": 1080
+        },
+        {
+          "file": "lt_after_f200.png",
+          "w": 1920,
+          "h": 1080
+        }
+      ]
+    },
+    {
+      "name": "RDT stretch: intro keeps its speed (PROBE_SQ x~148 at 0.48 s into the instance)",
+      "pass": false,
+      "required": true,
+      "detail": {
+        "frame": 62,
+        "x": 132,
+        "count": 1600,
+        "expected": {
+          "rdt": 148,
+          "uniform": 132,
+          "none": 148
+        },
+        "explainedBy": [
+          "uniform"
+        ]
+      }
+    },
+    {
+      "name": "RDT stretch: outro keeps its speed (PROBE_SQ x~248 at 14.48 s into the instance)",
+      "pass": false,
+      "required": true,
+      "detail": {
+        "frame": 412,
+        "x": 265.5,
+        "count": 1560,
+        "expected": {
+          "rdt": 248,
+          "uniform": 265.33,
+          "none": null
+        },
+        "explainedBy": [
+          "uniform"
+        ]
+      }
+    },
+    {
+      "name": "colour patch dE2000 <= 2 vs #26D07C in the user project",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "mean": "#26D07C",
+        "alpha": 255,
+        "dE": 0,
+        "color": {
+          "workingSpace": "None",
+          "linearize": false,
+          "linearBlending": false,
+          "bpc": 16,
+          "gamma": 2.4,
+          "engine": "javascript-1.0"
+        }
+      }
+    },
+    {
+      "name": "render: style 2 turns the name plate light",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "darkBefore": 31072,
+        "lightAfter": 59124
+      }
+    },
+    {
+      "name": "render: the longer name widens the plate (sourceRectAtTime sees the override)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "before": {
+          "x0": 186,
+          "y0": 737,
+          "x1": 645,
+          "y1": 820,
+          "w": 460,
+          "h": 84
+        },
+        "after": {
+          "x0": 181,
+          "y0": 728,
+          "x1": 844,
+          "y1": 830,
+          "w": 664,
+          "h": 103
+        }
+      }
+    },
+    {
+      "name": "render: showRole 0 hides the role line",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "roleBefore": 1239,
+        "roleAfter": 0
+      }
+    },
+    {
+      "name": "render: the photo slot shows slot_b after setAlternateSource",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "before": "#0063FF",
+        "dEslotA": 0,
+        "after": "#FF4517",
+        "dEslotB": 0
+      }
+    },
+    {
+      "name": "trim-out: instance found by id",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "trim-out: stretch back to 100 %",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "inPt": 2,
+        "outPt": 12
+      }
+    },
+    {
+      "name": "trim-out: out point set to 17 s (AE may clamp it to the end of the template)",
+      "pass": false,
+      "required": false,
+      "detail": {
+        "stretch": 100,
+        "inPt": 2,
+        "outPt": 12
+      }
+    },
+    {
+      "name": "trim-out: frames requested (intro, outro)",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "trim-out: user project saved",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "frames at full resolution 1920x1080: lt_trimout_f062.png, lt_trimout_f412.png",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "file": "lt_trimout_f062.png",
+          "w": 1920,
+          "h": 1080
+        },
+        {
+          "file": "lt_trimout_f412.png",
+          "w": 1920,
+          "h": 1080
+        }
+      ]
+    },
+    {
+      "name": "trim-out (info): moving the out point alone gives an RDT fit",
+      "pass": false,
+      "required": false,
+      "detail": {
+        "layer": {
+          "stretch": 100,
+          "inPt": 2,
+          "outPt": 12
+        },
+        "intro": {
+          "frame": 62,
+          "x": 148,
+          "count": 1600,
+          "expected": {
+            "rdt": 148,
+            "uniform": 132,
+            "none": 148
+          },
+          "explainedBy": [
+            "rdt",
+            "none"
+          ]
+        },
+        "outro": {
+          "frame": 412,
+          "x": null,
+          "count": 0,
+          "expected": {
+            "rdt": 248,
+            "uniform": 265.33,
+            "none": null
+          },
+          "explainedBy": [
+            "none"
+          ]
+        }
+      }
+    },
+    {
+      "name": "trim: template comps and instance found by id",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "lower third back to the RDT fit (2-17 s)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "stretch": 150,
+        "inPt": 2,
+        "outPt": 17
+      }
+    },
+    {
+      "name": "trim: Hatch added at 0 s in USER_Comp_Trim and cut to 12 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "inPt": 0,
+        "outPt": 12,
+        "templateDuration": 60
+      }
+    },
+    {
+      "name": "trim: EP duration = 12 written and read back",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": 10,
+        "back": 12,
+        "type": "OneD"
+      }
+    },
+    {
+      "name": "trim: frames requested (10.48 s, 11.48 s)",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "trim: user project saved",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "frames at full resolution 1920x1080: hatch_f262.png, hatch_f287.png",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "file": "hatch_f262.png",
+          "w": 1920,
+          "h": 1080
+        },
+        {
+          "file": "hatch_f287.png",
+          "w": 1920,
+          "h": 1080
+        }
+      ]
+    },
+    {
+      "name": "trim: hold until Duration - 1 (PROBE_SQ x~100 at 10.48 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "frame": 262,
+        "x": 100,
+        "count": 1600,
+        "expected": 100,
+        "ifDurationIgnored": 200
+      }
+    },
+    {
+      "name": "trim: the outro follows Duration (PROBE_SQ x~148 at 11.48 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "frame": 287,
+        "x": 148,
+        "count": 1600,
+        "expected": 148,
+        "ifDurationIgnored": 200
+      }
+    },
+    {
+      "name": "remap: template comp found by id",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "remap: fresh lower third added at 2 s in USER_Comp_Remap",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "inPt": 2,
+        "outPt": 12,
+        "stretch": 100
+      }
+    },
+    {
+      "name": "remap: EP name (text) written before time remap",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "back": "Анна-Мария Ёлкина"
+      }
+    },
+    {
+      "name": "remap: EP showRole (checkbox) written before time remap",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "before": 1,
+        "back": 0,
+        "type": "OneD"
+      }
+    },
+    {
+      "name": "remap: time remap on (AE adds its own keys)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "added": [
+          [
+            2,
+            0
+          ],
+          [
+            12,
+            10
+          ]
+        ]
+      }
+    },
+    {
+      "name": "remap: out point at 17 s (a 15 s instance, no stretch)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "inPt": 2,
+        "outPt": 17,
+        "stretch": 100
+      }
+    },
+    {
+      "name": "remap: keys 0->0, 1->1, 14->9, 15->10 s (layer time -> template time), linear",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "keys": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            14,
+            9
+          ],
+          [
+            15,
+            10
+          ]
+        ],
+        "atIntroFrame": 0.48,
+        "atOutroFrame": 9.48
+      }
+    },
+    {
+      "name": "remap: Essential Properties written before time remap still read back",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "Анна-Мария Ёлкина",
+        "showRole": 0
+      }
+    },
+    {
+      "name": "remap: frames requested (intro, outro)",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "remap: user project saved",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "frames at full resolution 1920x1080: lt_remap_f062.png, lt_remap_f412.png",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "file": "lt_remap_f062.png",
+          "w": 1920,
+          "h": 1080
+        },
+        {
+          "file": "lt_remap_f412.png",
+          "w": 1920,
+          "h": 1080
+        }
+      ]
+    },
+    {
+      "name": "time remap: intro keeps its speed (PROBE_SQ x~148 at 0.48 s into the instance)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "frame": 62,
+        "x": 148,
+        "count": 1600,
+        "expected": {
+          "remap": 148,
+          "none": 148
+        },
+        "explainedBy": [
+          "remap",
+          "none"
+        ]
+      }
+    },
+    {
+      "name": "time remap: outro keeps its speed (PROBE_SQ x~248 at 14.48 s into the instance)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "frame": 412,
+        "x": 248,
+        "count": 1600,
+        "expected": {
+          "remap": 248,
+          "none": null
+        },
+        "explainedBy": [
+          "remap"
+        ]
+      }
+    },
+    {
+      "name": "linear: precondition: the open project has no unsaved changes",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "dirty": false
+      }
+    },
+    {
+      "name": "linear: user_linear.aep is the open project",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\s3\\user_linear.aep"
+    },
+    {
+      "name": "linear: precondition: linearized sRGB working space (set by hand)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "workingSpace": "sRGB IEC61966-2.1",
+        "linearize": true,
+        "linearBlending": false,
+        "bpc": 16,
+        "gamma": 2.4,
+        "engine": "javascript-1.0"
+      }
+    },
+    {
+      "name": "linear: template imported, lower third found",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "folder": true,
+        "found": 1
+      }
+    },
+    {
+      "name": "linear: no expression errors in the template (read before the render)",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "linear: lower third added at 2 s in USER_Comp",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "inPt": 2
+      }
+    },
+    {
+      "name": "linear: frame requested (8 s)",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "linear: project saved",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "linear: frames at full resolution 1920x1080: lt_linear_f200.png",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "file": "lt_linear_f200.png",
+          "w": 1920,
+          "h": 1080
+        }
+      ]
+    },
+    {
+      "name": "linear: colour patch dE2000 <= 2 vs #26D07C (linearized sRGB project)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "mean": "#26D07C",
+        "dE": 0,
+        "dEvsDefaultProject": 0,
+        "color": {
+          "workingSpace": "sRGB IEC61966-2.1",
+          "linearize": true,
+          "linearBlending": false,
+          "bpc": 16,
+          "gamma": 2.4,
+          "engine": "javascript-1.0"
+        }
+      }
+    },
+    {
+      "name": "linear: template photo slot_a dE2000 <= 2",
+      "pass": false,
+      "required": false,
+      "detail": {
+        "mean": "#0020FF",
+        "dE": 15.659
+      }
+    }
+  ],
+  "fallback": "Выбрать работающий механизм длительности и записать в контракт §4.2",
+  "notes": "main run: probes 1-4 and 6; linear run",
+  "evidence": [
+    "spikes/results/S3.data.json",
+    "C:/CRBK/work/s3/frames/lt_before_f200.png",
+    "C:/CRBK/work/s3/frames/lt_after_f200.png",
+    "C:/CRBK/work/s3/frames/lt_rdt_f062.png",
+    "C:/CRBK/work/s3/frames/lt_rdt_f412.png",
+    "C:/CRBK/work/s3/frames/lt_trimout_f062.png",
+    "C:/CRBK/work/s3/frames/lt_trimout_f412.png",
+    "C:/CRBK/work/s3/frames/hatch_f262.png",
+    "C:/CRBK/work/s3/frames/hatch_f287.png",
+    "C:/CRBK/work/s3/frames/lt_remap_f062.png",
+    "C:/CRBK/work/s3/frames/lt_remap_f412.png"
+  ]
+}
