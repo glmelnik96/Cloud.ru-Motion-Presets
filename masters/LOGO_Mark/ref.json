@@ -1,0 +1,41 @@
+{
+  "id": "LOGO_Mark",
+  "_note": "Golden comparison against the pack's 9:16 wrappers of «Логошот без саблайна» and «…с плашкой» (the FHD comp at 135 % in 1080x1920; there is no 16:9 golden of these comps). The master uses the same 135 % in 9:16, so frames are compared as rendered. Key times are snapped to the frame grid (1.75 -> 1.76 s, 1.626 -> 1.64 s), so moving frames are checked by eye. gate = the hold 2.20-3.00 s.",
+  "cases": [
+    {
+      "name": "plain",
+      "title": "9:16 без подложки, тёмная тема, прозрачный фон",
+      "golden": { "slug": "logo", "compSlug": "logoshoty_vertikalnyy_bez_sablayna" },
+      "variant": "9x16",
+      "ctrl": { "Plate": 0, "Theme": 2, "Background": 1 },
+      "shift": [],
+      "gate": [2520, 2760],
+      "view": [240, 520, 760, 1000, 1240, 1520, 1760, 2000]
+    },
+    {
+      "name": "plate",
+      "title": "9:16 с подложкой, тёмная тема, прозрачный фон",
+      "golden": { "slug": "logo", "compSlug": "logoshoty_vertikalnyy_bez_sablayna_s_plashkoy" },
+      "variant": "9x16",
+      "ctrl": { "Plate": 1, "Theme": 2, "Background": 1 },
+      "shift": [],
+      "gate": [2520, 2760],
+      "view": [240, 520, 760, 1000, 1240, 1520, 1760, 2000]
+    }
+  ],
+  "premiere": {
+    "_note": "MOGRT in Premiere against the same variant rendered in AE: the Plate checkbox both ways, both themes; B is 6 s long (intro, hold, outro at master speed).",
+    "variant": "16x9",
+    "clips": [
+      { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Plate": 1, "Theme": 2, "Background": 2 } },
+      { "key": "B", "atSec": 10, "lenSec": 6, "ctrl": { "Plate": 0, "Theme": 1, "Background": 3 } }
+    ],
+    "frames": [
+      { "key": "A_pop", "clip": "A", "sec": 0.6, "master": 0.6 },
+      { "key": "A_hold", "clip": "A", "sec": 2.6, "master": 2.6 },
+      { "key": "B_slide", "clip": "B", "sec": 1.6, "master": 1.6 },
+      { "key": "B_hold", "clip": "B", "sec": 4.0, "master": 2.6 },
+      { "key": "B_outro", "clip": "B", "sec": 5.76, "master": 3.36 }
+    ]
+  }
+}

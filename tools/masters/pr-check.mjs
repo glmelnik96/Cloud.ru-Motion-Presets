@@ -22,12 +22,16 @@ import { packagePaths, variantPlan } from './package.mjs';
 
 export const PR_PROJECT = () => workPath('pr', 'CRT_masters.prproj');
 
-// 1-based effect values (AE, library) -> Premiere labels with 0-based values.
+// 1-based effect values (AE, library) -> Premiere labels with 0-based values; checkboxes stay 0 / 1.
 export function prValues(ctrl, params) {
   const out = {};
   for (const [effect, v] of Object.entries(ctrl)) {
     const spec = params.ctrl[effect];
     if (!spec) throw new Error('unknown control ' + effect);
+    if (spec.kind === 'checkbox') {
+      out[spec.label] = v ? 1 : 0;
+      continue;
+    }
     if (!(v >= 1 && v <= spec.items.length)) throw new Error(`${effect}: ${v} is outside 1..${spec.items.length}`);
     out[spec.label] = v - 1;
   }

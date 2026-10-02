@@ -82,7 +82,7 @@ export async function exportMogrts(params) {
   const { aep, mogrtDir } = packagePaths(params);
   mkdirSync(mogrtDir, { recursive: true });
   const labels = egpLabels(params);
-  const dropdowns = Object.fromEntries(Object.values(params.ctrl).map((c) => [c.label, c.items]));
+  const dropdowns = Object.fromEntries(Object.values(params.ctrl).filter((c) => Array.isArray(c.items)).map((c) => [c.label, c.items]));
   const results = [];
   let failed = 0;
   for (const v of plan) {
