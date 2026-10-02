@@ -1,0 +1,141 @@
+{
+  "om": {
+    "path": "template:High Quality with Alpha",
+    "base": "High Quality with Alpha",
+    "survey": [
+      {
+        "name": "Alpha Only",
+        "format": "AVI",
+        "channels": "Alpha"
+      },
+      {
+        "name": "High Quality with Alpha",
+        "format": "QuickTime",
+        "channels": "RGB + Alpha"
+      },
+      {
+        "name": "Lossless with Alpha",
+        "format": "AVI",
+        "channels": "RGB + Alpha"
+      },
+      {
+        "name": "TIFF Sequence with Alpha",
+        "format": "TIFF Sequence",
+        "channels": "RGB + Alpha"
+      }
+    ],
+    "formatTry": {
+      "error": "Error: After Effects error: Invalid Value for key: <Format>.  Property is read-only",
+      "format": "H.264"
+    },
+    "channels": {
+      "error": "Error: After Effects error: Invalid Value for key: <Channels>.  Property is read-only",
+      "channels": "RGB + Alpha",
+      "format": "QuickTime"
+    },
+    "codecKeys": [],
+    "codecTry": [],
+    "saved": "saved now",
+    "settableKeys": [
+      "Audio Bit Depth",
+      "Audio Channels",
+      "Audio Sample Rate",
+      "Crop",
+      "Include Project Link",
+      "Include Source XMP Metadata",
+      "Output Audio",
+      "Output File Info",
+      "Post-Render Action",
+      "Resize",
+      "Video Output"
+    ],
+    "settable": {
+      "Audio Bit Depth": "16 Bit",
+      "Audio Channels": "Stereo",
+      "Audio Sample Rate": "48,000 kHz",
+      "Crop": "false",
+      "Include Project Link": "true",
+      "Include Source XMP Metadata": "false",
+      "Output Audio": "Auto",
+      "Output File Info": {
+        "Full Flat Path": "C:\\Users\\Глеб\\Desktop\\CRT_LowerThird_v1.mp4",
+        "Base Path": "C:\\Users\\Глеб\\Desktop",
+        "Subfolder Path": "",
+        "File Name": "CRT_LowerThird_v1.mp4",
+        "File Template": "[compName].[fileextension]"
+      },
+      "Post-Render Action": "None",
+      "Resize": "false",
+      "Video Output": "true"
+    },
+    "all": {
+      "Audio Bit Depth": "16 Bit",
+      "Audio Channels": "Stereo",
+      "Audio Sample Rate": "48,000 kHz",
+      "Channels": "RGB",
+      "Color": "Premultiplied (Matted)",
+      "Crop": "false",
+      "Crop Bottom": "0",
+      "Crop Left": "0",
+      "Crop Right": "0",
+      "Crop Top": "0",
+      "Depth": "Millions of Colors",
+      "Format": "H.264",
+      "Include Project Link": "true",
+      "Include Source XMP Metadata": "false",
+      "Lock Aspect Ratio": "true",
+      "Output Audio": "Auto",
+      "Output File Info": {
+        "Full Flat Path": "C:\\Users\\Глеб\\Desktop\\CRT_LowerThird_v1.mp4",
+        "Base Path": "C:\\Users\\Глеб\\Desktop",
+        "Subfolder Path": "",
+        "File Name": "CRT_LowerThird_v1.mp4",
+        "File Template": "[compName].[fileextension]"
+      },
+      "Post-Render Action": "None",
+      "Resize": "false",
+      "Resize Quality": "High",
+      "Resize to": "HD  •  1920x1080 • 24 fps",
+      "Starting #": "0",
+      "Use Comp Frame Number": "true",
+      "Use Region of Interest": "false",
+      "Video Output": "true"
+    }
+  },
+  "omRender": {
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": 0.4,
+    "video": {
+      "codec": "prores",
+      "profile": "4444",
+      "width": 1920,
+      "height": 1080,
+      "fps": 25,
+      "pixFmt": "yuva444p12le",
+      "frames": 10
+    },
+    "audio": null
+  },
+  "ameStatus": {
+    "action": "ame-status",
+    "spec": "ame-26.0",
+    "running": true,
+    "status": "IDLE",
+    "hostVersion": "26.5x89"
+  },
+  "ameQueue": {
+    "action": "ame-queue",
+    "spec": "ame-26.0",
+    "guidLt": "00000002-0000-0000-0000-000000000000",
+    "guidHatch": "00000019-0000-0000-0000-000000000000",
+    "sent": true,
+    "reply": null,
+    "error": null,
+    "timedOut": false,
+    "waitMs": null,
+    "body": "(function () {\n  var out = [];\n  var fe = null;\n  var host = null;\n  var pick = \"00000002-0000-0000-0000-000000000000\";\n  function step(key, fn) {\n    try { out.push(key + \"=\" + fn()); } catch (e) { out.push(key + \"=ERR \" + String(e).replace(/[|=]/g, \" \")); }\n  }\n  step(\"build\", function () { return app.buildNumber; });\n  step(\"frontend\", function () { fe = app.getFrontend(); return fe ? \"ok\" : \"null\"; });\n  step(\"addComp\", function () {\n    return fe.addCompToBatch(\"C:\\\\CRBK\\\\work\\\\fixtures\\\\CRT_fixture.aep\", \"C:\\\\CRBK\\\\work\\\\ame\\\\FullHD.epr\", \"C:\\\\CRBK\\\\work\\\\ame\\\\out_comp\");\n  });\n  step(\"guids\", function () {\n    var g = fe.getDLItemsAtRoot(\"C:\\\\CRBK\\\\work\\\\fixtures\\\\CRT_fixture.aep\");\n    for (var i = 0; g && i < g.length; i++) {\n      if (String(g[i]).toLowerCase().replace(/[{}]/g, \"\") === \"00000002-0000-0000-0000-000000000000\") { pick = String(g[i]); }\n    }\n    return g ? g.join(\";\") : \"null\";\n  });\n  step(\"addDL\", function () {\n    return fe.addDLToBatch(\"C:\\\\CRBK\\\\work\\\\fixtures\\\\CRT_fixture.aep\", \"H.264\", \"C:\\\\CRBK\\\\work\\\\ame\\\\FullHD.epr\", pick, \"C:\\\\CRBK\\\\work\\\\ame\\\\out_dl\") ? \"ok\" : \"null\";\n  });\n  step(\"run\", function () { host = app.getEncoderHost(); return host.runBatch(); });\n  step(\"status\", function () { return host.getBatchEncoderStatus(); });\n  var f = new File(\"C:/CRBK/work/ame/reply.txt\");\n  f.encoding = \"UTF-8\";\n  if (f.open(\"w\")) { f.write(out.join(\"|\")); f.close(); }\n  return out.join(\"|\");\n})();",
+    "hostVersion": "26.5x89",
+    "parsed": {}
+  },
+  "ameOutputs": []
+}

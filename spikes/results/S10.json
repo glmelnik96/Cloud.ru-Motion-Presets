@@ -1,0 +1,263 @@
+{
+  "id": "S10",
+  "title": "AME с брендовым .epr и шаблон Output Module",
+  "host": "ae",
+  "hostVersion": "26.5x89",
+  "date": "2026-10-02",
+  "verdict": "no",
+  "verdictLocked": false,
+  "checks": [
+    {
+      "name": "om: fixture opened",
+      "pass": true,
+      "required": false,
+      "detail": "C:\\CRBK\\work\\fixtures\\CRT_fixture.aep"
+    },
+    {
+      "name": "om: comp queued in the render queue",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "queuedBefore": 0,
+        "templates": 19
+      }
+    },
+    {
+      "name": "om: settable settings dumped (STRING_SETTABLE)",
+      "pass": true,
+      "required": false,
+      "detail": [
+        "Audio Bit Depth",
+        "Audio Channels",
+        "Audio Sample Rate",
+        "Crop",
+        "Include Project Link",
+        "Include Source XMP Metadata",
+        "Output Audio",
+        "Output File Info",
+        "Post-Render Action",
+        "Resize",
+        "Video Output"
+      ]
+    },
+    {
+      "name": "om: QuickTime base (Format by setSettings, else a built-in alpha template)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "formatTry": {
+          "error": "Error: After Effects error: Invalid Value for key: <Format>.  Property is read-only",
+          "format": "H.264"
+        },
+        "survey": [
+          {
+            "name": "Alpha Only",
+            "format": "AVI",
+            "channels": "Alpha"
+          },
+          {
+            "name": "High Quality with Alpha",
+            "format": "QuickTime",
+            "channels": "RGB + Alpha"
+          },
+          {
+            "name": "Lossless with Alpha",
+            "format": "AVI",
+            "channels": "RGB + Alpha"
+          },
+          {
+            "name": "TIFF Sequence with Alpha",
+            "format": "TIFF Sequence",
+            "channels": "RGB + Alpha"
+          }
+        ],
+        "base": "High Quality with Alpha"
+      }
+    },
+    {
+      "name": "om: Channels = RGB + Alpha via setSettings",
+      "pass": false,
+      "required": false,
+      "detail": {
+        "channels": {
+          "error": "Error: After Effects error: Invalid Value for key: <Channels>.  Property is read-only",
+          "channels": "RGB + Alpha",
+          "format": "QuickTime"
+        },
+        "codecKeys": [],
+        "codecTry": []
+      }
+    },
+    {
+      "name": "om: template CRBK_ProRes4444_Alpha saved and listed",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "saved": "saved now",
+        "prefs": "saved to disk",
+        "path": "template:High Quality with Alpha"
+      }
+    },
+    {
+      "name": "om: template applies QuickTime + RGB + Alpha",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "format": "QuickTime",
+        "channels": "RGB + Alpha",
+        "depth": "Millions of Colors+",
+        "color": "Premultiplied (Matted)"
+      }
+    },
+    {
+      "name": "om: 10-frame test render with the template finished",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "status": "3019",
+        "file": "C:\\CRBK\\work\\s10\\om_test.mov",
+        "exists": true
+      }
+    },
+    {
+      "name": "om: render queue cleaned, fixture closed without saving",
+      "pass": true,
+      "required": false,
+      "detail": "0 item(s) left"
+    },
+    {
+      "name": "om: test render is ProRes 4444 with alpha (ffprobe)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 0.4,
+        "video": {
+          "codec": "prores",
+          "profile": "4444",
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuva444p12le",
+          "frames": 10
+        },
+        "audio": null
+      }
+    },
+    {
+      "name": "ame: BridgeTalk knows Media Encoder",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "spec": "ame-26.0",
+        "targets": "flash, ame, indesign, photoshop, illustrator, premierepro, aftereffects, audition"
+      }
+    },
+    {
+      "name": "ame: Media Encoder running (launched on request)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "running": true,
+        "launched": null,
+        "status": "IDLE"
+      }
+    },
+    {
+      "name": "ame: Media Encoder running and idle",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "action": "ame-status",
+        "spec": "ame-26.0",
+        "running": true,
+        "status": "IDLE",
+        "hostVersion": "26.5x89"
+      }
+    },
+    {
+      "name": "ame: dynamicLinkGUID of both comps",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "lt": "00000002-0000-0000-0000-000000000000",
+        "hatch": "00000019-0000-0000-0000-000000000000"
+      }
+    },
+    {
+      "name": "ame: job sent to Media Encoder (AE does not wait)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "sent": true,
+        "spec": "ame-26.0"
+      }
+    },
+    {
+      "name": "ame: reply file from Media Encoder",
+      "pass": false,
+      "required": false,
+      "detail": {
+        "file": "C:/CRBK/work/ame/reply.txt",
+        "wait": {
+          "ok": false,
+          "file": "C:/CRBK/work/ame/reply.txt",
+          "reason": "missing",
+          "size": 0,
+          "waitedMs": 300249
+        },
+        "reply": null
+      }
+    },
+    {
+      "name": "ame: addCompToBatch accepted the job",
+      "pass": false,
+      "required": true,
+      "detail": {
+        "addComp": null,
+        "output": null
+      }
+    },
+    {
+      "name": "ame: addCompToBatch output written and stable",
+      "pass": false,
+      "required": true,
+      "detail": "no new .mp4 under C:/CRBK/work/ame"
+    },
+    {
+      "name": "ame: output matches FullHD.epr (H.264 1920x1080 25 fps)",
+      "pass": false,
+      "required": true,
+      "detail": null
+    },
+    {
+      "name": "ame: comp GUID listed by getDLItemsAtRoot",
+      "pass": false,
+      "required": false,
+      "detail": {
+        "guidLt": "00000002-0000-0000-0000-000000000000",
+        "guids": null
+      }
+    },
+    {
+      "name": "ame: addDLToBatch renders the chosen comp (CRT_LowerThird_v1, 10 s)",
+      "pass": false,
+      "required": false,
+      "detail": {
+        "addDL": null
+      }
+    },
+    {
+      "required": false,
+      "detail": "A fire-and-forget BridgeTalk body without frontend calls ran in AME in 1 s (it wrote a file). The S10 body never returned from fe.addCompToBatch(aep, epr, out): AME stayed PUMPING for 15+ min with the queue empty, with AE idle and the fixture closed; AME ignored a normal close. A waiting AE (bt.send with timeout or a pump loop) deadlocks both. Fallback: AE Render Queue or aerender with the Output Module template (part a: works).",
+      "name": "diagnosis: BridgeTalk reaches AME 26.5.2; addCompToBatch hangs",
+      "pass": false,
+      "manual": true
+    }
+  ],
+  "fallback": "Экспорт из AE через Render Queue или aerender с шаблоном Output Module, повторяющим брендовый `.epr`; шаблон создаёт панель или пользователь загружает по инструкции — по итогу S10 (§8.1)",
+  "notes": "OM: путь template:High Quality with Alpha; Format через setSettings: {\"error\":\"Error: After Effects error: Invalid Value for key: <Format>.  Property is read-only\",\"format\":\"H.264\"}; AME: addCompToBatch взял композицию (не опознана) — её AME считает первой в проекте; ответ BridgeTalk: нет",
+  "evidence": [
+    "spikes/results/S10.data.json"
+  ]
+}
