@@ -1,0 +1,474 @@
+{
+  "slug": "smm",
+  "project": "C:/CRBK/packs/smm/smm_relinked.aep",
+  "aeVersion": "26.5x89",
+  "date": "2026-10-02",
+  "roots": [
+    {
+      "id": 5055,
+      "name": "BG_pattern_1x1_1",
+      "folder": "Render/BG_pattern",
+      "width": 1440,
+      "height": 1440,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 30,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 30,
+      "numLayers": 1,
+      "renderer": "ADBE Calder",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "bg_pattern_1x1_1",
+      "keyFrames": 72
+    },
+    {
+      "id": 5090,
+      "name": "BG_pattern_1x1_2",
+      "folder": "Render/BG_pattern",
+      "width": 1440,
+      "height": 1440,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 30,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 30,
+      "numLayers": 2,
+      "renderer": "ADBE Calder",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "bg_pattern_1x1_2",
+      "keyFrames": 72
+    },
+    {
+      "id": 5068,
+      "name": "BG_pattern_9x16_1",
+      "folder": "Render/BG_pattern",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 30,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 30,
+      "numLayers": 1,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        4,
+        4
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "bg_pattern_9x16_1",
+      "keyFrames": 72
+    },
+    {
+      "id": 5104,
+      "name": "BG_pattern_9x16_2",
+      "folder": "Render/BG_pattern",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 30,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 30,
+      "numLayers": 2,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        4,
+        4
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "bg_pattern_9x16_2",
+      "keyFrames": 72
+    },
+    {
+      "id": 14,
+      "name": "Оверлей_1x1",
+      "folder": "Render/Overlays",
+      "width": 1440,
+      "height": 1440,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 60,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 60,
+      "numLayers": 1,
+      "renderer": "ADBE Calder",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "overley_1x1",
+      "keyFrames": 78
+    },
+    {
+      "id": 76,
+      "name": "Оверлей_9x16",
+      "folder": "Render/Overlays",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 60,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 60,
+      "numLayers": 1,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "overley_9x16",
+      "keyFrames": 78
+    },
+    {
+      "id": 35,
+      "name": "Плашки_1x1",
+      "folder": "Render/Bullets",
+      "width": 1440,
+      "height": 1440,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 7.84,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 7.84,
+      "numLayers": 6,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "plashki_1x1",
+      "keyFrames": 41
+    },
+    {
+      "id": 57,
+      "name": "Плашки_9x16",
+      "folder": "Render/Bullets",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 9.16,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 9.16,
+      "numLayers": 6,
+      "renderer": "ADBE Calder",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "plashki_9x16",
+      "keyFrames": 46
+    },
+    {
+      "id": 5036,
+      "name": "Transition_green",
+      "folder": "Render/Transitions",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 24,
+      "frameDuration": 0.04166666666667,
+      "duration": 0.875,
+      "displayStartTime": 3.16666666666667,
+      "workAreaStart": 0,
+      "workAreaDuration": 0.875,
+      "numLayers": 2,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "transition_green",
+      "keyFrames": 8
+    },
+    {
+      "id": 5022,
+      "name": "Transition_white",
+      "folder": "Render/Transitions",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 24,
+      "frameDuration": 0.04166666666667,
+      "duration": 0.875,
+      "displayStartTime": 3.16666666666667,
+      "workAreaStart": 0,
+      "workAreaDuration": 0.875,
+      "numLayers": 2,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "transition_white",
+      "keyFrames": 8
+    },
+    {
+      "id": 4992,
+      "name": "Transition with Logo",
+      "folder": "Render/Transitions",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 24,
+      "frameDuration": 0.04166666666667,
+      "duration": 0.875,
+      "displayStartTime": 3.16666666666667,
+      "workAreaStart": 0,
+      "workAreaDuration": 0.875,
+      "numLayers": 2,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "transition_with_logo",
+      "keyFrames": 8
+    },
+    {
+      "id": 1600,
+      "name": "Заставка_9x16",
+      "folder": "Render",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 24,
+      "frameDuration": 0.04166666666667,
+      "duration": 5,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 5,
+      "numLayers": 12,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [
+        {
+          "time": 3.54166666666667,
+          "duration": 0,
+          "comment": "1",
+          "protectedRegion": false
+        }
+      ],
+      "compSlug": "zastavka_9x16",
+      "keyFrames": 22
+    }
+  ],
+  "slugMap": [
+    {
+      "id": 3,
+      "name": "+",
+      "compSlug": "plus",
+      "root": false,
+      "usedIn": [
+        5090,
+        5104,
+        20
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Оверлей_1x1",
+      "compSlug": "overley_1x1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 20,
+      "name": "Pattern_edit",
+      "compSlug": "pattern_edit",
+      "root": false,
+      "usedIn": [
+        100
+      ]
+    },
+    {
+      "id": 35,
+      "name": "Плашки_1x1",
+      "compSlug": "plashki_1x1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 57,
+      "name": "Плашки_9x16",
+      "compSlug": "plashki_9x16",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 76,
+      "name": "Оверлей_9x16",
+      "compSlug": "overley_9x16",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 100,
+      "name": "PATTERN_EDIT",
+      "compSlug": "pattern_edit_2",
+      "root": false,
+      "usedIn": [
+        5055,
+        5068
+      ]
+    },
+    {
+      "id": 1329,
+      "name": "Pattern_strelki",
+      "compSlug": "pattern_strelki",
+      "root": false,
+      "usedIn": [
+        1600
+      ]
+    },
+    {
+      "id": 1600,
+      "name": "Заставка_9x16",
+      "compSlug": "zastavka_9x16",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 2668,
+      "name": "Cloud.ru_BlackMono",
+      "compSlug": "cloud_ru_blackmono",
+      "root": false,
+      "usedIn": [
+        1600
+      ]
+    },
+    {
+      "id": 4059,
+      "name": "Transition_gray",
+      "compSlug": "transition_gray",
+      "root": false,
+      "usedIn": [
+        1600,
+        4992
+      ]
+    },
+    {
+      "id": 4964,
+      "name": "Shape Layer 2 Comp 1",
+      "compSlug": "shape_layer_2_comp_1",
+      "root": false,
+      "usedIn": [
+        76
+      ]
+    },
+    {
+      "id": 4978,
+      "name": "Shape Layer 5 Comp 1",
+      "compSlug": "shape_layer_5_comp_1",
+      "root": false,
+      "usedIn": [
+        14
+      ]
+    },
+    {
+      "id": 4992,
+      "name": "Transition with Logo",
+      "compSlug": "transition_with_logo",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 5007,
+      "name": "Cloud.ru_BlackMono 3",
+      "compSlug": "cloud_ru_blackmono_3",
+      "root": false,
+      "usedIn": [
+        4992
+      ]
+    },
+    {
+      "id": 5022,
+      "name": "Transition_white",
+      "compSlug": "transition_white",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 5036,
+      "name": "Transition_green",
+      "compSlug": "transition_green",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 5055,
+      "name": "BG_pattern_1x1_1",
+      "compSlug": "bg_pattern_1x1_1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 5068,
+      "name": "BG_pattern_9x16_1",
+      "compSlug": "bg_pattern_9x16_1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 5090,
+      "name": "BG_pattern_1x1_2",
+      "compSlug": "bg_pattern_1x1_2",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 5104,
+      "name": "BG_pattern_9x16_2",
+      "compSlug": "bg_pattern_9x16_2",
+      "root": true,
+      "usedIn": []
+    }
+  ]
+}

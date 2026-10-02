@@ -1,0 +1,41 @@
+{
+  "slug": "titles",
+  "project": "C:/CRBK/packs/titles/titles_relinked.aep",
+  "aeVersion": "26.5x89",
+  "date": "2026-10-02",
+  "roots": [
+    {
+      "id": 1646,
+      "name": "Подпись_спикеров",
+      "folder": "",
+      "width": 1500,
+      "height": 500,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 6.04,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 6.04,
+      "numLayers": 13,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "podpis_spikerov",
+      "keyFrames": 33
+    }
+  ],
+  "slugMap": [
+    {
+      "id": 1646,
+      "name": "Подпись_спикеров",
+      "compSlug": "podpis_spikerov",
+      "root": true,
+      "usedIn": []
+    }
+  ]
+}

@@ -1,0 +1,288 @@
+{
+  "slug": "webinars",
+  "project": "C:/CRBK/packs/webinars/webinars_relinked.aep",
+  "aeVersion": "26.5x89",
+  "date": "2026-10-02",
+  "roots": [
+    {
+      "id": 668,
+      "name": "Анонс_Вебинар_1x1",
+      "folder": "Render/Анонс",
+      "width": 1400,
+      "height": 1400,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 13,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "anons_vebinar_1x1",
+      "keyFrames": 41
+    },
+    {
+      "id": 731,
+      "name": "Анонс_Вебинар_9x16",
+      "folder": "Render/Анонс",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 16,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "anons_vebinar_9x16",
+      "keyFrames": 41
+    },
+    {
+      "id": 980,
+      "name": "Таймер с вижуалом",
+      "folder": "Render/Оформление",
+      "width": 1920,
+      "height": 1080,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 300,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 300,
+      "numLayers": 12,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "taymer_s_vizhualom",
+      "keyFrames": 79
+    },
+    {
+      "id": 1003,
+      "name": "Таймер со спикером",
+      "folder": "Render/Оформление",
+      "width": 1920,
+      "height": 1080,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 300,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 300,
+      "numLayers": 14,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "taymer_so_spikerom",
+      "keyFrames": 79
+    },
+    {
+      "id": 810,
+      "name": "Заставка с вижуалом",
+      "folder": "Render/Оформление",
+      "width": 1920,
+      "height": 1080,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 30,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 30,
+      "numLayers": 9,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "zastavka_s_vizhualom",
+      "keyFrames": 72
+    },
+    {
+      "id": 954,
+      "name": "Заставка со спикером",
+      "folder": "Render/Оформление",
+      "width": 1920,
+      "height": 1080,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 30,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 30,
+      "numLayers": 14,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "zastavka_so_spikerom",
+      "keyFrames": 72
+    }
+  ],
+  "slugMap": [
+    {
+      "id": 606,
+      "name": "AI_анимация precomp_2",
+      "compSlug": "ai_animatsiya_precomp_2",
+      "root": false,
+      "usedIn": [
+        668,
+        731
+      ]
+    },
+    {
+      "id": 668,
+      "name": "Анонс_Вебинар_1x1",
+      "compSlug": "anons_vebinar_1x1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 731,
+      "name": "Анонс_Вебинар_9x16",
+      "compSlug": "anons_vebinar_9x16",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 810,
+      "name": "Заставка с вижуалом",
+      "compSlug": "zastavka_s_vizhualom",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 834,
+      "name": "PATTERN RACK_Animation",
+      "compSlug": "pattern_rack_animation",
+      "root": false,
+      "usedIn": [
+        954,
+        1003
+      ]
+    },
+    {
+      "id": 879,
+      "name": "Timer precomp",
+      "compSlug": "timer_precomp",
+      "root": false,
+      "usedIn": [
+        980,
+        1003
+      ]
+    },
+    {
+      "id": 919,
+      "name": "Logo",
+      "compSlug": "logo",
+      "root": false,
+      "usedIn": [
+        668,
+        1028
+      ]
+    },
+    {
+      "id": 937,
+      "name": "AI_анимация precomp",
+      "compSlug": "ai_animatsiya_precomp",
+      "root": false,
+      "usedIn": [
+        810,
+        980
+      ]
+    },
+    {
+      "id": 954,
+      "name": "Заставка со спикером",
+      "compSlug": "zastavka_so_spikerom",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 980,
+      "name": "Таймер с вижуалом",
+      "compSlug": "taymer_s_vizhualom",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 1003,
+      "name": "Таймер со спикером",
+      "compSlug": "taymer_so_spikerom",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 1028,
+      "name": "Логоблок с челкой",
+      "compSlug": "logoblok_s_chelkoy",
+      "root": false,
+      "usedIn": [
+        810,
+        954,
+        980,
+        1003
+      ]
+    },
+    {
+      "id": 1091,
+      "name": "PATTERN RACK",
+      "compSlug": "pattern_rack",
+      "root": false,
+      "usedIn": [
+        810,
+        980,
+        834
+      ]
+    },
+    {
+      "id": 1160,
+      "name": "AI_анимация precomp_1",
+      "compSlug": "ai_animatsiya_precomp_1",
+      "root": false,
+      "usedIn": [
+        937
+      ]
+    },
+    {
+      "id": 1177,
+      "name": "Спикер",
+      "compSlug": "spiker",
+      "root": false,
+      "usedIn": [
+        954,
+        1003
+      ]
+    }
+  ]
+}

@@ -1,0 +1,389 @@
+{
+  "slug": "courses_conv",
+  "project": "C:/CRBK/packs/courses_conv/courses_conv_relinked.aep",
+  "aeVersion": "26.5x89",
+  "date": "2026-10-02",
+  "roots": [
+    {
+      "id": 4,
+      "name": "Обложка #1",
+      "folder": "Заставки",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 7.92,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 7.92,
+      "numLayers": 1,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "oblozhka_1",
+      "keyFrames": 41
+    },
+    {
+      "id": 17,
+      "name": "Обложка #2",
+      "folder": "Заставки",
+      "width": 2560,
+      "height": 1440,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 15.04,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 7.04,
+      "numLayers": 16,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "oblozhka_2",
+      "keyFrames": 69
+    },
+    {
+      "id": 30,
+      "name": "Обложка #3",
+      "folder": "Заставки",
+      "width": 2560,
+      "height": 1440,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 15.04,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 7.04,
+      "numLayers": 17,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "oblozhka_3",
+      "keyFrames": 69
+    },
+    {
+      "id": 1420,
+      "name": "Обложка #4",
+      "folder": "Заставки",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 7.92,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 7.92,
+      "numLayers": 1,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "oblozhka_4",
+      "keyFrames": 41
+    },
+    {
+      "id": 61,
+      "name": "Оверлей 16 на 9",
+      "folder": "Оверлеи",
+      "width": 1920,
+      "height": 1080,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 3600,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 3600,
+      "numLayers": 24,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "overley_16_na_9",
+      "keyFrames": 79
+    },
+    {
+      "id": 46,
+      "name": "Оверлей 3 на 2",
+      "folder": "Оверлеи",
+      "width": 1920,
+      "height": 1080,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 3600,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 3600,
+      "numLayers": 24,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [
+        {
+          "time": 6.72,
+          "duration": 0,
+          "comment": "Поставить скорость \"портала\" на минимум",
+          "protectedRegion": false
+        },
+        {
+          "time": 27.48,
+          "duration": 0,
+          "comment": "сделать портал как прогресс-бар\r",
+          "protectedRegion": false
+        },
+        {
+          "time": 66.44,
+          "duration": 0,
+          "comment": "поиграться с отступом в риалтайме",
+          "protectedRegion": false
+        }
+      ],
+      "compSlug": "overley_3_na_2",
+      "keyFrames": 82
+    },
+    {
+      "id": 89,
+      "name": "Оверлей со спикером",
+      "folder": "Оверлеи",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 3600,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 3600,
+      "numLayers": 3,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "overley_so_spikerom",
+      "keyFrames": 79
+    },
+    {
+      "id": 1562,
+      "name": "Оверлей со спикером 2",
+      "folder": "Оверлеи",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 3600,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 3600,
+      "numLayers": 4,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "overley_so_spikerom_2",
+      "keyFrames": 79
+    }
+  ],
+  "slugMap": [
+    {
+      "id": 4,
+      "name": "Обложка #1",
+      "compSlug": "oblozhka_1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 17,
+      "name": "Обложка #2",
+      "compSlug": "oblozhka_2",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 30,
+      "name": "Обложка #3",
+      "compSlug": "oblozhka_3",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 46,
+      "name": "Оверлей 3 на 2",
+      "compSlug": "overley_3_na_2",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 61,
+      "name": "Оверлей 16 на 9",
+      "compSlug": "overley_16_na_9",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 89,
+      "name": "Оверлей со спикером",
+      "compSlug": "overley_so_spikerom",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 108,
+      "name": "Logo",
+      "compSlug": "logo",
+      "root": false,
+      "usedIn": [
+        17,
+        30,
+        1455,
+        1490,
+        46,
+        61,
+        1392
+      ]
+    },
+    {
+      "id": 148,
+      "name": "Visual",
+      "compSlug": "visual",
+      "root": false,
+      "usedIn": [
+        17,
+        1455,
+        1490
+      ]
+    },
+    {
+      "id": 314,
+      "name": "Visual with background",
+      "compSlug": "visual_with_background",
+      "root": false,
+      "usedIn": [
+        30
+      ]
+    },
+    {
+      "id": 341,
+      "name": "Прекомп 3 на 2",
+      "compSlug": "prekomp_3_na_2",
+      "root": false,
+      "usedIn": [
+        46
+      ]
+    },
+    {
+      "id": 405,
+      "name": "Прекомп 16 на 9",
+      "compSlug": "prekomp_16_na_9",
+      "root": false,
+      "usedIn": [
+        61
+      ]
+    },
+    {
+      "id": 553,
+      "name": "Переход",
+      "compSlug": "perekhod",
+      "root": false,
+      "usedIn": [
+        17,
+        30,
+        1455,
+        1490
+      ]
+    },
+    {
+      "id": 623,
+      "name": "Прекомп спикер",
+      "compSlug": "prekomp_spiker",
+      "root": false,
+      "usedIn": [
+        1367
+      ]
+    },
+    {
+      "id": 1367,
+      "name": "Pre-comp 1",
+      "compSlug": "pre_comp_1",
+      "root": false,
+      "usedIn": [
+        89,
+        1562
+      ]
+    },
+    {
+      "id": 1392,
+      "name": "Pre-comp 2",
+      "compSlug": "pre_comp_2",
+      "root": false,
+      "usedIn": [
+        89,
+        1562
+      ]
+    },
+    {
+      "id": 1420,
+      "name": "Обложка #4",
+      "compSlug": "oblozhka_4",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 1455,
+      "name": "Pre-comp 3",
+      "compSlug": "pre_comp_3",
+      "root": false,
+      "usedIn": [
+        1420
+      ]
+    },
+    {
+      "id": 1490,
+      "name": "Pre-comp 4",
+      "compSlug": "pre_comp_4",
+      "root": false,
+      "usedIn": [
+        4
+      ]
+    },
+    {
+      "id": 1562,
+      "name": "Оверлей со спикером 2",
+      "compSlug": "overley_so_spikerom_2",
+      "root": true,
+      "usedIn": []
+    }
+  ]
+}

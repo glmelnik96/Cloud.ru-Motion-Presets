@@ -1,0 +1,1083 @@
+{
+  "slug": "podcast",
+  "project": "C:/CRBK/packs/podcast/podcast_relinked.aep",
+  "aeVersion": "26.5x89",
+  "date": "2026-10-02",
+  "roots": [
+    {
+      "id": 180,
+      "name": "Булит",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 4,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "bulit",
+      "keyFrames": 41
+    },
+    {
+      "id": 38,
+      "name": "Булит_1",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 4,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "bulit_1",
+      "keyFrames": 41
+    },
+    {
+      "id": 249,
+      "name": "Cloud.ru",
+      "folder": "Precomp",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 2,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "cloud_ru",
+      "keyFrames": 41
+    },
+    {
+      "id": 134,
+      "name": "Дисклеймер",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 22,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [
+        {
+          "time": 1,
+          "duration": 0,
+          "comment": "1",
+          "protectedRegion": false
+        }
+      ],
+      "compSlug": "diskleymer",
+      "keyFrames": 41
+    },
+    {
+      "id": 3155,
+      "name": "Контент_1",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 7,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "kontent_1",
+      "keyFrames": 41
+    },
+    {
+      "id": 2777,
+      "name": "Контент_2",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 7,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "kontent_2",
+      "keyFrames": 41
+    },
+    {
+      "id": 3751,
+      "name": "Контент_3",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 13,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "kontent_3",
+      "keyFrames": 41
+    },
+    {
+      "id": 263,
+      "name": "LIne Comp 1",
+      "folder": "Precomp",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 1,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "line_comp_1",
+      "keyFrames": 41
+    },
+    {
+      "id": 2729,
+      "name": "О_госте",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 8,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "o_goste",
+      "keyFrames": 41
+    },
+    {
+      "id": 120,
+      "name": "OUTRO",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 3,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "outro",
+      "keyFrames": 41
+    },
+    {
+      "id": 459,
+      "name": "Подкаст",
+      "folder": "Precomp",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 2,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "podkast",
+      "keyFrames": 41
+    },
+    {
+      "id": 476,
+      "name": "Подпись_QR_1",
+      "folder": "Precomp",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 2,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "podpis_qr_1",
+      "keyFrames": 41
+    },
+    {
+      "id": 490,
+      "name": "Подпись_QR_2",
+      "folder": "Precomp",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 2,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "podpis_qr_2",
+      "keyFrames": 41
+    },
+    {
+      "id": 1985,
+      "name": "Подпись_спикера_1",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 12,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "podpis_spikera_1",
+      "keyFrames": 41
+    },
+    {
+      "id": 639,
+      "name": "Подписывайся! Ссылки в описании",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 5,
+      "renderer": "ADBE Calder",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "podpisyvaysya_ssylki_v_opisanii",
+      "keyFrames": 41
+    },
+    {
+      "id": 3909,
+      "name": "Подписывайтесь на канал CLOUD.RU",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 8,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "podpisyvaytes_na_kanal_cloud_ru",
+      "keyFrames": 41
+    },
+    {
+      "id": 405,
+      "name": "Pre-comp 4",
+      "folder": "Precomp",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 2,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "pre_comp_4",
+      "keyFrames": 41
+    },
+    {
+      "id": 197,
+      "name": "  QR_1",
+      "folder": "Precomp",
+      "width": 1024,
+      "height": 1024,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 1,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "qr_1",
+      "keyFrames": 41
+    },
+    {
+      "id": 220,
+      "name": "  QR_2",
+      "folder": "Precomp",
+      "width": 1024,
+      "height": 1024,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 0,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "qr_2",
+      "keyFrames": 41
+    },
+    {
+      "id": 234,
+      "name": "  QR_3",
+      "folder": "Precomp",
+      "width": 1024,
+      "height": 1166,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 2,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "qr_3",
+      "keyFrames": 41
+    },
+    {
+      "id": 2267,
+      "name": "QR_код_1",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 9,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "qr_kod_1",
+      "keyFrames": 41
+    },
+    {
+      "id": 2461,
+      "name": "QR_код_2",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 9,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "qr_kod_2",
+      "keyFrames": 41
+    },
+    {
+      "id": 2643,
+      "name": "QR_код_3",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 11,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "qr_kod_3",
+      "keyFrames": 41
+    },
+    {
+      "id": 3555,
+      "name": "Текст на плашке_1",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 12,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "tekst_na_plashke_1",
+      "keyFrames": 41
+    },
+    {
+      "id": 3603,
+      "name": "Текст на плашке_2",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 12,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "tekst_na_plashke_2",
+      "keyFrames": 41
+    },
+    {
+      "id": 2820,
+      "name": "Текст на плашке_3",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 10,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 10,
+      "numLayers": 12,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "tekst_na_plashke_3",
+      "keyFrames": 41
+    },
+    {
+      "id": 691,
+      "name": "Заставка_ПОДКАСТ_CLOUD.RU",
+      "folder": "RENDER",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 7,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 7,
+      "numLayers": 34,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        2,
+        2
+      ],
+      "usedIn": [],
+      "markers": [
+        {
+          "time": 1,
+          "duration": 0,
+          "comment": "1",
+          "protectedRegion": false
+        }
+      ],
+      "compSlug": "zastavka_podkast_cloud_ru",
+      "keyFrames": 29
+    }
+  ],
+  "slugMap": [
+    {
+      "id": 38,
+      "name": "Булит_1",
+      "compSlug": "bulit_1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 120,
+      "name": "OUTRO",
+      "compSlug": "outro",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 134,
+      "name": "Дисклеймер",
+      "compSlug": "diskleymer",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 180,
+      "name": "Булит",
+      "compSlug": "bulit",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 197,
+      "name": "  QR_1",
+      "compSlug": "qr_1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 220,
+      "name": "  QR_2",
+      "compSlug": "qr_2",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 234,
+      "name": "  QR_3",
+      "compSlug": "qr_3",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 249,
+      "name": "Cloud.ru",
+      "compSlug": "cloud_ru",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 263,
+      "name": "LIne Comp 1",
+      "compSlug": "line_comp_1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 276,
+      "name": "LINES 2 Comp 1",
+      "compSlug": "lines_2_comp_1",
+      "root": false,
+      "usedIn": [
+        691
+      ]
+    },
+    {
+      "id": 290,
+      "name": "LINES Comp 1",
+      "compSlug": "lines_comp_1",
+      "root": false,
+      "usedIn": [
+        691
+      ]
+    },
+    {
+      "id": 304,
+      "name": "Pattern_1",
+      "compSlug": "pattern_1",
+      "root": false,
+      "usedIn": [
+        691
+      ]
+    },
+    {
+      "id": 352,
+      "name": "Verts_lines_2 Comp 1",
+      "compSlug": "verts_lines_2_comp_1",
+      "root": false,
+      "usedIn": [
+        134
+      ]
+    },
+    {
+      "id": 385,
+      "name": "Vert_lines_1 Comp 1",
+      "compSlug": "vert_lines_1_comp_1",
+      "root": false,
+      "usedIn": [
+        134
+      ]
+    },
+    {
+      "id": 405,
+      "name": "Pre-comp 4",
+      "compSlug": "pre_comp_4",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 459,
+      "name": "Подкаст",
+      "compSlug": "podkast",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 476,
+      "name": "Подпись_QR_1",
+      "compSlug": "podpis_qr_1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 490,
+      "name": "Подпись_QR_2",
+      "compSlug": "podpis_qr_2",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 639,
+      "name": "Подписывайся! Ссылки в описании",
+      "compSlug": "podpisyvaysya_ssylki_v_opisanii",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 691,
+      "name": "Заставка_ПОДКАСТ_CLOUD.RU",
+      "compSlug": "zastavka_podkast_cloud_ru",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 796,
+      "name": "Pattern_1",
+      "compSlug": "pattern_1_2",
+      "root": false,
+      "usedIn": [
+        134
+      ]
+    },
+    {
+      "id": 1109,
+      "name": "Есть где развернуться",
+      "compSlug": "est_gde_razvernutsya",
+      "root": false,
+      "usedIn": [
+        120
+      ]
+    },
+    {
+      "id": 1985,
+      "name": "Подпись_спикера_1",
+      "compSlug": "podpis_spikera_1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 2122,
+      "name": "LIne Comp 1",
+      "compSlug": "line_comp_1_2",
+      "root": false,
+      "usedIn": [
+        3155,
+        2777,
+        3751,
+        2729,
+        3909,
+        1985,
+        2218,
+        3555,
+        3603,
+        2820,
+        2267,
+        2461,
+        2643
+      ]
+    },
+    {
+      "id": 2147,
+      "name": "Подкаст",
+      "compSlug": "podkast_2",
+      "root": false,
+      "usedIn": [
+        3155,
+        2777,
+        3751,
+        2729,
+        3909,
+        1985,
+        2218,
+        3555,
+        3603,
+        2820,
+        2267,
+        2461,
+        2643
+      ]
+    },
+    {
+      "id": 2172,
+      "name": "Cloud.ru",
+      "compSlug": "cloud_ru_2",
+      "root": false,
+      "usedIn": [
+        3155,
+        2777,
+        3751,
+        2729,
+        3909,
+        1985,
+        2218,
+        3555,
+        3603,
+        2820,
+        2267,
+        2461,
+        2643
+      ]
+    },
+    {
+      "id": 2218,
+      "name": "Подпись_спикера_2",
+      "compSlug": "podpis_spikera_2",
+      "root": false,
+      "usedIn": [
+        1985
+      ]
+    },
+    {
+      "id": 2267,
+      "name": "QR_код_1",
+      "compSlug": "qr_kod_1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 2340,
+      "name": "  QR_1",
+      "compSlug": "qr_1_2",
+      "root": false,
+      "usedIn": [
+        2267,
+        2643
+      ]
+    },
+    {
+      "id": 2420,
+      "name": "Pre-comp 3",
+      "compSlug": "pre_comp_3",
+      "root": false,
+      "usedIn": [
+        2267
+      ]
+    },
+    {
+      "id": 2461,
+      "name": "QR_код_2",
+      "compSlug": "qr_kod_2",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 2510,
+      "name": "  QR_2",
+      "compSlug": "qr_2_2",
+      "root": false,
+      "usedIn": [
+        2461,
+        2643
+      ]
+    },
+    {
+      "id": 2555,
+      "name": "Pre-comp 4",
+      "compSlug": "pre_comp_4_2",
+      "root": false,
+      "usedIn": [
+        3909,
+        2461,
+        2643
+      ]
+    },
+    {
+      "id": 2582,
+      "name": "Подпись_QR_2",
+      "compSlug": "podpis_qr_2_2",
+      "root": false,
+      "usedIn": [
+        2461,
+        2643
+      ]
+    },
+    {
+      "id": 2603,
+      "name": "Подпись_QR_1",
+      "compSlug": "podpis_qr_1_2",
+      "root": false,
+      "usedIn": [
+        2267,
+        2643
+      ]
+    },
+    {
+      "id": 2643,
+      "name": "QR_код_3",
+      "compSlug": "qr_kod_3",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 2729,
+      "name": "О_госте",
+      "compSlug": "o_goste",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 2777,
+      "name": "Контент_2",
+      "compSlug": "kontent_2",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 2820,
+      "name": "Текст на плашке_3",
+      "compSlug": "tekst_na_plashke_3",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 3155,
+      "name": "Контент_1",
+      "compSlug": "kontent_1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 3555,
+      "name": "Текст на плашке_1",
+      "compSlug": "tekst_na_plashke_1",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 3603,
+      "name": "Текст на плашке_2",
+      "compSlug": "tekst_na_plashke_2",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 3751,
+      "name": "Контент_3",
+      "compSlug": "kontent_3",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 3909,
+      "name": "Подписывайтесь на канал CLOUD.RU",
+      "compSlug": "podpisyvaytes_na_kanal_cloud_ru",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 3978,
+      "name": "  QR_3",
+      "compSlug": "qr_3_2",
+      "root": false,
+      "usedIn": [
+        3909
+      ]
+    },
+    {
+      "id": 4196,
+      "name": "Cloud.ru_WhiteColour",
+      "compSlug": "cloud_ru_whitecolour",
+      "root": false,
+      "usedIn": [
+        691
+      ]
+    },
+    {
+      "id": 4217,
+      "name": "Cloud.ru_BlackColour",
+      "compSlug": "cloud_ru_blackcolour",
+      "root": false,
+      "usedIn": [
+        691
+      ]
+    }
+  ]
+}

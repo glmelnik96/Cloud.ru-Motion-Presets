@@ -1,0 +1,258 @@
+{
+  "slug": "logo",
+  "project": "C:/CRBK/packs/logo/logo_relinked.aep",
+  "aeVersion": "26.5x89",
+  "date": "2026-10-02",
+  "roots": [
+    {
+      "id": 3399,
+      "name": "Логошот_Есть где развернуться",
+      "folder": "Логошоты/Горизонтальные",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 50,
+      "frameDuration": 0.02,
+      "duration": 12.2,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 5.02,
+      "numLayers": 1,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [
+        {
+          "time": 4.52,
+          "duration": 0,
+          "comment": "Размещаем на плашке всегда!\nСлоганы всегда справа",
+          "protectedRegion": false
+        },
+        {
+          "time": 7.32,
+          "duration": 0,
+          "comment": "https://www.figma.com/design/BcvmP7P8zVb26jBHMr88Jo/BAZIS?node-id=4079-486&t=X7Jg5FmMykj62Toy-1",
+          "protectedRegion": false
+        }
+      ],
+      "compSlug": "logoshot_est_gde_razvernutsya",
+      "keyFrames": 60
+    },
+    {
+      "id": 3379,
+      "name": "Логошот_Умное облако",
+      "folder": "Логошоты/Горизонтальные",
+      "width": 3840,
+      "height": 2160,
+      "pixelAspect": 1,
+      "fps": 50,
+      "frameDuration": 0.02,
+      "duration": 12.2,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 5.02,
+      "numLayers": 2,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [
+        {
+          "time": 4.52,
+          "duration": 0,
+          "comment": "Размещаем на плашке всегда!\nСлоганы всегда справа",
+          "protectedRegion": false
+        },
+        {
+          "time": 7.32,
+          "duration": 0,
+          "comment": "https://www.figma.com/design/BcvmP7P8zVb26jBHMr88Jo/BAZIS?node-id=4079-486&t=X7Jg5FmMykj62Toy-1",
+          "protectedRegion": false
+        }
+      ],
+      "compSlug": "logoshot_umnoe_oblako",
+      "keyFrames": 60
+    },
+    {
+      "id": 2786,
+      "name": "Логошоты вертикальный_без саблайна",
+      "folder": "Логошоты/Вертикальные",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 3,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 3,
+      "numLayers": 1,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "logoshoty_vertikalnyy_bez_sablayna",
+      "keyFrames": 13
+    },
+    {
+      "id": 3597,
+      "name": "Логошоты вертикальный_без саблайна с плашкой",
+      "folder": "Логошоты/Вертикальные",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 3,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 3,
+      "numLayers": 1,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "logoshoty_vertikalnyy_bez_sablayna_s_plashkoy",
+      "keyFrames": 13
+    },
+    {
+      "id": 3653,
+      "name": "Логошоты вертикальный_Умное облако",
+      "folder": "Логошоты/Вертикальные",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 3.64,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 3.64,
+      "numLayers": 6,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "logoshoty_vertikalnyy_umnoe_oblako",
+      "keyFrames": 24
+    },
+    {
+      "id": 3564,
+      "name": "Логошоты вертикальный_Умное облако_запасной вариант",
+      "folder": "Логошоты/Вертикальные",
+      "width": 1080,
+      "height": 1920,
+      "pixelAspect": 1,
+      "fps": 25,
+      "frameDuration": 0.04,
+      "duration": 3.64,
+      "displayStartTime": 0,
+      "workAreaStart": 0,
+      "workAreaDuration": 3.64,
+      "numLayers": 6,
+      "renderer": "ADBE Advanced 3d",
+      "resolutionFactor": [
+        1,
+        1
+      ],
+      "usedIn": [],
+      "markers": [],
+      "compSlug": "logoshoty_vertikalnyy_umnoe_oblako_zapasnoy_variant",
+      "keyFrames": 24
+    }
+  ],
+  "slugMap": [
+    {
+      "id": 2746,
+      "name": "Логошот без саблайна",
+      "compSlug": "logoshot_bez_sablayna",
+      "root": false,
+      "usedIn": [
+        2786
+      ]
+    },
+    {
+      "id": 2786,
+      "name": "Логошоты вертикальный_без саблайна",
+      "compSlug": "logoshoty_vertikalnyy_bez_sablayna",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 3379,
+      "name": "Логошот_Умное облако",
+      "compSlug": "logoshot_umnoe_oblako",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 3399,
+      "name": "Логошот_Есть где развернуться",
+      "compSlug": "logoshot_est_gde_razvernutsya",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 3424,
+      "name": "Умное облако",
+      "compSlug": "umnoe_oblako",
+      "root": false,
+      "usedIn": [
+        3379
+      ]
+    },
+    {
+      "id": 3495,
+      "name": "Есть где развернуться",
+      "compSlug": "est_gde_razvernutsya",
+      "root": false,
+      "usedIn": [
+        3399
+      ]
+    },
+    {
+      "id": 3564,
+      "name": "Логошоты вертикальный_Умное облако_запасной вариант",
+      "compSlug": "logoshoty_vertikalnyy_umnoe_oblako_zapasnoy_variant",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 3578,
+      "name": "Логошот без саблайна с плашкой",
+      "compSlug": "logoshot_bez_sablayna_s_plashkoy",
+      "root": false,
+      "usedIn": [
+        3597
+      ]
+    },
+    {
+      "id": 3597,
+      "name": "Логошоты вертикальный_без саблайна с плашкой",
+      "compSlug": "logoshoty_vertikalnyy_bez_sablayna_s_plashkoy",
+      "root": true,
+      "usedIn": []
+    },
+    {
+      "id": 3653,
+      "name": "Логошоты вертикальный_Умное облако",
+      "compSlug": "logoshoty_vertikalnyy_umnoe_oblako",
+      "root": true,
+      "usedIn": []
+    }
+  ]
+}
