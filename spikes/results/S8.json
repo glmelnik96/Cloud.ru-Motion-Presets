@@ -1,0 +1,730 @@
+{
+  "id": "S8",
+  "title": "Производительность MOGRT",
+  "host": "ae+pr",
+  "hostVersion": "AE 26.5x89; Pr 26.5.2",
+  "date": "2026-10-02",
+  "verdict": "measured",
+  "verdictLocked": true,
+  "checks": [
+    {
+      "name": "ae podcast: open project is saved or is an S8 copy",
+      "pass": true,
+      "required": true,
+      "detail": "dirty=false file=untitled",
+      "stage": "ae:podcast"
+    },
+    {
+      "name": "ae podcast: pack copy opened",
+      "pass": true,
+      "required": true,
+      "detail": "file=C:\\CRBK\\work\\s8\\aep\\podcast_s8.aep engine=extendscript in 2692 ms",
+      "stage": "ae:podcast"
+    },
+    {
+      "name": "ae podcast: no missing footage",
+      "pass": true,
+      "required": true,
+      "detail": "0 missing",
+      "stage": "ae:podcast"
+    },
+    {
+      "name": "ae podcast: exactly one comp with the given name",
+      "pass": true,
+      "required": true,
+      "detail": "1 by name, picked item id 1985",
+      "stage": "ae:podcast"
+    },
+    {
+      "name": "ae podcast: comp facts recorded",
+      "pass": true,
+      "required": false,
+      "detail": "3840x2160 25 fps 10 s",
+      "stage": "ae:podcast"
+    },
+    {
+      "name": "ae podcast: renderer is not Advanced 3D (ADBE Calder)",
+      "pass": true,
+      "required": false,
+      "detail": "renderer=ADBE Advanced 3d",
+      "stage": "ae:podcast"
+    },
+    {
+      "name": "ae podcast: template name set in Essential Graphics",
+      "pass": true,
+      "required": true,
+      "detail": "name=perf_podcast properties=1 (added for export: opacity of Подпись_спикера_2)",
+      "stage": "ae:podcast"
+    },
+    {
+      "name": "ae podcast: project copy saved before export",
+      "pass": true,
+      "required": true,
+      "detail": "dirty=false in 24584 ms",
+      "stage": "ae:podcast"
+    },
+    {
+      "name": "ae podcast: exportAsMotionGraphicsTemplate called",
+      "pass": true,
+      "required": true,
+      "detail": "returned true after 49235 ms",
+      "stage": "ae:podcast"
+    },
+    {
+      "name": "ae podcast: perf_podcast.mogrt written and readable",
+      "pass": true,
+      "required": true,
+      "detail": "4 zip entries",
+      "stage": "ae:podcast"
+    },
+    {
+      "name": "ae webinars: open project is saved or is an S8 copy",
+      "pass": true,
+      "required": true,
+      "detail": "closed the previous S8 copy without saving: c:/crbk/work/s8/aep/podcast_s8.aep",
+      "stage": "ae:webinars"
+    },
+    {
+      "name": "ae webinars: pack copy opened",
+      "pass": true,
+      "required": true,
+      "detail": "file=C:\\CRBK\\work\\s8\\aep\\webinars_s8.aep engine=extendscript in 3221 ms",
+      "stage": "ae:webinars"
+    },
+    {
+      "name": "ae webinars: no missing footage",
+      "pass": true,
+      "required": true,
+      "detail": "0 missing",
+      "stage": "ae:webinars"
+    },
+    {
+      "name": "ae webinars: exactly one comp with the given name",
+      "pass": true,
+      "required": true,
+      "detail": "1 by name, picked item id 810",
+      "stage": "ae:webinars"
+    },
+    {
+      "name": "ae webinars: comp facts recorded",
+      "pass": true,
+      "required": false,
+      "detail": "1920x1080 25 fps 30 s",
+      "stage": "ae:webinars"
+    },
+    {
+      "name": "ae webinars: renderer is not Advanced 3D (ADBE Calder)",
+      "pass": true,
+      "required": false,
+      "detail": "renderer=ADBE Advanced 3d",
+      "stage": "ae:webinars"
+    },
+    {
+      "name": "ae webinars: template name set in Essential Graphics",
+      "pass": true,
+      "required": true,
+      "detail": "name=perf_webinars properties=1 (added for export: opacity of Чек-лист от юриста: как выбрать безопасное облако)",
+      "stage": "ae:webinars"
+    },
+    {
+      "name": "ae webinars: project copy saved before export",
+      "pass": true,
+      "required": true,
+      "detail": "dirty=false in 11784 ms",
+      "stage": "ae:webinars"
+    },
+    {
+      "name": "ae webinars: exportAsMotionGraphicsTemplate called",
+      "pass": true,
+      "required": true,
+      "detail": "returned true after 90987 ms",
+      "stage": "ae:webinars"
+    },
+    {
+      "name": "ae webinars: perf_webinars.mogrt written and readable",
+      "pass": true,
+      "required": true,
+      "detail": "4 zip entries",
+      "stage": "ae:webinars"
+    },
+    {
+      "name": "ae smm: open project is saved or is an S8 copy",
+      "pass": true,
+      "required": true,
+      "detail": "closed the previous S8 copy without saving: c:/crbk/work/s8/aep/webinars_s8.aep",
+      "stage": "ae:smm"
+    },
+    {
+      "name": "ae smm: pack copy opened",
+      "pass": true,
+      "required": true,
+      "detail": "file=C:\\CRBK\\work\\s8\\aep\\smm_s8.aep engine=extendscript in 1560 ms",
+      "stage": "ae:smm"
+    },
+    {
+      "name": "ae smm: no missing footage",
+      "pass": true,
+      "required": true,
+      "detail": "0 missing",
+      "stage": "ae:smm"
+    },
+    {
+      "name": "ae smm: exactly one comp with the given name",
+      "pass": true,
+      "required": true,
+      "detail": "1 by name, picked item id 5090",
+      "stage": "ae:smm"
+    },
+    {
+      "name": "ae smm: comp facts recorded",
+      "pass": true,
+      "required": false,
+      "detail": "1440x1440 25 fps 30 s",
+      "stage": "ae:smm"
+    },
+    {
+      "name": "ae smm: renderer is not Advanced 3D (ADBE Calder)",
+      "pass": false,
+      "required": false,
+      "detail": "renderer=ADBE Calder",
+      "stage": "ae:smm"
+    },
+    {
+      "name": "ae smm: template name set in Essential Graphics",
+      "pass": true,
+      "required": true,
+      "detail": "name=perf_smm properties=1 (added for export: opacity of Dark Gray Solid 5)",
+      "stage": "ae:smm"
+    },
+    {
+      "name": "ae smm: project copy saved before export",
+      "pass": true,
+      "required": true,
+      "detail": "dirty=false in 22468 ms",
+      "stage": "ae:smm"
+    },
+    {
+      "name": "ae smm: exportAsMotionGraphicsTemplate called",
+      "pass": true,
+      "required": true,
+      "detail": "returned true after 36016 ms",
+      "stage": "ae:smm"
+    },
+    {
+      "name": "ae smm: perf_smm.mogrt written and readable",
+      "pass": true,
+      "required": true,
+      "detail": "4 zip entries",
+      "stage": "ae:smm"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: sequence preset exists",
+      "pass": true,
+      "required": true,
+      "detail": "C:/Program Files/Adobe/Adobe Premiere Pro 2026/Settings/SequencePresets/HD 1080p/HD 1080p 25 fps.sqpreset",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: sequence preset exists",
+      "pass": true,
+      "required": true,
+      "detail": "C:/Program Files/Adobe/Adobe Premiere Pro 2026/Settings/SequencePresets/UHD (4K)/UHD (4K) 2160p 25 fps.sqpreset",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: baseline clip exists (task 7)",
+      "pass": true,
+      "required": false,
+      "detail": "C:/CRBK/work/fixtures/media/bars_1080p25_30s.mp4",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: podcast MOGRT from the AE stage exists",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/s8/mogrt/perf_podcast.mogrt",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: webinars MOGRT from the AE stage exists",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/s8/mogrt/perf_webinars.mogrt",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: smm MOGRT from the AE stage exists",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/s8/mogrt/perf_smm.mogrt",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: project CRT_s8_perf.prproj is open and has no S8_ sequences",
+      "pass": true,
+      "required": true,
+      "detail": "open=CRT_s8_perf.prproj, S8_ sequences=0",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: create sequence S8_podcast_FHD",
+      "pass": true,
+      "required": true,
+      "detail": "newSequence ok",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: create sequence S8_podcast_UHD",
+      "pass": true,
+      "required": true,
+      "detail": "newSequence ok",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: create sequence S8_webinars_FHD",
+      "pass": true,
+      "required": true,
+      "detail": "newSequence ok",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: create sequence S8_webinars_UHD",
+      "pass": true,
+      "required": true,
+      "detail": "newSequence ok",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: create sequence S8_smm_FHD",
+      "pass": true,
+      "required": true,
+      "detail": "newSequence ok",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: create sequence S8_smm_UHD",
+      "pass": true,
+      "required": true,
+      "detail": "newSequence ok",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: create sequence S8_base_FHD",
+      "pass": true,
+      "required": true,
+      "detail": "newSequence ok",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: create sequence S8_base_UHD",
+      "pass": true,
+      "required": true,
+      "detail": "newSequence ok",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: import the baseline clip",
+      "pass": true,
+      "required": false,
+      "detail": "importFiles returned true",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: sequence S8_podcast_FHD exists once with the planned size and 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080 25 fps",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: sequence S8_podcast_UHD exists once with the planned size and 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": "3840x2160 25 fps",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: sequence S8_webinars_FHD exists once with the planned size and 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080 25 fps",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: sequence S8_webinars_UHD exists once with the planned size and 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": "3840x2160 25 fps",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: sequence S8_smm_FHD exists once with the planned size and 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080 25 fps",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: sequence S8_smm_UHD exists once with the planned size and 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": "3840x2160 25 fps",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: sequence S8_base_FHD exists once with the planned size and 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080 25 fps",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: sequence S8_base_UHD exists once with the planned size and 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": "3840x2160 25 fps",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: baseline clip is in the project once",
+      "pass": true,
+      "required": false,
+      "detail": "1 items named bars_1080p25_30s.mp4",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: baseline clip on V1 of S8_base_FHD",
+      "pass": true,
+      "required": false,
+      "detail": "V1 clips=1",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: baseline clip on V1 of S8_base_UHD",
+      "pass": true,
+      "required": false,
+      "detail": "V1 clips=1",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_podcast_FHD exists once and V1 is empty",
+      "pass": true,
+      "required": true,
+      "detail": "V1 clips=0",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: importMGT perf_podcast into S8_podcast_FHD",
+      "pass": true,
+      "required": true,
+      "detail": "perf_podcast 0..10 s, MGT component=true",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_podcast_UHD exists once and V1 is empty",
+      "pass": true,
+      "required": true,
+      "detail": "V1 clips=0",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: importMGT perf_podcast into S8_podcast_UHD",
+      "pass": true,
+      "required": true,
+      "detail": "perf_podcast 0..10 s, MGT component=true",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_webinars_FHD exists once and V1 is empty",
+      "pass": true,
+      "required": true,
+      "detail": "V1 clips=0",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: importMGT perf_webinars into S8_webinars_FHD",
+      "pass": true,
+      "required": true,
+      "detail": "perf_webinars 0..30 s, MGT component=true",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_webinars_UHD exists once and V1 is empty",
+      "pass": true,
+      "required": true,
+      "detail": "V1 clips=0",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: importMGT perf_webinars into S8_webinars_UHD",
+      "pass": true,
+      "required": true,
+      "detail": "perf_webinars 0..30 s, MGT component=true",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_smm_FHD exists once and V1 is empty",
+      "pass": true,
+      "required": true,
+      "detail": "V1 clips=0",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: importMGT perf_smm into S8_smm_FHD",
+      "pass": true,
+      "required": true,
+      "detail": "perf_smm 0..30 s, MGT component=true",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_smm_UHD exists once and V1 is empty",
+      "pass": true,
+      "required": true,
+      "detail": "V1 clips=0",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: importMGT perf_smm into S8_smm_UHD",
+      "pass": true,
+      "required": true,
+      "detail": "perf_smm 0..30 s, MGT component=true",
+      "stage": "pr:insert@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: export preset exists",
+      "pass": true,
+      "required": true,
+      "detail": "C:/Program Files/Adobe/Adobe Premiere Pro 2026/MediaIO/systempresets/3F3F3F3F_4D6F6F56/Apple ProRes 422 LT.epr",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_podcast_FHD is the active sequence",
+      "pass": true,
+      "required": true,
+      "detail": "active=S8_podcast_FHD",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: In/Out of S8_podcast_FHD set to 0..10 s",
+      "pass": true,
+      "required": true,
+      "detail": "0..10 s",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: exportAsMediaDirect S8_podcast_FHD",
+      "pass": true,
+      "required": true,
+      "detail": "returned No Error, bytes=70089940",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_podcast_FHD export is 1920x1080 with 250 frames (+-1)",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080, 250 frames",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_podcast_UHD is the active sequence",
+      "pass": true,
+      "required": true,
+      "detail": "active=S8_podcast_UHD",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: In/Out of S8_podcast_UHD set to 0..10 s",
+      "pass": true,
+      "required": true,
+      "detail": "0..10 s",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: exportAsMediaDirect S8_podcast_UHD",
+      "pass": true,
+      "required": true,
+      "detail": "returned No Error, bytes=206560260",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_podcast_UHD export is 3840x2160 with 250 frames (+-1)",
+      "pass": true,
+      "required": true,
+      "detail": "3840x2160, 250 frames",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_webinars_FHD is the active sequence",
+      "pass": true,
+      "required": true,
+      "detail": "active=S8_webinars_FHD",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: In/Out of S8_webinars_FHD set to 0..10 s",
+      "pass": true,
+      "required": true,
+      "detail": "0..10 s",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: exportAsMediaDirect S8_webinars_FHD",
+      "pass": true,
+      "required": true,
+      "detail": "returned No Error, bytes=85923796",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_webinars_FHD export is 1920x1080 with 250 frames (+-1)",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080, 250 frames",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_webinars_UHD is the active sequence",
+      "pass": true,
+      "required": true,
+      "detail": "active=S8_webinars_UHD",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: In/Out of S8_webinars_UHD set to 0..10 s",
+      "pass": true,
+      "required": true,
+      "detail": "0..10 s",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: exportAsMediaDirect S8_webinars_UHD",
+      "pass": true,
+      "required": true,
+      "detail": "returned No Error, bytes=103946372",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_webinars_UHD export is 3840x2160 with 250 frames (+-1)",
+      "pass": true,
+      "required": true,
+      "detail": "3840x2160, 250 frames",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_smm_FHD is the active sequence",
+      "pass": true,
+      "required": true,
+      "detail": "active=S8_smm_FHD",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: In/Out of S8_smm_FHD set to 0..10 s",
+      "pass": true,
+      "required": true,
+      "detail": "0..10 s",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: exportAsMediaDirect S8_smm_FHD",
+      "pass": true,
+      "required": true,
+      "detail": "returned No Error, bytes=30775716",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_smm_FHD export is 1920x1080 with 250 frames (+-1)",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080, 250 frames",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_smm_UHD is the active sequence",
+      "pass": true,
+      "required": true,
+      "detail": "active=S8_smm_UHD",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: In/Out of S8_smm_UHD set to 0..10 s",
+      "pass": true,
+      "required": true,
+      "detail": "0..10 s",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: exportAsMediaDirect S8_smm_UHD",
+      "pass": true,
+      "required": true,
+      "detail": "returned No Error, bytes=54094868",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_smm_UHD export is 3840x2160 with 250 frames (+-1)",
+      "pass": true,
+      "required": true,
+      "detail": "3840x2160, 250 frames",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_base_FHD is the active sequence",
+      "pass": true,
+      "required": false,
+      "detail": "active=S8_base_FHD",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: In/Out of S8_base_FHD set to 0..10 s",
+      "pass": true,
+      "required": false,
+      "detail": "0..10 s",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: exportAsMediaDirect S8_base_FHD",
+      "pass": true,
+      "required": false,
+      "detail": "returned No Error, bytes=66070996",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_base_FHD export is 1920x1080 with 250 frames (+-1)",
+      "pass": true,
+      "required": false,
+      "detail": "1920x1080, 250 frames",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_base_UHD is the active sequence",
+      "pass": true,
+      "required": false,
+      "detail": "active=S8_base_UHD",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: In/Out of S8_base_UHD set to 0..10 s",
+      "pass": true,
+      "required": false,
+      "detail": "0..10 s",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: exportAsMediaDirect S8_base_UHD",
+      "pass": true,
+      "required": false,
+      "detail": "returned No Error, bytes=86911284",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    },
+    {
+      "name": "pr@DESKTOP-RH19AI5: S8_base_UHD export is 3840x2160 with 250 frames (+-1)",
+      "pass": true,
+      "required": false,
+      "detail": "3840x2160, 250 frames",
+      "stage": "pr:export@DESKTOP-RH19AI5"
+    }
+  ],
+  "fallback": "Элементы без полей сверх бюджета уходят в T2-предрендеры. Элементы с полями вставляются MOGRT, и панель подсказывает «Клип → Render and Replace» (ProRes 4444 с альфой); автоматического рендера заполненного экземпляра в v1 нет",
+  "notes": "Фаза 0: замер без вердикта по бюджету. Существующие композиции экспортированы в MOGRT как есть; числа Premiere хранятся по машинам (имя машины в названиях проверок). Бюджет производительности фиксируется только после повтора на мастерах первого пакета (§3.1 S8) на самой слабой машине команды по инвентаризации (часть F). Цифры: spikes/results/S8.data.json.",
+  "evidence": [
+    "spikes/results/S8.data.json"
+  ]
+}

@@ -1,0 +1,304 @@
+{
+  "ae": {
+    "machine": {
+      "hostname": "DESKTOP-RH19AI5",
+      "platform": "win32",
+      "release": "10.0.26200",
+      "cpu": "AMD Ryzen 7 9700X 8-Core Processor",
+      "threads": 16,
+      "ramGb": 100,
+      "gpus": [
+        "NVIDIA GeForce RTX 5060 Ti (driver 32.0.15.9649)",
+        "AMD Radeon(TM) Graphics (driver 32.0.13066.12)"
+      ]
+    },
+    "version": "26.5x89",
+    "packs": {
+      "podcast": {
+        "comp": "Подпись_спикера_1",
+        "copy": "C:/CRBK/work/s8/aep/podcast_s8.aep",
+        "probeMs": 76617,
+        "timings": {
+          "openMs": 2692,
+          "saveMs": 24584,
+          "exportCallMs": 49235
+        },
+        "facts": {
+          "name": "Подпись_спикера_1",
+          "width": 3840,
+          "height": 2160,
+          "fps": 25,
+          "duration": 10,
+          "renderer": "ADBE Advanced 3d",
+          "compMotionBlur": true,
+          "layers": 12,
+          "motionBlurLayers": 8,
+          "threeDLayers": 5,
+          "adjustmentLayers": 1,
+          "precompLayers": 4,
+          "effects": [
+            "ADBE Fill",
+            "ADBE Box Blur2"
+          ]
+        },
+        "exportReturned": true,
+        "mogrt": "C:/CRBK/work/s8/mogrt/perf_podcast.mogrt",
+        "mogrtBytes": 11590654,
+        "readyAfterReturnMs": 0
+      },
+      "webinars": {
+        "comp": "Заставка с вижуалом",
+        "copy": "C:/CRBK/work/s8/aep/webinars_s8.aep",
+        "probeMs": 106611,
+        "timings": {
+          "openMs": 3221,
+          "saveMs": 11784,
+          "exportCallMs": 90987
+        },
+        "facts": {
+          "name": "Заставка с вижуалом",
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "duration": 30,
+          "renderer": "ADBE Advanced 3d",
+          "compMotionBlur": false,
+          "layers": 9,
+          "motionBlurLayers": 0,
+          "threeDLayers": 0,
+          "adjustmentLayers": 0,
+          "precompLayers": 3,
+          "effects": []
+        },
+        "exportReturned": true,
+        "mogrt": "C:/CRBK/work/s8/mogrt/perf_webinars.mogrt",
+        "mogrtBytes": 48475153,
+        "readyAfterReturnMs": 0
+      },
+      "smm": {
+        "comp": "BG_pattern_1x1_2",
+        "copy": "C:/CRBK/work/s8/aep/smm_s8.aep",
+        "probeMs": 60489,
+        "timings": {
+          "openMs": 1560,
+          "saveMs": 22468,
+          "exportCallMs": 36016
+        },
+        "facts": {
+          "name": "BG_pattern_1x1_2",
+          "width": 1440,
+          "height": 1440,
+          "fps": 25,
+          "duration": 30,
+          "renderer": "ADBE Calder",
+          "compMotionBlur": true,
+          "layers": 2,
+          "motionBlurLayers": 0,
+          "threeDLayers": 0,
+          "adjustmentLayers": 0,
+          "precompLayers": 1,
+          "effects": [
+            "ADBE Fractal Noise",
+            "CC RepeTile"
+          ]
+        },
+        "exportReturned": true,
+        "mogrt": "C:/CRBK/work/s8/mogrt/perf_smm.mogrt",
+        "mogrtBytes": 1491315,
+        "readyAfterReturnMs": 0
+      }
+    }
+  },
+  "machines": {
+    "DESKTOP-RH19AI5": {
+      "machine": {
+        "hostname": "DESKTOP-RH19AI5",
+        "platform": "win32",
+        "release": "10.0.26200",
+        "cpu": "AMD Ryzen 7 9700X 8-Core Processor",
+        "threads": 16,
+        "ramGb": 100,
+        "gpus": [
+          "NVIDIA GeForce RTX 5060 Ti (driver 32.0.15.9649)",
+          "AMD Radeon(TM) Graphics (driver 32.0.13066.12)"
+        ]
+      },
+      "pr": {
+        "version": "26.5.2",
+        "project": "CRT_s8_perf.prproj",
+        "presets": {
+          "FHD": "C:/Program Files/Adobe/Adobe Premiere Pro 2026/Settings/SequencePresets/HD 1080p/HD 1080p 25 fps.sqpreset",
+          "UHD": "C:/Program Files/Adobe/Adobe Premiere Pro 2026/Settings/SequencePresets/UHD (4K)/UHD (4K) 2160p 25 fps.sqpreset"
+        },
+        "inserts": {
+          "S8_podcast_FHD": {
+            "order": 1,
+            "wallMs": 580,
+            "hostMs": 377,
+            "retried": false,
+            "retryMs": null,
+            "firstAttempt": null,
+            "clip": {
+              "name": "perf_podcast",
+              "start": 0,
+              "end": 10,
+              "mgt": true
+            }
+          },
+          "S8_podcast_UHD": {
+            "order": 2,
+            "wallMs": 806,
+            "hostMs": 328,
+            "retried": false,
+            "retryMs": null,
+            "firstAttempt": null,
+            "clip": {
+              "name": "perf_podcast",
+              "start": 0,
+              "end": 10,
+              "mgt": true
+            }
+          },
+          "S8_webinars_FHD": {
+            "order": 3,
+            "wallMs": 18858,
+            "hostMs": 18341,
+            "retried": false,
+            "retryMs": null,
+            "firstAttempt": null,
+            "clip": {
+              "name": "perf_webinars",
+              "start": 0,
+              "end": 30,
+              "mgt": true
+            }
+          },
+          "S8_webinars_UHD": {
+            "order": 4,
+            "wallMs": 431,
+            "hostMs": 112,
+            "retried": false,
+            "retryMs": null,
+            "firstAttempt": null,
+            "clip": {
+              "name": "perf_webinars",
+              "start": 0,
+              "end": 30,
+              "mgt": true
+            }
+          },
+          "S8_smm_FHD": {
+            "order": 5,
+            "wallMs": 12896,
+            "hostMs": 12506,
+            "retried": false,
+            "retryMs": null,
+            "firstAttempt": null,
+            "clip": {
+              "name": "perf_smm",
+              "start": 0,
+              "end": 30,
+              "mgt": true
+            }
+          },
+          "S8_smm_UHD": {
+            "order": 6,
+            "wallMs": 267,
+            "hostMs": 71,
+            "retried": false,
+            "retryMs": null,
+            "firstAttempt": null,
+            "clip": {
+              "name": "perf_smm",
+              "start": 0,
+              "end": 30,
+              "mgt": true
+            }
+          }
+        },
+        "exports": {
+          "S8_podcast_FHD": {
+            "wallMs": 26031,
+            "hostMs": 25787,
+            "returned": "No Error",
+            "realtime": 0.38,
+            "w": 1920,
+            "h": 1080,
+            "frames": 250,
+            "bytes": 70089940
+          },
+          "S8_podcast_UHD": {
+            "wallMs": 35905,
+            "hostMs": 35277,
+            "returned": "No Error",
+            "realtime": 0.28,
+            "w": 3840,
+            "h": 2160,
+            "frames": 250,
+            "bytes": 206560260
+          },
+          "S8_webinars_FHD": {
+            "wallMs": 9026,
+            "hostMs": 8781,
+            "returned": "No Error",
+            "realtime": 1.11,
+            "w": 1920,
+            "h": 1080,
+            "frames": 250,
+            "bytes": 85923796
+          },
+          "S8_webinars_UHD": {
+            "wallMs": 9889,
+            "hostMs": 9622,
+            "returned": "No Error",
+            "realtime": 1.01,
+            "w": 3840,
+            "h": 2160,
+            "frames": 250,
+            "bytes": 103946372
+          },
+          "S8_smm_FHD": {
+            "wallMs": 7207,
+            "hostMs": 6908,
+            "returned": "No Error",
+            "realtime": 1.39,
+            "w": 1920,
+            "h": 1080,
+            "frames": 250,
+            "bytes": 30775716
+          },
+          "S8_smm_UHD": {
+            "wallMs": 3368,
+            "hostMs": 3195,
+            "returned": "No Error",
+            "realtime": 2.97,
+            "w": 3840,
+            "h": 2160,
+            "frames": 250,
+            "bytes": 54094868
+          },
+          "S8_base_FHD": {
+            "wallMs": 6292,
+            "hostMs": 6138,
+            "returned": "No Error",
+            "realtime": 1.59,
+            "w": 1920,
+            "h": 1080,
+            "frames": 250,
+            "bytes": 66070996
+          },
+          "S8_base_UHD": {
+            "wallMs": 1760,
+            "hostMs": 1603,
+            "returned": "No Error",
+            "realtime": 5.68,
+            "w": 3840,
+            "h": 2160,
+            "frames": 250,
+            "bytes": 86911284
+          }
+        }
+      }
+    }
+  }
+}
