@@ -45,6 +45,27 @@ check('project: new, expression engine javascript-1.0', function () {
   return { pass: app.project.expressionEngine === 'javascript-1.0', detail: 'AE ' + app.version };
 }, true);
 
+// A new project takes the colour settings AE used last (a linearized sRGB project of S3 was inherited on
+// 2026-10-03), and a MOGRT carries them into Premiere: there the linear output came out as v^(1/2.4)
+// (#222222 -> #6E6E6E). Templates are display-referred: no working space, no linearization, 8 bpc.
+lsStep('project colour: 8 bpc, no working space, no linearization, no linear blending', true, function () {
+  var p = app.project;
+  var before = { bpc: p.bitsPerChannel, space: String(p.workingSpace), linearize: p.linearizeWorkingSpace, linearBlending: p.linearBlending };
+  // Setting 'None' works but raises the warning 'Profile "None" is missing...' (83 :: 0) as a modal, so it is
+  // set only when needed and with dialogs suppressed (AE 26.5, 2026-10-03).
+  bkQuiet(function () {
+    p.linearizeWorkingSpace = false;
+    p.linearBlending = false;
+    if (String(p.workingSpace) !== 'None') {
+      p.workingSpace = 'None';
+    }
+    p.bitsPerChannel = 8;
+  });
+  var after = { bpc: p.bitsPerChannel, space: String(p.workingSpace), linearize: p.linearizeWorkingSpace, linearBlending: p.linearBlending };
+  return { pass: after.bpc === 8 && after.space === 'None' && after.linearize === false && after.linearBlending === false,
+    detail: { before: before, after: after } };
+});
+
 check('font ' + PARAMS.font + ' resolves to a real file', function () {
   var list = app.fonts.getFontsByPostScriptName(PARAMS.font);
   var loc = list.length ? String(list[0].location) : '';

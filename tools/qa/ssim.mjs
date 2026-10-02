@@ -169,7 +169,8 @@ export function contentBox(srcA, srcB, { minAlpha = 8, pad = 16, bgTol = 6 } = {
 
 // SSIM of two RGBA frames over each backdrop (the minimum counts: a transparent golden hides colour
 // differences over one of them) plus SSIM of the alpha channels.
-export function compareFrames(srcA, srcB, { rect, backdrops = [[0, 0, 0], [255, 255, 255]] } = {}) {
+// alpha: false for frames without a meaningful alpha (Premiere exports the sequence over black).
+export function compareFrames(srcA, srcB, { rect, backdrops = [[0, 0, 0], [255, 255, 255]], alpha: withAlpha = true } = {}) {
   const a = load(srcA);
   const b = load(srcB);
   if (a.width !== b.width || a.height !== b.height) {
@@ -180,7 +181,7 @@ export function compareFrames(srcA, srcB, { rect, backdrops = [[0, 0, 0], [255, 
     const r = ssimPlanes(lumaOver(a, { rect: box, backdrop: bd }), lumaOver(b, { rect: box, backdrop: bd }));
     return { backdrop: bd, ssim: r.ssim, worst: r.worst.map((t) => ({ ...t, x: t.x + box.x, y: t.y + box.y })) };
   });
-  const alpha = ssimPlanes(alphaPlane(a, box), alphaPlane(b, box)).ssim;
+  const alpha = withAlpha ? ssimPlanes(alphaPlane(a, box), alphaPlane(b, box)).ssim : 1;
   const minOver = over.reduce((m, o) => (o.ssim < m.ssim ? o : m), over[0]);
   return { rect: box, ssim: Math.min(minOver.ssim, alpha), luma: minOver.ssim, alpha, over };
 }
