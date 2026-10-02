@@ -1,0 +1,31 @@
+# Зависимости и сборки
+node_modules/
+dist/
+build/
+out/
+*.zxp
+*.ccx
+
+# Артефакты библиотеки и рендеры (собираются конвейером, в git не храним)
+library-build/
+*.mogrt
+*.mov
+*.mp4
+*.wav
+*.mp3
+
+# Кэши AE и Premiere
+*.cfa
+*.pek
+Adobe After Effects Auto-Save/
+
+# Логи и временное
+*.log
+.superpowers/
+.env
+
+# Мусор ОС
+.DS_Store
+._*
+__MACOSX/
+Thumbs.db

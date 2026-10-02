@@ -1,0 +1,499 @@
+{
+ "project": "1_Логошоты + 5_Титры (Логошот.aep, Логошот (converted).aep, Titles (3).aep, Titles (3) (converted).aep)",
+ "summary": "1_Логошоты has 10 comps, the same in both .aep files. They cover: (a) two 16:9 UHD lockups of the cloud.ru logo plus a subline, built from 815×80 and 765×80 precomps (white plates that grow from a thin line, a 3D flip of the green cube, a subline plate that extends to the right, and a collapse at 3.32–4.32 s); (b) a 9:16 stack on dark plates, plus a left-aligned backup copy; (c) the 'без саблайна' logo sting (cube pops and slides, the wordmark wipes out from behind it), with and without a #222222 backing plate, at 1920×1080, nested at 135 % for 9:16. 5_Titles is a two-row speaker lower third on a 1500×500 canvas. A null named 'Размер плашек' scales the whole graphic to 250 %, so it is sized for UHD. It uses #222222 plates with a white leading edge one frame ahead of the plate (inverted-alpha matte), and SB Sans Text 40/30 px that rises by words or lines under alpha mattes. Everything is pure vector at 25 fps: no footage to relink, no long overlays, Classic 3D only, 0 expressions and no Essential Graphics. So every variable (plate and slogan widths, speaker text, outro geometry) is baked into keyframes, path vertices, duplicated layers and per-speaker or per-slogan comp copies. Also, the comps named 'Умное облако' actually display the live text 'облачные и ИИ-сервисы'. Plan: rebuild four master templates (CR_LowerThird, CR_LogoShot_Slogan 16:9, CR_LogoShot_Slogan 9:16, CR_LogoShot_Mark) on full-frame canvases, with sourceRectAtTime auto-sizing, slider-driven reveals, Responsive Design–Time and EGP. Ship them as mogrt for Pr and as Essential-Properties ae-templates for Ae, with prerenders and stills for the fixed logo variants and ffx / pr-presets for the recurring motion patterns. The decoded evidence (layer timing, switches, parent and matte IDs, keyframes, masks, text documents) is in C:/dev/temp/claude/C--Users------Documents-Cloud-ru-Preset-plugin/b48e0614-1141-4125-9b74-d00eb767441b/scratchpad/work/logo_titles/ (logo_pretty.txt, logo_conv_pretty.txt, titles_pretty.txt, titles_conv_pretty.txt), produced by deep.py, pretty.py and textdocs.py in the same folder.",
+ "canonical_file": "LOGO SHOTS: use 'C:/Users/Глеб/Documents/Граф пакет Cloud.ru/1_Логошоты/Логошот (converted).aep' as the source of truth. It is 1,389,821 B, dated 2026-09-30, saved on Windows (its text font sets list TimesNewRomanPSMT as fallback), and it opens natively in the PC's AE 2026. Decoded diff against 'Логошот.aep' (1,326,989 B, 2026-09-28, saved on a Mac with Helvetica fallback): the 10 comps, 35 layers, keys and paths are identical. The only change is a new footage item 'Dark Gray Solid 1' (#222222) and layer [3703] (0–12.2 s) placed under the precomp in 'Логошот_Есть где развернуться'. That fixes the original, which renders over the comp background #000000. Both files contain the same 2 render-queue items (H.264 15 Mbps to /Users/gmmelnikov/Desktop/Логошот_1.mp4 and _2.mp4). Both are newer than the Collect report (01.12.2025, project 'Логошот_1.aep'), which still lists 'Логошот нестандартный_оба сообщения' (missing from both files) and does not list '_запасной вариант'. Treat the new BG layer as preview-only: it becomes a Background control. TITLES: 'Titles (3) (converted).aep' (560,380 B, 2026-09-28 23:55, Windows) is newer and closer to a template. Each speaker is one intro precomp ('Pre-comp 1' = Никита Грехов, 'Pre-comp 2' = Роман Путилов, 7 layers, 4.4 s), and the roots 'Подпись_спикеров' and 'Подпись_спикеров 2' play the same precomp at stretch −100 % as the outro. The title masks are removed. However, it lost the original speaker and the designed exit. 'Titles (3).aep' (315,078 B, 13:21, Mac) has one 13-layer root: Александр Стародубцев, with an exit where the plates collapse toward the right edge, built from duplicated layers. Recommendation: use the converted file as the structural source and the original as the reference for the outro, pending the user's choice. Rebuild a single master in either case. Archive all four files read-only, and drop the '(converted)' names after migration.",
+ "templates": [
+  {
+   "comp": "1_Логошоты › Логошот (converted).aep › Логошоты/Горизонтальные/Логошот_Умное облако (ROOT) → Folder/Precomps/Умное облако",
+   "purpose": "16:9 logo shot: cloud.ru logo plate plus a subline plate. The visible subline is live text 'облачные и ИИ-сервисы'; the outline layer 'умное облако' is switched off.",
+   "target_delivery": [
+    "Pr: mogrt (CR_LogoShot_Slogan_16x9)",
+    "Pr: prerender",
+    "Ae: ae-template",
+    "Ae: prerender",
+    "Pr+Ae: still (lockup SVG/PNG)"
+   ],
+   "format": "3840x2160 @25fps, 12.2 s (work area 0–5.02 s; animation ends at 4.32 s); nested 815x80 precomp (30 s) at 200 %, so the lockup is 1630x160 px",
+   "build_notes": "The root is one precomp layer at 200 % (collapse on, motion blur on) over 'White Solid 4' (#F2F2F2). Inside the precomp: 'Back_1' is a white rect whose path keys go from a 0-width line to 279x80 (0–1.00 s), then collapse to the right edge (3.32–4.32 s). Its X goes 407.5→139.5 (1.00–2.12 s) and then to 268 at 4.32 s. 'Back_2' is a child of Back_1; its path grows from x=−337 to 535 px wide (1.00–2.12 s) and collapses to the left (3.32–4.32 s). 'LOGO' is the #26D07C cube, Classic 3D, child of Back_1, ALPHA matte = Back_1, Rotate X −90→−3.6→0 at 0.33/1.00/1.60 s; its layer starts at 0.333 s. 'Cloud.ru' is the wordmark outlines (#222222), 3D, child of LOGO, ALPHA matte = Back_1. 'облачные и ИИ-сервисы' is point text in SB Sans Display Semibold, 100 px at 40 % scale, #222222, child of Back_1, ALPHA matte = Back_2. 'умное облако' (37 outline paths) is hidden. The precomp width 815 = 279 + 535 + 1, so the canvas is sized to one slogan. All widths and offsets live in path vertices and X keys.",
+   "current_editability": "hardcoded: 0 expressions, no expression controls, EGP capsule 'Untitled'. Only the descriptor text can be retyped, and the 535 px plate, the slide target and the comp width do not follow it.",
+   "editable_parts": [
+    "Subline (today: live text or the hidden 'умное облако' outline, switched by eyeball; the plate does not resize)",
+    "Theme / plate colours (today: hard fills, #FFFFFF plates and #222222 wordmark/text)",
+    "Background (today: baked 'White Solid 4' #F2F2F2 under white plates)",
+    "Hold duration (today: fixed; work area 5.02 s)",
+    "Lockup scale/position (today: precomp layer at 200 %, centred)"
+   ],
+   "issues": [
+    "Comp name says 'Умное облако' but it shows 'облачные и ИИ-сервисы'",
+    "Plate width and slide target are baked per slogan",
+    "Text size is faked (100 px at 40 % scale)",
+    "Root is 12.2 s, precomp 30 s, animation 4.32 s",
+    "Background is not optional and has low contrast",
+    "LOGO keys sit off-frame (start 0.333 s)",
+    "Essential properties would have to go through a nested 815x80 precomp",
+    "Render queue renders H.264 without alpha to a Mac desktop path"
+   ],
+   "parametrization_plan": "Flatten into one full-frame comp, CR_LogoShot_Slogan_16x9 (FHD master; UHD made by the build script at 2x). A CTRL null at frame centre holds Scale, Position offset and the sliders. PL_Logo rect width = 279·k × Open% (0→100 over 0–1.00 s, strong ease-in on landing). PL_Slogan starts at PL_Logo's right edge; its width = (SLOGAN.sourceRectAtTime(time,false).width + 2·pad) × Extend% (1.00–2.12 s). sourceRectAtTime works on the live text and on outline shape layers alike. Lockup centring: PL_Logo.x = lerp(cx, cx − (Wlogo+Wslogan)/2 + Wlogo/2, Slide%). The cube flip, wordmark and slogan stay ALPHA-matted by the plates as today. EGP: Subline dropdown (облачные и ИИ-сервисы | умное облако | есть где развернуться | Custom), Custom text (SB Sans Display Semibold, 40 px at FHD, 100 % scale), Theme (Light plates #FFFFFF with #222222 wordmark/text, as today | Dark plates #222222 with #FFFFFF), Background (None | #222222 | #F2F2F2), Scale, Position. Brand locks from the comp markers ('Размещаем на плашке всегда! Слоганы всегда справа'): the plate is always on and the subline is always on the right. Responsive Design–Time: intro 0–2.40 s and outro (last 1.00 s) protected, default duration 5.0 s, matching today's 5.02 s work area. No media slots. Prerender each standard subline × theme in FHD and UHD as ProRes 4444 alpha for fast, font-free insertion.",
+   "effort": "L: two chained auto-width plates with centring maths, the 3D flip, a subline dropdown with outline and live variants, theme and background, Responsive Time, FHD/UHD builds, and merging the 'Есть где развернуться' and Podcast copies"
+  },
+  {
+   "comp": "1_Логошоты › Логошот (converted).aep › Логошоты/Горизонтальные/Логошот_Есть где развернуться (ROOT) → Folder/Precomps/Есть где развернуться",
+   "purpose": "16:9 logo shot with the slogan 'есть где развернуться' as outlines. Same design as Логошот_Умное облако; a copy of the precomp drives Podcast_Pack RENDER/OUTRO.",
+   "target_delivery": [
+    "Pr: mogrt (Subline option of CR_LogoShot_Slogan_16x9)",
+    "Pr: prerender",
+    "Ae: ae-template",
+    "Ae: prerender",
+    "Pr+Ae: still (slogan SVG)"
+   ],
+   "format": "3840x2160 @25fps, 12.2 s (work area 0–5.02 s); nested 765x80 precomp (30 s) at 200 %",
+   "build_notes": "Same rig as 'Умное облако', with Back_4 and Back_3. X goes 382.5→139.5 over 1.00–2.40 s (slower than 2.12 s); the slogan plate is 485 px; collapse is at 3.32–4.32 s with X→242.75. The slogan is the shape layer 'умное облако 2' (31 outline paths, #222222, child of Back_4, ALPHA matte = Back_3). The visible layer is misnamed. 'Cloud.ru 2' and 'LOGO 2' are 3D, with the same flip. The converted file adds 'Dark Gray Solid 1' (#222222) as BG; the original renders over comp bg #000000. Podcast_Pack.aep has an identical 'Precomp/Есть где развернуться', used twice in RENDER/OUTRO (one with a time-remap freeze). The OUTRO contact sheet shows the motion: a thin line at 0.0 s, the logo plate at 1.3 s, the slogan plate at 2.5 s, then held to 8.8 s.",
+   "current_editability": "hardcoded: the slogan is outlines and cannot be edited; widths and timing are baked; no EGP.",
+   "editable_parts": [
+    "Slogan (today: outlines in 'умное облако 2'; not editable)",
+    "Background (today: none in the original, #222222 solid in the converted file)",
+    "Hold duration (today: fixed; the Podcast copy freezes it with time remap)"
+   ],
+   "issues": [
+    "Visible slogan layer is named 'умное облако 2'",
+    "Timing differs from the 'Умное облако' twin for no stated reason (2.40 s vs 2.12 s)",
+    "The original renders on #000000, which is off-brand",
+    "Duplicated in Podcast_Pack.aep"
+   ],
+   "parametrization_plan": "Not a separate template. It becomes the Subline option 'есть где развернуться' of CR_LogoShot_Slogan_16x9. The outline shape layer drives the plate width through sourceRectAtTime, so it needs no font. Unify the slide timing with the other subline (or keep 2.40 s if the user prefers). Responsive Time replaces the Podcast time-remap hold, and the Podcast precomp is replaced by the library template.",
+   "effort": "S: incremental once CR_LogoShot_Slogan_16x9 exists (one dropdown entry plus prerenders); retiring the Podcast copy is a separate cross-pack task"
+  },
+  {
+   "comp": "1_Логошоты › Логошот (converted).aep › Логошоты/Вертикальные/Логошоты вертикальный_Умное облако (ROOT) + Логошоты вертикальный_Умное облако_запасной вариант (ROOT)",
+   "purpose": "9:16 logo end card: logo on a top dark plate, two-line subline 'облачные / и ИИ-сервисы' on a bottom plate. The backup copy differs only by alignment.",
+   "target_delivery": [
+    "Pr: mogrt (CR_LogoShot_Slogan_9x16)",
+    "Pr: prerender",
+    "Ae: ae-template",
+    "Ae: prerender"
+   ],
+   "format": "1080x1920 @25fps, 3.64 s (both comps)",
+   "build_notes": "Self-contained; it does not reuse the 16:9 precomp. 'Shape Layer 1' and 'Shape Layer 2' are #222222 rects of 562.6x163.7 (a stroke width of 47 is stored; check whether it is visible), anchored at the top edge, with separated X/Y. Top plate: Scale X 0→100 % over 0–1.00 s (first-key out-influence 75.8 %). LOGO: cube at 200 %, Y 1108→960 (0–1.00 s), ALPHA matte = Shape Layer 1; the white wordmark 'Cloud.ru' is its child. 1.40–2.72 s: everything rises 81 px (in-influence 78.2 %) while the bottom plate grows Scale Y 0→96 %. Exit, 3.20–3.60 s: the top plate goes Scale Y→0 while moving +162 px, the bottom plate goes Scale Y→0; they collapse into the seam. The text 'облачные / и ИИ-сервисы' (SB Sans Display Semibold 30.7 px at 130 %, white, tracking 8, centred) is parented to the hidden and shy outline layer 'умное облако', which carries the rise; ALPHA matte = Shape Layer 2. '_запасной вариант' is the same with left-aligned text and the hidden outline shifted 56.6 px.",
+   "current_editability": "hardcoded: the two-line text is editable, but the plates are fixed at 562.6x163.7 and centred by hand; no EGP.",
+   "editable_parts": [
+    "Subline text, two lines (today: live text; plates do not follow)",
+    "Alignment centre/left (today: two separate comps)",
+    "Theme (today: dark plates and white text/wordmark baked)",
+    "Hold duration (today: fixed 3.64 s)"
+   ],
+   "issues": [
+    "Near-duplicate comp exists only to change alignment",
+    "Visible text is driven by a hidden and shy parent layer",
+    "Text size is faked (30.7 px at 130 %)",
+    "Fixed plate size, so long sublines overflow",
+    "LOGO starts at 0.333 s (off-frame)",
+    "Exit is only 0.40 s",
+    "No 9:16 'Есть где развернуться' exists"
+   ],
+   "parametrization_plan": "CR_LogoShot_Slogan_9x16 at 1080x1920 (1:1 and 4:5 by changing CTRL if needed). PL_Top width = max(logo lockup width, subline width) + 2·pad. PL_Bottom height = TXT_Sub.sourceRectAtTime(time,false).height + 2·pad, with width matched to PL_Top. The stack is centred by expression. Sliders: Open (0–1.00 s), Rise (1.40–2.72 s, 81 px·k), Grow (bottom plate Scale Y), Close (exit), all with brand eases. Text at real size: 40 px, 100 % scale, tracking 8. Parent it to a named CTRL null. EGP: Subline dropdown plus Custom (multi-line), Alignment (Centre | Left, replacing '_запасной вариант'), Theme (Dark default | Light), Background (None | #222222 | #F2F2F2), Scale. Responsive Design–Time: intro 0–2.72 s, outro last 0.40 s (0.6 s if approved), default 4.0 s. No media slots.",
+   "effort": "M: one comp that mostly re-expresses two plates and three moves; merging the backup is trivial"
+  },
+  {
+   "comp": "1_Логошоты › Логошот (converted).aep › Логошоты/Горизонтальные/Логошот без саблайна + Логошот без саблайна с плашкой (deliverables, each nested once in a 9:16 wrapper)",
+   "purpose": "16:9 logo sting without a subline. The cube pops and slides left while the 'cloud.ru' wordmark wipes out from behind it; '…с плашкой' adds a #222222 backing plate for busy footage.",
+   "target_delivery": [
+    "Pr: prerender",
+    "Pr: mogrt (CR_LogoShot_Mark)",
+    "Ae: ae-template",
+    "Ae: prerender",
+    "Pr+Ae: still (logo SVG/PNG, light and dark)",
+    "ame-preset (ProRes 4444 + alpha for the prerenders)"
+   ],
+   "format": "1920x1080 @25fps, 3.0 s (both comps)",
+   "build_notes": "Cube 'Layer 3 Outlines 2' (#26D07C) is the master transform: Opacity 0→100 (0–1.00 s); Scale 250→350→220.6→189 % and X 1161→1241.5→1018.8→964.4 at 0/1.00/1.75/2.20 s (influences 33/33, 68/50.6, 25.7/30.6, 37.9/16.7). Wordmark 'Layer 2 Outlines 2': #F7F7F7 shape fill plus an ADBE Fill effect, also #F7F7F7, plus Merge Paths (intersect) with a 194x36 rect. It is a child of the cube with an ALPHA-INVERTED matte of the hidden 'Shape Layer 1' (397x108 at 45 %, X 69.4→202→234.4), which wipes it out from behind the cube. '…с плашкой' moves the middle key to 1.63 s (cube 256.7 %, X 1081) and adds 'Подложка' (#222222, 470x113, child of the cube, Scale X 0→28.6→49.3 % at 1.00/1.63/2.20 s). The comp markers 'схлопнуть в точку' are an unimplemented outro. Junk: wordmark Opacity keys at 5.68–6.36 s and layer out-points at 6.2 s in a 3.0 s comp. The cube stores the track-matte type 'alpha inverted' with no matte layer.",
+   "current_editability": "hardcoded: no text, positions are absolute in 1920 px space so the lockup cannot be moved; no EGP.",
+   "editable_parts": [
+    "Backing plate on/off (today: a separate comp)",
+    "Wordmark colour for light or dark footage (today: #F7F7F7 fill plus Fill effect)",
+    "Position and scale (today: absolute 1920 px keys)",
+    "Outro (today: missing; marker TODO)"
+   ],
+   "issues": [
+    "No outro",
+    "Two comps differ only by the plate and a retimed middle key",
+    "Absolute X keys tie the logo to frame centre",
+    "Off-token #F7F7F7, coloured twice",
+    "Junk keys and out-points past the comp end",
+    "Cube has a matte type without a matte layer"
+   ],
+   "parametrization_plan": "CR_LogoShot_Mark: FHD master; the build script makes the UHD (×2) and 9:16 (135 % wrapper) variants. Re-express the cube and wipe keys relative to a CTRL null (offsets from the final lockup position) so that Position and Scale can be exposed. EGP: Plate checkbox (merges the two comps; pick one mid-key time), Theme (wordmark #FFFFFF on dark | #222222 on light; the cube is always #26D07C), Background (None | #222222 | #F2F2F2), Scale, Position. Add the outro 'схлопнуть в точку' (plate and wordmark collapse into the cube, then the cube scales to 0; about 0.6 s, exit ease) in a protected outro region. Responsive Design–Time: intro 0–2.20 s, outro the last ~0.6 s, default 3.0 s. No text, so no font dependency. Prerender light/dark × plate on/off × FHD/UHD/9:16 as ProRes 4444 alpha; this is the most-used asset.",
+   "effort": "S: no text or auto-size; the work is relative re-keying, one new outro, two toggles and the prerenders"
+  },
+  {
+   "comp": "1_Логошоты › Логошот (converted).aep › Логошоты/Вертикальные/Логошоты вертикальный_без саблайна + Логошоты вертикальный_без саблайна с плашкой (ROOTs)",
+   "purpose": "9:16 versions of the logo sting without a subline",
+   "target_delivery": [
+    "Pr: prerender",
+    "Pr: mogrt (9:16 build of CR_LogoShot_Mark)",
+    "Ae: ae-template"
+   ],
+   "format": "1080x1920 @25fps, 3.0 s; each nests the 1920x1080 comp at 135 %",
+   "build_notes": "Each is a single precomp layer ('Логошот без саблайна' or '…с плашкой') at 135 %, with a layer marker 'схлопнуть в точку'. The single-source nesting is a good pattern, but it is duplicated per variant and inherits the missing outro.",
+   "current_editability": "hardcoded wrapper: only the 135 % scale",
+   "editable_parts": [
+    "Same controls as CR_LogoShot_Mark, with 9:16 framing (today: a 135 % wrapper per variant)"
+   ],
+   "issues": [
+    "One wrapper comp per variant",
+    "Inherits the missing outro"
+   ],
+   "parametrization_plan": "Generate as the 9:16 variant of CR_LogoShot_Mark with the same EGP (Plate, Theme, Background, Scale). In Ae the panel drops the master comp into a 9:16 comp at 135 %. Responsive Time is inherited from the master.",
+   "effort": "S: wrapper only"
+  },
+  {
+   "comp": "5_Titles › Titles (3).aep › Подпись_спикеров (ROOT)",
+   "purpose": "Speaker lower third: row 1 is the name, row 2 the position/company (1–2 lines). Dark plates with a white leading edge.",
+   "target_delivery": [
+    "Pr: mogrt (CR_LowerThird)",
+    "Ae: ae-template (master comp with Essential Properties)",
+    "Ae: ffx (CR_Text_Rise_Words, CR_Text_Rise_Lines)",
+    "Pr: pr-preset (CR Wipe In/Out, for ad-hoc plates)",
+    "Pr+Ae: sfx (optional whoosh, e.g. Podcast '02 Simple Whoosh B.wav')"
+   ],
+   "format": "1500x500 @25fps, 6.04 s; every layer sits under the null 'Размер плашек' (pos 492.6, 203.8; scale 250 %), so it is effectively UHD-sized",
+   "build_notes": "13 flat layers. Intro set (0–4.40 s): text 'Александр Стародубцев' (SB Sans Text Regular 40 px, leading 45, white) and ' Технический лидер Cloud.ru' (30 px, leading 35, preceded by an empty 40 px paragraph). Both are paragraph boxes of 1002x366 local with rect masks (482x38.6 and 289x58.3). 'Shape Layer 1' and 'Shape Layer 2' are #222222 rects of 272.457x52.023 with the anchor on the left edge: Scale X 0→183.7 % (0–0.80 s) and 0→113 % ×141 % Y (0.24–1.04 s). 'Shape Layer 8' and '7' are white copies one frame ahead (−0.04 s), ALPHA-INVERTED matte of 1 and 2. The texts are ALPHA-matted by their plate (AE 23+ matte references to non-adjacent layers). Outro set (4.40–6.04 s): duplicated texts '…2', 'Shape Layer 4' and '3' with the anchor moved to the right edge and the positions recomputed (373.68 / 181.05), and white 'Shape Layer 6' and '5' trailing by +0.04 s. Effective layout: row 1 is 1251x130 px (x 174–1426, y 172–302), row 2 is 770x183 px (y 312–495); the name is 100 px and the title 75 px.",
+   "current_editability": "hardcoded: 0 expressions. Changing the speaker means retyping 4 text layers and re-keying 8 Scale keys and 4 positions; no EGP.",
+   "editable_parts": [
+    "Name (today: 2 layers to retype)",
+    "Title, 1–2 lines (today: 2 layers; box text with an empty first paragraph and clipping masks)",
+    "Plate widths (today: 8 Scale keys plus 4 outro positions)",
+    "Position and scale (today: null 'Размер плашек')",
+    "Hold duration (today: fixed split at 4.40 s)"
+   ],
+   "issues": [
+    "Every variable is baked per speaker",
+    "Text is entered twice",
+    "Leading-return hack and leading space in the layer names",
+    "Box text wraps instead of growing; fixed masks clip long names",
+    "Not a broadcast frame (1500x500 with a 250 % parent)",
+    "No EGP",
+    "Legacy ExtendScript expression engine"
+   ],
+   "parametrization_plan": "Master CR_LowerThird at 1920x1080 25p. UHD and 9:16 are made by the build script by changing CTRL scale and position; no 250 % null trick. Layers: CTRL (null: Position, Scale, Theme, sliders), TXT_Name and TXT_Title (point text at 100 %, SB Sans Text Regular 50 / 37.5 px at FHD, equal to today's 100/75 px at UHD), PL_Name and PL_Title, EDGE_Name and EDGE_Title. PL rects are left-anchored: Size = [(r.width + 2·padX)·Open/100, r.height + 2·padY] with r = TXT.sourceRectAtTime(time,false), and the rect position set to size/2. EDGE rects use the same size from Open.valueAtTime(time + thisComp.frameDuration), with an ALPHA-INV matte of their PL. Texts are ALPHA-matted by their PL and keep the existing Words and Lines rise animators, with the offset at 1.125× font size. CTRL sliders: Open (0→100, 0–0.80 s, ease 33/100; row 2 delayed 0.24 s via valueAtTime) and Close (exit toward the right edge as in the original, row 2 first, edge trailing one frame). No duplicated layers, masks, leading paragraph or box text. EGP: Name, Title (manual line break allowed), Show title (checkbox; hides row 2), Theme (Dark default; Light if approved), Edge colour (White | Green #26D07C), Position (point), Scale. Responsive Design–Time: intro 0–1.64 s and outro (last 1.08 s) protected; default duration 6 s, so editors stretch the hold in Pr. In Ae the panel imports CR_LowerThird.aep once, adds the master at the playhead as a precomp layer, writes Name and Title into the layer's Essential Properties and sets the out-point; Responsive Time keeps the intro and outro intact. No media slots.",
+   "effort": "M: about 8 layers to rig across two rows (sourceRectAtTime, slider reveals, edge lead), EGP, Responsive Time, FHD/UHD/9:16 builds and Pr testing"
+  },
+  {
+   "comp": "5_Titles › Titles (3) (converted).aep › Подпись_спикеров + Подпись_спикеров 2 (ROOTs) → Pre-comp 1, Pre-comp 2",
+   "purpose": "The same lower third for two speakers (Никита Грехов; Роман Путилов), built as intro-only precomps",
+   "target_delivery": [
+    "Pr: mogrt (instances of CR_LowerThird)",
+    "Ae: ae-template (precomp instances with Essential Properties overrides)"
+   ],
+   "format": "Roots 1500x500 @25fps, 6.04 s; Pre-comp 1 and 2 1500x500, 4.4 s",
+   "build_notes": "Each root holds Pre-comp N playing forward (from 0 s) plus the same Pre-comp N at stretch −100 % from 6.04 s, which plays the first 1.68 or 1.64 s backwards as the outro. The precomps keep the 7 intro layers with re-keyed widths: Pre-comp 1 at 115 % / 159.7 %, Pre-comp 2 at 123.6 % / 175.7 %. Title masks are removed; name masks are kept. In 'Подпись_спикеров' the reversed layer starts at 4.36 s while the forward one runs to 4.40 s (one frame drawn twice), and the forward out-point (6.04 s) is beyond its 4.4 s source.",
+   "current_editability": "hardcoded per speaker: one comp copy per person; text is editable inside each precomp, widths are re-keyed by hand",
+   "editable_parts": [
+    "Name and title per speaker (today: a precomp copy per speaker)",
+    "Plate widths (today: hand-keyed per precomp)"
+   ],
+   "issues": [
+    "Comp duplicated per speaker",
+    "The reversed-precomp outro cannot use Responsive Time and differs from the original exit",
+    "One-frame overlap; forward out-point past its source",
+    "The original speaker version was overwritten"
+   ],
+   "parametrization_plan": "Fold into CR_LowerThird. The two speakers become two MOGRT instances (or saved text presets in the panel). In Ae each becomes a precomp-layer instance of the master with overridden Essential Properties. Drop the reversed instances.",
+   "effort": "S: content migration once CR_LowerThird exists"
+  }
+ ],
+ "problems": [
+  {
+   "severity": "critical",
+   "category": "hardcoded-layout",
+   "detail": "Lower-third plate widths are baked into Scale X keys per speaker. In Titles (3): 'Shape Layer 1'/'8' = 183.7 %, 'Shape Layer 2'/'7' = 113 % (Y 141 %). In the converted file: Pre-comp 1 = 115 % / 159.7 %, Pre-comp 2 = 123.6 % / 175.7 %. The original outro layers ('Shape Layer 3'–'6') also bake the right edge into Position (373.68 / 181.05) with the anchor at −436.543. A new name means editing 8 keys and 4 positions.",
+   "fix": "Use one rect per row sized by sourceRectAtTime of its text plus padding, with Open/Close sliders and the edge lead via valueAtTime (time + 1 frame); no per-speaker keys."
+  },
+  {
+   "severity": "critical",
+   "category": "duplication",
+   "detail": "Speaker text lives in several places. The original has intro and outro copies ('Александр Стародубцев' + '…2', ' Технический лидер Cloud.ru' + '…2'). The converted file duplicates the whole comp per person ('Pre-comp 1', 'Pre-comp 2', and the roots 'Подпись_спикеров' / 'Подпись_спикеров 2').",
+   "fix": "One master comp. Pr instances use the MOGRT; Ae instances are precomp layers with Essential Properties overrides."
+  },
+  {
+   "severity": "critical",
+   "category": "mogrt-blocker",
+   "detail": "No Essential Graphics anywhere: every comp's EGP capsule (CIFO/CIF2/CIF3) is 'Untitled', with 0 expressions and 0 expression controls in all 4 files. Nothing can be edited from Premiere; every change means opening AE.",
+   "fix": "Build EGP per master template (controls listed in templates) and export the .mogrt files from a build script (CompItem.exportAsMotionGraphicsTemplate), with FHD/UHD/9:16 variants."
+  },
+  {
+   "severity": "critical",
+   "category": "hardcoded-layout",
+   "detail": "The logo-shot slogan lockups are hand-sized per slogan. The precomp widths are 815 (279 + 535) and 765 (279 + 485). The slogan plate widths sit in the path vertices of 'Back_2'/'Back_3'. The slide targets differ: X 407.5→139.5 over 1.00–2.12 s versus 382.5→139.5 over 1.00–2.40 s. The 'есть где развернуться' slogan is outlines ('умное облако 2', 31 paths) and cannot be edited.",
+   "fix": "Full-frame comp; the slogan plate width comes from sourceRectAtTime of the slogan layer (works for text and for outline shapes); the lockup is centred by expression; one timing."
+  },
+  {
+   "severity": "major",
+   "category": "text-fragility",
+   "detail": "Titles text hacks: the title starts with an empty 40 px paragraph to push the lines down, and the layer names start with a space. Name and title are paragraph boxes of 1002x366 local, so they wrap instead of growing. Fixed rect masks on the text (name 482x38.6, title 289x58.3 local, i.e. 1205 and 723 px wide) clip longer strings. The converted file dropped the title masks but kept the name masks.",
+   "fix": "Point text with explicit line positions; manual line breaks allowed in the title; remove the masks (the plate alpha matte already clips)."
+  },
+  {
+   "severity": "major",
+   "category": "outro-structure",
+   "detail": "There are two incompatible outros. The original uses a duplicated layer set that collapses toward the right edge: row 2 at 4.40–5.20 s, row 1 at 4.64–5.44 s, with the white edge trailing by 0.04 s. The converted file uses the same precomp at stretch −100 % (the intro played backwards). In converted 'Подпись_спикеров' the reversed layer begins at 4.36 s while the forward one runs to 4.40 s, so one frame is drawn twice. Reversed precomps cannot be stretched by Responsive Time in Pr.",
+   "fix": "Single comp with slider-driven exit in a protected outro region; the user picks the exit style (question 1)."
+  },
+  {
+   "severity": "major",
+   "category": "naming-variant",
+   "detail": "The 'Умное облако' comps do not show 'умное облако'. In the precomp 'Умное облако' and in both vertical comps, the outline layer 'умное облако' is switched off (also shy in the verticals) and the visible subline is the live text 'облачные и ИИ-сервисы'. In 'Есть где развернуться', the visible slogan layer is named 'умное облако 2'.",
+   "fix": "Rename layers and comps by content, and expose the subline as a dropdown instead of eyeball toggles."
+  },
+  {
+   "severity": "major",
+   "category": "canvas-consistency",
+   "detail": "The same family uses mixed canvases: slogan roots 3840x2160, no-subline 1920x1080, verticals 1080x1920. Titles is 1500x500, with the null 'Размер плашек' scaling everything 250 % (name 40 px becomes 100 px, i.e. authored for UHD). A 1500x500 MOGRT would land as an odd-sized clip in Pr.",
+   "fix": "Author masters at FHD on full-frame canvases with Position/Scale controls; the build script emits FHD/UHD/9:16; the plugin picks the variant from the active sequence's frame size."
+  },
+  {
+   "severity": "major",
+   "category": "duration",
+   "detail": "The root logo comps are 12.2 s with a work area of 0–5.02 s, while the animation ends at 4.32 s. The precomps are 30 s. Podcast_Pack RENDER/OUTRO holds its copy of the precomp by time-remap freeze. The vertical (3.64 s) and no-subline (3.0 s) comps have hard ends.",
+   "fix": "Comp duration = intro + default hold + outro; Responsive Design–Time protected regions (values per template); no time-remap holds."
+  },
+  {
+   "severity": "major",
+   "category": "baked-background",
+   "detail": "Backgrounds are baked into the roots. 'White Solid 4' (#F2F2F2) sits under the white #FFFFFF plates in 'Логошот_Умное облако' (low contrast). The original 'Логошот_Есть где развернуться' renders over comp bg #000000, which is off-brand; the converted file adds 'Dark Gray Solid 1' (#222222). The render queue outputs H.264 15 Mbps MP4 without alpha to /Users/gmmelnikov/Desktop.",
+   "fix": "Background dropdown (None | #222222 | #F2F2F2), default None; prerenders as ProRes 4444 alpha via an ame-preset; delete the Mac render-queue items."
+  },
+  {
+   "severity": "major",
+   "category": "missing-outro",
+   "detail": "The no-subline logo shots have no outro. The comp and layer markers 'схлопнуть в точку' in 'Логошот без саблайна', '…с плашкой' and both vertical wrappers are an open TODO. There are leftover wordmark Opacity keys at 5.68–6.36 s and out-points at 6.2 s in 3.0 s comps.",
+   "fix": "Implement a collapse-to-point outro (about 0.6 s, exit ease) in a protected region; delete the junk keys; trim the layers."
+  },
+  {
+   "severity": "major",
+   "category": "near-duplicates",
+   "detail": "Near-duplicate comps: 'Логошоты вертикальный_Умное облако' vs '_запасной вариант' (centred vs left-aligned text, hidden outline shifted 56.6 px). 'Логошот без саблайна' vs '…с плашкой' (middle key retimed 1.75→1.63 s, cube 220.6→256.7 %, plus 'Подложка'). There is also one 135 % wrapper comp per vertical variant.",
+   "fix": "Merge into one master each, with Alignment and Plate controls."
+  },
+  {
+   "severity": "major",
+   "category": "cross-pack-duplication",
+   "detail": "The same brand pieces exist as independent copies. The 'Есть где развернуться' 765x80 precomp is also in Podcast_Pack.aep (RENDER/OUTRO ×2). Logo lockup comps exist in Вебинары (Logo 936x173), Обучающие курсы (Logo 905x180, ×7), SMM (Cloud.ru_BlackMono 711x132 ×2) and Podcast (Cloud.ru_BlackColour / WhiteColour 711x132). The 'облачные и ИИ-сервисы' text appears in Вебинары 'Логоблок с челкой' (with a double space) and in the Обучающие курсы covers. Another speaker title exists in Podcast 'Подпись_спикера_1/2' (SB Sans Display Bold/Semibold, typo 'CLOUd.ru').",
+   "fix": "One library (CR_Logo, CR_LogoShot_*, CR_LowerThird) referenced by every pack and by the plugin."
+  },
+  {
+   "severity": "major",
+   "category": "prior-implementation",
+   "detail": "The earlier CEP 'Cloud.ru Motion Presets' (host/index.jsx motionPresets_applyBrandLowerThird / applyBrandLogoReveal, docs/brand-presets-spec.md) misread these comps. It modelled the white edge bars as opacity 'flashes' with no track mattes, revealed text by characters with opacity and without the plate matte (the real rig is Words/Lines, no opacity, plate ALPHA matte), retyped the wordmark as SB Sans text with a Linear Wipe, and read 183.7 % / 122.8 % as 'overshoot'. It was also built from an older version (speaker Антон Нефедов, 974x80 slogan comp). This explains the fidelity failure.",
+   "fix": "Ship the real comps (mogrt / ae-template); script recipes only for simple single-layer presets."
+  },
+  {
+   "severity": "major",
+   "category": "fonts",
+   "detail": "The templates need corporate fonts: SBSansText-Regular (Titles) and SBSansDisplay-Semibold (logo subline). They are installed only per-user on this PC (AppData/Local/Microsoft/Windows/Fonts). An editor without them gets a silent substitution inside the MOGRT.",
+   "fix": "The plugin checks the fonts before inserting; keep the logo, wordmark and slogans as outlines; prerenders for font-free use; ship a font-install step with the plugin."
+  },
+  {
+   "severity": "minor",
+   "category": "colour-tokens",
+   "detail": "Colours are off-token or inconsistent. The wordmark is #F7F7F7 (shape fill plus a duplicate ADBE Fill effect, also #F7F7F7) in 'без саблайна', #FFFFFF in the verticals and #222222 on the white plates. Backgrounds are #F2F2F2 or #222222. The tokens define only #26D07C, #222222, #FFFFFF and #F2F2F2. The wordmark also carries a useless Merge Paths (intersect) with a 194x36 rect.",
+   "fix": "Theme dropdown driving every fill from one CTRL layer by expression; a single colour hook; remove the duplicate Fill and the Merge Paths after a visual check."
+  },
+  {
+   "severity": "minor",
+   "category": "timing-hygiene",
+   "detail": "'LOGO' and 'LOGO 2' start at 0.333 s (8.33 frames, probably left over from a 30 fps comp), so the Rotate X keys sit off-frame. The cube 'Layer 3 Outlines 2' stores a track-matte type with no matte layer. The motion-blur switch differs between the two 4K roots.",
+   "fix": "Snap layer starts and keys to frames; clear the stale matte; set motion blur consistently."
+  },
+  {
+   "severity": "minor",
+   "category": "scale-tricks",
+   "detail": "Text sizes are faked with layer scale: 'облачные и ИИ-сервисы' is 100 px at 40 % (horizontal) and 30.7 px at 130 % (vertical); the Titles texts are 40/30 px under a 250 % parent. EGP shows misleading font sizes, and sourceRectAtTime needs scale compensation.",
+   "fix": "Text layers at 100 % scale with their real pixel sizes."
+  },
+  {
+   "severity": "minor",
+   "category": "naming",
+   "detail": "Generic names: 'Shape Layer 1–8', 'Layer 2/3 Outlines 2', 'Pre-comp 1/2', 'White Solid 4'; text layers named after the sample text with leading spaces; the hidden and shy shape 'умное облако' is used as the parent of the visible text; folders are named 'Folder/…'.",
+   "fix": "Use the convention CR_<Template> for comps and CTRL_ / PL_ / EDGE_ / TXT_ / LOGO_ / WORDMARK_ / MATTE_ / SLOGAN_ for layers; parent to named nulls."
+  },
+  {
+   "severity": "minor",
+   "category": "expression-engine",
+   "detail": "All 4 files use the legacy 'extendscript' expression engine. There are no expressions yet, so nothing breaks today, but the new sourceRectAtTime and slider rigs should not be written for the legacy engine.",
+   "fix": "Switch Project Settings → Expressions to JavaScript before rigging; test the MOGRTs in Pr 2026."
+  },
+  {
+   "severity": "minor",
+   "category": "lost-variant",
+   "detail": "The Collect report (01.12.2025, project 'Логошот_1.aep') lists the comp 'Логошот нестандартный_оба сообщения' and the effects Fill and Slider Control. Neither .aep contains that comp or any Slider Control now.",
+   "fix": "Ask the user (question 3); if it is still needed, rebuild it as a mode of CR_LogoShot_Slogan_16x9."
+  },
+  {
+   "severity": "minor",
+   "category": "audit-tooling",
+   "detail": "The shared audit has gaps. It reports effects:{} for Логошот*.aep, but 'Layer 2 Outlines 2' carries ADBE Fill (inside a LIST sspc). The two Report.txt files here are UTF-8 with CR line breaks, not UTF-16. Parenting and track mattes can be decoded from ldta (164 B): s32 at 8 = stretch sign; bytes 36–39 = switches (b38: 0x80 null, 0x04 3D, 0x02 adjustment; b39: bit0 video, bit3 motion blur, bit6 shy, bit7 collapse); byte 107 = track-matte type (1 alpha, 2 alpha-inv, 3 luma, 4 luma-inv); u32 at 132 = parent ID; u32 at 160 = matte-layer ID. Keyframe time = s32(key[0:4]) / comp timescale + layer start; the lhd3 key size is at byte 18. AE omits properties that are at their default value. mkif chunks sit between tdmn and the mask LIST.",
+   "fix": "Reuse C:/dev/temp/claude/C--Users------Documents-Cloud-ru-Preset-plugin/b48e0614-1141-4125-9b74-d00eb767441b/scratchpad/work/logo_titles/deep.py and pretty.py for the other packs."
+  }
+ ],
+ "questions_for_user": [
+  "Speaker lower-third exit: which one is canonical? The original 'Titles (3).aep' exit (plates collapse toward the right edge, row 2 first, white trailing edge), or the converted file's 'reverse of the intro' (plates shrink back to the left and the text drops back)?",
+  "Which sublines must the logo-shot template offer? Today every 'Умное облако' comp shows the live text 'облачные и ИИ-сервисы' while the outline 'умное облако' is switched off, and 'есть где развернуться' exists only as outlines. The choices would be облачные и ИИ-сервисы / умное облако / есть где развернуться / free text. Does the brand allow free text?",
+  "The Collect report (01.12.2025, 'Логошот_1.aep') lists a comp 'Логошот нестандартный_оба сообщения' (with Fill and Slider Control) that is in neither .aep. Is it still needed, and do you have a copy?",
+  "Which sequence formats must the MOGRTs support: FHD 1920x1080 25p, UHD 3840x2160 25p, and 9:16 1080x1920 at 25p or at 30p as in the brand tokens? The 1500x500 Titles with a 250 % null and the UHD logo roots suggest UHD is the main delivery. Is that right?",
+  "Lower-third typography: SB Sans Text Regular 40/30 (Titles) or SB Sans Display Bold/Semibold (Podcast 'Подпись_спикера')? Which is the standard, and should the podcast look become a style option of the same MOGRT?",
+  "Colours on dark backgrounds: the wordmark is #F7F7F7 in 'без саблайна' but #FFFFFF in the verticals. Which does BAZIS specify? Do you want a light (white-plate) theme of the lower third?",
+  "Should the vertical '_запасной вариант' (left-aligned subline) stay as an Alignment option or be deleted? Do you need a 9:16 'Есть где развернуться'? None exists today.",
+  "Should logo shots be delivered as transparent overlays (MOGRT / ProRes 4444) or flattened with a background, as the existing render queue does (H.264 15 Mbps to the Desktop)? If with a background, which: #222222 or #F2F2F2?",
+  "Is the Figma file BAZIS (node 4079-486, linked in the logo comp markers) the source of truth for logo and slogan vectors and clear space, and may we export SVGs from it? The Figma connector in this session needs authorization."
+ ],
+ "animation_patterns": [
+  {
+   "name": "Plate wipe-in with 1-frame white leading edge",
+   "description": "A #222222 rect anchored at its left edge scales X from 0 to W over 0.80 s (20 frames). Ease: the first key has out-influence 33.3 %, the landing key has in-influence 100 %, speeds 0, so it decelerates for a long time. W is baked today: 183.7 % / 113 %. A white #FFFFFF copy runs the identical curve one frame earlier (−0.04 s) with an ALPHA-INVERTED matte of the dark rect, so only a sliver at the moving edge shows; the edge layer is trimmed to the move (0.8 s). Row 2 starts 0.24 s (6 frames) later.",
+   "where_used": [
+    "Titles (3).aep/Подпись_спикеров: 'Shape Layer 1'+'8' (row 1), 'Shape Layer 2'+'7' (row 2)",
+    "Titles (3) (converted).aep/Pre-comp 1, Pre-comp 2",
+    "Similar dark plate grow: Логошот без саблайна с плашкой/'Подложка'"
+   ],
+   "candidate_preset": "Ae: part of the ae-template CR_LowerThird. It needs two layers and a matte, so it cannot be one single-layer ffx; also offer a panel recipe 'Plate + Edge' that duplicates the selected shape and sets the matte. Pr: pr-preset 'CR Wipe In' (Crop Right 100→0 % with the 33/100 ease, Anchor to In Point)."
+  },
+  {
+   "name": "Plate collapse to the opposite edge with trailing edge (exit)",
+   "description": "Mirror of the intro. The anchor moves to the right edge (−436.543) and the position is compensated (373.68 / 181.05). Scale X goes W→0 over 0.80 s; the first key has out-influence 100 % (slow start) and the last has in-influence 33.3 %, so the exit accelerates. Row 2 leaves first (4.40 s), row 1 at 4.64 s. The white edge copies trail by +0.04 s (ALPHA-INV). The text disappears with its plate through the ALPHA matte.",
+   "where_used": [
+    "Titles (3).aep/Подпись_спикеров: 'Shape Layer 3', '4', '5', '6' and texts '…2'"
+   ],
+   "candidate_preset": "A Close % slider in the CR_LowerThird outro region; Pr: pr-preset 'CR Wipe Out' (Crop Left 0→100 %, Anchor to Out Point)"
+  },
+  {
+   "name": "Text rise by words or lines inside the plate matte",
+   "description": "Text Animator 'Animator 1': Range Selector Start 0→100 %. Based on Words for the name (0.24→0.76 s, linear, 13 frames); based on Lines for the title (0.56→1.24→1.64 s, 0→91.76→100 %, custom bezier with out/in influences 38.9/53.7 and 27.6/66.1). The animator sets Position Y +45 px for the name (1.125× the 40 px font) and +73.1 px for the title; no opacity. The text layer is ALPHA-matted by its plate, so the words emerge from the plate's bottom edge.",
+   "where_used": [
+    "Titles: 'Александр Стародубцев', ' Технический лидер Cloud.ru' and the converted equivalents",
+    "Similar Text Percent Start rigs: Podcast 'Подпись_спикера', 'Текст на плашке'; Обучающие курсы cover lines"
+   ],
+   "candidate_preset": "Ae: ffx 'CR_Text_Rise_Words' and 'CR_Text_Rise_Lines' (animator plus selector keys, offset as an expression on font size); Pr: only inside a mogrt, because Pr text has no range selectors"
+  },
+  {
+   "name": "Logo plate: line → plate → slide; slogan plate extends right; collapse",
+   "description": "The white plate's path grows from a 0-width vertical line to 279x80 at frame centre (0→1.00 s). Then X slides left, 407.5→139.5 (1.00→2.12 s; 382.5→139.5 over 1.00→2.40 s in 'Есть где'), with out-influence 70 %. Over the same interval a child plate extends right from 0 to the slogan width (535 / 485 px). Hold. Exit, 3.32→4.32 s: the logo plate collapses to its right edge and drifts +128.5 / +103 px while the slogan plate collapses to its left edge. All content (cube, wordmark, slogan) is ALPHA-matted by the plates. The vertical variant collapses both plates into the seam line (3.20→3.60 s).",
+   "where_used": [
+    "Логошот*.aep/Folder/Precomps/Умное облако ('Back_1', 'Back_2')",
+    "Folder/Precomps/Есть где развернуться ('Back_4', 'Back_3')",
+    "Podcast_Pack.aep/Precomp/Есть где развернуться (RENDER/OUTRO)"
+   ],
+   "candidate_preset": "ae-template CR_LogoShot_Slogan_16x9 with expression-driven rects; Pr: mogrt plus prerender"
+  },
+  {
+   "name": "Cube 3D flip-up",
+   "description": "LOGO is a Classic 3D layer with the anchor Z at +63.4 px. Rotate X −90°→−3.6°→0° at 0.33 / 1.00 / 1.60 s. The first key has out-influence ≈0.5 % (fast start), the middle key 34.5/19.2, and the landing key in-influence 9.9 %; no overshoot. The wordmark is parented to LOGO and flips with it.",
+   "where_used": [
+    "Умное облако/'LOGO' + 'Cloud.ru'",
+    "Есть где развернуться/'LOGO 2' + 'Cloud.ru 2' (and the Podcast copy)"
+   ],
+   "candidate_preset": "Ae: ffx 'CR_Cube_FlipUp' (turns on 3D and writes the keys at the current time); Pr: inside the mogrt"
+  },
+  {
+   "name": "Cube pop & slide with wordmark wipe from behind",
+   "description": "Cube: Opacity 0→100 % (0→1.00 s); Scale 250→350→220.6→189 % and X 1161→1241.5→1018.8→964.4 at 0 / 1.00 / 1.75 / 2.20 s, with influences 33/33, 68/50.6, 25.7/30.6, 37.9/16.7. The cube swells while drifting right, then shrinks and settles left. The wordmark, a child of the cube, is revealed by an ALPHA-INVERTED matte of a hidden rect (397x108 at 45 %) sliding X 69.4→202→234.4, so the word slides out from behind the cube. The '…с плашкой' variant retimes the middle key to 1.63 s (256.7 %, X 1081) and grows 'Подложка' (#222222) Scale X 0→28.6→49.3 %.",
+   "where_used": [
+    "Логошот без саблайна",
+    "Логошот без саблайна с плашкой",
+    "Both vertical wrappers at 135 %"
+   ],
+   "candidate_preset": "ae-template CR_LogoShot_Mark plus prerender; positions to be re-expressed relative to a CTRL null"
+  },
+  {
+   "name": "Vertical stack rise and collapse to the seam",
+   "description": "The top dark plate scales X 0→100 % from its centre (0→1.00 s, out-influence 75.8 %) while the logo rises Y +148→0 into it under the matte. From 1.40 to 2.72 s the whole stack rises 81 px (in-influence 78.2 %) and the bottom plate grows Scale Y 0→96 %, revealing the two-line descriptor under its matte. Exit, 3.20→3.60 s: the top plate goes Scale Y→0 while moving down 162 px, and the bottom plate goes Scale Y→0; both collapse into the seam line (influences 16.7/16.7).",
+   "where_used": [
+    "Логошоты вертикальный_Умное облако",
+    "Логошоты вертикальный_Умное облако_запасной вариант"
+   ],
+   "candidate_preset": "ae-template CR_LogoShot_Slogan_9x16; Ae: ffx 'CR_Stack_Rise' with slider-driven offsets"
+  },
+  {
+   "name": "Easing signature of these packs",
+   "description": "Plates: start out-influence 33.3 %, landing in-influence 100 %; exits mirror this (100 % out, 33 % in). Slides: 70 % out, 59–89 % in. Hero moves: 75.8–78.2 %. Text: linear (name) or custom (title). This does not match the ae-motion-live tokens ('enter' 16/70, 'exit' 70/16), so the two need to be reconciled.",
+   "where_used": [
+    "All comps above"
+   ],
+   "candidate_preset": "A shared named-ease library (CR_plate_in 33/100, CR_plate_out 100/33, CR_slide 70/89, CR_hero 76/78) used by the build script, the ffx files and pr-preset variants"
+  }
+ ],
+ "brand_elements": [
+  {
+   "name": "Cloud.ru cube mark",
+   "kind": "vector logo, 3 paths, #26D07C",
+   "source": "'LOGO', 'LOGO 2', 'Layer 3 Outlines 2' in Логошот*.aep",
+   "reuse_notes": "Export as a still (SVG/PNG) and as a CR_Logo master shape comp; never recolour except approved mono versions; pair with the CR_Cube_FlipUp ffx"
+  },
+  {
+   "name": "Wordmark 'cloud.ru'",
+   "kind": "vector logotype, 10 outline paths",
+   "source": "'Cloud.ru', 'Cloud.ru 2', 'Layer 2 Outlines 2' (the last also has a Fill effect and a Merge Paths rect)",
+   "reuse_notes": "Must stay as outlines; the earlier CEP retyped it as SB Sans text, which is wrong. Today it is #222222 on light, #FFFFFF on dark, #F7F7F7 in 'без саблайна'; move these to tokens."
+  },
+  {
+   "name": "Logo lockup duplicates in other packs",
+   "kind": "precomp",
+   "source": "Вебинары Folder/Precomp/Logo 936x173; Обучающие курсы Folder/Precomps/Logo 905x180 (×7); SMM Cloud.ru_BlackMono (+'3') 711x132; Podcast Cloud.ru_BlackColour / WhiteColour 711x132",
+   "reuse_notes": "Replace all of them with one CR_Logo (light/dark) from the library"
+  },
+  {
+   "name": "Slogan outlines 'умное облако' and 'есть где развернуться'",
+   "kind": "vector text outlines (37 and 31 paths)",
+   "source": "'умное облако' (hidden in 3 comps); 'умное облако 2' (visible; actually 'есть где развернуться')",
+   "reuse_notes": "Keep as font-free subline options and SVG stills; rename by content"
+  },
+  {
+   "name": "Descriptor 'облачные и ИИ-сервисы'",
+   "kind": "live text, SB Sans Display Semibold",
+   "source": "Precomp 'Умное облако' (100 px at 40 %, #222222, one line); verticals (30.7 px at 130 %, white, tracking 8, two lines)",
+   "reuse_notes": "The standard subline option. It also appears in Вебинары 'Логоблок с челкой' (with a double space) and in Обучающие курсы covers ×4; unify the spelling."
+  },
+  {
+   "name": "White logo and slogan plates",
+   "kind": "shape: rect 279x80 plus an auto-width slogan plate, #FFFFFF",
+   "source": "'Back_1'/'Back_2', 'Back_4'/'Back_3'",
+   "reuse_notes": "Brand rule from the comp markers: 'Размещаем на плашке всегда! Слоганы всегда справа'. Corner radius 0."
+  },
+  {
+   "name": "Dark plate with white leading edge",
+   "kind": "shape pair with an inverted alpha matte, #222222 / #FFFFFF",
+   "source": "Titles 'Shape Layer 1–8' (base rect 272.457x52.023); 'Подложка' 470x113; vertical plates 562.6x163.7",
+   "reuse_notes": "The core element of the lower third and logo backing; build it once as rig plus recipe"
+  },
+  {
+   "name": "Typography",
+   "kind": "fonts",
+   "source": "SBSansText-Regular (Titles: 40/30 px × 2.5 = 100/75 px at UHD); SBSansDisplay-Semibold (logo descriptor)",
+   "reuse_notes": "Corporate fonts, installed per-user on this PC; the plugin must check for them before inserting a MOGRT"
+  },
+  {
+   "name": "Design notes in markers",
+   "kind": "comp/layer markers",
+   "source": "'Логошот_Умное облако' and 'Логошот_Есть где развернуться': the brand rule plus a link to Figma BAZIS node 4079-486; 'Логошот без саблайна*': 'схлопнуть в точку'",
+   "reuse_notes": "Move these into template docs and panel tooltips; BAZIS is the vector source"
+  },
+  {
+   "name": "Lower-third whoosh (cross-pack)",
+   "kind": "sfx",
+   "source": "Podcast_Pack (Footage)/02 Simple Whoosh B.wav (present); SFX/Подпись_спикера_1.wav (referenced but missing)",
+   "reuse_notes": "Optional sfx paired with CR_LowerThird and the logo shots"
+  }
+ ],
+ "cleanup_actions": [
+  "Freeze the originals: keep the 4 .aep files and the 2 Report.txt files (UTF-8) as a read-only archive, and work in new files CR_LogoShots.aep and CR_LowerThird.aep",
+  "Sources of truth: Логошот (converted).aep; Titles (3) (converted).aep for structure, with Titles (3).aep as the reference for the outro",
+  "Set Project Settings → Expressions → JavaScript in both new files before adding any rig",
+  "Delete dead weight: the unused solids 'Null 2', 'Null 3', 'Null 4' (no layer uses them); the 2 render-queue items with Mac paths; orphan project-level effect definitions; the Titles outro duplicates ('…2' texts, 'Shape Layer 3'–'6') once the Close slider exists; 'Pre-comp 1'/'Pre-comp 2' and 'Подпись_спикеров 2' after moving their texts into presets; '_запасной вариант' after question 7",
+  "Remove junk: wordmark Opacity keys at 5.68–6.36 s and 6.2 s out-points in the 3.0 s comps; the stale matte type on the cube; snap 'LOGO'/'LOGO 2' from 0.333 s to a frame; set the motion-blur switches consistently",
+  "Normalise: text layers at 100 % scale with real pixel sizes; point text instead of the 1002x366 boxes; remove the text masks and the empty first paragraph; drive all colours from one CTRL layer using the tokens (#26D07C, #222222, #FFFFFF, #F2F2F2); remove the duplicate Fill effect and the Merge Paths rect after a visual check",
+  "Rename by role: CR_<Template> comps; CTRL_, PL_, EDGE_, TXT_, LOGO_, WORDMARK_, MATTE_, SLOGAN_ layers; parent text to named nulls instead of hidden shy shapes",
+  "Merge variants: 'без саблайна' + 'с плашкой' into one comp with a Plate checkbox (choose 1.75 s or 1.63 s for the middle key); the two 16:9 slogan comps into one with a Subline dropdown; the vertical main and backup into one with Alignment",
+  "Rig and expose: sourceRectAtTime widths, Open/Close sliders, the one-frame edge lead via valueAtTime, centring expressions, Responsive Design–Time markers, EGP. Comp durations: lower third 6 s, slogan 5 s, mark 3 s.",
+  "Build script: duplicate each master into FHD/UHD/9:16, export the .mogrt files with comp.exportAsMotionGraphicsTemplate, render the prerenders in AME with a ProRes 4444 + alpha ame-preset, and export SVG/PNG stills of the logo and slogans",
+  "Cross-pack: replace Podcast_Pack 'Precomp/Есть где развернуться' and the five logo-lockup copies with the library versions; fix 'CLOUd.ru' when migrating the podcast speaker title into CR_LowerThird"
+ ]
+}

@@ -1,0 +1,468 @@
+{
+ "topic": "(a) MOGRT authoring and programmatic use for a corporate brand pack in 2026 (AE → Premiere). (b) How commercial toolkits (Mister Horse, Motion Bro, AEJuice, Motion Array/Envato, brand-kit panels) deliver brand elements and presets by a button. Includes what this means for the Cloud.ru pack format and the Ae/Pr panel.",
+ "findings": [
+  {
+   "claim": "Platform timeline from Adobe's September 2026 extensibility roadmap. Premiere has had GA UXP since 25.6 (Dec 2025). After Effects gets only a PUBLIC BETA of UXP plugins 'by November 2026'. CEP milestones: Premiere stops accepting new CEP Marketplace submissions in Dec 2027 and turns CEP off by default in Dec 2028. After Effects, Illustrator and Media Encoder do both in Dec 2028. CEP is no longer included in new versions starting Dec 2029. The post says 'ExtendScripts are not affected by this transition.' CEP 12 (CSXS.12, Chromium 99, Node 17.7.1, shipped with Pr/AE 25.0) is the last major CEP release.",
+   "confidence": "high",
+   "sources": [
+    "https://blog.developer.adobe.com/en/publish/2026/09/investing-in-the-future-of-creative-cloud-extensibility-uxp-comes-to-our-flagship-applications",
+    "https://blog.developer.adobe.com/en/publish/2025/12/uxp-arrives-in-premiere-a-new-era-for-plugin-development",
+    "https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_12.x/Documentation/CEP%2012%20HTML%20Extension%20Cookbook.md"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Build v1 of both panels as CEP (CSXS 12) + ExtendScript. In After Effects this is the only production path today, and in Premiere it is the only path that can fill MOGRT text. Keep host calls behind one adapter interface (insertTemplate, setParams, applyPreset, getActiveFrameInfo) and keep the UI as plain web code, so a UXP port in 2027–28 only replaces the adapters. That port must land before CEP is off by default in Dec 2028."
+  },
+  {
+   "claim": "The vault notes 'Adobe plans ExtendScript EOL in September 2026' and 'MOGRT via ExtendScript is technically impossible' are both wrong. The Premiere scripting guide's line ('supported… through September 2026') was only a minimum commitment. In Aug–Sep 2026 an Adobe engineer (bbb_999) said on the developer forum that ExtendScript in Premiere is supported after September 2026, that there is no planned end-of-life, and that the plan is to keep it until UXP reaches parity. Both hosts also have documented MOGRT scripting APIs (see the next findings).",
+   "confidence": "high",
+   "sources": [
+    "https://forums.creativeclouddeveloper.com/t/uxp-api-parity-for-mogrt-parameter-control-current-extendscript-support-status/12131",
+    "https://ppro-scripting.docsforadobe.dev/print_page/",
+    "https://ae-scripting.docsforadobe.dev/item/compitem/",
+    "https://ppro-scripting.docsforadobe.dev/sequence/sequence/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Correct the vault notes (Cloud.ru Motion, Premiere CEP Suite). A MOGRT-based architecture with an ExtendScript host is legitimate and has a multi-year runway. Avoid relying on the unsupported QE DOM."
+  },
+  {
+   "claim": "What Premiere UXP covers for MOGRTs (API 25.6+). It can insert MOGRTs (SequenceEditor.insertMogrtFromPath(path, TickTime, vTrack, aTrack), insertMogrtFromLibrary(lib, element, …), getInstalledMogrtPath). It can write numeric, boolean, point and colour parameters via ComponentParam.createKeyframe + createSetValueAction inside project.lockedAccess/executeTransaction; UXP Color uses RGBA floats 0–1. What it cannot do: MOGRT 'Source Text' can be neither read nor written (forum reports Feb 2026 and Jun 2026; the feature request was still 'Open for voting' on 1 Sep 2026). Colour writes from UXP corrupt the blue channel in Pr 26.0.2–26.3 (acknowledged Jul 2026, unfixed). Random 'script object is no longer valid' errors are reported. The 26.3 API update (Jul 2026) added nothing for MOGRT text. Adobe targets MOGRT parameter enumeration for 'MAX 2026' (28–30 Oct), noting that 'plans can change'.",
+   "confidence": "high",
+   "sources": [
+    "https://developer.adobe.com/premiere-pro/uxp/ppro-reference/classes/sequenceeditor",
+    "https://developer.adobe.com/premiere-pro/uxp/ppro-reference/classes/componentparam",
+    "https://developer.adobe.com/premiere-pro/uxp/ppro-reference/classes/color",
+    "https://forums.creativeclouddeveloper.com/t/setting-mogrt-text-parameters-in-premiere-uxp/11969",
+    "https://forums.creativeclouddeveloper.com/t/mogrt-parameters-in-uxp-availabilty/11408",
+    "https://community.adobe.com/feature-requests-730/allow-uxp-extensions-to-read-text-from-timeline-clips-and-write-it-into-mogrts-enabling-automated-subtitle-and-title-styling-workflows-1639852",
+    "https://community.adobe.com/bug-reports-728/uxp-color-parameter-writes-lose-the-blue-channel-still-reproducible-in-26-3-regression-window-26-0-2-26-3-no-fix-1634784",
+    "https://forums.creativeclouddeveloper.com/t/premiere-26-3-api-updates/12009",
+    "https://convcast.com/event/adobe-max-2026/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "A UXP-only Premiere panel cannot pre-fill speaker names or titles today. Ship v1 on CEP/ExtendScript and re-test UXP once Premiere 27.x (around MAX 2026) ships. Port only when text and colour writes are verified."
+  },
+  {
+   "claim": "MOGRTs can be built and used by script. After Effects: CompItem.exportAsMotionGraphicsTemplate(overwrite, path), motionGraphicsTemplateName and openInEssentialGraphics (15.0); Property.addToMotionGraphicsTemplate / canAddToMotionGraphicsTemplate (15.0); addToMotionGraphicsTemplateAs plus motionGraphicsTemplateControllerCount and get/setMotionGraphicsControllerName (16.1); AVLayer.addToMotionGraphicsTemplate(As) for media replacement (18.0); Property.setPropertyParameters / isDropdownEffect for dropdowns (17.0.1); essentialPropertySource (22.0); propertyParameters / valueText (26.0). Premiere: Sequence.importMGT and importMGTFromLibrary return a TrackItem, and TrackItem.getMGTComponent() exposes the template's parameters. Not in the documented API: poster frame, EGP groups/comments, the Source Text 'Edit Properties' font flags, and 'Include video preview'. A commercial batch exporter (Aep to Mogrt Pro 2.1.3, Apr 2026) adds previews, keywords and font customisation by its own means and opens each comp in Essential Graphics before export to make export reliable.",
+   "confidence": "high",
+   "sources": [
+    "https://ae-scripting.docsforadobe.dev/item/compitem/",
+    "https://ae-scripting.docsforadobe.dev/property/property/",
+    "https://ae-scripting.docsforadobe.dev/introduction/changelog/",
+    "https://ppro-scripting.docsforadobe.dev/sequence/sequence/",
+    "https://ppro-scripting.docsforadobe.dev/item/trackitem/",
+    "https://aescripts.com/aep-to-mogrt/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Phase 2 can be a reproducible build script: a JSON spec drives adding and naming EGP controls, all MOGRTs export headlessly, and a post-processing step creates sidecar previews and thumbnails. Groups, comments and poster frame are set once by hand in the master AEP, or the panel's own previews replace them. Confidence on the 'not scriptable' list is medium."
+  },
+  {
+   "claim": "Premiere ExtendScript parameter formats. For an AE-made MOGRT, the Source Text parameter's getValue() returns a JSON string with textEditValue, fontEditValue[] (PostScript names), fontSizeEditValue[], fontFSBold/Italic/AllCaps/SmallCapsValue[], the capPropFontEdit/FontSizeEdit/FauxStyleEdit flags, capPropTextRunCount and fontTextRunLength[]. To change text: JSON.parse, set textEditValue AND fontTextRunLength=[text.length], then setValue(JSON.stringify(obj), true). Otherwise text comes out blank or garbled. The JSON global can be missing in Premiere's ExtendScript, so bundle json2.js. Colours use getColorValue() / setColorValue(alpha, red, green, blue, updateUI) with 0–255 integers; getValue() returns an opaque packed number. Adobe (Bruce Bullis) says the API supports AE-made MOGRTs only; MOGRTs made in Premiere return a different, prefixed blob.",
+   "confidence": "high",
+   "sources": [
+    "https://community.adobe.com/t5/premiere-pro-discussions/extendscript-modifying-mogrt-text-using-cep-panel/td-p/11186245",
+    "https://community.adobe.com/t5/premiere-pro-discussions/premiere-pro-extendscript-changing-the-text-of-a-mogrt/td-p/14786120",
+    "https://community.adobe.com/t5/premiere-pro-discussions/mogrt-getvalue-returns-json-in-extendscript/td-p/11085519",
+    "https://community.adobe.com/t5/premiere-pro-discussions/change-fill-color-and-source-text-in-a-mogrt-via-extendscript-ppro-cc2019/td-p/10764749",
+    "https://ppro-scripting.docsforadobe.dev/sequence/componentparam/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Only AE-authored MOGRTs can be pre-filled by the panel. Keep every editable text a single style run with fixed brand font flags so run-length bookkeeping stays trivial. Look parameters up by unique display name."
+  },
+  {
+   "claim": "importMGT quirks. It has no insert/overwrite control: it overwrites whatever is on the target track (Bruce Bullis, Jan 2025). Time is passed in ticks, and duration is changed through trackItem.end with Time objects (14.1+). Responsive-Design MOGRTs are inserted with an in-point at 1 h and 12 h of available duration, so set end explicitly. In Pr 2025/2026 the Properties panel can keep showing stale or blank text after a scripted change while the rendered frame is correct (a UI bug). MOGRT media-replacement slots cannot be filled by script. An MCP project reported generic 'EvalScript error' and stack overrun on Pr 26.2.2 after repeatedly re-injecting helper code.",
+   "confidence": "medium",
+   "sources": [
+    "https://community.adobe.com/t5/premiere-pro-discussions/sequence-importmgt-overwrites-sequence-instead-of-inserting/m-p/15068017",
+    "https://community.adobe.com/questions-729/using-extendscript-to-insert-animated-responsive-design-mogrts-1359033",
+    "https://community.adobe.com/questions-729/automation-blocks-mogrt-ui-not-updating-in-premiere-2025-1418942",
+    "https://community.adobe.com/t5/premiere-pro-discussions/replace-media-in-mogrt-using-script/m-p/12344023",
+    "https://github.com/leancoderkavy/premiere-pro-mcp/issues/505",
+    "https://creativecow.net/forums/thread/a-mogrt-of-infinite-durationae/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "The insertion engine should find or create a free video track at the playhead (never overwrite), set the duration explicitly, write values once, and inject the JSX library once per session. Partner logos and photos cannot be auto-swapped, so pre-bake brand logo variants behind a dropdown. Overwrite, end and UI-bug points are high confidence; the EvalScript report is low."
+  },
+  {
+   "claim": "Premiere effect presets (.prfpset) cannot be applied by ExtendScript. Only built-in effects can be added, through the unsupported QE DOM. UXP (25.6+) can add effects by matchName (VideoFilterFactory.createComponent + VideoComponentChain.createAppendComponentAction) and keyframe them through ComponentParam. Premiere 26.0–26.3 ships 90+ GPU 'Impacts' effects, transitions and text animations (for example Typewriter Impacts and Pop/Spring Motion Impacts) plus text styles.",
+   "confidence": "high",
+   "sources": [
+    "https://community.adobe.com/t5/premiere-pro-discussions/extendscript-import-effect-preset-file/m-p/12169203",
+    "https://developer.adobe.com/premiere-pro/uxp/ppro-reference/classes/videofilterfactory",
+    "https://developer.adobe.com/premiere-pro/uxp/ppro-reference/classes/videocomponentchain",
+    "https://helpx.adobe.com/premiere/desktop/add-video-effects/types-of-effects/animations.html",
+    "https://helpx.adobe.com/premiere/desktop/whats-new/whats-new.html"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "In Premiere, 'animation presets by a button' should be one of three things: (a) AE MOGRT text presets with In/Out toggles, (b) pre-rendered alpha clips, or (c) a later UXP 'recipe' engine that adds native effects and keyframes. A .prfpset library is not button-friendly."
+  },
+  {
+   "claim": "Supported Essential Graphics controls: checkbox, colour, numeric slider (Slider Control, Opacity, …; min/max range), Source Text, 2D point, 2D scale, angle, and 3D shadow colour. Source Text can optionally expose font family/style, size and faux styles via Edit Properties, but these font controls are unsupported as primary properties of a nested comp. On top of that come the Dropdown Menu Control (1-based index), media replacement (image, sequence, video, PSD and AI layers; not in Dynamic-Link MOGRTs; the editor drags media from the Project panel) and CSV/TSV data controls. In Premiere the values are static per clip: AE-made MOGRT controls cannot be keyframed (idea open since 2018). Adobe's DGR guide insists on unique control names.",
+   "confidence": "high",
+   "sources": [
+    "https://helpx.adobe.com/after-effects/desktop/motion-graphics/work-with-motion-graphics-templates/creating-motion-graphics-templates.html",
+    "https://helpx.adobe.com/after-effects/desktop/motion-graphics/expressions-to-create-dropdown-lists/create_dropdowns_using_expressions.html",
+    "https://helpx.adobe.com/after-effects/desktop/motion-graphics/work-with-motion-graphics-templates/replace-media-motion-graphics-templates.html",
+    "https://community.adobe.com/t5/premiere-pro-ideas/add-the-ability-to-keyframe-an-imported-after-effects-mogrt/idc-p/13521375",
+    "https://blog.frame.io/2024/08/12/mogrt-guide-after-effects-2024-motion-graphics-workflow/",
+    "https://developer.adobe.com/audio-video-firefly-services/guides/dgr/dgr-best-practices"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Template spec for Cloud.ru: text fields; dropdowns for palette, variant, logo version and alignment; checkboxes such as show 2nd line or show logo; bounded sliders. Avoid point and angle controls, and keep brand font flags OFF so fonts stay locked. The pack manifest maps each panel field to a unique EGP display name."
+  },
+  {
+   "claim": "Property.setPropertyParameters (dropdown items) only accepts strings that are ASCII or encodable in the current system code page. Non-Latin items set by script on a mismatched system locale become illegible. Items also cannot be empty or duplicated, cannot contain '|', and separators ('(-') take up an index.",
+   "confidence": "high",
+   "sources": [
+    "https://helpx.adobe.com/after-effects/desktop/motion-graphics/expressions-to-create-dropdown-lists/create_dropdowns_using_expressions.html"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Run the template build script on a machine whose system locale is Russian (CP1251), or keep dropdown labels ASCII. Verify Cyrillic labels in Premiere."
+  },
+  {
+   "claim": "Responsive Design–Time. Protected regions are composition markers with 'Protected Region' turned on (Create Intro/Outro = 15% of duration, or from the work area). In Premiere, dragging a MOGRT's in/out time-stretches only the unprotected middle; protected regions keep their speed. The MOGRT cannot know the stretch factor, so expression-driven motion in the middle (time, wiggle, loopOut) is stretched too; the only workaround is a duration value typed into a control. A comp containing audio does not stretch adaptively. Since AE/Pr 25.0, audio in a protected region makes the MOGRT impossible to extend past its comp length. Without Responsive Design–Time a MOGRT is a fixed-length clip.",
+   "confidence": "high",
+   "sources": [
+    "https://helpx.adobe.com/after-effects/desktop/motion-graphics/add-responsive-design/responsive-design.html",
+    "https://creativecow.net/forums/thread/using-the-time-stretch-value-from-premiere-pro-within-a-mogrt/",
+    "https://community.adobe.com/questions-729/adding-audio-in-mogrt-mess-with-a-protected-regions-1415600",
+    "https://blog.frame.io/2024/08/12/mogrt-guide-after-effects-2024-motion-graphics-workflow/"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Every plashka and title gets a protected intro and outro and a static or hold middle, with no audio inside. SFX and music ship as separate WAVs that the panel drops on an audio track. If a middle loop is needed, the panel writes the real clip duration into a hidden 'Duration' slider whenever it sets the length."
+  },
+  {
+   "claim": "AE-made MOGRTs have a fixed comp size and do not adapt to the Premiere sequence frame; Premiere treats them like clips, and per Roland Kahlenberg 'Premiere locks a MOGRT's screen aspect ratio when it is first imported'. Workarounds are one MOGRT per aspect, or a master canvas such as 1920×1920 holding 16:9/1:1/9:16 precomps switched by a dropdown (Mathias Moehl). Only Premiere-native graphics adapt automatically, through Responsive Design–Position pinning to the video frame.",
+   "confidence": "high",
+   "sources": [
+    "https://community.adobe.com/questions-529/how-to-create-mogrts-responsive-to-sequence-size-in-pp-37642",
+    "https://community.adobe.com/t5/after-effects-discussions/create-mogrts-in-after-effects-for-premiere-with-different-aspect-ratio-settings/m-p/11447044/highlight/true",
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/insert-images-and-graphics/create-responsive-graphics.html",
+    "https://blog.pond5.com/23558-how-to-design-auto-responsive-templates-for-vertical-and-square-videos/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "The pack format must model aspect variants per item (16x9, 9x16, 1x1, optionally 4x5). The panel reads the active sequence or comp frame size and picks the matching file, with a manual override. Prefer separate variants over the square-canvas trick, which costs about 1.8× the pixels to render."
+  },
+  {
+   "claim": "Auto-sizing plashki are driven by sourceRectAtTime() width/height plus padding controls. This is costly when many layers evaluate it every frame; Adobe's DGR guide recommends a fixed time (sourceRectAtTime(0)) where possible, and Adobe's Premiere tips say to keep layer and expression counts low and use Hold keyframes. Expressions must also be 'universalised', because effect and parameter names are localised (a German Slider is 'Schieberegler'); Envato requires this for templates. Our offline audit (heuristic parser) of SMM_pack.aep: 397 expressions, including 390 Scale expressions reading effect('Scale To')('Slider') and similar from 'Adjustment Layer 1' (1,170 such layer references), plus wiggle. Titles uses a manually animated 'Размер плашек' null instead of auto-sizing.",
+   "confidence": "high",
+   "sources": [
+    "https://developer.adobe.com/audio-video-firefly-services/guides/dgr/dgr-best-practices",
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/insert-images-and-graphics/tips-for-authoring-motion-graphics-templates.html",
+    "https://blog.frame.io/2024/08/12/mogrt-guide-after-effects-2024-motion-graphics-workflow/",
+    "https://help.author.envato.com/hc/en-us/articles/360000470686-Premiere-Pro-Templates-Requirements",
+    "C:/dev/temp/claude/C--Users------Documents-Cloud-ru-Preset-plugin/b48e0614-1141-4125-9b74-d00eb767441b/scratchpad/audit/4__SMM_pack.md",
+    "C:/dev/temp/claude/C--Users------Documents-Cloud-ru-Preset-plugin/b48e0614-1141-4125-9b74-d00eb767441b/scratchpad/audit/5__Titles__3___converted_.md"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Phase 1: rebuild plashki with one controller layer and rects measured at fixed times, and rewrite effect references by index or matchName. Deliver the expression-heavy SMM pattern (about 390 layers) as a pre-rendered loop, not a MOGRT."
+  },
+  {
+   "claim": "Expression engines. Adobe says the JavaScript engine evaluates expressions during renders 'up to 5x faster' than Legacy ExtendScript, and projects saved in older versions default to Legacy. Per our offline audit, all Cloud.ru .aep files use the Legacy ExtendScript engine. Switching means fixing documented incompatibilities: single-line if/else, an expression ending in if without else, ending with a function declaration, the this() shorthand, snake_case members, and Source Text character access. Mister Horse precomps already require the JS engine. No deprecation of the Legacy engine was found.",
+   "confidence": "high",
+   "sources": [
+    "https://helpx.adobe.com/after-effects/desktop/work-with-expressions/expression-language-reference/expression-language-reference.html",
+    "https://helpx.adobe.com/after-effects/desktop/work-with-expressions/expression-basics/legacy-and-extend-script-engine.html",
+    "https://help.misterhorse.com/hc/en-us/articles/18366451571229",
+    "C:/dev/temp/claude/C--Users------Documents-Cloud-ru-Preset-plugin/b48e0614-1141-4125-9b74-d00eb767441b/scratchpad/audit/2__Вебинары.md"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "In Phase 1, switch every master project to the JavaScript engine and fix the errors. The AE panel should check app.project.expressionEngine and offer to switch it before inserting brand comps."
+  },
+  {
+   "claim": "A MOGRT can run without After Effects installed only if it uses the Classic 3D renderer (Advanced 3D and Cinema 4D are not supported by MOGRTs or DGR) and built-in effects, excluding Camera-Shake Deblur, Synthetic Aperture Color Finesse, CINEWARE, Puppet and Warp Stabilizer. Dynamic Link footage, FLV and third-party plug-ins are also excluded. Breaking these rules creates a 'Dynamic Link' MOGRT that needs AE installed and renders far slower: an Adobe engineer described a case of 65 s in AE versus 30+ min in Premiere, and Mister Horse's 3D Titles require AE 2025 installed. AE 26 features built on Advanced 3D (Substance materials, parametric meshes) are therefore off-limits. AE 26.0 does add variable-font axes that can be driven through Essential Graphics.",
+   "confidence": "high",
+   "sources": [
+    "https://helpx.adobe.com/after-effects/desktop/motion-graphics/work-with-motion-graphics-templates/creating-motion-graphics-templates.html",
+    "https://developer.adobe.com/audio-video-firefly-services/guides/dgr/dgr-best-practices",
+    "https://community.adobe.com/t5/premiere-pro-discussions/export-mogrts-in-ae-1min-premiere-30-min-and-longer/td-p/13481385",
+    "https://help.misterhorse.com/hc/en-us/articles/23016848085533",
+    "https://www.newsshooter.com/2026/01/22/whats-new-in-adobe-after-effects-26-0/"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "The build script needs a QA gate: renderer is Classic 3D, every effect matchName is native, there is no Dynamic Link or FLV footage, and the export option 'Warn me if AE must be installed' is on. Check the logo shots' 3D layers (Rotate X) specifically."
+  },
+  {
+   "claim": "Render path and cost in Premiere. A MOGRT without third-party or C4D content is rendered by AELib, an After Effects engine embedded in Premiere, so no AE install is needed. Premiere 23.0 added Multi-Frame Rendering for AE MOGRTs (about 2× faster). On first use the template is unpacked into an .aegraphic in the project's MOGRT media/scratch folder; this is slow for complex templates, and the clip shows offline until it loads. Rendered frames are cached. Even so, Adobe-adjacent guidance is that 'MOGRTs made in Premiere Pro are super-fast, while MOGRTs made in After Effects can be very slow'. Adobe's own tips: offer few controls (more sliders and checkboxes render more slowly), split complex MOGRTs, minimise layers and expressions, pre-render the non-editable parts as video inside the MOGRT, and use Render & Replace with alpha for playback and export.",
+   "confidence": "high",
+   "sources": [
+    "https://blog.frame.io/2022/06/13/troubleshooting-dynamic-link-problems-in-premiere-pro-and-after-effects/",
+    "https://www.newsshooter.com/2022/10/18/adobe-premiere-pro-version-23-0/",
+    "https://blog.frame.io/2023/05/15/smooth-mogrt-workflows/",
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/insert-images-and-graphics/tips-for-authoring-motion-graphics-templates.html",
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/use-motion-graphics-templates/add-motion-graphic-templates-to-a-sequence.html"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Split content into delivery tiers. T1, editable text graphics, become lean AE MOGRTs. T2, heavy non-editable animation (logo shots, patterns, transitions, overlays), becomes short pre-rendered alpha clips instead of today's 600 s ProRes 4444 overlays. T3, the simplest plashki, may become Premiere-native templates. The panel also offers 'insert as rendered clip' and Render & Replace hints."
+  },
+  {
+   "claim": "Fonts. Premiere renders AE-MOGRT text with locally installed fonts. A missing font triggers the 'Resolve Fonts' dialog and is substituted; only Adobe Fonts can be auto-synced, and anything else is 'unresolvable'. Pr 26.0 added Preferences > Graphics default fonts. AE's MOGRT export can warn when fonts are not on Adobe Fonts. On Windows, fonts installed only 'for current user' are a common reason AE or Premiere miss a font, so install for all users. Text parameters store fonts as PostScript names (Cloud.ru uses SBSansDisplay-Semibold/-Regular/-Bold and SBSansText-Regular). AE 24.0+ has app.fonts, and 24.5 adds Project.usedFonts / replaceFont for scripted font audits.",
+   "confidence": "high",
+   "sources": [
+    "https://community.adobe.com/t5/premiere-pro-discussions/quot-resolve-fonts-quot-how-to-resolve/td-p/15005435",
+    "https://community.adobe.com/t5/premiere-pro-discussions/resolve-fonts-unresolvable-will-be-substituted-with-default-font/td-p/11618620",
+    "https://helpx.adobe.com/premiere/desktop/whats-new/whats-new.html",
+    "https://community.adobe.com/t5/after-effects-discussions/user-installed-fonts-not-showing-up-in-after-effects-and-premiere/td-p/9913370",
+    "https://ae-scripting.docsforadobe.dev/introduction/changelog/",
+    "https://blog.frame.io/2023/05/15/smooth-mogrt-workflows/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Deploy SB Sans Display/Text machine-wide on every editor and render PC, with identical PostScript names on Mac and Windows. On startup the panel checks fonts (AE: app.fonts; Pr: Node scan of system and user font folders) and refuses brand inserts with a clear message instead of letting Premiere substitute silently."
+  },
+  {
+   "claim": "Version compatibility is forward-only across major versions. A MOGRT exported from AE 2026 (26.x) is rejected by Premiere 2025 with 'This Motion Graphics template is not compatible with this version of Premiere Pro…'. The fix is to back-save the AEP and export from the older AE (Adobe community manager, Nov 2023). Adobe's cloud renderer (DGR) currently accepts only MOGRTs from AE 2025 or earlier. Third-party 'downgraders' rewrite the internals but are unverified.",
+   "confidence": "high",
+   "sources": [
+    "https://community.adobe.com/questions-729/clarification-on-mogrt-backwards-compatibility-1403614",
+    "https://developer.adobe.com/audio-video-firefly-services/guides/dgr/dgr-best-practices",
+    "https://www.zerobalanced.com/Mogrt-downgrader"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Author masters in AE 2026 only if every consumer runs Pr 2026+. Otherwise save down to 25.x and export from AE 2025, which is installed. Record minHostVersion per item in the manifest and have the panel hide incompatible items."
+  },
+  {
+   "claim": "Packaging and media. A .mogrt is a ZIP: definition.json (controls, fonts, dimensions, tags, capsule ID), project.aegraphic (itself a zip containing the .aep) and a thumbnail/preview. Premiere copies template media next to the project in 'Motion Graphics Template Media' (keep the Scratch Disk setting at 'Same as project'). Moving a project without that folder makes media offline, and deep or long Windows paths cause 'Motion Graphics Template is corrupt'. CC Libraries cap MOGRT uploads at 1 GB and Adobe Stock at 300 MB; an embedded video preview inflates the size.",
+   "confidence": "medium",
+   "sources": [
+    "https://filext.com/file-extension/MOGRT",
+    "https://motionlens.captioneer.com/",
+    "https://help.misterhorse.com/hc/en-us/articles/360013003718",
+    "https://help.misterhorse.com/hc/en-us/articles/360010204618",
+    "https://community.adobe.com/feature-requests-530/the-1gb-filesize-limit-for-uploading-motion-graphics-templates-to-libraries-is-unworkable-1215072",
+    "https://helpx.adobe.com/ie/stock/contributor/help/motion-graphics-template-requirements.html"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Keep MOGRTs small, with no long ProRes inside. The panel can validate fonts and size from definition.json without AE, warn about long project paths, and remind users that the MOGRT media folder travels with the project."
+  },
+  {
+   "claim": "Since Premiere 25.0, Essential Graphics is split into a Graphics Templates panel (browse) and the Properties panel (edit). Graphics Templates already offers search, Local/Libraries filters, sorting by recently used or title, hover-scrub of MOGRT video previews, favourites (star), an Info view to rename and tag, and adding local, network or cloud folders. Limits: a parent folder whose MOGRTs sit in subfolders is not shown (each folder must be added), and the default local folder %APPDATA%\\Adobe\\Common\\Motion Graphics Templates ignores subfolders.",
+   "confidence": "high",
+   "sources": [
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/use-motion-graphics-templates/browse-and-sort-motion-graphics-templates.html",
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/use-motion-graphics-templates/organize-motion-graphics-templates.html",
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/use-motion-graphics-templates/install-motion-graphics-templates.html",
+    "https://larryjordan.com/articles/the-new-properties-panel-in-adobe-premiere-pro-25-0/",
+    "https://community.adobe.com/t5/premiere-pro-discussions/motion-graphics-folder-location/m-p/9940725"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "A zero-code fallback ships in Phase 2: one shared flat folder per category, tags and video previews already work without any plugin. Our panel must earn its place with what the native panel lacks: brand categories and variants, aspect auto-pick, text pre-fill, overlay/SFX/LUT insertion, After Effects support, font and version checks, and pack updates."
+  },
+  {
+   "claim": "CC Libraries are Adobe's recommended no-code channel. MOGRTs in a shared library appear in Premiere without installation, everyone always gets the latest version, and access can be granted or revoked. Libraries also hold colours, character styles and Lumetri looks, and scripts can insert by library and element name (importMGTFromLibrary / UXP insertMogrtFromLibrary). All of this depends on Adobe cloud services. Adobe halted all new sales in Russia in March 2022 and cut off Creative Cloud for state-controlled media. In 2026 the links between Libraries and Express brand kits also broke (fixed Apr 2026).",
+   "confidence": "medium",
+   "sources": [
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/insert-images-and-graphics/tips-for-authoring-motion-graphics-templates.html",
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/use-motion-graphics-templates/install-motion-graphics-templates.html",
+    "https://ppro-scripting.docsforadobe.dev/sequence/sequence/",
+    "https://blog.adobe.com/en/publish/2022/03/04/adobe-stops-all-new-sales-in-russia",
+    "https://petapixel.com/2022/03/07/adobe-ceases-all-new-sales-in-russia-and-cuts-off-creative-cloud/",
+    "https://community.adobe.com/bug-reports-328/adobe-cloud-library-is-no-longer-linked-to-brand-kits-in-adobe-express-1556529"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Do not make CC Libraries the primary channel for Cloud.ru. Ship our own versioned pack from internal storage (network share or Cloud.ru S3) with an update check. A CC Library mirror stays optional if the team's licences sync reliably."
+  },
+  {
+   "claim": "Premiere-native graphics in 2026 are GPU-fast and cover much of what brand plashki need: linked, track and local text styles; multiple strokes and shadows; masks with text; Responsive Design–Position pinning (adapts to frame aspect); Responsive Design–Time intro/outro preservation; and the 26.x 'Impacts' animations. They can be exported as MOGRTs, but every layer stays editable, so there is no brand lock. Premiere-made MOGRT text is not supported by the ExtendScript MOGRT API, and in Premiere-made MOGRTs text is edited on canvas rather than in form fields.",
+   "confidence": "medium",
+   "sources": [
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/stylize-text/create-text-styles.html",
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/insert-images-and-graphics/preserve-intro-outro-animations-while-creating-responsive-design-graphics.html",
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/insert-images-and-graphics/export-graphic-as-a-motion-graphics-template.html",
+    "https://blog.frame.io/2023/05/15/smooth-mogrt-workflows/",
+    "https://community.adobe.com/t5/after-effects-discussions/text-editing-limitations-in-motion-graphics-template/m-p/13208308"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Hybrid approach: AE MOGRTs where brand lock and scripted fill matter (speaker plashki, chapter cards, KPI and disclaimer cards); Premiere-native templates only for ultra-light, aspect-adaptive items where scripted fill is not needed."
+  },
+  {
+   "claim": "After Effects cannot import a .mogrt into an open project; File > Open only extracts it as a separate project. 'By a button' in AE therefore means two things. First, import a library .aep once (app.project.importFile) and add its comps as layers, with per-instance values edited through Essential Properties (layer.essentialProperty / 'ADBE Layer Overrides'; a text-override readback bug in 24.2.1 was fixed in 25.2). Second, apply .ffx presets via layer.applyPreset. applyPreset acts on the comp's currently selected layers, not the layer it is called on, creates a solid if nothing is selected, and places keyframes relative to the current time.",
+   "confidence": "high",
+   "sources": [
+    "https://community.adobe.com/t5/after-effects-discussions/mogrt-files-are-not-opening-in-after-effects-2025/m-p/15203867",
+    "https://community.adobe.com/t5/after-effects-ideas/import-comps-from-aep-as-mogrts-with-live-updating/idi-p/15586914",
+    "https://community.adobe.com/t5/after-effects-discussions/scripting-essential-properties-text-values/td-p/15148302",
+    "https://ae-scripting.docsforadobe.dev/layer/layer/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "The AE half of the pack is 'library comps' (master comps with Essential Properties, saved as 25.x) plus .ffx motion presets. The AE adapter manages selection and current time, reuses library items already in the project, and keeps a single 'Cloud.ru Brand' folder to avoid project bloat."
+  },
+  {
+   "claim": "Non-ASCII and long paths are fragile. In AE 2025+ (bug reintroduced in 26.1), setting a render-queue output path that contains non-ASCII characters through ExtendScript turns them into dashes (open bug, Windows 11). Mister Horse and Motion Bro report failures with deep or long project paths, unsaved projects, or the Project panel not at its root.",
+   "confidence": "medium",
+   "sources": [
+    "https://community.adobe.com/bug-reports-528/adobe-after-effects-extendscript-api-non-ascii-character-path-setting-issue-1216327",
+    "https://help.misterhorse.com/hc/en-us/articles/4406758022033",
+    "https://help.misterhorse.com/hc/en-us/articles/14384133658269",
+    "https://motionbro.com/help/unable-to-find-the-current-project-panel/"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Keep pack, cache and preview-render paths ASCII and short (for example C:/CloudRuBrand/...). Normalise file names to NFC (the source package has NFD names), show Russian titles from the manifest only, and require a saved project before inserting."
+  },
+  {
+   "claim": "Drag-and-drop and packaging. A CEP panel can drag files into the Premiere timeline or project via dataTransfer keys 'com.adobe.cep.dnd.file.N' (file paths only). UXP drag-and-drop into Premiere needs Premiere 27.0+ and accepts video, audio and image types; .mogrt is not listed. UXP .ccx plugins can be installed offline with UnifiedPluginInstallerAgent (/install file.ccx). A CEP 12 bug can ignore PlayerDebugMode and enforce signature checks (AE 26.3 report), so a self-signed ZXP is needed even internally.",
+   "confidence": "medium",
+   "sources": [
+    "https://community.adobe.com/t5/premiere-pro/cep-drag-and-drop-between-premiere-and-extension/m-p/11109594",
+    "https://github.com/Adobe-CEP/CEP-Resources/issues/177",
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/tutorials/drag-and-drop/",
+    "https://helpx.adobe.com/creative-cloud/apps/integration-with-other-apps/manage-plugins/install-plugins-using-upia-tool.html",
+    "https://github.com/Engine-Room-Games/after-effects-mcp/issues/91"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Click-to-insert at the playhead is the primary action; drag-out serves media files (overlays, SFX). Ship a signed ZXP with an installer script now, and plan .ccx + UPIA for the UXP era."
+  },
+  {
+   "claim": "Mister Horse 'Animation Composer for Premiere' (renamed from Premiere Composer on 10 Jun 2026; Premiere 2025+). The developer describes it as a CEP panel (React/TypeScript, ExtendScript plus custom native calls). Titles, text boxes and text presets are MOGRTs, with Animation In/Out checkboxes and a 'Replace' button that swaps the preset on a selected clip. Transitions use only native Premiere effects; they arrive as sequences/adjustment-layer clips kept in an 'Animation Composer Files' bin (inferred from support articles), so projects open without the plugin. SFX are audio files. The User Library points at a folder of MOGRT, audio, image or H.264 files (free up to 500 items). Previews are rendered once into '_Mister Horse Previews' inside the folder (for sharing) or into a local cache; custom MOGRT previews are named 'Name.mogrt.mhpreview.mp4'. Folders can be colour-filtered or focused. Packs and updates come through a separate Product Manager app. They publish a 'Required Fonts' list of mostly free families, and the font can be changed in the panel.",
+   "confidence": "medium",
+   "sources": [
+    "https://misterhorse.com/animation-composer-for-premiere",
+    "https://misterhorse.com/what-s-new/premiere-composer-renamed-to-animation-composer",
+    "https://blade.sk/projects/premiere-composer/",
+    "https://help.misterhorse.com/hc/en-us/articles/360010189537-User-Library-Help",
+    "https://help.misterhorse.com/hc/en-us/articles/4829149152657",
+    "https://help.misterhorse.com/hc/en-us/articles/7896608621597",
+    "https://help.misterhorse.com/hc/en-us/articles/360018394518",
+    "https://help.misterhorse.com/hc/en-us/articles/4829441106705",
+    "https://help.misterhorse.com/hc/en-us/articles/360003337537",
+    "https://help.misterhorse.com/hc/en-us/articles/360004003617"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Copy these patterns: everything inserted is native (MOGRT, clips, native effects) with no runtime dependency on the plugin; Replace and In/Out toggles; sidecar previews with a shared preview cache; a user-library folder for the team's own additions."
+  },
+  {
+   "claim": "Animation Composer for AE inserts native layers and effects, so the plugin is not needed to render. Text items are precomps whose text is set from the panel through Master (Essential) Properties; this overrides the inner text and loses mixed styling. Animation presets are expression-driven effect controls, which must be baked with Convert Expressions to Keyframes for Lottie. Some precomps require the JavaScript expression engine. Other reported issues: AE 23.6 broke font changes, motion blur is on by default (slow previews), and deep project paths break precomp creation.",
+   "confidence": "medium",
+   "sources": [
+    "https://help.misterhorse.com/hc/en-us/articles/360016069218",
+    "https://help.misterhorse.com/hc/en-us/articles/360013842157",
+    "https://help.misterhorse.com/hc/en-us/articles/4828682494865",
+    "https://help.misterhorse.com/hc/en-us/articles/18366451571229",
+    "https://help.misterhorse.com/hc/en-us/articles/12932336072605",
+    "https://help.misterhorse.com/hc/en-us/articles/360003337897"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "This validates the AE approach of precomps plus Essential Properties set by the panel. Expect the same pitfalls: single-style text, the engine requirement, and motion-blur cost."
+  },
+  {
+   "claim": "Motion Bro (v4 in 2023 through v7.3.1 in Jul 2026; AE and Premiere) has the most documented open pack format. A pack is a zip renamed to .mbr. The root holds category folders (an '01.' prefix sorts them and is hidden in the UI), an '(Assets)' folder (480×270 JPG/MP4 cover, 80×80 PNG thumbnail, optional jsxbin), pack.info (packName, author, version, apps=AE,PP) and an optional .settings file. Settings include fitScaleTo (frame/frameWidth/frameHeight/frameFill), fitResolutionToFrame, collapseTransformations, timeRemapKeyframes/Expression, durationBar and presetType (layer/compLayers/cutTransition/overlapTransition). Each category has a '(Preview)' folder with same-name MP4/JPG/PNG/GIF previews 480 px wide. Supported preset files: AEP, MOGRT, MP4, MOV, MP3, WAV, JPG, PNG, GIF, AI, EPS, PDF, FFX, JSX, JSXBIN. Name tags: [S] resizes nested comps and solids, 'Set [4,5]' keeps layer controls, '[COMP NAME]' injects the host comp name, and 'Link with Master Scene' links controllers across instances. v6 (Apr 2026) added install by license key, in-panel updates with a green indicator, favourites, pack filters and UI scale. In Premiere, simple graphics are MOGRT clips, while transitions and complex presets are 'preset sequences' built from the selected clips at apply time. They do not follow later trims, hence the 'Fix Transition Timing' tool (v7.3.1).",
+   "confidence": "high",
+   "sources": [
+    "https://motionbro.com/help/package-structure-requirements/",
+    "https://motionbro.com/help/additional-options-package/",
+    "https://motionbro.com/help/additional-settings-for-after-effects-presets/",
+    "https://motionbro.com/help/advanced-settings-for-after-effects-presets/",
+    "https://motionbro.com/help/creation-of-the-final-mbr-file/",
+    "https://motionbro.com/blog/updates/motion-bro-4-release-of-a-new-version-of-the-plugin-for-after-effects-premiere-pro/",
+    "https://motionbro.com/blog/updates/motion-bro-6-download-and-install-packages-directly-in-the-plugin/",
+    "https://motionbro.com/blog/updates/new-tool-for-adjusting-transition-timing-in-premiere/",
+    "https://motionbro.com/help/customizing-presets-in-premiere-pro/",
+    "https://motionbro.com/help/how-to-apply-presets-in-after-effects/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Use this as the reference for the Cloud.ru pack. Prefer an explicit pack.json manifest over folder conventions, but keep the ideas: numbered categories, sidecar previews of the same name, per-category insertion settings, a pack version plus script version shown in the UI, and a single-file pack that can be installed or updated."
+  },
+  {
+   "claim": "AEJuice Pack Manager (one installer covers AE, Premiere and 14 other editors). In Premiere 'all packages work as MOGRT files'. In AE it imports .aep compositions; 'My Pack' saves your own comps as projects with auto-generated GIF previews. Items are added by drag-and-drop or Import at the playhead, and selecting two clips inserts a transition between them. It has favourites, search and shortcuts, auto-resizes to the comp, and auto-installs Google fonts (other fonts are manual). Its Edit tab remembers per-animation edits for future imports (with optional AI edits). 'Import as Video' and Export to MP4/MOV give fast Premiere playback. Packs download on demand (with an alternative server), and a 'Speed Check' finds project slowdowns. Complaints: slow imports and downloads, AE crashes during render, and scripts that need refreshing.",
+   "confidence": "medium",
+   "sources": [
+    "https://aejuice.com/product/premiere-pro-bundle/",
+    "https://aejuice.com/product/my-pack/",
+    "https://aejuice.com/free-plugins/",
+    "https://forum.aejuice.com/t/tutorial-how-to-export-animations-from-after-effects-to-premiere-pro/2107",
+    "https://forum.aejuice.com/t/font-previewer-update-fonts-apply-correctly-your-layer-size-stays-put-live-keyboard-preview/2149",
+    "https://forum.aejuice.com/t/how-to-fix-slow-download-in-aejuice-pack-manager/1781",
+    "https://forum.aejuice.com/t/ae-juice-crashes-after-effects-during-render/504"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Adopt sticky field defaults (remember the last speaker style and palette) and an 'insert as rendered video' fallback for heavy items."
+  },
+  {
+   "claim": "Motion Array's Library Extension (with the Hub desktop app) lets editors browse, preview and drag 1000+ transitions into Premiere: filters for popular, newest and staff picks; keyword search; hover thumbnails; side-by-side comparison; hovering one item pauses the others; drop between two clips; bulk apply to several selected clips. Downloads land in a 'Motion Array' bin with subfolders. Envato's Premiere extension (free beta, 2023) covers stock music, SFX and video with AI suggestions based on a frame; Envato templates (.mogrt/.prproj) are still downloaded from the site, and Envato requires universalised expressions, no third-party plug-ins, and clearly named EGP sections.",
+   "confidence": "medium",
+   "sources": [
+    "https://motionarray.com/learn/premiere-pro/library-extension-premiere-pro/",
+    "https://motionarray.com/learn/motion-array/extension-for-adobe-tutorial/",
+    "https://elements.envato.com/learn/envato-premiere-pro-extension",
+    "https://help.author.envato.com/hc/en-us/articles/360000470686-Premiere-Pro-Templates-Requirements"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "UX details worth copying: only the hovered preview plays, bulk apply, side-by-side comparison of variants (16:9 vs 9:16), and uppercase EGP section headers with separator comments."
+  },
+  {
+   "claim": "Brand-kit style panels in 2026. StyleForge (a Premiere .ccx plugin, Pr 25.3+) renders brand motion graphics with the real logo, colours and fonts in the cloud and drops a transparent ProRes .mov at the sequence start on track 1. BrandHop for Premiere (public in Sep 2026, per its listing) is a DAM-style library of approved logos, photos, videos and documents. Adobe's own broadcast guidance positions shared CC Libraries, MOGRTs and spreadsheet-driven versioning as the brand-toolkit answer. Firefly 'brand kits' (Jun 2026) are not wired into Premiere graphics.",
+   "confidence": "medium",
+   "sources": [
+    "https://www.styleforge.io/premiere-plugin-capabilities",
+    "https://exchange.adobe.com/apps/cc/fef53919/brandhop-for-premiere",
+    "https://helpx.adobe.com/premiere/desktop/collaborate-with-others/collaborate-using-productions/incorporate-branded-graphics-and-audio-elements.html",
+    "https://news.adobe.com/news/2026/06/adobe-unveils-major-expansion"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Render-to-clip (ProRes 4444 with alpha) is the mainstream workaround for UXP's MOGRT text gap. Our plan can keep 'render this item locally via aerender/AME and insert the clip' as a future mode."
+  },
+  {
+   "claim": "UX best practices distilled from these tools. (1) A grid of hover-play MP4 previews about 480 px wide (Motion Bro moved from GIF to MP4); render them lazily, limit how many play at once (Mister Horse suggests about 3×3), and pause the others on hover. (2) Numbered categories, search, tags, favourites and recents, pack and colour filters, and UI scale. (3) One-click insert at the playhead, or between two selected clips for transitions, plus drag-out. (4) After insertion, edit in native controls, with panel helpers such as Replace, In/Out toggles, a duration bar, remembered edits and master-scene linking. (5) An 'insert as video' fallback. (6) Output that does not depend on the plugin at runtime. (7) A desktop or panel installer with a visible update indicator. (8) Aspect handled automatically (fit/auto-scale settings) rather than by an explicit toggle.",
+   "confidence": "medium",
+   "sources": [
+    "https://motionbro.com/blog/updates/motion-bro-4-release-of-a-new-version-of-the-plugin-for-after-effects-premiere-pro/",
+    "https://help.misterhorse.com/hc/en-us/articles/360015789498",
+    "https://motionarray.com/learn/premiere-pro/library-extension-premiere-pro/",
+    "https://motionbro.com/blog/updates/motion-bro-6-download-and-install-packages-directly-in-the-plugin/",
+    "https://help.misterhorse.com/hc/en-us/articles/7896608621597",
+    "https://motionbro.com/help/link-with-master-scene/"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Panel v1 scope for Cloud.ru: category tabs (Logos, Plashki/Titles, Webinars, Courses, SMM, Podcast, Transitions/Overlays, SFX, Export presets). Each item gets a hover preview, a form of editable fields with remembered values, and Insert. The aspect is auto-picked from the sequence/comp with a manual switch (16:9 / 9:16 / 1:1 / 4:5)."
+  },
+  {
+   "claim": "Recurring user complaints with these tools. Slow MOGRT playback and export (Render & Replace becomes mandatory). Panels that take minutes to load when pointed at huge folders or cloud drives (one Motion Bro user reported 30–40 min). Black or green previews caused by GPU drivers or overlay apps (MSI Afterburner, RivaTuner) and by other extensions. Media offline after moving projects. 'MOGRT corrupt' on long paths. Imports that fail unless the project is saved or the Project panel is at its root. Inserted transitions that do not follow later trims. Colour shifts from adjustment layers or Log auto-detect. Frame stutter at non-30/60 fps. Panels broken by installing while the app is open. Version gating ('presets made in 2022, update your app').",
+   "confidence": "medium",
+   "sources": [
+    "https://community.adobe.com/t5/premiere-pro-discussions/mogrt-poor-performance/m-p/14898363/highlight/true",
+    "https://community.adobe.com/t5/after-effects-discussions/motion-bro-v3-2-1-blank-panel-and-not-loading-ui/td-p/12957907",
+    "https://help.misterhorse.com/hc/en-us/articles/360015789498",
+    "https://help.misterhorse.com/hc/en-us/articles/360013003718",
+    "https://motionbro.com/help/solving-problems-with-color-grading-of-transitions-in-premiere-pro/",
+    "https://motionbro.com/blog/updates/important-fix-for-frame-stuttering-during-transitions-in-premiere-pro/",
+    "https://motiongraphics.co.il/en/motion-bro-tutorial/"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Design against these: build the index from the manifest instead of scanning folders, cache previews locally, run pre-insert health checks (project saved, MOGRT media path, fonts, version, path length), keep transitions as overlay clips that need no source clips, and test at 25 fps (the Cloud.ru standard)."
+  },
+  {
+   "claim": "Data-driven MOGRTs. AE can expose CSV/TSV data (column types: text, number, hex colour; min/max rows) to Premiere, where editors drop in a new spreadsheet and step through rows. Adobe's authoring tips recommend linking a CSV whenever the names and titles already exist. Known quirk: non-English Excel saves TSV as .txt.",
+   "confidence": "medium",
+   "sources": [
+    "https://helpx.adobe.com/after-effects/desktop/motion-graphics/work-with-motion-graphics-templates/creating-motion-graphics-templates.html",
+    "https://helpx.adobe.com/premiere/desktop/add-text-images/insert-images-and-graphics/tips-for-authoring-motion-graphics-templates.html"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Webinar and podcast speaker lower-thirds can be fed from a speakers CSV, or better from the panel's own form or CSV import that sets each instance via ExtendScript. Test Russian-locale CSV (semicolons, encoding) before relying on the native CSV path."
+  },
+  {
+   "claim": "Adobe's Firefly Services 'Dynamic Graphics Render' (cloud MOGRT rendering) publishes a strict MOGRT checklist. Classic 3D only, no third-party effects, sliders/dropdowns/checkboxes as controls, unique control names, one MOGRT per aspect ratio, no adjustable-duration templates, pre-render the static parts, use a fixed time in sourceRectAtTime, ship the font files (referenced by PostScript name), and AE 2025 or earlier only.",
+   "confidence": "high",
+   "sources": [
+    "https://developer.adobe.com/audio-video-firefly-services/guides/dgr/dgr-best-practices"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Use it as our template QA checklist even if DGR itself is likely unavailable to a Russian company. Compliance keeps the option of server-side batch rendering open later."
+  }
+ ],
+ "recommendation": "Use a manifest-driven brand pack with three delivery tiers, served by one shared web UI with two CEP/ExtendScript host adapters (Premiere and After Effects).\n\n**1. Fix the projects.** Normalise the 7 projects into master AEPs:\n- switch to the JavaScript expression engine and universalise expressions;\n- use Classic 3D only, with no third-party effects and no audio inside templates;\n- verify SB Sans by PostScript name;\n- use ASCII/NFC file names and short paths;\n- save down to 25.x so MOGRTs can be exported for Pr 2025+.\n\nThen split the content into tiers:\n- **T1, editable brand text** (speaker plashki, chapter, KPI, disclaimer and QR cards): lean AE MOGRTs with at most 6–8 uniquely named controls, fonts locked, palette chosen by dropdown, protected intro/outro with a static middle, auto-size via sourceRectAtTime at fixed times, and separate 16:9 / 9:16 / 1:1 variants.\n- **T2, heavy non-editable motion** (logo shots, SMM patterns, overlays, transitions): short pre-rendered alpha clips, with SFX/music as separate WAVs. This replaces the 600 s ProRes overlays.\n- **T3, AE-only presets**: .ffx files plus 'library comps' with Essential Properties.\n\n**2. Build templates by script.** A JSON spec drives adding/renaming EGP controls (with Russian dropdown labels only on a CP1251 machine). The script batch-exports MOGRTs after opening each comp in Essential Graphics, then runs a QA gate: renderer, effect matchNames, fonts via Project.usedFonts, and minHostVersion. It renders 480 px sidecar MP4 previews and posters (ASCII output paths) and writes pack.json:\n- id, version, minHost;\n- item → per-aspect files;\n- editable fields mapped to EGP names, and required fonts;\n- insertion policy: track, duration, in/out, companion audio.\n\nThe layout follows Motion Bro's .mbr idea and Mister Horse's sidecar previews. Publish to internal storage (network share or Cloud.ru S3) with an update check. Also publish a flat folder per category that Premiere's own Graphics Templates panel can browse as a zero-code fallback. CC Libraries stay optional, not a dependency.\n\n**3. Build the plugin.** One web UI: categories, search, favourites, hover previews, sequence/comp aspect auto-detect with override, a field form with remembered values, font/version/health checks, and an update indicator.\n\nThe Premiere adapter:\n- inserts with importMGT at the playhead on a free track (importMGT overwrites);\n- sets the duration explicitly;\n- fills text via the JSON plus fontTextRunLength method and colours via setColorValue;\n- offers 'insert as rendered clip' and Render & Replace guidance;\n- inserts T2 clips and SFX.\n\nThe After Effects adapter:\n- imports library comps once into a 'Cloud.ru Brand' folder and adds them at the current time;\n- sets Essential Properties;\n- applies .ffx presets to selected layers with selection/time control;\n- checks the expression engine.\n\nShip as a signed ZXP. Re-evaluate a UXP port after Premiere 27.x (around MAX 2026) delivers working MOGRT text and colour parameter APIs, and as the After Effects UXP beta (Nov 2026) matures. CEP remains viable until it is disabled by default in Dec 2028.",
+ "open_risks": [
+  "UXP still cannot read or write MOGRT Source Text (as of Sep 2026), and UXP colour writes corrupt the blue channel (Pr 26.0.2–26.3). If CEP is disabled (Dec 2028) before UXP parity, or Premiere changes ExtendScript MOGRT behaviour, scripted text pre-fill breaks.",
+  "importMGT overwrites existing clips, and in Pr 2025/2026 the Properties panel can show stale or blank text after a scripted change. Both can confuse editors; this must be verified in a spike on Pr 26.5.",
+  "Heavy Cloud.ru elements (for example the SMM pattern with about 390 expression-driven layers) may play unacceptably as AE MOGRTs in Premiere even with AELib/MFR. They need profiling and pre-rendering.",
+  "SB Sans licensing on every workstation, 'for current user' vs 'for all users' installs on Windows, and identical PostScript names across the Mac and Windows builds. Any mismatch leads to silent substitution or a Resolve Fonts dialog.",
+  "Version skew: any editor on Premiere 2025 cannot use AE 2026-exported MOGRTs, and saving AE 2026-authored masters down to 25.x may lose 26.x-only features.",
+  "Availability of Adobe cloud services (CC Libraries, Adobe Fonts sync) for a Russian company is uncertain. Distribution must not depend on them.",
+  "Cyrillic or NFD paths (user folder 'Глеб', 'Граф пакет Cloud.ru') and long Windows paths can break scripted renders (an AE 26.x non-ASCII output-path bug), imports and MOGRT media copies.",
+  "Cyrillic dropdown labels set by script depend on the system code page of the build machine.",
+  "Responsive Design–Time also stretches expression-driven middle motion, and embedded audio disables or limits extension. Badly authored templates will look wrong when editors trim them.",
+  "AE MOGRTs cannot adapt to the sequence aspect. Per-aspect variants triple build and QA effort, and the square-canvas alternative raises render cost.",
+  "Media replacement (partner logos, photos) is not scriptable, so it needs manual drag in Properties or pre-baked variants.",
+  "Premiere effect presets (.prfpset) cannot be applied by script. Brand 'animation presets' in Premiere must be MOGRTs or clips until UXP effect recipes exist.",
+  "Details still to verify in a spike: dropdown index base and checkbox value types through ExtendScript setValue; getParamForDisplayName with Cyrillic display names; dragging .mogrt files out of the CEP panel; CEP 12 signature enforcement on the team's PCs; reported EvalScript instability on Pr 26.2.x.",
+  "Some competitor mechanisms are inferred from vendor support articles and marketing rather than documented APIs, for example Mister Horse transitions as imported sequences and AEJuice auto-font install. Treat them as patterns, not guarantees."
+ ]
+}

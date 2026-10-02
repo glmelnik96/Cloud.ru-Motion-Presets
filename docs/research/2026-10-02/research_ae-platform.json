@@ -1,0 +1,276 @@
+{
+ "topic": "After Effects extensibility as of 2026-10-02 (UXP vs CEP vs ScriptUI, scripting APIs and minimum versions, the MOGRT-by-script claim) for a Cloud.ru brand-toolkit panel shared with Premiere",
+ "findings": [
+  {
+   "claim": "UXP does not exist in any shipping After Effects release as of 2026-10-02. Adobe's September 2026 developer blog lists 'After Effects: Public beta UXP plugins — November 2026'. No GA date has been announced. Early-preview AE UXP docs went live on 2026-09-29 (AdobeDocs/uxp-after-effects PR #10). The site banner reads 'This is an early preview of the After Effects UXP scripting API reference... Content is actively being updated'. Every member of the 'aftereffects' host API is tagged 'Min Version 27.0' / 'Since 27.0', so it will not run in AE 2025 (25.x) or AE 2026 (26.x). The current release is 26.5, out 2026-09-09, and AE (Beta) is already on 27.0 builds. Bolt UXP lists 'After Effects (Beta)' as needing beta access from the Adobe app team. In March 2026 Adobe staff (Erin Finnegan) gave the rollout order Premiere -> Media Encoder -> After Effects, advised developers not to wait for AE UXP, and added: 'I would avoid writing a very complicated CEP UI at this time.'",
+   "confidence": "high",
+   "sources": [
+    "https://blog.developer.adobe.com/en/publish/2026/09/investing-in-the-future-of-creative-cloud-extensibility-uxp-comes-to-our-flagship-applications",
+    "https://developer.adobe.com/after-effects/uxp/",
+    "https://github.com/AdobeDocs/uxp-after-effects/pull/10",
+    "https://github.com/AdobeDocs/uxp-after-effects/blob/main/src/pages/site-wide-banner.json",
+    "https://github.com/AdobeDocs/uxp-after-effects/blob/main/src/pages/after-effects-api/application.md",
+    "https://github.com/hyperbrew/bolt-uxp#supported-adobe-apps",
+    "https://forums.creativeclouddeveloper.com/t/when-will-uxp-come-to-after-effect/11777",
+    "https://www.cgchannel.com/2026/09/adobe-releases-after-effects-26-5-and-new-ai-assistant-in-beta/",
+    "https://community.adobe.com/announcements-532/new-in-beta-contour-paint-effect-1635333"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Do not build the production AE panel on UXP. Once the public beta ships, run a throwaway spike in AE (Beta) 27. Keep the current panel UI simple and independent of the host so it can move to UXP later."
+  },
+  {
+   "claim": "The AE UXP API (require('aftereffects')) is essentially the ExtendScript object model rebound into UXP. It has about 45 classes: Application, Project, ItemCollection, CompItem, FolderItem, FootageItem, the Layer/AVLayer/TextLayer/ShapeLayer family, Property/PropertyGroup, Fonts/Font, ImportOptions, RenderQueue/RenderQueueItem/OutputModule, Viewer and others. It already documents importFile, reduceProject, consolidateFootage, replaceFont, expressionEngine, applyPreset, exportAsMotionGraphicsTemplate, addToMotionGraphicsTemplate(As), openInEssentialGraphics, queueInAME and executeCommand. Calls are synchronous: importFile returns a FootageItem, not a Promise. A DeferredCall object handles async render helpers (CompItem.saveFrameToPng / saveDraftFrameToPng). There are a few documented binding differences: setParentWithJump requires newParent, and RenderQueue.render accepts skipCheck. The landing page describes 'plugins, scripts, and panels' plus the shared UXP APIs (file system, network, storage, HTML/CSS, Spectrum UI). Nothing yet says whether WebView or Hybrid C++ plugins will be enabled for AE.",
+   "confidence": "high",
+   "sources": [
+    "https://github.com/AdobeDocs/uxp-after-effects/blob/main/src/pages/after-effects-api/index.md",
+    "https://github.com/AdobeDocs/uxp-after-effects/blob/main/src/pages/after-effects-api/project.md",
+    "https://github.com/AdobeDocs/uxp-after-effects/blob/main/src/pages/after-effects-api/compitem.md",
+    "https://github.com/AdobeDocs/uxp-after-effects/blob/main/src/pages/after-effects-api/layer.md",
+    "https://github.com/AdobeDocs/uxp-after-effects/blob/main/src/pages/after-effects-api/renderqueue.md",
+    "https://github.com/AdobeDocs/uxp-after-effects/blob/main/src/pages/index.md"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Write the AE host code against the AE object model only. Keep ExtendScript-only pieces (File/Folder, $.*, BridgeTalk, JSON polyfills) behind a thin layer. The later UXP port of that code is then close to mechanical."
+  },
+  {
+   "claim": "CEP is fully supported in AE 2025 and 2026. AE 25.0+ and Premiere 25.0+ ship CEP 12: Chromium 99, Node.js 17.7.1, Node-WebKit 0.62.1, debug registry key HKCU\\Software\\Adobe\\CSXS.12. Reports from September 2026 show CEP 12 panels loading in AE 26.3 and 26.5. Adobe's September 2026 timeline for AE (and Illustrator and Media Encoder): from December 2028 the Adobe Marketplace stops accepting new CEP submissions and CEP becomes disabled by default ('users can easily turn it back on'). From December 2029, CEP is no longer included in new versions of any flagship app. Every flagship app gets at least two years from its UXP public beta before CEP is removed. Plugins already in the Marketplace keep working and can be updated until then. 'CEP plugins distributed outside the Marketplace are not affected by this milestone.'",
+   "confidence": "high",
+   "sources": [
+    "https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_12.x/Documentation/CEP%2012%20HTML%20Extension%20Cookbook.md",
+    "https://blog.developer.adobe.com/en/publish/2026/09/investing-in-the-future-of-creative-cloud-extensibility-uxp-comes-to-our-flagship-applications",
+    "https://github.com/Engine-Room-Games/after-effects-mcp/issues/91",
+    "https://github.com/leancoderkavy/premiere-pro-mcp/issues/504"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "CEP is a safe production target for AE until December 2028. After that, users must re-enable CEP. The port to UXP has to be finished before the AE versions released from December 2029."
+  },
+  {
+   "claim": "ExtendScript in After Effects is not being retired. Adobe's September 2026 blog says 'ExtendScripts are not affected by this transition.' AE keeps adding ExtendScript APIs: 26.0 (January 2026) added PropertyGroup.addVariableFontAxis, Property.propertyParameters and valueText; 26.3 (June 2026) added ParametricMeshLayer; 26.5 (September 2026) added GuideOptions and the layer input-stage APIs. The scripting guide was last updated 2026-09-10. The vault note 'ExtendScript EOL September 2026' misreads two Premiere-only statements from November 2025. The Premiere scripting guide says ExtendScript integrations are 'still supported, and the plan is for them to remain so, through September 2026'. The PProPanel README says Adobe would support both CEP and UXP 'for a calendar year, after which we will remove support for CEP'. Both are superseded by the September 2026 timeline for Premiere: no new CEP Marketplace submissions from December 2027, CEP disabled by default from December 2028, CEP removed from December 2029. Premiere's ExtendScript API has had no new features since PPro 23.0.",
+   "confidence": "high",
+   "sources": [
+    "https://blog.developer.adobe.com/en/publish/2026/09/investing-in-the-future-of-creative-cloud-extensibility-uxp-comes-to-our-flagship-applications",
+    "https://ae-scripting.docsforadobe.dev/introduction/changelog/",
+    "https://github.com/docsforadobe/after-effects-scripting-guide",
+    "https://ppro-scripting.docsforadobe.dev/",
+    "https://github.com/docsforadobe/premiere-scripting-guide/blob/HEAD/docs/introduction/changelog.md",
+    "https://github.com/Adobe-CEP/Samples/blob/master/PProPanel/ReadMe.md"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "AE core logic in ExtendScript is safe to invest in. Correct the vault notes (Premiere CEP Suite, Phygital Adobe Studio). On the Premiere side, do not count on any new ExtendScript features."
+  },
+  {
+   "claim": "Premiere UXP is generally available since Premiere 25.6 (November–December 2025). The public beta started in 25.2 on 2024-12-04. Hybrid C++ plugins arrived in 26.2, UXP 9.3 ships with Premiere 26.3, and the latest Premiere UXP API is v26.5. The calls a brand panel needs exist in both stacks. UXP (all since 25.6): SequenceEditor.insertMogrtFromPath(path, TickTime, vTrack, aTrack), insertMogrtFromLibrary, getInstalledMogrtPath, Project.importAEComps(aepPath, compNames, bin), importAllAEComps, importFiles. ExtendScript equivalents: Sequence.importMGT(path, ticks, vTrackOffset, aTrackOffset), importMGTFromLibrary, TrackItem.getMGTComponent, Project.importAEComps(path, compNames, bin), importAllAEComps, importFiles. ScriptUI dialogs are not supported in Premiere.",
+   "confidence": "high",
+   "sources": [
+    "https://blog.developer.adobe.com/en/publish/2025/12/uxp-arrives-in-premiere-a-new-era-for-plugin-development",
+    "https://developer.adobe.com/premiere-pro/uxp/changelog",
+    "https://blog.developer.adobe.com/en/publish/2026/04/uxp-hybrid-plugins-now-available-for-premiere",
+    "https://blog.developer.adobe.com/en/publish/2026/07/uxp-changelog-and-support-matrix",
+    "https://developer.adobe.com/premiere-pro/uxp/ppro-reference/classes/sequenceeditor",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/ppro-reference/classes/project.md",
+    "https://github.com/docsforadobe/premiere-scripting-guide",
+    "https://community.adobe.com/questions-729/scriptui-1368691"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "The Premiere adapter can be written now (ExtendScript in CEP) with a one-to-one mapping to UXP calls, so the Premiere port in 2027 only replaces the adapter."
+  },
+  {
+   "claim": "The note 'MOGRT via ExtendScript is technically impossible (Essential Graphics requires manual EGP panel)' is false. The scripting API has supported this for years:\n- AE 15.0 (October 2017): CompItem.motionGraphicsTemplateName, exportAsMotionGraphicsTemplate(overwrite[, folderPath]), openInEssentialGraphics(), Property.addToMotionGraphicsTemplate(comp) and canAddToMotionGraphicsTemplate(comp). AE 15.1 fixed the boolean return value.\n- AE 16.1: Property.addToMotionGraphicsTemplateAs(comp, name), CompItem.motionGraphicsTemplateControllerCount, getMotionGraphicsTemplateControllerName(i), setMotionGraphicsControllerName(i, name).\n- AE 18.0 (March 2021, media replacement): AVLayer.addToMotionGraphicsTemplate(As) and canAddToMotionGraphicsTemplate, Property.alternateSource, canSetAlternateSource, setAlternateSource.\n- AE 22.0: Property.essentialPropertySource.\nCommercial scripts automate exactly this. Aep to Mogrt Pro 2.1.3 (2026-04-30; AE 2017–2026) batch-adds properties and media replacement to the Essential Graphics panel and batch-exports .mogrt files; 'AE MOGRT Batch Exporter' is another. A September 2026 report of 'nothing can be exposed' on AE 26.5 (premiere-pro-mcp #504) was caused by calling canAdd/addToMotionGraphicsTemplate without the required comp argument; the maintainer's fix (commit d8ff2a1) passes comp.",
+   "confidence": "high",
+   "sources": [
+    "https://ae-scripting.docsforadobe.dev/item/compitem/",
+    "https://ae-scripting.docsforadobe.dev/property/property/",
+    "https://ae-scripting.docsforadobe.dev/layer/avlayer/",
+    "https://ae-scripting.docsforadobe.dev/introduction/changelog/",
+    "https://aescripts.com/aep-to-mogrt/",
+    "https://community.adobe.com/questions-529/exporting-multiple-mogrt-files-27381",
+    "https://creativecow.net/forums/thread/scripting-add-to-essential-graphics-panel/",
+    "https://github.com/leancoderkavy/premiere-pro-mcp/issues/504",
+    "https://github.com/leancoderkavy/premiere-pro-mcp/commit/d8ff2a1098"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "The template pipeline can be automated. One set of AE primary comps feeds two outputs: the AE panel (import plus Essential Properties) and Premiere .mogrt files exported in batch by script. Hand-recoding animations as keyframe recipes, the cause of the earlier visual-fidelity failure, is no longer needed."
+  },
+  {
+   "claim": "MOGRT scripting works, with these limits:\n(a) If the project has unsaved changes, export opens a save prompt, so call app.project.save() first.\n(b) Since AE 24.1/24.2.1, exportAsMotionGraphicsTemplate() returns false before the export has finished. Adobe reproduced this in February 2024 and said it was still being worked on in February 2025. No fix appears in the release notes up to 26.5.\n(c) Open the comp in Essential Graphics first (comp.openInEssentialGraphics()); this was Aep to Mogrt Pro's reliability fix.\n(d) Some panel features have no scripting API: Set Poster Time, Add Group, Add Comment, Source Text font controls (font family/style/size/faux toggles), and the 'Include video preview' and compatibility options.\n(e) The documented addable types are Checkbox, Color, single-value Slider and Source Text. Position/point is reported to work too, so test each other type with canAddToMotionGraphicsTemplate.\n(f) MOGRT content rules: Classic 3D renderer only; no third-party plug-ins, Dynamic Link footage or FLV; not supported: Camera-Shake Deblur, Synthetic Aperture Color Finesse, Maxon CINEWARE, Puppet and Warp Stabilizer. Adobe also notes: 'Font controls are unsupported as primary properties of a nested composition.'",
+   "confidence": "high",
+   "sources": [
+    "https://ae-scripting.docsforadobe.dev/item/compitem/",
+    "https://community.adobe.com/bug-reports-528/after-effects-24-2-1-exportasmotiongraphicstemplate-not-returning-correct-value-1217054",
+    "https://aescripts.com/aep-to-mogrt/",
+    "https://helpx.adobe.com/after-effects/desktop/motion-graphics/work-with-motion-graphics-templates/creating-motion-graphics-templates.html",
+    "https://helpx.adobe.com/after-effects/desktop/troubleshooting/fixed-and-known-issues/fixed-issues.html"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Export sequence: save, openInEssentialGraphics, set name, add properties with names, export, then poll for a stable .mogrt file on disk. Poster frame, groups and font toggles stay a manual step, or need undocumented post-processing of the .mogrt (a zip with definition.json). When fixing the projects, remove third-party effects and non-Classic-3D renderers from any element that will become a MOGRT."
+  },
+  {
+   "claim": "Master Properties, now called Essential Properties, arrived in AE 15.1 (April 2018). They let each nested instance of a primary comp override values and keyframes exposed in Essential Graphics: 'Essential Properties can override their original values and keyframes'. Scripts reach them through the precomp layer's top-level group with match name 'ADBE Layer Overrides' (Essential Properties); Adobe's own example uses layer.essentialProperty. From there: .property(i or name).setValue(...). Property.essentialPropertySource (22.0) maps an essential property back to its source. Media replacement uses setAlternateSource (18.0). AE 25.2 (April 2025) fixed a bug where scripts read the primary value instead of the overridden Source Text essential property. AE 26.3 fixed a crash when scripting replaceSource on a precomp shown in the Properties panel.",
+   "confidence": "high",
+   "sources": [
+    "https://helpx.adobe.com/after-effects/desktop/motion-graphics/essential-properties/essential-properties.html",
+    "https://ae-scripting.docsforadobe.dev/matchnames/layer/avlayer/",
+    "https://ae-scripting.docsforadobe.dev/property/property/",
+    "https://helpx.adobe.com/after-effects/desktop/troubleshooting/fixed-and-known-issues/fixed-issues.html",
+    "https://nofilmschool.com/2018/04/master-properties-will-revolutionize-way-your-work-adobe-after-effects"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "The AE button imports the element's .aep, adds the primary comp as a layer at the playhead, and sets Essential Properties (text, brand color, variant toggles). The original animation, with its track mattes, precomps, blend modes and shape reveals, stays intact. Require AE 25.2 or later at runtime."
+  },
+  {
+   "claim": "app.project.importFile(new ImportOptions(File('x.aep'))) (ImportAsType.PROJECT, a long-standing API) imports the whole project. In Adobe's words: 'Everything from the imported project, including footage items, compositions, and folders, is placed in a new folder in the current Project panel.' For an .aep the call returns that folder as a FolderItem, although the docs say FootageItem. There is no option to import a single comp. Every import adds new copies of everything, so footage items and solid/null sources pile up. Project.consolidateFootage() (= Consolidate All Footage) only merges duplicates that share the same Interpret Footage settings, and a January 2026 bug report says same-path duplicates were not merged. AE allows duplicate item names; with them, comp('Name') expressions bind to the first match, and renaming a comp updates the expressions that point to it. A project saved in a newer AE cannot be opened in an older one; AE 26.x offers 'Save a Copy As 25.x/24.x'.",
+   "confidence": "high",
+   "sources": [
+    "https://ae-scripting.docsforadobe.dev/general/project/",
+    "https://ae-scripting.docsforadobe.dev/other/importoptions/",
+    "https://helpx.adobe.com/after-effects/desktop/work-with-other-applications/work-with-adobe-premiere/importing-effects-premiere-pro.html",
+    "https://creativecow.net/forums/thread/ae-script-import-search-then-add-to-active-comp/",
+    "https://helpx.adobe.com/after-effects/desktop/work-with-footage-items/manage-footage-items/footage-items.html",
+    "https://community.adobe.com/bug-reports-528/consolidate-all-footage-not-working-1547683",
+    "https://creativecow.net/forums/thread/referencing-a-comp-if-2-comps-have-the-same-name/",
+    "https://community.adobe.com/questions-529/how-to-save-project-file-to-previous-app-version-2026-to-a-2025-file-1554255"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Template authoring rules: one element per small .aep; unique prefixed item names (for example CRU_*); shapes instead of solids where possible; no cross-comp expressions by name; library saved as 25.x. The panel also needs a post-import normalizer that moves items into a 'Cloud.ru Toolkit' folder, removes duplicate footage by path and makes comp names unique."
+  },
+  {
+   "claim": "There are three ways to get one element out of a multi-comp template project.\n(1) Split at build time (best): open the master project and, for each element, call app.project.reduceProject([comp]), then save the result as its own .aep. This equals File > Dependencies > Reduce Project: it keeps the selected comps and everything nested in them, removes the rest and returns the number removed. Adobe's caveat: 'If an expression in a selected composition refers to an element in a nonsubordinate composition, Reduce Project removes the nonsubordinate composition and the applied expression.' Items switched off inside kept comps are not removed.\n(2) Prune at runtime: import the whole .aep, then delete items outside the target comp's dependency tree. This is slower and fragile with expressions.\n(3) Premiere only: importAEComps(path, [compNames], bin) imports chosen comps directly through Dynamic Link (ExtendScript, and UXP since 25.6).",
+   "confidence": "high",
+   "sources": [
+    "https://ae-scripting.docsforadobe.dev/general/project/",
+    "https://helpx.adobe.com/after-effects/desktop/work-with-footage-items/manage-footage-items/footage-items.html",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/ppro-reference/classes/project.md",
+    "https://github.com/docsforadobe/premiere-scripting-guide"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "The 'fix projects' phase should produce a build script (run in AE) that splits the cleaned master projects into a one-element-per-file library, plus a JSON manifest and previews. The panel then imports small files, never whole packages."
+  },
+  {
+   "claim": "app.project.expressionEngine is read/write since AE 16.0 (CC 2019), with values 'extendscript' or 'javascript-1.0'. The engine is a project-level setting, and projects saved in older AE versions default to Legacy ExtendScript. The JavaScript engine rejects snake_case methods (this_comp), loose if/else, sourceText[i] without .value, and this(arg) syntax. Because the engine belongs to the project, expressions from an imported template run under the host project's engine.",
+   "confidence": "medium",
+   "sources": [
+    "https://ae-scripting.docsforadobe.dev/general/project/",
+    "https://helpx.adobe.com/after-effects/desktop/work-with-expressions/expression-language-reference/expression-language-reference.html",
+    "https://helpx.adobe.com/after-effects/desktop/work-with-expressions/expression-basics/legacy-and-extend-script-engine.html"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Author and test all template expressions under 'javascript-1.0', ideally also valid under Legacy. The panel reads expressionEngine before inserting and warns or offers to switch."
+  },
+  {
+   "claim": "Layer.applyPreset(File) (long-standing API; the UXP 27.0 version returns a boolean) applies the .ffx to all currently selected layers in that layer's comp, not to the layer it is called on. With no layer selected, the scripting guide says it 'applies the animation preset to a new solid layer'; Adobe's UI help says 'creates a new layer'. Timing: 'Animation presets are applied at the current time' (helpx, updated September 2026). The first preset keyframe lands at the comp's current-time indicator and the others keep their offsets, so set comp.time before the call. An .ffx holds property settings, keyframes, effects and expressions, not layers, footage or comps. Gotchas: deselect all layers and select the target first; build preset paths from CSInterface.getSystemPath(SystemPath.EXTENSION), not window.location (CEP-Resources #257).",
+   "confidence": "high",
+   "sources": [
+    "https://ae-scripting.docsforadobe.dev/layer/layer/",
+    "https://helpx.adobe.com/after-effects/desktop/apply-effects-and-animation-presets/effects-and-animation-presets/effects-animation-presets-overview.html",
+    "https://community.adobe.com/questions-529/script-for-applying-animation-preset-to-layer-65840",
+    "https://github.com/Adobe-CEP/CEP-Resources/issues/257",
+    "https://github.com/AdobeDocs/uxp-after-effects/blob/main/src/pages/after-effects-api/layer.md"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Use .ffx with applyPreset for the 'animation/effect presets' category, which applies to the user's own layers at the playhead. Brand elements that need layers or footage use .aep import. Build presets only from built-in effects, so they also work inside MOGRTs."
+  },
+  {
+   "claim": "Font API by version:\n- AE 9.0 (CS4): TextDocument.font, set by PostScript name. A name that is not installed silently creates a substitute.\n- AE 24.0 (October 2023): app.fonts (FontsObject), Font objects, getFontsByPostScriptName, getFontsByFamilyNameAndStyleName, missingOrSubstitutedFonts, TextDocument.fontObject.\n- AE 24.3: CharacterRange for per-character styling.\n- AE 24.5 (May 2024): Project.usedFonts and Project.replaceFont(from, to[, noFontLocking]); replaceFont cannot be undone.\n- AE 24.6: FontsObject.pollForAndPushNonSystemFontFoldersChanges(), which picks up fonts added to C:\\Program Files\\Common Files\\Adobe\\Fonts without a restart.",
+   "confidence": "high",
+   "sources": [
+    "https://ae-scripting.docsforadobe.dev/text/fontsobject/",
+    "https://ae-scripting.docsforadobe.dev/text/textdocument/",
+    "https://ae-scripting.docsforadobe.dev/general/project/",
+    "https://ae-scripting.docsforadobe.dev/introduction/changelog/"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Before inserting anything, the panel should check that the SB Sans Display/Text PostScript names exist via app.fonts. These are corporate fonts, not on Adobe Fonts. After an import, check missingOrSubstitutedFonts and offer replaceFont. Set fonts through fontObject."
+  },
+  {
+   "claim": "Footage replacement APIs (long-standing): FootageItem.replace(file) points a footage item at a new file and keeps its interpretation; replaceWithSequence, replaceWithSolid and replaceWithPlaceholder also exist. AVLayer.replaceSource(newSource, fixExpressions) swaps a layer's source; on a null layer, isNull stays true. For MOGRTs, media replacement uses AVLayer.addToMotionGraphicsTemplate plus Property.setAlternateSource (both 18.0).",
+   "confidence": "high",
+   "sources": [
+    "https://ae-scripting.docsforadobe.dev/item/footageitem/",
+    "https://ae-scripting.docsforadobe.dev/layer/avlayer/",
+    "https://ae-scripting.docsforadobe.dev/property/property/"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Logo, QR, background and speaker-photo variants should be source swaps or media-replacement controls inside one template, not separate templates."
+  },
+  {
+   "claim": "Rendering APIs:\n- RenderQueue.items.add(comp) adds a comp to the render queue.\n- RenderQueueItem/OutputModule getSetting(s)/setSetting(s) (AE 13.0) and applyTemplate() configure output.\n- RenderQueue.render() blocks until rendering is done.\n- RenderQueue.queueInAME(renderImmediately) (AE 14.0, CC 2017) needs AME 11.0+, and AME 'applies the most recently used encoding preset', so a script cannot pick an .epr this way.\n- RenderQueue.queueNotify and RenderQueueItem.queueItemNotify arrived in 22.0.\nTo use specific .epr presets, script AME itself: app.getFrontend().addCompToBatch(compPath, presetPath, outputPath) queues the first comp of a project; addDLToBatch(projectPath, format, presetPath, guid, outputPath) queues a chosen comp/sequence, with guid taken from getDLItemsAtRoot(projectPath).",
+   "confidence": "medium",
+   "sources": [
+    "https://ae-scripting.docsforadobe.dev/renderqueue/renderqueue/",
+    "https://ae-scripting.docsforadobe.dev/introduction/changelog/",
+    "https://ame-scripting.docsforadobe.dev/reference/index.html"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "For export buttons, use AE output-module templates for the ProRes 4444 alpha overlays. For the package's 9 .epr presets, queue through AME's scripting API, sent from ExtendScript (for example via BridgeTalk), instead of queueInAME."
+  },
+  {
+   "claim": "How the three panel options compare for AE today:\n- ScriptUI: dockable ExtendScript panels from the ScriptUI Panels folder. They work in every AE version and are not affected by the CEP retirement, but they are AE-only (Premiere does not support ScriptUI), have a primitive UI (no HTML/CSS, no video previews) and cannot share UI with Premiere.\n- CEP 12: a full Chromium 99 + Node 17 web UI in both AE and Premiere from one multi-host extension. It is the only option that runs on the installed AE 2025/2026, and it matches the user's existing CEP stack and the CDP-based live tooling (ae-motion-live, port 8092), which relies on a CEP panel.\n- UXP: only from AE 27.x (beta), while Premiere's is GA.",
+   "confidence": "high",
+   "sources": [
+    "https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_12.x/Documentation/CEP%2012%20HTML%20Extension%20Cookbook.md",
+    "https://community.adobe.com/questions-529/scriptui-1368691",
+    "https://github.com/AdobeDocs/uxp-after-effects/blob/main/src/pages/after-effects-api/application.md",
+    "https://ae-scripting.docsforadobe.dev/introduction/changelog/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Use CEP 12 for the product. Keep ScriptUI only as a dev or emergency launcher that calls the same ExtendScript core."
+  },
+  {
+   "claim": "One UI codebase for AE and Premiere is practical. Bolt CEP (Vite + TypeScript; React/Svelte/Vue; 'multi-host-app configuration'; ES6 compiled to ES3 ExtendScript with type-safe evalTS(); ZXP packaging and signing; CC 2024+; extra setup on Apple-silicon Macs) builds one CEP extension for AEFT+PPRO with a separate ExtendScript module per host. For a later UXP shell, UXP's native UI is limited (Adobe: 'CSS Grid Layout is not available'). A UXP WebView (since UXP 6.0; local files since UXP 8.0; WebView2 on Windows, WKWebView on Mac; manifest settings webview.allow, allowLocalRendering and enableMessageBridge) can host the same web bundle. Bolt UXP has a 'Webview UI' option with a typed bridge and lists Premiere (GA) and After Effects (Beta). CEP 12's Chromium 99 is the lowest common browser, so avoid CSS :has(), container queries and nesting (Chromium 105+/112+).",
+   "confidence": "medium",
+   "sources": [
+    "https://github.com/hyperbrew/bolt-cep",
+    "https://github.com/hyperbrew/bolt-uxp",
+    "https://developer.adobe.com/premiere-pro/uxp/resources/recipes/css-styling/",
+    "https://developer.adobe.com/premiere-pro/uxp/uxp-api/reference-js/global-members/html-elements/html-web-view-element",
+    "https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_12.x/Documentation/CEP%2012%20HTML%20Extension%20Cookbook.md"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Structure: (1) a web UI (Preact/Svelte, components never call CSInterface or Node directly) behind a HostBridge interface; (2) an asset catalog JSON plus previews, with brand tokens shared with ae-motion-live; (3) adapters ae.jsx and ppro.jsx now, and ae-uxp.ts and ppro-uxp.ts later."
+  },
+  {
+   "claim": "A September 2026 report (AE 26.3, Windows 11) shows CEP 12 ignoring PlayerDebugMode=1 under HKCU\\Software\\Adobe\\CSXS.12. The only visible error was 'Signature verification failed' in %TEMP%\\CEP12-AEFT.log, and self-signing the installed panel with ZXPSignCmd fixed it. Separately, ZXPSignCmd broke on 2025-04-18 and Adobe fixed it on 2025-04-30.",
+   "confidence": "medium",
+   "sources": [
+    "https://github.com/Engine-Room-Games/after-effects-mcp/issues/91",
+    "https://github.com/hyperbrew/bolt-cep"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Ship the team build as a signed ZXP (a self-signed certificate is fine for internal use) with an installer. Do not depend on PlayerDebugMode on colleagues' machines. Document how to raise the CEP log level for support."
+  },
+  {
+   "claim": "Adobe announced on 2026-08-27 that from v27.0, Premiere, After Effects, Media Encoder and Audition on Mac need macOS 15 or later on Apple silicon (M1 or newer). On Windows they need Windows 11 24H2 or later. Because the AE UXP API starts at 27.0, UXP in AE needs an Apple-silicon Mac on macOS.",
+   "confidence": "high",
+   "sources": [
+    "https://community.adobe.com/announcements-727/important-notice-upcoming-system-requirement-changes-in-v27-0-1639157"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Check the user's Mac model before planning any AE UXP work. CEP 12 on AE 25/26 has no such restriction."
+  },
+  {
+   "claim": "Suggested minimum versions for the toolkit: AE 25.2 for reliable Essential Properties text scripting (CEP 12 and the font APIs from 24.0/24.5 come with it), and Premiere 25.6+/26.x for a UXP port. AE 26.x can save copies as 25.x/24.x, and AE cannot import a project saved by a newer version. The .aep library and any MOGRT sources should therefore be saved for the lowest supported version.",
+   "confidence": "medium",
+   "sources": [
+    "https://helpx.adobe.com/after-effects/desktop/troubleshooting/fixed-and-known-issues/fixed-issues.html",
+    "https://community.adobe.com/questions-529/how-to-save-project-file-to-previous-app-version-2026-to-a-2025-file-1554255",
+    "https://developer.adobe.com/premiere-pro/uxp/changelog"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Manifest: AEFT [25.0,99.9] with a runtime check for 25.2 or later, and PPRO 25.0+ (CEP 12). Save the library with 'Save a Copy As 25.x' as part of the build step."
+  }
+ ],
+ "recommendation": "Build the AE side as a CEP 12 extension now. UXP for AE is not usable for production yet: as of 2026-10-02 it exists only as an early-preview API that needs AE 27.0, with a public beta promised 'by November 2026' and no GA date. On Mac, AE 27 needs Apple silicon and macOS 15.\n\nAE side (now):\n- Build with Bolt CEP/Vite, manifest host AEFT 25.0+, and require AE 25.2 or later at runtime.\n- Write the AE core as plain ExtendScript that uses only the AE object model: import with ImportOptions plus post-import normalization; Essential Properties; applyPreset at the playhead; app.fonts preflight and replaceFont; render queue and AME.\n- Put that core behind a small typed bridge (evalTS) and keep the web UI free of any host calls.\n- The AE UXP API mirrors the ExtendScript objects, so the core can later be ported almost one-to-one to require('aftereffects').\n- Run a throwaway spike in AE (Beta) 27 once the public beta ships. Plan the AE UXP port for 2027 to the first half of 2028, before CEP becomes disabled by default in December 2028. CEP leaves new AE versions in December 2029.\n- ScriptUI: only as an AE-only dev/emergency launcher for the same core, never the product UI.\n- Staying on CEP also keeps the existing CDP-based live tooling (ae-motion-live) working.\n\nSharing with Premiere:\n- v1 ships as one multi-host CEP extension (AEFT + PPRO), built from one UI codebase with two host adapters (ae.jsx and ppro.jsx). Both installed apps run CEP 12, and Adobe's September 2026 timeline keeps CEP on by default in Premiere until December 2028.\n- Limit the Premiere adapter to calls that map one-to-one to Premiere UXP:\n  - importMGT -> SequenceEditor.insertMogrtFromPath\n  - importFiles -> importFiles\n  - importAEComps -> importAEComps\n  - getMGTComponent -> component params\n- In 2027, move the Premiere shell to UXP (GA since 25.6) using Bolt UXP's WebView UI, so the same web bundle runs unchanged. Target Chromium 99 features only.\n\nContent strategy these APIs allow:\n- Stop re-coding animations in script; that is what caused the earlier fidelity failure.\n- Make each brand element a primary comp with Essential Graphics controls.\n- Split it into its own small .aep with a reduceProject build script. Use prefixed unique names, JavaScript-engine-safe expressions, no third-party effects, Classic 3D, and save as 25.x.\n- In AE, the button imports that file, places the primary comp at the playhead and sets its Essential Properties.\n- For Premiere, export the same comps as .mogrt by script (save, openInEssentialGraphics, add properties with names, export, then poll for the file) and insert them with importMGT/insertMogrtFromPath.\n- .ffx presets cover the 'animations/effects' category. Pre-rendered ProRes 4444 overlays become plain file imports.\n\nCorrect the vault: MOGRT authoring via ExtendScript is possible (since AE 15.0), and there is no ExtendScript end-of-life in September 2026.",
+ "open_risks": [
+  "AE UXP is early preview: the public beta is promised 'by November 2026' with no GA date, the API may change, and it is undocumented whether WebView or Hybrid plugins will work in AE. AE 27 on Mac needs Apple silicon and macOS 15, and the user's Mac model is not yet confirmed. Re-check after Adobe MAX (Nov 10–12, 2026) and the AE UXP beta.",
+  "Adobe's timelines have moved before: the November 2025 Premiere plan to drop CEP 'after a calendar year' was replaced in September 2026 by 'disabled by default December 2028, removed December 2029'. Plan with margin.",
+  "CEP 12 install risk: PlayerDebugMode was reported ignored on AE 26.3 for Windows (signature verification failure). Team installs must use a signed ZXP, and corporate machines may block registry edits or unsigned panels.",
+  "exportAsMotionGraphicsTemplate() has returned false before finishing since 24.x, and no fix appears in the release notes up to 26.5. Poster time, groups, comments, font controls and the video-preview option are not scriptable. A hands-on spike on AE 26.5 (save, openInEssentialGraphics, add properties, export, poll) is needed before committing to batch MOGRT export.",
+  "Not verified hands-on, needs a spike: applyPreset with no selection for text or shape presets (new solid or other layer type); canAddToMotionGraphicsTemplate for point, angle, dropdown and scale types; whether missing-footage, missing-font or newer-version dialogs block scripted .aep imports from CEP; whether consolidateFootage merges duplicate solids or nulls.",
+  "Side effects of importing an .aep: duplicate footage and solids, comp-name collisions that rebind comp('Name') expressions, and a mismatch between the template's and the host project's expression engine, bit depth or color working space. These need authoring rules plus a post-import normalizer.",
+  "reduceProject() drops comps referenced only by expressions and deletes those expressions. The splitting script must detect cross-comp expression references and refuse to split or flag them.",
+  "Version lock-in: an .aep saved in 26.x will not import into 25.x; a MOGRT exported from a newer AE may not work in an older Premiere; an .ffx that uses effects missing on the target machine fails.",
+  "MOGRT restrictions (Classic 3D only, no third-party plug-ins, some built-in effects excluded) may force rework of elements the audit finds using such effects.",
+  "The brief notes macOS NFD file names and Cyrillic paths. These can break ExtendScript File lookups on Windows. Normalize names to NFC during the 'fix projects' phase and test the paths in both AE and Premiere.",
+  "No new features are coming to Premiere's ExtendScript API (frozen since PPro 23.0). Any future Premiere capability will be UXP-only."
+ ]
+}

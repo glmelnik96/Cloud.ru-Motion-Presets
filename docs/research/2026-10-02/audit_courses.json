@@ -1,0 +1,546 @@
+{
+ "project": "3_Обучающие_курсы — «Обучающие курсы.aep» (original), «Обучающие курсы (converted).aep», «Adobe After Effects Auto-Save/Обучающие курсы (converted) auto-save 1.aep» in C:\\Users\\Глеб\\Documents\\Граф пакет Cloud.ru\\3_Обучающие_курсы\\3_Обучающие курсы",
+ "summary": "This pack holds the graphics for recorded training courses. It has three animated title covers built at 2560x1440, 25 fps: Обложка #1 (dark stepped «portal» with the course visual inside), #2 (drifting green blocks) and #3 (green portal, light). Each cover ends with a green stair-step wipe («Переход», 2.04 s). The pack also has full-length lecture frames for a 16:9 screencast, a 3:2 screencast and screencast + speaker, built as 1-hour 1920x1080 comps, plus brand pieces: the Logo precomp, a header with tick ruler and tagline, Pattern Arrow.png and Music Intro.mp3. Everything is hand-keyed shape and text layers. There are zero Essential Graphics controllers (CcCt=0 in all comps) and zero effects or expression controls. The only «control» null is broken: the titles read its hidden X/Y. Per-line reveal masks are fixed-width, so the production copies had them deleted. The original .aep is the clean template. The converted AE 2026 file is really a production job: it contains two real course covers wrapped to 3840x2160, a 4K inverted-matte speaker overlay, a screencast edit, 4 missing G:\\ files, and a shared «Visual» precomp that was changed for production. The Auto-Save is an intermediate copy. The overlays were shipped as 3 × 600-s ProRes 4444 files (10.0 GB) even though their only motion is a 60-s loopOut drift of six green corner blocks. Plan: each overlay becomes a still or MOGRT frame plus Premiere presets that fit the screencast and speaker into the windows. The covers become one MOGRT family with Responsive Design – Time and a media slot. The transition becomes a short prerender or MOGRT with a CUT marker. Evidence (read-only decode, my own extended RIFX decoder): C:\\dev\\temp\\claude\\C--Users------Documents-Cloud-ru-Preset-plugin\\b48e0614-1141-4125-9b74-d00eb767441b\\scratchpad\\work\\{orig,conv,auto}_deep.txt (per layer: timing, flags, parent, track matte, keyframes, text styles), work\\deep_dump.py and work\\aepx.py (ldta calibration notes in the header), work\\frames_courses\\*.png (full-res overlay and transition frames), work\\trans_sheet.png.",
+ "canonical_file": "Use the ORIGINAL «Обучающие курсы.aep» (3.76 MB, older AE on Mac, collected 01.12.2025, 13 comps, 79 expressions) as the source of truth for template content. It is the only file that still has the clean placeholder covers: Обложка #1–#3 at 2560x1440 with «Первая строчка / вторая строчка / третья последняя», per-line masks, «Cloud.ru Advanced» label, Kubernetes visual. It also has the overlays 16:9 / 3:2 / speaker (speaker on the LEFT = the layout of render «Оверлей со спикером_1.mov»), Переход and Logo. Its 3 footage files have dead Mac paths (/Volumes/T7_Black/_Video/3_Обучающие курсы/(Footage)/Folder/...), but the same relative (Footage) tree sits next to the .aep, so AE relinks them; the converted file proves it, because it stores the PC paths as existing.\n\nThe CONVERTED «(converted).aep» (3.50 MB, re-saved in AE 2026 on Windows 2026-09-30 20:25, 19 comps, 90 expressions) is a production file. Concrete diffs:\n(1) Comp id 4 «Обложка #1» became a 3840x2160 wrapper (layer @150 %, Collapse ON) around «Pre-comp 4» = real cover «Продвижение / платформы / Cloud.ru Advanced». So the placeholder cover #1 no longer exists.\n(2) New «Обложка #4» (3840x2160 @150 %, Collapse OFF → soft) wraps «Pre-comp 3» = «Миграция, / резервное копирование / и аварийное восстановление» with label «Cloud.ru».\n(3) In both production covers the 3 title masks were deleted and «Text Opacity 0» was added to Animator 1. A full-frame «slide_01.png» at 67 % sits on top from 0–6 s; both copies are missing on G:\\.\n(4) The shared «Visual» precomp was changed: G:\\Продвижение Cloud.ru Advanced\\3D.png (missing) is now a child of a hidden Kubernetes.png layer. The template Обложка #2 therefore now shows the missing 3D.png, and the «Миграция» cover shows the Advanced course's visual.\n(5) «Оверлей со спикером» was rebuilt at 3840x2160: «Pre-comp 1» (white window boxes, hidden) is an ALPHA-INVERTED matte for «Pre-comp 2» (the frame). This is the right way to get transparent windows. But Pre-comp 2 is placed twice; the top copy is frozen by a single HOLD time-remap key and has the 3D switch on.\n(6) New «Оверлей со спикером 2» contains two cuts of «Запись экрана 2026-09-01 в 12.42.01.mov» (G:\\, missing).\n(7) Overlays 16:9 and 3:2, Переход and Logo are unchanged.\n\nThe AUTO-SAVE (2026-09-28 18:27, 15 comps) is an intermediate: placeholder covers plus the first, clean 2-layer version of the 4K inverted-matte speaker overlay (no frozen duplicate). It is superseded; delete it.\n\nDecision: rebuild the master «CR_Course_*.aep» from the original. Take only three things from the converted file: the inverted-matte window construction, the mask-free (opacity) reveal idea, and the 4K target. Archive the converted file with its G:\\ media as a production job. The 10 .cfa/.pek files are Premiere conformed-audio caches of the Dynamic-Linked converted «Обложка #1»/«#4» (5 generations, 2026-09-29 11:55 → 09-30 20:25). They are disposable.",
+ "templates": [
+  {
+   "comp": "Заставки/Обложка #1 (original placeholder) → production copies «Заставки/Pre-comp 4» and «Pre-comp 3» (converted), wrapped by 3840x2160 «Обложка #1» / «Обложка #4»",
+   "purpose": "Training-course title cover, dark «portal» variant: #222 BG, stepped #333333 portal panel with the course visual inside, 3-line title + product label, header (logo + tick ruler + tagline), green stair-step wipe out",
+   "target_delivery": [
+    "mogrt",
+    "ae-template",
+    "ffx",
+    "sfx",
+    "still"
+   ],
+   "format": "2560x1440 @25 fps, 7.92 s. Content 0–6.00 s; Переход 4.96–7.00 s (full-cover frame at 5.96 s). Converted wrappers: 3840x2160 @150 %",
+   "build_notes": "22 layers. The title is 3 single-line text layers. «Первая строчка» is the parent; «вторая строчка» is offset +120 px and «третья последняя» +240 px. Text style: SB Sans Display Regular 125 px, tracking -16, leading 132.9, #FFFFFF. Each line has 1 fixed rectangular mask (909 / 872 / 1018 px wide) and Animator 1: Range Selector Start 0→100 % (Based on Lines) + Position offset [0,110]. Starts 0.00 / 0.52 / 0.92 s, durations 1.08 / 0.88 / 0.76 s, ease out-influence 9 % → in-influence 69 %. Title X/Y come from expressions on Position_0/1 that read null «Позиция и размер текста». Label «Cloud.ru Advanced » (30 px, tracking +5, #CCCCCC) fades opacity 0→100 from 1.00 to 2.32 s, linear. Precomp «Visual» (2700², Kubernetes.png 1622x1246 scaled 146→154 % over 10 s) sits at 83 % with an ALPHA track matte from «Shape Layer 3»: an 8-vertex stepped polygon 2400x1179, #333333, path keys at 0 / 3.04 / 6.00 s. It also stays visible as the panel. 8 nulls «Shape Layer 3: Path 1 [1.1.0–7]» (Create Nulls from Paths, points()/toComp expressions) drive nothing. The header group is parented to the «Logo» precomp (35 %): a lime #CFF500 rect «Shape Layer 2» (hidden, alpha matte) masks «Shape Layer 1», a 77-px vertical stroke repeated ×250 (Repeater 25 px, Offset expr '-100 + time*0.5'); the tagline «облачные и ИИ-сервисы» is SB Sans Display Semibold 39.6 px, tracking -18. BG «Dark Gray Solid 1» #222222 lasts to 7.92 s, so there is an opaque tail after the wipe. The Music Intro.mp3 layer has its audio switch OFF. Content layers cut at 6.00 s, hidden under the wipe. Hard to parametrize because of: fixed masks, a control null with hidden X/Y, a shared «Visual» precomp, and a raster visual upscaled about 1.9x at 4K.",
+   "current_editability": "hardcoded. 0 Essential Graphics controllers (CcCt=0), effects={} (no Expression Controls). The only intended control, null «Позиция и размер текста», is dead. Its visible Position [1280,720] is not dimension-separated (tdb4 flag), while the title expressions read its hidden xPosition/yPosition = 184.27 / 386.48. So dragging it does nothing, and despite the name it has no scale link. Editing today means typing into 3 text layers.",
+   "editable_parts": [
+    "Title lines 1–3 («Первая строчка», «вторая строчка», «третья последняя»)",
+    "Product label («Cloud.ru Advanced » / «Cloud.ru»)",
+    "Course visual (Kubernetes.png / 3D.png in «Visual»)",
+    "Tagline «облачные и ИИ-сервисы» (brand, normally locked)",
+    "Title block position/size (intended via the null)",
+    "Intro music on/off",
+    "Hold length (content fixed to 6.00 s)"
+   ],
+   "issues": [
+    "Masks are sized to the placeholder text, so longer titles are clipped; production copies deleted them",
+    "The shared «Visual» precomp was mutated in the converted file",
+    "The control null is ineffective (hidden X/Y)",
+    "8 unused path-follow nulls with per-frame expressions",
+    "Opaque BG tail 6.00–7.92 s, unlike #2/#3; music muted",
+    "Converted «Обложка #4» wrapper has no Collapse → upscaled 2560 raster at 4K",
+    "A full-frame slide_01.png on top in production copies (missing file)",
+    "Off-token colours #333333 / #CCCCCC"
+   ],
+   "parametrization_plan": "One master «CR_Cover_Portal», 3840x2160 / 25 fps, base 7.04 s.\nEGP (labels in Russian, ASCII layer names CTRL / TITLE / LABEL / VISUAL):\n- «Заголовок»: one paragraph Source Text, ≤3 lines, font editing off.\n- «Продукт»: label Source Text.\n- «Визуал»: Media Replacement on a TOP-LEVEL footage layer (image/video), track-matted by the portal path; push-in via scale = 100·linear(time, inPoint, outPoint, 1, 1.055).\n- «Вписать/Заполнить»: dropdown.\n- «Слоган»: checkbox.\n- «Позиция заголовка» (Point) and «Размер заголовка» (Slider) on CTRL.\nText system: one text layer, Animator Based on Lines; per-line stagger from Range Selector expressions (0 / 0.52 / 0.92 s or brand stagger 70–120 ms). Auto-fit: scale = min(100, maxW / sourceRectAtTime().width · 100). Empty lines collapse and the block re-centres. Replace fixed masks with an auto-sized rectangle track matte (sourceRectAtTime + 15 % pad) to keep the masked line-reveal token, or use the production opacity variant.\nDelete the path nulls. End BG at the wipe's full-cover frame so the tail is transparent.\nResponsive Design – Time: protected intro 0–2.40 s, protected outro = last 2.08 s (wipe); the middle hold stretches.\nMusic goes out of the comp into an «sfx» cue that the panel places on A1. Expression engine → JavaScript.\nPr panel: sequence.importMGT at the playhead, then fill properties via getMGTComponent().\nAe panel: import CR_Course_Covers.aep, deep-duplicate the cover and its visual slot (prevents the shared-precomp bug), set texts through CTRL.",
+   "effort": "L — the title system (auto-fit, auto matte, stagger), media slot, Responsive Time and 4K re-layout are built here once; #2 and #3 then reuse it"
+  },
+  {
+   "comp": "Заставки/Обложка #2 (identical in original and converted, but its «Visual» now shows the missing 3D.png in converted)",
+   "purpose": "Cover variant «green blocks»: drifting green rectangles and a free-floating visual, with the same title, label, header and wipe",
+   "target_delivery": [
+    "mogrt",
+    "ae-template",
+    "ffx",
+    "sfx"
+   ],
+   "format": "2560x1440 @25 fps. Comp 15.04 s (≈ Music Intro.mp3, 15.1 s), work area 0–7.04 s. Content 0–6.00 s; Переход 5.00–7.04 s (full cover exactly at 6.00 s)",
+   "build_notes": "16 layers. Same title block (masks kept); label «Cloud.ru Advanced 2». Green #26D07C rects «Shape Layer 6/7/8» (1985x282, 2091x194, 1232x81) have Position keys at 0 / 2.92 / 5.96 s (in-influence 33 %, out-influence 70→63 %); Scale goes 100→95 / 104 % at the last key. «Visual» at 90 % is NOT matted: track-matte mode byte = 1 but no matte layer reference (residue). The tagline is not parented to the logo here (absolute [2286.9, 73], 72 %). BG ends at 6.00 s → transparent after the wipe. This is the only cover whose Music Intro.mp3 audio switch is ON (layer 0–16.48 s).",
+   "current_editability": "hardcoded (same as #1; the null has the same hidden-X/Y problem)",
+   "editable_parts": [
+    "Title lines 1–3",
+    "Label",
+    "Visual",
+    "Music on/off",
+    "Hold length"
+   ],
+   "issues": [
+    "15.04-s comp with about 8 s of empty tail (exists only to carry the music)",
+    "Residual matte mode on «Visual»",
+    "Depends on the mutated shared «Visual» in converted",
+    "Fixed masks clip longer titles"
+   ],
+   "parametrization_plan": "Same cover system, built as a separate variant MOGRT «CR_Cover_Blocks» with EGP names identical to #1. The panel can then swap variants and copy values between them. Block drift stays as keys inside the stretchable middle. Comp becomes 7.04 s; music moves to the «sfx» cue. Visual as a top-level Media Replacement (no matte). Remove the residual matte flag.",
+   "effort": "M — reuses the #1 system; blocks re-timed for Responsive Time"
+  },
+  {
+   "comp": "Заставки/Обложка #3 (identical in original and converted)",
+   "purpose": "Cover variant «green portal» (light): green stepped portal with a white inset visual card and dark title",
+   "target_delivery": [
+    "mogrt",
+    "ae-template",
+    "ffx",
+    "sfx"
+   ],
+   "format": "2560x1440 @25 fps, 15.04 s (work area 0–7.04 s); Переход at 5.00 s; content 0–6.00 s",
+   "build_notes": "17 layers. «портал большой» is an 8-vertex #26D07C polygon (2402x1131), path keys at 0 / 2.96 / 7.76 s. «портал маленький» is a white 4-vertex rect (1145x1027), path keys at 0 / 2.96 / 7.92 s, used as ALPHA matte for «Visual with background» (Kubernetes.png on «White Solid 1» 2700², scale 113 %). Both last keys fall after the layers' 6.00 s out point, so the morph is cut mid-way. The title is #222222 text with masks. Label «Cloud.ru Advanced 3» (#222222) is parented to null «портал большой: Path 1 [1.1.2]», which follows path vertex 2 by toComp. The other path null is unused. Music layer muted. BG ends at 6.00 s.",
+   "current_editability": "hardcoded",
+   "editable_parts": [
+    "Title lines 1–3",
+    "Label",
+    "Visual (inset card)",
+    "Hold length"
+   ],
+   "issues": [
+    "Path keys beyond the layer out point",
+    "Label coupled to a path-follow null (fragile)",
+    "Fixed masks",
+    "Music muted while #2 has it on"
+   ],
+   "parametrization_plan": "Variant MOGRT «CR_Cover_GreenPortal» with the same EGP. Retime portal keys to end at 5.96 s. Put the label on CTRL-relative layout instead of the path null (or keep one null and lock it). Visual card = Media Replacement with a white plate drawn as a shape (not a 2700² solid). Text colour fixed #222222 by variant.",
+   "effort": "M — shares the #1 system"
+  },
+  {
+   "comp": "Оверлеи/Оверлей 16 на 9 (identical in original and converted)",
+   "purpose": "Full-length lecture frame for a 16:9 screencast: #222 border, logo top-left, six green corner blocks; window 1600x900 at (150,100) in FHD",
+   "target_delivery": [
+    "still",
+    "mogrt",
+    "pr-preset",
+    "ae-template",
+    "prerender"
+   ],
+   "format": "1920x1080 @25 fps, 3600 s. Render «Render Overlays/FullHD/Оверлей 16 на 9.mov»: 600.04 s ProRes 4444 yuva444p12le, 1.54 GB, NFD file name",
+   "build_notes": "24 layers. BG solid «BG» #222222 (3685 s). «Logo» precomp at 20 %, stretched over 1 h by a time-remap HOLD at 14.12 s. 6 green rects «Shape Layer 17–22» (shy + locked): 218x82 + 45x739 top-right, 42x293 + 293x146 bottom-right, 395x133 + 427x138 bottom-left. Each has separated Position X/Y keys at 0 / 15 / 30 / 45 / 60 s (±10–120 px, in 33 % / out 78 %) + loopOut(), a 60-s cycle. The window is an EMPTY 1-hour container «Прекомп 16 на 9» (1920x1080 @85 %) with an ALPHA matte from «Маска 3 на 3» (1600x900; misnamed). It is an 'edit inside AE' container. There is no inverted matte or hole-punch (all transfer modes Normal), so rendered as saved the window shows the #222 BG. The transparent-window .mov came from a project state that is not in these files. A subtitle kit is embedded (see the SUBTITLES template); the render contains no subtitles.",
+   "current_editability": "hardcoded; no EGP/controls",
+   "editable_parts": [
+    "Logo on/off",
+    "Corner blocks on/off and animated",
+    "Window geometry (fixed)",
+    "Subtitle lines (to move out)"
+   ],
+   "issues": [
+    "10-min ProRes for an essentially static frame",
+    "Window not hole-punched in the saved comp",
+    "Precomp at 85 % vs 1600x900 mask = ≈2 % off-centre overscan crop",
+    "Logo extended by a time-remap HOLD trick",
+    "«Маска 3 на 3» misnamed"
+   ],
+   "parametrization_plan": "Rebuild FRAME_16x9 in CR_Course_Frames.aep at 3840x2160. The FRAME precomp (BG, vector logo, corners) uses an ALPHA-INVERTED track matte from a WINDOWS precomp (white rect 3200x1800 at (300,200)). Window rects are exported to frames.json for the panel.\nPr options:\n(a) default «still»: PNG RGBA 3840x2160, ~100 KB, any length, zero render;\n(b) «pr-preset» «Вписать скринкаст 16:9» on the selected clip: Scale 83.333 % of frame, Position (1900,1100) @4K / (950,550) @FHD, optional 2 % overscan crop;\n(c) animated «mogrt» with checkboxes Логотип / Уголки / Анимация. Comp 3 h long so the clip can simply be trimmed; loopOut drift, no protected regions. If a build-on intro/outro is added, protect 1 s each and drive the drift by a time-based expression so stretching does not slow it.\nDrop the 600-s ProRes. If a video file is still wanted, use one 60-s seamless loop (≈154 MB at FHD at the measured 2.57 MB/s) and have the panel tile it.\nAe: ae-template with a SCREEN_SLOT precomp sized to the window; the panel sets the comp duration to the active comp.",
+   "effort": "M — one frame system serves 16:9, 3:2 and both speaker layouts"
+  },
+  {
+   "comp": "Оверлеи/Оверлей 3 на 2 (identical in original and converted)",
+   "purpose": "Lecture frame for screencasts from 3:2 displays",
+   "target_delivery": [
+    "still",
+    "mogrt",
+    "pr-preset",
+    "ae-template"
+   ],
+   "format": "1920x1080 @25 fps, 3600 s; no render exists",
+   "build_notes": "Same 24-layer kit as 16:9. Window mask «Маска 3 на 2» is 1300x900 at (300,100). That is 13:9, not 3:2. The empty 1-hour container «Прекомп 3 на 2» (1920x1280) sits at 71 % = 1363x909, so about 63 px of width is cropped. Its subtitle plates are not flagged like the 16:9 ones; placeholder SUBTITLES_2 text is «Ававававававава».",
+   "current_editability": "hardcoded",
+   "editable_parts": [
+    "Logo / corners on/off",
+    "Window geometry"
+   ],
+   "issues": [
+    "Window aspect ≠ source aspect (cropping)",
+    "Never rendered — usage unclear"
+   ],
+   "parametrization_plan": "Variant of FRAME (layout value «3:2» in the frames MOGRT dropdown, or its own still). Window 3:2 = 2700x1800 @4K. pr-preset «Вписать скринкаст 3:2» fits 3:2 media exactly (no crop).",
+   "effort": "S — after the 16:9 frame system"
+  },
+  {
+   "comp": "Оверлеи/Оверлей со спикером (original 1920x1080; converted 3840x2160 via «Pre-comp 1»/«Pre-comp 2»; production «Оверлей со спикером 2»)",
+   "purpose": "Lecture frame with a screencast window and a portrait speaker window, arrow pattern BG",
+   "target_delivery": [
+    "still",
+    "mogrt",
+    "pr-preset",
+    "ae-template"
+   ],
+   "format": "Original 1920x1080 / converted 3840x2160, 25 fps, 3600 s. Renders, both 600.04 s ProRes 4444 with NFD names: «Оверлей со спикером.mov» (screencast left 50–1300, speaker right 1350–1850; 4.25 GB) and «…_1.mov» (speaker left 50–550, screencast right 600–1850; 4.22 GB = original layout)",
+   "build_notes": "Original: the windows are filled by placeholder precomps «Прекомп спикер» (500x750 #26D07C solid, 105 %) and «Прекомп 16 на 9» (71 %), with ALPHA mattes «Маска спикер» (500x750 at x 50–550) and «Маска скринкаст» (1250x751 at x 600–1850, 5:3; a 16:9 recording loses ≈113 px). Frame = BG + Pattern Arrow.png (55 %) + logo + #222 logo plate «Shape Layer 31» (315x116) + 6 corner blocks. No hole-punch. Converted 4K: «Pre-comp 1» (White Solid 2 1344x756 at (54,162) + «Прекомп спикер» 430x757 with a normalized top-right anchor at x 1856; hidden) is the ALPHA-INVERTED matte for «Pre-comp 2» (the frame), which is placed twice. Layer #2 is frozen (single HOLD time-remap key at 0) with the 3D switch on, above animated layer #3, so the output is a static frame. «Оверлей со спикером 2» adds two cuts of «Запись экрана 2026-09-01 в 12.42.01.mov» (62.36–213.00 s and 0–67.92 s), a production edit inside the template.",
+   "current_editability": "hardcoded; layout mirrored only by rebuilding",
+   "editable_parts": [
+    "Speaker side left/right",
+    "Pattern on/off",
+    "Logo / corners on/off",
+    "Window sizes / crop"
+   ],
+   "issues": [
+    "Duplicate frozen 3D layer hides the animation",
+    "Screencast window 5:3 crops 16:9 recordings",
+    "Production screencast inside the template",
+    "4.2 GB per 10-min render"
+   ],
+   "parametrization_plan": "FRAME_SPK with Checkbox «Спикер справа»: window positions mirror by expression, not by a second comp. Windows: 16:9 screencast (e.g., 2560x1440 @4K) + 2:3 speaker (e.g., 960x1440), so no crop; or expose «Обрезка экрана %».\nPr: 2 «still» PNGs (L/R) + «pr-preset» recipes «Вписать скринкаст (спикер L/R)» and «Вписать спикера (L/R)» (Scale/Position/Crop on the selected clips) + optional «mogrt».\nAe: ae-template with SCREEN_SLOT and SPEAKER_SLOT precomps.\nKeep the inverted-matte construction; the 2-layer Auto-Save version is the clean reference. Delete the frozen duplicate.",
+   "effort": "M"
+  },
+  {
+   "comp": "Переход/Переход (identical in all three files; nested in every cover)",
+   "purpose": "Brand green stair-step wipe; cover outro and standalone cut transition",
+   "target_delivery": [
+    "prerender",
+    "mogrt",
+    "ae-template"
+   ],
+   "format": "2560x1440 @25 fps, 2.04 s. Render «Render Overlays/FullHD/Переход.mov»: 2560x1440 ProRes 4444, 9.3 MB (a QHD file in a 'FullHD' folder)",
+   "build_notes": "6 green #26D07C rects, strokes off, motion blur on. Master «Shape Layer 11» (2438x1319 ×113 %) moves Position X 4231 → -2099 from 0.00 to 2.00 s. The keys are stored at 9 / 11 s because every layer starts at -9.00 s. Ease: out-influence 74 % → in-influence 73 %. Five children «Shape Layer 12–16» (731x327 / 792x368) are parented to it and have linear 2-key Scale changes that form the stepped leading and trailing edges. Measured render alpha: 0 % until 0.16 s, 100 % on exactly ONE frame (frame 25 = 1.00 s), back to 0 % at 1.68 s.",
+   "current_editability": "hardcoded colour, size, direction",
+   "editable_parts": [
+    "Colour (green / white / #222)",
+    "Direction R→L / L→R",
+    "Full-cover hold length"
+   ],
+   "issues": [
+    "1-frame full cover: the cut must be frame-exact; risky on 50/60p",
+    "Dead frames 0–0.16 s and 1.68–2.04 s",
+    "Negative layer start offsets",
+    "QHD size"
+   ],
+   "parametrization_plan": "Rebuild at 3840x2160. Hold full cover for ≥4 frames (≈0.96–1.12 s) and add comp marker «CUT» on the first full frame; trim the active range to ~1.6 s.\nPr: «prerender» ProRes 4444 alpha, 3 colours × (3840x2160, 1920x1080). Panel button «Переход на склейку» lays the clip on the top free track so that CUT lands on the edit point nearest the playhead; frame-accurate, with a warning for non-25p sequences. Optional «mogrt» with Colour dropdown + Direction checkbox.\nAe: ae-template dropped at the CTI aligned to CUT. Covers reference the same comp.",
+   "effort": "S"
+  },
+  {
+   "comp": "Folder/Precomps/Logo + header group inside covers («Shape Layer 1/2» or «4/5» + «облачные и ИИ-сервисы»)",
+   "purpose": "Brand logo lockup and cover header (logo · scrolling tick ruler · tagline)",
+   "target_delivery": [
+    "still",
+    "ae-template",
+    "ffx",
+    "mogrt"
+   ],
+   "format": "Logo 905x180 @25 fps, 14.16 s (its layers run to 921 s). Used at 35 % in covers (2560) and 20 % in overlays (1920, ≈181x36 px at (33–214, 35–72))",
+   "build_notes": "2 static shape layers converted from AI: «Layer 4 Outlines 3» = cube mark #26D07C (3 merged paths, 124 %) and «Layer 3 Outlines 3» = «cloud.ru» wordmark #F8F8F8 (10 paths + merge), parented to the cube. In overlays it is stretched over 1 h by a time-remap HOLD key at 14.12 s. Header: a lime #CFF500 band (hidden, alpha matte) reveals a white 77-px tick repeated ×250 every 25 px, scrolling by Offset '-100 + time*0.5'; the tagline is Semibold 39.6 px, 2 lines.",
+   "current_editability": "hardcoded vector",
+   "editable_parts": [
+    "Logo colourway light/dark",
+    "Tagline on/off",
+    "Tick ruler on/off / speed"
+   ],
+   "issues": [
+    "Time-remap trick instead of a still",
+    "#F8F8F8 ≠ token white #FFFFFF"
+   ],
+   "parametrization_plan": "«still»: SVG + PNG for light (#FFFFFF or #F8F8F8 — decide) and dark (#222) backgrounds.\n«ae-template»: vector logo without precomp (or precomp with Collapse ON) and «CR_Header» (logo + ruler + tagline, Checkbox «Слоган», Slider «Скорость шкалы»).\n«ffx» «CR_Ticker_Ruler» (stroke + repeater + offset expression).\nPr: optional «mogrt» logo bug with corner dropdown.",
+   "effort": "S"
+  },
+  {
+   "comp": "Subtitle kit inside Оверлеи/Оверлей 16 на 9 and 3 на 2 («SUBTITLES_1 строка», «SUBTITLES_2 строка», «Shape Layer 23/24», nulls «1 строка»/«2 строка», 8× «save zone»)",
+   "purpose": "Two-line burned-in subtitles on dark plates over the bottom of the screencast window",
+   "target_delivery": [
+    "pr-preset",
+    "mogrt",
+    "ae-template"
+   ],
+   "format": "1920x1080, layers 3600 s",
+   "build_notes": "Text: SB Sans Text Regular 35 px, tracking -32, leading 36.8, #FFFFFF. Plates: #222222, fixed 785x83 path, width scaled by hand (98 % / 40 % × 68 %) and not linked to the text. Text and plate positions come from nulls. «save zone» nulls follow the plate corners via points()/toComp but nothing uses them. Placeholders: «Пишем текстр, много текста, ооочень много», «2 слова», «Ававававававава».",
+   "current_editability": "hardcoded; manual plate sizing",
+   "editable_parts": [
+    "Line 1 / Line 2 text",
+    "Plate visibility",
+    "Position"
+   ],
+   "issues": [
+    "No auto-size",
+    "8 dead nulls per overlay",
+    "Placeholder typos",
+    "Plate #222 is invisible on the BG margin but shows over the screencast"
+   ],
+   "parametrization_plan": "Pr, preferred: native captions with a saved Track Style «CR Субтитры» (SB Sans Text, white, #222 background box; the «pr-preset») fed from SRT or transcription, so AE is not needed.\nFor designed plates: «mogrt» «CR_Plate_2lines» with 2 Source Text fields. Plate size = sourceRectAtTime(time,false) + padX/padY; plate position via text.toComp of the rect centre; plate opacity = text length > 0 ? 100 : 0; alignment dropdown.\nAe: the same comp as ae-template.",
+   "effort": "S"
+  }
+ ],
+ "problems": [
+  {
+   "severity": "critical",
+   "category": "production-contamination",
+   "detail": "The converted .aep is a production job, not a template. Pre-comp 4 / Pre-comp 3 hold real course titles. «Оверлей со спикером 2» edits a screencast. 4 footage items point to G:\\ and are missing: Запись экрана 2026-09-01 в 12.42.01.mov, 3D.png, 2× slide_01.png. The placeholder «Обложка #1» was turned into a 4K wrapper and no longer exists.",
+   "fix": "Archive the converted file with its G:\\ media as a production job. Rebuild the template master from the original. Keep production comps out of template projects."
+  },
+  {
+   "severity": "critical",
+   "category": "shared-precomp-mutation",
+   "detail": "Precomp «Visual» is shared by Обложка #1, #2, Pre-comp 3 and Pre-comp 4. In the converted file it was changed for one course: 3D.png added as a child of the now-hidden Kubernetes.png. As a result the template Обложка #2 and the «Миграция» cover both show the «Продвижение Cloud.ru Advanced» visual, and it is currently missing.",
+   "fix": "Make the visual a top-level Media Replacement footage layer per cover. The AE panel must deep-duplicate slots when inserting."
+  },
+  {
+   "severity": "critical",
+   "category": "no-parametrization",
+   "detail": "0 Essential Graphics controllers (CcCt=0 in all 13/19 comps), no effects or Expression Controls; all text, colours and sizes are hardcoded. A MOGRT cannot be exported meaningfully as-is.",
+   "fix": "Add a CTRL null with expression controls (ASCII names), expose Source Text / Media Replacement / checkboxes / dropdowns in EGP, and author the MOGRTs."
+  },
+  {
+   "severity": "major",
+   "category": "overlay-delivery",
+   "detail": "The three overlays ship as 600.04-s ProRes 4444 (1.54 + 4.25 + 4.22 = 10.0 GB) rendered from 3600-s comps. A 45-min lecture still needs 5 chained copies, with a duplicated frame at each 600.04-s seam. Content is a static frame plus a 60-s loopOut drift of 6 rects. The saved 16:9 / 3:2 / original speaker comps cannot even reproduce the transparent window: they are empty 1-hour edit containers over an opaque BG. The 3:2 layout was never rendered.",
+   "fix": "Replace with stills (PNG RGBA 4K) plus pr-presets that fit media into the windows; an optional MOGRT frame (3-h comp, loopOut) or a single 60-s seamless loop prerender. Build windows with an ALPHA-INVERTED matte."
+  },
+  {
+   "severity": "major",
+   "category": "broken-control",
+   "detail": "Null «Позиция и размер текста» (all covers): its visible Position [1280,720] is not separated, but the title expressions read its hidden xPosition/yPosition (184.27, 386.48). Moving the null does not move the title, and there is no size link despite the name.",
+   "fix": "Replace it with a Point Control «Позиция заголовка» + Slider «Размер заголовка» on CTRL, exposed in EGP."
+  },
+  {
+   "severity": "major",
+   "category": "fixed-masks",
+   "detail": "Per-line reveal masks are fixed (909 / 872 / 1018 px at 2560) and clip any longer title. The production copies (Pre-comp 3/4) deleted them and added «Text Opacity 0» instead, so the two reveal behaviours now differ.",
+   "fix": "Use a mask-free reveal or an auto-sized track matte driven by sourceRectAtTime; add auto-fit scaling for long lines."
+  },
+  {
+   "severity": "major",
+   "category": "resolution",
+   "detail": "Mixed canvases: covers and Переход 2560x1440, overlays 1920x1080, wrappers 3840x2160 (@150 % / 200 %). The converted «Обложка #4» wrapper has Collapse OFF, so the 2560 raster is upscaled (soft), while «Обложка #1» has Collapse ON. Kubernetes.png (1622x1246) is upscaled ≈1.9x at 4K. The QHD Переход.mov sits in a «FullHD» folder.",
+   "fix": "One master canvas 3840x2160 @25 fps for every template; vector or ≥4K visuals; stills and prerenders in 4K + FHD."
+  },
+  {
+   "severity": "major",
+   "category": "timing-inconsistency",
+   "detail": "Обложка #1 is 7.92 s and its BG lasts to 7.92 (opaque tail after the wipe). #2/#3 are 15.04 s (= music length), with BG ending at 6.00 s and work area 0–7.04 s, so about 8 s of the comp is empty. Music Intro.mp3 has its audio switch OFF in #1, #3 and Pre-comp 3/4 but ON in #2.",
+   "fix": "Unify: 7.04-s covers, BG cut at the wipe's full-cover frame (transparent tail), music as a separate sfx cue, Responsive Time hold."
+  },
+  {
+   "severity": "major",
+   "category": "transition-cut",
+   "detail": "Переход reaches 100 % coverage on a single frame (frame 25 = 1.00 s; 0.888 / 0.908 on the neighbouring frames). A cut that is off by one frame, or a 50/60p timeline, shows the cut.",
+   "fix": "Hold full cover ≥4 frames, add a CUT marker, and have the panel align that marker to the edit point."
+  },
+  {
+   "severity": "major",
+   "category": "duplicate-layer",
+   "detail": "Converted 4K «Оверлей со спикером»: «Pre-comp 2» is placed twice. The top copy is frozen (1 HOLD time-remap key at 0) and has the only 3D switch in the whole package; it fully covers the animated copy, so the overlay renders static.",
+   "fix": "Keep one inverted-matted frame layer (as in the Auto-Save). Decide on static vs animated."
+  },
+  {
+   "severity": "major",
+   "category": "window-crop",
+   "detail": "Window aspect does not match the source. The speaker layout's screencast window is 1250x751 (5:3) for a 16:9 recording (≈113 px cropped). The 3:2 window is 1300x900 (13:9) against a 1363x909 precomp (≈63 px cropped). The 16:9 window is offset 10 px from the 85 % precomp (2 % overscan).",
+   "fix": "Make window aspect equal to source aspect, or expose a crop % control; ship pr-presets with exact fit values."
+  },
+  {
+   "severity": "minor",
+   "category": "expression-engine",
+   "detail": "All three projects use the legacy ExtendScript engine. All expressions (79 / 90) are JavaScript-compatible: loopOut(), '-100 + time*0.5', layer.transform.position links, Create-Nulls-from-Paths points()/toComp.",
+   "fix": "Switch to the JavaScript engine before authoring MOGRTs; no rewrites needed."
+  },
+  {
+   "severity": "minor",
+   "category": "dead-layers",
+   "detail": "Unused nulls evaluate expressions every frame: 8 path-follow nulls each in Обложка #1, Pre-comp 3 and Pre-comp 4; 1 of 2 in #3 is unused; 8 «save zone» nulls each in the 16:9 and 3:2 overlays. Plus shy/locked decor layers.",
+   "fix": "Delete them; keep only nulls with children or controls."
+  },
+  {
+   "severity": "minor",
+   "category": "naming",
+   "detail": "31× «Shape Layer N»; many unnamed footage/precomp layers; «Pre-comp 1–4»; the 16:9 matte is named «Маска 3 на 3»; folder «Folder»; trailing space in «Cloud.ru Advanced »; placeholder typos «Пишем текстр…», «Ававававававава».",
+   "fix": "Adopt a naming scheme (CTRL_, TXT_, SLOT_, FX_, MATTE_) and ASCII names for anything scripts touch."
+  },
+  {
+   "severity": "minor",
+   "category": "junk-files",
+   "detail": "The Auto-Save copy is superseded. There are 10 .cfa/.pek files (31.6 MB): Premiere conformed audio for the Dynamic-Linked «Обложка #1/#4», written next to the .aep because the media cache is set to «next to originals». The 3 overlay .mov names are Mac NFD (decomposed «й»).",
+   "fix": "Delete the Auto-Save and caches; point the Premiere media cache to a central folder; rename to NFC or delete the renders after replacement."
+  },
+  {
+   "severity": "minor",
+   "category": "timeline-hygiene",
+   "detail": "Переход layers start at -9.00 s (keys at 9/11 s). Logo layers run 921 s inside a 14.16-s comp. The music layer runs to 16.48 s past its 15.1-s file. Portal path keys at 7.76 / 7.92 s fall after the layers' 6.00-s out point, so the morph is truncated. The Logo is stretched over 1 h with a time-remap HOLD.",
+   "fix": "Normalise layer starts and durations during the rebuild; use a still or vector logo instead of time remapping."
+  },
+  {
+   "severity": "minor",
+   "category": "fonts",
+   "detail": "SB Sans is not on Adobe Fonts, so a MOGRT needs the fonts installed locally on every Premiere machine (Mac and PC). PostScript names match the PC install in C:\\Windows\\Fonts (SBSansDisplay-Regular / -Semibold, SBSansText-Regular, v1.002–1.003), but the project's font records carry v1.000 from the Mac, so metrics may drift. The Collect report lists only «SB Sans Display Regular».",
+   "fix": "Standardise font versions on Mac and PC; add a font check to the panel (app.fonts / TextDocument.font)."
+  },
+  {
+   "severity": "minor",
+   "category": "brand-tokens",
+   "detail": "Portal fill #333333, label #CCCCCC and logo white #F8F8F8 are not in the brand token set (#222222, #343F48, #F2F2F2, #FFFFFF); lime #CFF500 is used only as a hidden matte. Measured render colours: BG #222222, green #26CF7B ≈ #26D07C.",
+   "fix": "Map these to tokens or approve them as course-specific tones in cloudru-motion-tokens.json."
+  },
+  {
+   "severity": "minor",
+   "category": "residual-matte",
+   "detail": "«Visual» in Обложка #2 and «Прекомп спикер» in converted Pre-comp 1 have track-matte mode = 1 but no matte layer reference. It has no visual effect but is confusing.",
+   "fix": "Clear the setting during the rebuild."
+  }
+ ],
+ "brand_elements": [
+  {
+   "name": "Logo lockup (cube mark + «cloud.ru» wordmark)",
+   "kind": "logo",
+   "source": "Folder/Precomps/Logo — «Layer 4 Outlines 3» (#26D07C cube, 3 merged paths, 124 %) + «Layer 3 Outlines 3» (#F8F8F8 wordmark, 10 paths), 905x180",
+   "reuse_notes": "Export SVG / PNG (light and dark). Use in ae-template without the time-remap hack. Placement: 35 % at 2560 covers (left edge x≈80); 20 % in FHD overlays (centre (123.8, 53.8))"
+  },
+  {
+   "name": "Tagline «облачные и ИИ-сервисы»",
+   "kind": "text lockup",
+   "source": "Covers, top-right: SB Sans Display Semibold 39.6 px @2560, tracking -18, 2 lines, #FFFFFF, ~72 % scale",
+   "reuse_notes": "Part of the CR_Header ae-template, with a checkbox in the cover MOGRT"
+  },
+  {
+   "name": "Header tick ruler",
+   "kind": "motif / animated pattern",
+   "source": "«Shape Layer 1» (or 4): 77-px stroke ×250 copies every 25 px, Offset expr '-100 + time*0.5', matted by lime band «Shape Layer 2» (or 5), #CFF500, hidden",
+   "reuse_notes": "FFX «CR_Ticker_Ruler»; band width ≈1836x66 px in the 2560 cover"
+  },
+  {
+   "name": "Stepped portal panel",
+   "kind": "shape motif / matte",
+   "source": "«Shape Layer 3» (8 vertices, 2400x1179, #333333, ~80-px steps on top and bottom edges), «портал большой» (#26D07C, 8 vertices), «портал маленький» (#FFFFFF, 4 vertices)",
+   "reuse_notes": "ae-template element that doubles as an alpha matte for the visual; keep the vertex animation; align fills to brand tokens"
+  },
+  {
+   "name": "Green corner blocks (frame brackets)",
+   "kind": "frame motif",
+   "source": "Overlays, «Shape Layer 17–22» at FHD: 218x82, 45x739 (TR); 42x293, 293x146 (BR); 395x133, 427x138 (BL); #26D07C, strokes off",
+   "reuse_notes": "Shared by all FRAME layouts; optional loop drift"
+  },
+  {
+   "name": "Green stair-step wipe",
+   "kind": "transition",
+   "source": "Переход/Переход (6 rects, master X 4231→-2099 over 2.0 s)",
+   "reuse_notes": "prerender + mogrt + ae-template; add a CUT marker"
+  },
+  {
+   "name": "Pattern Arrow.png",
+   "kind": "background pattern (raster)",
+   "source": "(Footage)/Folder/Patterns/Pattern Arrow.png, 4712x2162 RGBA; used at 55 % in the speaker overlay",
+   "reuse_notes": "Ship as a still; consider redrawing as a vector or tileable texture for 4K (source ≈1.1x short at 200 %)"
+  },
+  {
+   "name": "Colour set used",
+   "kind": "palette",
+   "source": "Solids «BG» / «Dark Gray Solid 1» #222222; green #26D07C (fills, «Medium Turquoise Solid 2» placeholder); #333333 portal; #CFF500 matte; #F8F8F8 logo; #FFFFFF text; #CCCCCC label",
+   "reuse_notes": "Bind to cloudru-motion-tokens.json; no free colour pickers in MOGRTs, only a theme dropdown"
+  },
+  {
+   "name": "Typography presets",
+   "kind": "type styles",
+   "source": "Cover title: SB Sans Display Regular 125 px @2560 (= 187.5 @4K), tracking -16, leading 132.9, line step 120 px. Label: SB Sans Display Regular 30 px, tracking +5, #CCCCCC. Subtitle: SB Sans Text Regular 35 px @1080, tracking -32, leading 36.8",
+   "reuse_notes": "Make Pr caption Track Style + AE text presets; note tracking -32 is tighter than the brand body token (0 / -0.02 em)"
+  },
+  {
+   "name": "Window layouts (FHD → 4K ×2)",
+   "kind": "layout geometry",
+   "source": "16:9 window (150,100)-(1750,1000); 3:2 window (300,100)-(1600,1000); speaker-L: speaker (50,150)-(550,900) + screen (600,150)-(1850,900); speaker-R render: screen (50,150)-(1300,900) + speaker (1350,150)-(1850,900)",
+   "reuse_notes": "Export to frames.json; source of the pr-preset fit values"
+  },
+  {
+   "name": "Music Intro.mp3",
+   "kind": "sfx / music cue",
+   "source": "(Footage)/Folder/Music/Music Intro.mp3, 15.1 s, 48 kHz stereo",
+   "reuse_notes": "sfx library item «Интро курса», placed by the panel under covers instead of living inside comps"
+  },
+  {
+   "name": "Course visual placeholder",
+   "kind": "media slot sample",
+   "source": "(Footage)/Folder/Visuals/Kubernetes.png 1622x1246 RGBA (Figma export per the Collect report); production 3D.png on G:\\",
+   "reuse_notes": "Media Replacement slot; require ≥3000-px or vector visuals"
+  }
+ ],
+ "animation_patterns": [
+  {
+   "name": "Masked line reveal up (title)",
+   "description": "Text Animator, Range Selector Start 0→100 % Based on Lines, Position offset [0,+110] px (≈0.88 em at 125 px). Durations 1.08 / 0.88 / 0.76 s. Ease: first key out-influence 9 %, second key in-influence 69 % (≈ brand 'enter' [16,70]). Original version clips with per-line masks; production version adds Text Opacity 0 and drops the masks.",
+   "where_used": [
+    "Обложка #1/#2/#3 title lines",
+    "Pre-comp 3/4"
+   ],
+   "candidate_preset": "ffx «CR_Text_LineReveal_Up» (+ Pr: Graphics-clip Motion/Opacity recipe or the cover MOGRT)"
+  },
+  {
+   "name": "Title cascade stagger",
+   "description": "Line starts at 0.00 / 0.52 / 0.92 s (13 and 23 frames at 25 fps); all lines settle by 1.68 s; content holds to 6.00 s.",
+   "where_used": [
+    "All covers"
+   ],
+   "candidate_preset": "Expression stagger on the Range Selector (line index × delay) inside CR_Text_LineReveal_Up"
+  },
+  {
+   "name": "Label fade-in",
+   "description": "Opacity 0→100 from 1.00 to 2.32 s, linear (33 frames).",
+   "where_used": [
+    "«Cloud.ru Advanced» labels in all covers"
+   ],
+   "candidate_preset": "ffx «CR_Fade_In» re-eased to the brand enter curve; pr-preset Opacity recipe"
+  },
+  {
+   "name": "Portal morph",
+   "description": "8-vertex stepped path, 3 keys at 0 / 3.04 / 6.00 s (cover #1) or 0 / 2.96 / 7.76–7.92 s (cover #3), bezier ease; also acts as the alpha matte of the visual.",
+   "where_used": [
+    "Shape Layer 3 (#1, Pre-comp 3/4)",
+    "портал большой / маленький (#3)"
+   ],
+   "candidate_preset": "ae-template element «CR_Portal_Matte»"
+  },
+  {
+   "name": "Visual push-in (Ken Burns)",
+   "description": "Scale 146→154 % over 10 s, linear (≈ +5.5 %).",
+   "where_used": [
+    "Folder/Precomps/Visual"
+   ],
+   "candidate_preset": "ffx «CR_PushIn_5» + pr-preset «Наезд 5 %» (Scale keys at clip in/out)"
+  },
+  {
+   "name": "Drifting green blocks",
+   "description": "Position keys at 0 / 2.92 / 5.96 s, travel 60–390 px, in-influence 33 % / out-influence 70→63 %; Scale 100→95/104 % at the end.",
+   "where_used": [
+    "Обложка #2 Shape Layer 6/7/8"
+   ],
+   "candidate_preset": "ffx «CR_Block_Drift_3k»"
+  },
+  {
+   "name": "Breathing corner loop",
+   "description": "Separated Position X/Y with 5 keys at 0 / 15 / 30 / 45 / 60 s, excursion 10–120 px at FHD, in 33 % / out 78 %, loopOut() — a 60-s seamless cycle.",
+   "where_used": [
+    "Shape Layer 17–22 in all overlays and Pre-comp 2"
+   ],
+   "candidate_preset": "ffx «CR_Corner_Breathe_60s» (or a time-based sine drift expression for Responsive Time)"
+  },
+  {
+   "name": "Ticker ruler scroll",
+   "description": "Shape Repeater, 250 copies × 25 px, Offset = -100 + time*0.5 (constant velocity), revealed through a band matte.",
+   "where_used": [
+    "Cover headers (Shape Layer 1/4)"
+   ],
+   "candidate_preset": "ffx «CR_Ticker_Ruler»"
+  },
+  {
+   "name": "Stair-step wipe",
+   "description": "Master rect X 4231→-2099 px (2560 comp) over 2.00 s, out-influence 74 % → in-influence 73 %; children scale linearly to form the steps; motion blur; 100 % coverage only at 1.00 s.",
+   "where_used": [
+    "Переход; nested at 4.96/5.00 s in all covers"
+   ],
+   "candidate_preset": "ae-template + prerender + mogrt «CR_Wipe_Stairs» (re-eased to brand wipe [87,87] and given a 4-frame hold)"
+  },
+  {
+   "name": "Logo hold via time remap (anti-pattern)",
+   "description": "Time Remap keys 0→0 and 14.12 s → 14.12 with a HOLD, used to stretch a static 14.16-s logo precomp over 3600 s.",
+   "where_used": [
+    "Overlays, Pre-comp 2"
+   ],
+   "candidate_preset": "Replace with a vector logo layer or still — no preset"
+  }
+ ],
+ "cleanup_actions": [
+  "Delete «Adobe After Effects Auto-Save/Обучающие курсы (converted) auto-save 1.aep» (superseded intermediate, 2.8 MB) after noting its clean 2-layer inverted-matte speaker overlay.",
+  "Delete the 10 «Обучающие курсы (converted) Обложка #1/#4.aep 48000*.cfa/.pek» files (31.6 MB of Premiere conform cache). Point the Premiere media cache to a central folder so caches stop landing in package folders.",
+  "Move «Обучающие курсы (converted).aep» to a production archive together with its G:\\ media (slide_01.png ×2, 3D.png, Запись экрана 2026-09-01 в 12.42.01.mov); do not use it as a template.",
+  "After the stills, MOGRTs and loops replace them, delete the three 600.04-s overlay renders (10.0 GB). Until then, rename them from NFD to NFC (decomposed «й» in «Оверлей»).",
+  "In the rebuild: remove the 8 unused path-follow nulls in each of Обложка #1 / Pre-comp 3 / Pre-comp 4, the unused one in #3, and the 16 «save zone» nulls; remove the frozen 3D duplicate of Pre-comp 2.",
+  "Rename layers and comps (CTRL_, TXT_, SLOT_, MATTE_, FX_ prefixes, ASCII for anything scripted); fix «Маска 3 на 3» and the trailing space in «Cloud.ru Advanced »; replace placeholder typo text.",
+  "Switch the expression engine to JavaScript in the new masters; all existing expressions are compatible.",
+  "Normalise timing: covers 7.04 s with the BG ending at the full-cover frame; Переход layers start at 0; logo comp length = parent; music out of the comps.",
+  "Standardise all masters to 3840x2160 @25 fps. If the converted wrappers are kept temporarily, turn Collapse Transformations ON for the «Обложка #4» layer.",
+  "Move «Переход.mov» (2560x1440) out of «Render Overlays/FullHD» or re-render at the proper sizes.",
+  "Re-collect the new template project with a relative (Footage) tree only (no G:\\ or /Volumes paths). List all three fonts (SBSansDisplay-Regular, SBSansDisplay-Semibold, SBSansText-Regular) in the package readme, since the Collect report under-reports them."
+ ],
+ "questions_for_user": [
+  "Pre-comp 3 and Pre-comp 4 each have a full-frame «slide_01.png» (67 %, visible 0–6 s, ABOVE the titles; both files missing on G:\\). Is the real cover meant to be the deck's title slide, or is this an alignment reference that was left on?",
+  "Converted 4K «Оверлей со спикером»: the top copy of Pre-comp 2 is frozen at frame 0 (with a 3D switch) and hides the animated copy. Do you want the lecture frames static or with the slow corner drift?",
+  "Which speaker layouts should ship: speaker left (original comp and «…_1.mov»), speaker right («Оверлей со спикером.mov» and the converted Pre-comp 1), or both? Is the 3:2 frame still used? It was never rendered.",
+  "Covers and music: only Обложка #2 has Music Intro.mp3 switched on. Should the plugin place the 15-s intro cue automatically under every cover, or never?",
+  "What are the delivery targets: FHD, 4K or both? Are sequences always 25p, or also 50p/60p? This matters for the 1-frame wipe cut and the MOGRT frame rate. Which AE and Premiere versions run on the Mac? This sets the MOGRT minimum version and whether masters must stay AE 2025-compatible.",
+  "Subtitles: are burned-in subtitles made in Premiere captions (SRT/transcription) or must they keep the AE plate look?",
+  "Is there a library of per-course visuals (Figma exports like Kubernetes.png / 3D.png) that the cover media slot should browse?"
+ ]
+}

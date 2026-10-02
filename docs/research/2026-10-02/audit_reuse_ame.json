@@ -1,0 +1,278 @@
+{
+ "components": [
+  {
+   "name": "Cloud.ru Motion Presets: brand preset recipes",
+   "path": "C:/Users/Глеб/Documents/Cloud.ru-Motion-Presets/host/index.jsx (motionPresets_applyBrandLogoReveal / LowerThird / TextCard, about lines 757-1300), brandPresets.js, docs/brand-presets-spec.md",
+   "what_it_does": "Rebuilds three package animations (cube logo reveal, speaker lower third, SMM text card) as hand-coded ExtendScript keyframe recipes in the active comp, starting at comp.time. The cube is built from 3 straight paths scaled x5, the 'Cloud.ru' text uses Linear Wipe, and dark bars do a scaleX overshoot with 240/560 ms staggers. The spec doc holds keyframe numbers extracted from Логошот.aep, Titles.aep and SMM_pack.aep.",
+   "reuse_verdict": "reference-only",
+   "notes": "The vault note (Cloud.ru Motion) says these never matched the reference projects visually: track mattes (silhouetteAlpha), nested precomps, blend modes and shape reveals are lost when the animation is re-coded. It uses near-white #F7F7F7, which is not a brand colour, and calls #CFF500 'lightGreen'. Its elastic logo overshoot conflicts with the motion-brand stop-list. Keep the spec numbers to cross-check the project audit."
+  },
+  {
+   "name": "Motion Presets panel shell and hostBridge.js",
+   "path": "C:/Users/Глеб/Documents/Cloud.ru-Motion-Presets/{CSXS/manifest.xml, index.html, main.js, hostBridge.js, host/index.jsx, host/subtitles.jsx, client/*}",
+   "what_it_does": "AE-only CEP panel: AEFT [18.0,99.9], CSXS 11.0, ScriptPath host/index.jsx, CEF flags --enable-nodejs --mixed-context, vanilla JS, no npm and no automated tests (30 manual tests in docs/manual-test.md). hostBridge loads the .jsx files with $.evalFile and falls back to reading the file and running evalScript; it serialises arguments with toESLiteral and returns Promises. Also has generic fade/pop/slide presets (_setKeyAtTimeAndGetIndex, _setKeyEaseBezier with adaptive ease arity, _resolveLayer, _resolveProperty) and a Cloud.ru Whisper subtitle pipeline (ffmpeg chunks, 20 parallel).",
+   "reuse_verdict": "adapt",
+   "notes": "Take only the loader pattern (evalFile with an inline-eval fallback). Replace toESLiteral with an ASCII-only serialiser (asciiSafeJson), because Cyrillic is mangled on Windows. motionPresets_resolveActiveComp silently falls back to the FIRST comp in the project; remove that. Undo is N x app.executeCommand(16); replace it with one undo group per action. The subtitle pipeline is out of scope."
+  },
+  {
+   "name": "Cloud.ru Motion Export (AE comp to CSS/SVG, GSAP, Lottie, Raw JSON)",
+   "path": "C:/Users/Глеб/Documents/Cloud.ru-Motion-Export (host/index.jsx motionExport_extractCompForHtml, htmlExporter.js, docs/html-export-spec.md)",
+   "what_it_does": "Extracts the active comp to JSON in ExtendScript (1272 lines, ES3) and generates web animation formats in the panel (2080 lines). AEFT 18+, CSXS 11, deterministic, offline.",
+   "reuse_verdict": "reference-only",
+   "notes": "No precomps, 3D or time remap, and Lottie support is an MVP, so it cannot preview the precomp-heavy brand templates. Panel previews should be rendered MP4/WebM/PNG files. Keep it as a separate web-export tool."
+  },
+  {
+   "name": "Brand Colors panel",
+   "path": "C:/Users/Глеб/Documents/AE_color-picker (client/lib/pure/palette.js, client/updater.js, client/lib/pure/updater.js, host/index.jsx, test/*.test.js, tools/cdp-eval.js, user-colors.json, Ref_colors/Colors.png + Colors_2.png)",
+   "what_it_does": "AE palette panel: AEFT [18.0,99.9], CSXS 11 floor, .debug port 8088. It shows swatches, copies HEX, has an eyedropper and in-place palette editing saved to user-colors.json, and updates itself (git pull --ff-only, or a GitHub tarball for plain copies). Apply adds or reuses an ADBE Fill effect, finding the colour property by PropertyValueType.COLOR. The pure modules are tested with node --test.",
+   "reuse_verdict": "adapt",
+   "notes": "palette.js, the updater and the tests can be reused. Applying colour through a Fill effect is a workaround its own README admits to: set native targets instead (shape Fill/Stroke, TextDocument.fillColor, solid source), plus Premiere equivalents. Palette names conflict: here 'graphite' = #222222, while ae-motion-live uses black = #222222 and graphite = #343F48. Ref_colors holds the brandbook palette pages and is the authoritative colour source. Self-update works only for unsigned dev installs."
+  },
+  {
+   "name": "Phygital Premiere host helpers (import, insert at playhead)",
+   "path": "C:/Users/Глеб/Documents/Phygital-Adobe-Studio/cep-premiere/host/host.jsx",
+   "what_it_does": "ES3 host, 1474 lines, with JSON and indexOf polyfills and an _ok/_err contract. importToBin(path) calls importFiles([p], true, bin, false), polls up to 8 s, retries once, and finds the item by media path anywhere in the project because Premiere may ignore the bin argument. insertToTimeline(projectItemId, atSec; below 0 means the playhead via seq.getPlayerPosition) picks the first free unlocked track above the topmost used one, tries overwriteClip then insertClip with a Time object then seconds, checks the position and rolls back a misplaced clip. Also revealInBin, diagApis, bin/timeline/source-monitor selection readers and QE frame export.",
+   "reuse_verdict": "adapt",
+   "notes": "This is the most tested Premiere insertion code the user has; the functions are nearly reusable as they are. Add snapping to the frame grid in ticks (premiere-autopilot) and adding tracks through QE (seq.videoTracks.addTracks is undefined on 26.3.2). Rename the hard-coded 'PhygitalStudio' bin. Copy binary files in Node, not with ExtendScript File.copy (it corrupted files on Cyrillic paths)."
+  },
+  {
+   "name": "Phygital Premiere panel stack (Preact + htm, host.js, vitest)",
+   "path": "C:/Users/Глеб/Documents/Phygital-Adobe-Studio/cep-premiere/{CSXS/manifest.xml, client/vendor/*, client/lib/host.js, client/lib/state.js, client/lib/toast.js, client/components/*, tests/, package.json, vitest.config.js}",
+   "what_it_does": "PPRO [24.0,99.9], CSXS 11, ScriptPath host/host.jsx, .debug port 8099. UI is Preact 10.22 + htm 3.1 vendored as ES modules, with no bundler. host.js is the single evalScript entry point: asciiSafeJson escapes every non-ASCII character, and hostQueued runs calls one at a time through a Promise chain. Tests: vitest 1.6 + jsdom, 15 files. Also has localStorage drafts, a toast manager and polling.",
+   "reuse_verdict": "adapt",
+   "notes": "The best UI template for a library browser with forms. Drop the sidecar, autostart and generation parts."
+  },
+  {
+   "name": "Phygital AE scaffold",
+   "path": "C:/Users/Глеб/Documents/Phygital-Adobe-Studio/cep-ae",
+   "what_it_does": "Stub AE panel (AEFT [23.0,99.9], CSXS 11). The host has only a JSON polyfill and a ping; the import-and-add-at-comp.time logic exists only as a TODO comment.",
+   "reuse_verdict": "avoid",
+   "notes": "Nothing to reuse beyond the polyfill, which already exists elsewhere."
+  },
+  {
+   "name": "LLM-Chat_Pr bridge and host patterns",
+   "path": "C:/Users/Глеб/Documents/Extensions-LLM-Chat_Pr/client/shared/bridge-premiere.js; host/premiere.jsx (_wrap about lines 150-200, _ticksPerSecond, importFiles checks about 3437/4111, exportAsMediaDirect about 3632)",
+   "what_it_does": "PPRO [24.0,99.9], CSXS 12, no ScriptPath: the host is loaded at runtime with $.evalFile, which allows reloads and git self-update. Cold-start retry waits 0/300/900 ms on 'EvalScript error.', 'undefined', '' or '__adobe_cep__ unavailable'. opts.mutating turns the retry off and raises the timeout to 120 s. $._EXT_PRM_._wrap returns {_hostError, fn, msg, line, stack} instead of an opaque error. Ticks are a constant 254016000000 per second. Tested with node --test and vm loaders (35 files). .debug port 8098.",
+   "reuse_verdict": "adapt",
+   "notes": "Adapt the patterns: the bridge with its mutating guard, _wrap, and the importFiles result checks. The 5033-line LLM host itself is reference-only. The mutating guard exists because the cold-start retry re-applied edits 2-3 times (live-verified 2026-09-25)."
+  },
+  {
+   "name": "Extensions-LLM-Chat (AE): import, add and render helpers",
+   "path": "C:/Users/Глеб/Documents/Extensions-LLM-Chat/host/index.jsx (extensionsLlmChat_importFile about line 4895, addItemToComp about 4926, render-queue AIFF about 5490)",
+   "what_it_does": "AE ImportOptions import, comp.layers.add, and a render-queue render with an output-module template, timeSpan, un-queuing other items, beginSuppressDialogs and zeroing displayStartTime. It is also the panel whose CDP port 8092 ae-motion-live drives.",
+   "reuse_verdict": "reference-only",
+   "notes": "Proven traps: displayStartTime != 0 raises a modal 'frames outside of range' that dialog suppression does not catch; rq.render() is synchronous."
+  },
+  {
+   "name": "Sync_Premier (ИИ: синхронизация)",
+   "path": "C:/Users/Глеб/Documents/Sync_Premier",
+   "what_it_does": "PPRO 24+, CSXS 12, .debug port 8100. Syncs multicam footage through an FCP7 XML round-trip.",
+   "reuse_verdict": "avoid",
+   "notes": "Unrelated to brand insertion."
+  },
+  {
+   "name": "Stale audit copies",
+   "path": "C:/Users/Глеб/Documents/Adobe-Extensions-Audit/{ext_main, ext_pr}",
+   "what_it_does": "Non-git snapshots from 2026-05-21 of the AE and Premiere LLM-Chat extensions.",
+   "reuse_verdict": "avoid",
+   "notes": "Older than the live repos."
+  },
+  {
+   "name": "Brand tokens: single source and generator",
+   "path": "C:/Users/Глеб/.claude/skills/ae-motion-live/brand/cloudru-motion-tokens.json, brand/cloudru-motion-brand.md, scripts/build-tokens.js, scripts/tokens.test.js",
+   "what_it_does": "One JSON file generates ES3 scripts/lib/tokens.jsx (CR.*), html/engine/tokens.js and tokens.css; --check fails on stale outputs. Covers colours as hex and AE 0-1 floats, fonts, type scale, cubic-bezier eases with AE influences, durations, staggers, formats and safe areas, geometry, and a stop-list.",
+   "reuse_verdict": "reuse-as-is",
+   "notes": "Reuse the mechanism as is; the values need adapting. Reconcile them with the brandbook first: graphite #343F48 and arrow #8C959E are not on the brandbook palette page, and the brandbook names #222222 Graphite/Black. Add the SB Sans Text PostScript names, which are missing. The motion rules are the user's own adaptation: they forbid overshoot on the logo and set 30 fps for story/square, but the package uses an elastic logo and 24/25 fps SMM comps. Decide the canon with the user."
+  },
+  {
+   "name": "cloudru-motion.jsx (M.* AE library)",
+   "path": "C:/Users/Глеб/.claude/skills/ae-motion-live/scripts/lib/cloudru-motion.jsx (941 lines), scripts/es-json.jsx",
+   "what_it_does": "ES3 library. M.run wraps work in one undo group and returns warnings and the failing step. M.tween maps cubic-bezier to KeyframeEase exactly (M.bezierEase, adaptive ease arity, flattened spatial keys). Also: M.text with font warnings; rect, rule, line, dots, grid, llll, portal and bracket shapes; fade, slide, wipe, portalWipe, lineReveal, counter and colorCut; springBake, premiumIn, wordCascade, cameraPush; bounds, summary and exprErrors; M.clean removes only tagged layers. Tested against ae-mock in Node.",
+   "reuse_verdict": "adapt",
+   "notes": "Built for an agent driving AE over CDP. For the plugin, keep the ease, tween, text, shape and undo core as the AE host library for build-from-code elements and motion presets. Drop capture and the agent helpers."
+  },
+  {
+   "name": "Template contract and Cloud.ru graphics kit",
+   "path": "C:/Users/Глеб/.claude/skills/ae-motion-live/scripts/lib/gfx.jsx, scripts/lib/gfx-kit-cloudru.jsx, reference/gfx-for-edit.md, scripts/gfx-build.js",
+   "what_it_does": "Each template is a TPL_<type> comp with top-level TXT_<FIELD> text layers, BOX_<FIELD> guide boxes, comp markers 'in' and 'out', and no audio. G.tplInfo and G.tplProblems check the contract. G.setTexts fills fields (an empty field becomes one space). G.overflow measures ink against the box. G.fontOk detects a phantom font by its times.ttf location. G.buildSlot duplicates a template and fits it to any length with 4 linear time-remap keys: entrance and exit at their own speed, the hold stretched. The minimum length is in + (T - out) + 1.5 s. Plates size themselves to the text by expression (K.ink). Seven code-built kit types: lower_third, quote, callout, logo, chapter, intro, outro.",
+   "reuse_verdict": "adapt",
+   "notes": "This is a ready-made spec for clear templates: convert the package comps to it, and add Essential Graphics properties for MOGRT export. comp.duplicate() does not duplicate nested precomps, so editable text must sit at the top level of a template, or use Essential Properties. The kit's art is a first pass: a one-line quote reads like a lower third."
+  },
+  {
+   "name": "ES3 lint, AE mock and node tests",
+   "path": "C:/Users/Глеб/.claude/skills/ae-motion-live/scripts/lint-jsx.js, scripts/ae-mock.js, scripts/*.test.js, package.json",
+   "what_it_does": "The lint refuses ES5+ syntax, ES5 array and object members, reserved-word object keys and non-ASCII identifiers before a payload reaches AE; in AE a parse error raises a modal that blocks the host. The strict AE DOM mock reproduces quirks #5, #9, #12, #14 and #18. node --test runs 73 tests.",
+   "reuse_verdict": "reuse-as-is",
+   "notes": "Run it in CI on every host .jsx. There is no Premiere mock yet; one would have to be written."
+  },
+  {
+   "name": "svgpath.js (SVG to AE shape data)",
+   "path": "C:/Users/Глеб/.claude/skills/ae-motion-live/scripts/lib/svgpath.js (+ K.logoShape in gfx-kit-cloudru.jsx)",
+   "what_it_does": "Parses absolute M/L/H/V/C/Z SVG paths into AE vertices and relative tangents. Throws on unsupported commands.",
+   "reuse_verdict": "reuse-as-is",
+   "notes": "Build logos natively from the master SVG instead of hand-typed vertices like _BRAND_LOGO_PATHS in Motion Presets."
+  },
+  {
+   "name": "Logo and art masters",
+   "path": "C:/Users/Глеб/.claude/skills/ae-motion-live/html/templates/cn-assets/logo_color.svg; C:/Users/Глеб/Documents/Cloud.ru-Motion-Presets/docs/brand-figma-assets.md; C:/Users/Глеб/.claude/skills/ae-motion-live/assets/cloudru-art/",
+   "what_it_does": "Figma 'Logo_color' (viewBox 340.5x63): green cube #26D07C with a white wordmark, the dark-ground variant. Figma node 531:1436 gives the cube (37.82x39.68, 3 straight-line faces, #26D07C) and the 'cloud.ru' wordmark path in #222222, the light-ground variant. The art kit has orbit SVGs, planet.png and artkit.py.",
+   "reuse_verdict": "reuse-as-is",
+   "notes": "Reuse the logo as is; the art kit is reference-only. The package itself has no vector logo file: logos exist only as shape layers inside the .aep files. Store the master SVGs (both colour variants plus mono) in the library."
+  },
+  {
+   "name": "CDP live bridge (dev and E2E only)",
+   "path": "C:/Users/Глеб/.claude/skills/ae-motion-live/scripts/ae.js; C:/Users/Глеб/Documents/Edit_Skill/scripts/lib/cdp.mjs, scripts/lib/prbridge.mjs; C:/Users/Глеб/Documents/AE_color-picker/tools/cdp-eval.js",
+   "what_it_does": "Node drives a running CEP panel through its DevTools port (8092 AE, 8098 Premiere) and runs evalScript in the host, with a lint pre-flight, timeouts in milliseconds and a mutating flag.",
+   "reuse_verdict": "reuse-as-is",
+   "notes": "Use it for automated live tests of the new panel; it is not shipped. Ports already taken: 8088, 8092, 8098, 8099, 8100, so give the new panel its own (e.g. 8094 AE, 8096 Premiere). Never run AE calls concurrently."
+  },
+  {
+   "name": "Quirk catalogue and Premiere rules",
+   "path": "C:/Users/Глеб/.claude/skills/ae-motion-live/reference/ae-quirks.md (199 live-verified items); C:/Users/Глеб/Documents/Edit_Skill/SKILL.md, references/panel-api-notes.md, references/after-effects-link.md, references/interview-selects.md",
+   "what_it_does": "A WRONG/RIGHT catalogue of AE and Premiere scripting traps, recorded with dates and versions.",
+   "reuse_verdict": "reference-only",
+   "notes": "Required reading before writing host code. The key items are listed in lessons."
+  },
+  {
+   "name": "mogrtcard.py (editable Premiere title cards)",
+   "path": "C:/Users/Глеб/Documents/Edit_Skill/scripts/mogrtcard.py",
+   "what_it_does": "Clones Premiere's Basic Title.mogrt and rewrites the text, font and size. Inside the .mogrt, definition.json gets a fresh capsuleID; the .prgraphic (zip) holds a gzipped .prproj, where the text sits in a base64 field (8-byte length + UTF-16LE JSON mTextParam). The card is placed with sequence.importMGT(path, ticks, 0, 0).",
+   "reuse_verdict": "adapt",
+   "notes": "Proven on 107 cards: importMGT dropped 4, so count and re-import, and the default length of 4.92 s must be reset with end. Needed only for Premiere-authored MOGRTs, whose parameters ExtendScript cannot set. For AE-authored brand MOGRTs, try trackItem.getMGTComponent() parameters first (needs a test). The default template path is tied to the Premiere version."
+  },
+  {
+   "name": "prexport.mjs and tlexport.mjs (Premiere render from the host)",
+   "path": "C:/Users/Глеб/Documents/Edit_Skill/scripts/lib/prexport.mjs, scripts/tlexport.mjs, scripts/tests/prexport.test.mjs",
+   "what_it_does": "Runs sequence.exportAsMediaDirect(File(out).fsName, File(epr).fsName, app.encoder.ENCODE_ENTIRE or ENCODE_IN_TO_OUT) on the ACTIVE sequence; success returns 'No Error'. Renders a throwaway clone without linked .aep clips. freePath alternates .b/.prev file names when the target is locked (EBUSY). waitStable plus an ffprobe duration check confirm the result.",
+   "reuse_verdict": "adapt",
+   "notes": "The render is synchronous. If the bridge times out, wait for the file to settle and never re-issue the call. The AME queue route (app.encoder.encodeSequence + startBatch) is not used anywhere in the user's code and needs a test."
+  },
+  {
+   "name": "gfxplace.mjs and gfxcore (AE comps into Premiere through Dynamic Link)",
+   "path": "C:/Users/Глеб/Documents/Edit_Skill/scripts/gfxplace.mjs, scripts/lib/gfxcore.mjs",
+   "what_it_does": "Imports comps with app.project.importAEComps(aep, [comps], GFX bin) and places them on the frame grid in ticks. Reuses items by name '<comp>/<aep>', adds tracks through QE when short, strips linked audio, and is safe to re-run.",
+   "reuse_verdict": "adapt",
+   "notes": "Keep it as an optional route for bespoke AE graphics, not the default for button inserts. Dynamic Link starts a second headless AfterFX (about 3.2 GB), makes exports about 7x slower, reports a stale getOutPoint, duplicates items on re-import, and conforms linked audio only once."
+  },
+  {
+   "name": "AME presets (9 .epr files)",
+   "path": "C:/Users/Глеб/Documents/Граф пакет Cloud.ru/7_Пресеты_Media_Encoder/*.epr",
+   "what_it_does": "H.264/MP4 delivery presets, decoded in ame_presets.",
+   "reuse_verdict": "adapt",
+   "notes": "Fix the frame-rate mismatches first: Webinar presets are 24 fps against 25 fps comps, and SMM presets are 30 fps against 24/25 fps comps. SMM_1x1 uses level 5.2 where every other preset uses 4.2. The file names differ from the internal <PresetName>. Confirm the bitrate mode and the performance parameter in the AME UI. Ship them in the library and pass them to export calls by absolute path; installing into Documents/Adobe/Adobe Media Encoder/26.0/Presets is optional."
+  },
+  {
+   "name": "Installed SB Sans fonts",
+   "path": "C:/Windows/Fonts/SBSans*.otf; C:/Users/Глеб/.claude/skills/ae-motion-live/html/engine/fonts/",
+   "what_it_does": "35 OTF files: Display, Text, TextCaps, Cond, Comp, Mono, CondMono and UI (the UI files have PostScript names SBSansInterface-*). The skill also carries copies of 4 Display weights.",
+   "reuse_verdict": "reuse-as-is",
+   "notes": "Use them as the baseline for a per-machine font check: they are not on Adobe Fonts, and MOGRTs do not carry fonts. Do not bundle corporate fonts into a distributed ZXP without a licence."
+  },
+  {
+   "name": "Brandbook sources",
+   "path": "C:/Users/Глеб/Documents/Брендбук/Материалы на анализ/Брендбук_Cloud.ru_2.0_cond.pdf (27 MB); C:/Users/Глеб/Documents/Брендбук/Брендбук паттерны/*.md",
+   "what_it_does": "The Cloud.ru 2.0 brandbook PDF plus the user's analysis notes.",
+   "reuse_verdict": "reference-only",
+   "notes": "The palette pages are the same images as Ref_colors. The analysis notes contain no hex values."
+  }
+ ],
+ "brand_tokens": "FONTS. PostScript names below were read from the name tables of the installed files C:/Windows/Fonts/SBSans*.otf.\n- SB Sans Display: SBSansDisplay-Regular, SBSansDisplay-Medium, SBSansDisplay-Semibold, SBSansDisplay-Bold, SBSansDisplay-Light, SBSansDisplay-Thin.\n  - Semibold has a lower-case 'b', but its file is named SBSansDisplay-SemiBold.otf. Setting 'SBSansDisplay-SemiBold' renders in Times on AE 26.3 with no warning (quirk 187).\n- SB Sans Text: SBSansText-Regular, -Medium, -Semibold, -Bold, -Light, -Thin, -Heavy, -Italic, -BoldItalic, -LightItalic, -SemiboldItalic.\n- Also installed: SBSansTextCaps, SBSansTextCond, SBSansTextComp, SBSansTextMono, SBSansCondMono. The SBSansUI-*.otf files have PostScript names SBSansInterface-*.\n- Used by the package (audit):\n  - SBSansDisplay-Semibold: logo shots, 13 SMM layers, webinars.\n  - SBSansDisplay-Regular: 15 webinar layers, 12-16 course layers.\n  - SBSansDisplay-Bold: 40 podcast layers.\n  - SBSansText-Regular: Titles and courses.\n  - The projects record the font version as 'Version 2.115'.\n- The fonts are corporate and not on Adobe Fonts, so check them on every machine. In AE: app.fonts.getFontsByPostScriptName(ps)[0].location must point to the .otf, not to times.ttf.\n- The ae-motion-live tokens list only SB Sans Display, with Verdana as fallback.\n\nCOLOURS. Source: the brandbook 2.0 page «Базовая палитра цветов», copied at C:/Users/Глеб/Documents/AE_color-picker/Ref_colors/Colors.png and Colors_2.png. AE values are 0-1 floats.\n| Name | Hex | RGB | AE | Print |\n|---|---|---|---|---|\n| Green (accent) | #26D07C | 38,208,124 | [0.14902,0.81569,0.48627] | CMYK 70/0/75/0, Pantone 7479 C, RAL 6038, Oracal 062 |\n| Graphite / Black | #222222 | 34,34,34 | [0.13333,0.13333,0.13333] | Pantone Neutral Black C, RAL 9004, Oracal 070 |\n| White | #FFFFFF | | [1,1,1] | |\n| Gray | #F2F2F2 | | [0.94902,0.94902,0.94902] | Pantone 427 C, RAL 7047, Oracal 072 |\n| Yellow (accent) | #CFF500 | 207,245,0 | [0.81176,0.96078,0] | Pantone 388 C |\n| Purple (accent) | #A068FF | 160,104,255 | [0.62745,0.40784,1] | Pantone 2665 C |\n| Blue (accent) | #C0E0FC | 192,224,252 | [0.75294,0.87843,0.98824] | Pantone 212 C |\n- The brandbook strictly forbids changing these values or using non-brand colours.\n- Extended palette, special projects only, from the tokens JSON: aquamarine #18F4CF, ultramarine #0063FF, magenta #FF00FF, carrot #FF4517, coral #FF0642, each with a muted variant.\n- Naming conflicts to resolve:\n  - ae-motion-live tokens call #222222 'black' and add graphite #343F48 and arrow grey #8C959E. Neither appears on the brandbook palette page; they exist only in ae-motion-live, said to come from Template 2026.\n  - AE_color-picker calls #222222 'graphite'.\n  - Motion Presets and the package use near-white #F7F7F7 (not a brand colour) and call #CFF500 'lightGreen'.\n\nLOGO\n- The package has no vector logo file; logos exist only as shape layers inside the .aep files.\n- Dark-ground master: C:/Users/Глеб/.claude/skills/ae-motion-live/html/templates/cn-assets/logo_color.svg. Figma 'Logo_color', viewBox 340.5x63, green cube #26D07C with a white wordmark.\n- Light-ground master: C:/Users/Глеб/Documents/Cloud.ru-Motion-Presets/docs/brand-figma-assets.md, Figma node 531:1436. Cube 37.82x39.68 made of 3 straight-line faces in #26D07C, plus the 'cloud.ru' wordmark path in #222222.\n- Rules from the brand doc: clear space equals the mark height; green, black or white only; never distorted.\n- Converter: ae-motion-live scripts/lib/svgpath.js with K.logoShape.\n\nPATTERNS\n- Package: 3_Обучающие_курсы/3_Обучающие курсы/(Footage)/Folder/Patterns/Pattern Arrow.png (4712x2162 RGBA).\n- Package: 4_SMM_Pack/Render/BG/BG_pattern_1x1_1/2.mov and BG_pattern_9x16_1/2.mov. ProRes 4444 with alpha, 30 s, 377-513 MB each.\n- Geometry tokens:\n  - lines 2/4/6 px; dots 2/4/6 px; dot gaps 8/12/16/24;\n  - square caps, miter joins, corner radius 0;\n  - portal step 40 px at 1080p; margins in multiples of 10.\n- Art kit: C:/Users/Глеб/.claude/skills/ae-motion-live/assets/cloudru-art/ (orbit*.svg, planet.png, artkit.py).\n\nMOTION. This is the user's own motion adaptation in the ae-motion-live tokens, not the brandbook.\n- Eases (cubic-bezier):\n  - enter [0.16,1,0.3,1], AE influence 16/70;\n  - exit [0.7,0,0.84,0];\n  - move [0.65,0,0.35,1];\n  - wipe [0.87,0,0.13,1];\n  - also count, ui and linear.\n- Durations in ms: micro 120, fast 200, base 400, slow 700, hero 1000. An exit lasts about 0.7 of its entrance.\n- Staggers in ms: 40, 70, 120.\n- Formats:\n  - 1080p 1920x1080 @25, margin 80, title-safe 120;\n  - 4K @25;\n  - story 1080x1920 @30;\n  - square 1080x1080 @30.\n- Stop-list: no overshoot on the logo, no elastic motion, no rotation except 90/180, no shadows, glows, gradients or rounded corners, no dissolves.\n- Conflicts with the package: its logo reveal uses an elastic overshoot (scale 250 to 350 to 221 to 189), and its SMM vertical comps run at 24/25 fps.\n\nSOURCES\n- C:/Users/Глеб/Documents/Брендбук/Материалы на анализ/Брендбук_Cloud.ru_2.0_cond.pdf\n- C:/Users/Глеб/.claude/skills/ae-motion-live/brand/cloudru-motion-tokens.json and cloudru-motion-brand.md\n- Helper that reads PostScript names: C:/dev/temp/claude/C--Users------Documents-Cloud-ru-Preset-plugin/b48e0614-1141-4125-9b74-d00eb767441b/scratchpad/work/fontnames.py",
+ "ame_presets": [
+  {
+   "file": "C:/Users/Глеб/Documents/Граф пакет Cloud.ru/7_Пресеты_Media_Encoder/4K.epr",
+   "preset_name": "4K_35-40_25fps",
+   "spec": "Shared by all 9 presets: H.264 (avc1) in MP4, exporter NICK/H264 (Premiere system preset folder 4E49434B_48323634); square pixels; bitrate mode=3, most likely VBR 2-pass (Adobe's 'Match Source - High bitrate', known to be VBR 1-pass, stores mode=2); High profile (ordinal 3; the HDR presets use 4 = High 10); keyframe distance 90 frames; Use Maximum Render Quality on; performance param 1 (hardware vs software cannot be decoded offline, check in AME); audio AAC 48 kHz stereo 320 kbps; comment 'Пользовательский' (a custom preset made in Russian-localised AME). This preset: 3840x2160, 25 fps, target 35 / max 40 Mbps, level 5.2.",
+   "use_case": "4K master. Matches the 3840x2160 @25 comps (podcast pack, logo shots, courses)."
+  },
+  {
+   "file": "C:/Users/Глеб/Documents/Граф пакет Cloud.ru/7_Пресеты_Media_Encoder/FullHD.epr",
+   "preset_name": "FullHD_10-20_25fps",
+   "spec": "1920x1080, 25 fps, mode=3 (likely VBR 2-pass), target 10 / max 20 Mbps, High profile level 4.2. Shared settings as in 4K.epr.",
+   "use_case": "Main 16:9 1080p delivery (logo shots, courses, titles, podcast HD). Matches the 25 fps comps."
+  },
+  {
+   "file": "C:/Users/Глеб/Documents/Граф пакет Cloud.ru/7_Пресеты_Media_Encoder/SMM_1440x1080.epr",
+   "preset_name": "SMM_5-12_1440x1080_30fps",
+   "spec": "1440x1080 (4:3), 30 fps, target 5 / max 12 Mbps, High profile level 4.2. Shared settings as in 4K.epr.",
+   "use_case": "4:3 social posts. No 1440x1080 comp exists in the package, and the 24/25 fps comps get converted to 30 fps."
+  },
+  {
+   "file": "C:/Users/Глеб/Documents/Граф пакет Cloud.ru/7_Пресеты_Media_Encoder/SMM_16x9.epr",
+   "preset_name": "SMM_16x9_5-12_1920x1080_30fps",
+   "spec": "1920x1080, 30 fps, target 5 / max 12 Mbps, High profile level 4.2. Shared settings as in 4K.epr.",
+   "use_case": "16:9 social. Converts 25 fps sources to 30 fps."
+  },
+  {
+   "file": "C:/Users/Глеб/Documents/Граф пакет Cloud.ru/7_Пресеты_Media_Encoder/SMM_1x1.epr",
+   "preset_name": "SMM_1x1_5-12_1080x1080_30fps",
+   "spec": "1080x1080, 30 fps, target 5 / max 12 Mbps, High profile level 5.2. This is the only SMM preset at level 5.2, which is inconsistent with the others. Shared settings as in 4K.epr.",
+   "use_case": "Square social. The SMM square comps are 1440x1440 @25, so export downscales and converts 25 to 30 fps."
+  },
+  {
+   "file": "C:/Users/Глеб/Documents/Граф пакет Cloud.ru/7_Пресеты_Media_Encoder/SMM_9x16.epr",
+   "preset_name": "SMM_9x16_5-12_1080x1920_30fps",
+   "spec": "1080x1920, 30 fps, target 5 / max 12 Mbps, High profile level 4.2. Shared settings as in 4K.epr.",
+   "use_case": "Vertical Reels, Shorts, Stories and VK Clips. The SMM 9:16 comps run at 24 and 25 fps, so export converts them to 30 fps."
+  },
+  {
+   "file": "C:/Users/Глеб/Documents/Граф пакет Cloud.ru/7_Пресеты_Media_Encoder/Webinar_Final render.epr",
+   "preset_name": "Webinar_FullHD_5-10_24fps",
+   "spec": "1920x1080, 24 fps, target 5 / max 10 Mbps, High profile level 4.2. Shared settings as in 4K.epr.",
+   "use_case": "Final webinar render. Every webinar comp is 25 fps, so 25 to 24 conversion drops a frame each second (judder)."
+  },
+  {
+   "file": "C:/Users/Глеб/Documents/Граф пакет Cloud.ru/7_Пресеты_Media_Encoder/Webinar_Timer.epr",
+   "preset_name": "Timer_3-5_24fps",
+   "spec": "1920x1080, 24 fps, target 3 / max 5 Mbps, High profile level 4.2. Shared settings as in 4K.epr.",
+   "use_case": "Webinar countdown timer (low motion, low bitrate). Same 25 to 24 fps issue."
+  },
+  {
+   "file": "C:/Users/Глеб/Documents/Граф пакет Cloud.ru/7_Пресеты_Media_Encoder/Webinar_Zastavka.epr",
+   "preset_name": "Zastavka_15-20_24fps",
+   "spec": "1920x1080, 24 fps, target 15 / max 20 Mbps, High profile level 4.2. Shared settings as in 4K.epr.",
+   "use_case": "Webinar intro (заставка) and announcement. Same 25 to 24 fps issue."
+  }
+ ],
+ "lessons": [
+  "Do not re-implement designer animations as code. The hand-coded recipes in Motion Presets never matched Логошот, Titles or SMM: track mattes, nested precomps, blend modes and shape reveals were lost. Keep the designer-made comps as the source of truth and parametrise them (TXT_/BOX_/in-out contract, Essential Graphics). Build from code only for simple brand primitives and motion presets.",
+  "The vault claim 'MOGRT via ExtendScript is technically impossible' is wrong as stated. Premiere's sequence.importMGT(path, ticks, vTrackOffset, aTrackOffset) is proven in premiere-autopilot on 107 cards, with two caveats: about 4% were silently dropped (count and re-import), and the default length is 4.92 s (set end).",
+  "AE can author and export MOGRTs by script (Property.addToMotionGraphicsTemplate, CompItem.exportAsMotionGraphicsTemplate, AE 15.1+).",
+  "What is verified impossible: setting the text of a Premiere-authored MOGRT. getMGTComponent() returns null and Source Text reads back as garbage, so the text must be baked into a per-card .mogrt with a fresh capsuleID (mogrtcard.py); otherwise Premiere's capsule cache can show the same text on several cards. Editing parameters of AE-authored MOGRTs through getMGTComponent().properties is untested here: test it first.",
+  "The vault's 'ExtendScript EOL in Sept 2026' is wrong. It came from Extensions-LLM-Chat_Pr/.omc/research/pp26-compatibility-analysis.md. Adobe's developer-blog post of September 2026 retires CEP, not ExtendScript ('ExtendScripts are not affected by this transition'). Premiere stops accepting new CEP submissions in Dec 2027 and disables CEP by default in Dec 2028; AE and AME disable CEP by default in Dec 2028; CEP is removed from the apps in Dec 2029. Premiere has GA UXP plus hybrid plugins; AE gets public-beta UXP plugins by Nov 2026. Locally, AE 26.3 ships a UXP folder holding only Adobe's Home plugin, while Premiere 26.3.2 bundles about 14 Adobe UXP plugins. Conclusion: CEP is viable now, but keep the core host-agnostic and the host adapters thin.",
+  "Cyrillic and other non-ASCII text: CEP's evalScript mangles it on Windows, so escape every argument to ASCII-only JSON (asciiSafeJson in Phygital host.js). Write the JSX source itself as ASCII and use no backslashes in it: use forward slashes plus new File(p).fsName. Copy binary files in Node, not with ExtendScript File.copy, which corrupted copies from Cyrillic paths. ae-motion-live quirk 77 also reports ExtendScript File() as flaky on non-ASCII paths, so keep the asset library under an ASCII root. On this PC even the extension folder and %APPDATA% sit under C:/Users/Глеб.",
+  "The package has 10 file names in Mac NFD normalisation (decomposed й). Normalise to NFC or ASCII slugs when building the library, or path matching fails on Windows.",
+  "Bridge reliability: CEP 12 cold starts return 'EvalScript error.', 'undefined' or '' at first. Retry only idempotent reads (0/300/900 ms) and never auto-retry a mutating call: the old retry re-applied edits 2-3 times. On a timeout the host keeps working, so poll a cheap read instead of re-issuing. Queue calls one at a time, because ExtendScript is single-threaded. Wrap every host function so it returns structured errors (_wrap). Guard JSON with a small polyfill, not json2.js, whose regex breaks the ES3 parse.",
+  "ES3 is strict and its failures are silent. ES5 features, reserved-word object keys and a negative number pasted after a minus (x--400000) all fail at parse time as an opaque 'EvalScript error'. In AE a syntax error raises a modal that blocks the bridge until a person dismisses it. Lint every payload (lint-jsx.js).",
+  "Other AE modals also block scripting: setting app.project.workingSpace, a non-zero displayStartTime during a render-queue render (suppression does not catch it), and saving during aerender. Never run AE calls concurrently.",
+  "Fonts: AE echoes back any font name you set, so the read-back proves nothing. Verify with app.fonts.getFontsByPostScriptName(ps)[0].location, where a phantom shows up as times.ttf. Use 'SBSansDisplay-Semibold' with a lower-case b. A missing glyph swaps the whole layer's font. Neither MOGRTs nor .aep files carry fonts, so the panel needs a per-machine font check.",
+  "Hint from the audit (heuristic): every '(converted)' project stores TimesNewRomanPSMT in its text documents where the originals store the SB Sans version string. The text may have been silently substituted at conversion; verify in AE before treating the converted files as the source.",
+  "Premiere time: work in ticks (254016000000 per second; per frame = 254016000000/fps). Converting seconds to ticks rounds down, and an off-grid overwriteClip rounds up. Assign whole Time objects: 'clip.start.seconds = x' is a silent no-op. Markers take seconds.",
+  "Premiere tracks: TrackItem.move() breaks track order. insertClip ripples only one track. seq.videoTracks.addTracks is undefined on 26.3.2; use QE addTracks after app.enableQE().",
+  "Premiere import and focus: importFiles is asynchronous and can return false with no exception or ignore the bin argument. Poll up to 8 s, retry once, and find the item by media path. app.project means whichever project is focused, and a click changes the active sequence. Act on the active sequence and refuse to act if there is none.",
+  "Dynamic Link is not a button-insert route. Guide-layer audio leaks into Premiere. Linked audio is conformed once and never refreshed (.cfa/.pek files next to the .aep). A second headless AfterFX (about 3.2 GB) starts, exports run about 7x slower, re-import duplicates items, and getOutPoint goes stale. Templates must be silent. For buttons in Premiere use MOGRTs or pre-rendered alpha clips.",
+  "AE keeps every imported footage file open (EBUSY on Windows). Write the new version under a new name, then call FootageItem.replace().",
+  "Rendering from Premiere: sequence.exportAsMediaDirect is synchronous, works only on the ACTIVE sequence, needs native paths and returns 'No Error' on success. The bridge may time out while the render continues: wait for the file and never re-issue.",
+  "Rendering from AE: queueInAME uses AME's LAST preset, and no API passes an .epr. AME's command line works only at launch, and its watch folders ignore comps inside folders. aerender with AE output-module templates (native H.264 OM, e.g. 'H.264 - Match Render Settings - 15 Mbps') plus ffmpeg is the predictable route. aerender renders the SAVED project; judge success with ffprobe, not the exit code.",
+  "Preset decode findings: Webinar presets are 24 fps against 25 fps comps, and SMM presets are 30 fps against 24/25 fps comps, so exports convert frame rates and judder. AME and Premiere list presets by <PresetName>, not by file name. SMM_1x1 uses level 5.2. The mode=3 and performance=1 values should be confirmed in the AME UI. Premiere 26.3.2 and AME 26.3.2 are installed. The user-preset folder is per AME major version (Documents/Adobe/Adobe Media Encoder/26.0/Presets) and currently holds one unrelated HEVC preset.",
+  "Presets for animations: none of the user's code uses AE layer.applyPreset with .ffx files, and Premiere has no known ExtendScript call to apply .prfpset effect presets. In Premiere, motion presets have to be MOGRTs or scripted keys on Motion/Opacity ComponentParams (addKey, setValueAtKey). Test both before promising them.",
+  "AE template mechanics: comp.duplicate() does not duplicate nested precomps. Set layer times in the order startTime, inPoint, outPoint. Turning timeRemapEnabled on resets outPoint. setValue on a property that has keyframes aborts the build mid-loop. AE will not import WEBP. Every template comp must be silent.",
+  "Undo and target: give each button press exactly one undo group (M.run). Never silently fall back to 'the first comp in the project' as Motion Presets does; refuse with a clear message instead.",
+  "Distribution: for dev, set PlayerDebugMode on both CSXS.11 and CSXS.12 (both are set on this PC). A signed ZXP (self-signed is enough) removes that need, but a signed install cannot self-update, because file hashes are verified; keep the brand library outside the extension folder and update it separately. Restart the host after installing, since CEP scans extensions only at launch. Use a real bundle id, not com.example.*. Give the panel its own .debug ports. Paths written from a Claude-managed shell can be MSIX-virtualised.",
+  "Versions: only AE 26.3 is usable on this PC; the AE 2025 folder is a remnant without AfterFX.exe. Templates saved in AE 26 open only in AE 26+, so set the manifest's minimum host version from the version the templates are saved in.",
+  "Brand canon conflicts must be settled before 'fixing' the projects: palette names (graphite #222222 vs #343F48), near-white #F7F7F7 (not a brand colour), the package's elastic logo overshoot against the motion stop-list, and fps per format (tokens say 25/30; the SMM comps use 24/25). All package projects use the legacy ExtendScript expression engine; consider switching to the JavaScript engine as part of the fix, after testing.",
+  "Read-only helper scripts left in the scratchpad: work/fontnames.py (PostScript names from font files), work/epr_dump.py and work/epr_table.py (.epr parameter-tree decoder). They are reusable in the library build and validation step."
+ ],
+ "recommended_stack": "Runtime: one CEP 12 bundle for both hosts.\n- Use a real id such as ru.cloud.brandkit. List AEFT [26.0,99.9] and PPRO [26.0,99.9]; drop to 25.0 only if the templates are saved down to AE 25 and the MOGRTs are tested in Premiere 25.\n- RequiredRuntime CSXS 11.0 as a floor (it loads on CEP 12). CEF flags --enable-nodejs and --mixed-context, so Node can copy files, read the library and presets, and scan fonts.\n- Why CEP: it is the only third-party runtime both apps share today. Premiere has GA UXP; AE gets UXP only as a public beta from Nov 2026; CEP is disabled by default only in Dec 2028 and removed in Dec 2029.\n- One shared client. Host adapters are loaded with $.evalFile according to csInterface.getHostEnvironment().appName: AEFT loads host/ae/*.jsx, PPRO loads host/ppro/*.jsx.\n- Both adapters sit on a shared ES3 core: JSON guard, _wrap with structured errors, an {ok,…} result contract, and tokens.jsx.\n- Keep the adapter interface small, about 10 calls: getContext, insertItem, setFields, applyMotionPreset, applyColor, importAsset, exportWithPreset, checkFonts, reveal, diag.\n\nUI: Preact 10 + htm vendored as ES modules, with no bundler (proven in the Phygital Premiere panel).\n- CSS is generated from the brand tokens JSON with the build-tokens.js pattern, which also emits tokens.jsx for both hosts.\n- localStorage holds only UI conveniences.\n- Bolt CEP (Vite + TypeScript, multi-host manifests, ZXP scripts) is an alternative if you want TypeScript and hot reload, at the cost of replacing tooling that already works.\n\nBridge: a single host.call() returning a Promise.\n- Arguments are ASCII-only JSON (asciiSafeJson); calls go through a serial queue with a timeout per call.\n- Cold-start retry for reads only. A mutating call is never retried: poll a cheap read instead.\n- One undo group per click.\n- Never act on an implicit 'first comp'.\n\nLibrary: a versioned folder outside the extension, under an ASCII path, e.g. C:/CloudRu/BrandKit/vN or a shared drive.\n- library.json lists each item with: id, title, category, type (mogrt, aep-template, alpha-mov, ffx, epr, svg or palette), hosts, formats (16:9, 9:16, 1:1, 4:5, 4:3), fields, duration with in/out markers, and a thumbnail plus preview.\n- A Node script builds and validates it from the fixed AE projects:\n  - NFC/ASCII names;\n  - fonts checked by PostScript name;\n  - fps and size per format;\n  - silent audio;\n  - the TXT_/BOX_/in-out contract checked with G.tplProblems.\n- The .epr presets ship inside the library and are passed by absolute path. Installing them into Documents/Adobe/Adobe Media Encoder/26.0/Presets is optional, so they also show up in AME and Premiere.\n\nPremiere actions:\n- Insert a MOGRT at the playhead with seq.importMGT on the first free track, snapped to ticks. Set its parameters through getMGTComponent (test first), or use pre-baked per-text MOGRTs from a mogrtcard-style generator.\n- Insert alpha clips with importToBin + insertToTimeline (Phygital).\n- Motion presets are MOGRTs or scripted Motion/Opacity keys.\n- Export with the Cloud.ru presets in one of two ways:\n  - sequence.exportAsMediaDirect(out, epr, app.encoder.ENCODE_IN_TO_OUT): synchronous and proven;\n  - app.encoder.encodeSequence(seq, out, epr, workArea, removeOnCompletion, startImmediately) + app.encoder.startBatch() for the AME queue, with bind('onEncoderJobComplete'): Adobe's documented API, not yet used in the user's code, so test it first.\n\nAE actions:\n- Instantiate a template: import that element's own small .aep (ImportOptions with ImportAsType.PROJECT; test first), or build it from code with M.* and K.*. Then fill the TXT_ fields and fit the length by time remap (G.buildSlot).\n- Apply .ffx animation presets with layer.applyPreset (test first).\n- Apply colours to native targets, not through a Fill effect.\n- Render through the render queue with output-module templates, or with aerender. queueInAME uses AME's last preset, so it cannot apply a specific .epr; AME's own ExtendScript DOM over BridgeTalk is another route to test.\n\nTooling:\n- Node 22 or newer.\n- node --test with lint-jsx.js and ae-mock.js for host code; a Premiere mock still has to be written.\n- vitest or jsdom for the UI; build-tokens --check in CI.\n- Live E2E through the existing CDP helpers on new .debug ports (e.g. 8094 AE, 8096 Premiere; 8088, 8092, 8098, 8099 and 8100 are taken).\n- Packaging: ZXPSignCmd with a self-signed certificate builds the ZXP, installed per user with UPIA or ZXP Installer. No .debug file in a release. Library updates are decoupled from code updates.\n\nUXP path: keep the business logic in pure modules with no CSInterface or ExtendScript in the core, so the Premiere adapter can move to UXP before Dec 2028 and the AE adapter once AE UXP leaves beta.",
+ "source_repos": [
+  "C:/Users/Глеб/Documents/Cloud.ru-Motion-Presets. Git, branch main, origin https://github.com/glmelnik96/Cloud.ru-Motion-Presets.git. Last commits: 54ba96e 2026-05-27 'feat: add Cloud.ru Whisper subtitle pipeline + refresh docs'; f4b0443 2026-04-28; 631c93e 2026-04-21. Clean. Installed through the symlink %APPDATA%/Adobe/CEP/extensions/com.cloudru.motionpresets.bundle.",
+  "C:/Users/Глеб/Documents/Cloud.ru-Motion-Export. Git, main, origin https://github.com/glmelnik96/Cloud.ru-Motion-Export.git. Last commits: f64f44b 2026-05-27 'docs: add AGENTS.md handoff…'; 774baf5 2026-04-28; 631c93e 2026-04-21. Clean. Symlink com.cloudru.motionexport.bundle.",
+  "C:/Users/Глеб/Documents/AE_color-picker. Git, main, origin https://github.com/glmelnik96/AE_color-picker.git. Last commits: 070b834 2026-07-28 'Fix panel load/apply bugs, add palette editing and self-update'; 9136aec 2026-03-30. Clean. Symlink com.example.brandcolors.",
+  "C:/Users/Глеб/Documents/Phygital-Adobe-Studio. Git, main, origin git@github.com:glmelnik96/Adobe_AI_Studio.git. Last commits: 134ab02 2026-07-04; a47a651 2026-07-04; 309c9c0 2026-06-19. Clean. The symlink com.phygital.studio.pr points to its cep-premiere subfolder; the repo also contains the cep-ae scaffold and the sidecar.",
+  "C:/Users/Глеб/Documents/Extensions-LLM-Chat_Pr. Git, main, origin https://github.com/glmelnik96/Extensions-LLM-Chat_Pr.git. Last commits: 6136b7e 2026-09-03; eb1eee4 2026-09-03; 0c32345 2026-09-02. One untracked entry. Symlink com.extensionsllm.chatpr, CDP port 8098.",
+  "C:/Users/Глеб/Documents/Extensions-LLM-Chat. Git, main, origin https://github.com/glmelnik96/Extensions-LLM-Chat.git. Last commits: 107e93f 2026-09-03; d5d8208 2026-09-03; 9291133 2026-09-02. Symlink com.example.extensionsllmchat.bundle: the AE panel whose CDP port 8092 ae-motion-live drives.",
+  "C:/Users/Глеб/Documents/Sync_Premier. Git, main, origin git@github.com:glmelnik96/Sync_Premier.git. Last commits: bfaca29 2026-09-02; 3dca739 2026-08-05; 620a0d5 2026-08-05. Symlink com.gleb.aisync, CDP port 8100.",
+  "C:/Users/Глеб/.claude/skills/ae-motion-live. Git, main, origin https://github.com/glmelnik96/La-moution-design_vila-claude.git. Last commits: 4e17515 2026-09-28; 1d7bd41 2026-09-28; d7b9586 2026-09-28. One modified doc and about 33 untracked scratch probes in _build/ and tmp/.",
+  "C:/Users/Глеб/Documents/Edit_Skill. Git, main, origin https://github.com/glmelnik96/La-montage_vila-claude.git. Last commits: fee1946 2026-09-28; a6c1bf4 2026-09-25; 19232d8 2026-09-25. Clean. C:/Users/Глеб/.claude/skills/premiere-autopilot is a symlink to it.",
+  "Not sources (stale or unversioned): C:/Users/Глеб/Documents/Adobe-Extensions-Audit/{ext_main, ext_pr} are non-git snapshots from 2026-05-21 of the two LLM-Chat extensions. C:/Users/Глеб/Documents/Motion Skill is a non-git workspace holding docs/superpowers/plans/2026-09-25-pr-ae-bridge.md and the gct-* and html-motion projects."
+ ]
+}

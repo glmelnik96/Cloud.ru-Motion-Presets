@@ -1,0 +1,281 @@
+{
+ "topic": "Distribution and operations for an internal Cloud.ru brand-toolkit plugin for Premiere and After Effects (Windows and macOS, team in Russia, Oct 2026): packaging, signing and installing CEP and UXP; hosting and updating the template library; alpha-video formats; corporate fonts; logging and versioning",
+ "findings": [
+  {
+   "claim": "Adobe published its CEP-to-UXP timeline in September 2026. Premiere: the Marketplace stops taking new CEP submissions in Dec 2027, CEP is disabled by default in Dec 2028 ('users can easily turn it back on') and removed in Dec 2029. After Effects: submissions stop and CEP is disabled by default in Dec 2028, removed in Dec 2029. After Effects is promised 'Public beta UXP plugins by November 2026'. Adobe says 'CEP plugins distributed outside the Marketplace are not affected by this milestone' and 'ExtendScripts are not affected by this transition'. An older statement conflicts: the Premiere scripting guide (Nov 11, 2025) said ExtendScript integrations are supported 'through September 2026'. In Premiere, ExtendScript can only be reached through CEP.",
+   "confidence": "high",
+   "sources": [
+    "https://blog.developer.adobe.com/en/publish/2026/09/investing-in-the-future-of-creative-cloud-extensibility-uxp-comes-to-our-flagship-applications",
+    "https://ppro-scripting.docsforadobe.dev/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "CEP plus ExtendScript is a safe base for both apps until about Dec 2028. Keep the core logic host-agnostic and port the Premiere panel to UXP in 2027. Keep After Effects on CEP until the AE UXP beta matures. Treat the vault note about 'ExtendScript EOL Sept 2026' as superseded."
+  },
+  {
+   "claim": "Premiere UXP history: public beta in v25.2.0 (Dec 4, 2024), official release (GA) in v25.6.0, hybrid C++ plugins in 26.2, latest changelog entry 26.5. SequenceEditor has insertMogrtFromPath, insertMogrtFromLibrary and getInstalledMogrtPath (25.6+). The UXP manifest needs semver 'version', a single host object {app:'premierepro', minVersion}, and requiredPermissions (network.domains, localFileSystem plugin/request/fullAccess). Premiere 26.0 (Jan 2026) was renamed 'Adobe Premiere'.",
+   "confidence": "high",
+   "sources": [
+    "https://developer.adobe.com/premiere-pro/uxp/changelog",
+    "https://developer.adobe.com/premiere-pro/uxp/ppro-reference/classes/sequenceeditor",
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/concepts/manifest/",
+    "https://digitalproduction.com/2026/01/22/premiere-drops-the-pro-and-picks-up-some-serious-ai/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "A UXP port of the Premiere panel can do the core action (insert a MOGRT from the local cache). The library client must declare its network domains and file-system access in the UXP manifest."
+  },
+  {
+   "claim": "MOGRTs can be handled by script, contrary to the vault note that 'MOGRT via ExtendScript is impossible'. Premiere ExtendScript has Sequence.importMGT(path, timeTicks, vidTrackOffset, audTrackOffset) and importMGTFromLibrary(). After Effects has CompItem.exportAsMotionGraphicsTemplate(overwrite, path) (AE 15.0+) plus motionGraphicsTemplateName and controller-name APIs.",
+   "confidence": "high",
+   "sources": [
+    "https://ppro-scripting.docsforadobe.dev/sequence/sequence/",
+    "https://ae-scripting.docsforadobe.dev/item/compitem/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "The library build can export MOGRTs from the cleaned AE projects automatically, and the Premiere button can insert a cached .mogrt directly. No project import is needed."
+  },
+  {
+   "claim": "UXP packaging and installation: the UXP Developer Tool (UDT) 'Package' command makes a .ccx. Standard plugins need no signing; hybrid plugins need code signing, and on macOS notarization with an Apple Developer ID (self-signed is rejected). Users install by double-clicking the .ccx (Creative Cloud desktop shows a 'trusted sources' warning) or with UPIA: Windows 'UnifiedPluginInstallerAgent.exe /install <file>' in C:\\Program Files\\Common Files\\Adobe\\Adobe Desktop Common\\RemoteComponents\\UPI\\UnifiedPluginInstallerAgent; macOS './UnifiedPluginInstallerAgent --install <file>' in /Library/Application Support/Adobe/Adobe Desktop Common/RemoteComponents/UPI/UnifiedPluginInstallerAgent/UnifiedPluginInstallerAgent.app/Contents/MacOS. UXP command-line install needs Creative Cloud desktop 5.7 or newer. Adobe says UXP plugins 'must be installed via either double-click or UPIA' and cannot be copied into %APPDATA%\\Adobe\\UXP\\Plugins by hand. Development uses Premiere Settings > Plugins > Enable developer mode plus UDT 2.2+ 'Load / Load & Watch'. Enterprise admins can bundle .ccx files plus UPIA in Admin Console packages.",
+   "confidence": "high",
+   "sources": [
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/distribution/package",
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/distribution/install",
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/distribution/independent-distribution",
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/distribution/enterprise-distribution",
+    "https://blog.developer.adobe.com/en/publish/2022/03/how-to-install-uxp-plugins-using-command-line-tools"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Any UXP deliverable depends on a working Creative Cloud desktop, UPIA or the Admin Console on every editor's machine. Check this per person before choosing UXP for production."
+  },
+  {
+   "claim": "Operational problems with UPIA and UDT: (1) UPIA returns error -641 when the user is not logged in to Creative Cloud or runs it with sudo; Adobe staff said in 2022 that this 'breaks the custom installer workflow'. (2) Repeated --install of a .ccx can leave several concurrent installs (reported Aug 2024, no fix documented). (3) ZXPs that contain symlinks fail signature checks after a UPIA install unless the user is admin or uses debug mode (Adobe KnownIssue2024). (4) UDT needs an online Adobe sign-in on first run. (5) Aug 2026 report: UDT cannot see Premiere 26.3.2.2 / 27.0 beta on Windows 11. (6) An unofficial Windows-only 'ccx-sideloader' unpacks to %APPDATA%\\Adobe\\UXP\\Plugins\\External, but relies on a plugin-list cache hack.",
+   "confidence": "medium",
+   "sources": [
+    "https://forums.creativeclouddeveloper.com/t/lets-talk-custom-installers/4399",
+    "https://community.adobe.com/questions-624/how-handle-unifiedplugininstalleragent-error-641-679784",
+    "https://forums.creativeclouddeveloper.com/t/bug-unifiedplugininstalleragent-install-not-replacing-existing-install/8293",
+    "https://github.com/Adobe-CEP/CEP-Resources/blob/master/ZXPSignCMD/KnownIssue2024.md",
+    "https://forums.creativeclouddeveloper.com/t/allow-offline-development/6219",
+    "https://github.com/AdobeDocs/uxp-premiere-pro-samples/issues/90",
+    "https://github.com/ratatabananana-bit/ccx-sideloader"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Do not make UPIA the main installer. Keep it as an optional path. Never put symlinks in the bundle."
+  },
+  {
+   "claim": "Russia-specific: Adobe stopped all new sales in Russia in March 2022. Community threads report Creative Cloud app downloads failing in Russia (Oct 2023, fixed via alternative download links) and Creative Cloud file downloads failing on a Russian account (Feb 2026, 'still worked in late 2025'). The Marketplace/Exchange, Developer Distribution, Admin Console packages, UPIA (needs login), UDT (needs login), CC Libraries and Adobe Fonts auto-activation all depend on Adobe online services. Whether the Exchange works for RU accounts could not be confirmed.",
+   "confidence": "medium",
+   "sources": [
+    "https://blog.adobe.com/en/publish/2022/03/04/adobe-stops-all-new-sales-in-russia",
+    "https://community.adobe.com/questions-617/cannot-download-from-my-creative-cloud-on-a-russian-account-1550533",
+    "https://community.adobe.com/t5/download-install-discussions/download-creative-cloud-on-new-pc-in-russia/td-p/14139681"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Installation, updates, the template library and fonts must not depend on Adobe cloud services. Use CEP bundles copied straight into the extensions folder, the library on our own infrastructure, and no CC Libraries."
+  },
+  {
+   "claim": "CEP signing: ZXPSignCmd -selfSignedCert <country> <state> <org> <CN> <pwd> <out.p12> [-validityDays N], then -sign <dir> <out.zxp> <p12> <pwd> -tsa <url>, then -verify <zxp> -certinfo. Use ZXPSignCmd 4.1.3: on Apr 30, 2025 Adobe released it for all platforms after timestamped signing segfaulted or failed on 4.1.1/4.1.2 (DigiCert TSA). Apple's TSA http://timestamp.apple.com/ts01 worked as a fallback. Adobe: 'always add a timestamp'. An expired certificate makes installs fail with 'Certificate is expired or not yet valid'. For KnownIssue2024: no symlinks (including node_modules), sign on the target platform, and remove .DS_Store and __MACOSX.",
+   "confidence": "high",
+   "sources": [
+    "https://github.com/Adobe-CEP/Getting-Started-guides/blob/master/Package%20Distribute%20Install/readme.md",
+    "https://github.com/Adobe-CEP/CEP-Resources/tree/master/ZXPSignCMD/4.1.3",
+    "https://community.adobe.com/bug-reports-728/zxpsigncmd-sign-process-is-broken-segmentation-fault-1331508",
+    "https://community.adobe.com/questions-628/cannot-package-install-zxp-since-few-days-685289",
+    "https://github.com/Adobe-CEP/CEP-Resources/blob/master/ZXPSignCMD/KnownIssue2024.md"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Add a CI step: build, then sign with a long-validity internal self-signed certificate plus timestamp, then verify. Keep the .p12 and its password in a vault."
+  },
+  {
+   "claim": "CEP 12 loads extensions from per-user folders (Win %APPDATA%\\Adobe\\CEP\\extensions; mac ~/Library/Application Support/Adobe/CEP/extensions) and system folders. Unsigned extensions need PlayerDebugMode: string '1' under HKCU\\Software\\Adobe\\CSXS.12, or 'defaults write com.adobe.CSXS.12 PlayerDebugMode 1' on macOS. CEP checks the signature every time the host runs an extension. A 2026 report (AE 26.3, Windows 11, CSXS.12) says PlayerDebugMode was ignored and 'Signature verification failed'; it cites the same behaviour in Premiere 2025 (mac) and Illustrator 29.5. Self-signing and extracting the ZXP into place fixed it, so a signed ZXP copied into the folder by hand loads without UPIA. Local check on this PC: all 7 of the user's own extensions are unsigned and rely on PlayerDebugMode=1 in CSXS.11 and CSXS.12; 5 of them ship .debug files; UPIA is installed.",
+   "confidence": "high",
+   "sources": [
+    "https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_12.x/Documentation/CEP%2012%20HTML%20Extension%20Cookbook.md",
+    "https://github.com/Engine-Room-Games/after-effects-mcp/issues/91",
+    "https://github.com/Adobe-CEP/Getting-Started-guides/blob/master/Package%20Distribute%20Install/readme.md",
+    "local: HKCU\\Software\\Adobe\\CSXS.11/.12 + %APPDATA%\\Adobe\\CEP\\extensions (read-only check)"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Distribute a signed ZXP with a small per-OS script that unpacks it into the per-user CEP folder. This needs no admin rights, no Creative Cloud desktop and no Adobe ID. Use PlayerDebugMode and .debug only on developer machines."
+  },
+  {
+   "claim": "Third-party installers: aescripts' free ZXP/UXP Installer and Anastasiy's Extension Manager both use UPIA and need an up-to-date Creative Cloud app. ZXPInstaller (elements-storage, latest v1.8.2) still bundles ExManCmd. Adobe said in 2021 that ExManCmd gets no updates and Creative Cloud 2022+ apps no longer support ExManCmd installation.",
+   "confidence": "medium",
+   "sources": [
+    "https://aescripts.com/learn/post/zxp-installer",
+    "https://install.anastasiy.com/",
+    "https://github.com/elements-storage/ZXPInstaller/releases",
+    "https://blog.developer.adobe.com/en/publish/2021/06/new-command-line-tool-for-plugin-installation-replaces-exmancmd"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "These GUI installers are only a convenience fallback for machines with a working Creative Cloud. Do not use ZXPInstaller."
+  },
+  {
+   "claim": "CEP runtime facts: CEP 12 (AE/Pr 25.0+) runs Chromium 99 and Node.js 17.7.1, so Node has no stable global fetch. CEP log files are in %TEMP% on Windows and ~/Library/Logs/CSXS on macOS; LogLevel 0-6 is set in the CSXS.12 registry key or plist. Remote debugging uses a .debug file with per-host ports. CEP keeps state in cep_cache (Win %TEMP%\\cep_cache, mac ~/Library/Caches/CSXS/cep_cache), which can survive updates. CEP getSystemPath(USER_DATA) points to Roaming AppData on Windows.",
+   "confidence": "medium",
+   "sources": [
+    "https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_12.x/Documentation/CEP%2012%20HTML%20Extension%20Cookbook.md",
+    "https://community.adobe.com/t5/exchange-discussions/clear-cep-extension-cache-in-indesign/td-p/10297324"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Use Node https (no CORS issues), or Chromium fetch plus bucket CORS if a corporate proxy is in the way. Keep the cache and logs in LOCALAPPDATA, not Roaming. Ship releases without .debug and clear cep_cache in the installer."
+  },
+  {
+   "claim": "Native and team options for template folders: Premiere's Essential Graphics 'Manage Additional Folders' can add local or network MOGRT folders but ignores subfolders. The default Local Templates folder is Roaming\\Adobe\\Common\\Motion Graphics Templates (Win) or ~/Library/Application Support/Adobe/Common/Motion Graphics Templates (mac). CC Libraries are the usual team channel but depend on Adobe sync. MOGRTs do not carry fonts; only Adobe Fonts auto-install.",
+   "confidence": "high",
+   "sources": [
+    "https://www.cuttothepoint.com/post/organize-motion-graphics-in-premiere-pro",
+    "https://blog.frame.io/2023/05/15/smooth-mogrt-workflows/",
+    "https://helpx.adobe.com/be_en/premiere-pro/using/motion-graphics-templates.html"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Keep MOGRTs in flat per-category folders so Premiere's own browser can serve as a manual fallback. Do not build on CC Libraries."
+  },
+  {
+   "claim": "Hosting and sync options. Cloud.ru Object Storage: S3 endpoint s3.cloud.ru, private by default, bucket versioning, Object Lock, lifecycle rules, and read-only public access via bucket policy (https://global.s3.cloud.ru/<bucket>/<key> or https://<bucket>.s3.cloud.ru/<key>). Syncthing: Send Only / Receive Only folders with 'Revert Local Changes'; writes to temp files and renames atomically after SHA-256 block checks, and transfers only changed blocks. Yandex 360 shared disks: view-only role, up to 50 TB, via the Disk 4.0 desktop app. From June 3 (2026) the Yandex Disk desktop app needs a paid Yandex 360 subscription, and the macOS client reportedly lags behind (no Disk 4.0).",
+   "confidence": "medium",
+   "sources": [
+    "https://cloud.ru/docs/s3e/ug/topics/concepts",
+    "https://cloud.ru/docs/s3e/ug/topics/guides__public-access-for-bucket",
+    "https://docs.syncthing.net/users/foldertypes.html",
+    "https://docs.syncthing.net/users/syncing.html",
+    "https://yandex.ru/support/yandex-360/business/admin/ru/shared-disk",
+    "https://www.comss.ru/page.php?id=20534"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Main channel: an HTTPS manifest plus a downloader against a versioned Cloud.ru S3 bucket. Syncthing receive-only folders or an SMB share can be optional sources with the same layout. Yandex Disk should not be the main channel."
+  },
+  {
+   "claim": "Project portability risks. Imported media is referenced by absolute path, so assets imported from a per-user cache break projects for colleagues. Premiere unpacks MOGRT media into the project's 'Motion Graphics Template Media' scratch location, and Windows paths over 260 characters cause 'MOGRT is corrupt'. The source package already has a 322-character path (a 244-character AI-video file name in 2_Вебинары) plus NFD-normalized names.",
+   "confidence": "high",
+   "sources": [
+    "https://community.adobe.com/t5/premiere-pro/motion-graphics-templates-is-corrupt/m-p/10356770",
+    "local: os.walk path-length check of C:\\Users\\Глеб\\Documents\\Граф пакет Cloud.ru"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "On insert, copy the asset into a project-local 'Cloud.ru BrandKit/<item>@<ver>/' folder, then import. Keep the cache root short. Make the library build enforce ASCII/NFC slugs of 64 characters or fewer."
+  },
+  {
+   "claim": "Which alpha formats work in Premiere and AE on both OSes. ProRes 4444: up to 12-bit colour plus lossless alpha up to 16-bit; target about 330 Mbps at 1080p29.97 (content-dependent); Adobe has exported it on Windows since Dec 2018 (Premiere 13.0.2), and Premiere decodes it in hardware on M1 Pro/Max/Ultra since 22.1.1. NVIDIA NVDEC has no ProRes decoder, so ProRes is decoded on the CPU on Windows. GoPro CineForm RGBA 12-bit: native on Windows and Mac x64, not on Windows-on-ARM. QuickTime Animation: 8-bit; Adobe imports/exports it natively only as I-frame-only (no delta frames). HEVC with alpha: not supported in Pr/AE (encodable only on macOS outside Adobe). VP9/WebM alpha: no native Premiere import (only third-party WebMiere, Windows only). DNxHR 444 with alpha: users report import/export problems in Adobe.",
+   "confidence": "medium",
+   "sources": [
+    "https://support.apple.com/en-us/102207",
+    "https://blog.adobe.com/en/publish/2018/12/10/adobe-pro-video-apps-now-support-prores-export-on-windows",
+    "https://www.cined.com/premiere-pro-22-1-1-released-up-to-5x-faster-prores-transcoding-on-m1-pro-and-m1-max/",
+    "https://docs.nvidia.com/video-technologies/video-codec-sdk/13.0/nvdec-application-note/index.html",
+    "https://helpx.adobe.com/ph_fil/premiere-pro/how-to/gopro-cineform-codec.html",
+    "https://www.neowin.net/news/windows-on-arm-gets-native-premiere-pro-after-effects-audition-and-media-encoder-in-beta/",
+    "https://community.adobe.com/t5/after-effects/animation-codec-options-changed-in-ae-premiere-2015-3/m-p/8573357",
+    "https://larryjordan.com/articles/include-transparency-alpha-channels-in-hevc-video/",
+    "https://creativecow.net/every-way-to-export-transparent-videos-from-after-effects/",
+    "https://github.com/KawaiiEngine/WebMiere",
+    "https://community.adobe.com/t5/premiere-pro-discussions/importing-a-dnxhr-444-with-alpha-channel-from-resolve-quot-error-retrieving-frames-quot-problem/td-p/13514207"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Standardize pre-rendered alpha elements on QuickTime ProRes 4444. Exclude Animation, CineForm, HEVC-alpha, WebM and DNxHR-alpha from the library."
+  },
+  {
+   "claim": "Measured on this PC (Ryzen 7 9700X, ffmpeg 8.0.1 software decoders; indicative only, not Adobe's decoders), 10-second excerpts. SMM BG 1440x1440: original AE ProRes 4444 127 Mbps, decode 883 fps on all threads / 131 fps on one; PNG-in-MOV 13.6 Mbps (1276 / 114 fps); Animation I-frame-only 72 Mbps; CineForm RGBA (ffmpeg encoder) 241 Mbps (133 / 78 fps). Course overlay 1080p: ProRes 57 Mbps (868 / 123); PNG-in-MOV 19.5 Mbps (1302 / 110); Animation I-frame-only 72 Mbps; CineForm 122 Mbps. Podcast intro 2160p: ProRes 199 Mbps (220 / 32 fps); PNG-in-MOV 43 Mbps (310 / 29); Animation I-frame-only 181 Mbps; CineForm 417 Mbps (63 / 29). The AE-made Animation 9x16 intro is all keyframes at 413 Mbps (8-bit). VP9-alpha was 0.1-2.5 Mbps but is not importable natively.",
+   "confidence": "medium",
+   "sources": [
+    "local: C:\\dev\\temp\\claude\\C--Users------Documents-Cloud-ru-Preset-plugin\\b48e0614-1141-4125-9b74-d00eb767441b\\scratchpad\\work\\distops\\bench\\results.json",
+    "local: ...\\scratchpad\\work\\distops\\bench\\results2.json",
+    "local: ...\\scratchpad\\work\\distops\\alpha_bench.py"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Changing codec gains little; cutting duration gains most. PNG-in-MOV is a candidate 'lite' variant for long 1080p/1440p loops, but only after a playback test in Pr/AE on Windows and Mac. At 4K, single-thread PNG decode is about 29 fps, which is risky."
+  },
+  {
+   "claim": "Package media audit. The three 600-second training-course overlays are 1.5 / 4.25 / 4.22 GB of ProRes 4444 (about 10 GB). They are almost static (one measured file: 90 frozen spans totalling 227 s of 600 s, mean scene-change score about 1e-5, no exact repeat period). The 4 SMM BG patterns are 30 s each at about 127 Mbps (about 1.9 GB). The 9x16 podcast intro is QuickTime Animation at 413 Mbps, versus 199 Mbps for the 16:9 ProRes version. The transitions are 24 fps while everything else is 25 fps. The SMM and podcast renders carry PCM audio tracks.",
+   "confidence": "high",
+   "sources": [
+    "local: ...\\scratchpad\\media_inventory.txt",
+    "local: ffmpeg freezedetect/scene-score run on Render Overlays/FullHD (read-only)"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Re-author the overlays as intro + short seamless loop + outro, or as a stretchable AE/MOGRT comp. Re-render the 9x16 intro as ProRes 4444. Make 25 fps (plus other fps variants) the rule. Remove audio tracks from overlays and ship SFX as separate WAVs."
+  },
+  {
+   "claim": "Live MOGRT trade-offs: MOGRTs made in Premiere are 'super-fast', while MOGRTs made in After Effects 'can be very slow' in Premiere. Heavy ones can be turned into ProRes 4444 with Render and Replace. With Responsive Design – Time, protected intro/outro regions keep their timing while editors stretch the clip in Premiere.",
+   "confidence": "high",
+   "sources": [
+    "https://blog.frame.io/2023/05/15/smooth-mogrt-workflows/",
+    "https://helpx.adobe.com/after-effects/using/responsive-design.html",
+    "https://nofilmschool.com/2018/10/responsive-design-after-effects"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Use MOGRT for text-bearing, editable elements, Premiere-authored where the design allows. Use responsive-time holds instead of long renders. Use ProRes for complex non-text loops."
+  },
+  {
+   "claim": "After Effects font API: app.fonts (AE 24.0+) has getFontsByPostScriptName(), getFontsByFamilyNameAndStyleName(), missingOrSubstitutedFonts, allFonts, fontServerRevision (24.2, increments on font install/remove), and pollForAndPushNonSystemFontFoldersChanges() (24.6) for the Adobe-only font folders (C:\\Program Files\\Common Files\\Adobe\\Fonts; /Library/Application Support/Adobe/Fonts). Changes in system font folders are 'recognized and handled automatically'. FontObject gives postScriptName, location, isSubstitute, version and isFromAdobeFonts. Project.usedFonts and replaceFont() arrived in AE 24.5.",
+   "confidence": "high",
+   "sources": [
+    "https://ae-scripting.docsforadobe.dev/text/fontsobject/",
+    "https://ae-scripting.docsforadobe.dev/text/fontobject/",
+    "https://ae-scripting.docsforadobe.dev/general/project/"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Run an AE pre-flight before inserting a template: check required PostScript names, check usedFonts after import, and re-check when fontServerRevision changes. No restart is needed after IT installs fonts."
+  },
+  {
+   "claim": "Premiere has no documented font enumeration API in ExtendScript, and none was found in the UXP reference. This is a negative finding and was not checked exhaustively. The OS-level check must therefore scan: Windows %WINDIR%\\Fonts plus HKLM ...\\CurrentVersion\\Fonts, per-user %LOCALAPPDATA%\\Microsoft\\Windows\\Fonts plus HKCU (Windows 10 1809+), and C:\\Program Files\\Common Files\\Adobe\\Fonts; macOS /Library/Fonts, ~/Library/Fonts and /Library/Application Support/Adobe/Fonts. Registry value names are unreliable (OTF files are listed as '(TrueType)'). In 2019 Adobe confirmed that some of its apps did not see per-user-installed fonts. On this PC SB Sans is installed system-wide (35 OTFs in C:\\Windows\\Fonts / HKLM). The templates use SBSansDisplay-Regular, -Semibold, -Bold and SBSansText-Regular.",
+   "confidence": "medium",
+   "sources": [
+    "https://ppro-scripting.docsforadobe.dev/",
+    "https://learn.microsoft.com/en-us/archive/msdn-technet-forums/0c94dcf5-b89d-42e5-a499-06313f46f88b",
+    "https://community.adobe.com/questions-94/user-installed-fonts-not-usable-in-adobe-applications-1503492",
+    "local: read-only registry/font-folder check; scratchpad/audit/*.md"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Implement a Node-side font scanner: match file names first, confirm against the OpenType name table (nameID 6), and cache by mtime. Standardize on 'install for all users'."
+  },
+  {
+   "claim": "SB Sans licensing context: ParaType designed the SB Sans/SB Serif system (48 fonts, done Sept 2020) for Sber, and SB Sans is a Sberbank trademark. Cloud.ru (formerly SberCloud) left the Sber ecosystem in May 2022 and adopted the Cloud.ru brand on May 22, 2023. 'Free download' mirror sites are not a legitimate source.",
+   "confidence": "medium",
+   "sources": [
+    "https://info.paratype.ru/sber-type-system/",
+    "https://developers.sber.ru/docs/ru/assistant-sdk/android/enable-sber-font",
+    "https://ru.wikipedia.org/wiki/Cloud.ru_(%D0%BF%D1%80%D0%BE%D0%B2%D0%B0%D0%B9%D0%B4%D0%B5%D1%80)"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Never bundle font files in the ZXP, the library, MOGRTs or collected AE projects. IT deploys the fonts to licensed seats. The plugin only detects fonts and links to the internal install instructions. Get written confirmation of Cloud.ru's license scope."
+  },
+  {
+   "claim": "Hooks for diagnostics and versioning. UXP exposes host.name/version, versions.uxp/plugin and os.platform/release/arch. UXP log files are said to live in %APPDATA%\\Adobe\\<App>\\Logs\\UxpLogs_*.log (Win) and ~/Library/Logs/Adobe/<App>/ (mac). CEP HostList uses ranges such as [25.0,99.9]. AE's 'Allow Scripts to Write Files and Access Network' pref can be read with app.preferences.getPrefAsLong('Main Pref Section','Pref_SCRIPTING_FILE_NETWORK_SECURITY'). The user's current CEP manifests are all version 1.0.0 / 1.3.0 with CSXS 11.0 and AEFT [18.0,99.9].",
+   "confidence": "medium",
+   "sources": [
+    "https://developer.adobe.com/premiere-pro/uxp/resources/recipes/host-info/",
+    "https://forums.creativeclouddeveloper.com/t/where-are-uxp-logs-stored/5925",
+    "https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_12.x/Documentation/CEP%2012%20HTML%20Extension%20Cookbook.md",
+    "https://community.adobe.com/t5/after-effects-discussions/how-can-i-check-whether-if-quot-allow-scripts-to-write-files-and-access-network-quot-is-enable-using/m-p/10869737/highlight/true"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Put these values in the diagnostics header and the health check. Raise HostList minimums to the versions actually tested (25.0+)."
+  },
+  {
+   "claim": "Presets can be used straight from the library without installing them. Premiere: app.encoder.encodeSequence(sequence, outputPath, presetPath(.epr), workArea, removeUponCompletion) and encodeFile() accept an .epr path. AE: layer.applyPreset(File) applies an animation preset to the selected layers. The per-user AME preset folder is Documents/Adobe/Adobe Media Encoder/<version>/Presets.",
+   "confidence": "high",
+   "sources": [
+    "https://ppro-scripting.docsforadobe.dev/general/encoder/",
+    "https://ae-scripting.docsforadobe.dev/layer/layer/",
+    "https://community.adobe.com/t5/premiere-pro-discussions/where-are-the-premier-pro-custom-export-presets-stored/td-p/4330257"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Serve the 9 brand .epr files and the .ffx animation presets from the library cache, with buttons such as 'Export with brand preset'. No per-version installation is needed."
+  }
+ ],
+ "recommendation": "RECOMMENDED SETUP (internal Cloud.ru brand kit; Windows and macOS; team in Russia; Oct 2026 to 2028)\n\n1) RUNTIME AND PACKAGING\n- Ship one CEP bundle (e.g. com.cloudru.brandkit) with two panels:\n  - an After Effects panel (AEFT) and a Premiere panel (PPRO);\n  - HostList [25.0,99.9];\n  - CSXS 11/12 runtime with --enable-nodejs --mixed-context.\n- Why CEP:\n  - AE has no production UXP yet; only a public beta is promised by Nov 2026.\n  - Premiere's CEP stays on by default until Dec 2028, and private distribution is outside Marketplace cut-offs.\n  - CEP is the only route that installs without Creative Cloud desktop, UPIA or an Adobe login. That is the key property for a team in Russia.\n- Keep all business logic in host-agnostic TypeScript modules behind a thin host adapter (ExtendScript now, UXP later): library client, manifest, font checks, logging, insert recipes.\n- Schedule the Premiere UXP port for 2027. Premiere UXP is GA since 25.6 and has insertMogrtFromPath; importMGT already works from ExtendScript.\n- Evaluate AE UXP when the beta lands. Re-check Adobe's timeline after every MAX.\n\n2) SIGNING AND INSTALLATION\n- Sign every build, betas included. Use ZXPSignCmd 4.1.3:\n  - Create the certificate once: `ZXPSignCmd -selfSignedCert RU Moscow Cloud.ru \"Cloud.ru Video BrandKit\" <pwd> brandkit.p12 -validityDays 3650`\n  - Sign each build: `ZXPSignCmd -sign build dist/brandkit-X.Y.Z.zxp brandkit.p12 <pwd> -tsa http://timestamp.digicert.com` (fallback TSA: http://timestamp.apple.com/ts01)\n  - Verify in CI: `ZXPSignCmd -verify dist/brandkit-X.Y.Z.zxp -certinfo`\n- Keep the .p12 and its password in a vault.\n- Release builds contain no symlinks, .DS_Store, __MACOSX, ._* or .debug files.\n- Ship the ZXP with install.cmd + install.ps1 (Windows; the .cmd calls PowerShell with -ExecutionPolicy Bypass) and install.command (macOS). The scripts:\n  - refuse to run while After Effects or Premiere is open;\n  - unzip to a temp folder, then atomically replace %APPDATA%\\Adobe\\CEP\\extensions\\com.cloudru.brandkit (mac: ~/Library/Application Support/Adobe/CEP/extensions/…);\n  - clear stale cep_cache;\n  - print the installed version.\n  - No admin rights, Creative Cloud desktop or Adobe ID needed.\n- UPIA (`UnifiedPluginInstallerAgent.exe /install` / `--install`) or aescripts' installer is a secondary path only where Creative Cloud is signed in.\n- PlayerDebugMode and .debug stay on developer machines.\n- On macOS, IT/MDM or a documented right-click > Open avoids Gatekeeper prompts. A notarized .pkg needs an Apple Developer ID.\n\n3) TEMPLATE LIBRARY, RELEASED SEPARATELY FROM THE PLUGIN\n- Build step: a script turns the cleaned AE sources into library files:\n  - MOGRTs via CompItem.exportAsMotionGraphicsTemplate;\n  - alpha clips via aerender;\n  - ffprobe validation (codec / fps / resolution / no audio);\n  - sha256 checksums and previews;\n  - ASCII/NFC slugs of 64 characters or fewer; junk files rejected.\n- Publish immutable, content-addressed objects to a versioned Cloud.ru Object Storage bucket over HTTPS. Agree the read-only access model with security.\n- Layout: channels/stable.json points to manifests/YYYY.MM.DD.json.\n- Each manifest item has:\n  - id and semver;\n  - type (mogrt | aep | ffx | mov | png | wav | epr);\n  - Russian title and tags;\n  - app;\n  - variants {w, h, fps, size, sha256};\n  - requiredFonts (PostScript names);\n  - minPluginVersion and a deprecated flag.\n- Client behaviour (Node https in CEP):\n  - check the ETag on panel start and every few hours;\n  - download only new or changed objects to a short local cache: %LOCALAPPDATA%\\CloudRuBrandKit\\lib on Windows (never Roaming), ~/Library/Caches/CloudRuBrandKit on macOS;\n  - write *.part, verify sha256, then rename;\n  - switch the active manifest atomically and keep the previous one for rollback;\n  - fetch heavy ProRes clips only on first use;\n  - when offline, use the last good manifest.\n- Optionally sign the manifest with Ed25519 (Node crypto), because this channel can deliver .jsx, .ffx and .aep files.\n- The same layout may also be read from an SMB path or a Syncthing receive-only folder (a setting in the panel).\n- Not recommended as the main channel: Yandex Disk (desktop sync paid since June 2026, lagging macOS client) and CC Libraries (Adobe cloud dependency).\n- On insert:\n  - copy the asset into a project-local folder 'Cloud.ru BrandKit/<item>@<ver>/' and import from there, so projects stay portable and contain no per-user paths;\n  - tag the inserted item with id@version (AE item.comment; Premiere bin or metadata).\n\n4) MEDIA FORMATS\n- Text-bearing, editable elements become MOGRTs:\n  - Premiere-authored where the design allows (fast);\n  - AE-authored only where AE features are needed;\n  - holds stretch through Responsive Design – Time.\n- Non-editable alpha elements become QuickTime ProRes 4444:\n  - Straight alpha;\n  - no audio track unless the sound is intended (SFX ship as separate WAVs);\n  - per-aspect variants at a 25 fps base, plus other frame rates if needed;\n  - short durations: intro / loop / outro.\n- Concrete re-renders:\n  - replace the three 600-second course overlays (about 10 GB) with intro + seamless loop + outro, or with a stretchable comp/MOGRT;\n  - re-render the 9x16 podcast intro (QuickTime Animation, 413 Mbps) as ProRes 4444;\n  - re-time the 24 fps transitions to 25 fps.\n- Optional 'lite' PNG-in-MOV variant (3–9x smaller in our test) only for long 1080p/1440p loops, and only after a playback test in Pr/AE on both OSes.\n- Not used: QuickTime Animation, CineForm, HEVC-alpha, VP9/WebM, DNxHR-alpha, PNG sequences.\n\n5) FONTS\n- IT installs SB Sans 'for all users' on Windows and to /Library/Fonts on macOS, on licensed machines only.\n- Font files never go into the ZXP, the library, MOGRTs or collected projects.\n- The panel shows a font status light and links to the internal install instructions.\n- Get written confirmation of Cloud.ru's SB Sans license scope.\n- Each item declares its required PostScript names (SBSansDisplay-Regular / -Semibold / -Bold, SBSansText-Regular).\n- AE check: app.fonts.getFontsByPostScriptName() + isSubstitute, missingOrSubstitutedFonts and app.project.usedFonts; re-check when fontServerRevision changes.\n- Premiere check: Node scan of the Windows/macOS system, per-user and Adobe-only font folders. Match file names first, confirm via the OpenType name table, cache by mtime.\n- Warn or block before inserting text templates when a font is missing.\n\n6) DIAGNOSTICS AND VERSIONING\n- Logs: one JSONL file per day in %LOCALAPPDATA%\\CloudRuBrandKit\\logs (mac: ~/Library/Logs/CloudRuBrandKit), rotated at 7 days / 5 MB.\n- Each log line records: ts, level, session, plugin version + git sha, host app + version, OS, library version, action, item@version, duration in ms, and error {message, stack, jsx line/file}.\n- Every ExtendScript entry point returns {ok, data, error}.\n- A 'Copy diagnostics' button copies environment info, the last 200 log lines and the health check.\n- Health check covers:\n  - host version in the supported range;\n  - signature present;\n  - fonts;\n  - library reachable, its version, cache size and free disk space;\n  - the AE 'Allow Scripts to Write Files and Access Network' pref;\n  - a version handshake between the panel and its .jsx.\n- CEP LogLevel is raised only during support sessions. No external telemetry.\n- Plugin: semver, with package.json as the single source feeding manifest.xml ExtensionBundleVersion/Version and a build.json with the git sha.\n- Library: calendar versioning with minPluginVersion gating. CHANGELOGs and git tags for both.\n- CI: build, sign, verify, then publish the ZXP + sha256 + plugin/latest.json; the panel uses latest.json to show 'update available'.\n- A canary machine tests each new AE/Pr release (v27 at MAX) before the team updates.",
+ "open_risks": [
+  "Adobe's CEP timeline may change, and the mechanism for turning CEP back on after Dec 2028 is not documented. What the AE UXP beta (promised Nov 2026) can do, and when it becomes GA, is unknown. The Premiere UXP port must be done before Premiere's CEP is disabled by default (Dec 2028).",
+  "Creative Cloud desktop, UPIA, Admin Console, Adobe ID and Marketplace availability for this team in Russia is unverified; reports are anecdotal (Feb 2026 download failures). If those fail, a UXP .ccx route is effectively impossible by supported means (UPIA reportedly errors with -641 when logged out). Check every editor's machine before committing to UXP.",
+  "PlayerDebugMode bypass reported unreliable in CEP 12 (AE 26.3 Windows; Premiere 2025 mac). The user's current panels depend on it. Future CEP builds might also tighten trust of self-signed certificates (unverified).",
+  "The codec numbers come from ffmpeg's software decoders, not Adobe's (Apple ProRes on Windows, GoPro SDK, Adobe PNG/Animation readers). PNG-in-MOV playback in Premiere and multi-layer 4K ProRes 4444 playback on weaker Windows laptops are untested.",
+  "Cloud.ru's SB Sans license scope (ParaType/Sber; Cloud.ru left the Sber ecosystem in 2022) is unverified. Seat counts and whether employees may self-install are unknown.",
+  "Whether Premiere sees per-user-installed fonts and fonts installed while it is running is unverified for 26.x. AE handles system folders automatically only from 24.x.",
+  "Library hosting security: a public-read bucket exposes brand assets, while a private bucket needs credentials or a network-restricted policy (Cloud.ru S3 policy conditions unverified). A corporate proxy may block Node https, which does not use system proxy settings.",
+  "Windows MAX_PATH and NFD file names: the package already has a 322-character path. Deep MOGRT scratch-disk paths can corrupt MOGRT unpacking. Copy-on-insert also duplicates large media per project (disk use, copy time). Large items may need a 'link from cache' mode with a 'Localize' action.",
+  "AE-authored MOGRTs can be slow in Premiere, so complex designs may still need ProRes renders or Render and Replace.",
+  "A macOS installer script triggers Gatekeeper prompts. Whether a Russian entity can get an Apple Developer ID for a notarized .pkg is uncertain, so MDM or documented manual steps may be needed.",
+  "An Adobe statement conflicts with the September 2026 blog: the Premiere scripting guide (Nov 2025) said ExtendScript is supported 'through September 2026', while the blog says 'ExtendScripts are not affected'. Re-verify after the v27 release.",
+  "UDT and Premiere connection bug reported in Aug 2026 (26.3.2.2 / 27.0 beta) may slow UXP development. Plan buffer time for tooling issues."
+ ]
+}

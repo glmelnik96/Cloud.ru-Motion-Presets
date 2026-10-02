@@ -1,0 +1,566 @@
+{
+ "project": "4_SMM_Pack / SMM_pack.aep (Collect Files copy of the original 'Заставка_shorts.aep', collected 01.12.2025)",
+ "summary": "SMM_pack.aep is a 7.5 MB project saved by AE 25.x with the legacy ExtendScript expression engine. It has 21 comps, 10 footage items, 397 expressions and one font (SB Sans Display Semibold), and no Essential Graphics anywhere. It holds Cloud.ru social graphics for square (1440x1440) and vertical (1080x1920): a shorts intro (Заставка_9x16), 2-line caption plashki with a phrase switch (Плашки_1x1/9x16), a looping notched frame overlay (Оверлей_1x1/9x16), two transparent background patterns in two formats each (an arrow grid that shrinks around a wandering focus point, and a twinkling plus-grid), and a 21-frame bar wipe-through transition in gray, green and white plus a logo version. Nearly everything is hand-keyed shape and text layers. Bar widths are typed numbers, variants are duplicate comps that differ only in fill colour, scale, time-stretch or renderer, and frame rates are mixed (25 fps for BG, overlay and plashki; 24 fps for intro, transitions and logo) while the team's SMM AME presets and the brand tokens are 30 fps. The only parametric rig is PATTERN_EDIT (390 precomp cells, each running a distance-to-null scale expression driven by 4 sliders and a wiggling null); it should stay a prerender. 10 of the 13 deliverable comps were rendered to ProRes 4444 with alpha (2.14 GB total). Those renders carry a silent PCM track, are 30/60 s non-seamless 'loops', and the transitions are stamped TC 00:00:03:04. Plashki and the intro were never rendered. Footage links are clean: the stored Mac paths resolve relatively to (Footage)/Folder/… next to the .aep.",
+ "canonical_file": "C:\\Users\\Глеб\\Documents\\Граф пакет Cloud.ru\\4_SMM_Pack\\SMM_pack.aep is the only project in this section. There are no '(converted)', Auto-Save or ._ files, so it is the source of truth by default.\n\nProvenance:\n- SMM_packReport.txt is UTF-8 with CR line breaks, not UTF-16 like the other reports. It names the project 'Заставка_shorts.aep', collected 01.12.2025 16:25 GMT+3 into /Users/gmmelnikov/Desktop/Collects NewBB/SMM_Pack.\n- The original sources were /Volumes/4 tb/FAQ-видео по облачным сервисам/kling_20250925_Image_to_Video_camera_orb_2946_1.mp4 and …/Заставка_shorts/(Footage)/Solids/Rectangle 34627972.png.\n- 'Rendering plug-ins: Advanced 3D, Classic 3D'.\n- Header bits decode to AE major version 25.\n\nFootage:\n- Both aliases (ascendcount_base 1, fullpath …/SMM_Pack/(Footage)/Folder/Solids/Rectangle 34627972.png and …/(Footage)/Folder/Video/kling_…mp4) match files that exist next to the .aep with the same relative structure. AE will relink automatically and nothing is missing.\n\nRenders:\n- Render/{BG,Overlay,Transitions} hold the outputs of 10 root comps. Folder names do not mirror the project bins (BG vs BG_pattern, Overlay vs Overlays, no Bullets).\n- Плашки_1x1, Плашки_9x16 and Заставка_9x16 have no renders.\n\nRecommendation: never edit the collected file in place. Copy it to a versioned working folder, fix it there, and split it into one small template .aep per family.",
+ "templates": [
+  {
+   "comp": "Render/Bullets/Плашки_1x1 [ROOT] + Render/Bullets/Плашки_9x16 [ROOT]",
+   "purpose": "2-line SMM caption (плашка). Dark bars grow from the left edge, lime words rise inside them, phrase A is swapped for phrase B mid-clip (bars re-width), then everything collapses.",
+   "format": "Плашки_1x1: 1440x1440 @25fps, 7.84 s (196 f). Плашки_9x16: 1080x1920 @25fps, 9.16 s (229 f).",
+   "target_delivery": [
+    "mogrt (Pr)",
+    "ae-template (Ae)",
+    "ffx (Ae: CR_Plashka_GrowX + CR_Text_WordRise_InOut)"
+   ],
+   "build_notes": "No precomps.\n\nBars: 'Shape Layer 3' (upper, y=1155) and 'Shape Layer 4' (lower, y=1264); in 9x16 they are 'Shape Layer 7'/'Shape Layer 6'. Each is a Rectangle 1231x110, #222222, with the anchor moved to the left edge (-720), so Scale X grows to the right; bars overlap by 1 px. Each bar has 6 Scale keys:\n- grow 0→102.1% in 22 f\n- re-width 102.1→101.7% in 20 f at the phrase switch\n- collapse to 0 in 20 f\n- the lower bar starts 10 f before the upper one.\n\nText: 4 layers, SB Sans Display Semibold 100 px, leading 89, tracking -50, fill #CFF500.\n- Phrase A: 'Разверните свой личный' / ' блог на Word Press'.\n- Phrase B: 'На виртуальной машине' / ' Cloud.ru Evolution'.\n- The second line of each phrase is its own layer whose text starts with a CR, i.e. an empty first line used to push it one line down.\n- Each text layer is ALPHA-matted to its bar with an AE 23+ layer-reference matte (non-adjacent).\n- Animator 1: Position (0,100), Range Selector Based On Words. In: Start 0→100% over 20 f. Out: End 100→0% over 11 f.\n\nPlashki_9x16 is the 1x1 rig scaled down, not re-laid out: text Scale 75%, bar Y-scale 75%, X re-keyed to 0.7448/0.7628 and 0.621/0.5887. Its bars start 28 px from the edge instead of bleeding, its copy and timing differ (switch at 5.2–6.4 s), and it uses the Advanced 3D renderer (1x1 uses Classic 3D).\n\nHard to parametrize because widths are typed per phrase, the line break is faked, and phrase timing lives in 24 independent keyframes.",
+   "current_editability": "Hardcoded. 0 Essential Graphics controllers (CIFO capsule 'Untitled'), 0 expressions, 0 controls. Text can be retyped, but bar widths are keyframed constants (Scale X 1.021/1.017 @1x1; 0.7448/0.7628/0.621/0.5887 @9x16), and the alpha matte silently cuts off any longer text.",
+   "editable_parts": [
+    "Phrase A line 1 / line 2",
+    "Phrase B line 1 / line 2 (optional; empty means a single phrase)",
+    "Style dropdown: bar #222222 + text #CFF500 (current) / bar #26D07C + text #222222 / bar #FFFFFF + text #222222",
+    "Text size (bar height = 1.1 x size, as today)",
+    "Left anchor: bleed from the frame edge (1x1 today) or safe margin (9x16 today)",
+    "Vertical position (lower third / centre)",
+    "Hold lengths (Pr clip length via Responsive Time)",
+    "Format: 1x1 / 9x16 / 16x9 as separate MOGRTs from one rig"
+   ],
+   "parametrization_plan": "Rig:\n- One master rig, duplicated per delivery size: 1080x1080, 1080x1920 and 1920x1080, matching SMM_*.epr.\n- CTRL null with Dropdown 'Style', Slider 'Text Size', Sliders 'Pad L'/'Pad R', Checkbox 'Phrase B', Checkbox 'Bleed'.\n- Text: TXT_A1, TXT_A2, TXT_B1, TXT_B2 as one-line layers with no leading CR. Line-2 y = line-1 y + leading; bar-2 y = bar-1 y + barH - 1.\n\nAuto-width bars:\n- Rect Size = [r.width + padL + padR, 1.1*size], with r = TXT.sourceRectAtTime(restTime, false).\n- Sample at a rest time after the rise, or on a hidden un-animated MEASURE copy (ae-motion-live quirk 86: the rect includes the animator offset).\n- An empty line gives width 0 and skips its stagger.\n- Keep Scale X 0→100% as a normalised reveal with the pack's curve (out 86.65% / in 79.61%).\n- Phrase switch: width = linear(easedSwitch, wA, wB).\n- Keep the text→bar alpha mattes.\n\nResponsive Design–Time (1x1 timings):\n- protected intro 0–1.28 s\n- a protected comp-marker region over the switch (2.52–4.20 s)\n- protected outro (last 1.36 s)\n- the holds stretch.\n\nExport:\n- Expose controls with Property.addToMotionGraphicsTemplateAs and export with CompItem.exportAsMotionGraphicsTemplate (scriptable; verify in AE 2025/2026).\n- The Pr panel fills params through trackItem.getMGTComponent(); the AE panel drops the comp and sets layer.essentialProperty values.",
+   "effort": "L — needs an auto-sizing 2-phrase rig with a protected switch region in 3 formats. Look and timing are already fully decoded, so there is no new design work.",
+   "issues": [
+    "Bar widths typed per text, and text is alpha-matted to the bars, so longer text gets clipped",
+    "Second line faked with a leading CR inside separate text layers",
+    "9x16 is a 75%-scaled copy with different margins and the Advanced 3D renderer; 1x1 uses Classic 3D",
+    "25 fps while the SMM export presets are 30 fps",
+    "Layer names start with spaces or carry ' 2' suffixes; bars are 'Shape Layer 3/4/6/7'",
+    "Never rendered, so there is no visual reference",
+    "Lime #CFF500 text with no green accent, while the tokens say yellow is only paired with green (confirm)"
+   ]
+  },
+  {
+   "comp": "Render/Заставка_9x16 [ROOT] (uses Transition_gray, Cloud.ru_BlackMono, Pattern_strelki and footage kling_20250925_Image_to_Video_camera_orb_2946_1.mp4)",
+   "purpose": "Vertical intro for FAQ shorts. Title on a green card, AI hero video in a white card, ending in the bar wipe with the logo, which reveals the episode underneath.",
+   "format": "1080x1920 @24fps, 5.0 s (120 f). Content 0–3.54 s; Transition_gray + logo 3.17–4.04 s (f76–f97); frames f97–f120 are empty.",
+   "target_delivery": [
+    "mogrt (Pr)",
+    "pr-preset (Pr: 'card window' Transform+Crop for the editor's own clip under a hole variant)",
+    "ae-template (Ae)",
+    "prerender (Pr+Ae: the outro wipe reused from the Transitions template)"
+   ],
+   "build_notes": "Layer stack, top to bottom:\n- L1 Cloud.ru_BlackMono (scale 80%), ALPHA matte ← L2.\n- L2 Transition_gray precomp, starts at 3.167 s.\n- L3–L6 title lines 'Как быстро создать' / 'Telegram-бота с AI' / 'под обучение' / 'сотрудников?'. SB Sans Display Semibold 60 px, leading 60, #222222, each with its own static rectangular mask. Animator Position (0,252) Based On Lines, Start 0→100% over 23 f, starting at f0/f2/f4/f6.\n- L7 the full sentence 'Как быстро создать Telegram-бота с AI\\rпод обучение\\rсотрудников?', video off (kept as a source copy).\n- L8 kling AI video 1440² 24 fps (Rotate -90°, audio off), ALPHA matte ← L10.\n- L9 Pattern_strelki precomp (scale 92%), ALPHA matte ← L10 and parented to L10.\n- L10 'Green_cube_2': a WHITE card #FEFEFE 760x1038 centred at (521,1107).\n- L11 'Green_cube_1': green card #26D07C 760x1038 at (457,757).\n- L12 'Dark Gray Solid 3', #222222.\n\nThe cards are static. All blend modes decode as Normal, so L9 (arrow pattern with block-noise dissolve) sits entirely under the opaque AI video inside the same matte and is never visible: wasted render cost (verify).\n\nContent ends at f85, under the fully covering bars. The wipe then reveals transparency, so the intro is meant to sit on V2 over the episode.",
+   "current_editability": "Hardcoded. No controls or EGP. The title is 4 hand-split layers plus a hidden master copy, and the media is a fixed footage item.",
+   "editable_parts": [
+    "Title: 1–4 lines (or one paragraph auto-split)",
+    "Hero media slot (video or still) in the white card",
+    "Card scheme (green+white / white+green / dark)",
+    "Arrow pattern on/off (moved above the media with Multiply, or used as the card background)",
+    "Wipe colour + logo on/off (shared with the Transitions template)",
+    "Hold length before the wipe"
+   ],
+   "parametrization_plan": "Timing:\n- Trim the comp to the end of the wipe (4.04 s; ≈121 f @30) and retime to the master fps.\n\nTitle:\n- 4 Essential-Property line fields TXT_L1..L4, one layer each so the masked line-rise survives.\n- y_n = y_(n-1) + leading only if the line is non-empty.\n- Static masks become sourceRectAtTime-sized rectangles used as alpha mattes.\n- Stagger 2 f @24 becomes 3 f @30 between non-empty lines.\n\nMedia:\n- Keep it as a top-level footage layer in the master comp (required for Media Replacement).\n- Fit to the card: scale = max(760/w, 1038/h)*100; drop the -90° rotation.\n- Also ship a 'hole' variant (transparent card) plus a pr-preset that places and crops the editor's own clip under it, because MOGRT media replacement gives no in-point control.\n\nControls and timing:\n- Dropdown 'Card scheme', Checkbox 'Pattern'.\n- Responsive Design–Time: protected intro 0–1.21 s (last line lands), protected outro = the wipe (3.17–4.04 s), stretchable hold.\n- The outro must reference the single Transitions rig, not a copy.",
+   "effort": "M — the structure exists. Needs the line system, a media slot, trim/retime, and removal of the invisible pattern layer.",
+   "issues": [
+    "Episode-specific copy and AI clip",
+    "Title split by hand into 4 layers plus a hidden copy",
+    "Pattern_strelki is hidden under the opaque video (dead layer)",
+    "23 empty frames at the end",
+    "24 fps",
+    "AI video rotated -90° with a Z-scale of 134% on a 2D layer",
+    "The 16 MB mp4 and 3.2 MB 6539x5598 PNG would be embedded in a MOGRT",
+    "Font dependency"
+   ]
+  },
+  {
+   "comp": "Render/Transitions/Transition_gray [precomp x2 + rendered] + Transition_green [ROOT] + Transition_white [ROOT] + Transition with Logo [ROOT] (uses duplicate Cloud.ru_BlackMono 3)",
+   "purpose": "21-frame bar wipe-through transition (cover, then reveal) for vertical SMM edits, in colour variants and a logo-sting variant.",
+   "format": "1080x1920 @24fps, 0.875 s (21 f) each. Comp display start is 3.1667 s, so the renders carry TC 00:00:03:04.",
+   "target_delivery": [
+    "prerender (Pr+Ae: ProRes 4444 alpha, 3 colours x logo/no-logo x 3 formats, at the master fps)",
+    "mogrt (Pr)",
+    "ae-template (Ae)",
+    "ffx (Ae: CR_Transition_Bars shape contents + keys)",
+    "sfx (optional whoosh, see questions)"
+   ],
+   "build_notes": "Two shape layers, 'Transition_2' (upper half) and 'Transition_1' (lower half), each made of 5 stepped rectangles.\n- Movement: Transition_2 goes x 2130→-1162 px, Transition_1 goes x -1476→2241 px, each on 2 LINEAR Position keys at f0 and f20.\n- Switches: motion blur on, 3D on (no camera), Time Stretch 262.5% (the source keys only span about 8 f).\n- Cover: full frame is covered around f9–f12, so the cut point is about f10.\n- Variants differ only in the 10 fills: #222222 (gray), #26D07C (green), #FFFFFF (white). Every rect also carries an unused Stroke #26D07C at width 0.\n- 'Transition with Logo' = Transition_gray plus the duplicate logo comp 'Cloud.ru_BlackMono 3' at 100% (the intro uses the original at 80%), ALPHA-matted to the bars so the logo appears only on them.\n- The comps were cut out of Заставка_9x16 at 3.1667 s, which explains the odd start timecode.",
+   "current_editability": "Hardcoded. Colour is baked per duplicate comp; there are no controls.",
+   "editable_parts": [
+    "Colour: dark #222222 / green #26D07C / white #FFFFFF",
+    "Logo on/off, with the logo colourway switching automatically on light bars",
+    "Direction mirror",
+    "Format: 9x16 / 1x1 / 16x9"
+   ],
+   "parametrization_plan": "Merge the 4 comps into one CR_Transition_Bars comp:\n- Bake the 262.5% stretch to 100% with keys at f0/f20 (≈25 f @30, total ≈26 f).\n- Remove the 3D switches.\n- Fills driven by a Dropdown on a CTRL layer.\n- Checkbox 'Logo' drives the logo layer's opacity. Logo comp by colour: white wordmark on dark/green, #222222 wordmark on white.\n- Checkbox 'Mirror' sets Scale X to -100%.\n- Travel expressed as a percentage of thisComp.width so the same rig serves 1x1 and 16x9.\n- Display start 0. Fixed length, no Responsive Time.\n\nPlugin behaviour: place the clip on the top free track so the full-cover frame (about f10) lands on the cut nearest the playhead.",
+   "effort": "S — 2 shape layers; merge the duplicates and add 3 controls.",
+   "issues": [
+    "3 duplicate comps that differ only in fill colour",
+    "Duplicate logo comp, and the logo is 80% in the intro but 100% here",
+    "Time-stretched layers (262.5%)",
+    "Needless 3D switches",
+    "Start TC 00:00:03:04",
+    "24 fps does not divide evenly into a 30 fps edit",
+    "No logo colourway for white/green bars"
+   ]
+  },
+  {
+   "comp": "Render/Overlays/Оверлей_1x1 [ROOT] ← Folder/Precomps/Shape Layer 5 Comp 1; Render/Overlays/Оверлей_9x16 [ROOT] ← Folder/Precomps/Shape Layer 2 Comp 1",
+   "purpose": "Branded dark frame (thick bars with stepped notches) that sits over a whole SMM video; the notches drift slowly in a loop.",
+   "format": "Оверлей_1x1: 1440x1440 @25, 60 s (source 22.4 s, Advanced 3D). Оверлей_9x16: 1080x1920 @25, 60 s (source 15 s, Classic 3D).",
+   "target_delivery": [
+    "mogrt (Pr)",
+    "prerender (Pr+Ae: seamless 15 s alpha loop)",
+    "ae-template (Ae)",
+    "still (PNG frame for static use)"
+   ],
+   "build_notes": "One shape layer of 6 rectangles, #222222.\n- Rect 6 (576x116, vector scale 153%x71%) and Rect 4 drift on LINEAR keys at 0 / 4.0 / 7.44 / 9.96 / 11.8 / 14.96 s. Rect 6 x runs -367.9 → -534.5 → -163.6 → -367.9 → -671.9 → -367.9.\n- Rects 1/2/3/5 have 3 identical keys each (redundant).\n- The root comps time-remap the source from 0 to 14.96 s (9x16) or 0 to 22.36 s (1x1) and add loopOut().\n- The 1x1 source is the same animation with the shape layer time-stretched 149.4% (slower drift) and the Advanced 3D renderer.\n- The 9x16 source is the same shape with a non-uniform layer scale of 70% x 130%, so bar thickness differs between horizontal and vertical.\n- The loop period is 14.96 s on a 15 s comp, so one frame repeats at each seam.\n- The 60 s renders just repeat the cycle 4x (9x16) or 2.7x (1x1).",
+   "current_editability": "Hardcoded; only time-remap + loopOut().",
+   "editable_parts": [
+    "Frame colour (#222222 / #26D07C / #FFFFFF)",
+    "Bar thickness",
+    "Drift on/off and speed",
+    "Format"
+   ],
+   "parametrization_plan": "Rebuild as one procedural shape layer:\n- Rect sizes and positions are expressions of thisComp.width/height and a 'Thickness' slider (no non-uniform layer scale).\n- Drift keys live inside an exact 15.0 s period evaluated with valueAtTime(time % 15); first key = last key, with the last key exactly at 15.0 s.\n- Dropdown colour, Checkbox 'Animate', Classic 3D.\n\nMOGRT:\n- Comp length 10:00 (procedural, costs nothing in file size), trimmed in Pr.\n- Do NOT use Responsive Design–Time: it time-stretches the middle and would slow the drift. An optional 12 f build-in can be a protected intro.\n\nPr fallback: a 15 s seamless prerender plus a plugin 'fill selection' that repeats it.",
+   "effort": "S — one shape layer; add layout expressions and an exact loop.",
+   "issues": [
+    "Duplicate sources: the 1x1 is a stretched (149.4%) copy",
+    "Advanced 3D on the 1x1 only",
+    "70%x130% scale gives uneven bar thickness in 9x16",
+    "Duplicate frame at each loop seam",
+    "Redundant identical keys",
+    "60 s ProRes renders where a 15 s loop would do",
+    "Generic names 'Shape Layer 2/5 Comp 1'"
+   ]
+  },
+  {
+   "comp": "Render/BG_pattern/BG_pattern_1x1_1 [ROOT] + BG_pattern_9x16_1 [ROOT] ← Folder/Precomps/PATTERN_EDIT ← Pattern_edit (← + hidden)",
+   "purpose": "Transparent background pattern: a grid of corner-arrow glyphs (white at 25%) that shrink around a slowly wandering focus point (a 'lens' effect), meant to sit over the #222222 ground.",
+   "format": "BG_pattern_1x1_1: 1440x1440 @25, 30 s (PATTERN_EDIT at 100%, pos 690,750, Advanced 3D). BG_pattern_9x16_1: 1080x1920 @25, 30 s (PATTERN_EDIT scaled 125%, Classic 3D). PATTERN_EDIT: 3840x2160 @25, 30 s, 394 layers. Cell Pattern_edit: 150x150 @25, 300 s.",
+   "target_delivery": [
+    "prerender (Pr+Ae: seamless 10–15 s loops; alpha master plus optional opaque version baked on #222222)",
+    "ae-template (Ae: the heavy rig, for custom renders only)"
+   ],
+   "build_notes": "PATTERN_EDIT contents:\n- 390 instances of the 150 px cell 'Pattern_edit'.\n- 'Adjustment Layer 1' with 4 Slider Controls: Scale From 100, Scale To 0, hitbox Inside 0, hitbox Outside 2000.\n- 'Null 1': pos (1920,1080) with wiggle(0.3,1000).\n- A hidden debug 'Cube' parented to the null, and a hidden 'Background' solid #222222, so the render is alpha.\n\nPer-instance expression: Scale = linear(length(pos, Null 1), 2000, 0, 100, 0), so cells near the null shrink towards 0%.\n\nThe cell shows only 'Strelka' (opacity 25%). 'pattern_1', '+' and 'Cube' (#F2F2F2) are hidden alternate glyphs.\n\nProblems inside the rig:\n- The expressions find their controls by the solids' source names ('Null 1', 'Adjustment Layer 1'), so renaming those footage items breaks all 390.\n- The 9x16 comp crops a 16:9 4K comp scaled 125%, so cell size differs by format (150 px vs 187.5 px).\n- Not loopable: the first and last rendered frames differ strongly.",
+   "current_editability": "Mixed. Expression controls exist (4 sliders + the null) but are not exposed; switching glyphs means toggling eyes by hand.",
+   "editable_parts": [
+    "Glyph: arrow / plus / cube / pattern_1",
+    "Lens radius (hitbox Outside) and min/max scale",
+    "Focus path speed and amplitude",
+    "Glyph opacity and colour",
+    "Ground colour or transparent",
+    "Format and loop length"
+   ],
+   "parametrization_plan": "Keep as a prerender: 390 expression layers are too heavy for a MOGRT in Pr.\n\nFix the rig:\n- Rows and columns computed from thisComp size; no cropping of a 16:9 comp.\n- One CTRL layer holding the sliders plus Dropdown 'Glyph' (cell opacity expressions).\n- Loopable focus path: blend wiggle(t) with wiggle(t-L) across the loop length L.\n- Switch the project to the JavaScript expression engine.\n\nRender per format at the master fps, L = 10 s (or 15 s), video-only.\n\nPlugin: 'BG' button repeats the loop over the selection and adds a Color Matte ground underneath.",
+   "effort": "M — the rig already works; needs a loop fix, a format-aware grid and a re-render.",
+   "issues": [
+    "Not seamless (first vs last frame differ: mean max-channel diff ≈14/255)",
+    "Advanced 3D on the 1x1 only",
+    "Heavy rig: 390 expressions on the legacy engine",
+    "Cell density differs between formats",
+    "Hidden debug and alternate layers",
+    "Precomp durations of 300 s / 401.92 s",
+    "Comps saved at Quarter resolution"
+   ]
+  },
+  {
+   "comp": "Render/BG_pattern/BG_pattern_1x1_2 [ROOT] + BG_pattern_9x16_2 [ROOT] ← Folder/Precomps/+",
+   "purpose": "Transparent background: a grid of small white '+' marks that twinkle in blocky patches.",
+   "format": "BG_pattern_1x1_2: 1440x1440 @25, 30 s (Advanced 3D). BG_pattern_9x16_2: 1080x1920 @25, 30 s (Classic 3D). Cell '+': 150x150 @25, 401.92 s.",
+   "target_delivery": [
+    "prerender (Pr+Ae: seamless loop)",
+    "mogrt (Pr: light, 2 layers with native effects)",
+    "ffx (Ae: CR_BG_TwinkleGrid applied to a solid)"
+   ],
+   "build_notes": "'+ 2' (1x1) and '+ 3' (9x16) are the '+' precomp: two plus shapes (native fill #26D07C, overridden by a white Fill effect, layer scale 9.5%).\n- Placed at 50% scale and 35% opacity.\n- CC RepeTile Expand Right 3200, Expand Down 3200 (1x1) or 3780 (9x16).\n- LUMA-matted to a hidden 'Dark Gray Solid 5/6' carrying Fractal Noise: Noise Type Block, Scale 111.7, Complexity 1, Evolution expression time*50.\n- The matte layer is at 50% opacity in 1x1 but 100% in 9x16, so the two variants are not identical.\n- Not loopable: Evolution reaches 1500° in 30 s, which is not a whole number of cycles.",
+   "current_editability": "Hardcoded; one expression (Evolution time*50).",
+   "editable_parts": [
+    "Plus colour and opacity",
+    "Grid pitch",
+    "Twinkle speed and density",
+    "Ground",
+    "Format and loop length"
+   ],
+   "parametrization_plan": "- Seamless loop: Evolution = time*360*N/L with Cycle Evolution ON and Cycle = N (e.g. L=10 s, N=4 gives time*144).\n- RepeTile expand computed from thisComp size.\n- Sliders for Opacity and Pitch (scale).\n- Unify the matte opacity between formats.\n- Classic 3D.\n- Light enough to ship as a mogrt (fixed 10:00 procedural length, no Responsive Time) as well as a prerender loop.",
+   "effort": "S — 2 layers; fix the loop and expose 3 sliders.",
+   "issues": [
+    "Not seamless",
+    "Different matte opacity in 1x1 and 9x16",
+    "Advanced 3D on the 1x1 only",
+    "'+' precomp is 401.92 s long",
+    "The plus shapes' green native colour is hidden by the Fill effect"
+   ]
+  },
+  {
+   "comp": "Folder/Solids/Cloud.ru_BlackMono [precomp x1 in Заставка_9x16] + Folder/Solids/Cloud.ru_BlackMono 3 [precomp x1 in Transition with Logo, exact duplicate]",
+   "purpose": "cloud.ru logo lockup for dark grounds (white wordmark + green cube), used on the transition bars.",
+   "format": "711x132 @24fps, 2 s, static.",
+   "target_delivery": [
+    "still (SVG/AI master + 4K PNG per colourway for Pr)",
+    "ae-template (Ae: shape-layer logo comp)",
+    "mogrt (Pr: optional logo bug with a colourway dropdown)"
+   ],
+   "build_notes": "'Layer 3 Outlines' is the wordmark (Merge Paths, fill #FFFFFF); 'Layer 4 Outlines' is the cube mark (fill #26D07C). Converted from AI outlines, no animation. The name says 'BlackMono' but this is the colour logo for dark grounds. Two identical comps exist.",
+   "current_editability": "Hardcoded.",
+   "editable_parts": [
+    "Colourway: on-dark (white + green) / on-light (#222222 + green) / mono white / mono #222222",
+    "Size"
+   ],
+   "parametrization_plan": "Keep one comp 'CR_Logo' with a Dropdown colourway (two fill expressions) and delete 'Cloud.ru_BlackMono 3'. Export stills per colourway. An animated logo sting belongs to 1_Логошоты, not this pack.",
+   "effort": "S — two shape layers; dedupe and rename.",
+   "issues": [
+    "Duplicate comp",
+    "Misleading name",
+    "Used at 80% in the intro and 100% in Transition with Logo",
+    "No on-light variant for the white/green transitions"
+   ]
+  },
+  {
+   "comp": "Folder/Solids/Pattern_strelki [precomp x1 in Заставка_9x16]",
+   "purpose": "Arrow-grid pattern that dissolves in through a blocky digital-noise matte. A reusable reveal effect; currently invisible in its only use.",
+   "format": "6539x5598 @24fps, 8.0 s.",
+   "target_delivery": [
+    "ffx (Ae: CR_Reveal_BlockNoise)",
+    "still (arrow-pattern tile: PNG + vector cell)",
+    "prerender (Pr: alpha loop, only if needed)"
+   ],
+   "build_notes": "- L1 'Mask' (White Solid 1, hidden): Fractal Noise with Fractal Type 5, Noise Type Block, Contrast 400, Brightness -100, Scale 244, Complexity 1. Random Seed has LINEAR keys 0→24 over 191 f (about one step per 8 f), plus an expression effect(\"Fractal Noise\")(28) — index 28 is the Evolution-Options group end. That expression is either a no-op or overrides the keys; verify.\n- L2 the arrows PNG 'Rectangle 34627972.png' (6539x5598, 3D switch on), LUMA-matted to L1.\n- L3 a hidden copy with CC Threshold RGB + CC Vignette (vignette is forbidden by the brand tokens).\n- L4 'White Solid 3' #FBFBFB as the base.",
+   "current_editability": "Hardcoded.",
+   "editable_parts": [
+    "Pattern (arrow / plus / cube)",
+    "Dissolve step rate",
+    "Block size",
+    "Colours"
+   ],
+   "parametrization_plan": "- Replace the 6.5K raster with a vector tile (Strelka cell + CC RepeTile) so it stays crisp at any size.\n- Seed = Math.floor(time*fps/stepFrames) instead of keys plus the index expression.\n- Delete hidden L3 and drop the 3D switches.\n- Ship as an ffx applied to any layer to be revealed (adds the noise matte).",
+   "effort": "S — 4 layers; clean up and save as a preset.",
+   "issues": [
+    "Never visible in the intro: covered by the opaque AI video",
+    "Fragile index-based expression",
+    "Dead hidden layer with CC Threshold RGB + CC Vignette",
+    "6.5K PNG stored in the 'Solids' bin",
+    "3D switches on 2D layers"
+   ]
+  }
+ ],
+ "problems": [
+  {
+   "severity": "critical",
+   "category": "layout/editability",
+   "detail": "Plashki bar widths are hand-keyed per phrase (Shape Layer 3/4 Scale X 1.021→1.017 in Плашки_1x1; Shape Layer 7/6 0.7448→0.7628 and 0.621→0.5887 in Плашки_9x16). Every text layer is ALPHA-matted to its bar, so any longer copy is silently clipped and any shorter copy leaves an empty bar tail. The template cannot be reused without re-keying.",
+   "fix": "Drive Rect Size from TXT.sourceRectAtTime() (sampled at rest, per ae-motion-live quirk 86) plus padding. Keep Scale X only as a 0→100% reveal multiplier with the existing curve."
+  },
+  {
+   "severity": "major",
+   "category": "fps",
+   "detail": "Three frame rates in one SMM pack:\n- 25 fps: BG_pattern_*, Плашки_*, Оверлей_*, PATTERN_EDIT, Pattern_edit, +, Shape Layer 2/5 Comp 1.\n- 24 fps: Заставка_9x16, the 4 Transition comps, both logo comps, Pattern_strelki.\nThe team's SMM_1x1/9x16/16x9/1440x1080 .epr presets are 30 fps (preset names '…_30fps', 8467200000 ticks/frame), and the ae-motion-live tokens set story/square to 30 fps. 24/25 fps prerenders judder in 30 fps edits, and a 21 f @24 transition cannot be frame-exact at 30.",
+   "fix": "Pick one master fps (likely 30) and retime every template in frames. Prefer mogrt (sampled at the sequence rate) over prerender; re-render the prerenders at the master fps."
+  },
+  {
+   "severity": "major",
+   "category": "renderer/mogrt",
+   "detail": "The Advanced 3D renderer (ADBE Calder) is set on BG_pattern_1x1_1, BG_pattern_1x1_2, Плашки_9x16, Оверлей_1x1 and Shape Layer 5 Comp 1, although none of them has a 3D layer. Their siblings (BG_pattern_9x16_*, Плашки_1x1, Оверлей_9x16) use Classic 3D. It adds a GPU/renderer dependency and is a MOGRT compatibility risk with no visual benefit.",
+   "fix": "Switch all 5 comps to Classic 3D before building templates."
+  },
+  {
+   "severity": "major",
+   "category": "editability",
+   "detail": "No Essential Graphics anywhere: all 21 CIFO/CIF2/CIF3 capsules are 'Untitled' with no controllers. The only controls in the whole pack are the 4 sliders on PATTERN_EDIT 'Adjustment Layer 1'. Nothing can be exported as a MOGRT or driven by a panel as-is.",
+   "fix": "Add a CTRL layer plus Essential Properties per template (text fields, colour dropdowns, checkboxes, media replacement). Script EGP and MOGRT export with Property.addToMotionGraphicsTemplateAs and CompItem.exportAsMotionGraphicsTemplate; verify these on AE 2025/2026 — they contradict the vault note that MOGRT export via ExtendScript is impossible."
+  },
+  {
+   "severity": "major",
+   "category": "fonts",
+   "detail": "All 13 text layers use SB Sans Display Semibold, a corporate font that is not on Adobe Fonts. A MOGRT opened on a machine without it substitutes the font, and Pr can only auto-sync Adobe Fonts. ae-motion-live quirk 187: the PostScript name must be 'SBSansDisplay-Semibold'; the other spelling renders in Times with no warning.",
+   "fix": "Plugin checks fonts on start (and at install). Ship or install the font if the licence allows, otherwise block MOGRT insertion with a clear message. Stills can use outlined text."
+  },
+  {
+   "severity": "major",
+   "category": "expressions",
+   "detail": "The project uses the legacy ExtendScript expression engine with 397 expressions:\n- 390 identical proximity-scale expressions in PATTERN_EDIT, each reading 4 sliders and a null every frame\n- wiggle(0.3,1000)\n- 2× time*50\n- effect(\"Fractal Noise\")(28)\n- 2× loopOut()\n- transform.scale (a no-op).\nNone uses engine-specific syntax, so all are JavaScript-engine compatible, but the 390-layer rig is far too heavy for a MOGRT or interactive Pr playback.",
+   "fix": "File > Project Settings > Expressions: JavaScript. Keep PATTERN_EDIT as a prerender. Delete the no-op and index-based expressions."
+  },
+  {
+   "severity": "major",
+   "category": "duplication",
+   "detail": "Near-duplicate comps and variants:\n- Transition_green and Transition_white = Transition_gray with only the 10 fill colours changed.\n- Cloud.ru_BlackMono 3 is identical to Cloud.ru_BlackMono.\n- Shape Layer 5 Comp 1 = Shape Layer 2 Comp 1 time-stretched 149.4%, with Advanced 3D.\n- Плашки_9x16 = Плашки_1x1 scaled 75%, with new copy and timing.\n- BG 1x1 and 9x16 crop the same 3840x2160 PATTERN_EDIT at 100% and 125%.\n- BG_pattern_1x1_2's noise matte is at 50% opacity, BG_pattern_9x16_2's at 100%.",
+   "fix": "One master rig per template family. Variants come from controls (colour dropdowns, logo checkbox) and per-format comp sizes with layout expressions, never from copies."
+  },
+  {
+   "severity": "major",
+   "category": "text-structure",
+   "detail": "Line breaks are faked by hand:\n- Заставка_9x16 title is 4 hand-split text layers, each with its own static mask, plus a hidden full-text layer.\n- In Плашки, each phrase's second line is a separate layer whose text starts with a CR (an empty first line) to drop it one line down.\nEditing the copy means retyping several layers and re-fitting masks.",
+   "fix": "Use explicit line fields (TXT_L1..L4 / TXT_A1, A2, B1, B2) that auto-stack, skip empty lines, and get matte rectangles from sourceRectAtTime. Remove the CR hack and the hidden copy."
+  },
+  {
+   "severity": "major",
+   "category": "loops",
+   "detail": "Prerenders and loops are not seamless:\n- BG_pattern_*_1: first vs last frame mean max-channel difference ≈13–14/255 (wiggle is not periodic).\n- BG_pattern_*_2: ≈0.7/255 (Evolution time*50 = 1500° per 30 s).\n- Overlay: loop period 14.96 s on a 15 s source (and 22.36 s on the 1x1), so a frame repeats at each seam.",
+   "fix": "Use a loopable wiggle (blend wiggle(t) and wiggle(t-L)), Evolution = time*360*N/L with Cycle Evolution on, and loop periods of an exact whole number of frames. Deliver 10–15 s loops; the plugin repeats them to fill the selection."
+  },
+  {
+   "severity": "major",
+   "category": "render-output",
+   "detail": "All 10 renders are ProRes 4444 (yuva444p12le) with a silent pcm_s16le stereo track (1.5 Mb/s) and a tmcd track. Transitions start at TC 00:00:03:04 (comp display start 3.1667 s). BGs run 30 s at 100–137 Mb/s (377–513 MB each) and overlays 60 s for a 15–22 s cycle; total ≈2.14 GB. Плашки_* and Заставка_9x16 were never rendered.",
+   "fix": "Re-render video-only with TC 00:00:00:00 and 10–15 s seamless loops. Add an ame-preset 'CR_ProRes4444_Alpha_NoAudio_<fps>'. Offer opaque H.264/HEVC versions baked on #222222 if alpha is not needed."
+  },
+  {
+   "severity": "major",
+   "category": "paths",
+   "detail": "Render/Overlay/Оверлей_1x1.mov and Оверлей_9x16.mov are stored in Mac NFD form ('й' = и + U+0306). They look identical in Explorer but fail string or path matching against NFC names on Windows. The contact sheets inherit the same problem.",
+   "fix": "Rename deliverables to ASCII/NFC (e.g. smm_overlay_frame_1x1.mov). Normalise every path to NFC in the plugin manifest and loader."
+  },
+  {
+   "severity": "minor",
+   "category": "timing",
+   "detail": "Hidden layer time-stretch: Transition_1/Transition_2 in all 3 transition comps run at 262.5% (keys span 8 source frames stretched over 21), and 'Shape Layer 5' runs at 149.4%. Duration edits and Responsive Time behave unpredictably.",
+   "fix": "Bake the stretch to 100% with keys at real times (f0/f20 @24, i.e. ≈f0/f25 @30)."
+  },
+  {
+   "severity": "minor",
+   "category": "dead-content",
+   "detail": "Invisible or hidden content:\n- In Заставка_9x16, Pattern_strelki (L9) sits under the opaque AI video (L8) inside the same Green_cube_2 alpha matte. All blend modes decode as Normal, so it is never visible, yet it renders a 6539x5598 PNG plus Fractal Noise every frame.\n- Hidden layers: Pattern_strelki L3 (CC Threshold RGB + CC Vignette); Pattern_edit 'pattern_1', '+', 'Cube'; PATTERN_EDIT 'Cube' (debug marker parented to the null) and 'Background'; the Заставка full-text layer.",
+   "fix": "Delete them, or turn the alternates into a 'Glyph' dropdown. Either move the pattern above the video with Multiply or drop it (confirm the intent)."
+  },
+  {
+   "severity": "minor",
+   "category": "timing",
+   "detail": "Заставка_9x16 lasts 5.0 s, but content ends at 3.54 s and the wipe at 4.04 s, so f97–f120 are empty. The transition comps keep a display start of 3.1667 s from being cut out of the intro.",
+   "fix": "Trim to the end of the wipe and reset display start to 0."
+  },
+  {
+   "severity": "minor",
+   "category": "naming",
+   "detail": "Names are generic or misleading:\n- Generic: 'Shape Layer 3/4/6/7', 'Shape Layer 2 Comp 1', 'Shape Layer 5 Comp 1', bin 'Folder', layers '+ 2'/'+ 3'.\n- Misleading: 'Green_cube_2' is a WHITE card used as a matte; 'Cloud.ru_BlackMono' is the white+green logo; 'Dark Gray Solid 3/5/6' are #222222; the arrow PNG 'Rectangle 34627972.png' sits in Folder/Solids.\n- Whitespace: layer names with leading or trailing spaces (' Cloud.ru Evolution', 'Как быстро создать ').\n- Fragile: the 390 expressions find layers by source names ('Null 1', 'Adjustment Layer 1'), so renaming the solids breaks them.",
+   "fix": "Adopt a convention (CTRL_, TXT_, BAR_, CARD_, MATTE_, BG_, SRC_), give every layer an explicit name, use ASCII comp IDs with Russian display names, and update the expressions when renaming."
+  },
+  {
+   "severity": "minor",
+   "category": "expressions",
+   "detail": "Pattern_strelki 'Mask' Random Seed carries the expression effect(\"Fractal Noise\")(28). It references param index 28, the end marker of the Evolution Options group, so it is either a no-op or overrides the 0→24 seed keys. 'Strelka' Scale has a no-op 'transform.scale'.",
+   "fix": "Remove both. Drive the seed with Math.floor(time*fps/step) and confirm visually in AE that the dissolve animates."
+  },
+  {
+   "severity": "minor",
+   "category": "layout",
+   "detail": "Layout varies by format for no clear reason:\n- The 9x16 overlay is the frame shape non-uniformly scaled 70% x 130%, so bar thickness differs between horizontal and vertical edges.\n- Rects 1/2/3/5 carry 3 identical keys each.\n- BG cell size is 150 px in 1x1 but 187.5 px in 9x16.\n- Plashki bleed from the edge in 1x1 but start 28 px in on 9x16.\n- The logo is 80% in the intro and 100% in Transition with Logo.",
+   "fix": "Use layout expressions keyed on thisComp.width/height plus a single size control per element."
+  },
+  {
+   "severity": "minor",
+   "category": "hygiene",
+   "detail": "Housekeeping issues:\n- Long durations: precomp '+' is 401.92 s, Pattern_edit 300 s, and cell layers run 300 s inside 30 s comps.\n- BG_pattern_9x16_1/2, '+' and Pattern_edit were saved at Quarter preview resolution.\n- 3D switches are on for 2D elements (Transition_1/2, the Pattern_strelki PNG layers).\n- The AI video layer has Rotate -90° and Z-scale 134%.",
+   "fix": "Trim durations to the loop length, set Full resolution, turn off the 3D switches, and reset the transforms."
+  },
+  {
+   "severity": "minor",
+   "category": "compatibility",
+   "detail": "The file was saved by AE 25.x and uses AE 23+ layer-reference track mattes, which are non-adjacent:\n- Заставка L8/L9 matte to L10.\n- Each Plashki text layer mattes to a bar 2–4 layers away.\nOnce saved in AE 2026 it will not open in AE 2025, and MOGRTs need a recent Pr.",
+   "fix": "Pick the oldest AE/Pr version to support and author templates in it. Note the minimum version in the plugin manifest."
+  },
+  {
+   "severity": "minor",
+   "category": "brand",
+   "detail": "The pack's curves and colours deviate from the ae-motion-live tokens:\n- Plashki use #CFF500 text on #222222 bars with no green; the tokens treat yellow as a secondary accent always paired with green.\n- Title lines rise with an almost linear curve (influence ≈12%/10%) instead of the tokens' 'enter' ease [16,70].\n- CC Vignette, forbidden by the tokens, sits on a hidden layer.\n- Near-white values #FEFEFE/#FBFBFB are used instead of #FFFFFF/#F2F2F2.",
+   "fix": "Decide whether the pack's own curves or the tokens are canonical for SMM. Normalise the whites."
+  },
+  {
+   "severity": "minor",
+   "category": "coverage",
+   "detail": "AME has SMM_16x9 (1920x1080) and SMM_1440x1080 presets, but the pack has only 1x1 and 9x16 comps. The 1x1 comps are 1440x1440 while the SMM_1x1 export is 1080x1080.",
+   "fix": "Decide which formats the templates must cover (see questions). Build MOGRT comps at delivery size."
+  },
+  {
+   "severity": "minor",
+   "category": "audit-tooling (not a project defect)",
+   "detail": "Gaps in the shared audit data for this pack:\n- scratchpad/aep_audit.py reports 'effects: {}' for SMM because effect instances stored under LIST sspc are not counted. Actual effects: Fractal Noise ×3, CC RepeTile ×2, CC Threshold RGB + CC Vignette ×1 (hidden), Fill ×2, Slider ×4.\n- frames/4_SMM_Pack__(Footage)__…kling…mp4.png is blank grey (a direct ffmpeg grab shows a white security-camera 'orb' on light grey).",
+   "fix": "Use the decoders in C:\\dev\\temp\\claude\\C--Users------Documents-Cloud-ru-Preset-plugin\\b48e0614-1141-4125-9b74-d00eb767441b\\scratchpad\\work\\: smm_keys.py (keyframes, static values, layer flags, mattes, parent, stretch, renderer) and smm_dump.py. ldta offsets: stretch num @8 / den @108, start @12/16, in @20/24, out @28/32, flags @37–39 (video bit0, MB 0x08, 3D 0x04@38, ADJ 0x02@38), blend mode @96 (2 = Normal), matte mode @104, parent id @132, layer type @128, matte layer id @160. Key times = layer start + stored time."
+  }
+ ],
+ "questions_for_user": [
+  "What is the master frame rate for SMM: 30 fps (your SMM_*.epr presets and the brand tokens) or 25 fps (most of the pack)? Were the 24 fps intro and transitions deliberate?",
+  "Which SMM formats must the templates cover: only 1x1 and 9x16, or also 16x9 and 4:3 (1440x1080) as in AME? Should the square master be 1080 (matching the export preset) or 1440 (as in the pack)?",
+  "Plashki colours: keep lime #CFF500 on #222222 bars as the canonical SMM style? Which alternatives should be allowed, e.g. green bar with #222222 text or white bar with #222222 text? The brand tokens pair yellow only with green.",
+  "Transitions: which logo colourway goes on white and green bars (the current logo is a white wordmark)? Should the transition button also drop an SFX cue, e.g. '02 Simple Whoosh B.wav' from the podcast pack?",
+  "Will only you use these MOGRTs/presets, or other editors/contractors too? Can the plugin installer ship or install SB Sans Display, or must templates degrade gracefully without it?",
+  "Which oldest AE/Pr versions must the templates open in? The file is from AE 25.x; templates authored in AE 2026 will not open in AE 2025.",
+  "Заставка_9x16: should it become a generic FAQ-shorts intro (title + any media)? Is the arrow-pattern dissolve meant to be visible? It is currently hidden under the AI video. Is the -90° rotation of the AI video intentional?",
+  "BG patterns: deliver with alpha only, or also baked on #222222/#F2F2F2 as small opaque loops? What loop length is enough (10 s / 15 s / 30 s)?",
+  "Overlay frame: is it meant to frame the entire video or only segments? Are green/white versions needed besides #222222?"
+ ],
+ "brand_elements": [
+  {
+   "name": "cloud.ru logo lockup (on-dark)",
+   "kind": "logo (vector shape layers)",
+   "source": "Folder/Solids/Cloud.ru_BlackMono and identical Cloud.ru_BlackMono 3 (711x132): 'Layer 3 Outlines' wordmark #FFFFFF with Merge Paths, 'Layer 4 Outlines' cube #26D07C",
+   "reuse_notes": "One CR_Logo comp with a colourway dropdown (on-dark / on-light #222222+green / mono). Export SVG/AI plus 4K PNG stills per colourway. Delete the duplicate and the misleading 'BlackMono' name."
+  },
+  {
+   "name": "SMM palette",
+   "kind": "colour tokens",
+   "source": "#222222: bars, frame, BG solids, title text, Transition_gray. #26D07C: Green_cube_1 card, logo cube, Transition_green, '+' native fill, unused strokes. #CFF500: Plashki text. #FFFFFF/#FEFEFE: Transition_white, Green_cube_2 card, logo wordmark, '+' Fill effect. #F2F2F2: 'Cube' cell. #FBFBFB: White Solid 3.",
+   "reuse_notes": "Matches ae-motion-live tokens (black #222222, green #26D07C, yellow #CFF500, white, gray #F2F2F2). Normalise #FEFEFE/#FBFBFB, and drive every template's colours from one shared dropdown/token list."
+  },
+  {
+   "name": "SB Sans Display Semibold type specs",
+   "kind": "typography",
+   "source": "Плашки: 100 px @1440 (≈75 px @1080), leading 89 (0.89), tracking -50, #CFF500. Заставка title: 60 px @1080x1920, leading 60 (1.0), tracking 0, #222222.",
+   "reuse_notes": "PostScript name 'SBSansDisplay-Semibold' (quirk 187). The plugin must verify the font is installed before inserting MOGRTs."
+  },
+  {
+   "name": "Arrow-grid pattern",
+   "kind": "pattern (raster + vector)",
+   "source": "Raster: 'Rectangle 34627972.png' 6539x5598 (in the Folder/Solids bin, used by Pattern_strelki). Vector: 'Strelka' cell in Pattern_edit (150 px, 25% opacity).",
+   "reuse_notes": "Two implementations of one motif. Keep a vector cell plus a tileable PNG tile; build backgrounds with CC RepeTile or a grid rig instead of the 3.2 MB 6.5K raster. Tokens say arrows are neutral grey, never green."
+  },
+  {
+   "name": "Plus mark",
+   "kind": "pattern glyph",
+   "source": "Folder/Precomps/+ (150x150: two plus shapes, white Fill effect)",
+   "reuse_notes": "Tile for the twinkle background. Save as a shape preset and a PNG tile."
+  },
+  {
+   "name": "Alternate grid glyphs",
+   "kind": "pattern glyphs",
+   "source": "Pattern_edit hidden layers 'Cube' (#F2F2F2 square, 129 px) and 'pattern_1' (stroke #26D07C)",
+   "reuse_notes": "Expose through a 'Glyph' dropdown in the grid rig; drop green strokes per the tokens."
+  },
+  {
+   "name": "Stepped bar silhouettes",
+   "kind": "shape set",
+   "source": "Transition_1 / Transition_2: 5 rectangles each, e.g. 1656x1069, 613x504, 388x431, 233x374, 136x342",
+   "reuse_notes": "Signature 'staircase' edge. Save as a shape-contents ffx and reuse for wipes or section breaks in other formats (travel as % of comp width)."
+  },
+  {
+   "name": "Notched frame overlay",
+   "kind": "frame / overlay",
+   "source": "Shape Layer 2 (in Shape Layer 2 Comp 1) and Shape Layer 5 (in Shape Layer 5 Comp 1): 6 rects #222222",
+   "reuse_notes": "Rebuild as a procedural frame with a thickness control, export a PNG still, and create a seamless 15 s loop."
+  },
+  {
+   "name": "Card stack layout",
+   "kind": "layout element",
+   "source": "Заставка_9x16: Green_cube_1 #26D07C 760x1038 at (457,757) behind Green_cube_2 #FEFEFE 760x1038 at (521,1107); the white card is the media window (alpha matte)",
+   "reuse_notes": "Reusable shorts layout: title on the green card, media window on the white card. Make the card size and offset controls part of the shorts-intro template."
+  },
+  {
+   "name": "Plashka bar",
+   "kind": "UI element",
+   "source": "Плашки: Rectangle 1231x110 @1440 (height ≈1.1x font size), #222222, anchor at the left edge, bars overlap by 1 px",
+   "reuse_notes": "Base of the caption MOGRT. Width from sourceRectAtTime plus padding (≈123 px left inset @1440)."
+  },
+  {
+   "name": "AI hero clip 'kling camera orb'",
+   "kind": "media (content, not brand)",
+   "source": "(Footage)/Folder/Video/kling_20250925_Image_to_Video_camera_orb_2946_1.mp4: 1440x1440, 24 fps, 10 s, AAC (muted in the comp), white security-camera orb on light grey",
+   "reuse_notes": "Episode-specific. Becomes a media-replacement slot, or a 'hole' plus a pr-preset; do not ship it inside generic templates."
+  }
+ ],
+ "animation_patterns": [
+  {
+   "name": "Plashka grow / re-width / collapse (Scale X from left edge)",
+   "description": "Shape Scale X with the anchor on the bar's left edge (-720).\n- Grow 0→~102% over 22 f @25 (0.88 s): out-influence 86.65%, in 79.61%, ≈ cubic-bezier(0.87,0,0.20,1), essentially the brand 'wipe' ease.\n- Re-width to the new phrase over 20 f (55.4%→84.2%).\n- Collapse to 0 over 20 f (92%→84%).\n- The lower bar leads the upper one by 10 f; bars overlap by 1 px.\nAt 30 fps: 26 f / 24 f / 24 f, 12 f stagger.",
+   "where_used": [
+    "Плашки_1x1: Shape Layer 3, Shape Layer 4",
+    "Плашки_9x16: Shape Layer 7, Shape Layer 6"
+   ],
+   "candidate_preset": "ffx CR_Plashka_GrowX (+ auto-width expression)"
+  },
+  {
+   "name": "Word rise inside the bar (in) / reverse word drop (out)",
+   "description": "Text Animator Position (0,+100 px) with Range Selector Based On Words.\n- In: Start 0→100% over 20 f @25. Key 1 out-influence 100%, key 2 in-influence 33%, ≈ cubic-bezier(1,0,0.67,1).\n- Out: End 100→0% over 11 f, out-influence 33% then in-influence 100%, ≈ (0.33,0,0,1), so the last word drops first.\n- Text is alpha-matted to its bar, so words appear from inside it.\n- Line stagger 10 f; holds 1.3–3.2 s.\nAt 30 fps: 24 f in / 13 f out / 12 f stagger.",
+   "where_used": [
+    "Плашки_1x1: 'Разверните свой личный', ' блог на Word Press', 'На виртуальной машине', ' Cloud.ru Evolution'",
+    "Плашки_9x16: four corresponding '… 2' layers"
+   ],
+   "candidate_preset": "ffx CR_Text_WordRise_In + CR_Text_WordDrop_Out"
+  },
+  {
+   "name": "Masked title line rise",
+   "description": "Each line is its own text layer with a static line-sized mask. Animator Position (0,+252 px) Based On Lines; Start 0→100% over 23 f @24 (0.96 s). The curve is near-linear: out-influence 11.9%, in 10.3%, ≈ (0.12,0,0.90,1). Line starts at 0/2/4/6 f (83 ms stagger). At 30 fps: ≈29 f, 3 f stagger (matches the tokens' word stagger).",
+   "where_used": [
+    "Заставка_9x16: L3–L6 title lines"
+   ],
+   "candidate_preset": "ffx CR_Title_LineRise_Masked (+ ae-template line-stack rig)"
+  },
+  {
+   "name": "Bar wipe-through transition",
+   "description": "Two shape layers of 5 stepped rectangles each, moving in opposite directions: upper x 2130→-1162 px, lower x -1476→2241 px. Two LINEAR Position keys at f0 and f20 @24, motion blur on, total 21 f. Full-frame cover ≈ f9–f12 (cut ≈ f10). Layers carry a hidden 262.5% time-stretch. Fills: #222222 / #26D07C / #FFFFFF.",
+   "where_used": [
+    "Transition_gray",
+    "Transition_green",
+    "Transition_white",
+    "Transition with Logo",
+    "Заставка_9x16 (L2, at 3.167 s)"
+   ],
+   "candidate_preset": "mogrt/ae-template CR_Transition_Bars + ffx of the shape contents"
+  },
+  {
+   "name": "Logo revealed by the bars (alpha matte)",
+   "description": "Logo precomp centred at 80–100% scale and ALPHA-matted to the transition precomp, so it exists only where the bars are. It needs no animation of its own: it is wiped in and out with the bars.",
+   "where_used": [
+    "Transition with Logo (Cloud.ru_BlackMono 3)",
+    "Заставка_9x16 (L1 Cloud.ru_BlackMono)"
+   ],
+   "candidate_preset": "checkbox 'Logo' in CR_Transition_Bars"
+  },
+  {
+   "name": "Frame drift loop",
+   "description": "Notch rectangles drift on LINEAR Vector Position keys at 0 / 4.0 / 7.44 / 9.96 / 11.8 / 14.96 s; Rect 6 x runs -367.9 → -534.5 → -163.6 → -367.9 → -671.9 → -367.9 (first = last). Looped by Time Remap 0→14.96 s with loopOut(). The 1x1 version runs the same keys stretched 149.4% (22.36 s period).",
+   "where_used": [
+    "Shape Layer 2 Comp 1 → Оверлей_9x16",
+    "Shape Layer 5 Comp 1 → Оверлей_1x1"
+   ],
+   "candidate_preset": "expression preset CR_Loop_Drift (valueAtTime(time % period), exact 15.0 s period)"
+  },
+  {
+   "name": "Proximity (lens) scale grid",
+   "description": "Grid of 150 px precomp cells; Scale = linear(distance to CTRL null, hitbox Outside 2000, hitbox Inside 0, Scale From 100, Scale To 0), so cells shrink near the focus. Focus null at (1920,1080) with wiggle(0.3,1000). Glyph opacity 25%.",
+   "where_used": [
+    "PATTERN_EDIT → BG_pattern_1x1_1, BG_pattern_9x16_1"
+   ],
+   "candidate_preset": "ae-template CR_BG_ProximityGrid (render-only) → prerender loops"
+  },
+  {
+   "name": "Twinkle grid",
+   "description": "'+' tile repeated with CC RepeTile (expand 3200–3780 px), 50% scale, 35% opacity, LUMA-matted to a hidden solid with Fractal Noise (Block, scale 111.7, complexity 1, Evolution time*50; matte opacity 50% or 100%).",
+   "where_used": [
+    "BG_pattern_1x1_2 ('+ 2')",
+    "BG_pattern_9x16_2 ('+ 3')"
+   ],
+   "candidate_preset": "ffx CR_BG_TwinkleGrid (seamless: Evolution time*360*N/L + Cycle Evolution)"
+  },
+  {
+   "name": "Block-noise dissolve reveal",
+   "description": "Target layer LUMA-matted to a hidden solid with Fractal Noise (Noise Type Block, Contrast 400, Brightness -100, Scale 244, Complexity 1). Random Seed steps 0→24 linearly over 191 f @24, about one new block pattern every 8 f, giving a digital dissolve.",
+   "where_used": [
+    "Pattern_strelki (arrows PNG ← 'Mask')"
+   ],
+   "candidate_preset": "ffx CR_Reveal_BlockNoise (seed = floor(time*fps/step))"
+  },
+  {
+   "name": "Media inside a card window",
+   "description": "Footage layer ALPHA-matted to a static card shape (non-adjacent AE 23+ matte). A decorative layer is parented to the card and matted to the same card.",
+   "where_used": [
+    "Заставка_9x16: L8 AI video and L9 Pattern_strelki ← L10 Green_cube_2"
+   ],
+   "candidate_preset": "ae-template slot / mogrt Media Replacement + pr-preset 'Card window' for the hole variant"
+  }
+ ],
+ "cleanup_actions": [
+  "Copy SMM_pack.aep to a versioned working folder and never save over the collected original. Keep the Collect report (UTF-8, CR line endings) for provenance.",
+  "Project Settings > Expressions > JavaScript, then open each comp and confirm all 397 expressions evaluate without errors.",
+  "Fix the master fps (see questions) and retime every template comp in frames: transitions 21 f@24 → 26 f@30; plashka grow 22 f@25 → 26 f@30; text in 20 → 24 f, text out 11 → 13 f, stagger 10 → 12 f; title line rise 23 f@24 → 29 f@30.",
+  "Switch BG_pattern_1x1_1, BG_pattern_1x1_2, Плашки_9x16, Оверлей_1x1 and Shape Layer 5 Comp 1 from Advanced 3D to Classic 3D. Turn off the 3D switches on Transition_1/Transition_2 and on the Pattern_strelki PNG layers.",
+  "Bake time-stretch to 100%: Transition_1/2 (262.5%, in 3 comps) and 'Shape Layer 5' (149.4%).",
+  "Merge duplicates: Transition_green/white → one transition comp with a colour Dropdown and a Logo checkbox. Delete Cloud.ru_BlackMono 3. Replace Shape Layer 5 Comp 1 with the single procedural overlay. Build one Plashka rig instead of 1x1 + 9x16 copies. Unify the BG 1x1/9x16 rigs.",
+  "Delete dead layers: Pattern_strelki L3 (CC Threshold RGB + CC Vignette); PATTERN_EDIT 'Cube' and 'Background'; the hidden full-text layer in Заставка_9x16. Turn Pattern_edit's hidden 'pattern_1'/'+'/'Cube' into a 'Glyph' dropdown. Remove or relocate Pattern_strelki in Заставка, where it is invisible under the video.",
+  "Remove effect(\"Fractal Noise\")(28) and the no-op 'transform.scale'. Replace the seed keys with Math.floor(time*fps/step).",
+  "Make every loop seamless: periodic wiggle for 'Null 1'; Evolution = time*360*N/L with Cycle Evolution; overlay period exactly 15.0 s with first key = last key. Remove the redundant identical keys on Rects 1/2/3/5.",
+  "Rename to a convention: comps CR_SMM_<Template>_<Format>; layers CTRL_/TXT_/BAR_/CARD_/MATTE_/SRC_; footage 'Rectangle 34627972.png' → pattern_arrows_6539.png in a Patterns bin; solids by role and colour. Update the expressions that reference 'Null 1' / 'Adjustment Layer 1'.",
+  "Trim durations: '+' 401.92 s and Pattern_edit 300 s → loop length; Заставка_9x16 → end of wipe (≈4.04 s). Set display start to 0 on the 4 transition comps. Set Full resolution on BG_pattern_9x16_1/2, '+' and Pattern_edit.",
+  "Rebuild the text systems: per-line fields with auto-stacking and sourceRectAtTime-driven bars and line mattes; no CR hacks; measure at rest (quirk 86).",
+  "Replace the 6539x5598 raster arrow pattern with a vector cell plus CC RepeTile, and keep a small PNG tile for Pr stills.",
+  "Add Essential Properties, Responsive Design–Time protected regions (plashki intro/switch/outro; intro intro/outro) and Media Replacement. Script the MOGRT export per format (Property.addToMotionGraphicsTemplateAs, CompItem.exportAsMotionGraphicsTemplate) and save one small .aep per template (ae-template) with its own precomps and only the footage it needs.",
+  "Re-render the prerenders (BG loops, overlay loop, transition variants) with a new ame-preset: ProRes 4444 + alpha, no audio, TC 00:00:00:00, at the master fps, 10–15 s loops. Use ASCII/NFC file names and mirror the template IDs in the folder names.",
+  "Save ffx presets: CR_Plashka_GrowX, CR_Text_WordRise_In/Out, CR_Title_LineRise_Masked, CR_BG_TwinkleGrid, CR_Reveal_BlockNoise, CR_Transition_Bars (shape contents).",
+  "Write a manifest per template: ASCII id, Russian display name, formats, fps, required fonts, controls, delivery types, and thumbnail/preview mp4. The plugin should NFC-normalise paths and check fonts before inserting."
+ ]
+}

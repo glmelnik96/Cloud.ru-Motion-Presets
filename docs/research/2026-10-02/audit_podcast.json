@@ -1,0 +1,667 @@
+{
+ "project": "6_Podcast_Cloud.ru_Pack — Podcast_Pack.aep (C:\\Users\\Глеб\\Documents\\Граф пакет Cloud.ru\\6_Podcast_Cloud.ru_Pack)",
+ "summary": "Podcast_Pack.aep is a 4K/25p overlay kit for the Cloud.ru podcast. It has 19 RENDER comps: a 7-s intro, an outro end card, a disclaimer card, a 2-line subscribe CTA, and 15 overlays of 10 s each (speaker captions, guest bio, 3-line text-on-plashka callouts, content panels, QR blocks). 13 of the overlays sit on one hand-copied «frame» rig. The rig is an inset light-gray border that flies in on Z, plus green CLOUD.RU/ПОДКАСТ corner tags and a frosted-blur margin made by an adjustment layer. Nothing is parametrized: there are 0 expressions and no Essential Graphics, ≥12 plashka widths are hand-tuned with Scale X keys, and clip/wipe masks are hand-drawn (52 animated mask paths). Every variant (left/right/top, 1 or 2 QRs, a different guest) is a separate hand-edited copy, so the 19 deliverables collapse into ~10 parametric templates. 14 overlays also contain a visible 1920×1080 episode reference frame scaled to 4K, and one 9.64-s SFX each. Only 4 comps have Ready renders, 3 of those have silent audio tracks, and the 9:16 intro exists only as a render. The plan is: cleanup (9 orphan duplicates, NFD file names, reference stills, Advanced 3D, 720p×300% scale chains, split-layer hacks), then one POD_Frame rig plus 9 template rigs using sourceRectAtTime auto-size, Side/Layout dropdowns, Media Replacement slots and Responsive Design–Time. Delivery is mogrt + sfx (+ a pr-preset for the blur margin) in Premiere, ae-template/ffx in AE, and prerender for the intro/outro. Full decode (layer switches, parents, track mattes, keyframes with eases, text styles, masks) is in C:\\dev\\temp\\claude\\C--Users------Documents-Cloud-ru-Preset-plugin\\b48e0614-1141-4125-9b74-d00eb767441b\\scratchpad\\work\\podcast\\deep.json. Readable dumps are in r_*.txt in the same folder; the scripts are deep.py, report.py and diffc.py.",
+ "canonical_file": "6_Podcast_Cloud.ru_Pack/Podcast_Pack.aep (7.44 MB) is the only project in this pack: there are no «(converted)» or Auto-Save twins, so it is canonical by default. XMP: created 2025-11-24 in AE 2025 (Macintosh), last saved 2026-07-16 18:06 by AE 2026 (Macintosh) during Collect Files. The report says 7/16/26 6:06 PM, 21 files, 50.4 MB, collected from /Volumes/T7_Black/_Video/6_Podcast_Cloud.ru_Pack to «/Volumes/T7_Black/_Video/Podcast_Pack folder». It must be opened in AE 2026 (AE 2025 cannot open it). Footage: 24 path references, all stored as /Volumes/T7_Black/_Video/Podcast_Pack folder/(Footage)/… in NFC. Relative relink resolves 22 of them. (Footage)/SFX/Дисклеймер.wav and (Footage)/SFX/Подписывайтесь на канал CLOUD.RU.wav are NFD-named on disk (decomposed «й»), so they stay MISSING on Windows until renamed to NFC. Known gaps versus the deliverables: (1) Ready mov/Заставка_ПОДКАСТ_CLOUD.RU_9x16.mov (2160×3840, QuickTime Animation ARGB) has no source comp anywhere in the file (grep for 9x16/2160x3840 = 0). (2) The 16:9 intro, OUTRO and CTA renders carry silent audio tracks (peak 0.00), while the 9:16 render has the intro SFX baked in and hard-cut at 7 s. The project's intro comp still contains the 25.72-s SFX layer, so re-rendering changes the deliverable. (3) Inside the file, 9 ROOT precomps are stale leftovers of a previous episode: [197] QR_1 with QR Code_Тимур_1.png, [220] QR_2 (0 layers), [234] QR_3, [249] Cloud.ru, [263] LIne Comp 1, [405] Pre-comp 4 «ССЫЛКИ В ОПИСАНИИ», [459] Подкаст, [476] Подпись_QR_1, [490] Подпись_QR_2 «@ULBI_TV». They are byte-identical or text-only variants of the used copies [2340]/[2510]/[3978]/[2172]/[2122]/[2555]/[2147]/[2603]/[2582]. Pattern_1 exists twice with identical content ([304] used by the intro, [796] by the disclaimer). Use the newest copies listed (high item IDs) as the source of truth. Delete or merge the orphans in a working copy only.",
+ "templates": [
+  {
+   "comp": "RENDER/Заставка_ПОДКАСТ_CLOUD.RU [691] (+ render-only 9:16 variant Ready mov/Заставка_ПОДКАСТ_CLOUD.RU_9x16.mov)",
+   "purpose": "7-s podcast opener. f0–f24: transparent overlay on the episode (white schematic arrows/lines; white cloud.ru logo strobes at 0.40–0.44, 0.48–0.52 and 0.56–1.00 s). f25: hard switch to an opaque light-gray card. Light Gray Solid 4 comes in at 1.0 s and every arrow/line Fill effect goes white→#222222 in one frame. The card holds green plashki «ПОДКАСТ» / «CLOUD.RU» (SB Sans Display Bold 190 px, track −34, #222222), the schematic pattern, a globe icon top-right (Pattern_1) and a black logo bottom-left from 1.0 s. There is no exit: the intro ends on the card and cuts to the episode. Comp marker «1» at 1.0 s.",
+   "target_delivery": [
+    "Pr: prerender — ProRes 4444 α, 16:9 + 9:16, 4K and FHD, video-only",
+    "Pr: sfx — intro sting as a separate cue (full 22-s tail or faded at 7 s)",
+    "Ae: ae-template — cleaned POD_Intro comp (16:9; 9:16 rebuilt)",
+    "Ae: prerender — same files for a quick drop",
+    "optional Pr/Ae: mogrt — only if the show title must change"
+   ],
+   "format": "3840×2160 @25 fps, 7.0 s (175 f). Ready mov: 16:9 ProRes 4444 yuva444p12le 174 MB (silent audio track). 9:16: 2160×3840 qtrle ARGB 361 MB with SFX baked and cut at 7 s. No 9:16 comp in the project.",
+   "build_notes": "Built in 1280×720 space and up-scaled: 27 layers are parented to null «scale» (Scale 300 %, anchor 0.5/0.5), and precomps LINES Comp 1 / LINES 2 Comp 1 are 1280×720 with collapse on. «Background Outlines» (8 rect outlines + group, video off) is the alpha track matte (AE 2023+ any-layer matte) for ~17 arrows, cubes and lines. The plashki «GREEN_CUBE_1 Outlines» / «CREEN_CUBE_2 Outlines» are converted outlines, not parametric rects: Scale X 0→100 % over f10→f38, influence out 90.9 / in 94.5. Split-text hack: «ПОДКАСТ» (0–2.04 s) + «ПОДКАСТ 2» (2.04–7 s), matted by a hidden cube copy scaled Y 135 %; the same for CLOUD.RU via «CREEN_CUBE_2 Outlines 2» (Y 120 %). 11 «Стрелка_N Outlines» slide 10–30 f (mostly 16 f, ease ~82/83). Dots «1»/«2» pop 0→100 % in 10 f. Cloud.ru_WhiteColour is used ×3 for the strobe; Cloud.ru_BlackColour sits at (414,1932) @62 % from 1.0 s. Pattern_1 (20 s) is at (2694,221). The SFX layer is 25.72 s (audible to 22.3 s) and is truncated by the 7-s comp. Reference Still 1.2.1 is video-off. Hard to parametrize: fixed-width outline plashki, duplicated text halves, the 300 % parent chain, and hand-placed arrows matted by the pattern.",
+   "current_editability": "hardcoded — CIFO/CIF2/CIF3 «Untitled», 0 EGP controllers, 0 expressions. Each title word lives in 2 text layers because of the split hack. Colours live in per-layer Fill effects.",
+   "editable_parts": [
+    "Title words «ПОДКАСТ» / «CLOUD.RU» (text layers 8/9 and 12/13)",
+    "Logo colour (Cloud.ru_White/BlackColour precomps)",
+    "Opaque card on/off (Light Gray Solid 4, layer 33)",
+    "Overlay-phase length (marker «1», Fill/opacity switch at f24→25)",
+    "SFX layer"
+   ],
+   "issues": [
+    "9:16 source comp missing — only the render exists",
+    "16:9 render has a silent audio track; 9:16 render has the SFX hard-cut at 7 s",
+    "Split-text + hidden-matte hack at 2.04 s",
+    "Everything is ×300 % from a 720p build, so font size shows 190 px but renders differently than intended in EGP",
+    "Logo precomps use the Advanced 3D renderer",
+    "Layer-name typos (CREEN_CUBE_2) and 2 unnamed layers",
+    "Duplicate Pattern_1"
+   ],
+   "effort": "M — cleanup + single-layer text with auto-width plashki (S if delivered only as prerender); add L if the 9:16 comp has to be rebuilt from the render",
+   "parametrization_plan": "Treat as a fixed brand opener. Render prerenders (ProRes 4444 α, 4K+FHD, 16:9 and 9:16) without audio, plus a separate SFX. No Responsive Time (if ever exported as a mogrt, protect the whole 7 s). In the ae-template expose via Essential Properties: Line 1 and Line 2 (one text layer each; auto-width plashka = sourceRectAtTime().width + pad, height 0.82 em, one matte), Logo colour (dropdown White/Black), Card on/off (checkbox), Card switch frame (slider, default 25). Rebuild 9:16 as POD_Intro_9x16 sharing the same precomps, re-laying out the pattern as in the render."
+  },
+  {
+   "comp": "Shared «frame» rig embedded in 13 RENDER comps: precomp layers «LIne Comp 1» [2122] + «Подкаст» [2147] + «Cloud.ru» [2172] + adjustment layer «Blur» (QR_код_1/2/3, Контент_1/2/3, О_госте, Подписывайтесь на канал CLOUD.RU, Подпись_спикера_1/2, Текст на плашке_1/2/3)",
+   "purpose": "Full-screen podcast frame. A light-gray (#D3D3D3) inset border 3630×1956 (105/102 px margins on 4K) flies in from the camera (3D Position Z −1290→0, f0–f23) while its stroke thins 100→12 px (f0–f20). Green corner tags: «CLOUD.RU» top-left and «ПОДКАСТ» bottom-left, moved to bottom-right when the content sits on the left; they are wiped in by precomp masks (f6–f45). Outside the frame, an inverted-mask adjustment layer (Fast Box Blur r=15) blurs the margin, giving the «frosted border». Exit: f190–f246 (Z 0→−1266, tags wipe out).",
+   "target_delivery": [
+    "Pr: mogrt — frame line + corner tags on transparent, with RDT",
+    "Pr: pr-preset — frosted margin: adjustment-layer clip + Gaussian/Box Blur + inverted rect mask, inserted under the mogrt",
+    "Ae: ae-template — POD_Frame precomp including the real Blur adjustment layer",
+    "Ae: ffx — frame-z-fly + stroke-thin"
+   ],
+   "format": "3840×2160 @25 inside 10-s comps (in-phase ends ~f45, out-phase starts f177–f197 depending on copy)",
+   "build_notes": "LIne Comp 1 is one shape layer «LIne»: Rectangle Path 3630×1956, stroke #D3D3D3, width 100→12 over f0→f20 (influence 73.8/48.9). It is used as a 3D layer with an add-mask equal to the frame rect (normalized 0.0273–0.9727 × 0.0472–0.9528), so only the inner half of the stroke shows. It is the PARENT of the tags, Blur and content layers (123 parented layers in the project). Each tag precomp is a full 4K comp with an 840×132 / 855×132 green rect and Bold 190 px text @85 %; a leading space in « ПОДКАСТ» is used as padding. The text rises via Animator 3 «Text Position 3D» y +170→0 (f19→f32, 79.9/81.5) inside an animated clip mask. At the parent level each tag layer has its own 4-key mask wipe. «Blur» is a 3D adjustment solid 3840×2160 with an inverted mask equal to the frame rect and Fast Box Blur radius 15. The whole group was copied by hand into 13 comps and the timings drifted: LIne exit f212–f246, tag exits f190–f205.",
+   "current_editability": "hardcoded. The tag words live inside shared precomps, so editing «ПОДКАСТ» changes all 13 overlays. Tag boxes are fixed 840/855 px and the masks are pixel-exact.",
+   "editable_parts": [
+    "Top tag text (CLOUD.RU)",
+    "Bottom tag text (ПОДКАСТ / ПОДПИСАТЬСЯ)",
+    "Tag side L/R",
+    "Frame line colour/width",
+    "Blur margin on/off + radius",
+    "In/out timing"
+   ],
+   "issues": [
+    "Duplicated 13× instead of one precomp; exit timings differ per copy",
+    "Masks don't follow text length, so a longer tag word is clipped",
+    "The blur only works when footage is in the same comp, so it disappears in any prerender or mogrt",
+    "3D Z-fly with motion blur on most layers is expensive in Premiere"
+   ],
+   "effort": "M — one rig replaces 13 copies and is the most reused piece of the pack",
+   "parametrization_plan": "Build POD_Frame (FHD or 4K master, see questions) with Essential Properties: Tag Top (Source Text), Tag Bottom (Source Text), Tags Side (Dropdown Left/Right), Show Tags (Checkbox), Line Colour (Color), Blur (Checkbox + Slider, AE only). Tag boxes are parametric Rectangles sized [sourceRectAtTime().width + 2·pad, 0.82·fontSize] and anchored to the frame corner. Replace the hand masks with expression-driven rect masks or a keyed Linear Wipe so the wipe follows the width. Keep the Z-fly keys on a parent null (Classic 3D). Responsive Design–Time: protect 0–2.0 s and the last 2.4 s (from f190). In Pr, remove the Blur layer from the mogrt. The plugin instead drops an adjustment-layer clip carrying the pr-preset below it: Gaussian Blur ≈7–8 @FHD (Fast Box 15 @4K), inverted rect mask inset 2.7 %/4.7 %, opacity 0→100 % over 23 f in and out. In AE the template keeps the real Blur adjustment layer."
+  },
+  {
+   "comp": "RENDER/Подпись_спикера_1 [1985] (caption on the right, host) and RENDER/Подпись_спикера_2 [2218] (caption on the left, guest)",
+   "purpose": "Speaker lower third inside the frame. A light-gray plate (#D3D3D3 rect 1671×723) grows from the frame's bottom corner: Scale X 0→159.7 % (right) or 114.8 % (left) over 20–22 f (82.1/84.1). Its exit collapses Scale Y 71 %→0 over 24 f. The name (Bold 180 px, track −33) and a 2-line title (Semibold 97.8 px, lead 95, track −10) rise by words: Position Y +189/195, Range Start 0→100 over 20–22 f (81.6/90.6), exit over 20 f. Two arrow glyphs (strelka_одна dark, strelka_двойная white with Fill →#222222) slide in f15→f35, alpha-matted by the plate. The frame rig sits on top.",
+   "target_delivery": [
+    "Pr: mogrt — Name, Title, Side, RDT",
+    "Pr: sfx — split into in/out cues",
+    "Ae: ae-template — POD_Speaker",
+    "Ae: ffx — word-rise-clip, plate-grow-x"
+   ],
+   "format": "3840×2160 @25, 10 s; in f0–f52, out f190–f246; SFX Подпись_спикера_1.wav 9.64 s (hits 0.5–0.8 / 1.3 / 9.1–9.5 s)",
+   "build_notes": "The two variants are mirrored copies, not a switch: Cube_1 anchor (1815,978)@(3735,2058) vs (144,978)@(105,2058); arrows Scale −315 % vs +315 %; tags re-anchored. The plate width is hand-matched to the name: 2669 px for a 2621-px name, 1918 px for 1864 px, i.e. ≈ +50 px. Text clip masks are hand-drawn and the texts are not parented to the plate. _1 contains the whole _2 comp as a hidden 20 %-opacity reference layer. The title wraps by a manual return.",
+   "current_editability": "hardcoded (0 EGP/expressions). Names and titles are typed into text layers; width is set by Scale X keys.",
+   "editable_parts": [
+    "Name",
+    "Title (1–2 lines)",
+    "Side L/R",
+    "Plate colour",
+    "Arrows on/off"
+   ],
+   "issues": [
+    "Manual plate width",
+    "Hidden nested comp Подпись_спикера_2 inside _1",
+    "Footage item «Подпись_спикера_2.wav» actually points to Подпись_спикера_1.wav",
+    "Casing typo «CLOUd.ru» in the title",
+    "Episode reference still visible (not a guide layer)",
+    "Real host/guest names baked in"
+   ],
+   "effort": "M — one comp with a side switch and auto-size replaces 2",
+   "parametrization_plan": "One POD_Speaker comp: Source Text Name and Title. Dropdown Side (Left/Right): expressions mirror the anchor/position/arrow scale sign and pick the tag side in the nested POD_Frame. Plate size = [max(name, title) sourceRectAtTime width + 50 px, text-block height + pad] (JavaScript engine). Clip masks generated from sourceRect. Checkboxes: Arrows, Frame. RDT: protect 0–2.1 s and the last 2.4 s."
+  },
+  {
+   "comp": "RENDER/О_госте [2729]",
+   "purpose": "Guest bio panel. A light-gray panel (rect 1246.6×1563.3 at Scale Y 56.6 % ≈ 1247×885 px) in the right half is revealed by a 4-key mask (in f17–f31, out f194–f217). One text layer holds name + role (Semibold 70 / lead 75) and «- » bullet paragraphs (Regular 50 / lead 55). Words fade-rise: Opacity 0, Y +72, Range Start 0→100, linear, 11 f.",
+   "target_delivery": [
+    "Pr: mogrt — Name, Role, Bio paragraph, Side, auto-height panel",
+    "Pr: sfx",
+    "Ae: ae-template — POD_GuestBio"
+   ],
+   "format": "3840×2160 @25, 10 s; in f0–f43, out f194–f238; SFX О_госте.wav",
+   "build_notes": "The text is a child of the panel and scaled 100×176.68 % to cancel the panel's 100×56.6 % (non-uniform scale chain). It is alpha-matted to the panel and has no exit of its own (the panel mask hides it). Bullets are typed by hand. Text and panel are 3D layers.",
+   "current_editability": "hardcoded (the bio is typed into one text layer with two styles)",
+   "editable_parts": [
+    "Guest name",
+    "Role line",
+    "Bio bullets",
+    "Panel side"
+   ],
+   "issues": [
+    "Non-uniform scale compensation",
+    "Fixed panel height: longer bios overflow",
+    "A real guest's personal bio is baked into the template"
+   ],
+   "effort": "M",
+   "parametrization_plan": "Split into Name (point text), Role (point text) and Bio (box text, ≈1150 px wide @4K). Panel height = sum of sourceRectAtTime heights + paddings. Side dropdown. Bio font-size slider (45–55 px @4K, leading 1.1). Remove the non-uniform scales. Give the text an exit via its range selector. RDT: protect 0–1.8 s and the last 2.3 s."
+  },
+  {
+   "comp": "RENDER/Текст на плашке_1 [3555] (right), _2 [3603] (left), _3 [2820] (top-centre); RENDER/Булит [180] and Булит_1 [38] (2 lines, bottom-centre, no frame); also the text part of Контент_3 [3751]",
+   "purpose": "Key-thought callout: 1–3 lines of Bold 100 px (#222222, track −28) on tight green #26D07C highlight boxes. Each box grows from its left edge (Scale X 0→100 %, 23 f, 73.4/75). Words rise inside a baseline clip (Y +190, Range on Words, Start 0→100, 23 f, 40.8/35.5). Text starts 13 f after its box; lines are staggered 7–10 f; exits take 18 f (76.6/80.2).",
+   "target_delivery": [
+    "Pr: mogrt — Line 1–3, Position, Frame on/off, RDT",
+    "Pr: sfx",
+    "Ae: ae-template — POD_Callout",
+    "Ae: ffx — plashka-grow-x + word-rise-clip (apply to any text layer)"
+   ],
+   "format": "3840×2160 @25, 10 s; in f30–f83, out f183–f246 (Булит: f30–f63 / f189–f213); SFX Текст на плашке_N.wav (hits 0.5–0.8, 2.0–2.7, 8.9–9.5 s); Булит has no SFX and no frame",
+   "build_notes": "Each line is a text layer plus «Box_N»: a bezier rectangle 1291×92 (not a parametric Rectangle) parented to the text. Widths were matched by hand with Scale X: 100/102/81 % in Текст на плашке, 191.2/119.8 % in Булит, 147.8/139.2 % in Булит_1. The result is box ≈ text advance ±10 px, i.e. zero padding. Per-line clip masks are hand-drawn at fixed width. The variants differ only in positions/anchors and 5–10 f timing shifts. Булит/Булит_1 are the same rig without the frame (layer order differs).",
+   "current_editability": "hardcoded — changing text requires re-keying Box Scale X and redrawing the clip mask",
+   "editable_parts": [
+    "Line 1",
+    "Line 2",
+    "Line 3",
+    "Position (right / left / top-centre / bottom-centre)",
+    "Frame on/off"
+   ],
+   "issues": [
+    "5–6 near-duplicate comps",
+    "Manual widths and fixed masks: long text overflows or gets clipped",
+    "Placeholder text left in deliverables («текст появляется тут» …)"
+   ],
+   "effort": "M — one rig replaces 5–6 comps",
+   "parametrization_plan": "POD_Callout with 3 Source Text props; an empty line hides its layer and the lines below shift up via expression. Dropdown Position, Checkbox Frame (nested POD_Frame), Slider Font size (default 100 @4K). Box = parametric Rectangle [sourceRectAtTime().width + 2·pad (≈8 px), 0.92·fontSize], anchored left; the grow stays as keyed Scale X so RDT works. Clip-mask path from sourceRect via expression. Stagger = (line index − 1)·7 f via valueAtTime offset. RDT: protect 0–3.4 s and the last 2.7 s."
+  },
+  {
+   "comp": "RENDER/Контент_1 [3155] (panel left), RENDER/Контент_2 [2777] (panel right), RENDER/Контент_3 [3751] (centre panel + 3 callout lines)",
+   "purpose": "Placeholder window next to the speaker for a screenshot, slide or video. A light-gray rect 1246.6×1563.3 at 117.3×92.2 % (≈1462×1441 px; #CECECE in _3) wipes in from the top via a 4-key mask (in f17–f42, out f177–f214). The corner tags swap sides.",
+   "target_delivery": [
+    "Pr: mogrt — Media Replacement slot + Side + optional caption lines",
+    "Pr: sfx",
+    "Ae: ae-template — POD_Content with a «DROP_MEDIA» placeholder",
+    "still — empty panel PNG for quick mock-ups (optional)"
+   ],
+   "format": "3840×2160 @25, 10 s; in f0–f43 (Контент_3 to f75), out f177–f241; SFX Контент_N.wav",
+   "build_notes": "There is no media layer at all: the «Контент» shape is only a gray box, so editors stack their media manually. _3 is the same box plus the callout rig.",
+   "current_editability": "hardcoded, no media slot",
+   "editable_parts": [
+    "Media (image/video)",
+    "Side L/R/centre",
+    "Panel aspect",
+    "Caption lines"
+   ],
+   "issues": [
+    "No real media slot",
+    "Panel colour #CECECE vs #D3D3D3",
+    "3 near-duplicates"
+   ],
+   "effort": "S — reuses POD_Frame and POD_Callout; only the slot is new",
+   "parametrization_plan": "A Media Replacement footage layer (AVLayer.addToMotionGraphicsTemplateAs) masked by the panel, with fit/fill via a scale expression from sourceRectAtTime. Dropdown Side (Left/Right/Centre) also drives the tag side. Dropdown Aspect (16:9 / 4:3 / 1:1). Checkbox Caption (POD_Callout lines). RDT: protect 0–1.9 s and the last 2.9 s."
+  },
+  {
+   "comp": "RENDER/QR_код_1 [2267] (QR left), RENDER/QR_код_2 [2461] (QR right), RENDER/QR_код_3 [2643] (two QRs @50 %), RENDER/Подписывайтесь на канал CLOUD.RU [3909] (centre QR with a handle under it); helper precomps   QR_1 [2340],   QR_2 [2510],   QR_3 [3978], Подпись_QR_1 [2603], Подпись_QR_2 [2582], Pre-comp 3 [2420] / Pre-comp 4 [2555] («ПОДПИСАТЬСЯ» tag, left/right)",
+   "purpose": "Links/subscribe overlay: a 1024-px QR (vertical mask wipe f13–f42, out f199–f224), a green handle plashka (Bold 100 / 91.2 px) and a «ПОДПИСАТЬСЯ» corner tag that replaces the ПОДКАСТ tag, all on the frame rig.",
+   "target_delivery": [
+    "Pr: mogrt — 1–2 QR Media Replacement slots, handle text(s), layout, RDT",
+    "Pr: sfx",
+    "Ae: ae-template — POD_QR with QR placeholder(s)",
+    "still — QR PNG generated by the plugin from a URL"
+   ],
+   "format": "3840×2160 @25, 10 s; QR precomps 1024×1024 (QR_3 is 1024×1166 with the handle); QR PNGs are opaque black-on-white, 1000–1024 px; SFX QR_код_N.wav / Подписывайтесь на канал CLOUD.RU.wav",
+   "build_notes": "The handle plashka is rect 534.8×123.3 with hand-set Scale X: 97.4 % for a short handle, 336 % for a long one, 191.8 % for @CLOUDRUPROVIDER. The QR PNGs are per-episode files inside the precomps. Pre-comp 3 and 4 are the same tag mirrored (x 561 vs 2913). QR_код_3 reuses Подпись_QR_1 at x 5027 via anchor tricks. Orphan copies from a previous episode remain (@ULBI_TV handle, QR Code_Тимур_1.png at 1000 px, an empty QR_2 [220]).",
+   "current_editability": "hardcoded. QR changes need Replace Footage; handles are typed inside precomps.",
+   "editable_parts": [
+    "QR image A/B",
+    "Handle text A/B",
+    "Layout (left / right / two / centre)",
+    "Corner tag text"
+   ],
+   "issues": [
+    "Per-episode QRs and handles baked in, plus previous-episode leftovers",
+    "Manual plashka widths",
+    "4 near-duplicate root comps + 9 helper precomps",
+    "QR PNG size mismatch (1000 vs 1024)"
+   ],
+   "effort": "M",
+   "parametrization_plan": "POD_QR: Dropdown Layout (Left/Right/Two/Centre). Media Replacement QR A / QR B auto-fit to 1024 px (512 px in Two). Source Text Handle A/B with an auto-width plashka (pad ≈0). Source Text Corner tag (default «ПОДПИСАТЬСЯ»). Checkbox Frame. A «QR from URL» plugin button renders a black-on-white 1024-px PNG (quiet zone ≥4 modules) and fills the slot. RDT: protect 0–2.3 s and the last 2.5 s."
+  },
+  {
+   "comp": "RENDER/Подписывайся! Ссылки в описании [639]",
+   "purpose": "Standalone 2-line CTA «ПОДПИСЫВАЙСЯ!» / «ССЫЛКИ В ОПИСАНИИ»: black caps, Bold 190 px @85 %, on green boxes, bottom-centre, no frame. Boxes grow Scale X 0→182.8/229.8 % over 19 f (76.7/79.9). Text rises by lines with a fade: Range on Lines, Opacity 0 + Y +169, 9 f (71.9/73.5). Line 2 is offset by a 9-f layer start.",
+   "target_delivery": [
+    "Pr: mogrt — Line 1, Line 2, Position, RDT",
+    "Pr: prerender — default text (already exists as Ready mov)",
+    "Ae: ae-template — POD_CTA",
+    "Ae: ffx — line-rise-fade"
+   ],
+   "format": "3840×2160 @25, 10 s; in f18–f46, out f221–f244; Ready mov ProRes 4444 α 4K, 113 MB, with a silent audio track; the comp has no SFX layer",
+   "build_notes": "The only overlay that uses the Advanced 3D renderer. Boxes Cube_3/Cube_4 are 840×132 rects scaled by hand (box ≈ text·0.85 − 21…26 px). Line 2 is split into two layers at comp 1.84 s («ПОДПИСАТЬСЯЁ» and «ПОДПИСАТЬСЯЁ 3») with different masks. Layer names don't match their content.",
+   "current_editability": "hardcoded",
+   "editable_parts": [
+    "Line 1",
+    "Line 2",
+    "Position"
+   ],
+   "issues": [
+    "Advanced 3D renderer",
+    "Split-layer hack",
+    "Manual box widths",
+    "Silent audio track in the render"
+   ],
+   "effort": "S",
+   "parametrization_plan": "Switch to Classic 3D. 2 Source Text props with auto-width boxes (rect = text width·scale + pad, height 0.82 em). Dropdown Position (bottom-centre / bottom-left / bottom-right). RDT: protect 0–1.9 s and the last 1.3 s."
+  },
+  {
+   "comp": "RENDER/Дисклеймер [134]",
+   "purpose": "Full-screen disclaimer card. f0–f24 is a transparent overlay; at f24→f25 the card turns opaque (light-gray solid opacity 1→100 %, arrows/lines Fill white→#222222). Five white bars (#FEFEFE) grow Scale X 0→100 % over 9–13 f, staggered f10–f36. The disclaimer text appears by words: Bold 40 px ×300 % = 120 px, lead 47, track −24, #B3B3B3, Opacity + Y over 22 f, linear. A «ДИСКЛЕЙМЕР» tag sits in a green cube bottom-right, with arrows, numbered dots and the Pattern_1 globe. There is no exit animation.",
+   "target_delivery": [
+    "Pr: mogrt — Heading, Body (≤5 lines); or prerender if the text never changes",
+    "Pr: sfx",
+    "Ae: ae-template — POD_Disclaimer"
+   ],
+   "format": "3840×2160 @25, 10 s; SFX Дисклеймер.wav is 30.36 s (sound to 25.9 s) and is truncated at 10 s",
+   "build_notes": "Built at 1280×720 and up-scaled per layer (text 40 px @300 %, shapes @300 %). The 5 white bars are separate shapes with hand-set widths, one per text line. Uses Pattern_1 copy [796], identical to [304]. Vert_lines precomps are 1280×720. The reference still is visible during f0–f24.",
+   "current_editability": "hardcoded",
+   "editable_parts": [
+    "Body text",
+    "Heading «ДИСКЛЕЙМЕР»"
+   ],
+   "issues": [
+    "300 % scale chains (font size shows as 40 px)",
+    "Bars don't follow the text lines",
+    "No exit",
+    "SFX longer than the comp",
+    "The SFX file is NFD-named, so it is missing on Windows"
+   ],
+   "effort": "M — rebuild at native scale",
+   "parametrization_plan": "Rebuild at native scale (120 px @4K). Body as up to 5 point-text lines, each with an auto-width bar from sourceRectAtTime. Heading with an auto-width cube. Add an exit (or protect the end). Checkbox «Transparent intro phase». RDT: protect 0–1.5 s and the last 1.0 s."
+  },
+  {
+   "comp": "RENDER/OUTRO [120] (+ precomp Есть где развернуться [1109], same comp as in 1_Логошоты «Логошот_Есть где развернуться»)",
+   "purpose": "End card: a #222222 full-frame solid and the «cloud.ru | есть где развернуться» lockup (765×80 precomp @200 %). The cube mark flips (Rotate X −90→0° over ~32 f), white plates expand and slide (f0–f60), then the frame freezes from 2.88 s to 10 s.",
+   "target_delivery": [
+    "Pr: prerender — ProRes 422 HQ or H.264 (no alpha needed)",
+    "still — end-card PNG",
+    "Ae: ae-template — reuse the canonical logo-shot from 1_Логошоты",
+    "optional Pr: mogrt — hold duration via RDT"
+   ],
+   "format": "3840×2160 @25, 10 s; Ready mov ProRes 4444 50.8 MB (opaque content, silent audio track)",
+   "build_notes": "Two layers of the same precomp: 0–2.88 s live, then 2.88–30 s with a single Time Remap hold key = freeze trick. The precomp's own exit (f83–f124) is never shown. Layers «умное облако 2» / «Cloud.ru 2» are outlined text and their names don't match content. The cube flip runs on 3D layer LOGO 2 (start 0.33 s).",
+   "current_editability": "hardcoded",
+   "editable_parts": [
+    "Hold length",
+    "Background colour"
+   ],
+   "issues": [
+    "Duplicate of the logo-shot asset",
+    "Freeze done with a duplicate layer",
+    "Alpha codec used for an opaque clip (wasted size)"
+   ],
+   "effort": "S",
+   "parametrization_plan": "Reference the canonical logo-shot comp instead of a local copy. Deliver 4K/FHD prerenders plus a still. If a mogrt is wanted: RDT protects 0–3.0 s and the hold stretches."
+  }
+ ],
+ "problems": [
+  {
+   "severity": "critical",
+   "category": "render-leak",
+   "detail": "A 1920×1080 episode reference frame («Still 2025-12-10 132207_1.x.1.png», Scale 200 %, frame of a real speaker) is a normal visible layer: video on, not a guide layer. It is in 14 of the 15 comps that contain it — all 13 frame overlays plus the disclaimer during f0–f24; only the intro has it switched off. Any prerender or mogrt export would bake an opaque episode frame into the overlay, and a mogrt would also package 6.2 MB of personal footage.",
+   "fix": "Delete it from the template comps, or move it to _REF as Guide Layers in a working copy only; never ship it. Add a pre-export check in the plugin build script: no footage outside allowed slots."
+  },
+  {
+   "severity": "critical",
+   "category": "parametrization",
+   "detail": "Zero parametrization in all 47 comps: no Essential Graphics (CIFO/CIF2/CIF3 «Untitled», CcCt=0 everywhere), 0 expressions, no expression controls. Plashka widths are hand-keyed Scale X on ≥12 boxes (e.g. Box_2 102 %, Box_3 81 %, handle plashka 97.4 %→336 %). 108 masks are hand-drawn, 52 of them with animated paths, all at fixed widths. Each variant (side, count, guest) is a hand-edited duplicate. Nothing can be filled «by button» as-is.",
+   "fix": "Rebuild as ~10 rigs on a shared POD_Frame, using sourceRectAtTime auto-size, Dropdown/Checkbox controls, Media Replacement, RDT and EGP. The same EGP drives the mogrt (Pr) and Essential Properties when the comp is dropped as an ae-template (scriptable via the layer's «ADBE Layer Overrides» group)."
+  },
+  {
+   "severity": "critical",
+   "category": "mogrt-blocker",
+   "detail": "The «frosted border» is a 3D adjustment layer («Blur», Fast Box Blur r=15, inverted frame mask) parented to LIne Comp 1 in 13 comps. It only blurs footage inside the same AE comp. In a prerender or a Premiere mogrt it has nothing to blur, so the look disappears.",
+   "fix": "In Pr, ship a pr-preset (adjustment-layer clip: Gaussian/Box Blur + inverted rect mask inset 2.7 %/4.7 % + 23-f fade) that the plugin inserts under the mogrt. In AE keep the real adjustment layer in the ae-template. Ask whether the blur is mandatory."
+  },
+  {
+   "severity": "critical",
+   "category": "relink",
+   "detail": "(Footage)/SFX/Дисклеймер.wav and (Footage)/SFX/Подписывайтесь на канал CLOUD.RU.wav are NFD-named on disk (decomposed «й»), while the project stores NFC paths. On Windows they stay missing even though relative relink fixes the other 22 references. Ready mov/«Подписывайся! Ссылки в описании.mov» and 2 AppleDouble twins are NFD too.",
+   "fix": "Rename to NFC (python unicodedata.normalize('NFC')) in the working copy before opening in AE 2026, then verify 0 missing footage. Add NFC normalization to the plugin's asset indexer."
+  },
+  {
+   "severity": "critical",
+   "category": "missing-source",
+   "detail": "The 9:16 intro exists only as Ready mov/Заставка_ПОДКАСТ_CLOUD.RU_9x16.mov (2160×3840, QuickTime Animation ARGB, 361 MB/7 s, a different vertical layout of the pattern). No comp in Podcast_Pack.aep produces it.",
+   "fix": "Locate the source project, or rebuild POD_Intro_9x16 from the shared precomps using the render as reference. Standardize the codec to ProRes 4444."
+  },
+  {
+   "severity": "major",
+   "category": "duplicates",
+   "detail": "9 orphan ROOT precomps are stale leftovers of a previous episode: [197] QR_1, [220] QR_2 (empty), [234] QR_3, [249] Cloud.ru, [263] LIne Comp 1, [405] Pre-comp 4 «ССЫЛКИ В ОПИСАНИИ», [459] Подкаст, [476] Подпись_QR_1, [490] Подпись_QR_2 «@ULBI_TV». Pattern_1 exists twice and is identical ([304]/[796]). Duplicate footage items: QR_код_3.wav ×2, Still 1.2.1 ×2, Adjustment Layer 1 ×2, Light Gray Solid 4 ×2, Null 1/2/3 ×2.",
+   "fix": "Delete the orphans (or keep [405] as a tag-text variant if wanted), point the disclaimer at Pattern_1 [304], then Remove Unused Footage / Consolidate."
+  },
+  {
+   "severity": "major",
+   "category": "duplicates",
+   "detail": "The frame rig (LIne Comp 1 + Подкаст + Cloud.ru + Blur) is copied by hand into 13 comps, and the copies have drifted: exit starts range f177–f197 and the LIne exit f212–f246. Tag words live in shared precomps, so editing one changes all. Mirrored variants (Текст на плашке_1/2/3, Контент_1/2, Подпись_спикера_1/2, QR_код_1/2/3, Pre-comp 3/4, Булит/Булит_1) differ only in positions, anchors and 5–10 f offsets.",
+   "fix": "One POD_Frame precomp with Side/Tags controls. One rig per template type with Side/Layout dropdowns."
+  },
+  {
+   "severity": "major",
+   "category": "renderer",
+   "detail": "3 comps use the Advanced 3D renderer (ADBE Calder): «Подписывайся! Ссылки в описании» [639], Cloud.ru_WhiteColour [4196], Cloud.ru_BlackColour [4217]. All others use Classic 3D (ADBE Escher). Collect Files lists both renderers. Advanced 3D is GPU-dependent, and a Dynamic Link bug with Advanced 3D comps is reported in the Adobe community. MOGRT support could not be confirmed (Adobe help page returned 403) — treat it as a risk. None of these comps needs Advanced 3D: no lights, cameras or models.",
+   "fix": "Set all three to Classic 3D before building templates or exporting mogrts."
+  },
+  {
+   "severity": "major",
+   "category": "content-baked",
+   "detail": "Per-episode personal content sits inside the template comps: host and guest names, titles, a full guest career bio, social handles (@STRDUB, @VLADIMIR_BALUN_PROGRAMMING, @ULBI_TV), personal QR PNGs and episode frames. A previous episode's content lingers in the orphans.",
+   "fix": "Ship templates with neutral placeholders. Keep episode data in plugin presets (JSON) or user input, never inside the .aep or .mogrt."
+  },
+  {
+   "severity": "major",
+   "category": "audio",
+   "detail": "Audio is inconsistent. The 16:9 intro, OUTRO and CTA Ready movs carry silent PCM tracks (peak 0.00), while the 9:16 intro has the SFX baked in and hard-cut at 7 s (peak 0.07 in the last 0.5 s). The intro SFX is 25.72 s (sound until 22.3 s) in a 7-s comp; the disclaimer SFX is 30.36 s in a 10-s comp. Each overlay SFX is one 9.64-s file with an in-hit (0.5–0.8 s), mid-hits (1.3 s or 2.0–2.7 s) and an out-hit (8.8–9.5 s), so it desyncs as soon as the graphic is shortened or RDT-stretched (audio does not follow RDT). The CTA and OUTRO have no SFX at all.",
+   "fix": "Remove audio layers from template comps. Split each SFX into _in/_mid/_out cues as separate sfx items that the plugin places at the clip's in/out. Fade or deliver the full intro/disclaimer stings. Render prerenders video-only, or with audio consistently."
+  },
+  {
+   "severity": "major",
+   "category": "scale",
+   "detail": "The intro and disclaimer were built in 1280×720 space and up-scaled: 27 intro layers are parented to null «scale» at 300 %; disclaimer text is 40 px ×300 %; LINES/Vert_lines precomps are 1280×720 with collapse on. It renders crisp thanks to continuous rasterization, but EGP font sizes and paddings read ×3 wrong. It also complicates 9:16/FHD variants and auto-size rigs.",
+   "fix": "Rebuild at native scale (4K or FHD master, see questions) with real font sizes (e.g. 120 px disclaimer, 190 px tags)."
+  },
+  {
+   "severity": "major",
+   "category": "hacks",
+   "detail": "Split-layer hacks: in the intro, «ПОДКАСТ»→«ПОДКАСТ 2» and «CLOUD.RU»→«CLOUD.RU 2» switch at 2.04 s to hidden matte copies scaled Y 135 % / 120 %. In the CTA, «ССЫЛКИ В ОПИСАНИИ» is split into two layers at comp 1.84 s with different masks. In О_госте, non-uniform scale compensation (text Y 176.68 % under a panel at Y 56.6 %). In OUTRO, a freeze via a second layer with a Time Remap hold.",
+   "fix": "Use one text layer per line with one expression-driven clip mask, uniform scales, and keyed or RDT-stretched holds."
+  },
+  {
+   "severity": "major",
+   "category": "brand-drift",
+   "detail": "Colours versus cloudru-motion-tokens.json: the frame, plates, intro/disclaimer bg and LIne use #D3D3D3 (81 uses; token gray is #F2F2F2); Контент_3 panel #CECECE; logo cube #31D383 (token green #26D07C, used on the plashki); logo white/black #F8F8F8/#2D2D2D (tokens #FFFFFF/#222222); disclaimer text #B3B3B3; arrows #222222 or white (token arrows #8C959E «never green»). Eases are symmetric ~73–95 % influence, while token «enter» is [16,70]. Tracking varies between −10, −22, −24, −28, −33 and −34.",
+   "fix": "Decide the canonical palette and eases (question). Expose only token colours in the templates."
+  },
+  {
+   "severity": "major",
+   "category": "fonts",
+   "detail": "Fonts are SB Sans Display Bold (40 uses), Semibold (3) and Regular (1), all corporate and not on Adobe Fonts. A mogrt won't auto-install them, and a missing font silently falls back. The brand notes record a PostScript quirk: Semibold is «SBSansDisplay-Semibold».",
+   "fix": "The plugin checks the installed PostScript names before inserting a template and warns or blocks. Document a font install step; consider bundling only if licensing allows."
+  },
+  {
+   "severity": "major",
+   "category": "assumption-check",
+   "detail": "Two architecture assumptions in the brief are wrong or unverified. (1) «MOGRT via ExtendScript is impossible» is false. AE has CompItem.exportAsMotionGraphicsTemplate(), motionGraphicsTemplateName, Property.addToMotionGraphicsTemplateAs() (AE 16.1) and AVLayer.addToMotionGraphicsTemplateAs() for Media Replacement (AE 18.0). Premiere ExtendScript has Sequence.importMGT() and TrackItem.getMGTComponent() to set exposed params; UXP parity for mogrt manipulation is unverified. (2) «ExtendScript EOL Sept 2026»: Adobe's Sept-2026 post (blog.developer.adobe.com/en/publish/2026/09/investing-in-the-future-of-creative-cloud-extensibility-uxp-comes-to-our-flagship-applications) says ExtendScripts are not affected. CEP in Pr: new submissions until Dec 2027, disabled by default Dec 2028. AE: UXP public beta Nov 2026, CEP disabled by default Dec 2028.",
+   "fix": "Plan mogrt export and insertion as scripted steps (AE build script + Pr importMGT/getMGTComponent). Keep a hybrid CEP/UXP path and verify the Pr UXP mogrt API before committing."
+  },
+  {
+   "severity": "major",
+   "category": "resolution",
+   "detail": "All deliverable comps are 3840×2160. AE-authored mogrts are rendered by the embedded AE engine, so 4K mogrts in FHD sequences cost roughly 4× the render. 162 layers have motion blur on and 131 are 3D (Z-fly), which makes Premiere playback heavy.",
+   "fix": "Pick a mogrt master resolution matching the edit (question). Consider an FHD master for vectors, and keep 4K prerenders only where needed. Allow a «MB off» checkbox."
+  },
+  {
+   "severity": "minor",
+   "category": "naming",
+   "detail": "102 of 282 layers are unnamed (every precomp/footage layer in the RENDER comps). Misleading names: «ПОДПИСАТЬСЯЁ…» on «ССЫЛКИ В ОПИСАНИИ»/«ПОДПИСЫВАЙСЯ!» text, «умное облако 2» on the slogan outlines, «Технический лидер CLOUd.ru» (casing typo). Typos: «CREEN_CUBE_2», «Tiangle_1», «LIne», «Verts_lines_2». Generic names: «Pre-comp 3/4», «Shape Layer 1-5». Comp names with leading spaces: «  QR_1/2/3».",
+   "fix": "Adopt CR_POD_<Template>_<Part> naming; scripts and EGP should key on names, not indices."
+  },
+  {
+   "severity": "minor",
+   "category": "hygiene",
+   "detail": "Подпись_спикера_1 nests the whole Подпись_спикера_2 RENDER comp as a hidden 20 % reference layer. Footage item «Подпись_спикера_2.wav» points to Подпись_спикера_1.wav (no _2 file exists). Text layers end at 10.32 s, past the 10-s comps. 56 layers carry an alpha track-matte mode with no matte layer; this is probably the inert AE 2023+ default, so just verify. 35 layers use AE 2023+ any-layer track mattes, so Premiere ≥ 23 is required (PP 2026 is fine).",
+   "fix": "Remove the nested reference, rename or replace the SFX item, trim layers, and verify the matte flags in AE."
+  },
+  {
+   "severity": "minor",
+   "category": "junk",
+   "detail": "21 AppleDouble «._*» files. 7 unreferenced audio files in (Footage)/ root that are not in the .aep or the Collect report: Podcasts_1.wav (2:40, 30.7 MB), _experimental.wav, «02 Simple Whoosh B.wav», «Whoosh 42.mp3», «SoundsCrate-Fighting-Woosh-9.mp3», «soundscrate-air-woosh-2.mp3», «SCIMach_SMorph_Motion Graphics - Micro SFX 04.wav» (96 kHz/24-bit with cover art). Some are third-party stock SFX.",
+   "fix": "Delete the ._ files. Move the loose audio to _sources or delete it after the user confirms, and check stock-SFX licences before redistributing them in a plugin."
+  },
+  {
+   "severity": "minor",
+   "category": "engine",
+   "detail": "Expression engine is legacy «extendscript». There are 0 expressions, so switching is risk-free, but every new auto-size rig must target the JavaScript engine (faster in Premiere mogrts).",
+   "fix": "Project Settings → Expressions → JavaScript before rigging."
+  },
+  {
+   "severity": "minor",
+   "category": "delivery",
+   "detail": "Ready mov codecs are inconsistent: ProRes 4444 12-bit for 16:9 versus QuickTime Animation 8-bit for 9:16, and an alpha codec for the opaque OUTRO. 7_Пресеты_Media_Encoder holds only H.264 presets (ExporterFileType H264) — none with alpha.",
+   "fix": "Add ame-presets CR_ProRes4444_Alpha (4K/FHD, video-only) and CR_ProRes422HQ (opaque), and re-render the prerenders consistently."
+  }
+ ],
+ "questions_for_user": [
+  "Where is the source comp for Ready mov/Заставка_ПОДКАСТ_CLOUD.RU_9x16.mov? It is not in Podcast_Pack.aep. Is a 2160×3840 vertical really needed, or is 1080×1920 enough?",
+  "What resolution are podcast edits cut at in Premiere: UHD 3840×2160 25p or FHD 1920×1080 25p? This decides the mogrt master size and which prerender variants to produce.",
+  "Which look is canonical for podcasts: the pack's palette and timing (#D3D3D3 frame/plates/bg, logo cube #31D383, dark/white arrows, symmetric ~75–95 % eases), or cloudru-motion-tokens.json (#F2F2F2, #26D07C, arrows #8C959E, enter ease [16,70])?",
+  "Is the frosted-blur margin outside the frame required in Premiere? A mogrt cannot blur the edit underneath, so it needs an extra adjustment-layer clip that the plugin would insert.",
+  "SFX: keep them as separate in/out cues placed by the plugin, or bake them into prerenders? And can the 7 unreferenced audio files in (Footage)/ (Podcasts_1.wav and the stock whooshes from SoundsCrate/SCIMach) be dropped, or are they licensed sources to keep?",
+  "Should the intro's show title be editable for other shows, or stay fixed as «ПОДКАСТ CLOUD.RU» (prerender only)?",
+  "Should the plugin store per-episode presets (guest name/title/handles/QR URLs) and generate QR codes from URLs, instead of you replacing PNGs by hand?"
+ ],
+ "brand_elements": [
+  {
+   "name": "cloud.ru logo (wordmark + cube mark)",
+   "kind": "logo / vector outlines",
+   "source": "Precomp/Cloud.ru_WhiteColour [4196] and Cloud.ru_BlackColour [4217], 711×132: «Layer 3 Outlines» wordmark #F8F8F8 / #2D2D2D, «Layer 4 Outlines» cube #31D383; Advanced 3D",
+   "reuse_notes": "Export still SVG/PNG (white, black, colour). Make one ae-template logo comp with a Colour dropdown. Correct to #FFFFFF / #222222 / #26D07C and Classic 3D. Dedupe with the other packs."
+  },
+  {
+   "name": "Logo lockup «cloud.ru | есть где развернуться»",
+   "kind": "animated logo",
+   "source": "Precomp/Есть где развернуться [1109] (765×80, 30 s; Back_4/Back_3 plates, LOGO 2 cube flip, outlined wordmark + slogan) — the same comp exists in 1_Логошоты",
+   "reuse_notes": "One canonical asset (ae-template + prerender + still) shared by the logo-shot pack and the podcast OUTRO."
+  },
+  {
+   "name": "Green caps tag",
+   "kind": "text-on-box element",
+   "source": "Подкаст [2147] (840×132), Cloud.ru [2172] (855×132), Pre-comp 3 [2420] / Pre-comp 4 [2555] «ПОДПИСАТЬСЯ», the «ДИСКЛЕЙМЕР» cube in Дисклеймер. #26D07C box, SB Sans Display Bold 190 px @85 %, #222222, track −28",
+   "reuse_notes": "Tag generator (mogrt + ae-template) with auto-width: box height ≈0.82 em, ~0 padding (currently faked with a leading space)."
+  },
+  {
+   "name": "Highlight plashka (text on a tight green box)",
+   "kind": "graphic rig",
+   "source": "Box_1..3 in Текст на плашке_1/2/3, Булит, Булит_1, Контент_3 (bezier 1291×92 behind Bold 100 px); Cube_3/Cube_4 in Подписывайся!; «Shape Layer 1» in Подпись_QR_1/2 and QR_3",
+   "reuse_notes": "Core of the Callout, CTA and handle templates: box ≈ text advance ±10 px, height 0.82–0.92 em. Build once as a sourceRectAtTime rig plus an ffx."
+  },
+  {
+   "name": "Podcast frame",
+   "kind": "overlay rig",
+   "source": "LIne Comp 1 [2122] (Rectangle Path 3630×1956, stroke #D3D3D3 100→12 px) + «Blur» adjustment layer (Fast Box Blur 15, inverted frame mask) + corner tags; in 13 comps",
+   "reuse_notes": "POD_Frame: mogrt (line + tags), pr-preset (blur margin), ae-template (full)."
+  },
+  {
+   "name": "Light-gray plate / panel",
+   "kind": "shape",
+   "source": "Cube_1 speaker plate (1671×723), «Контент» panel (1246.6×1563.3), «Shape Layer 1» in О_госте; #D3D3D3 (#CECECE in Контент_3)",
+   "reuse_notes": "Panel component with auto-size and a Media Replacement slot; colour subject to the token decision."
+  },
+  {
+   "name": "Schematic line pattern",
+   "kind": "pattern (vector)",
+   "source": "«Background Outlines» (8 rect outlines + group, fill #D3D3D3 / stroke #222222) in Заставка and the LINES / LINES 2 / Vert_lines_1 / Verts_lines_2 comps (1280×720, Repeater 10 copies at 260.9 / 686 / 707 px offsets, linear drift 80–140 px over 8–10 s)",
+   "reuse_notes": "SVG still and a looping ae-template background. Also used as the matte source for arrows."
+  },
+  {
+   "name": "Arrow icon set",
+   "kind": "icons (vector outlines)",
+   "source": "Стрелка_1..16 Outlines (Заставка), Strelka_1..3 + Tiangle_1 (Дисклеймер), strelka_одна / strelka_двойная (Подпись_спикера_1/2)",
+   "reuse_notes": "SVG stills plus an ae-template icon pack with an arrow-slide ffx. Colour per tokens (#8C959E) or per the pack (#222222/white) — to decide."
+  },
+  {
+   "name": "Numbered dots «1», «2»",
+   "kind": "icon",
+   "source": "Layers «1» and «2» in Заставка and Дисклеймер (white circles with numerals)",
+   "reuse_notes": "Icon stills plus a pop-scale ffx."
+  },
+  {
+   "name": "Globe icon with corner brackets",
+   "kind": "animated icon",
+   "source": "Pattern_1 [304] (= [796]): big/small ellipse + line_horiz/line_vert on two 3D nulls with step Rotate Y; 4 white cubes pop and slide",
+   "reuse_notes": "ae-template icon and a prerender loop. Merge the duplicate."
+  },
+  {
+   "name": "SB Sans Display Bold / Semibold / Regular",
+   "kind": "font",
+   "source": "40 / 3 / 1 text-layer uses (PostScript SBSansDisplay-Bold, -Semibold, -Regular)",
+   "reuse_notes": "Not on Adobe Fonts. The plugin must verify the installed PostScript names before inserting any template."
+  },
+  {
+   "name": "Palette as used",
+   "kind": "colour tokens",
+   "source": "#222222 (129 uses), #D3D3D3 (81), #26D07C (55), #FFFFFF (22), #FEFEFE (5), #31D383 (2), #CECECE, #F8F8F8, #2D2D2D; text fills #222222 and #B3B3B3",
+   "reuse_notes": "Map to cloudru-motion-tokens.json and expose only token colours in EGP colour pickers or dropdowns."
+  },
+  {
+   "name": "SFX cue set",
+   "kind": "audio",
+   "source": "(Footage)/SFX: 14 WAV, 48 kHz/16-bit. 12 overlay cues of 9.64 s (in 0.5–0.8 s, mid 1.3 / 2.0–2.7 s, out 8.8–9.5 s), the intro sting 25.72 s, the disclaimer bed 30.36 s",
+   "reuse_notes": "Split into _in / _mid / _out sfx items that the plugin aligns to the graphic's in/out points."
+  },
+  {
+   "name": "QR code images",
+   "kind": "content media (not brand)",
+   "source": "(Footage)/QR: 4 opaque black-on-white PNGs, 1000–1024 px",
+   "reuse_notes": "Replace with a Media Replacement slot plus an in-plugin QR generator."
+  }
+ ],
+ "animation_patterns": [
+  {
+   "name": "plashka-grow-x",
+   "description": "Scale X 0→100 % (Y fixed) on a box anchored at its left or right edge; speeds 0, pure influence ease. Callouts: in 23 f (f30→f53), start-key out-influence 73.4 % / land-key in-influence 75 %; hold; exit 18 f (f190→f208) at 76.6 / 80.2 %. CTA: 19 f (76.7/79.9). QR handle: 20 f (75.3/89.6). Intro cubes: 28 f (90.9/94.5). Speaker plate: 20–22 f (82.1/84.1). Stagger 7–10 f per line (CTA: 9 f via layer start).",
+   "where_used": [
+    "Текст на плашке_1/2/3",
+    "Булит",
+    "Булит_1",
+    "Контент_3",
+    "Подписывайся! Ссылки в описании",
+    "QR_3",
+    "Подпись_спикера_1/2 (Cube_1)",
+    "Заставка (GREEN_CUBE_*)",
+    "Дисклеймер (bars, Green_cube_1)"
+   ],
+   "candidate_preset": "ffx CR_PlashkaGrowX (in + exit keys); pr-preset: Transform effect Scale Width 0→100 % with the same bezier"
+  },
+  {
+   "name": "word-rise-clip",
+   "description": "Text animator Position Y +170…+195 px (≈1.9 em on 100-px callout text) with Range Selector Based on Words; Start 0→100 over 20–23 f. Callouts ease 40.8 / 35.5; speaker caption 81.6 / 90.6 (inconsistent between templates). Exit Start 100→0 over 18–20 f (76.6/80.2 or 75.7/90.3). A rectangular mask at the baseline clips the rising words. Text starts ~13 f after its box.",
+   "where_used": [
+    "Текст на плашке_1/2/3",
+    "Булит/Булит_1",
+    "Контент_3",
+    "Подпись_спикера_1/2 (name, title)",
+    "QR_3 (@CLOUDRUPROVIDER, 10 f)"
+   ],
+   "candidate_preset": "ffx CR_WordRiseClip (animator + range keys + expression mask from sourceRectAtTime); mogrt-only in Pr (no per-word animation in Pr)"
+  },
+  {
+   "name": "tag-text-rise",
+   "description": "Animator «Text Position 3D» keyed directly y +170→0 over 13 f (f19→f32, 79.9/81.5) while the clip mask on the text layer grows over the last 7 f (f25→f32). Used inside the corner-tag precomps; the outer layer adds a mask wipe.",
+   "where_used": [
+    "Подкаст [2147]",
+    "Cloud.ru [2172]",
+    "Pre-comp 3/4"
+   ],
+   "candidate_preset": "ffx CR_TagRise"
+  },
+  {
+   "name": "line-rise-fade",
+   "description": "Range Selector Based on Lines with Opacity 0 + Position Y +169 px; Start 0→100 over 9 f (71.9/73.5); exit 100→0 over 8 f (92.5/76.5). Line 2 starts 9 f later.",
+   "where_used": [
+    "Подписывайся! Ссылки в описании"
+   ],
+   "candidate_preset": "ffx CR_LineRiseFade; pr-preset approximation: Transform Position Y +8 % + Opacity over 9 f"
+  },
+  {
+   "name": "frame-z-fly + stroke-thin",
+   "description": "3D layer Position Z −1290→0 over 23 f (out 79.3 / in 81.7) with all overlay elements parented to it; LIne stroke width 100→12 px over 20 f (73.8/48.9). Exit Z 0→−1266 over 26 f (73.7/87.6). Needs Classic 3D and the default comp camera; motion blur on.",
+   "where_used": [
+    "13 frame overlays (QR_код_*, Контент_*, О_госте, Подписывайтесь…, Подпись_спикера_*, Текст на плашке_*)"
+   ],
+   "candidate_preset": "ffx CR_FrameZFly; pr-preset: Transform Scale ≈148 %→100 % + shutter-angle motion blur, 23 f"
+  },
+  {
+   "name": "mask-wipe-reveal",
+   "description": "Precomp-level rect masks with 4 path keys. Horizontal wipe for the corner tags: 21–29 f, ease ~67/89 %, exit 28–30 f. Vertical drop for QR and content panels: 22–25 f (68/85 %); the exit continues in the same direction (20–25 f). Mask paths are pixel-specific.",
+   "where_used": [
+    "Подкаст/Cloud.ru tag layers in all frame overlays",
+    "QR_код_1/2/3",
+    "Подписывайтесь на канал CLOUD.RU",
+    "Контент_1/2/3",
+    "О_госте panel"
+   ],
+   "candidate_preset": "ffx CR_WipeIn_H / CR_WipeIn_V (Linear Wipe or expression mask, size-independent); pr-preset: Crop or Linear Wipe keyframes"
+  },
+  {
+   "name": "arrow-slide",
+   "description": "Position slide from off-plate over 10–30 f (mostly 16 f), ease out 70–84 % / in 83–100 %, cascaded 1–10 f apart. Arrows are alpha-matted by the plate (Cube_1) or the pattern (Background Outlines). In the intro and disclaimer the Fill colour flips white→#222222 at f24→f25.",
+   "where_used": [
+    "Заставка (Стрелка_*)",
+    "Дисклеймер (Strelka_*, Tiangle_1)",
+    "Подпись_спикера_1/2 (strelka_одна, strelka_двойная)"
+   ],
+   "candidate_preset": "ffx CR_ArrowSlide"
+  },
+  {
+   "name": "pop-scale",
+   "description": "Uniform Scale 0→100 % (0→300 % in the 720p-built comps) over 10 f with land-key in-influence 100 %; cubes in Pattern_1 pop 0→300 % over 13 f, then slide.",
+   "where_used": [
+    "Заставка dots «1»/«2»",
+    "Дисклеймер dots",
+    "Pattern_1 cubes"
+   ],
+   "candidate_preset": "ffx CR_PopIn"
+  },
+  {
+   "name": "overlay-to-card switch",
+   "description": "At f24→f25 (1.0 s): light-gray solid opacity 1→100 % (or its in-point at 1.0 s); every arrow/line Fill effect and stroke colour white→#222222 (1-frame hold); white logo swapped for black. The first second plays as a transparent overlay on the episode.",
+   "where_used": [
+    "Заставка_ПОДКАСТ_CLOUD.RU",
+    "Дисклеймер"
+   ],
+   "candidate_preset": "ae-template behaviour (expression-driven «Card switch frame» slider)"
+  },
+  {
+   "name": "logo-strobe",
+   "description": "Three copies of the white logo flash at 0.40–0.44 s, 0.48–0.52 s and 0.56–1.00 s (layer start offsets 0 / 0.08 / 0.16 s); the black logo takes over at 1.0 s.",
+   "where_used": [
+    "Заставка_ПОДКАСТ_CLOUD.RU"
+   ],
+   "candidate_preset": "ffx CR_LogoStrobe (opacity hold keys)"
+  },
+  {
+   "name": "logo-cube-flip + plate expand",
+   "description": "Cube mark Rotate X −90°→−3.6°→0° (keys f0 / f16.7 / f31.7, 3D layer starting 0.33 s). White plate path expands f0→f25, then slides x 382→139 over f25→f60 (ease 70/89 %). The wordmark is alpha-matted by the plate. A second plate follows 0.6 s later.",
+   "where_used": [
+    "Есть где развернуться (OUTRO)",
+    "1_Логошоты logo-shot"
+   ],
+   "candidate_preset": "prerender / ae-template (not generic)"
+  },
+  {
+   "name": "globe-step-rotate",
+   "description": "Two nested 3D nulls step Rotate Y by ~90° with holds (keys f0, 34, 44, 80, 105, 151, 165, 223, 238, 305; influence 75–100 %); outer null scale 0→318 % over 8 f. 20-s mechanical loop.",
+   "where_used": [
+    "Pattern_1 (Заставка, Дисклеймер)"
+   ],
+   "candidate_preset": "ae-template icon (loop via loopOut)"
+  },
+  {
+   "name": "plate-collapse-y",
+   "description": "Exit of the speaker plate: Scale Y 71 %→0 over 24 f (out 68.7/82.6 → in 80.8/79.7) while X stays — the exit runs on a different axis from the entry.",
+   "where_used": [
+    "Подпись_спикера_1/2"
+   ],
+   "candidate_preset": "ffx CR_PlateCollapseY"
+  },
+  {
+   "name": "word-fade-rise",
+   "description": "Range Selector on Words with Opacity 0 + Y +72; Start 0→100 linear over 11 f. No exit of its own; hidden by the panel mask.",
+   "where_used": [
+    "О_госте"
+   ],
+   "candidate_preset": "ffx CR_WordFadeRise"
+  },
+  {
+   "name": "freeze-hold",
+   "description": "A second copy of the precomp layer with a single Time Remap hold key at 2.88 s runs to 30 s, freezing the last frame of the build.",
+   "where_used": [
+    "OUTRO"
+   ],
+   "candidate_preset": "replace with RDT hold (mogrt) or a keyed hold"
+  }
+ ],
+ "cleanup_actions": [
+  "Copy the pack to a working folder; never touch the original. Open it only in AE 2026 (saved by AE 2026 Mac).",
+  "Rename the NFD files to NFC: (Footage)/SFX/Дисклеймер.wav, (Footage)/SFX/Подписывайтесь на канал CLOUD.RU.wav, Ready mov/Подписывайся! Ссылки в описании.mov. Open and confirm 0 missing footage (relative relink covers the rest).",
+  "Delete the 21 AppleDouble «._*» files. Move the 7 unreferenced loose audio files in (Footage)/ to _sources (or delete after confirmation and a licence check).",
+  "Project Settings → Expressions → JavaScript (there are 0 expressions today).",
+  "Delete the 9 orphan precomps [197], [220], [234], [249], [263], [405], [459], [476], [490] (optionally keep [405] as a tag variant). Point Дисклеймер at Pattern_1 [304] and delete [796]. Then Remove Unused Footage / Consolidate (duplicate solids, QR_код_3.wav ×2, Still 1.2.1 ×2).",
+  "Remove the 4 episode reference stills from every template comp, or keep them only as Guide Layers in a _REF comp that never ships.",
+  "Remove the hidden nested Подпись_спикера_2 layer from Подпись_спикера_1. Fix the footage item «Подпись_спикера_2.wav», which points to the _1 file.",
+  "Switch «Подписывайся! Ссылки в описании», Cloud.ru_WhiteColour and Cloud.ru_BlackColour to Classic 3D.",
+  "Name all 102 unnamed layers and fix the misleading or typo names («ПОДПИСАТЬСЯЁ…», CREEN_CUBE_2, Tiangle_1, LIne, Verts_lines_2, «умное облако 2», Pre-comp 3/4, «  QR_n»). Prefix templates CR_POD_*.",
+  "Replace per-episode content (names, titles, bio, handles, QR PNGs) with neutral placeholders. Fix «CLOUd.ru».",
+  "Strip the audio layers from the template comps. Cut the SFX into _in / _mid / _out cues (overlays: 0–1.2 s, the mid hit, 8.6–9.64 s). Fade or deliver the full intro and disclaimer stings.",
+  "Build the shared CR_POD_Frame (line, tags, Blur) with Side/Tag controls and RDT. Delete the 13 hand copies as each template is rebuilt on top of it.",
+  "Rebuild the 9 template rigs at native scale (no 300 % chains, no split-text or matte hacks). Use parametric rects with sourceRectAtTime auto-size, expression clip masks, Side/Layout dropdowns, Media Replacement slots (content, QR) and token colours.",
+  "Expose EGP per template and export the mogrts via script (Property.addToMotionGraphicsTemplateAs, AVLayer.addToMotionGraphicsTemplateAs, CompItem.exportAsMotionGraphicsTemplate), setting the Responsive Design–Time protected regions listed per template.",
+  "Save each template as its own small .aep (ae-template) with no stills, plus a manifest JSON: id, comp name, params, durations, protected regions, sfx files, required fonts.",
+  "Create ame-presets CR_ProRes4444_Alpha (4K/FHD, video-only) and CR_ProRes422HQ. Re-render the intro (16:9 and 9:16), the outro and the CTA default consistently.",
+  "Export the brand stills: logo variants and lockup (SVG/PNG), pattern SVG, arrow and dot icons, globe icon.",
+  "Verify in Premiere 2026: insert every mogrt into 4K and FHD 25p sequences, test long and short text, stretch to 5/20 s, check render speed, and confirm the blur pr-preset sits under the frame."
+ ]
+}

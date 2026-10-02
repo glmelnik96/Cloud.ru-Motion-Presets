@@ -1,0 +1,631 @@
+{
+ "project": "2_Вебинары — Вебинары.aep (C:\\Users\\Глеб\\Documents\\Граф пакет Cloud.ru\\2_Вебинары\\Вебинары.aep, 4.96 MB, 15 comps / 14 footage items / 9 expressions, expression engine 'extendscript', Classic 3D, working space Rec.709 Gamma 2.4, 48 kHz)",
+ "summary": "2_Вебинары is the webinar broadcast pack. It has 6 ROOT comps, all 25 fps: four near-identical 16:9 holding screens and two 10-s social announcements (Анонс_Вебинар_1x1 at 1400×1400, Анонс_Вебинар_9x16). The holding screens are a 30-s looping 'Заставка' and a 5-min countdown 'Таймер', each in two variants: 'с вижуалом' (AI robot-arm video in a window) and 'со спикером' (cut-out photo plus name strips). Everything is built from 9 precomps: Logo, Логоблок с челкой, PATTERN RACK/_Animation, AI_анимация precomp/_1/_2, Спикер and Timer precomp. The look is a dark #222222 background with a stepped mint/green 'portal' panel and SB Sans Display titles, plus a logo header with a drifting vertical-hatch 'fringe', an arrow-cross line pattern that flickers on through fractal noise, a dot grid and a vector Telegram QR. Motion is only ambient: the file has just 11 keyframed properties (5 time-remap loops and 6 hand-keyed PORTAL mask paths) and 4 working expressions (hatch drift, noise evolution, a count-up timer, loopOut), and no text or logo animates in or out. Nothing is parametrized: there is no Essential Graphics and no controls. Strings are retyped in every comp, and the QR/caption plus an old webinar title exist only as outlines. Speaker strips are scaled by hand, the countdown is a count-up precomp played in reverse, and the 24-fps webinar AME presets don't match the 25-fps comps. The decoded report, renders and reusable decoders are in C:\\dev\\temp\\claude\\C--Users------Documents-Cloud-ru-Preset-plugin\\b48e0614-1141-4125-9b74-d00eb767441b\\scratchpad\\work\\web\\: report.txt, analyze.py, render_shape.py, l7_zv.png (outlined title + caption), l7_qr2_crop.png (QR), logo_*.png, pattern_tiled.png, group_png_x3.png, and sheet_A_robotic_ar.png / sheet_Seedance_mp4.png. The shared frames/ contact sheets for this pack's .mp4 files are blank gray.",
+ "canonical_file": "Вебинары.aep (4,962,239 B) is the only project in the folder: there is no '(converted)' or Auto-Save twin, so it is the source of truth by default. Its header bytes '0060 0009 0f8b2e03' match the other Mac originals (Логошот.aep, Обучающие курсы.aep). When those were re-saved on the PC they became '(converted)' files with header '0061 0007 …', so the first save in AE 2026 will convert this file too. Collect report: 01.12.2025 13:26 GMT+3, collected to /Users/gmmelnikov/Desktop/Collects NewBB/Вебинары, 6 files / 38 MB, renderer Classic 3D, effects Fill / Fractal Noise / Lumetri, font SB Sans Display Regular. The stored footage aliases point to /Volumes/T7_Black/_Video/2_Вебинары/(Footage)/Folder/{Img,Music,Video}/…, so the project was re-saved from the T7 drive after collecting. The aliases carry ascendcount_base=1 / ascendcount_target=4. The same (Footage)/Folder/{Img,Music,Video} tree with all 6 files exists next to the .aep, all names are NFC, so the relative relink should succeed. The one exception is the 322-character robot-arm path; see problems. Recommendation: rename that clip first, open once in the chosen baseline AE and Save As Вебинары_v2.aep. Keep the collected original read-only.",
+ "templates": [
+  {
+   "comp": "Render/Оформление/Заставка с вижуалом [ROOT]",
+   "purpose": "30-s looping pre-stream/break holding screen (16:9). Shows the webinar title, an AI visual in a window, a Telegram QR and the logo header, over a 30-s music bed.",
+   "target_delivery": [
+    "prerender",
+    "mogrt",
+    "ae-template",
+    "sfx",
+    "ame-preset"
+   ],
+   "effort": "M — the layout is simple and static. The work is cleaning the QR/outlines, adding CONTROLS + EGP, making the portal loop seamless and prerendering the background; the master is shared with the other three 16:9 comps.",
+   "format": "1920x1080 @25 fps, 30.0 s (text/QR/logo layers run to 300 s, PORTAL Mask 1 keys to 174.6 s, Pattern2 to 310 s)",
+   "current_editability": "hardcoded — the EGP capsules CIFO/CIF2/CIF3 are all 'Untitled' and there are no Expression Controls. The title is live box text: L1, SB Sans Display Regular 60/67, #222222, box 904×368, three manual paragraphs. The QR and the caption 'Канал Cloud.ru в Telegram' are outlines in L2 'Layer 7 Outlines 2'. The visual is a nested precomp, not a replaceable slot. The only motion comes from loopOut, the repeater drift expression and keyed masks.",
+   "editable_parts": [
+    "Title — L1 'Чек-лист от юриста: как выбрать безопасное облако' (box text)",
+    "Visual — L5 'CONTENT' = AI_анимация precomp at 66.1 %, alpha-matted by hidden 'Shape Layer 1' (rect 819.6×802, window centre ≈1435,618)",
+    "Telegram QR + caption — vector groups in L2 'Layer 7 Outlines 2'",
+    "Tagline 'облачные  и ИИ-сервисы' — inside Логоблок с челкой (L3)",
+    "Pattern strip on/off — L6 'Pattern2' (PATTERN RACK at 61.9 %, mask = 40 %×10 % of the 4K comp)",
+    "Portal colour #8EE7BB — L8 'PORTAL'",
+    "Music bed — L7 'Music vebinar.mp3' (30.07 s, 44.1 kHz)"
+   ],
+   "build_notes": "Layer stack from bottom to top: 'Dark Gray Solid 1' (#222222) → 'PORTAL' → 'Music vebinar.mp3' → 'Pattern2' → 'CONTENT' → Логоблок с челкой → 'Layer 7 Outlines 2' → title. PORTAL is a shape-path rect 1760×816, #8EE7BB, offset y+52, with 3 Add masks. Mask 1 is the left block (−880,−356)–(x,268); its right edge x cycles 118→417→229→118 on bezier keys at 0/9/21.32/29.92 s (≈33 % influence), plus 14 leftover keys up to 174.6 s. Mask 2 is the right block (118,−302)–(880,460); Mask 3 is an exact duplicate of Mask 2. Pattern2 is PATTERN RACK 3840×2160 at 61.9 %. CONTENT is AI_анимация precomp at 66.1 %, alpha-matted by 'Shape Layer 1'; that layer's pink #FF7AD8 fill and #26D07C stroke only exist for the matte. Логоблок с челкой is a 6-s precomp looped with Time Remap 0→5.96 s + loopOut. 'Layer 7 Outlines 2' (anchor 960,540) holds a 127×127 QR built from about 65 white groups with Merge Paths, plus the outlined white caption. It also holds a disabled group 'Текст' (tdsb=0), which is the outlined title of an old webinar: 'Как повысить отказоустойчивость Kubernetes: мультикластерная архитектура на Karmada' (#2D2D2D). AI_анимация precomp is two copies of AI_анимация precomp_1 stretched 74.75 % and 75.35 % (the second starts at 15 s), giving 30.16 s. precomp_1 is the robot-arm mp4 from 0–10.08 s then Seedance.mp4 from 10.08–20.12 s, both at 83.6 % with 50-px feathered masks, and Lumetri on Seedance. Hard to parametrize: the outlines, the hand-keyed mask morph, the nested 4K pattern, and the matte-window geometry duplicated per comp.",
+   "parametrization_plan": "Merge the four 16:9 ROOT comps into one master 'WEB_Screen_16x9'. It gets a Dropdown 'Layout' (Visual | Speaker) and Checkboxes 'Timer', 'QR' and 'Pattern'. The CONTROLS null exposes: Title (EGP Source Text in the 904×368 box, with an auto-fit expression on Scale: k = min(1, 368/sourceRectAtTime().height)); Tagline text; QR caption text; Portal colour (Color Control limited to brand tokens); Visual scale and offset sliders. Two Media Replacement slots: VISUAL (an 820×800 window holding the footage or precomp layer directly in the EG comp, looped with loopOut on Time Remap) and QR (PNG/SVG, defaulting to the Telegram QR still). Replace the PORTAL masks with a shape layer (2 rects + Merge Paths) whose step x = 268 + 150·sin(2π·time/period), with a Period slider defaulting to 30 s; this loops seamlessly at any length with no keys. A pure loop needs no Responsive Time; if a portal-wipe entrance of about 0.6 s is added, protect 0–1 s. Pr: a 30-s seamless 25p prerender of the background (portal + pattern + logo block + AI window) looped on V1, a light mogrt with title/QR/caption on V2, the music as sfx on A1, exported with the ame-preset Webinar_Zastavka. Ae: an ae-template with the same CONTROLS, imported by the panel. EGP setup and mogrt export can be scripted with JSX (Property.addToMotionGraphicsTemplateAs + CompItem.exportAsMotionGraphicsTemplate).",
+   "issues": [
+    "A disabled outlined title 'Текст' from the old Karmada webinar sits inside the QR layer in all four 16:9 comps",
+    "The QR and caption are outlines (about 65 merge-path groups), so neither the link nor the text can be changed",
+    "PORTAL Mask 3 duplicates Mask 2, and Mask 1 keeps 14 keys past the 30-s comp end",
+    "Layer durations were copied from the 300-s timer: text/QR/logo run 300 s and Pattern2 runs 310 s",
+    "The visual window geometry is duplicated by hand in 'Shape Layer 1' and 'Shape Layer 2' (group scale 99.36×97.75 %)",
+    "The AI loop uses 24p clips sped up about 133 % in a 25p comp without frame blending, so the cadence is irregular",
+    "Brand conflict: the mint portal #8EE7BB is not a token and covers about 70 % of the frame, against the brand rule 'green fill ≤ 30 % of a content frame'"
+   ]
+  },
+  {
+   "comp": "Render/Оформление/Заставка со спикером [ROOT]",
+   "purpose": "30-s looping holding screen with a speaker cut-out photo, name/role lower-third strips, the webinar title, the Telegram QR, the logo header, and a shimmering arrow pattern behind the speaker.",
+   "target_delivery": [
+    "prerender",
+    "mogrt",
+    "ae-template",
+    "still",
+    "sfx",
+    "ame-preset"
+   ],
+   "effort": "L — the speaker block has to be rebuilt: one 3-line point text over 3 hand-scaled strips becomes 3 fields with auto-sized strips. It also needs a speaker slot with a placeholder, and the 4K fractal-noise shimmer must be prerendered for Pr.",
+   "format": "1920x1080 @25 fps, 30.0 s",
+   "current_editability": "hardcoded — no EGP or controls. The speaker text L1 is one POINT text, 'Александр Константинов, ⏎ Технический эксперт ⏎ по облачным технологиям' (35/47, tracking 19, #FFFFFF). It sits over three #222222 strips (rect 385×50): L4 'Layer 5 Outlines 2', L3 'Layer 4 Outlines 3' and L2 'Layer 4 Outlines 4', scaled in X by hand to 167.3 %, 101.8 % and 125 %. The speaker photo is a footage layer inside the 300-s precomp 'Спикер', not a slot. The title L7 is box text 904×368 with one paragraph.",
+   "editable_parts": [
+    "Title — L7 'Собираем корпоративный AI-чат: от выбора модели до работающего прототипа'",
+    "Speaker name — line 1 of L1",
+    "Speaker role — lines 2–3 of L1",
+    "Speaker photo — precomp 'Спикер' (RGBA PNG 810×911 at 1463,624.5; the layer is shifted to x=900 in the parent)",
+    "QR + caption — L10 'Layer 7 Outlines 2'",
+    "Dot-grid accents — L5/L6 'Group 2131327780.png' (Subtract masks) at (271/135, 764)",
+    "Pattern shimmer — L12 PATTERN RACK_Animation at 64 %, position 2298,928",
+    "Music — L9 'Music vebinar.mp3'"
+   ],
+   "build_notes": "Same base as Заставка с вижуалом: background, PORTAL with 2 Add masks and the same 18 keys, the Логоблок loop, the QR outlines and the title. Instead of the AI window it uses 'Спикер' plus PATTERN RACK_Animation. In PATTERN RACK_Animation, 'PATTERN RACK' (a 3D layer) is luma-matted (ldta matte type 3) by 'Fractal Noice'. 'Fractal Noice' is a 3D Dark Gray Solid 3840×2160 with Fractal Noise: Fractal Type #5, Noise Type Block, Contrast 400, Brightness −100, Scale 225, Evolution = time*40. The comp also holds a hidden 3D 'Dark Gray Solid 2'. It renders in Classic 3D with no camera and no 3D transforms. Two dot-grid PNGs carry Subtract masks. The text-to-strip relation is purely manual.",
+   "parametrization_plan": "In the master, set Layout = Speaker. EGP fields: Title, Name, Role line 1 and Role line 2, as separate left-aligned 35-px point-text layers. Add a Media Replacement slot for the speaker photo (cut-out PNG anchored bottom-centre, with Scale and X-offset sliders). Each strip gets rect Size = [sourceRectAtTime(time,false).width + 2·padX, 50], with Position derived from the text's left/top. A padX slider (≈14 px) and a Gap slider set the spacing, and Opacity = text.length ? 100 : 0 collapses empty lines. Strip (#222222) and text (#FFFFFF) colours come from CONTROLS. Pattern shimmer stays live in Ae with Evolution speed and Contrast sliders. Pr uses a 30-s alpha prerender (ProRes 4444) under the mogrt instead. Rebuild the dot grid as a vector shape with 2 repeaters and an on/off checkbox. The loop needs no Responsive Time; if a strip wipe-in of about 0.4 s is added, protect 0–1 s. Pr: prerender background + mogrt overlay (speaker slot, text) + sfx. Ae: ae-template.",
+   "issues": [
+    "The photo file is 'Смирнов Илья_v1_20.03 1.png' but the text says 'Александр Константинов': a leftover, and personal data inside a template",
+    "The strips are scaled by hand per line, so any name change breaks the layout",
+    "Strip layer names differ from the timer twin ('Layer 4 Outlines 3/4', 'Layer 5 Outlines 2' vs 'Подложка_1/2/3')",
+    "PATTERN RACK_Animation renders a 3840×2160 3D fractal-noise solid and a 4K repeater pattern for 30 s, which is heavy in a mogrt",
+    "Unneeded 3D switches and a hidden 3D solid in PATTERN RACK_Animation",
+    "The dot grid is a 176×164 raster PNG, upscaled and soft",
+    "The speaker block is point text with manual line breaks and no wrap control"
+   ]
+  },
+  {
+   "comp": "Render/Оформление/Таймер с вижуалом [ROOT]",
+   "purpose": "5-minute pre-start countdown screen ('начало через m:ss') with the title, AI visual, QR, logo header and a 5-min music bed.",
+   "target_delivery": [
+    "mogrt",
+    "prerender",
+    "ae-template",
+    "ffx",
+    "sfx",
+    "ame-preset"
+   ],
+   "effort": "M — the countdown has to be rebuilt (reversed precomp → control-driven expression) and the 300-s background turned into a short loop; everything else is shared with the master.",
+   "format": "1920x1080 @25 fps, 300.0 s",
+   "current_editability": "expression-driven but with no controls — TIMER in 'Timer precomp' is a Source Text expression that counts UP from floor(time). The countdown only happens because the precomp layer L9 is time-reversed (stretch −100 %, start 300 s, locked). There are no sliders and no EGP, and the title and label are hardcoded text.",
+   "editable_parts": [
+    "Title — L7 'Чек-лист от юриста: как выбрать безопасное облако'",
+    "Label — L8 'начало через' (39.6 px, box 309.5×150.5)",
+    "Countdown length — implicit (300-s precomp + reversed layer)",
+    "Visual — L4 'CONTENT' (Time Remap 0→30.16 s + loopOut, matte 'Shape Layer 2')",
+    "QR + caption — L10 'Layer 7 Outlines'",
+    "Music — L1 'Музыка вебинар 5 минут.mp3' (plus a duplicate L6 with audio off)"
+   ],
+   "build_notes": "PORTAL Mask 1 cycles 118→417→229→402→118 px every 74.99 s: 17 bezier keys from 0 to 299.96 s, seamless at 300 s. Логоблок is looped and also masked to its top 30 %. The Pattern0 strip (mask 20 %×10 %) is moved right to x=764 to clear the digits. TIMER text is 155 px #222222 at (175.6,750) inside a 1920×1080, 300-s precomp. The reversed layer starts at source time 300, which is past the precomp end. So the first frame is probably blank, and the display runs 4:59 → 0:00 without ever showing 5:00. The music file is 296.34 s and its layer ends at 297.52 s, so the last ≈3.7 s are silent.",
+   "parametrization_plan": "Make the timer a normal, non-reversed text layer with expression: d = ctrl('Minutes')*60 + ctrl('Seconds'); r = Math.max(0, Math.ceil(d − (time − inPoint))); then format m:ss. Add a 'Leading zero' checkbox and an 'End text' field shown when r == 0. Use fixed-width digits so the timer does not jitter: SB Sans Text Mono / Cond Mono are installed on the PC, or use per-digit layers. In Ae the comp length is the maximum (15 min). In Pr the panel inserts the mogrt, sets the clip duration to Minutes×60 s and sets the 'Minutes' parameter through the MGT component API (Sequence.importMGT + getMGTComponent). Do not use Responsive Time on the countdown, because stretching would slow the clock. Background: a 30-s seamless prerender looped in Pr, with the portal period at 30 s instead of 75 s. Music: an sfx track conformed to exactly 300 s and 48 kHz, ending at 0:00. Render with the ame-preset Webinar_Timer once the fps question is settled.",
+   "issues": [
+    "The countdown depends on a time-reversed precomp (stretch −100 %, start 300), so its length cannot change without a rebuild",
+    "Dead code in the expression: rate, clockStart and clockTime are computed but never used",
+    "The first frame is probably blank (source time 300 is outside the precomp)",
+    "Duplicate music layer L6 with audio disabled",
+    "The 5-min music is 296.34 s against a 300-s comp",
+    "'начало через' is 39.6 px here but 35 px in the speaker twin",
+    "The whole 300-s comp renders the 4K pattern and the AI loop live, which is heavy as a mogrt"
+   ]
+  },
+  {
+   "comp": "Render/Оформление/Таймер со спикером [ROOT]",
+   "purpose": "5-minute countdown screen with a speaker photo and name/role strips.",
+   "target_delivery": [
+    "mogrt",
+    "prerender",
+    "ae-template",
+    "sfx",
+    "ame-preset"
+   ],
+   "effort": "S — once the master's speaker block and the countdown are rebuilt, this is just the preset Layout = Speaker, Timer = on.",
+   "format": "1920x1080 @25 fps, 300.0 s",
+   "current_editability": "hardcoded — the same speaker block as Заставка со спикером, but the strips are named 'Подложка_1/2/3' (same hand X-scales: 167.3 / 101.8 / 125 %). The countdown is the reversed 'Timer precomp' (L9, stretch −100 %, start 300) and the label 'начало через' is 35 px. The QR, logo block, pattern and background layers are shy.",
+   "editable_parts": [
+    "Title — L7",
+    "Speaker name/role — L1 (3-line point text)",
+    "Speaker photo — L10 'Спикер'",
+    "Label — L8 'начало через'",
+    "Countdown — L9 'Timer precomp'",
+    "Music — L14 'Музыка вебинар 5 минут.mp3'"
+   ],
+   "build_notes": "Identical to Таймер с вижуалом minus CONTENT and Pattern0, plus Спикер and PATTERN RACK_Animation (luma-matted shimmer at 64 %, position 2298,928). PORTAL uses the same 17 keys on a 75-s cycle.",
+   "parametrization_plan": "Not a separate template: it is the WEB_Screen_16x9 master with Layout = Speaker and Timer = on, using the same CONTROLS (Minutes/Seconds, Name/Role1/Role2, Speaker slot). Pr: prerender background with shimmer, then the speaker+timer mogrt overlay, then sfx; the panel sets the duration. Ae: the same ae-template with that preset applied.",
+   "issues": [
+    "Near-duplicate of Заставка со спикером whose details have drifted (layer names, label size 35 vs 39.6 px)",
+    "Several layers are shy-hidden (QR, logo block, pattern, background), which is confusing for template users"
+   ]
+  },
+  {
+   "comp": "Render/Анонс/Анонс_Вебинар_1x1 [ROOT]",
+   "purpose": "10-s square social announcement: title, 'Вебинар' label → arrow → date/time, the AI visual inside a green notched portal, and the logo.",
+   "target_delivery": [
+    "mogrt",
+    "ae-template",
+    "still",
+    "ame-preset"
+   ],
+   "effort": "M — the save-zone parent chain has to become an auto-layout row, colours need to be unified into a theme, the canvas changes to 1080² (if confirmed) and the visual needs a media slot.",
+   "format": "1400x1400 @25 fps, 10.0 s",
+   "current_editability": "hardcoded — 3 live text layers, no EGP or controls. Title: 83.3/95, white, centred, box 1296×370. 'Вебинар': 60/95, #C2C2C2. '25 ноября в 11:00': 60/95, #26D07C. Both the label and date use boxes of 1294×88 and 103.8 % vertical scale. Their positions are held by a parent chain through hidden 25-px red-stroked 'save zone' squares.",
+   "editable_parts": [
+    "Title — L12 'Чек-лист от юриста: ⏎ как выбрать безопасное облако'",
+    "Label — L11 'Вебинар 2'",
+    "Date/time — L10 '25 ноября в 11:00'",
+    "Arrows — L8 'Strelka 2', L9 'Strelka'",
+    "Visual — L5 AI_анимация precomp_2 at 57 % (alpha matte 'PORTAL')",
+    "Logo — L1 Logo precomp at 32 %, bottom-left (194,1304), locked and shy",
+    "Portal notch animation — L7 'PORTAL' masks"
+   ],
+   "build_notes": "The background is 'Dark Gray Solid 2' with Fill #222222. 'PORTAL' is a rect 1296×791, #26D07C, offset y+234.5. Mask 1 is an inverted-Add notch at bottom-left (width 324→410→324 px). Mask 2 is a Subtract notch at top-right (width 419→528→419 px). Both use 3 linear keys at 0 / 5 / 9.96 s, so the 10 s loop is seamless. PORTAL is visible but fully covered by 'Light Gray Solid 2' (Fill #ECECEC) and AI_анимация precomp_2 (1976×1580, robot-arm clip only), both alpha-matted to PORTAL, so its green never shows. Parent chain: 'Вебинар 2' ← save zone ← 'Strelka' ← save zone ← '25 ноября в 11:00' ← save zone, with 'Strelka 2' parented to the date.",
+   "parametrization_plan": "Build an announcement master 'WEB_Announce' whose DATA controls comp feeds both the 1x1 and 9x16 children. Controls: Title, Label and Date strings; a Theme dropdown (Dark | Mint); Visual Media Replacement; Logo and Dot-grid checkboxes. Row auto-layout uses sourceRectAtTime: arrow.x = label.left + label.width + Gap, then date.x = arrow.right + Gap, with a Gap slider of 25 px × format scale. The title box auto-fits to at most 2–3 lines. Rebuild the portal notches as shape geometry with a loop expression (period 10 s) so the mogrt can be stretched. If a brand entrance (portal build ≈0.6 s) is added, protect 0–1 s with Responsive Design – Time. Pr: one mogrt per format with the visual as Media Replacement, so the 13 MB clip is not embedded in every mogrt. Ae: an ae-template holding both formats. Export with the ame-preset SMM_1x1 once size and fps are decided. still: SVG arrow and logo.",
+   "issues": [
+    "1400×1400 @25 does not match the SMM_1x1 preset or the brand square format (1080×1080 @30)",
+    "The layout depends on a parent chain through invisible 'save zone' squares, so longer text will not reflow",
+    "The same date is typed differently in 9x16 ('25.11 в 11:00')",
+    "Arrows are #C2C2C2 against the brand arrow token #8C959E, and label/date carry a 103.8 % vertical text scale",
+    "The PORTAL green is never visible (fully covered), which makes its colour ambiguous"
+   ]
+  },
+  {
+   "comp": "Render/Анонс/Анонс_Вебинар_9x16 [ROOT]",
+   "purpose": "10-s vertical (stories) announcement with the same content in a mint 'portal' layout: dark text and dot-grid accents.",
+   "target_delivery": [
+    "mogrt",
+    "ae-template",
+    "still",
+    "ame-preset"
+   ],
+   "effort": "M — the same rebuild as 1x1, plus the fps decision, the logo decision and fixing a title box wider than the frame.",
+   "format": "1080x1920 @25 fps, 10.0 s",
+   "current_editability": "hardcoded — no EGP. Title L12: 70/79, tracking 16, #222222, left-aligned, in a 1296×370 box that is wider than the 1080 frame. The label L8 and date L11 are recoloured by Fill effects (#222222) over their own text colours (#C2C2C2 / #26D07C). The arrows L9/L10 and the 4 dot-grid PNGs are recoloured white by Fill. Positions use the same 'save zone' parent chain.",
+   "editable_parts": [
+    "Title — L12 'Чек-лист от юриста: ⏎ как выбрать ⏎ безопасное облако'",
+    "Label — L8 'Вебинар 3' (scaled 82.3 %)",
+    "Date — L11 '25.11 в 11:00' (scaled 69.4 %)",
+    "Arrows — L9 'Strelka 4', L10 'Strelka 3'",
+    "Visual — L13 AI_анимация precomp_2 at 68 %, alpha matte 'portal2'",
+    "Portals — L14 'portal2' (804×853 ×124 % Y, matte only, hidden), L15 'portal1' (806×968) #6CDFA6",
+    "Dot grids — L4–L7 'Group 2131327780.png' (L6 inverted-alpha-matted to portal2, ldta matte type 2)"
+   ],
+   "build_notes": "There is no Logo layer at all. There are no keyframes: only the AI clip moves, and the portal is static here, unlike the 1x1 notches. The colour logic mixes text-document colours with Fill-effect overrides.",
+   "parametrization_plan": "A child of WEB_Announce with Theme = Mint. Title box 960 px wide (60-px margins, 220-px top/bottom safe zones for story UI). Reset text scale to 100 % and use real font sizes. Colours come from the DATA comp tokens, with the Fill overrides removed. Add the Logo checkbox and the Visual slot. Pr: a 9x16 mogrt. Ae: the ae-template. Export with the ame-preset SMM_9x16 (30 fps) or a 25-fps variant, depending on the decision.",
+   "issues": [
+    "The title box (1296 px) is wider than the 1080 frame, so long lines run off-screen",
+    "No logo (the 1x1 has one)",
+    "Text layers are scaled (69.4 %, 82.3 %) instead of using font size",
+    "Fill-effect recolouring hides the real text colours",
+    "25 fps against the 30 fps of SMM_9x16 and the brand story format"
+   ]
+  },
+  {
+   "comp": "Folder/Precomp/Логоблок с челкой (used ×4 in the 16:9 comps)",
+   "purpose": "Header lock-up: cloud.ru logo + tagline 'облачные и ИИ-сервисы' + an animated vertical-hatch 'fringe' band, as a seamless 6-s loop.",
+   "target_delivery": [
+    "ae-template",
+    "ffx",
+    "prerender",
+    "mogrt",
+    "still"
+   ],
+   "effort": "S — already modular; it needs real font sizes, controls and a loop export.",
+   "format": "1920x1080 @25 fps, 6.0 s (looped in the parents via Time Remap 0→5.96 s + loopOut)",
+   "current_editability": "expression-controls (partial) — the hatch drifts via a Repeater Offset expression '-100 + time*0.5'. The tagline is hardcoded Semibold text, and there are no sliders or EGP.",
+   "editable_parts": [
+    "Tagline — 'облачные  и ИИ-сервисы' (SBSansDisplay-Semibold 39.6/41, tracking −18, white, with a double space)",
+    "Logo colour variant — Logo precomp at 35 %",
+    "Hatch speed / spacing / stroke — 'Shape Layer 4'",
+    "Band size — 'Shape Layer 5' (matte rect 1566×90.9, #CFF500, hidden)"
+   ],
+   "build_notes": "'Shape Layer 4' is a single 77-px vertical path with a 3-px stroke (stroke colour left at default) and a Repeater of 200 copies at 25 px. The Offset expression moves it 12.5 px/s; over 6 s that is exactly 3 whole copies, so the 6-s cycle is seamless. It is alpha-matted by 'Shape Layer 5'. The tagline, hatch and matte are all parented to the Logo layer and scaled 206.6 % (matte 221.5×206.6 %) inside a 35 % parent, so the effective tagline size is ≈28.6 px.",
+   "parametrization_plan": "CONTROLS: Tagline text (EGP); Hatch Speed (copies/s, constrained to k/period so loops stay seamless); Spacing; Stroke; Band width; a colour-variant dropdown (on dark / on light). Remove the parent scaling (Scale 100 %, real font size). Pr: a 6-s alpha prerender loop (ProRes 4444) plus a light mogrt variant (the shape repeater is cheap). Ae: the ae-template, plus an ffx 'CRU_Hatch_Drift' for reuse elsewhere.",
+   "issues": [
+    "Text and shapes are scaled 206.6 % under a 35 % parent",
+    "Double space in 'облачные  '",
+    "The hatch stroke colour is not stored (default value), so verify it is intentional",
+    "The loop relies on Time Remap keys + loopOut repeated in every host comp"
+   ]
+  },
+  {
+   "comp": "Folder/Precomp/Timer precomp",
+   "purpose": "Countdown digits (m:ss) for the timer screens.",
+   "target_delivery": [
+    "ffx",
+    "mogrt",
+    "ae-template"
+   ],
+   "effort": "S — one expression rewrite plus sliders.",
+   "format": "1920x1080 @25 fps, 300.0 s",
+   "current_editability": "expression with no controls — the Source Text expression counts up, and the countdown exists only because the parent layer is time-reversed.",
+   "editable_parts": [
+    "TIMER text (SB Sans Display Regular 155 px #222222, anchored at 175.6,750)"
+   ],
+   "build_notes": "Expression: rate=1; clockStart=0; function padZero(n){…}; clockTime=… (unused); t=Math.floor(time); min=Math.floor((t%3600)/60); sec=Math.floor(t%60); min+':'+padZero(sec). Safe under the JavaScript engine: automatic semicolon insertion handles 'return … ⏎ else'.",
+   "parametrization_plan": "ffx 'CRU_Countdown_mmss' with: Minutes and Seconds sliders, 'Leading zero' and 'Show hours' checkboxes, and an 'End text' field. It counts from inPoint so it works wherever it is dropped, and uses fixed-width digits. Pr: a standalone transparent 'Countdown' mogrt exposing font size and colour; the panel sets Minutes and the clip duration. Ae: the ffx, or an ae-template text layer.",
+   "issues": [
+    "Unused variables",
+    "Proportional digits make the width jitter as the digits change"
+   ]
+  },
+  {
+   "comp": "Folder/Precomp/PATTERN RACK + PATTERN RACK_Animation",
+   "purpose": "The brand arrow-cross line pattern (static grid) and its flickering 'shimmer' reveal.",
+   "target_delivery": [
+    "still",
+    "ae-template",
+    "prerender",
+    "ffx"
+   ],
+   "effort": "S — rebuild at native 1080p scale and export the loops.",
+   "format": "3840x2160 @25 fps, 310 s / 300 s (used at 61.9–64 % in the 1080p comps)",
+   "current_editability": "hardcoded — one shape layer 'Layer 34/Frame 1[851040355-851040356] Outlines 2' (a Figma export) with a Repeater of 27 copies at 150 px. The shimmer comes from a Fractal Noise expression time*40.",
+   "editable_parts": [
+    "Cell size (150 px)",
+    "Stroke 4 px #222222",
+    "Copies (27 columns × 15 rows)",
+    "Shimmer speed / contrast (Fractal Noise)",
+    "Strip masks in the parents (Pattern0 at 20 %, Pattern2 at 40 % width)"
+   ],
+   "build_notes": "Each cell is a square corner plus diagonals (the ↗ arrow motif); see work/web/pattern_tiled.png. In the parents the pattern is scaled to 61.9 % (Pattern0/2 → 92.9-px cells) and 64 % (PATTERN RACK_Animation → 96-px cells). The shimmer is a luma matte from Fractal Noise on a 3D solid. Random Seed carries a self-referencing expression, and the layers are 3D without a camera. The same Fractal-Noise reveal (with time*50) exists in 4_SMM_Pack.",
+   "parametrization_plan": "Build one 'CRU_Pattern_Grid' shape template at 1920×1080 with sliders for Cell (96 px default), Stroke (2/4 px), Colour and Columns/Rows. 'CRU_Pattern_Shimmer' is the grid plus the noise matte with Speed and Density sliders: a 2-layer ae-template, or an ffx variant using Fractal Noise + Set Matte. Pr: alpha prerenders (a 30-s shimmer loop) and the static strip as an SVG/PNG still. Ae: both ae-templates.",
+   "issues": [
+    "4K precomps scaled down inside 1080p comps waste render time",
+    "Inconsistent cell size: 92.9 px vs 96 px",
+    "Typo in the layer name 'Fractal Noice' and leftover expression lines"
+   ]
+  },
+  {
+   "comp": "Folder/Precomp/Logo",
+   "purpose": "cloud.ru logo: white wordmark plus green hex-cube mark.",
+   "target_delivery": [
+    "still",
+    "ae-template",
+    "mogrt"
+   ],
+   "effort": "S — static vector; export the variants and reuse them.",
+   "format": "936x173 @25 fps, 14.16 s",
+   "current_editability": "hardcoded vector shapes",
+   "editable_parts": [
+    "Wordmark colour (#F8F8F8)",
+    "Mark colour (#26D07C)"
+   ],
+   "build_notes": "'Layer 4 Outlines 3' (the mark: 3 paths, 125 %) is the parent of 'Layer 3 Outlines 3' (the wordmark: 11 paths). Layer out points sit at 921 s. Renders: work/web/logo_Layer_3_Outlines_3.png and logo_Layer_4_Outlines_3.png.",
+   "parametrization_plan": "Export SVG/PNG variants as stills: white, dark #222222 and mark-only. Keep one canonical vector logo comp shared by all packs (the courses pack has a separate 905×180 copy). Pr: optionally a tiny 'Logo bug' mogrt with a colour dropdown and safe-corner positions. Ae: ae-template.",
+   "issues": [
+    "Wordmark is #F8F8F8 rather than brand white #FFFFFF",
+    "Logo precomp sizes differ across packs (936×173 here, 905×180 in courses)"
+   ]
+  },
+  {
+   "comp": "Folder/Precomp/AI_анимация precomp, AI_анимация precomp_1, AI_анимация precomp_2",
+   "purpose": "AI-generated product visual (a white robot arm holding a cube on a light-grey background), looped as the content of the portal/window.",
+   "target_delivery": [
+    "prerender",
+    "ae-template",
+    "pr-preset"
+   ],
+   "effort": "S — render it once to a 25p loop file and expose it as a replaceable slot.",
+   "format": "precomp 1720x1204 @25 fps 30.16 s; precomp_1 1720x1204 @25 fps 20.12 s; precomp_2 1976x1580 @25 fps 10 s; source clips 1440×1440 @24 fps, ~10 s, h264",
+   "current_editability": "hardcoded nested precomps",
+   "editable_parts": [
+    "Clip A/B choice",
+    "Feather (50 px)",
+    "Scale (83.6 % / 109.7 %)",
+    "Lumetri on Seedance (Temperature 3, Tint 1, Exposure 0.1)"
+   ],
+   "build_notes": "precomp_1: the robot-arm clip from 0–10.08 s, then Seedance from 10.08–20.12 s. precomp: two copies of precomp_1 stretched 74.75 % and 75.35 % (the second starts at 15 s) over a White Solid with Fill #EEEEEE, giving 30.16 s. precomp_2: the robot-arm clip only, over a Light Gray Solid with Fill #ECECEC, used by the announcements.",
+   "parametrization_plan": "Prerender 'AI_visual_robot_loop_30s_25p' (plus a 10-s square version) as mezzanine files; templates use this as the default in the VISUAL slot. Pr: a pr-preset 'Webinar window fit' (Motion scale/position + Crop + feathered edge) for dropping any clip into the window without the mogrt. Ae: an ae-template slot with loopOut.",
+   "issues": [
+    "The file name is the AI prompt text (≈250 chars, a 322-char path on Windows)",
+    "24p played at 25p with a 1.33× speed-up and no frame blending",
+    "The cube shows a 2×2-pane glyph that resembles a third-party logo; verify before reuse"
+   ]
+  }
+ ],
+ "problems": [
+  {
+   "severity": "critical",
+   "category": "paths",
+   "detail": "The AI clip 'A_robotic_arm_performing_minimal,_precise_technological_movements._The_scene_showcases_…Jeffrey_Milstei.mp4' has a name of about 250 characters, making its full path on this PC 322 characters (over the Windows MAX_PATH limit of 260). AE, Premiere and AME on Windows may fail to relink, collect or render it. Even the contact sheet named after it could not be opened from the scratchpad by path.",
+   "fix": "Before opening on Windows, rename it to 'AI_robot_arm_A_1440p24.mp4' (and 'Seedance.mp4' to 'AI_robot_arm_B_1440p24.mp4') and relink. Enforce media names of at most 60 ASCII characters in the plugin library."
+  },
+  {
+   "severity": "critical",
+   "category": "parametrization",
+   "detail": "There is no Essential Graphics anywhere (CIFO/CIF2/CIF3 are 'Untitled' in all 15 comps) and no Expression Controls. Every variable string is typed separately: title text sits in 6 comps, speaker text in 2, and the date in 2 different spellings ('25 ноября в 11:00' vs '25.11 в 11:00'). Nothing can be driven 'by button'.",
+   "fix": "Build two masters (WEB_Screen_16x9 and WEB_Announce with 1x1/9x16 children) around a CONTROLS null or DATA comp. Wire text through EGP and add Media Replacement slots. Set up EGP and export mogrts with JSX (Property.addToMotionGraphicsTemplateAs, CompItem.exportAsMotionGraphicsTemplate)."
+  },
+  {
+   "severity": "major",
+   "category": "duplication",
+   "detail": "The four 16:9 ROOT comps share about 80 % of their layers (background, PORTAL, Логоблок loop, QR outlines, title) and have already drifted apart. Differences include label size (39.6 vs 35 px), strip layer names, pattern strip masks/positions (40 % at x=361 vs 20 % at x=764), portal key cycles (30 s vs 75 s) and shy flags. The two announcements are hand-kept copies with different colour logic.",
+   "fix": "Use a single master per family, with Dropdown 'Layout' (Visual | Speaker) and Checkbox 'Timer' for 16:9, and Theme (Dark | Mint) plus format children for the announcements."
+  },
+  {
+   "severity": "major",
+   "category": "outlines",
+   "detail": "'Layer 7 Outlines' (Таймер с вижуалом) and 'Layer 7 Outlines 2' (the other three 16:9 comps) hold the Telegram QR (127×127, about 65 merge-path groups) and the caption 'Канал Cloud.ru в Telegram' as vector outlines. They also contain a disabled group 'Текст' (tdsb=0) holding the outlined title of an old webinar: 'Как повысить отказоустойчивость Kubernetes: мультикластерная архитектура на Karmada' (render: work/web/l7_zv.png).",
+   "fix": "Delete the 'Текст' group. Replace the block with a QR footage slot (still PNG/SVG, Media Replacement) plus live caption text, and name the layer 'QR_TELEGRAM'."
+  },
+  {
+   "severity": "major",
+   "category": "timer",
+   "detail": "The countdown is a count-up Source Text expression in 'Timer precomp', made to count down by time-reversing its layer (ldta stretch −1, start 300 s, locked) in both timer comps. Consequences: the length cannot be changed, the first frame is probably blank (source time 300 is outside the precomp), the display starts at 4:59, the expression carries dead code, and the digits are proportional.",
+   "fix": "Use a non-reversed text layer with expression r = Minutes*60 + Seconds − (time − inPoint), driven by sliders. Add an 'End text' state and fixed-width digits. In Pr the panel sets the clip duration and the 'Minutes' parameter; do not apply Responsive Time to the clock."
+  },
+  {
+   "severity": "major",
+   "category": "fps-format",
+   "detail": "Frame rates and sizes disagree across the pipeline. The webinar AME presets are 24 fps: 'Webinar_FullHD_5-10_24fps', 'Timer_3-5_24fps' and 'Zastavka_15-20_24fps' (ADBEVideoFPS 10584000000 ticks). Every comp is 25 fps, and the brand tokens say 1080p @25. The SMM presets are 1080×1080 / 1080×1920 @30, while Анонс 1x1 is 1400×1400 @25 and Анонс 9x16 is @25. The AI clips are 24p, and the music is 44.1 kHz against 48-kHz presets.",
+   "fix": "Decide on target fps and sizes (see questions). Then conform the comps or rename and fix the presets so that comp, mogrt and AME preset share one fps per delivery. Render the AI loop as a 25p mezzanine."
+  },
+  {
+   "severity": "major",
+   "category": "layout",
+   "detail": "Nothing sizes itself to its text. Speaker strips ('Подложка_1/2/3' / 'Layer 4 Outlines 3/4', 'Layer 5 Outlines 2') are scaled in X by hand (167.3 / 101.8 / 125 %). The announcement row is held together by a parent chain through hidden 25-px 'save zone' squares. Text layers are scaled instead of using font size (206.6 % inside a 35 % parent, 69.4 %, 82.3 %, 103.8 % vertical). The 9x16 title box (1296 px) is wider than its 1080-px frame.",
+   "fix": "Use sourceRectAtTime-driven strips and rows with padX/Gap sliders, auto-hide empty lines, reset all text scales to 100 % with real font sizes, and keep box widths inside the safe margins."
+  },
+  {
+   "severity": "major",
+   "category": "performance",
+   "detail": "The live content is heavy for MOGRT playback in Premiere. It includes 4K precomps scaled to 61.9–64 % (PATTERN RACK: a 27-copy repeater of a 30-group shape) and a 3840×2160 3D solid with Fractal Noise. The AI visual is two levels of nested precomps of h264 clips, and the timers run 300 s. The QR alone is about 65 merge-path groups.",
+   "fix": "For Pr, deliver backgrounds as 30-s seamless prerender loops (ProRes 4444 for alpha elements, H.264 or ProRes 422 for full-frame) and keep mogrts to light overlays (text, strips, QR, timer). Rebuild the pattern natively at 1080p."
+  },
+  {
+   "severity": "major",
+   "category": "media-slots",
+   "detail": "The visual (AI clips of 13 MB + 18 MB) and the speaker PNG are nested footage, not replaceable. A mogrt would embed about 31 MB of AI video per template. The music cannot travel inside a mogrt at all, because AE-authored mogrts carry no audio.",
+   "fix": "Add Media Replacement slots for VISUAL, SPEAKER and QR, with default media as separate library items. Ship the music beds as sfx placed by the panel."
+  },
+  {
+   "severity": "minor",
+   "category": "junk",
+   "detail": "Leftover clutter across the file: a duplicate music layer L6 with audio off (Таймер с вижуалом); PORTAL Mask 3 identical to Mask 2 (Заставка с вижуалом); 14 PORTAL keys past 30 s in both 30-s comps; a hidden 3D 'Dark Gray Solid 2' and unneeded 3D switches in PATTERN RACK_Animation; matte-only pink fills on 'Shape Layer 1/2'; layer spans copied from 300-s comps (text 300 s inside 30-s comps, PATTERN RACK 310–317 s, Logo layers 921 s).",
+   "fix": "Delete or trim as listed in cleanup_actions, and A/B the 3D switch removal visually before committing."
+  },
+  {
+   "severity": "minor",
+   "category": "naming",
+   "detail": "Most AV layers have no name. Shape layers keep Illustrator/Figma names ('Layer 7 Outlines 2', 'Layer 4 Outlines 3', 'Layer 34/Frame 1[851040355-851040356] Outlines 2'). There is a typo ('Fractal Noice'), duplicate solid names ('Dark Gray Solid 1' ×2, 'Dark Gray Solid 2' ×2), and footage named 'Group 2131327780.png'.",
+   "fix": "Adopt one naming scheme: BG / VISUAL / SPEAKER / LOGO_BLOCK / PATTERN / TIMER / MUSIC / QR_TELEGRAM / PLASHKA_NAME / ROLE1 / ROLE2 / CONTROLS, and use descriptive media names."
+  },
+  {
+   "severity": "minor",
+   "category": "expressions",
+   "detail": "The project uses the legacy 'extendscript' expression engine. All 9 expressions (5× loopOut(), Fractal Evolution 'effect(\"Fractal Noise\")(24) ⏎ time*40', Random Seed 'effect(\"Fractal Noise\")(28)' referencing itself, Repeater Offset '-100 + time*0.5', and the timer) parse fine under JavaScript, but they carry leftover lines and dead variables.",
+   "fix": "Switch Project Settings → Expressions to JavaScript. Reduce Evolution to 'time*40', delete the Random Seed expression, and rewrite the timer."
+  },
+  {
+   "severity": "minor",
+   "category": "brand-tokens",
+   "detail": "Colours have drifted from the brand tokens: portals use #8EE7BB, #6CDFA6 and #26D07C (three different fills); greys use #ECECEC and #EEEEEE instead of the token gray #F2F2F2; arrows are #C2C2C2 instead of the arrow token #8C959E; the wordmark is #F8F8F8. The 16:9 mint portal covers about 70 % of the frame, against the rule 'green fill ≤ 30 % of a content frame'. Colours come from a mix of text-document colours and Fill-effect overrides.",
+   "fix": "Define a token list (with an explicit approved mint tint if needed) and drive every colour through Color Controls on CONTROLS, removing Fill overrides."
+  },
+  {
+   "severity": "minor",
+   "category": "audio",
+   "detail": "'Музыка вебинар 5 минут.mp3' is 296.34 s against 300-s timer comps (layer out 297.52 s), so the last ≈3.7 s are silent. Both beds are 44.1 kHz, and there is a duplicate music layer in Таймер с вижуалом.",
+   "fix": "Conform the bed to exactly 300 s (or align its end to 0:00) at 48 kHz and ship it as sfx. Provide a loopable 30-s bed for the Заставка."
+  },
+  {
+   "severity": "minor",
+   "category": "rights-privacy",
+   "detail": "The template ships a real person's photo ('Смирнов Илья_v1_20.03 1.png') next to a different name ('Александр Константинов'). The AI clips are named after their prompt, and the cube in them shows a 2×2-pane glyph resembling a third-party logo.",
+   "fix": "Use a neutral placeholder cut-out as the default speaker, and get the AI visuals cleared or regenerated before they become library defaults."
+  },
+  {
+   "severity": "minor",
+   "category": "fonts",
+   "detail": "Text uses SBSansDisplay-Regular (15 runs) and SBSansDisplay-Semibold (1 run), which are not on Adobe Fonts. The PC has system fonts with matching PostScript names, version 1.002. The text documents reference 'Version 1.000' from the Mac, so line breaks may shift slightly. Every Premiere seat needs these fonts installed for the mogrts to work.",
+   "fix": "Have the plugin check for the fonts before inserting, and re-check line breaks after the first open on the PC."
+  },
+  {
+   "severity": "minor",
+   "category": "links",
+   "detail": "Footage is stored with absolute Mac paths (/Volumes/T7_Black/_Video/2_Вебинары/(Footage)/Folder/…) that do not exist on Windows. The aliases use ascendcount_base=1 / target=4, the identical (Footage)/Folder/{Img,Music,Video} tree is next to the .aep, and this pack has no NFD names.",
+   "fix": "A relative relink should happen automatically on open (after the long-name rename). If it does not, Replace Footage once on (Footage)/Folder."
+  },
+  {
+   "severity": "minor",
+   "category": "audit-data",
+   "detail": "The shared audit (aep_audit.py) under-reports for every pack. It shows 'effects: {}' because effect instances are LIST 'sspc' after their tdmn and only tdgp is recorded; this file actually has Fill on about 20 layers, Fractal Noise ×1 and Lumetri ×1. It also skips masks entirely, because 'ADBE Mask Atom' is followed by an 'mkif' chunk before its LIST, so the 6 animated mask paths are missed. Decoded ldta offsets: start, in and out at 12/16, 20/24 and 28/32 (s32/u32 pairs); stretch numerator at 8, denominator at 108; track-matte type byte at 107 (1 alpha, 2 alpha inverted, 3 luma); layer type at 128 (0 AV, 3 text, 4 shape); parent id at 132; matte layer id at 160; flag byte 39 (bit0 video, bit1 audio, bit2 fx); byte 38 bit 0x04 = 3D. Keyframe time = s32/25600 at each ldat record start, and tdsb bit0 = group enabled. The contact sheets for .mp4 sources (both webinar clips and the SMM kling clip) are blank gray.",
+   "fix": "Use work/web/analyze.py and render_shape.py for the deep pass on the other packs, and regenerate mp4 contact sheets with a plain fps/scale/tile chain."
+  }
+ ],
+ "brand_elements": [
+  {
+   "name": "cloud.ru logo (white wordmark + green hex-cube mark)",
+   "kind": "logo",
+   "source": "Folder/Precomp/Logo 936×173: 'Layer 3 Outlines 3' is the wordmark (#F8F8F8, 11 paths); 'Layer 4 Outlines 3' is the mark (#26D07C, 3 paths, parent). Renders: work/web/logo_Layer_3_Outlines_3.png and logo_Layer_4_Outlines_3.png.",
+   "reuse_notes": "still (SVG/PNG: white, dark, mark-only) and a canonical ae-template. Unify with the courses pack's 905×180 copy. Fix the logo width per format: here it is 300 px at 32 % in the 1x1 and 328 px at 35 % in the logo block."
+  },
+  {
+   "name": "Логоблок с челкой (logo + tagline + hatch fringe header)",
+   "kind": "logo-lockup / animated header",
+   "source": "Folder/Precomp/Логоблок с челкой, used ×4. Logo at 35 %; tagline 'облачные и ИИ-сервисы' in SB Sans Display Semibold 39.6/41, tracking −18; hatch 'Shape Layer 4' alpha-matted by 'Shape Layer 5' (#CFF500).",
+   "reuse_notes": "ae-template with tagline and hatch controls, plus a 6-s alpha prerender loop for Pr. The hatch alone becomes an ffx."
+  },
+  {
+   "name": "Portal (stepped panel / media container)",
+   "kind": "shape / container",
+   "source": "'PORTAL' layers. 16:9: rect 1760×816 #8EE7BB with Add masks for a left block (−880,−356)–(118…417,268) and a right block (118,−302)–(880,460). 1x1: rect 1296×791 #26D07C with inverted-Add and Subtract notches. 9x16: 'portal1'/'portal2' #6CDFA6, 806×968 / 804×853. Used as an alpha matte for the visuals.",
+   "reuse_notes": "Matches the brand-book motif 'прямоугольник → повторение со сдвигом → ступенчатая форма', which uses a 40-px step. Rebuild as a shape-based ae-template (two rects + Merge Paths, Step / Offset / Colour sliders) with a step-drift ffx. Tokenise the three different fills."
+  },
+  {
+   "name": "Arrow-cross line pattern (PATTERN RACK)",
+   "kind": "pattern",
+   "source": "Folder/Precomp/PATTERN RACK 3840×2160: 'Layer 34/Frame 1[851040355-851040356] Outlines 2' is a column of 15 cells (150-px square corner + diagonals, 4-px #222222 strokes) repeated 27 times at 150 px. Render: work/web/pattern_tiled.png.",
+   "reuse_notes": "still (SVG tile), plus an ae-template grid (Cell / Stroke / Colour / Columns × Rows) and prerendered shimmer and strip loops. Standardise the cell size (currently 92.9 vs 96 px). The same fractal-noise reveal appears in 4_SMM_Pack."
+  },
+  {
+   "name": "Dot grid",
+   "kind": "pattern",
+   "source": "(Footage)/Folder/Img/Group 2131327780.png: 176×164 RGBA, a 6×5 grid of 6-px square dots in #222222 at a 34×39.5 px pitch. Recoloured white by Fill and used ×4 in 9x16 (one inverted-alpha-matted to 'portal2') and ×2 in Заставка со спикером, upscaled to 143 %. Render: work/web/group_png_x3.png.",
+   "reuse_notes": "Rebuild as vector (shape + 2 repeaters, dots on the 2/4/6-px module) and ship as an SVG still and an ae-template element."
+  },
+  {
+   "name": "Hatch 'fringe' (челка)",
+   "kind": "animated pattern",
+   "source": "Логоблок 'Shape Layer 4': a 77-px vertical line with a 3-px stroke and a Repeater of 200 copies at 25 px. Offset expression '-100 + time*0.5' (12.5 px/s); the band is matted by a 1566×90.9 rect.",
+   "reuse_notes": "ffx 'CRU_Hatch_Drift' with Spacing, Speed (loop-safe), Stroke and Colour, plus an alpha prerender loop."
+  },
+  {
+   "name": "Arrow 'Strelka'",
+   "kind": "icon",
+   "source": "'Strelka' / 'Strelka 2' (1x1) and 'Strelka 3' / 'Strelka 4' (9x16): two stroked paths (a 20×20 diagonal plus a 24×24 corner), 3 px #C2C2C2 at ×144 %, recoloured white by Fill in 9x16. Also appears in 4_SMM_Pack and 6_Podcast_Pack ('Strelka_1..3', animated).",
+   "reuse_notes": "still (SVG), plus an ffx with trim-path draw-on. The colour should be the arrow token #8C959E."
+  },
+  {
+   "name": "Telegram QR block",
+   "kind": "qr / media",
+   "source": "'Layer 7 Outlines' / 'Layer 7 Outlines 2' in all 16:9 comps: a vector QR with rounded modules and a Telegram glyph (127×127, white with merge-path cut-outs) plus the outlined white caption 'Канал Cloud.ru в Telegram', bottom-left at about x 82–480, y 880–994. Renders: work/web/l7_qr2_crop.png and l7_zv.png.",
+   "reuse_notes": "QR as a still (PNG/SVG); in templates a Media Replacement slot plus a live caption. QR slots also exist in 6_Podcast_Pack."
+  },
+  {
+   "name": "Speaker lower-third strips",
+   "kind": "lower-third",
+   "source": "Speaker text in SB Sans Display 35/47, tracking 19, white, over three #222222 strips 50 px high ('Подложка_1/2/3' = 'Layer 5 Outlines 2', 'Layer 4 Outlines 3', 'Layer 4 Outlines 4'), placed around x 1078–1463, y 686–809.",
+   "reuse_notes": "An auto-width mogrt / ae-template, aligned with the 5_Titles speaker lower-third family."
+  },
+  {
+   "name": "Countdown typography",
+   "kind": "typography",
+   "source": "'начало через' at 39.6 px (35 px in the speaker twin) plus TIMER at 155 px, SB Sans Display Regular #222222, format m:ss.",
+   "reuse_notes": "Countdown ffx/mogrt with fixed-width digits (SB Sans Text Mono / Cond Mono are installed)."
+  },
+  {
+   "name": "Webinar type styles",
+   "kind": "typography",
+   "source": "SB Sans Display Regular. 16:9 title 60/67 in a 904×368 box (#222222). 1x1 title 83.3/95, white, centred. 9x16 title 70/79, tracking 16, #222222. Label and date 60/95. Speaker 35/47, tracking 19. Tagline in Semibold 39.6/41, tracking −18.",
+   "reuse_notes": "Turn these into named text styles (title_16x9 / title_square / title_story / meta / speaker / tagline) inside the templates."
+  },
+  {
+   "name": "Colour set as used",
+   "kind": "color-tokens",
+   "source": "#222222 (background and dark text), #26D07C (date, 1x1 portal, logo mark), #8EE7BB and #6CDFA6 (mint portals), #ECECEC / #EEEEEE (AI window background), #C2C2C2 (label and arrows), #F8F8F8 (wordmark), #FFFFFF, #CFF500 (hidden matte only), #2D2D2D (hidden outlines).",
+   "reuse_notes": "Map these to the brand tokens (green #26D07C, black #222222, gray #F2F2F2, arrow #8C959E, yellow #CFF500) and decide whether the mint tints become official tokens."
+  },
+  {
+   "name": "Music beds",
+   "kind": "audio",
+   "source": "(Footage)/Folder/Music: 'Music vebinar.mp3' (30.07 s) and 'Музыка вебинар 5 минут.mp3' (296.34 s), both 44.1 kHz stereo mp3.",
+   "reuse_notes": "sfx library items: a loopable 30-s bed and an exact 5:00 bed at 48 kHz, placed by the panel because mogrts carry no audio."
+  },
+  {
+   "name": "AI visual (robot arm + cube)",
+   "kind": "footage",
+   "source": "(Footage)/Folder/Video: 'Seedance.mp4' and the long-named robot-arm mp4, each 1440×1440 @24 fps, about 10 s, on a light-grey background. Assembled into a 30.16-s loop in AI_анимация precomp. Sheets: work/web/sheet_*.png.",
+   "reuse_notes": "A prerendered 25p loop as the default VISUAL media, after a rights/glyph check."
+  }
+ ],
+ "animation_patterns": [
+  {
+   "name": "Portal step drift",
+   "description": "A mask-path morph on PORTAL Mask 1: the right edge of the left block cycles 118 → 417 → 229 → (402 →) 118 px in layer space (about ±150 px), on bezier keys with about 33 % influence. Intros use a 30-s period (keys at 0 / 9 / 21.32 / 29.92 s, plus 14 leftover keys up to 174.6 s); timers use a 75-s period (17 keys, 4 cycles over 300 s). The 1x1 variant instead 'breathes' two notches on linear keys at 0 → 5 → 9.96 s (+109 px on the top-right notch, +86 px on the bottom-left).",
+   "where_used": [
+    "Заставка с вижуалом",
+    "Заставка со спикером",
+    "Таймер с вижуалом",
+    "Таймер со спикером",
+    "Анонс_Вебинар_1x1"
+   ],
+   "candidate_preset": "ffx 'CRU_Portal_StepDrift': an expression on shape-rect size/position with Amplitude / Period / Phase sliders, looping seamlessly, replacing the keyed masks. Pr gets prerendered loops."
+  },
+  {
+   "name": "Hatch fringe drift",
+   "description": "Repeater Offset = -100 + time*0.5 (0.5 copies/s = 12.5 px/s at 25-px spacing, 200 copies) inside a 6-s precomp. The precomp is looped in each parent by Time Remap (2 linear keys, 0 → 5.96 s) + loopOut(). It is seamless because 6 s × 0.5 = 3 whole copies.",
+   "where_used": [
+    "Логоблок с челкой (inside all four 16:9 comps)"
+   ],
+   "candidate_preset": "ffx 'CRU_Hatch_Drift': a shape layer with Spacing / Speed (constrained to k·spacing/period) / Stroke / Copies sliders."
+  },
+  {
+   "name": "Pattern shimmer (noise-revealed grid)",
+   "description": "The PATTERN RACK grid is luma-matted by a 3840×2160 3D solid running Fractal Noise: Fractal Type #5, Noise Type Block, Contrast 400, Brightness −100, Scale 225, Evolution = time*40 °/s. The result is random pattern cells flickering on and off. The same recipe appears in 4_SMM_Pack with time*50.",
+   "where_used": [
+    "PATTERN RACK_Animation → Заставка со спикером",
+    "PATTERN RACK_Animation → Таймер со спикером",
+    "4_SMM_Pack (same technique)"
+   ],
+   "candidate_preset": "ae-template 'CRU_Pattern_Shimmer' (grid + noise matte, Speed / Density sliders), plus an ffx variant (Fractal Noise + Set Matte) and alpha prerender loops for Pr."
+  },
+  {
+   "name": "Static pattern strip",
+   "description": "The PATTERN RACK precomp is masked to a strip (40 %×10 % or 20 %×10 % of the 4K comp) and scaled to 61.9 %. It has no motion.",
+   "where_used": [
+    "Заставка с вижуалом (Pattern2)",
+    "Таймер с вижуалом (Pattern0)"
+   ],
+   "candidate_preset": "still (SVG strip), plus the 'CRU_Pattern_Grid' ae-template with Columns × Rows sliders."
+  },
+  {
+   "name": "Precomp loop via Time Remap",
+   "description": "Time Remap with 2 linear keys (0 → duration minus 1 frame) + loopOut('cycle'). Used to stretch the 6-s logo block and the 30.16-s AI loop across 30-s and 300-s comps.",
+   "where_used": [
+    "Логоблок с челкой ×4 (0→5.96 s)",
+    "Таймер с вижуалом / CONTENT (0→30.16 s)"
+   ],
+   "candidate_preset": "ffx (or a one-click panel action) 'CRU_Loop_Precomp'."
+  },
+  {
+   "name": "AI clip concatenation + speed-up",
+   "description": "Two 10-s 24p AI clips are concatenated, then two copies are stretched to 74.75 % and 75.35 % (≈1.33× speed) to make a 30.16-s loop. They use 50-px feathered masks and a Lumetri match on Seedance (Temperature 3, Tint 1, Exposure 0.1), with no frame blending.",
+   "where_used": [
+    "AI_анимация precomp / _1 / _2 → CONTENT and the announcements"
+   ],
+   "candidate_preset": "prerender: a single 25p loop file. A preset adds nothing here."
+  },
+  {
+   "name": "Countdown",
+   "description": "A Source Text expression counts up (m:ss from floor(time)), and the precomp layer is time-reversed (stretch −100 %, start 300 s) to make it count down. There are no controls.",
+   "where_used": [
+    "Timer precomp → Таймер с вижуалом",
+    "Timer precomp → Таймер со спикером"
+   ],
+   "candidate_preset": "ffx 'CRU_Countdown_mmss' (Minutes / Seconds / Leading zero / End text), plus a 'Countdown' mogrt for Pr."
+  },
+  {
+   "name": "Spacing rig (save-zone chain)",
+   "description": "25-px red-stroked squares (hidden, fill disabled) are parented in a chain with the text and arrows ('Вебинар' → save zone → Strelka → save zone → date …). They act as manual gap guides for a horizontal meta row.",
+   "where_used": [
+    "Анонс_Вебинар_1x1",
+    "Анонс_Вебинар_9x16"
+   ],
+   "candidate_preset": "ffx 'CRU_AutoRow': a sourceRectAtTime-based horizontal stack with a Gap slider, replacing the squares."
+  },
+  {
+   "name": "Static holding layout (no entrances)",
+   "description": "No text, logo or strip has entrance or exit keyframes; everything is visible from frame 0. 'Life' comes only from the ambient patterns above and the AI video.",
+   "where_used": [
+    "all 6 ROOT comps"
+   ],
+   "candidate_preset": "Optional brand entrance presets from the shared library (premium entrance, portal wipe, strip wipe). If they are added, protect the intro and outro with Responsive Design – Time (0–1 s and the last 0.5 s) on stretchable mogrts."
+  }
+ ],
+ "cleanup_actions": [
+  "Rename the long AI clip and relink before the first open on Windows: 'A_robotic_arm_…Milstei.mp4' → 'AI_robot_arm_A_1440p24.mp4', 'Seedance.mp4' → 'AI_robot_arm_B_1440p24.mp4'. Also rename 'Group 2131327780.png' → 'pattern_dots_6x5.png', 'Music vebinar.mp3' → 'music_webinar_loop30.mp3' and 'Музыка вебинар 5 минут.mp3' → 'music_webinar_5min.mp3'. Replace 'Смирнов Илья_v1_20.03 1.png' with a neutral 'speaker_placeholder.png'.",
+  "Open Вебинары.aep once in the chosen baseline AE and Save As 'Вебинары_v2.aep' (the first save in AE 2026 converts the file). Keep the collected original read-only.",
+  "In Project Settings → Expressions, switch to JavaScript. Reduce the Fractal Noise Evolution expression to 'time*40' and delete the self-referencing Random Seed expression.",
+  "Delete the disabled 'Текст' group (the outlined Karmada title) from 'Layer 7 Outlines' (Таймер с вижуалом) and from 'Layer 7 Outlines 2' (Заставка с вижуалом, Заставка со спикером, Таймер со спикером). Rebuild the block as QR footage plus live caption text named QR_TELEGRAM.",
+  "Remove junk: the duplicate music layer L6 (audio off) in Таймер с вижуалом; PORTAL Mask 3 (a copy of Mask 2) in Заставка с вижуалом; PORTAL Mask 1 keys after 30 s in both Заставка comps; the hidden 3D 'Dark Gray Solid 2' and the unneeded 3D switches in PATTERN RACK_Animation (A/B check first); the pink matte fills on 'Shape Layer 1/2'.",
+  "Trim layer spans to comp length: text/QR/logo layers at 300 s inside 30-s comps, PATTERN RACK layers at 310–317 s, Logo layers at 921 s, music layers.",
+  "Rename layers and items: unnamed AV layers → BG / VISUAL / SPEAKER / LOGO_BLOCK / PATTERN / TIMER / MUSIC; 'Fractal Noice' → NOISE_MATTE; 'Layer 5 Outlines 2' / 'Layer 4 Outlines 3' / 'Layer 4 Outlines 4' and 'Подложка_1/2/3' → PLASHKA_NAME / ROLE1 / ROLE2; the Figma-named pattern layer → PATTERN_ARROWCROSS. Merge the duplicate 'Dark Gray Solid 1/2' items, and organise folders as Templates / Elements / Media / Controls.",
+  "Normalise type: reset scaled text layers to 100 % ('облачные и ИИ-сервисы' at 206.6 % under a 35 % parent, '25.11 в 11:00' at 69.4 %, 'Вебинар 3' at 82.3 %) and set real font sizes. Remove the 103.8 % vertical scale on label and date, fix the double space in the tagline, unify 'начало через' (39.6 vs 35 px), and keep the 9x16 title box inside the frame.",
+  "Replace the 'save zone' parent chains and the hand-scaled strips with sourceRectAtTime auto-rows and auto-sized strips driven by Gap and padX sliders. Remove the six red guide squares.",
+  "Replace Fill-effect recolouring (9x16 label, date, arrows and dot grids; background solids) with Color Controls on a CONTROLS null bound to brand tokens.",
+  "Rebuild PORTAL as a shape (2 rects + Merge Paths) with a seamless step-drift expression instead of 17–18 mask keys. Rebuild PATTERN RACK (96-px cell) and the dot grid natively as vector at 1080p.",
+  "Rebuild the countdown: non-reversed, Minutes and Seconds sliders, fixed-width digits, an end state. Conform the 5-min music to 300 s at 48 kHz.",
+  "Create masters (WEB_Screen_16x9 with Layout and Timer switches; WEB_Announce with a DATA comp feeding the 1x1 and 9x16 children). Set up EGP and Media Replacement (VISUAL, SPEAKER, QR) and export mogrts by JSX: Property.addToMotionGraphicsTemplateAs and CompItem.exportAsMotionGraphicsTemplate exist in the AE scripting API (15.1 / 16.1+), which contradicts the vault note 'MOGRT via ExtendScript impossible'. Verify this in a spike on AE 2025/2026.",
+  "Prerender the library loops: the AI visual (25p mezzanine), 30-s seamless backgrounds per layout, the pattern shimmer (alpha), the 6-s logo-block loop (alpha), and stills (logo variants, QR, arrow, pattern tile, dot grid).",
+  "Once fps and size are decided, fix the AME presets: switch 'Webinar_FullHD_5-10_24fps', 'Timer_3-5_24fps' and 'Zastavka_15-20_24fps' to 25 fps, or move the comps to 24 fps; align the announcement formats with SMM_1x1 / SMM_9x16; rename the presets consistently (e.g. WEB_Timer_1080p25_H264_3-5)."
+ ],
+ "questions_for_user": [
+  "What frame rate does the webinar platform/recording need? The AME presets 'Webinar_FullHD_5-10_24fps', 'Timer_3-5_24fps' and 'Zastavka_15-20_24fps' are 24 fps, but every webinar comp is 25 fps and the brand formats say 1080p @25.",
+  "Is the 1x1 announcement's 1400×1400 @25 a platform requirement, or should both announcements follow the SMM presets (1080×1080 / 1080×1920 @30, as in the brand formats)?",
+  "The 9x16 announcement has no cloud.ru logo while the 1x1 has one. Is that intentional?",
+  "Is the Telegram QR always the same Cloud.ru channel (bake it as a still), or does it change per webinar (media-replacement slot)?",
+  "Which countdown lengths are needed: only 5:00, or a range such as 1–15 min? Should 0:00 switch to an end state like 'Начинаем'?",
+  "Should the mint portal tints (#8EE7BB, #6CDFA6) and the grey arrows (#C2C2C2) become official tokens, or be remapped to brand tokens? The 16:9 portal exceeds the 'green fill ≤ 30 %' rule.",
+  "Are the AI robot-arm clips cleared for reuse as the default visual? The cube shows a 2×2-pane glyph resembling a third-party logo. Should templates ship with them or with an empty slot?",
+  "Which AE and Premiere versions should templates and mogrts target (AE 2025 or 2026; what do the other editors run)? The first save will convert Вебинары.aep."
+ ]
+}

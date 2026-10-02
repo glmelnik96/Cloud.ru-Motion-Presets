@@ -1,0 +1,236 @@
+{
+ "topic": "Premiere Pro extensibility platform as of Oct 2026: UXP vs CEP/ExtendScript for a Cloud.ru brand-toolkit panel (insert brand graphics, MOGRTs and clips, apply animation presets by button)",
+ "findings": [
+  {
+   "claim": "UXP in Premiere went GA in Premiere 25.6.0, released Nov 19, 2025. The changelog entry reads 'Official release of UXP extensibility', and the APIs are described as 'approaching parity with what was previously possible via CEP and ExtendScript'. The first public beta was in Premiere (Beta) 25.2.0 on Dec 4, 2024. Developing for 25.6+ requires UXP Developer Tool 2.2 or later. 2.2.1 is the latest public build (v2.3 was still unreleased as of late Jul 2026). UXP Premiere plugins can be published to the Adobe Marketplace.",
+   "confidence": "high",
+   "sources": [
+    "https://developer.adobe.com/premiere-pro/uxp/changelog",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/changelog/index.md",
+    "https://blog.adobe.com/en/publish/2025/11/19/adobe-premiere-adds-smarter-search-faster-edits-seamless-collaboration",
+    "https://blog.developer.adobe.com/en/publish/2025/12/uxp-arrives-in-premiere-a-new-era-for-plugin-development",
+    "https://developer.adobe.com/premiere-pro/uxp/introduction/essentials/dev-tools/",
+    "https://community.adobe.com/questions-707/request-for-uxp-developer-tool-v2-3-download-link-1634294"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "UXP is a supported production platform for Premiere today, not a beta bet. Phase 3 can target it directly."
+  },
+  {
+   "claim": "Version landscape on 2026-10-02. Premiere 26.0 shipped Jan 20, 2026. 26.2 added UXP Hybrid (C++) plugins. 26.3 shipped ~Jun 2026. The current release is 26.5, released Sep 10, 2026 (26.5.1 followed in Sep 2026). The API is versioned with the app: the official TypeScript types @adobe/premierepro are at 'latest' 26.5.0 (2026-09-08) and 'release-26.5' 26.5.1 (2026-09-14). The next major, 27.0, is in public beta: types 27.0.0-beta.57 were published 2026-09-23, and Premiere docs already say 'Premiere Pro 27.0.0 or later' for panel drag-and-drop. UXP runtime per Adobe's Jul 29, 2026 matrix: Premiere 26.0.2 = UXP 8.1.0, 26.2 = 9.2.1, 26.3 = 9.3.0. Premiere supports manifestVersion 5. This PC (read-only check) has Premiere 26.3.2 and AE 26.3, the UPIA installer is present, UDT is not installed and UXP developer mode is not enabled.",
+   "confidence": "high",
+   "sources": [
+    "https://www.newsshooter.com/2026/01/20/whats-new-in-adobe-premiere-pro-26-0/",
+    "https://community.adobe.com/announcements-727/what-s-new-in-adobe-premiere-26-5-september-2026-1641187",
+    "https://www.npmjs.com/package/@adobe/premierepro",
+    "https://github.com/adobe/premierepro-types/releases",
+    "https://blog.developer.adobe.com/en/publish/2026/07/uxp-changelog-and-support-matrix",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/plugins/tutorials/drag-and-drop/index.md",
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/concepts/manifest/",
+    "local: C:\\Program Files\\Adobe\\Adobe Premiere Pro 2026\\Adobe Premiere Pro.exe ProductVersion 26.3.2; C:\\Program Files\\Common Files\\Adobe\\Adobe Desktop Common\\RemoteComponents\\UPI\\UnifiedPluginInstallerAgent\\UnifiedPluginInstallerAgent.exe present"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Pin host minVersion to 26.3.0, which has the post-breaking-change semantics and matches the installed 26.3.2. Plan to update team machines to 26.5 now and to 27.x when it ships. Install UDT 2.2.1 and enable developer mode (needs admin) before Phase 3."
+  },
+  {
+   "claim": "The API is mature but still changing in breaking ways. In 26.3, Sequence.setSelection became synchronous, and every create*Action call must now happen inside project.lockedAccess(). In 26.5, Media.start/duration and MarkerColor.MAGNETA were deprecated. The 27.0 beta types remove the Application class and its version property, and change ComponentParam/Keyframe return types (marked fix!/feat!). Documentation gaps: the Premiere ExtendScript and CEP migration-guide pages are placeholders ('Stuff goes here...'), and entrypoint keyboard shortcuts are 'not available in Premiere yet'. Known UI limits: no CSS transitions or animations, limited SVG. Adobe itself ships a UXP plugin inside Premiere 26.3.2 (UXP\\plugins\\com.adobe.frameio.uxp).",
+   "confidence": "high",
+   "sources": [
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/changelog/index.md",
+    "https://github.com/adobe/premierepro-types/releases",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/resources/migration-guides/extendscript/index.md",
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/concepts/manifest/",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/uxp-api/known-issues.md",
+    "local: C:\\Program Files\\Adobe\\Adobe Premiere Pro 2026\\UXP\\plugins\\com.adobe.frameio.uxp"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Keep all premierepro calls behind one host adapter and use the @adobe/premierepro types plus @adobe/eslint-plugin-premierepro. Re-run a smoke test after every Premiere update. Use runtime feature detection, e.g. typeof ppro.MogrtText or require('uxp').host.version, not Application.version."
+  },
+  {
+   "claim": "ExtendScript in Premiere has no end-of-life date. The vault note 'Adobe plans ExtendScript EOL in September 2026' is outdated. In Nov 2025 Adobe said ExtendScript integrations were supported 'through September 2026', a minimum commitment. On Aug 28, 2026 Adobe's Bruce Bullis (bbb_999) wrote that 'no removal of CEP or ExtendScript from Premiere has been planned or scheduled'. Asked whether ExtendScript keeps working after Sep 2026, he answered 'Yes'. Asked about a planned EOL date, he answered 'No'. Asked whether it stays supported until UXP equivalents exist, he answered 'That is our plan'. Adobe's Sep 24, 2026 blog says 'ExtendScripts are not affected by this transition.' However, the Premiere ExtendScript DOM is frozen ('we've stopped additional work on the ExtendScript API'), new capabilities are UXP-only, and Adobe has 'no plans to create any bridges to ExtendScript' from UXP (Jun 22, 2026). There is no QE DOM in UXP.",
+   "confidence": "high",
+   "sources": [
+    "https://forums.creativeclouddeveloper.com/t/uxp-api-parity-for-mogrt-parameter-control-current-extendscript-support-status/12131",
+    "https://forums.creativeclouddeveloper.com/t/mogrt-parameters-in-uxp-availabilty/11408",
+    "https://blog.developer.adobe.com/en/publish/2026/09/investing-in-the-future-of-creative-cloud-extensibility-uxp-comes-to-our-flagship-applications",
+    "https://ppro-scripting.docsforadobe.dev/",
+    "https://github.com/Adobe-CEP/Samples/blob/master/PProPanel/ReadMe.md"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Existing ExtendScript/CEP tooling (including the CDP-driven skills) keeps working, so nothing must be rewritten urgently. New Premiere code should not be written against a frozen DOM, and a UXP plugin cannot call into ExtendScript."
+  },
+  {
+   "claim": "Official CEP retirement timeline (Adobe Developer Blog, dated 2026-09-24, author Aubrey Cattell). Premiere: the Marketplace stops accepting new CEP submissions in Dec 2027. CEP is disabled by default in Dec 2028, and 'users can easily turn it back on'. From Dec 2029, 'CEP will no longer be included' in new versions. Until then, existing Marketplace CEP plugins 'will continue to work and can still receive updates'. CEP plugins distributed outside the Marketplace are not affected by the submission milestone. After Effects, Illustrator and Media Encoder: submissions stop and CEP goes default-off in Dec 2028, removal in Dec 2029. AE gets 'public beta UXP plugins by November 2026'. Every app is guaranteed at least 2 years from its UXP public beta. This supersedes the Nov 2025 PProPanel README plan to 'support both CEP and UXP for a calendar year' and then remove CEP.",
+   "confidence": "high",
+   "sources": [
+    "https://blog.developer.adobe.com/en/publish/2026/09/investing-in-the-future-of-creative-cloud-extensibility-uxp-comes-to-our-flagship-applications",
+    "https://github.com/Adobe-CEP/Samples/blob/master/PProPanel/ReadMe.md"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "A new Premiere CEP panel would have about 2 years of default-on life (to Dec 2028) and then need a rewrite. For AE, CEP stays the production route through 2028, while AE UXP is only entering beta."
+  },
+  {
+   "claim": "CEP panels and their ExtendScript (evalScript) still load in Premiere 26.x. The user's own Premiere CEP panels (com.extensionsllm.chatpr, com.gleb.aisync, com.phygital.studio.pr; HostList PPRO [24.0,99.9]; CSXS 11/12; PlayerDebugMode=1 in CSXS.12) are installed alongside PP 26.3.2. Premiere 27.0 falls before the Dec 2028 default-off milestone, so it should still load CEP, but this was not verified in the 27.0 beta. Caveats: CEP 12 runs Chromium 99 and Node 17.7.1. Regressions happen: 25.6.2–25.6.3 clean installs hung on evalScript, fixed in 25.6.4. A GitHub issue (auto-subs #571, Jun 2026) claims CEP doesn't load in PP 2026; it contradicts Adobe's statements and looks like a local configuration problem.",
+   "confidence": "medium",
+   "sources": [
+    "local: %APPDATA%\\Adobe\\CEP\\extensions\\*\\CSXS\\manifest.xml (read-only)",
+    "https://forums.creativeclouddeveloper.com/t/uxp-api-parity-for-mogrt-parameter-control-current-extendscript-support-status/12131",
+    "https://community.adobe.com/t5/premiere-pro-discussions/critical-premiere-scripting-engine-does-not-respond-to-cep-evalscript-calls/td-p/15616957",
+    "https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_12.x/Documentation/CEP%2012%20HTML%20Extension%20Cookbook.md",
+    "https://github.com/tmoroney/auto-subs/issues/571"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Leave the existing CEP Premiere panels as they are. They can carry a temporary fallback if needed, but they are not the base for the new toolkit."
+  },
+  {
+   "claim": "UXP covers import and insert at the playhead today (all since 25.6). Import: Project.importFiles(filePaths[], suppressUI, targetBin, asNumberedStills) returns only Promise<boolean>, so the imported item has to be found afterwards via FolderItem.getItems() or ClipProjectItem.findItemsMatchingMediaPath. Bins: FolderItem.createBinAction. Other imports: Project.importAEComps/importAllAEComps for Dynamic Link (default-bin bug fixed in 26.5) and Project.importSequences(projectPath, ids) to pull pre-built sequences from a template .prproj. Playhead: Sequence.getPlayerPosition() returns a TickTime. Placement: SequenceEditor.getEditor(seq).createInsertProjectItemAction(item, time, vIdx, aIdx, limitShift), which creates a new track if the index exceeds the track count, or createOverwriteItemAction(item, time, vIdx, aIdx). Edits run as project.lockedAccess(() => project.executeTransaction(ca => ca.addAction(a), 'Undo name')), so one button press is one undo step. The lockedAccess callback must be synchronous.",
+   "confidence": "high",
+   "sources": [
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/ppro-reference/classes/project.md",
+    "https://developer.adobe.com/premiere-pro/uxp/ppro_reference/classes/sequenceeditor",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/ppro-reference/classes/sequence.md",
+    "https://github.com/AdobeDocs/uxp-premiere-pro-samples/tree/main/sample-panels/premiere-api/src"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "The 'insert brand clip (ProRes 4444 alpha / PNG) at the playhead on track V(n)' button is fully implementable in UXP now. Plan a dedupe step (find-before-import) and a dedicated brand bin."
+  },
+  {
+   "claim": "MOGRT insertion is supported in UXP since 25.6. SequenceEditor.insertMogrtFromPath(path, time, vIdx, aIdx) returns VideoClipTrackItem/AudioClipTrackItem[] and is called inside lockedAccess. insertMogrtFromLibrary(libraryName, elementName, time, vIdx, aIdx) inserts from CC Libraries, and static getInstalledMogrtPath() returns the local Essential Graphics templates folder. These replace ExtendScript Sequence.importMGT/importMGTFromLibrary. The replacement for TrackItem.getMGTComponent() is to walk trackItem.getComponentChain() and pick the component whose getMatchName() is 'AE.ADBE Capsule' (the AE-authored Graphic Parameters); this is the pattern used in Adobe's sample. Quirk: right after insertion the component count can change, and developers use a retry loop.",
+   "confidence": "high",
+   "sources": [
+    "https://developer.adobe.com/premiere-pro/uxp/ppro_reference/classes/sequenceeditor",
+    "https://github.com/AdobeDocs/uxp-premiere-pro-samples/blob/main/sample-panels/premiere-api/src/keyframe.ts",
+    "https://forums.creativeclouddeveloper.com/t/mogrt-parameters-in-uxp-availabilty/11408",
+    "https://ppro-scripting.docsforadobe.dev/sequence/sequence/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Brand MOGRTs can be dropped onto the timeline by button without importing projects. Store them in a local or shared folder rather than CC Libraries."
+  },
+  {
+   "claim": "MOGRT parameter editing in released Premiere (26.5 and earlier) is incomplete. Non-text controls (dropdown, slider, checkbox, scale/rotation/position; color is accepted by createKeyframe(Color) but not confirmed by developers) can be set with ComponentParam.createKeyframe(value) followed by createSetValueAction(keyframe) inside executeTransaction. Adobe's answer on Aug 28, 2026 was 'Largely, yes'. Source Text of a MOGRT cannot be read or written: getStartValue returns null or an unsupported type, as reported repeatedly through Sep 15, 2026 and acknowledged by Adobe as a known '.mogrt component shortcoming'. Enumerating the exposed parameters of a placed MOGRT: 'No; coming soon', with Adobe staff saying 'Our current plan is MAX 2026; plans can change'. Adobe's goal (Sep 25, 2026) is 'CEP+ExtendScript ↔ UXP API parity by the end of this calendar year'.",
+   "confidence": "high",
+   "sources": [
+    "https://forums.creativeclouddeveloper.com/t/uxp-api-parity-for-mogrt-parameter-control-current-extendscript-support-status/12131",
+    "https://forums.creativeclouddeveloper.com/t/mogrt-parameters-in-uxp-availabilty/11408",
+    "https://forums.creativeclouddeveloper.com/t/setting-mogrt-text-parameters-in-premiere-uxp/11969"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "On 26.x a UXP plugin cannot auto-fill the speaker name in the lower third. Design the templates so that brand variants are driven by dropdown/checkbox/slider/color controls, and treat the text fields as the only gap."
+  },
+  {
+   "claim": "MOGRT text arrives in the Premiere 27.0 beta. adobe/premierepro-types PR #90 (merged Sep 14, 2026, first in 27.0.0-beta.22) adds MogrtText and MogrtComment. MogrtText offers getText/setText, getFontName/setFontName, getFontSize/setFontSize, setAllCaps, faux bold/italic, small caps, is*Editable and isUniformStyling; MogrtComment is read-only. ComponentParam.createKeyframe now accepts MogrtText/MogrtComment, and getStartValue returns them. Adobe's sample (uxp-premiere-pro-samples PR #100, Sep 17, 2026) reads them from 'AE.ADBE Capsule' params of AE-authored MOGRTs. Limitation: the class 'currently only supports single run text', and setText collapses multi-run styling. The 27.0 release date is not announced. Adobe MAX 2026 is Nov 10–12, 2026 in Miami Beach.",
+   "confidence": "medium",
+   "sources": [
+    "https://github.com/adobe/premierepro-types/pull/90",
+    "https://github.com/adobe/premierepro-types/releases",
+    "https://github.com/AdobeDocs/uxp-premiere-pro-samples/pull/100",
+    "https://github.com/AdobeDocs/uxp-premiere-pro-samples/blob/main/sample-panels/premiere-api/src/keyframe.ts",
+    "https://max.adobe.com/faq/",
+    "local diff: C:\\dev\\temp\\claude\\C--Users------Documents-Cloud-ru-Preset-plugin\\b48e0614-1141-4125-9b74-d00eb767441b\\scratchpad\\work\\uxp\\npm\\{26.5.1,27.0.0-beta.57}\\package\\src\\premierepro.d.ts"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Author lower-third and title MOGRTs with single-style editable text fields, with no mixed styling inside one field. Gate automatic text filling behind Premiere 27.0+ via feature detection, and test against the 27.0 beta now."
+  },
+  {
+   "claim": "Effects and keyframes (since 25.6). Create effects with VideoFilterFactory.getMatchNames()/getDisplayNames()/createComponent(matchName). The docs give examples like 'PR.ADBE Solarize' and 'AE.ADBE Mosaic'; the community reports Transform as 'AE.ADBE Geometry' or 'AE.ADBE Geometry2', so enumerate at runtime. Add them with VideoComponentChain.createInsertComponentAction(component, index) or createAppendComponentAction. Motion and Opacity are already in every chain. Parameters come from Component.getParam(i)/getParamCount(). Keyframing: ComponentParam.createSetTimeVaryingAction(true), createKeyframe(value) with keyframe.position = TickTime, createAddKeyframeAction, and createSetInterpolationAtKeyframeAction(time, mode) with InterpolationMode LINEAR, HOLD, BEZIER, TIME, TIME_TRANSITION_START or TIME_TRANSITION_END. Gaps: there is no API to apply Premiere effect presets (.prfpse) and no control of Bezier handles (velocity/influence). ComponentParam exposes only a localized displayName, with no matchName.",
+   "confidence": "medium",
+   "sources": [
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/ppro-reference/classes/videofilterfactory.md",
+    "https://developer.adobe.com/premiere-pro/uxp/ppro_reference/classes/componentparam",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/ppro-reference/constants/index.md",
+    "https://community.adobe.com/t5/premiere-pro-discussions/about-two-quot-transform-quot-effects/td-p/12898789"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "Premiere 'animation presets' cannot reproduce AE-designed easing, the same failure the earlier hand-coded recipes hit. Deliver brand motion as AE-authored MOGRTs or pre-rendered alpha clips. Use JSON effect recipes only for simple utility moves (push-in, slide, fade). Look up components by matchName and params by index, never by display name, because Premiere may run in a Russian UI."
+  },
+  {
+   "claim": "Other needed operations are covered (since 25.6 unless noted). Transitions: TransitionFactory.getVideoTransitionMatchNames()/createVideoTransition(matchName) plus VideoClipTrackItem.createAddVideoTransitionAction(t, new AddTransitionOptions().setApplyToStart().setDuration(TickTime).setForceSingleSided().setTransitionAlignment()); video only, no audio-transition API. Markers: Markers.getMarkers(sequence or clipProjectItem).createAddMarkerAction(name, type, start, duration, comments), Marker.createSetColorByIndexAction, and Marker.guid (26.3). Frame info: Sequence.getFrameSize() returns a RectF; getTimebase() returns ticks per frame; getSettings() gives SequenceSettings.getVideoFrameRect() and getVideoFrameRate() (26.2). Selection: Sequence.getSelection() returns a TrackItemSelection, setSelection is synchronous since 26.3, and ProjectUtils.getSelection() covers the Project panel. Export: EncoderManager.getManager().exportSequence(seq, ExportType.IMMEDIATELY|QUEUE_TO_AME|QUEUE_TO_APP, outFile, presetFile .epr, exportFull), encodeProjectItem and encodeFile, launchEncoder/startBatchEncode (26.3), RENDER_* events, and Exporter.exportSequenceFrame for stills. Events: EventManager.addEventListener(target, name, handler) and addGlobalEventListener. Project events: OPENED, CLOSED, DIRTY, ACTIVATED, PROJECT_ITEM_SELECTION_CHANGED. Sequence events: ACTIVATED, CLOSED, SELECTION_CHANGED. Track events: TRACK_CHANGED, INFO_CHANGED, LOCK_CHANGED. Operation-complete events include IMPORT_MEDIA_COMPLETE and EXPORT_MEDIA_COMPLETE. There is no playhead-moved event.",
+   "confidence": "high",
+   "sources": [
+    "https://github.com/AdobeDocs/uxp-premiere-pro/tree/main/src/pages/ppro-reference/classes",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/ppro-reference/classes/encodermanager.md",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/ppro-reference/classes/eventmanager.md",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/ppro-reference/constants/index.md",
+    "https://developer.adobe.com/premiere-pro/uxp/ppro_reference/classes/videocliptrackitem"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Auto-picking the 16:9, 9:16 or 1:1 variant from getFrameSize, adding brand markers, branded transitions, and export with the existing 7_Пресеты_Media_Encoder .epr files are all doable in UXP today."
+  },
+  {
+   "claim": "Remaining gaps against ExtendScript and the QE DOM, from inspecting the 27.0.0-beta.57 type definitions. UXP's official effect and transition APIs replace the main QE uses (addVideoEffect, addTransition). UXP still has no razor/cut, link/unlink, nest, clip speed or time-remap setter, track targeting or lock setter, and no creation of adjustment layers, color mattes or native Premiere text Graphics. It also lacks audio transitions and effect-preset application. MOGRT media replacement is missing in ExtendScript too. Entrypoint keyboard shortcuts are not available in Premiere. Drag-and-drop from a panel to the Project panel or Timeline needs Premiere 27.0+ (JSON payload, local files only).",
+   "confidence": "medium",
+   "sources": [
+    "local: C:\\dev\\temp\\claude\\C--Users------Documents-Cloud-ru-Preset-plugin\\b48e0614-1141-4125-9b74-d00eb767441b\\scratchpad\\work\\uxp\\npm\\27.0.0-beta.57\\package\\src\\premierepro.d.ts",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/plugins/tutorials/drag-and-drop/index.md",
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/concepts/manifest/",
+    "https://forums.creativeclouddeveloper.com/t/mogrt-parameters-in-uxp-availabilty/11408"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Keep toolkit actions within these capabilities. Things like adjustment-layer looks can ship as pre-built sequences in a template .prproj (importSequences) or as MOGRTs. Gallery drag-to-timeline becomes a 27.0+ enhancement."
+  },
+  {
+   "claim": "Packaging and installation. A UXP plugin ships as a .ccx file, which is a ZIP, built with UDT ≥2.2 via '•••' > Package; UDT needs admin rights and is not deployable through the Admin Console. Unlike ZXP, a .ccx needs no digital signature or timestamp, and MXI is not supported. Manifest: manifestVersion 5, with host as a single object {\"app\":\"premierepro\",\"minVersion\":\"25.6.0\"}; host arrays are for development only, so it is one .ccx per host app. Installing outside the Marketplace: double-click the .ccx (Creative Cloud Desktop shows an untrusted-source warning) or use the UPIA CLI. Windows: C:\\Program Files\\Common Files\\Adobe\\Adobe Desktop Common\\RemoteComponents\\UPI\\UnifiedPluginInstallerAgent\\UnifiedPluginInstallerAgent.exe /install <file.ccx> (also /remove, /list). macOS: /Library/Application Support/Adobe/Adobe Desktop Common/RemoteComponents/UPI/UnifiedPluginInstallerAgent/UnifiedPluginInstallerAgent.app/Contents/macOS/UnifiedPluginInstallerAgent --install. Enterprise: Admin Console packages with an extensions folder plus UPIA, which also works offline/FRL. Installed plugins appear under Window > UXP Plugins. Loading unpacked dev builds requires Premiere Settings > Plugins > Enable developer mode plus a restart. A pure-JS .ccx runs on both Windows x64 and macOS (Apple Silicon native). Hybrid .uxpaddon plugins need Premiere ≥26.2, Creative Cloud Desktop ≥5.10, macOS notarization and an admin prompt, and are not needed here. Permissions are declared in the manifest: localFileSystem plugin/request/fullAccess, network domains, launchProcess, ipc, webview, clipboard.",
+   "confidence": "high",
+   "sources": [
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/distribution/package/",
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/distribution/install/",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/plugins/distribution/enterprise-distribution/index.md",
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/concepts/manifest/",
+    "https://developer.adobe.com/premiere-pro/uxp/introduction/essentials/dev-tools/",
+    "https://developer.adobe.com/premiere-pro/uxp/plugins/hybrid-plugins/"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Internal distribution is simple: build the .ccx in CI or UDT and install via double-click or UPIA on Windows and Mac. UPIA is already present on this PC; verify it on the Mac and team machines. The AE side ships as a separate package (ZXP or folder now)."
+  },
+  {
+   "claim": "UXP runtime constraints that affect the UI and sidecar design. UXP has fetch, XHR and a WebSocket client, but no server sockets and no Node child_process; shell.openPath/openExternal require user consent. Premiere blocks http:// on macOS; use https or loopback and verify ws://127.0.0.1. One forum report shows a ws://127.0.0.1 permission failure on cold start in 26.2, worked around with a reconnect loop. UXP renders a subset of HTML/CSS. A <webview> (webview permission, with a message bridge) can host a full web UI; Bolt UXP offers this with a Comlink bridge. A <video> element is available for previews. IPC is only UXP-to-UXP (pluginManager.invokeCommand/showPanel), so CEP and UXP can only talk over the network, via a CEP Node server or a local sidecar.",
+   "confidence": "medium",
+   "sources": [
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/resources/recipes/network/index.md",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/resources/recipes/external-process/index.md",
+    "https://github.com/AdobeDocs/uxp-premiere-pro/blob/main/src/pages/plugins/tutorials/inter-plugin-comm/index.md",
+    "https://forums.creativeclouddeveloper.com/t/installed-uxp-plugin-only-gets-network-permission-after-udt-loads-dev-version-in-same-session-premiere-26-2/11881",
+    "https://github.com/hyperbrew/bolt-uxp",
+    "https://developer.adobe.com/uxp/migration-center/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "The shared core must be pure TypeScript with injected I/O, with no Node APIs. The Preact/htm CEP UI is reusable only via a WebView or a constrained-CSS port. The CDP-over-8092 agent automation will not reach a UXP plugin; if agents should drive it, the plugin can connect as a WebSocket client to the existing FastAPI sidecar."
+  },
+  {
+   "claim": "After Effects context for the shared core. AE stays on CEP + ExtendScript for production: AE UXP reaches public beta only 'by November 2026', and AE CEP goes default-off in Dec 2028. ExtendScript in AE, which has a Scripts menu, is unaffected. AE scripting already supports 'presets by button' natively: Layer.applyPreset(File) applies an .ffx to the selected layers, or to a new solid if none is selected, so keyframes need not be re-coded. MOGRT authoring is scriptable via CompItem.exportAsMotionGraphicsTemplate() (AE 15.0+) and Property.addToMotionGraphicsTemplate/addToMotionGraphicsTemplateAs() (15.0/16.1+). Premiere ExtendScript also has Sequence.importMGT. The vault claim that 'MOGRT via ExtendScript is technically impossible' is therefore false.",
+   "confidence": "high",
+   "sources": [
+    "https://blog.developer.adobe.com/en/publish/2026/09/investing-in-the-future-of-creative-cloud-extensibility-uxp-comes-to-our-flagship-applications",
+    "https://ae-scripting.docsforadobe.dev/layer/layer/",
+    "https://ae-scripting.docsforadobe.dev/item/compitem/",
+    "https://ae-scripting.docsforadobe.dev/property/property/",
+    "https://ppro-scripting.docsforadobe.dev/sequence/sequence/"
+   ],
+   "architecture_critical": true,
+   "implication_for_plan": "The AE adapter should apply .ffx presets and do selective library import through the CEP panel and JSX. Export MOGRTs for Premiere by script from the fixed AE projects. Port the AE adapter to UXP in 2027–28 on the same core."
+  },
+  {
+   "claim": "Inference: Premiere has no Scripts menu, so ExtendScript there is reached in practice through CEP panels (CSInterface.evalScript), or through BridgeTalk or the VS Code ExtendScript debugger. Its usable lifetime for a panel product is therefore tied to CEP (default-off Dec 2028, removal from new versions Dec 2029), even though Adobe says 'ExtendScripts are not affected'.",
+   "confidence": "medium",
+   "sources": [
+    "https://blog.developer.adobe.com/en/publish/2026/09/investing-in-the-future-of-creative-cloud-extensibility-uxp-comes-to-our-flagship-applications",
+    "https://forums.creativeclouddeveloper.com/t/mogrt-parameters-in-uxp-availabilty/11408"
+   ],
+   "architecture_critical": false,
+   "implication_for_plan": "Any ExtendScript fallback in Premiere (e.g. for MOGRT text) should be treated as temporary and disposable."
+  }
+ ],
+ "recommendation": "Build the Premiere side as one UXP plugin. Do not build a new CEP Premiere panel, and do not maintain a CEP + UXP duplicate.\n\n**Manifest:** manifestVersion 5; host {\"app\":\"premierepro\",\"minVersion\":\"26.3.0\"}; MOGRT-text features gated at runtime to Premiere ≥27.0.\n\n**Shared core:** put everything host-agnostic into a shared TypeScript core with injected I/O and no Node or host APIs:\n- asset catalog JSON\n- brand tokens\n- template/preset recipes\n- 16:9 / 9:16 / 1:1 variant selection from the sequence frame size\n- naming, validation and preview metadata\n\n**Host adapters:**\n- **Premiere (UXP), all available since 25.6 unless noted:**\n  - Project.importFiles plus createOverwriteItemAction or createInsertProjectItemAction at getPlayerPosition() on track V(n)\n  - insertMogrtFromPath, with params on the 'AE.ADBE Capsule' component\n  - VideoFilterFactory and ComponentParam keyframes\n  - TransitionFactory, Markers\n  - EncoderManager.exportSequence with the existing .epr presets\n- **After Effects (now):** the existing CEP panel plus JSX (importFile, Layer.applyPreset(.ffx), exportAsMotionGraphicsTemplate). AE UXP only reaches public beta by Nov 2026 and AE CEP stays default-on until Dec 2028.\n- **After Effects (later, about 2027–28):** an AE UXP adapter on the same core.\n\n**Why UXP now:**\n- UXP has been GA since 25.6 (Nov 19, 2025). Premiere 26.5 (Sep 10, 2026) is current and 27.0 is in beta.\n- All new Premiere APIs are UXP-only, and the ExtendScript DOM is frozen.\n- CEP in Premiere is on a dated exit: no new Marketplace submissions from Dec 2027, default-off Dec 2028, absent from new versions Dec 2029.\n- UXP already covers every toolkit operation except writing MOGRT text. That is present in the 27.0 beta as MogrtText (single-run only), and Adobe targets full parity by the end of 2026. That is roughly when Phase 3 of the plan would start anyway, after the projects are fixed and the templates authored.\n- Your CEP experience still applies to the AE adapter and to the existing Premiere CEP panels, which keep working; leave them as they are.\n\n**Covering the MOGRT-text gap on 26.x:**\n1. Insert the MOGRT, select it, and let the editor type the name in the Properties panel.\n2. If automation is truly needed before 27.0 ships, use a small throwaway ExtendScript text-setter inside an existing CEP Premiere panel, reached through the local sidecar.\n3. Only build a UXP↔CEP network bridge if 27.0 slips into 2027.\n\n**Template design implied by the API:**\n- Brand motion in Premiere comes from AE-authored MOGRTs and pre-rendered alpha clips.\n- MOGRT text fields should be single-style; brand variants are driven by dropdown, checkbox, slider and color controls.\n- Premiere-native effect 'presets' are only for simple moves. The API sets only the LINEAR/HOLD/BEZIER interpolation mode, cannot apply .prfpse presets, and gives no access to easing handles.\n\n**Spike first (1–2 days, PP 26.5 and the 27.0 beta):**\n1. Import and overwrite at the playhead on V3.\n2. insertMogrtFromPath, then set a dropdown, checkbox and color.\n3. MogrtText.setText (27.0 beta).\n4. Transform keyframes.\n5. A transition and a marker.\n6. AME export with an existing .epr.\n7. Package a .ccx with UDT and install it via UPIA on both Windows and Mac.",
+ "open_risks": [
+  "The Premiere 27.0 release date is not announced, and MogrtText exists only in beta types and samples. It could slip past MAX 2026 (Nov 10–12, 2026) or change shape. It only supports single-run text, and enumerating the parameter names of a placed MOGRT is still 'coming soon', so mapping params by index is fragile until then.",
+  "The UXP Premiere API still ships breaking changes: 26.3 (lockedAccess enforcement, synchronous setSelection) and 27.0 beta (Application removed, ComponentParam/Keyframe return types changed). Each Premiere update needs a regression pass, and the team is on 26.3.2 rather than the current 26.5.",
+  "Adobe's own statements have changed several times: Nov 2025 'remove CEP after a calendar year', then ExtendScript 'through Sep 2026', then Apr/Aug 2026 'no removal planned', then the formal Sep 24, 2026 timeline of Dec 2027/2028/2029. Dates could move again in either direction.",
+  "Known UXP quirks: the component chain count changes right after MOGRT insertion (needs a retry loop); network permission can fail on cold start for ws://127.0.0.1 (needs a reconnect loop); http:// is restricted on macOS; there are no keyboard shortcuts in Premiere; UXP UI has no CSS transitions or animations and limited SVG; drag-to-timeline needs 27.0.",
+  "Capability gaps that could block planned features: no .prfpse preset application, no custom ease handles, no audio transitions, no razor/nest/link/speed/track-target operations, no adjustment-layer or native-text creation, and no MOGRT media replacement.",
+  "Localization: ComponentParam exposes only a localized displayName. A Russian-UI Premiere could break any lookup by parameter name, so lookups must use the component matchName and the parameter index.",
+  "Distribution and accounts: installing a .ccx needs Creative Cloud Desktop or UPIA (present on this PC; unverified on the Mac and other team machines). UDT needs admin rights and is not available through the Admin Console. Adobe service restrictions in Russia may make CC Libraries (insertMogrtFromLibrary), the Marketplace and the Developer Console (needed for the Hybrid SDK) unreliable; keep everything on local or shared paths.",
+  "Tooling continuity: the user's ae-motion-live and premiere-autopilot agent workflows drive CEP over CDP (port 8092) and cannot reach a UXP plugin. A new automation channel would be needed, for example the plugin connecting as a WebSocket client to the existing FastAPI sidecar.",
+  "UI reuse: the existing Preact+htm CEP UI (Chromium 99) will not run unchanged in UXP's restricted DOM. Sharing one UI across the AE CEP panel and the Premiere UXP plugin likely requires a WebView-hosted UI (extra memory and messaging) or a constrained-CSS port; validate in the spike.",
+  "The AE side needs a second migration: AE UXP is only entering public beta (Nov 2026) with an unknown API surface, and AE CEP goes default-off in Dec 2028. The AE adapter has to be re-done on UXP within about 2 years, and the shared core must be designed for that.",
+  "Some facts come from community or forum reports rather than official docs: MOGRT color-param behavior on 26.x, Transform's matchName, and whether CEP loads in the 27.0 beta. Verify them in the spike before committing the plan."
+ ]
+}

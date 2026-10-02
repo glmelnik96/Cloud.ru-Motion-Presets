@@ -1,0 +1,183 @@
+# Media inventory (ffprobe) of 'Граф пакет Cloud.ru' — path :: streams/format
+./2_Вебинары/(Footage)/Folder/Img/Group 2131327780.png :: codec_name=png|profile=unknown|width=176|height=164|pix_fmt=rgba|r_frame_rate=25/1 duration=N/A|size=919 
+./2_Вебинары/(Footage)/Folder/Img/Смирнов Илья_v1_20.03 1.png :: codec_name=png|profile=unknown|width=810|height=911|pix_fmt=rgba|r_frame_rate=25/1 duration=N/A|size=897792 
+./2_Вебинары/(Footage)/Folder/Music/Music vebinar.mp3 :: codec_name=mp3|profile=unknown|sample_rate=44100|channels=2|r_frame_rate=0/0 duration=30.072208|size=737948 
+./2_Вебинары/(Footage)/Folder/Music/Музыка вебинар 5 минут.mp3 :: codec_name=mp3|profile=unknown|sample_rate=44100|channels=2|r_frame_rate=0/0 duration=296.338333|size=7129560 
+./2_Вебинары/(Footage)/Folder/Video/A_robotic_arm_performing_minimal,_precise_technological_movements._The_scene_showcases_a_sleek_modern_design_with_smooth_metallic_textures_and_geometric_forms,_conveying_a_photographic_minimalism_inspired_by_Carl_Kleiner_and_Jeffrey_Milstei.mp4 :: codec_name=h264|profile=Main|width=1440|height=1440|pix_fmt=yuv420p|r_frame_rate=24/1 duration=10.083333|size=13016356 
+./2_Вебинары/(Footage)/Folder/Video/Seedance.mp4 :: codec_name=h264|profile=Constrained Baseline|width=1440|height=1440|pix_fmt=yuv420p|r_frame_rate=24/1 duration=10.041667|size=18017266 
+./3_Обучающие_курсы/3_Обучающие курсы/(Footage)/Folder/Music/Music Intro.mp3 :: codec_name=mp3|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=15.100000|size=528082 
+./3_Обучающие_курсы/3_Обучающие курсы/(Footage)/Folder/Patterns/Pattern Arrow.png :: codec_name=png|profile=unknown|width=4712|height=2162|pix_fmt=rgba|r_frame_rate=25/1 duration=N/A|size=456037 
+./3_Обучающие_курсы/3_Обучающие курсы/(Footage)/Folder/Visuals/Kubernetes.png :: codec_name=png|profile=unknown|width=1622|height=1246|pix_fmt=rgba|r_frame_rate=25/1 duration=N/A|size=789264 
+./3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Оверлей 16 на 9.mov :: codec_name=prores|profile=4444|width=1920|height=1080|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=600.040000|size=1543633652 
+./3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Оверлей со спикером.mov :: codec_name=prores|profile=4444|width=1920|height=1080|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=600.040000|size=4254796356 
+./3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Оверлей со спикером_1.mov :: codec_name=prores|profile=4444|width=1920|height=1080|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=600.040000|size=4224567012 
+./3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Переход.mov :: codec_name=prores|profile=4444|width=2560|height=1440|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=2.040000|size=9257892 
+./4_SMM_Pack/(Footage)/Folder/Solids/Rectangle 34627972.png :: codec_name=png|profile=unknown|width=6539|height=5598|pix_fmt=rgba|r_frame_rate=25/1 duration=N/A|size=3219743 
+./4_SMM_Pack/(Footage)/Folder/Video/kling_20250925_Image_to_Video_camera_orb_2946_1.mp4 :: codec_name=aac|profile=LC|sample_rate=44100|channels=2|r_frame_rate=0/0 codec_name=h264|profile=Main|width=1440|height=1440|pix_fmt=yuv420p|r_frame_rate=24/1 duration=10.054240|size=16017331 
+./4_SMM_Pack/Render/BG/BG_pattern_1x1_1.mov :: codec_name=prores|profile=4444|width=1440|height=1440|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=30.000000|size=474803668 
+./4_SMM_Pack/Render/BG/BG_pattern_1x1_2.mov :: codec_name=prores|profile=4444|width=1440|height=1440|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=30.000000|size=509363732 
+./4_SMM_Pack/Render/BG/BG_pattern_9x16_1.mov :: codec_name=prores|profile=4444|width=1080|height=1920|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=30.000000|size=377006116 
+./4_SMM_Pack/Render/BG/BG_pattern_9x16_2.mov :: codec_name=prores|profile=4444|width=1080|height=1920|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=30.000000|size=513042308 
+./4_SMM_Pack/Render/Overlay/Оверлей_1x1.mov :: codec_name=prores|profile=4444|width=1440|height=1440|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=60.000000|size=120149972 
+./4_SMM_Pack/Render/Overlay/Оверлей_9x16.mov :: codec_name=prores|profile=4444|width=1080|height=1920|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=60.000000|size=123961220 
+./4_SMM_Pack/Render/Transitions/Transition with Logo.mov :: codec_name=prores|profile=4444|width=1080|height=1920|pix_fmt=yuva444p12le|r_frame_rate=24/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=0.875000|size=4942916 
+./4_SMM_Pack/Render/Transitions/Transition_gray.mov :: codec_name=prores|profile=4444|width=1080|height=1920|pix_fmt=yuva444p12le|r_frame_rate=24/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=0.875000|size=4432036 
+./4_SMM_Pack/Render/Transitions/Transition_green.mov :: codec_name=prores|profile=4444|width=1080|height=1920|pix_fmt=yuva444p12le|r_frame_rate=24/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=0.875000|size=4708340 
+./4_SMM_Pack/Render/Transitions/Transition_white.mov :: codec_name=prores|profile=4444|width=1080|height=1920|pix_fmt=yuva444p12le|r_frame_rate=24/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=0.875000|size=4466788 
+./6_Podcast_Cloud.ru_Pack/(Footage)/02 Simple Whoosh B.wav :: codec_name=pcm_s24le|profile=unknown|sample_rate=44100|channels=2|r_frame_rate=0/0 duration=2.200000|size=582326 
+./6_Podcast_Cloud.ru_Pack/(Footage)/Podcasts_1.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=159.679979|size=30658600 
+./6_Podcast_Cloud.ru_Pack/(Footage)/QR/QR Code_Тимур_1.png :: codec_name=png|profile=unknown|width=1000|height=1000|pix_fmt=rgba|r_frame_rate=25/1 duration=N/A|size=10931 
+./6_Podcast_Cloud.ru_Pack/(Footage)/QR/STRDUB.png :: codec_name=png|profile=unknown|width=1024|height=1024|pix_fmt=rgba|r_frame_rate=25/1 duration=N/A|size=9469 
+./6_Podcast_Cloud.ru_Pack/(Footage)/QR/Балун.png :: codec_name=png|profile=unknown|width=1024|height=1024|pix_fmt=rgba|r_frame_rate=25/1 duration=N/A|size=11468 
+./6_Podcast_Cloud.ru_Pack/(Footage)/QR/ТК канал Cloud.ru.png :: codec_name=png|profile=unknown|width=1024|height=1024|pix_fmt=rgba|r_frame_rate=25/1 duration=N/A|size=10452 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SCIMach_SMorph_Motion Graphics - Micro SFX 04.wav :: codec_name=pcm_s24le|profile=unknown|sample_rate=96000|channels=2|r_frame_rate=0/0 codec_name=mjpeg|profile=Baseline|width=288|height=288|pix_fmt=yuvj420p|r_frame_rate=90000/1 duration=6.906271|size=4074062 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/QR_код_1.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=9.640000|size=1917690 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/QR_код_2.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=9.640000|size=1925818 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/QR_код_3.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=9.640000|size=1926358 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Дисклеймер.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=30.360000|size=5980510 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Заставка_ПОДКАСТ_CLOUD.RU.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=25.720000|size=5057922 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Контент_1.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=9.640000|size=1911472 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Контент_2.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=9.640000|size=1906506 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Контент_3.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=9.640000|size=1915458 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/О_госте.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=9.640000|size=1918322 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Подписывайтесь на канал CLOUD.RU.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=9.640000|size=1952346 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Подпись_спикера_1.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=9.640000|size=1920610 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Текст на плашке_1.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=9.640000|size=1930992 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Текст на плашке_2.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=9.640000|size=1918996 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Текст на плашке_3.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=9.640000|size=1918996 
+./6_Podcast_Cloud.ru_Pack/(Footage)/SoundsCrate-Fighting-Woosh-9.mp3 :: codec_name=mp3|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=0.793146|size=13677 
+./6_Podcast_Cloud.ru_Pack/(Footage)/Still/Still 2025-12-10 132207_1.1.1.png :: codec_name=png|profile=unknown|width=1920|height=1080|pix_fmt=rgb24|r_frame_rate=25/1 duration=N/A|size=6231977 
+./6_Podcast_Cloud.ru_Pack/(Footage)/Still/Still 2025-12-10 132207_1.2.1.png :: codec_name=png|profile=unknown|width=1920|height=1080|pix_fmt=rgb24|r_frame_rate=25/1 duration=N/A|size=6231977 
+./6_Podcast_Cloud.ru_Pack/(Footage)/Still/Still 2025-12-10 132207_1.3.1.png :: codec_name=png|profile=unknown|width=1920|height=1080|pix_fmt=rgb24|r_frame_rate=25/1 duration=N/A|size=6231977 
+./6_Podcast_Cloud.ru_Pack/(Footage)/Whoosh 42.mp3 :: codec_name=mp3|profile=unknown|sample_rate=44100|channels=2|r_frame_rate=0/0 duration=0.731450|size=31306 
+./6_Podcast_Cloud.ru_Pack/(Footage)/_experimental.wav :: codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=1.999979|size=384168 
+./6_Podcast_Cloud.ru_Pack/(Footage)/soundscrate-air-woosh-2.mp3 :: codec_name=mp3|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 duration=1.332000|size=21996 
+./6_Podcast_Cloud.ru_Pack/Ready mov/OUTRO.mov :: codec_name=prores|profile=4444|width=3840|height=2160|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=10.000000|size=50790740 
+./6_Podcast_Cloud.ru_Pack/Ready mov/Заставка_ПОДКАСТ_CLOUD.RU.mov :: codec_name=prores|profile=4444|width=3840|height=2160|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=7.000000|size=174488932 
+./6_Podcast_Cloud.ru_Pack/Ready mov/Заставка_ПОДКАСТ_CLOUD.RU_9x16.mov :: codec_name=qtrle|profile=unknown|width=2160|height=3840|pix_fmt=argb|r_frame_rate=25/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=7.000000|size=361314390 
+./6_Podcast_Cloud.ru_Pack/Ready mov/Подписывайся! Ссылки в описании.mov :: codec_name=prores|profile=4444|width=3840|height=2160|pix_fmt=yuva444p12le|r_frame_rate=25/1 codec_name=pcm_s16le|profile=unknown|sample_rate=48000|channels=2|r_frame_rate=0/0 codec_name=unknown|profile=unknown|r_frame_rate=0/0 duration=10.000000|size=113267748 
+
+# Full file listing (size bytes, date, path)
+     1389821  2026-09-30  ./1_Логошоты/Логошот (converted).aep
+     1326989  2026-09-28  ./1_Логошоты/Логошот.aep
+        1039  2026-09-28  ./1_Логошоты/ЛогошотReport.txt
+         919  2026-10-02  ./2_Вебинары/(Footage)/Folder/Img/Group 2131327780.png
+      897792  2026-10-02  ./2_Вебинары/(Footage)/Folder/Img/Смирнов Илья_v1_20.03 1.png
+      737948  2026-10-02  ./2_Вебинары/(Footage)/Folder/Music/Music vebinar.mp3
+     7129560  2026-10-02  ./2_Вебинары/(Footage)/Folder/Music/Музыка вебинар 5 минут.mp3
+    13016356  2026-10-02  ./2_Вебинары/(Footage)/Folder/Video/A_robotic_arm_performing_minimal,_precise_technological_movements._The_scene_showcases_a_sleek_modern_design_with_smooth_metallic_textures_and_geometric_forms,_conveying_a_photographic_minimalism_inspired_by_Carl_Kleiner_and_Jeffrey_Milstei.mp4
+    18017266  2026-10-02  ./2_Вебинары/(Footage)/Folder/Video/Seedance.mp4
+     4962239  2026-10-02  ./2_Вебинары/Вебинары.aep
+        1629  2026-10-02  ./2_Вебинары/ВебинарыReport.txt
+      528082  2026-09-28  ./3_Обучающие_курсы/3_Обучающие курсы/(Footage)/Folder/Music/Music Intro.mp3
+      456037  2026-09-28  ./3_Обучающие_курсы/3_Обучающие курсы/(Footage)/Folder/Patterns/Pattern Arrow.png
+      789264  2026-09-28  ./3_Обучающие_курсы/3_Обучающие курсы/(Footage)/Folder/Visuals/Kubernetes.png
+     2800748  2026-09-28  ./3_Обучающие_курсы/3_Обучающие курсы/Adobe After Effects Auto-Save/Обучающие курсы (converted) auto-save 1.aep
+  1543633652  2026-09-28  ./3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Оверлей 16 на 9.mov
+  4254796356  2026-09-28  ./3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Оверлей со спикером.mov
+  4224567012  2026-09-28  ./3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Оверлей со спикером_1.mov
+     9257892  2026-09-28  ./3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Переход.mov
+     3145728  2026-09-29  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000.cfa
+       12356  2026-09-29  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000.pek
+     3145728  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_1.cfa
+       12356  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_1.pek
+     3145728  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_2.cfa
+       12356  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_2.pek
+     3145728  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_3.cfa
+       12356  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_3.pek
+     3145728  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_4.cfa
+       12356  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_4.pek
+     3145728  2026-09-29  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000.cfa
+       12356  2026-09-29  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000.pek
+     3145728  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_1.cfa
+       12356  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_1.pek
+     3145728  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_2.cfa
+       12356  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_2.pek
+     3145728  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_3.cfa
+       12356  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_3.pek
+     3145728  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_4.cfa
+       12356  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_4.pek
+     3502367  2026-09-30  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted).aep
+     3759973  2026-09-28  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы.aep
+        1006  2026-09-28  ./3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсыReport.txt
+     3219743  2026-10-02  ./4_SMM_Pack/(Footage)/Folder/Solids/Rectangle 34627972.png
+    16017331  2026-10-02  ./4_SMM_Pack/(Footage)/Folder/Video/kling_20250925_Image_to_Video_camera_orb_2946_1.mp4
+   474803668  2026-10-02  ./4_SMM_Pack/Render/BG/BG_pattern_1x1_1.mov
+   509363732  2026-10-02  ./4_SMM_Pack/Render/BG/BG_pattern_1x1_2.mov
+   377006116  2026-10-02  ./4_SMM_Pack/Render/BG/BG_pattern_9x16_1.mov
+   513042308  2026-10-02  ./4_SMM_Pack/Render/BG/BG_pattern_9x16_2.mov
+   120149972  2026-10-02  ./4_SMM_Pack/Render/Overlay/Оверлей_1x1.mov
+   123961220  2026-10-02  ./4_SMM_Pack/Render/Overlay/Оверлей_9x16.mov
+     4942916  2026-10-02  ./4_SMM_Pack/Render/Transitions/Transition with Logo.mov
+     4432036  2026-10-02  ./4_SMM_Pack/Render/Transitions/Transition_gray.mov
+     4708340  2026-10-02  ./4_SMM_Pack/Render/Transitions/Transition_green.mov
+     4466788  2026-10-02  ./4_SMM_Pack/Render/Transitions/Transition_white.mov
+     7487577  2026-10-02  ./4_SMM_Pack/SMM_pack.aep
+        1267  2026-10-02  ./4_SMM_Pack/SMM_packReport.txt
+      560380  2026-09-28  ./5_Titles/Titles (3) (converted).aep
+      315078  2026-09-28  ./5_Titles/Titles (3).aep
+         450  2026-09-28  ./5_Titles/Titles (3)Report.txt
+      582326  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/02 Simple Whoosh B.wav
+    30658600  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/Podcasts_1.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/QR/._QR Code_Тимур_1.png
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/QR/._STRDUB.png
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/QR/._Балун.png
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/QR/._ТК канал Cloud.ru.png
+       10931  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/QR/QR Code_Тимур_1.png
+        9469  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/QR/STRDUB.png
+       11468  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/QR/Балун.png
+       10452  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/QR/ТК канал Cloud.ru.png
+     4074062  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SCIMach_SMorph_Motion Graphics - Micro SFX 04.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._QR_код_1.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._QR_код_2.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._QR_код_3.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Дисклеймер.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Заставка_ПОДКАСТ_CLOUD.RU.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Контент_1.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Контент_2.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Контент_3.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._О_госте.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Подписывайтесь на канал CLOUD.RU.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Подпись_спикера_1.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Текст на плашке_1.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Текст на плашке_2.wav
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Текст на плашке_3.wav
+     1917690  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/QR_код_1.wav
+     1925818  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/QR_код_2.wav
+     1926358  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/QR_код_3.wav
+     5980510  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Дисклеймер.wav
+     5057922  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Заставка_ПОДКАСТ_CLOUD.RU.wav
+     1911472  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Контент_1.wav
+     1906506  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Контент_2.wav
+     1915458  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Контент_3.wav
+     1918322  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/О_госте.wav
+     1952346  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Подписывайтесь на канал CLOUD.RU.wav
+     1920610  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Подпись_спикера_1.wav
+     1930992  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Текст на плашке_1.wav
+     1918996  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Текст на плашке_2.wav
+     1918996  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Текст на плашке_3.wav
+       13677  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/SoundsCrate-Fighting-Woosh-9.mp3
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/Still/._Still 2025-12-10 132207_1.1.1.png
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/Still/._Still 2025-12-10 132207_1.2.1.png
+        4096  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/Still/._Still 2025-12-10 132207_1.3.1.png
+     6231977  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/Still/Still 2025-12-10 132207_1.1.1.png
+     6231977  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/Still/Still 2025-12-10 132207_1.2.1.png
+     6231977  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/Still/Still 2025-12-10 132207_1.3.1.png
+       31306  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/Whoosh 42.mp3
+      384168  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/_experimental.wav
+       21996  2026-10-02  ./6_Podcast_Cloud.ru_Pack/(Footage)/soundscrate-air-woosh-2.mp3
+     7443746  2026-10-02  ./6_Podcast_Cloud.ru_Pack/Podcast_Pack.aep
+        3496  2026-10-02  ./6_Podcast_Cloud.ru_Pack/Podcast_PackReport.txt
+    50790740  2026-10-02  ./6_Podcast_Cloud.ru_Pack/Ready mov/OUTRO.mov
+   174488932  2026-10-02  ./6_Podcast_Cloud.ru_Pack/Ready mov/Заставка_ПОДКАСТ_CLOUD.RU.mov
+   361314390  2026-10-02  ./6_Podcast_Cloud.ru_Pack/Ready mov/Заставка_ПОДКАСТ_CLOUD.RU_9x16.mov
+   113267748  2026-10-02  ./6_Podcast_Cloud.ru_Pack/Ready mov/Подписывайся! Ссылки в описании.mov
+       46041  2026-10-02  ./7_Пресеты_Media_Encoder/4K.epr
+       46111  2026-10-02  ./7_Пресеты_Media_Encoder/FullHD.epr
+       46086  2026-10-02  ./7_Пресеты_Media_Encoder/SMM_1440x1080.epr
+       46091  2026-10-02  ./7_Пресеты_Media_Encoder/SMM_16x9.epr
+       46063  2026-10-02  ./7_Пресеты_Media_Encoder/SMM_1x1.epr
+       46091  2026-10-02  ./7_Пресеты_Media_Encoder/SMM_9x16.epr
+       46088  2026-10-02  ./7_Пресеты_Media_Encoder/Webinar_Final render.epr
+       46077  2026-10-02  ./7_Пресеты_Media_Encoder/Webinar_Timer.epr
+       46084  2026-10-02  ./7_Пресеты_Media_Encoder/Webinar_Zastavka.epr
