@@ -29,3 +29,7 @@ Adobe After Effects Auto-Save/
 ._*
 __MACOSX/
 Thumbs.db
+
+# Выходы пробных сборок (рабочая папка C:/CRBK/work — вне репозитория, но на всякий случай)
+spikes/fixtures/out/
+work/

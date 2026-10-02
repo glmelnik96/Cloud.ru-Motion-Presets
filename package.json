@@ -1,0 +1,21 @@
+{
+  "name": "cloudru-brandkit",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Cloud.ru BrandKit: brand templates and presets for After Effects and Premiere",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "lint:jsx": "node tools/jsx/lint-jsx.cjs",
+    "spike:report": "node tools/spike/report.mjs"
+  },
+  "devDependencies": {
+    "adm-zip": "^0.6.1",
+    "ajv": "^8.20.0",
+    "pngjs": "^7.0.0",
+    "vitest": "^5.0.3"
+  }
+}
