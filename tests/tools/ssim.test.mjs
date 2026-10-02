@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { compareFrames, contentBox, gaussianKernel, lumaOver, ssimPlanes } from '../../tools/qa/ssim.mjs';
+import { compareFrames, contentBox, gaussianKernel, lumaOver, remapColours, ssimPlanes } from '../../tools/qa/ssim.mjs';
 
 function image(w, h, fn) {
   const data = Buffer.alloc(w * h * 4);
@@ -71,5 +71,13 @@ describe('masks', () => {
     const masked = compareFrames(a, b, { rect, masks: [{ x: 8, y: 0, w: 16, h: 48 }] });
     expect(open.ssim).toBeLessThan(0.98);
     expect(masked.ssim).toBeCloseTo(1, 3);
+  });
+});
+
+describe('remapColours', () => {
+  it('moves two colours and their blends along one line per channel', () => {
+    const img = image(3, 1, (x) => [[34, 34, 34, 255], [211, 211, 211, 255], [122, 122, 122, 255]][x]);
+    const out = remapColours(img, { from: ['#222222', '#D3D3D3'], to: ['#222222', '#F2F2F2'] });
+    expect([out.data[0], out.data[4], out.data[8]]).toEqual([34, 242, 137]);
   });
 });

@@ -86,6 +86,13 @@ if (isMain) {
   const plan = ref[which];
   if (!plan) throw new Error(`masters/${id}/ref.json has no "${which}" plan`);
   const tokens = JSON.parse(readFileSync(path.join(REPO, 'brand', 'tokens.json'), 'utf8'));
+  // a moment between frames is rendered as different neighbours by Premiere and AE: refuse it
+  const fps = params.comp.fps;
+  for (const f of plan.frames) {
+    for (const t of [f.sec, f.master]) {
+      if (Math.abs(t * fps - Math.round(t * fps)) > 1e-6) throw new Error(`${f.key}: ${t} s is not on the ${fps} fps grid`);
+    }
+  }
   const dir = path.posix.join(params.out.dir, which === 'premiere' ? 'pr' : which);
   mkdirSync(dir, { recursive: true });
   const v = variantPlan(params).find((x) => x.key === plan.variant);

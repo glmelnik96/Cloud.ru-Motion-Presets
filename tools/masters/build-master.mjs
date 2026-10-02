@@ -18,7 +18,10 @@ export async function loadMaster(id) {
   const dir = path.join(REPO, 'masters', id);
   const mod = await import(pathToFileURL(path.join(dir, 'resolve.mjs')).href);
   if (typeof mod.resolve !== 'function') throw new Error(`masters/${id}/resolve.mjs must export resolve()`);
-  return { dir, params: mod.resolve(), jsx: path.posix.join('masters', id, 'build.jsx') };
+  const params = mod.resolve();
+  // a master described by a declarative spec is built by the generic builder
+  const jsx = params.spec ? 'tools/masters/jsx/build-spec.jsx' : path.posix.join('masters', id, 'build.jsx');
+  return { dir, params, jsx };
 }
 
 export function printChecks(checks, log = console.log) {

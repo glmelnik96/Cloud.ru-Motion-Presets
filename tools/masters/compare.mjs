@@ -11,7 +11,7 @@ import { run } from '../host-run.mjs';
 import { composeProbe, REPO } from '../spike/runner.mjs';
 import { waitForStableFiles } from '../golden/png.mjs';
 import { workPath } from '../lib/work.mjs';
-import { compareFrames } from '../qa/ssim.mjs';
+import { compareFrames, remapColours } from '../qa/ssim.mjs';
 import { sideBySide } from '../qa/side-by-side.mjs';
 import { registerWindow, sampleWindow } from '../qa/register.mjs';
 import { readPng } from '../png/read-png.mjs';
@@ -83,9 +83,11 @@ if (isMain) {
       // A golden canvas smaller than the frame (crop) is registered once, on the first gate frame, and the
       // same window is used for every frame of the case (moving frames must not be re-aligned).
       let origin = null;
+      // crop.golden: compare a part of the golden frame (e.g. a title inside a full webinar screen)
+      const goldenPart = (img) => (c.crop && c.crop.golden ? sampleWindow(img, c.crop.golden.x, c.crop.golden.y, c.crop.golden.w, c.crop.golden.h) : img);
       if (c.crop) {
         const ref = frames.find((f) => f.gate) || frames[0];
-        const reg = registerWindow(readPng(workPath('golden', c.golden.slug, c.golden.compSlug, `t${ref.ms}.png`)), readPng(ref.file),
+        const reg = registerWindow(goldenPart(readPng(workPath('golden', c.golden.slug, c.golden.compSlug, `t${ref.ms}.png`))), readPng(ref.file),
           { offset: c.crop.offset, search: c.crop.search || 4 });
         origin = reg.origin;
         console.log(`${c.name}: window origin ${origin.join(', ')} (predicted ${c.crop.offset.join(', ')}, coarse ${reg.coarse.join(', ')}, MAD ${reg.mad.toFixed(2)})`);
@@ -93,9 +95,10 @@ if (isMain) {
       for (const f of frames) {
         const golden = workPath('golden', c.golden.slug, c.golden.compSlug, `t${f.ms}.png`);
         if (!existsSync(golden)) { rows.push({ ms: f.ms, error: 'no golden ' + golden }); continue; }
-        const g = readPng(golden);
+        const g0 = goldenPart(readPng(golden));
+        const g = c.remap ? remapColours(g0, { ...c.remap, rect: c.remap.rect || c.rect }) : g0;
         const m = origin ? sampleWindow(readPng(f.file), origin[0], origin[1], g.width, g.height) : readPng(f.file);
-        const res = compareFrames(g, m, { masks: c.masks || [] });
+        const res = compareFrames(g, m, { masks: c.masks || [], rect: c.rect });
         sideBySide(g, m, path.posix.join(dir, `cmp_t${f.ms}.png`), { rect: res.rect });
         const pass = f.gate ? judge(res, min) : null;
         if (pass === false) failed += 1;

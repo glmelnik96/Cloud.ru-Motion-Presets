@@ -194,3 +194,26 @@ export function compareFrames(srcA, srcB, { rect, backdrops = [[0, 0, 0], [255, 
   const minOver = over.reduce((m, o) => (o.ssim < m.ssim ? o : m), over[0]);
   return { rect: box, ssim: Math.min(minOver.ssim, alpha), luma: minOver.ssim, alpha, over };
 }
+
+// A decided colour change applied to a golden before comparing (spec D1, e.g. the podcast plate #D3D3D3 ->
+// #F2F2F2): per channel, the line through (from[0] -> to[0]) and (from[1] -> to[1]), so anti-aliased blends
+// of the two colours (text on plate) move with them. Only pixels inside rect (default: all) change.
+export function remapColours(src, { from, to, rect }) {
+  const img = load(src);
+  const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const [a0, a1] = from.map(hex);
+  const [b0, b1] = to.map(hex);
+  const out = { width: img.width, height: img.height, data: Buffer.from(img.data) };
+  const r = clipRect(img, rect);
+  for (let y = r.y; y < r.y + r.h; y += 1) {
+    for (let x = r.x; x < r.x + r.w; x += 1) {
+      const i = (y * img.width + x) * 4;
+      for (let c = 0; c < 3; c += 1) {
+        const span = a1[c] - a0[c];
+        const t = span ? (img.data[i + c] - a0[c]) / span : 0;
+        out.data[i + c] = Math.max(0, Math.min(255, Math.round(b0[c] + t * (b1[c] - b0[c]))));
+      }
+    }
+  }
+  return out;
+}

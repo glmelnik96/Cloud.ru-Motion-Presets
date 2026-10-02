@@ -84,14 +84,27 @@
       "hosts": ["ae", "pr"],
       "version": 1,
       "fit": "rdt",
-      "duration": { "introSec": 1.64, "holdSec": 3.24, "outroSec": 1.12 },
-      "requiredFonts": [{ "postScriptName": "SBSansText-Regular" }],
+      "duration": { "introSec": 1.64, "holdSec": 2.88, "outroSec": 1.48 },
+      "requiredFonts": [
+        { "postScriptName": "SBSansText-Regular" },
+        { "postScriptName": "SBSansDisplay-Bold" },
+        { "postScriptName": "SBSansDisplay-Semibold" },
+        { "postScriptName": "SBSansDisplay-Regular" }
+      ],
       "fields": [
         { "key": "name", "label_ru": "Имя", "type": "text", "egpName": "Имя", "egpIndex": 0, "maxLen": 40, "default": "Имя Фамилия" },
         { "key": "role1", "label_ru": "Должность", "type": "text", "egpName": "Должность", "egpIndex": 1, "maxLen": 50, "default": "Должность" },
         { "key": "role2", "label_ru": "Должность, 2-я строка", "type": "text", "egpName": "Должность, 2-я строка", "egpIndex": 2, "maxLen": 50, "default": "" },
         {
-          "key": "side", "label_ru": "Сторона", "type": "dropdown", "egpName": "Сторона", "egpIndex": 3, "default": 1,
+          "key": "style", "label_ru": "Стиль", "type": "dropdown", "egpName": "Стиль", "egpIndex": 3, "default": 1,
+          "options": [
+            { "index": 1, "label_ru": "Титры" },
+            { "index": 2, "label_ru": "Подкаст" },
+            { "index": 3, "label_ru": "Вебинар" }
+          ]
+        },
+        {
+          "key": "side", "label_ru": "Сторона", "type": "dropdown", "egpName": "Сторона", "egpIndex": 4, "default": 1,
           "options": [
             { "index": 1, "label_ru": "Слева" },
             { "index": 2, "label_ru": "Справа" }

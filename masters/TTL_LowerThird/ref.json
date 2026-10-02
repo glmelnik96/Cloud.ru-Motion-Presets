@@ -5,32 +5,256 @@
     {
       "name": "titles",
       "title": "«Титры», слева: Александр Стародубцев / Технический лидер / Cloud.ru",
-      "golden": { "slug": "titles", "compSlug": "podpis_spikerov" },
+      "golden": {
+        "slug": "titles",
+        "compSlug": "podpis_spikerov"
+      },
       "variant": "16x9_4K",
-      "ctrl": { "Side": 1 },
-      "text": { "TXT_NAME": "Александр Стародубцев", "TXT_ROLE1": "Технический лидер", "TXT_ROLE2": "Cloud.ru" },
-      "crop": { "offset": [149.42, 1588.57], "search": 4 },
-      "shift": [{ "from": 0, "to": 4.4, "by": 0 }, { "from": 4.4, "to": 60, "by": 0.48 }],
-      "gate": [2000, 3000, 4000],
-      "view": [240, 520, 760, 1000, 1240, 4520, 4760, 5000, 5240]
+      "ctrl": {
+        "Style": 1,
+        "Side": 1
+      },
+      "text": {
+        "TXT_NAME": "Александр Стародубцев",
+        "TXT_ROLE1": "Технический лидер",
+        "TXT_ROLE2": "Cloud.ru"
+      },
+      "crop": {
+        "offset": [
+          149.42,
+          1588.57
+        ],
+        "search": 4
+      },
+      "shift": [
+        {
+          "from": 0,
+          "to": 4.4,
+          "by": 0
+        },
+        {
+          "from": 4.4,
+          "to": 60,
+          "by": 0.48
+        }
+      ],
+      "gate": [
+        2000,
+        3000,
+        4000
+      ],
+      "view": [
+        240,
+        520,
+        760,
+        1000,
+        1240,
+        4520,
+        4760,
+        5000,
+        5240
+      ]
+    },
+    {
+      "name": "podcast",
+      "title": "«Подкаст», ведущий справа: Александр Стародубцев / Технический лидер / Cloud.ru",
+      "golden": {
+        "slug": "podcast",
+        "compSlug": "podpis_spikera_1"
+      },
+      "variant": "16x9_4K",
+      "ctrl": {
+        "Style": 2,
+        "Side": 2
+      },
+      "text": {
+        "TXT_NAME": "Александр Стародубцев",
+        "TXT_ROLE1": "Технический лидер",
+        "TXT_ROLE2": "Cloud.ru"
+      },
+      "rect": {
+        "x": 1069,
+        "y": 1547,
+        "w": 2664,
+        "h": 509
+      },
+      "remap": {
+        "from": [
+          "#222222",
+          "#D3D3D3"
+        ],
+        "to": [
+          "#222222",
+          "#F2F2F2"
+        ],
+        "reason": "D1: the podcast grey #D3D3D3 becomes the brand #F2F2F2"
+      },
+      "masks": [
+        {
+          "x": 2085,
+          "y": 1585,
+          "w": 75,
+          "h": 45,
+          "reason": "pack defect: «Й» of ТЕХНИЧЕСКИЙ is drawn as «И» in the pack render (decomposed й with all caps); the master shows «Й»"
+        }
+      ],
+      "shift": [
+        {
+          "from": 0,
+          "to": 7.88,
+          "by": -0.6
+        },
+        {
+          "from": 7.88,
+          "to": 60,
+          "by": -3.36
+        }
+      ],
+      "gate": [
+        3000,
+        5000
+      ],
+      "view": [
+        1000,
+        1240,
+        1520,
+        8000,
+        8240,
+        8520,
+        8760,
+        9000
+      ],
+      "note": "Compared inside the plate only: the pack frame flies in (3D) around it and a still sits behind. The plate is #F2F2F2 here (D1), #D3D3D3 in the pack. The master's podcast starts at 0 where the pack's plate starts at 0.60 s, and its exit ends on the last frame."
+    },
+    {
+      "name": "webinar",
+      "title": "«Вебинар», слева: Александр Константинов / Технический эксперт / по облачным технологиям",
+      "golden": {
+        "slug": "webinars",
+        "compSlug": "zastavka_so_spikerom"
+      },
+      "variant": "16x9",
+      "ctrl": {
+        "Style": 3,
+        "Side": 1
+      },
+      "text": {
+        "TXT_NAME": "Александр Константинов",
+        "TXT_ROLE1": "Технический эксперт",
+        "TXT_ROLE2": "по облачным технологиям"
+      },
+      "crop": {
+        "golden": {
+          "x": 1068,
+          "y": 650,
+          "w": 502,
+          "h": 170
+        },
+        "offset": [
+          90,
+          821.41
+        ],
+        "search": 4
+      },
+      "shift": [
+        {
+          "from": 0,
+          "to": 60,
+          "by": 3.0,
+          "scale": 0
+        }
+      ],
+      "gate": [],
+      "view": [
+        5000
+      ],
+      "note": "View only: the pack's title is static inside the webinar screen (no motion to compare), and here each line sits in its own plate (the pack's text ran at 47 px over plates at 49.25 px). The static golden frame is compared with the master at its hold (3.0 s)."
     }
   ],
   "premiere": {
-    "_note": "MOGRT in Premiere against the same variant rendered in AE. B is 10 s long, on the right, with a long name and one role line: intro and exit must keep master speed (exit = last 1.12 s).",
+    "_note": "The 16x9 MOGRT in Premiere against the same variant rendered in AE, one clip per style. B is 10 s long: its intro and exit must keep master speed (exit = the last 1.48 s).",
     "variant": "16x9",
-    "sequencePreset": "HD 1080p 25 fps",
     "clips": [
-      { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Side": 1 },
-        "text": { "TXT_NAME": "Александр Стародубцев", "TXT_ROLE1": "Технический лидер", "TXT_ROLE2": "Cloud.ru" } },
-      { "key": "B", "atSec": 10, "lenSec": 10, "ctrl": { "Side": 2 },
-        "text": { "TXT_NAME": "Анна-Мария Ёлкина-Константинопольская", "TXT_ROLE1": "Руководитель облачной платформы", "TXT_ROLE2": "" } }
+      {
+        "key": "A",
+        "atSec": 0,
+        "lenSec": null,
+        "ctrl": {
+          "Style": 1,
+          "Side": 1
+        },
+        "text": {
+          "TXT_NAME": "Александр Стародубцев",
+          "TXT_ROLE1": "Технический лидер",
+          "TXT_ROLE2": "Cloud.ru"
+        }
+      },
+      {
+        "key": "B",
+        "atSec": 10,
+        "lenSec": 10,
+        "ctrl": {
+          "Style": 2,
+          "Side": 2
+        },
+        "text": {
+          "TXT_NAME": "Анна-Мария Ёлкина",
+          "TXT_ROLE1": "Руководитель облачной платформы",
+          "TXT_ROLE2": "Cloud.ru"
+        }
+      },
+      {
+        "key": "C",
+        "atSec": 30,
+        "lenSec": null,
+        "ctrl": {
+          "Style": 3,
+          "Side": 1
+        },
+        "text": {
+          "TXT_NAME": "Александр Константинов",
+          "TXT_ROLE1": "Технический эксперт",
+          "TXT_ROLE2": "по облачным технологиям"
+        }
+      }
     ],
     "frames": [
-      { "key": "A_hold", "clip": "A", "sec": 3.0, "master": 3.0 },
-      { "key": "A_intro", "clip": "A", "sec": 0.52, "master": 0.52 },
-      { "key": "B_intro", "clip": "B", "sec": 0.76, "master": 0.76 },
-      { "key": "B_hold", "clip": "B", "sec": 5.0, "master": 3.0 },
-      { "key": "B_exit", "clip": "B", "sec": 9.4, "master": 5.4 }
+      {
+        "key": "A_hold",
+        "clip": "A",
+        "sec": 3.0,
+        "master": 3.0
+      },
+      {
+        "key": "B_intro",
+        "clip": "B",
+        "sec": 0.52,
+        "master": 0.52
+      },
+      {
+        "key": "B_hold",
+        "clip": "B",
+        "sec": 5.0,
+        "master": 3.0
+      },
+      {
+        "key": "B_exit",
+        "clip": "B",
+        "sec": 9.4,
+        "master": 5.4
+      },
+      {
+        "key": "C_intro",
+        "clip": "C",
+        "sec": 0.6,
+        "master": 0.6
+      },
+      {
+        "key": "C_hold",
+        "clip": "C",
+        "sec": 3.0,
+        "master": 3.0
+      }
     ]
   }
 }
