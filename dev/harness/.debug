@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionList>
+  <Extension Id="ru.cloud.brandkit.dev.bg">
+    <HostList>
+      <Host Name="AEFT" Port="8094" />
+      <Host Name="PPRO" Port="8096" />
+    </HostList>
+  </Extension>
+  <Extension Id="ru.cloud.brandkit.dev.panel">
+    <HostList>
+      <Host Name="AEFT" Port="8095" />
+      <Host Name="PPRO" Port="8097" />
+    </HostList>
+  </Extension>
+</ExtensionList>
