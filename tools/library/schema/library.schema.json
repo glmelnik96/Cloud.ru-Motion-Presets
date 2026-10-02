@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://brandkit.invalid/schema/library.schema.json",
+  "title": "Cloud.ru BrandKit: library catalog (library.json)",
+  "description": "Written by the pipeline with files, sha256 and versions; never edited by hand (spec 4.4). Shares item definitions with library.src.schema.json.",
+  "type": "object",
+  "required": ["schemaVersion", "libraryVersion", "minPluginVersion", "items"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "libraryVersion": { "description": "calver YYYY.MM.DD, optional .N for a second build on the same day", "type": "string", "pattern": "^20[0-9]{2}\\.(0[1-9]|1[0-2])\\.(0[1-9]|[12][0-9]|3[01])(\\.[0-9]+)?$" },
+    "minPluginVersion": { "description": "semver", "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "generatedAt": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$" },
+    "items": { "type": "array", "items": { "$ref": "#/$defs/item" } }
+  },
+  "$defs": {
+    "path": {
+      "description": "Relative to the library root; ASCII only (contract 4.2). The 64-character limit on the file name is checked in validate.mjs.",
+      "type": "string",
+      "pattern": "^([A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\\.[a-z0-9]+$"
+    },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "stored": {
+      "type": "object",
+      "required": ["file", "sha256", "bytes"],
+      "additionalProperties": false,
+      "properties": {
+        "file": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "bytes": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "part": {
+      "type": "object",
+      "required": ["file", "sha256", "bytes", "frames"],
+      "additionalProperties": false,
+      "properties": {
+        "file": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "frames": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "fontPinned": {
+      "type": "object",
+      "$ref": "library.src.schema.json#/$defs/font",
+      "required": ["postScriptName", "build"]
+    },
+    "variant": {
+      "type": "object",
+      "required": ["key", "minHostVersion"],
+      "additionalProperties": false,
+      "dependentRequired": { "file": ["sha256", "bytes"] },
+      "properties": {
+        "key": { "$ref": "library.src.schema.json#/$defs/variantKey" },
+        "aspect": { "$ref": "library.src.schema.json#/$defs/aspect" },
+        "w": { "type": "integer", "minimum": 16, "maximum": 8192 },
+        "h": { "type": "integer", "minimum": 16, "maximum": 8192 },
+        "fps": { "type": "number", "exclusiveMinimum": 0, "maximum": 120 },
+        "options": { "$ref": "library.src.schema.json#/$defs/options" },
+        "file": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "parts": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "intro": { "$ref": "#/$defs/part" },
+            "loop": { "$ref": "#/$defs/part" },
+            "outro": { "$ref": "#/$defs/part" }
+          }
+        },
+        "aeComp": {
+          "description": "Variant comp inside <id>_v<N>.aep, with the version suffix.",
+          "type": "string",
+          "pattern": "^CR_[A-Z]+_[A-Za-z0-9]+(_[A-Za-z0-9]+)*_v[0-9]+$",
+          "maxLength": 64
+        },
+        "minHostVersion": { "$ref": "library.src.schema.json#/$defs/minHostVersion" }
+      }
+    },
+    "item": {
+      "type": "object",
+      "$ref": "library.src.schema.json#/$defs/itemCommon",
+      "propertyNames": {
+        "enum": ["id", "title_ru", "category", "tier", "hosts", "version", "fit", "cutFrame", "windows", "duration", "loop", "fields", "companions", "requiredFonts", "variants", "aep", "preview", "poster"]
+      },
+      "properties": {
+        "requiredFonts": { "type": "array", "items": { "$ref": "#/$defs/fontPinned" } },
+        "variants": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/variant" } },
+        "aep": { "$ref": "#/$defs/stored" },
+        "preview": { "$ref": "#/$defs/stored" },
+        "poster": { "$ref": "#/$defs/stored" }
+      }
+    }
+  }
+}

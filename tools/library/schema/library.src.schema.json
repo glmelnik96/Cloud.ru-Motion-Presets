@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://brandkit.invalid/schema/library.src.schema.json",
+  "title": "Cloud.ru BrandKit: library source (library.src.json)",
+  "description": "Hand-edited source of the catalog (spec 4.4). The pipeline turns it into library.json. Cross-field rules live in tools/library/validate.mjs.",
+  "type": "object",
+  "required": ["schemaVersion", "items"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "items": { "type": "array", "items": { "$ref": "#/$defs/item" } }
+  },
+  "$defs": {
+    "id": {
+      "description": "<FAMILY>_<Element>. Families from contract 4.2 plus FX, SFX (sounds) and AME (export presets). 40 characters leave room for _<format>_v<N>.mogrt in a 64-character file name; validate.mjs checks the real names.",
+      "type": "string",
+      "pattern": "^(LOGO|TTL|WEB|CRS|SMM|POD|TRN|BG|FX|SFX|AME)_[A-Za-z0-9]+(_[A-Za-z0-9]+)*$",
+      "maxLength": 40
+    },
+    "key": { "type": "string", "pattern": "^[a-z][a-z0-9_]{0,31}$" },
+    "variantKey": { "type": "string", "pattern": "^[A-Za-z0-9]+(_[A-Za-z0-9]+)*$", "maxLength": 24 },
+    "host": { "enum": ["ae", "pr"] },
+    "hosts": { "type": "array", "items": { "$ref": "#/$defs/host" }, "minItems": 1, "uniqueItems": true },
+    "aspect": { "enum": ["16x9", "9x16", "1x1", "4x5", "4x3"] },
+    "hostVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$" },
+    "minHostVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": { "ae": { "$ref": "#/$defs/hostVersion" }, "pr": { "$ref": "#/$defs/hostVersion" } }
+    },
+    "aeCompBase": {
+      "description": "Variant comp name in the working project, without the version suffix: the pipeline appends _v<N>.",
+      "type": "string",
+      "pattern": "^CR_[A-Z]+_[A-Za-z0-9]+(_[A-Za-z0-9]+)*$",
+      "maxLength": 60
+    },
+    "font": {
+      "type": "object",
+      "required": ["postScriptName"],
+      "additionalProperties": false,
+      "properties": {
+        "postScriptName": { "type": "string", "pattern": "^[A-Za-z0-9-]+$" },
+        "build": { "description": "Reference build from the name table, e.g. 1.002 (brand/tokens.json).", "type": "string", "pattern": "^[0-9]+\\.[0-9]{3}$" }
+      }
+    },
+    "duration": {
+      "description": "Seconds. Default insert length = introSec + holdSec + outroSec.",
+      "type": "object",
+      "required": ["introSec", "holdSec", "outroSec"],
+      "additionalProperties": false,
+      "properties": {
+        "introSec": { "type": "number", "minimum": 0 },
+        "holdSec": { "type": "number", "minimum": 0 },
+        "outroSec": { "type": "number", "minimum": 0 }
+      }
+    },
+    "option": {
+      "type": "object",
+      "required": ["index", "label_ru"],
+      "additionalProperties": false,
+      "properties": {
+        "index": { "type": "integer", "minimum": 1 },
+        "label_ru": { "type": "string", "minLength": 1 }
+      }
+    },
+    "field": {
+      "type": "object",
+      "required": ["key", "label_ru", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "label_ru": { "type": "string", "minLength": 1 },
+        "type": { "enum": ["text", "dropdown", "checkbox", "slider", "media"] },
+        "egpName": { "description": "Display name of the Essential Graphics property (Premiere looks the parameter up by it).", "type": "string", "minLength": 1 },
+        "egpIndex": { "description": "Position in Essential Graphics, for the future UXP adapter.", "type": "integer", "minimum": 0 },
+        "default": { "type": ["string", "number", "boolean", "null"] },
+        "maxLen": { "type": "integer", "minimum": 1 },
+        "options": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/option" } },
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "accepts": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["photo", "qr", "video"] } },
+        "drivesDuration": { "description": "The field sets the insert length: value * unitSec + duration.outroSec.", "type": "boolean" },
+        "unitSec": { "type": "number", "exclusiveMinimum": 0 },
+        "enabledBy": { "description": "Key of a checkbox field that switches this field on.", "$ref": "#/$defs/key" },
+        "service": { "description": "Written by the panel itself (the Duration slider); never shown in the form or in the capability check.", "type": "boolean" },
+        "editable": { "type": "boolean" },
+        "hosts": { "description": "Hosts where the panel fills the field; elsewhere the field is 'fill in Properties'.", "$ref": "#/$defs/hosts" }
+      },
+      "allOf": [
+        { "if": { "properties": { "type": { "const": "dropdown" } } }, "then": { "required": ["options"] } },
+        { "if": { "properties": { "type": { "const": "slider" } } }, "then": { "required": ["min", "max"] } },
+        { "if": { "properties": { "type": { "const": "text" } } }, "then": { "required": ["maxLen"] } },
+        { "if": { "properties": { "type": { "const": "media" } } }, "then": { "required": ["accepts"] } },
+        { "if": { "required": ["drivesDuration"], "properties": { "drivesDuration": { "const": true } } }, "then": { "required": ["unitSec"] } }
+      ]
+    },
+    "options": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/key" },
+      "additionalProperties": { "type": ["integer", "boolean"] }
+    },
+    "frameRange": {
+      "description": "[from, to) in frames of the source comp.",
+      "type": "array",
+      "prefixItems": [{ "type": "integer", "minimum": 0 }, { "type": "integer", "minimum": 1 }],
+      "items": false,
+      "minItems": 2
+    },
+    "srcParts": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "intro": { "$ref": "#/$defs/frameRange" },
+        "loop": { "$ref": "#/$defs/frameRange" },
+        "outro": { "$ref": "#/$defs/frameRange" }
+      }
+    },
+    "rect": {
+      "type": "object",
+      "required": ["variant", "x", "y", "w", "h"],
+      "additionalProperties": false,
+      "properties": {
+        "variant": { "$ref": "#/$defs/variantKey" },
+        "when": { "$ref": "#/$defs/options" },
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "w": { "type": "number", "exclusiveMinimum": 0 },
+        "h": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "window": {
+      "type": "object",
+      "required": ["key", "label_ru", "rects"],
+      "additionalProperties": false,
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "label_ru": { "type": "string", "minLength": 1 },
+        "rects": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/rect" } }
+      }
+    },
+    "companion": {
+      "type": "object",
+      "required": ["ref", "kind", "placement", "default"],
+      "additionalProperties": false,
+      "properties": {
+        "ref": { "$ref": "#/$defs/id" },
+        "kind": { "enum": ["music", "sfx", "video"] },
+        "placement": { "enum": ["in", "out", "under"] },
+        "default": { "type": "boolean" }
+      }
+    },
+    "variant": {
+      "type": "object",
+      "required": ["key"],
+      "additionalProperties": false,
+      "properties": {
+        "key": { "$ref": "#/$defs/variantKey" },
+        "aspect": { "$ref": "#/$defs/aspect" },
+        "w": { "type": "integer", "minimum": 16, "maximum": 8192 },
+        "h": { "type": "integer", "minimum": 16, "maximum": 8192 },
+        "fps": { "type": "number", "exclusiveMinimum": 0, "maximum": 120 },
+        "options": { "$ref": "#/$defs/options" },
+        "parts": { "$ref": "#/$defs/srcParts" },
+        "aeComp": { "$ref": "#/$defs/aeCompBase" },
+        "minHostVersion": { "$ref": "#/$defs/minHostVersion" }
+      }
+    },
+    "itemCommon": {
+      "description": "Properties shared by library.src.json and library.json items.",
+      "type": "object",
+      "required": ["id", "title_ru", "category", "tier", "hosts", "version", "variants"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "title_ru": { "type": "string", "minLength": 1 },
+        "category": { "enum": ["logo", "titles", "webinars", "courses", "smm", "podcast", "transitions", "backgrounds", "effects", "sounds", "export"] },
+        "tier": { "enum": ["T1", "T2", "T3"] },
+        "hosts": { "$ref": "#/$defs/hosts" },
+        "version": { "type": "integer", "minimum": 1 },
+        "fit": { "enum": ["rdt", "trim"] },
+        "cutFrame": { "description": "Transitions: first frame of full cover.", "type": "integer", "minimum": 0 },
+        "windows": { "type": "array", "items": { "$ref": "#/$defs/window" } },
+        "duration": { "$ref": "#/$defs/duration" },
+        "loop": {
+          "type": "object",
+          "required": ["periodFrames"],
+          "additionalProperties": false,
+          "properties": { "periodFrames": { "type": "integer", "minimum": 1 } }
+        },
+        "fields": { "type": "array", "items": { "$ref": "#/$defs/field" } },
+        "companions": { "type": "array", "items": { "$ref": "#/$defs/companion" } }
+      },
+      "allOf": [
+        { "if": { "properties": { "tier": { "const": "T1" } } }, "then": { "required": ["fit", "duration"] } },
+        { "if": { "properties": { "category": { "const": "transitions" } } }, "then": { "required": ["cutFrame"] } },
+        {
+          "if": { "properties": { "tier": { "enum": ["T1", "T2"] } } },
+          "then": { "properties": { "variants": { "type": "array", "items": { "type": "object", "required": ["aspect", "w", "h", "fps"] } } } }
+        }
+      ]
+    },
+    "item": {
+      "type": "object",
+      "$ref": "#/$defs/itemCommon",
+      "propertyNames": {
+        "enum": ["id", "title_ru", "category", "tier", "hosts", "version", "fit", "cutFrame", "windows", "duration", "loop", "fields", "companions", "requiredFonts", "variants"]
+      },
+      "properties": {
+        "requiredFonts": { "type": "array", "items": { "$ref": "#/$defs/font" } },
+        "variants": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/variant" } }
+      }
+    }
+  }
+}
