@@ -1,0 +1,1095 @@
+{
+  "meta": {
+    "runDir": "C:/CRBK/work/s6/run-20261002-193240",
+    "startedAt": "2026-10-02T19:32:40.784Z"
+  },
+  "stages": {
+    "ae-asis": {
+      "at": "2026-10-02T19:32:48.730Z",
+      "host": "ae",
+      "hostVersion": "26.5x89",
+      "checks": [
+        {
+          "name": "SB Sans fonts installed, not substituted",
+          "pass": true,
+          "required": true,
+          "detail": [
+            {
+              "ps": "SBSansDisplay-Semibold",
+              "found": true,
+              "location": "C:\\Windows\\Fonts\\SBSansDisplay-SemiBold.otf"
+            },
+            {
+              "ps": "SBSansText-Regular",
+              "found": true,
+              "location": "C:\\Windows\\Fonts\\SBSansText-Regular.otf"
+            }
+          ]
+        },
+        {
+          "name": "S6 copy of CRT_fixture_egp.aep is the open project",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "open": "C:\\CRBK\\work\\s6\\run-20261002-193240\\CRT_fixture_s6.aep",
+            "how": "opened"
+          }
+        },
+        {
+          "name": "template comp CRT_LowerThird_v1 found once",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "id": 2,
+            "templateName": "Untitled",
+            "properties": 7
+          }
+        },
+        {
+          "name": "asis: exportAsMotionGraphicsTemplate called (Node waits for the file)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "returned": "true",
+            "templateName": "Untitled",
+            "properties": 7
+          }
+        },
+        {
+          "name": "asis: Untitled.mogrt written and readable",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:/CRBK/work/s6/run-20261002-193240/asis/Untitled.mogrt",
+            "waitedMs": 2069,
+            "bytes": 128072,
+            "capsuleID": "6a36f199-0992-45e0-b179-5dfec9ee0f59",
+            "error": null
+          }
+        }
+      ],
+      "data": {
+        "mode": "asis",
+        "templateName": "Untitled",
+        "open": "opened",
+        "properties": 7,
+        "returned": "true",
+        "hostVersion": "26.5x89",
+        "file": "C:/CRBK/work/s6/run-20261002-193240/asis/Untitled.mogrt",
+        "capsuleID": "6a36f199-0992-45e0-b179-5dfec9ee0f59"
+      },
+      "evidence": [
+        "C:/CRBK/work/s6/run-20261002-193240/asis/Untitled.mogrt"
+      ],
+      "notes": ""
+    },
+    "ae-changed": {
+      "at": "2026-10-02T19:32:56.430Z",
+      "host": "ae",
+      "hostVersion": "26.5x89",
+      "checks": [
+        {
+          "name": "SB Sans fonts installed, not substituted",
+          "pass": true,
+          "required": true,
+          "detail": [
+            {
+              "ps": "SBSansDisplay-Semibold",
+              "found": true,
+              "location": "C:\\Windows\\Fonts\\SBSansDisplay-SemiBold.otf"
+            },
+            {
+              "ps": "SBSansText-Regular",
+              "found": true,
+              "location": "C:\\Windows\\Fonts\\SBSansText-Regular.otf"
+            }
+          ]
+        },
+        {
+          "name": "S6 copy of CRT_fixture_egp.aep is the open project",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "open": "C:\\CRBK\\work\\s6\\run-20261002-193240\\CRT_fixture_s6.aep",
+            "how": "already open"
+          }
+        },
+        {
+          "name": "template comp CRT_LowerThird_v1 found once",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "id": 2,
+            "templateName": "Untitled",
+            "properties": 7
+          }
+        },
+        {
+          "name": "QA_PATCH recoloured to #A068FF with a Fill effect",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "effect": "ADBE Fill",
+            "param": "ADBE Fill-0002",
+            "value": [
+              0.62745100259781,
+              0.40784314274788,
+              1
+            ]
+          }
+        },
+        {
+          "name": "changed: exportAsMotionGraphicsTemplate called (Node waits for the file)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "returned": "true",
+            "templateName": "Untitled",
+            "properties": 7
+          }
+        },
+        {
+          "name": "changed: Untitled.mogrt written and readable",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:/CRBK/work/s6/run-20261002-193240/changed/Untitled.mogrt",
+            "waitedMs": 2094,
+            "bytes": 133479,
+            "capsuleID": "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+            "error": null
+          }
+        }
+      ],
+      "data": {
+        "mode": "changed",
+        "templateName": "Untitled",
+        "open": "already open",
+        "fill": {
+          "effect": "ADBE Fill",
+          "param": "ADBE Fill-0002",
+          "value": [
+            0.62745100259781,
+            0.40784314274788,
+            1
+          ]
+        },
+        "properties": 7,
+        "returned": "true",
+        "hostVersion": "26.5x89",
+        "file": "C:/CRBK/work/s6/run-20261002-193240/changed/Untitled.mogrt",
+        "capsuleID": "48bafd82-2d02-481f-9b9a-ee764d8f8938"
+      },
+      "evidence": [
+        "C:/CRBK/work/s6/run-20261002-193240/changed/Untitled.mogrt"
+      ],
+      "notes": ""
+    },
+    "ae-dup": {
+      "at": "2026-10-02T19:33:04.165Z",
+      "host": "ae",
+      "hostVersion": "26.5x89",
+      "checks": [
+        {
+          "name": "SB Sans fonts installed, not substituted",
+          "pass": true,
+          "required": true,
+          "detail": [
+            {
+              "ps": "SBSansDisplay-Semibold",
+              "found": true,
+              "location": "C:\\Windows\\Fonts\\SBSansDisplay-SemiBold.otf"
+            },
+            {
+              "ps": "SBSansText-Regular",
+              "found": true,
+              "location": "C:\\Windows\\Fonts\\SBSansText-Regular.otf"
+            }
+          ]
+        },
+        {
+          "name": "S6 copy of CRT_fixture_egp.aep is the open project",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "open": "C:\\CRBK\\work\\s6\\run-20261002-193240\\CRT_fixture_s6.aep",
+            "how": "already open"
+          }
+        },
+        {
+          "name": "template comp CRT_LowerThird_v1 found once",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "id": 2,
+            "templateName": "Untitled",
+            "properties": 7
+          }
+        },
+        {
+          "name": "master comp duplicated as CRT_LowerThird_v2",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "master": 7,
+            "dup": 7
+          }
+        },
+        {
+          "name": "the duplicate keeps the Essential Graphics properties",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "master": 7,
+            "dup": 7
+          }
+        },
+        {
+          "name": "dup: exportAsMotionGraphicsTemplate called (Node waits for the file)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "returned": "true",
+            "templateName": "CRT_LowerThird_v2",
+            "properties": 7
+          }
+        },
+        {
+          "name": "dup: CRT_LowerThird_v2.mogrt written and readable",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:/CRBK/work/s6/run-20261002-193240/dup/CRT_LowerThird_v2.mogrt",
+            "waitedMs": 2073,
+            "bytes": 133215,
+            "capsuleID": "8cf29312-a96d-4cd7-9403-bbb00e397666",
+            "error": null
+          }
+        }
+      ],
+      "data": {
+        "mode": "dup",
+        "templateName": "CRT_LowerThird_v2",
+        "open": "already open",
+        "dup": {
+          "master": 7,
+          "dup": 7
+        },
+        "properties": 7,
+        "returned": "true",
+        "hostVersion": "26.5x89",
+        "file": "C:/CRBK/work/s6/run-20261002-193240/dup/CRT_LowerThird_v2.mogrt",
+        "capsuleID": "8cf29312-a96d-4cd7-9403-bbb00e397666"
+      },
+      "evidence": [
+        "C:/CRBK/work/s6/run-20261002-193240/dup/CRT_LowerThird_v2.mogrt"
+      ],
+      "notes": ""
+    },
+    "ids": {
+      "at": "2026-10-02T19:33:04.181Z",
+      "host": "node",
+      "hostVersion": null,
+      "checks": [
+        {
+          "name": "capsuleIDs read from the S2 template and the AE exports",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "orig": "f4a10682-c1c5-44d8-9666-cda268a48732",
+            "asis": "6a36f199-0992-45e0-b179-5dfec9ee0f59",
+            "v2": "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+            "dup": "8cf29312-a96d-4cd7-9403-bbb00e397666"
+          }
+        },
+        {
+          "name": "AE: a re-export of the unchanged comp keeps the capsuleID",
+          "pass": false,
+          "required": false,
+          "detail": {
+            "orig": "f4a10682-c1c5-44d8-9666-cda268a48732",
+            "asis": "6a36f199-0992-45e0-b179-5dfec9ee0f59",
+            "v2": "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+            "dup": "8cf29312-a96d-4cd7-9403-bbb00e397666",
+            "unchangedKeepsId": false,
+            "changedKeepsId": false,
+            "dupNewId": true
+          }
+        },
+        {
+          "name": "AE: a re-export after a change keeps the capsuleID",
+          "pass": false,
+          "required": false,
+          "detail": {
+            "orig": "f4a10682-c1c5-44d8-9666-cda268a48732",
+            "asis": "6a36f199-0992-45e0-b179-5dfec9ee0f59",
+            "v2": "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+            "dup": "8cf29312-a96d-4cd7-9403-bbb00e397666",
+            "unchangedKeepsId": false,
+            "changedKeepsId": false,
+            "dupNewId": true
+          }
+        },
+        {
+          "name": "AE: a duplicated comp exports with a new capsuleID",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "orig": "f4a10682-c1c5-44d8-9666-cda268a48732",
+            "asis": "6a36f199-0992-45e0-b179-5dfec9ee0f59",
+            "v2": "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+            "dup": "8cf29312-a96d-4cd7-9403-bbb00e397666",
+            "unchangedKeepsId": false,
+            "changedKeepsId": false,
+            "dupNewId": true
+          }
+        },
+        {
+          "name": "patched copies carry the old and a fresh capsuleID, the re-export itself unchanged",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "sameFile": "C:/CRBK/work/s6/run-20261002-193240/pr-sameid/CRT_LowerThird_v1.mogrt",
+            "newFile": "C:/CRBK/work/s6/run-20261002-193240/pr-newid/CRT_LowerThird_v1.mogrt",
+            "fresh": "f5958ab6-be5d-4378-89ae-55b9efc5c671"
+          }
+        }
+      ],
+      "data": {
+        "facts": {
+          "orig": "f4a10682-c1c5-44d8-9666-cda268a48732",
+          "asis": "6a36f199-0992-45e0-b179-5dfec9ee0f59",
+          "v2": "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+          "dup": "8cf29312-a96d-4cd7-9403-bbb00e397666",
+          "unchangedKeepsId": false,
+          "changedKeepsId": false,
+          "dupNewId": true
+        },
+        "files": {
+          "asis": "C:/CRBK/work/s6/run-20261002-193240/asis/Untitled.mogrt",
+          "v2": "C:/CRBK/work/s6/run-20261002-193240/changed/Untitled.mogrt",
+          "dup": "C:/CRBK/work/s6/run-20261002-193240/dup/CRT_LowerThird_v2.mogrt",
+          "sameFile": "C:/CRBK/work/s6/run-20261002-193240/pr-sameid/CRT_LowerThird_v1.mogrt",
+          "newFile": "C:/CRBK/work/s6/run-20261002-193240/pr-newid/CRT_LowerThird_v1.mogrt"
+        }
+      },
+      "evidence": [
+        "C:/CRBK/work/mogrt/CRT_LowerThird_v1.mogrt",
+        "C:/CRBK/work/s6/run-20261002-193240/pr-sameid/CRT_LowerThird_v1.mogrt",
+        "C:/CRBK/work/s6/run-20261002-193240/pr-newid/CRT_LowerThird_v1.mogrt"
+      ],
+      "notes": ""
+    },
+    "pr-a": {
+      "at": "2026-10-02T19:33:04.675Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_s6.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\s6\\CRT_pr_s6.prproj"
+        },
+        {
+          "name": "the S6 project is fresh: no sequence CRT_S6 yet",
+          "pass": true,
+          "required": true,
+          "detail": "CRT_S6"
+        },
+        {
+          "name": "sequence CRT_S6 created from the HD 1080p 25 fps preset",
+          "pass": true,
+          "required": true,
+          "detail": [
+            "dom: sequence"
+          ]
+        },
+        {
+          "name": "sequence CRT_S6 is active",
+          "pass": true,
+          "required": true,
+          "detail": ""
+        },
+        {
+          "name": "A: S2 template inserted at 0 s on V1",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:/CRBK/work/mogrt/CRT_LowerThird_v1.mogrt",
+            "startF": 0,
+            "lenF": 250,
+            "returned": true,
+            "ms": 71,
+            "error": null,
+            "projectItem": "CRT_LowerThird_v1",
+            "nodeId": "000f4241"
+          }
+        },
+        {
+          "name": "frame A0 (125) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:05:00",
+            "playhead": "1270080000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "project items of the template recorded",
+          "pass": true,
+          "required": false,
+          "detail": [
+            {
+              "path": "/Motion Graphics Template Media/CRT_LowerThird_v1",
+              "nodeId": "000f4241",
+              "type": 1
+            }
+          ]
+        }
+      ],
+      "data": {
+        "frames": {
+          "A0": "C:/CRBK/work/s6/run-20261002-193240/frames/A0.png"
+        },
+        "item": {
+          "file": "C:/CRBK/work/mogrt/CRT_LowerThird_v1.mogrt",
+          "startF": 0,
+          "lenF": 250,
+          "returned": true,
+          "ms": 71,
+          "error": null,
+          "projectItem": "CRT_LowerThird_v1",
+          "nodeId": "000f4241"
+        },
+        "seqId": "7207115e-2f7c-47b3-9f72-4abaa5d3540b",
+        "templateItems": [
+          {
+            "path": "/Motion Graphics Template Media/CRT_LowerThird_v1",
+            "nodeId": "000f4241",
+            "type": 1
+          }
+        ],
+        "hostVersion": "26.5.2",
+        "mgtMedia": [
+          "f4a10682-c1c5-44d8-9666-cda268a48732"
+        ]
+      },
+      "evidence": [
+        "C:/CRBK/work/s6/run-20261002-193240/frames/A0.png"
+      ],
+      "notes": ""
+    },
+    "pr-b": {
+      "at": "2026-10-02T19:33:05.115Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_s6.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\s6\\CRT_pr_s6.prproj"
+        },
+        {
+          "name": "sequence CRT_S6 found",
+          "pass": true,
+          "required": true,
+          "detail": "7207115e-2f7c-47b3-9f72-4abaa5d3540b"
+        },
+        {
+          "name": "sequence CRT_S6 is active",
+          "pass": true,
+          "required": true,
+          "detail": ""
+        },
+        {
+          "name": "B: AE re-export as is inserted at 12 s on V1",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:/CRBK/work/s6/run-20261002-193240/changed/Untitled.mogrt",
+            "startF": 300,
+            "lenF": 250,
+            "returned": true,
+            "ms": 70,
+            "error": null,
+            "projectItem": "Untitled",
+            "nodeId": "000f4242"
+          }
+        },
+        {
+          "name": "frame A1 (125) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:05:00",
+            "playhead": "1270080000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "frame B1 (425) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:17:00",
+            "playhead": "4318272000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "project items of the template recorded",
+          "pass": true,
+          "required": false,
+          "detail": [
+            {
+              "path": "/Motion Graphics Template Media/CRT_LowerThird_v1",
+              "nodeId": "000f4241",
+              "type": 1
+            }
+          ]
+        }
+      ],
+      "data": {
+        "frames": {
+          "A1": "C:/CRBK/work/s6/run-20261002-193240/frames/A1.png",
+          "B1": "C:/CRBK/work/s6/run-20261002-193240/frames/B1.png"
+        },
+        "item": {
+          "file": "C:/CRBK/work/s6/run-20261002-193240/changed/Untitled.mogrt",
+          "startF": 300,
+          "lenF": 250,
+          "returned": true,
+          "ms": 70,
+          "error": null,
+          "projectItem": "Untitled",
+          "nodeId": "000f4242"
+        },
+        "seqId": "7207115e-2f7c-47b3-9f72-4abaa5d3540b",
+        "templateItems": [
+          {
+            "path": "/Motion Graphics Template Media/CRT_LowerThird_v1",
+            "nodeId": "000f4241",
+            "type": 1
+          }
+        ],
+        "hostVersion": "26.5.2",
+        "mgtMedia": [
+          "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+          "f4a10682-c1c5-44d8-9666-cda268a48732"
+        ]
+      },
+      "evidence": [
+        "C:/CRBK/work/s6/run-20261002-193240/frames/A1.png",
+        "C:/CRBK/work/s6/run-20261002-193240/frames/B1.png"
+      ],
+      "notes": ""
+    },
+    "pr-c": {
+      "at": "2026-10-02T19:33:05.648Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_s6.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\s6\\CRT_pr_s6.prproj"
+        },
+        {
+          "name": "sequence CRT_S6 found",
+          "pass": true,
+          "required": true,
+          "detail": "7207115e-2f7c-47b3-9f72-4abaa5d3540b"
+        },
+        {
+          "name": "sequence CRT_S6 is active",
+          "pass": true,
+          "required": true,
+          "detail": ""
+        },
+        {
+          "name": "C: re-export with the old capsuleID inserted at 24 s on V1",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:/CRBK/work/s6/run-20261002-193240/pr-sameid/CRT_LowerThird_v1.mogrt",
+            "startF": 600,
+            "lenF": 250,
+            "returned": true,
+            "ms": 67,
+            "error": null,
+            "projectItem": "Untitled",
+            "nodeId": "000f4243"
+          }
+        },
+        {
+          "name": "frame A2 (125) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:05:00",
+            "playhead": "1270080000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "frame B2 (425) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:17:00",
+            "playhead": "4318272000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "frame C2 (725) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:29:00",
+            "playhead": "7366464000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "project items of the template recorded",
+          "pass": true,
+          "required": false,
+          "detail": [
+            {
+              "path": "/Motion Graphics Template Media/CRT_LowerThird_v1",
+              "nodeId": "000f4241",
+              "type": 1
+            }
+          ]
+        }
+      ],
+      "data": {
+        "frames": {
+          "A2": "C:/CRBK/work/s6/run-20261002-193240/frames/A2.png",
+          "B2": "C:/CRBK/work/s6/run-20261002-193240/frames/B2.png",
+          "C2": "C:/CRBK/work/s6/run-20261002-193240/frames/C2.png"
+        },
+        "item": {
+          "file": "C:/CRBK/work/s6/run-20261002-193240/pr-sameid/CRT_LowerThird_v1.mogrt",
+          "startF": 600,
+          "lenF": 250,
+          "returned": true,
+          "ms": 67,
+          "error": null,
+          "projectItem": "Untitled",
+          "nodeId": "000f4243"
+        },
+        "seqId": "7207115e-2f7c-47b3-9f72-4abaa5d3540b",
+        "templateItems": [
+          {
+            "path": "/Motion Graphics Template Media/CRT_LowerThird_v1",
+            "nodeId": "000f4241",
+            "type": 1
+          }
+        ],
+        "hostVersion": "26.5.2",
+        "mgtMedia": [
+          "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+          "f4a10682-c1c5-44d8-9666-cda268a48732"
+        ]
+      },
+      "evidence": [
+        "C:/CRBK/work/s6/run-20261002-193240/frames/A2.png",
+        "C:/CRBK/work/s6/run-20261002-193240/frames/B2.png",
+        "C:/CRBK/work/s6/run-20261002-193240/frames/C2.png"
+      ],
+      "notes": ""
+    },
+    "pr-d": {
+      "at": "2026-10-02T19:33:06.267Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_s6.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\s6\\CRT_pr_s6.prproj"
+        },
+        {
+          "name": "sequence CRT_S6 found",
+          "pass": true,
+          "required": true,
+          "detail": "7207115e-2f7c-47b3-9f72-4abaa5d3540b"
+        },
+        {
+          "name": "sequence CRT_S6 is active",
+          "pass": true,
+          "required": true,
+          "detail": ""
+        },
+        {
+          "name": "D: re-export with a fresh capsuleID inserted at 36 s on V1",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:/CRBK/work/s6/run-20261002-193240/pr-newid/CRT_LowerThird_v1.mogrt",
+            "startF": 900,
+            "lenF": 250,
+            "returned": true,
+            "ms": 66,
+            "error": null,
+            "projectItem": "Untitled",
+            "nodeId": "000f4244"
+          }
+        },
+        {
+          "name": "frame A3 (125) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:05:00",
+            "playhead": "1270080000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "frame B3 (425) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:17:00",
+            "playhead": "4318272000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "frame C3 (725) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:29:00",
+            "playhead": "7366464000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "frame D3 (1025) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:41:00",
+            "playhead": "10414656000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "project items of the template recorded",
+          "pass": true,
+          "required": false,
+          "detail": [
+            {
+              "path": "/Motion Graphics Template Media/CRT_LowerThird_v1",
+              "nodeId": "000f4241",
+              "type": 1
+            }
+          ]
+        }
+      ],
+      "data": {
+        "frames": {
+          "A3": "C:/CRBK/work/s6/run-20261002-193240/frames/A3.png",
+          "B3": "C:/CRBK/work/s6/run-20261002-193240/frames/B3.png",
+          "C3": "C:/CRBK/work/s6/run-20261002-193240/frames/C3.png",
+          "D3": "C:/CRBK/work/s6/run-20261002-193240/frames/D3.png"
+        },
+        "item": {
+          "file": "C:/CRBK/work/s6/run-20261002-193240/pr-newid/CRT_LowerThird_v1.mogrt",
+          "startF": 900,
+          "lenF": 250,
+          "returned": true,
+          "ms": 66,
+          "error": null,
+          "projectItem": "Untitled",
+          "nodeId": "000f4244"
+        },
+        "seqId": "7207115e-2f7c-47b3-9f72-4abaa5d3540b",
+        "templateItems": [
+          {
+            "path": "/Motion Graphics Template Media/CRT_LowerThird_v1",
+            "nodeId": "000f4241",
+            "type": 1
+          }
+        ],
+        "hostVersion": "26.5.2",
+        "mgtMedia": [
+          "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+          "f4a10682-c1c5-44d8-9666-cda268a48732",
+          "f5958ab6-be5d-4378-89ae-55b9efc5c671"
+        ]
+      },
+      "evidence": [
+        "C:/CRBK/work/s6/run-20261002-193240/frames/A3.png",
+        "C:/CRBK/work/s6/run-20261002-193240/frames/B3.png",
+        "C:/CRBK/work/s6/run-20261002-193240/frames/C3.png",
+        "C:/CRBK/work/s6/run-20261002-193240/frames/D3.png"
+      ],
+      "notes": ""
+    },
+    "looks": {
+      "at": "2026-10-02T19:33:09.101Z",
+      "host": "node",
+      "hostVersion": null,
+      "checks": [
+        {
+          "name": "A (the S2 template) renders the old QA colour before any re-import",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "A0": "old",
+            "A1": "old",
+            "B1": "new",
+            "A2": "old",
+            "B2": "new",
+            "C2": "new",
+            "A3": "old",
+            "B3": "new",
+            "C3": "new",
+            "D3": "new"
+          }
+        },
+        {
+          "name": "AE re-export (a new capsuleID): B renders the new version",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "A0": "old",
+            "A1": "old",
+            "B1": "new",
+            "A2": "old",
+            "B2": "new",
+            "C2": "new",
+            "A3": "old",
+            "B3": "new",
+            "C3": "new",
+            "D3": "new"
+          }
+        },
+        {
+          "name": "AE re-export: A still renders the old version",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "A0": "old",
+            "A1": "old",
+            "B1": "new",
+            "A2": "old",
+            "B2": "new",
+            "C2": "new",
+            "A3": "old",
+            "B3": "new",
+            "C3": "new",
+            "D3": "new"
+          }
+        },
+        {
+          "name": "forced old capsuleID: C renders the new version",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "A0": "old",
+            "A1": "old",
+            "B1": "new",
+            "A2": "old",
+            "B2": "new",
+            "C2": "new",
+            "A3": "old",
+            "B3": "new",
+            "C3": "new",
+            "D3": "new"
+          }
+        },
+        {
+          "name": "forced old capsuleID: A and B render as before",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "A0": "old",
+            "A1": "old",
+            "B1": "new",
+            "A2": "old",
+            "B2": "new",
+            "C2": "new",
+            "A3": "old",
+            "B3": "new",
+            "C3": "new",
+            "D3": "new"
+          }
+        },
+        {
+          "name": "fresh capsuleID: D renders the new version",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "A0": "old",
+            "A1": "old",
+            "B1": "new",
+            "A2": "old",
+            "B2": "new",
+            "C2": "new",
+            "A3": "old",
+            "B3": "new",
+            "C3": "new",
+            "D3": "new"
+          }
+        },
+        {
+          "name": "fresh capsuleID: A still renders the old version (versions coexist)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "A0": "old",
+            "A1": "old",
+            "B1": "new",
+            "A2": "old",
+            "B2": "new",
+            "C2": "new",
+            "A3": "old",
+            "B3": "new",
+            "C3": "new",
+            "D3": "new"
+          }
+        },
+        {
+          "name": "Motion Graphics Template Media after each import recorded",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "pr-a": [
+              "f4a10682-c1c5-44d8-9666-cda268a48732"
+            ],
+            "pr-b": [
+              "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+              "f4a10682-c1c5-44d8-9666-cda268a48732"
+            ],
+            "pr-c": [
+              "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+              "f4a10682-c1c5-44d8-9666-cda268a48732"
+            ],
+            "pr-d": [
+              "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+              "f4a10682-c1c5-44d8-9666-cda268a48732",
+              "f5958ab6-be5d-4378-89ae-55b9efc5c671"
+            ]
+          }
+        }
+      ],
+      "data": {
+        "look": {
+          "A0": "old",
+          "A1": "old",
+          "B1": "new",
+          "A2": "old",
+          "B2": "new",
+          "C2": "new",
+          "A3": "old",
+          "B3": "new",
+          "C3": "new",
+          "D3": "new"
+        },
+        "detail": {
+          "A0": {
+            "look": "old",
+            "mean": "#26D07C",
+            "dOld": 0,
+            "dNew": 55.01
+          },
+          "A1": {
+            "look": "old",
+            "mean": "#26D07C",
+            "dOld": 0,
+            "dNew": 55.01
+          },
+          "B1": {
+            "look": "new",
+            "mean": "#A068FF",
+            "dOld": 55.01,
+            "dNew": 0
+          },
+          "A2": {
+            "look": "old",
+            "mean": "#26D07C",
+            "dOld": 0,
+            "dNew": 55.01
+          },
+          "B2": {
+            "look": "new",
+            "mean": "#A068FF",
+            "dOld": 55.01,
+            "dNew": 0
+          },
+          "C2": {
+            "look": "new",
+            "mean": "#A068FF",
+            "dOld": 55.01,
+            "dNew": 0
+          },
+          "A3": {
+            "look": "old",
+            "mean": "#26D07C",
+            "dOld": 0,
+            "dNew": 55.01
+          },
+          "B3": {
+            "look": "new",
+            "mean": "#A068FF",
+            "dOld": 55.01,
+            "dNew": 0
+          },
+          "C3": {
+            "look": "new",
+            "mean": "#A068FF",
+            "dOld": 55.01,
+            "dNew": 0
+          },
+          "D3": {
+            "look": "new",
+            "mean": "#A068FF",
+            "dOld": 55.01,
+            "dNew": 0
+          }
+        },
+        "media": {
+          "pr-a": [
+            "f4a10682-c1c5-44d8-9666-cda268a48732"
+          ],
+          "pr-b": [
+            "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+            "f4a10682-c1c5-44d8-9666-cda268a48732"
+          ],
+          "pr-c": [
+            "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+            "f4a10682-c1c5-44d8-9666-cda268a48732"
+          ],
+          "pr-d": [
+            "48bafd82-2d02-481f-9b9a-ee764d8f8938",
+            "f4a10682-c1c5-44d8-9666-cda268a48732",
+            "f5958ab6-be5d-4378-89ae-55b9efc5c671"
+          ]
+        }
+      },
+      "evidence": [],
+      "notes": "AE re-export of the unchanged comp keeps capsuleID: no; after a change: no; duplicated comp gets a new one: yes; a fresh capsuleID per version works, inserted instances stay as they were; with the old capsuleID both versions still coexist"
+    }
+  }
+}
