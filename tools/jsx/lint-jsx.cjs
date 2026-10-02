@@ -1,5 +1,5 @@
 // lint-jsx.js — pre-flight for ExtendScript payloads BEFORE they reach After Effects.
-// Vendored from ~/.claude/skills/ae-motion-live/scripts/lint-jsx.js (2026-10-02); JSON.parse warning removed.
+// Vendored from ~/.claude/skills/ae-motion-live/scripts/lint-jsx.js (2026-10-02); JSON.parse warning removed; ES3 future reserved words as names added (rule 3b).
 //
 //   node scripts/lint-jsx.js file.jsx [more.jsx]     # exit 1 on errors
 //   const { lint } = require('./lint-jsx');  lint(src) -> { errors: [], warnings: [] }
@@ -76,6 +76,14 @@ function lint(src, opts) {
     const before = clean.slice(Math.max(0, m.index - 40), m.index);
     if (/\?\s*$/.test(before)) continue;                       // ternary `a ? b : c` false positive guard
     errors.push('ES3: reserved word "' + m[1] + '" used as object key at line ' + lineOf(clean, m.index) + ' (quirk #21)');
+  }
+
+  // 3b. ES3 future reserved words as variable, function or parameter names: ExtendScript rejects the
+  //     whole script ("Illegal use of reserved word 'native'", Premiere 26.5, BrandKit 2026-10-02).
+  const FUTURE = 'abstract|boolean|byte|char|class|const|debugger|double|enum|export|extends|final|float|goto|implements|import|int|interface|long|native|package|private|protected|public|short|static|super|synchronized|throws|transient|volatile';
+  const reName = new RegExp('(?:\\bvar\\s+|\\bfunction\\s+|,\\s*|\\(\\s*)(' + FUTURE + ')\\b(?=\\s*(?:=|,|;|\\)|\\())', 'g');
+  while ((m = reName.exec(clean))) {
+    errors.push('ES3: reserved word "' + m[1] + '" used as a name at line ' + lineOf(clean, m.index));
   }
 
   // 4. ES5 built-ins that ExtendScript lacks (warn — a shim may be present)
