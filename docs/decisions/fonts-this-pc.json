@@ -1,0 +1,302 @@
+{
+  "platform": "win32",
+  "scannedAt": "2026-10-02T18:33:59.068Z",
+  "dirs": [
+    {
+      "dir": "C:/Windows/Fonts",
+      "exists": true
+    },
+    {
+      "dir": "C:/Users/Глеб/AppData/Local/Microsoft/Windows/Fonts",
+      "exists": true
+    },
+    {
+      "dir": "C:/Program Files/Common Files/Adobe/Fonts",
+      "exists": false
+    }
+  ],
+  "fonts": [
+    {
+      "file": "C:/Windows/Fonts/SBSansCondMono-Bold.otf",
+      "postScriptName": "SBSansCondMono-Bold",
+      "version": "1.001",
+      "versionString": "Version 1.001",
+      "family": "SB Sans Cond Mono",
+      "style": "Bold"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansCondMono-Regular.otf",
+      "postScriptName": "SBSansCondMono-Regular",
+      "version": "1.001",
+      "versionString": "Version 1.001",
+      "family": "SB Sans Cond Mono",
+      "style": "Regular"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansDisplay-Bold.otf",
+      "postScriptName": "SBSansDisplay-Bold",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Display",
+      "style": "Bold"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansDisplay-Light.otf",
+      "postScriptName": "SBSansDisplay-Light",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Display",
+      "style": "Light"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansDisplay-Medium.otf",
+      "postScriptName": "SBSansDisplay-Medium",
+      "version": "1.003",
+      "versionString": "Version 1.003",
+      "family": "SB Sans Display",
+      "style": "Medium"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansDisplay-Regular.otf",
+      "postScriptName": "SBSansDisplay-Regular",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Display",
+      "style": "Regular"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansDisplay-SemiBold.otf",
+      "postScriptName": "SBSansDisplay-Semibold",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Display",
+      "style": "Semibold"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansDisplay-Thin.otf",
+      "postScriptName": "SBSansDisplay-Thin",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Display",
+      "style": "Thin"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansUI-Bold.otf",
+      "postScriptName": "SBSansInterface-Bold",
+      "version": "1.004",
+      "versionString": "Version 1.004",
+      "family": "SB Sans Interface",
+      "style": "Bold"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansUI-Caps.otf",
+      "postScriptName": "SBSansInterface-Caps",
+      "version": "1.004",
+      "versionString": "Version 1.004",
+      "family": "SB Sans Interface Caps",
+      "style": "Regular"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansUI-Italic.otf",
+      "postScriptName": "SBSansInterface-Italic",
+      "version": "1.005",
+      "versionString": "Version 1.005",
+      "family": "SB Sans Interface",
+      "style": "Italic"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansUI-Light.otf",
+      "postScriptName": "SBSansInterface-Light",
+      "version": "1.005",
+      "versionString": "Version 1.005",
+      "family": "SB Sans Interface",
+      "style": "Light"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansUI-LightItalic.otf",
+      "postScriptName": "SBSansInterface-LightItalic",
+      "version": "1.005",
+      "versionString": "Version 1.005",
+      "family": "SB Sans Interface",
+      "style": "Light Italic"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansUI-Regular.otf",
+      "postScriptName": "SBSansInterface-Regular",
+      "version": "1.005",
+      "versionString": "Version 1.005",
+      "family": "SB Sans Interface",
+      "style": "Regular"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansUI-Semibold.otf",
+      "postScriptName": "SBSansInterface-Semibold",
+      "version": "1.005",
+      "versionString": "Version 1.005",
+      "family": "SB Sans Interface",
+      "style": "Semibold"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansUI-SemiboldItalic.otf",
+      "postScriptName": "SBSansInterface-SemiboldItalic",
+      "version": "1.005",
+      "versionString": "Version 1.005",
+      "family": "SB Sans Interface",
+      "style": "Semibold Italic"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansText-Bold.otf",
+      "postScriptName": "SBSansText-Bold",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Text",
+      "style": "Bold"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansText-BoldItalic.otf",
+      "postScriptName": "SBSansText-BoldItalic",
+      "version": "1.003",
+      "versionString": "Version 1.003",
+      "family": "SB Sans Text",
+      "style": "Bold Italic"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansText-Heavy.otf",
+      "postScriptName": "SBSansText-Heavy",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Text",
+      "style": "Heavy"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansText-Italic.otf",
+      "postScriptName": "SBSansText-Italic",
+      "version": "1.003",
+      "versionString": "Version 1.003",
+      "family": "SB Sans Text",
+      "style": "Italic"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansText-Light.otf",
+      "postScriptName": "SBSansText-Light",
+      "version": "1.003",
+      "versionString": "Version 1.003",
+      "family": "SB Sans Text",
+      "style": "Light"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansText-LightItalic.otf",
+      "postScriptName": "SBSansText-LightItalic",
+      "version": "1.003",
+      "versionString": "Version 1.003",
+      "family": "SB Sans Text",
+      "style": "Light Italic"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansText-Medium.otf",
+      "postScriptName": "SBSansText-Medium",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Text",
+      "style": "Medium"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansText-Regular.otf",
+      "postScriptName": "SBSansText-Regular",
+      "version": "1.003",
+      "versionString": "Version 1.003",
+      "family": "SB Sans Text",
+      "style": "Regular"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansText-Semibold.otf",
+      "postScriptName": "SBSansText-Semibold",
+      "version": "1.003",
+      "versionString": "Version 1.003",
+      "family": "SB Sans Text",
+      "style": "Semibold"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansText-SemiBoldItalic.otf",
+      "postScriptName": "SBSansText-SemiboldItalic",
+      "version": "1.003",
+      "versionString": "Version 1.003",
+      "family": "SB Sans Text",
+      "style": "Semibold Italic"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansText-Thin.otf",
+      "postScriptName": "SBSansText-Thin",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Text",
+      "style": "Thin"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansTextCaps-Bold.otf",
+      "postScriptName": "SBSansTextCaps-Bold",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Text Caps",
+      "style": "Bold"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansTextCaps-Regular.otf",
+      "postScriptName": "SBSansTextCaps-Regular",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Text Caps",
+      "style": "Regular"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansTextComp-ExtraLight.otf",
+      "postScriptName": "SBSansTextComp-ExtraLight",
+      "version": "1.003",
+      "versionString": "Version 1.003",
+      "family": "SB Sans Text Comp",
+      "style": "ExtraLight"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansTextComp-Light.otf",
+      "postScriptName": "SBSansTextComp-Light",
+      "version": "1.003",
+      "versionString": "Version 1.003",
+      "family": "SB Sans Text Comp",
+      "style": "Light"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansTextCond-Bold.otf",
+      "postScriptName": "SBSansTextCond-Bold",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Text Cond",
+      "style": "Bold"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansTextCond-Regular.otf",
+      "postScriptName": "SBSansTextCond-Regular",
+      "version": "1.002",
+      "versionString": "Version 1.002",
+      "family": "SB Sans Text Cond",
+      "style": "Regular"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansTextMono-Bold.otf",
+      "postScriptName": "SBSansTextMono-Bold",
+      "version": "1.001",
+      "versionString": "Version 1.001",
+      "family": "SB Sans Text Mono",
+      "style": "Bold"
+    },
+    {
+      "file": "C:/Windows/Fonts/SBSansTextMono-Regular.otf",
+      "postScriptName": "SBSansTextMono-Regular",
+      "version": "1.001",
+      "versionString": "Version 1.001",
+      "family": "SB Sans Text Mono",
+      "style": "Regular"
+    }
+  ],
+  "conflicts": [],
+  "errors": []
+}
