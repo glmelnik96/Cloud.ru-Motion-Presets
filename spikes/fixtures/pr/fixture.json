@@ -1,0 +1,136 @@
+{
+  "date": "2026-10-02",
+  "hostVersion": "26.5.2",
+  "checks": [
+    {
+      "name": "active project is CRT_pr_test.prproj",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj"
+    },
+    {
+      "name": "fixture sequence is active",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "sequence is 1920x1080 at 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "w": 1920,
+        "h": 1080,
+        "timebase": "10160640000"
+      }
+    },
+    {
+      "name": "V1 holds exactly bars, frames 0-750 (0-30 s)",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "startF": 0,
+          "endF": 750,
+          "inF": 0,
+          "outF": 750,
+          "onGrid": true,
+          "startTicks": "0",
+          "endTicks": "7620480000000",
+          "name": "bars_1080p25_30s.mp4"
+        }
+      ]
+    },
+    {
+      "name": "V2 holds exactly bars2, frames 250-500 (10-20 s)",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "startF": 250,
+          "endF": 500,
+          "inF": 0,
+          "outF": 250,
+          "onGrid": true,
+          "startTicks": "2540160000000",
+          "endTicks": "5080320000000",
+          "name": "bars2_1080p25_10s.mp4"
+        }
+      ]
+    },
+    {
+      "name": "V3 exists and is empty (S5-S7 place their clips there)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "video": 3,
+        "audio": 4
+      }
+    }
+  ],
+  "data": {
+    "existed": true,
+    "sequenceId": "2e424e6d-e378-48a8-b9ed-cd68af4e8375",
+    "occupancy": {
+      "video": [
+        {
+          "track": "V1",
+          "items": [
+            {
+              "startF": 0,
+              "endF": 750,
+              "inF": 0,
+              "outF": 750,
+              "onGrid": true,
+              "startTicks": "0",
+              "endTicks": "7620480000000",
+              "name": "bars_1080p25_30s.mp4"
+            }
+          ]
+        },
+        {
+          "track": "V2",
+          "items": [
+            {
+              "startF": 250,
+              "endF": 500,
+              "inF": 0,
+              "outF": 250,
+              "onGrid": true,
+              "startTicks": "2540160000000",
+              "endTicks": "5080320000000",
+              "name": "bars2_1080p25_10s.mp4"
+            }
+          ]
+        },
+        {
+          "track": "V3",
+          "items": []
+        }
+      ],
+      "audio": [
+        {
+          "track": "A1",
+          "items": []
+        },
+        {
+          "track": "A2",
+          "items": []
+        },
+        {
+          "track": "A3",
+          "items": []
+        },
+        {
+          "track": "A4",
+          "items": []
+        }
+      ]
+    },
+    "tracks": {
+      "video": 3,
+      "audio": 4
+    },
+    "hostVersion": "26.5.2"
+  }
+}
