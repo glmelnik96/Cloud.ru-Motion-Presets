@@ -1,0 +1,15 @@
+{
+  "id": "S9",
+  "title": "UXP: MogrtText в бете 27",
+  "host": "pr-beta",
+  "hostVersion": null,
+  "date": "2026-10-02",
+  "verdict": "not-run",
+  "verdictLocked": true,
+  "checks": [],
+  "fallback": "Переезд Premiere на UXP откладывается, CEP остаётся (§6.2)",
+  "notes": "Premiere (Beta) не найдена в C:/Program Files/Adobe. UXP Developer Tool не найден. Повторить после Adobe MAX (10–12 ноября 2026) или когда бета 27 станет доступна команде (D20, §6.2).",
+  "evidence": [
+    "spikes/s9-uxp-beta/plugin/"
+  ]
+}
