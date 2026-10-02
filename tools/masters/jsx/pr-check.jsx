@@ -1,6 +1,6 @@
 // Premiere acceptance of a master's MOGRT (spec §4.4 step 7), after spikes/lib/check.jsx and
 // spikes/lib/pr-helpers.jsx. PARAMS: stage ('insert' | 'readback'), project (ASCII .prproj path, created
-// when missing), seqPreset, seqBase, mogrt, tpf, clips [{ key, atSec, lenSec|null, values { label: index0 } }],
+// when missing), seqPreset, seqSize ([w, h] when the preset differs), seqBase, mogrt, tpf, clips [{ key, atSec, lenSec|null, values { label: index0 } }],
 // framesDir, frames [{ key, clip, sec }] (sec from the clip start), pngPreset, frameWaitMs,
 // seqId / seqName (readback). Dropdown values are 0-based in Premiere (S5); the library is 1-based.
 var P = PARAMS;
@@ -56,13 +56,25 @@ if (ready && P.stage === 'insert') {
     var name = uniqueSequenceName(P.seqBase);
     var r = newSequenceFromPreset(name, P.seqPreset);
     seq = r.seq;
+    var resized = null;
     if (seq) {
       activateSequence(seq);
+      // A frame size the presets do not have at 25 fps (9:16, 1:1): the 1080p25 sequence is resized.
+      // Sequence.getSettings / setSettings: https://ppro-scripting.docsforadobe.dev/sequence/sequence/
+      if (P.seqSize && (Number(seq.frameSizeHorizontal) !== P.seqSize[0] || Number(seq.frameSizeVertical) !== P.seqSize[1])) {
+        var st = seq.getSettings();
+        st.videoFrameWidth = P.seqSize[0];
+        st.videoFrameHeight = P.seqSize[1];
+        st.previewFrameWidth = P.seqSize[0];
+        st.previewFrameHeight = P.seqSize[1];
+        resized = describeValue(seq.setSettings(st)).value;
+      }
       data.seqName = String(seq.name);
       data.seqId = String(seq.sequenceID);
-      data.frameSize = [seq.frameSizeHorizontal, seq.frameSizeVertical];
+      data.frameSize = [Number(seq.frameSizeHorizontal), Number(seq.frameSizeVertical)];
     }
-    return { pass: !!seq, detail: { how: r.how, name: data.seqName, size: data.frameSize } };
+    var sizeOk = !P.seqSize || (data.frameSize && data.frameSize[0] === P.seqSize[0] && data.frameSize[1] === P.seqSize[1]);
+    return { pass: !!seq && sizeOk, detail: { how: r.how, name: data.seqName, size: data.frameSize, resized: resized } };
   });
 
   for (var ci = 0; ready && ci < P.clips.length; ci++) {

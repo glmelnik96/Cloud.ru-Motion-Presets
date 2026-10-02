@@ -90,8 +90,9 @@ function blur(src, w, h, k) {
   return out;
 }
 
-// Per-pixel SSIM of two planes of equal size, its mean and the worst tiles.
-export function ssimPlanes(a, b, { tile = 64, worst = 5 } = {}) {
+// Per-pixel SSIM of two planes of equal size, its mean and the worst tiles. skip(x, y) excludes pixels
+// (plane coordinates) from the mean, e.g. areas that differ by a known decision.
+export function ssimPlanes(a, b, { tile = 64, worst = 5, skip = null } = {}) {
   if (a.w !== b.w || a.h !== b.h) throw new Error(`planes differ: ${a.w}x${a.h} vs ${b.w}x${b.h}`);
   const { w, h } = a;
   const n = w * h;
@@ -111,6 +112,7 @@ export function ssimPlanes(a, b, { tile = 64, worst = 5 } = {}) {
   const s12 = blur(ab, w, h, k);
   const map = new Float32Array(n);
   let sum = 0;
+  let counted = 0;
   for (let i = 0; i < n; i += 1) {
     const m1 = mu1[i];
     const m2 = mu2[i];
@@ -118,7 +120,12 @@ export function ssimPlanes(a, b, { tile = 64, worst = 5 } = {}) {
     const v2 = s22[i] - m2 * m2;
     const c12 = s12[i] - m1 * m2;
     map[i] = ((2 * m1 * m2 + C1) * (2 * c12 + C2)) / ((m1 * m1 + m2 * m2 + C1) * (v1 + v2 + C2));
+    if (skip && skip(i % w, Math.floor(i / w))) {
+      map[i] = 1;
+      continue;
+    }
     sum += map[i];
+    counted += 1;
   }
   const tiles = [];
   for (let ty = 0; ty < h; ty += tile) {
@@ -131,7 +138,7 @@ export function ssimPlanes(a, b, { tile = 64, worst = 5 } = {}) {
     }
   }
   tiles.sort((p, q) => p.ssim - q.ssim);
-  return { ssim: sum / n, map, worst: tiles.slice(0, worst) };
+  return { ssim: counted ? sum / counted : 1, map, worst: tiles.slice(0, worst), counted };
 }
 
 // Box of the content of either image, padded: pixels with alpha >= minAlpha that differ from the image's
@@ -170,18 +177,20 @@ export function contentBox(srcA, srcB, { minAlpha = 8, pad = 16, bgTol = 6 } = {
 // SSIM of two RGBA frames over each backdrop (the minimum counts: a transparent golden hides colour
 // differences over one of them) plus SSIM of the alpha channels.
 // alpha: false for frames without a meaningful alpha (Premiere exports the sequence over black).
-export function compareFrames(srcA, srcB, { rect, backdrops = [[0, 0, 0], [255, 255, 255]], alpha: withAlpha = true } = {}) {
+// masks: [{ x, y, w, h }] in frame coordinates, left out of every mean (a known, decided difference).
+export function compareFrames(srcA, srcB, { rect, backdrops = [[0, 0, 0], [255, 255, 255]], alpha: withAlpha = true, masks = [] } = {}) {
   const a = load(srcA);
   const b = load(srcB);
   if (a.width !== b.width || a.height !== b.height) {
     throw new Error(`frame sizes differ: ${a.width}x${a.height} vs ${b.width}x${b.height}`);
   }
   const box = rect || contentBox(a, b) || { x: 0, y: 0, w: a.width, h: a.height };
+  const skip = masks.length ? (x, y) => masks.some((m) => x + box.x >= m.x && x + box.x < m.x + m.w && y + box.y >= m.y && y + box.y < m.y + m.h) : null;
   const over = backdrops.map((bd) => {
-    const r = ssimPlanes(lumaOver(a, { rect: box, backdrop: bd }), lumaOver(b, { rect: box, backdrop: bd }));
+    const r = ssimPlanes(lumaOver(a, { rect: box, backdrop: bd }), lumaOver(b, { rect: box, backdrop: bd }), { skip });
     return { backdrop: bd, ssim: r.ssim, worst: r.worst.map((t) => ({ ...t, x: t.x + box.x, y: t.y + box.y })) };
   });
-  const alpha = withAlpha ? ssimPlanes(alphaPlane(a, box), alphaPlane(b, box)).ssim : 1;
+  const alpha = withAlpha ? ssimPlanes(alphaPlane(a, box), alphaPlane(b, box), { skip }).ssim : 1;
   const minOver = over.reduce((m, o) => (o.ssim < m.ssim ? o : m), over[0]);
   return { rect: box, ssim: Math.min(minOver.ssim, alpha), luma: minOver.ssim, alpha, over };
 }

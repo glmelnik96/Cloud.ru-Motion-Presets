@@ -3,7 +3,7 @@
 // sequence of <work>/pr/CRT_masters.prproj (created on first use), its fields are written 0-based and read
 // back in a new call, frames are exported, and the same pictures rendered in AE must match them
 // (SSIM over black >= tokens.qa.ssimMin; deltaE2000 of the brand-colour areas <= tokens.qa.deltaE2000Max).
-//   node tools/masters/pr-check.mjs --item LOGO_Shot
+//   node tools/masters/pr-check.mjs --item LOGO_Shot [--plan premiere|premiere9x16]
 // Needs Premiere (CDP 8096) and AE (CDP 8094) running; neither touches a project of the user.
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -78,9 +78,11 @@ if (isMain) {
   const id = argv.includes('--item') ? argv[argv.indexOf('--item') + 1] : null;
   const { params } = await loadMaster(id);
   const ref = JSON.parse(readFileSync(path.join(REPO, 'masters', id, 'ref.json'), 'utf8'));
-  const plan = ref.premiere;
+  const which = argv.includes('--plan') ? argv[argv.indexOf('--plan') + 1] : 'premiere';
+  const plan = ref[which];
+  if (!plan) throw new Error(`masters/${id}/ref.json has no "${which}" plan`);
   const tokens = JSON.parse(readFileSync(path.join(REPO, 'brand', 'tokens.json'), 'utf8'));
-  const dir = path.posix.join(params.out.dir, 'pr');
+  const dir = path.posix.join(params.out.dir, which === 'premiere' ? 'pr' : which);
   mkdirSync(dir, { recursive: true });
   const v = variantPlan(params).find((x) => x.key === plan.variant);
   const mogrt = path.posix.join(packagePaths(params).mogrtDir, v.template + '.mogrt');
@@ -90,6 +92,7 @@ if (isMain) {
   const common = {
     ...base, project: PR_PROJECT(), mogrt, clips, framesDir: dir, tpf: TPF_25,
     seqPreset: stagePreset(presetSources().seq1080p25, 'HD1080p25.sqpreset'), seqBase: `CRT_${id}_${plan.variant}`,
+    seqSize: [v.w, v.h],
     frames: plan.frames.map((f) => ({ key: 'pr_' + f.key, clip: f.clip, sec: f.sec })),
   };
   const report = { id, mogrt, ssimMin: tokens.qa.ssimMin, deltaEMax: tokens.qa.deltaE2000Max, stages: {}, frames: [] };

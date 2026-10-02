@@ -18,10 +18,13 @@ import { readPng } from '../png/read-png.mjs';
 import { loadMaster, printChecks } from './build-master.mjs';
 import { packagePaths, variantPlan } from './package.mjs';
 
+// Golden time -> master time, piecewise: in a segment, master = from + by + (t - from) * scale (scale 1 when
+// absent: a plain shift; 0: a pause of the pack that the master does not have).
 export function masterTime(ms, shift) {
   const t = ms / 1000;
   const seg = shift.find((s) => t >= s.from - 1e-9 && t <= s.to + 1e-9);
-  return Math.round((t + (seg ? seg.by : 0)) * 1e6) / 1e6;
+  const m = seg ? seg.from + seg.by + (t - seg.from) * (seg.scale === undefined ? 1 : seg.scale) : t;
+  return Math.round(m * 1e6) / 1e6;
 }
 
 export function caseFrames(c, dir) {
@@ -92,7 +95,7 @@ if (isMain) {
         if (!existsSync(golden)) { rows.push({ ms: f.ms, error: 'no golden ' + golden }); continue; }
         const g = readPng(golden);
         const m = origin ? sampleWindow(readPng(f.file), origin[0], origin[1], g.width, g.height) : readPng(f.file);
-        const res = compareFrames(g, m);
+        const res = compareFrames(g, m, { masks: c.masks || [] });
         sideBySide(g, m, path.posix.join(dir, `cmp_t${f.ms}.png`), { rect: res.rect });
         const pass = f.gate ? judge(res, min) : null;
         if (pass === false) failed += 1;

@@ -61,3 +61,15 @@ describe('contentBox on an opaque background', () => {
     expect(contentBox(opaque, opaque, { pad: 0, bgTol: 6 })).toEqual({ x: 10, y: 5, w: 10, h: 10 });
   });
 });
+
+describe('masks', () => {
+  it('leaves a decided difference out of the mean', () => {
+    const a = image(64, 48, (x, y) => (x >= 16 && x < 48 && y >= 12 && y < 36 ? [255, 255, 255, 255] : [0, 0, 0, 255]));
+    const b = image(64, 48, (x, y) => (x >= 18 && x < 48 && y >= 12 && y < 36 ? [255, 255, 255, 255] : [0, 0, 0, 255]));
+    const rect = { x: 0, y: 0, w: 64, h: 48 };
+    const open = compareFrames(a, b, { rect });
+    const masked = compareFrames(a, b, { rect, masks: [{ x: 8, y: 0, w: 16, h: 48 }] });
+    expect(open.ssim).toBeLessThan(0.98);
+    expect(masked.ssim).toBeCloseTo(1, 3);
+  });
+});

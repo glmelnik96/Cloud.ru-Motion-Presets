@@ -23,6 +23,25 @@
       "gate": [],
       "view": [760, 1000, 1760, 2000, 2760, 3000, 3760, 4000],
       "note": "No gate: between 2.14 and 3.30 s the pack render lacks ~25 px of the logo plate (a render quirk of the original, both packs), the rest is moving."
+    },
+    {
+      "name": "vertical",
+      "title": "9:16 «облачные⏎и ИИ-сервисы», тёмная тема, прозрачный фон",
+      "golden": { "slug": "logo", "compSlug": "logoshoty_vertikalnyy_umnoe_oblako" },
+      "variant": "9x16",
+      "ctrl": { "Caption": 1, "Theme": 2, "Background": 1 },
+      "crop": { "offset": [3.4, 4.4], "search": 6 },
+      "masks": [{ "x": 296, "y": 824, "w": 484, "h": 106, "reason": "D18: the master logo, not the pack's vertical wordmark copy (W3, 1.2 % wider); checked by eye" }],
+      "shift": [
+        { "from": 0, "to": 1.0, "by": 0 },
+        { "from": 1.0, "to": 1.4, "by": 0, "scale": 0 },
+        { "from": 1.4, "to": 2.72, "by": -0.4, "scale": 0.848485 },
+        { "from": 2.72, "to": 3.2, "by": -0.6 },
+        { "from": 3.2, "to": 3.64, "by": 1.36 }
+      ],
+      "gate": [2760, 3000],
+      "view": [240, 520, 760, 1000, 1520, 2000, 3240, 3400, 3520],
+      "note": "The master centres the stack (the pack had it 3.4 px left and 4.4 px high), so the frame is registered; it drops the pack's 0.4 s pause and rises over 1.00–2.12 s instead of 1.40–2.72 s, and closes in the last ten frames. The logo comes from the master SVG; the pack's vertical wordmark is the W3 copy, 1.2 % wider."
     }
   ],
   "premiere": {
@@ -39,6 +58,19 @@
       { "key": "B_intro", "clip": "B", "sec": 1.0, "master": 1.0 },
       { "key": "B_hold", "clip": "B", "sec": 5.0, "master": 3.0 },
       { "key": "B_outro", "clip": "B", "sec": 7.48, "master": 4.48 }
+    ]
+  },
+  "premiere9x16": {
+    "_note": "The 9:16 MOGRT in a 1080x1920 25p sequence (made from the 1080p25 preset and resized): the stacked layout.",
+    "variant": "9x16",
+    "clips": [
+      { "key": "V", "atSec": 0, "lenSec": 7, "ctrl": { "Caption": 3, "Theme": 2, "Background": 1 } }
+    ],
+    "frames": [
+      { "key": "V_open", "clip": "V", "sec": 0.6, "master": 0.6 },
+      { "key": "V_rise", "clip": "V", "sec": 1.6, "master": 1.6 },
+      { "key": "V_hold", "clip": "V", "sec": 4.0, "master": 3.0 },
+      { "key": "V_close", "clip": "V", "sec": 6.76, "master": 4.76 }
     ]
   }
 }

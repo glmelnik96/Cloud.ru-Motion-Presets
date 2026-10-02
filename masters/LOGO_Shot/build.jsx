@@ -1,7 +1,8 @@
-// Builds CR_LOGO_Shot, the logoshot with a caption (16:9 layout), in a NEW project and saves it as PARAMS.out.aep.
+// Builds CR_LOGO_Shot, the logoshot with a caption (16:9 row; 9:16 stack when the frame is taller than wide), in a
+// NEW project and saves it as PARAMS.out.aep.
 // Composed after spikes/lib/check.jsx, spikes/lib/ae-project.jsx and tools/masters/jsx/ae-build-lib.jsx;
 // PARAMS come from masters/LOGO_Shot/resolve.mjs (numbers from the pack dump, logo from the master SVG).
-// Layers, top to bottom: CTRL, RIG, CAMERA, QA_PATCH, CAPTION, LOCKUP, PL_CAPTION, PL_LOGO, BG. Top level, flat,
+// Layers, top to bottom: CTRL, RIG, CAMERA, QA_PATCH, CAPTION_V, CAPTION, LOCKUP, PL_CAPTION, PL_LOGO, BG. Flat,
 // placed in comp coordinates by expressions (k = min(w, h) / 1080), so a variant is a resized duplicate.
 var LS = { ready: false, comp: null };
 
@@ -88,7 +89,7 @@ lsStep('comp ' + PARAMS.comp.name + ': ' + PARAMS.comp.w + 'x' + PARAMS.comp.h +
     detail: LS.comp.width + 'x' + LS.comp.height + ' ' + LS.comp.frameRate + ' fps ' + LS.comp.duration + ' s ' + r };
 });
 
-lsStep('layers: BG, PL_LOGO, PL_CAPTION, LOCKUP, CAPTION, QA_PATCH (geometry only)', true, function () {
+lsStep('layers: BG, PL_LOGO, PL_CAPTION, LOCKUP, CAPTION, CAPTION_V, QA_PATCH (geometry only)', true, function () {
   lsRect(bdShapeLayer(LS.comp, 'BG'), 'Plate', PARAMS.hex.black);
   lsRect(bdShapeLayer(LS.comp, 'PL_LOGO'), 'Plate', PARAMS.hex.white);
   lsRect(bdShapeLayer(LS.comp, 'PL_CAPTION'), 'Plate', PARAMS.hex.white);
@@ -110,6 +111,9 @@ lsStep('layers: BG, PL_LOGO, PL_CAPTION, LOCKUP, CAPTION, QA_PATCH (geometry onl
   bdXform(L, 'ADBE Anchor Point').setValue([pv.lx, pv.ly, pv.z]);
   var T = bdText(LS.comp, 'CAPTION', PARAMS.ctrl.Caption.items[0], { font: PARAMS.font, size: PARAMS.fontPx, fill: PARAMS.hex.black, tracking: 0, justify: 'LEFT' });
   bdAddEffect(T, 'ADBE Fill', 'Theme Fill');
+  var V = bdText(LS.comp, 'CAPTION_V', PARAMS.captionsV[0], { font: PARAMS.font, size: PARAMS.vertical.fontPx, fill: PARAMS.hex.black,
+    tracking: PARAMS.vertical.tracking, justify: 'CENTER', leading: PARAMS.vertical.lead });
+  bdAddEffect(V, 'ADBE Fill', 'Theme Fill');
   lsRect(bdShapeLayer(LS.comp, 'QA_PATCH'), 'Patch', PARAMS.hex.green);
   return { pass: true, detail: { lockupPaths: PARAMS.lockup.cube.length + PARAMS.lockup.wordmark.length, inPoint: L.inPoint, font: bdFontInfo(T) } };
 });
@@ -134,7 +138,7 @@ lsStep('RIG: progress sliders with the pack curves (shy, not in Essential Graphi
   var L = bdNull(LS.comp, 'RIG');
   L.shy = true;
   var out = {};
-  var names = ['Open', 'Slide', 'Unroll', 'CloseW', 'CloseX'];
+  var names = ['Open', 'Slide', 'Unroll', 'CloseW', 'CloseX', 'VOpen', 'VRise', 'VGrow', 'VClose'];
   for (var i = 0; i < names.length; i++) {
     bdSlider(L, names[i], 0);
     bdKeys(bkEffect(L, names[i], 'ADBE Slider Control').property(1), PARAMS.rig[names[i]]);
@@ -178,6 +182,12 @@ lsStep('expressions: plates, lockup, caption, background, QA patch', true, funct
     ['CAPTION text', bkSourceText(lsLayer('CAPTION')), X.captionText],
     ['CAPTION fill', bkEffect(lsLayer('CAPTION'), 'Theme Fill', 'ADBE Fill').property('ADBE Fill-0002'), X.captionFill],
     ['CAPTION position', bdXform(lsLayer('CAPTION'), 'ADBE Position'), X.captionPos],
+    ['CAPTION opacity', bdXform(lsLayer('CAPTION'), 'ADBE Opacity'), X.captionOpacity],
+    ['CAPTION_V text', bkSourceText(lsLayer('CAPTION_V')), X.captionVText],
+    ['CAPTION_V fill', bkEffect(lsLayer('CAPTION_V'), 'Theme Fill', 'ADBE Fill').property('ADBE Fill-0002'), X.captionFill],
+    ['CAPTION_V position', bdXform(lsLayer('CAPTION_V'), 'ADBE Position'), X.captionVPos],
+    ['CAPTION_V opacity', bdXform(lsLayer('CAPTION_V'), 'ADBE Opacity'), X.captionVOpacity],
+    ['LOCKUP x rotation', bdXform(lsLayer('LOCKUP'), 'ADBE Rotate X'), X.lockupRotX],
     ['QA_PATCH size', lsRectProp('QA_PATCH', 'Patch', 'Rect', 'ADBE Vector Rect Size'), X.qaSize],
     ['QA_PATCH position', lsRectProp('QA_PATCH', 'Patch', 'Rect', 'ADBE Vector Rect Position'), X.qaPos],
     ['QA_PATCH opacity', bdXform(lsLayer('QA_PATCH'), 'ADBE Opacity'), X.qaOpacity]
@@ -192,15 +202,16 @@ lsStep('expressions: plates, lockup, caption, background, QA patch', true, funct
   return { pass: bad.length === 0, detail: { set: list.length, errors: bad } };
 });
 
-lsStep('mattes: LOCKUP and CAPTION by alpha of their plates (plates stay visible)', true, function () {
+lsStep('mattes: LOCKUP, CAPTION and CAPTION_V by alpha of their plates (plates stay visible)', true, function () {
   var a = bdMatte(lsLayer('LOCKUP'), lsLayer('PL_LOGO'), 'ALPHA');
   var b = bdMatte(lsLayer('CAPTION'), lsLayer('PL_CAPTION'), 'ALPHA');
+  var c = bdMatte(lsLayer('CAPTION_V'), lsLayer('PL_CAPTION'), 'ALPHA');
   // setTrackMatte hides the matte layer, as the UI does (AE 26.5, seen 2026-10-03); the plates are
   // mattes and visible at the same time, as in the pack, so they are switched back on.
   lsLayer('PL_LOGO').enabled = true;
   lsLayer('PL_CAPTION').enabled = true;
   var vis = lsLayer('PL_LOGO').enabled && lsLayer('PL_CAPTION').enabled;
-  return { pass: a.matte === 'PL_LOGO' && b.matte === 'PL_CAPTION' && vis, detail: [a, b, 'plates visible: ' + vis] };
+  return { pass: a.matte === 'PL_LOGO' && b.matte === 'PL_CAPTION' && c.matte === 'PL_CAPTION' && vis, detail: [a, b, c, 'plates visible: ' + vis] };
 });
 
 lsStep('markers: protected regions in / out', true, function () {
@@ -214,7 +225,7 @@ lsStep('markers: protected regions in / out', true, function () {
 });
 
 lsStep('layer order and switches: flat, no motion blur, startTime 0', true, function () {
-  var want = ['CTRL', 'RIG', 'CAMERA', 'QA_PATCH', 'CAPTION', 'LOCKUP', 'PL_CAPTION', 'PL_LOGO', 'BG'];
+  var want = ['CTRL', 'RIG', 'CAMERA', 'QA_PATCH', 'CAPTION_V', 'CAPTION', 'LOCKUP', 'PL_CAPTION', 'PL_LOGO', 'BG'];
   var names = [];
   var bad = [];
   for (var i = 1; i <= LS.comp.numLayers; i++) {

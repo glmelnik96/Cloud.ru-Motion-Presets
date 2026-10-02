@@ -38,6 +38,7 @@ const arr = (a) => '[' + a.join(', ') + ']';
 export function loadSources({ dumps = 'C:/CRBK/work/dumps', repo = REPO } = {}) {
   return {
     canon: readJson(path.join(dumps, 'logo', 'umnoe_oblako.json')),
+    vertical: readJson(path.join(dumps, 'logo', 'logoshoty_vertikalnyy_umnoe_oblako.json')),
     svg: readFileSync(path.join(repo, 'brand', 'logo', 'master-ae-motion-live.svg'), 'utf8'),
     tokens: JSON.parse(readFileSync(path.join(repo, 'brand', 'tokens.json'), 'utf8')),
   };
@@ -121,6 +122,56 @@ export function rigKeys(canon) {
   };
 }
 
+// Line breaks of the captions in the stacked 9:16 layout. The pack has only the descriptor in 9:16
+// («облачные⏎и ИИ-сервисы»); the slogan breaks are new (D5) and wait for the designer.
+export const VERTICAL_BREAKS = {
+  'облачные и ИИ-сервисы': 'облачные\rи ИИ-сервисы',
+  'есть где развернуться': 'есть где\rразвернуться',
+};
+const V_OPEN_END = 1;          // the pack opens the top plate over 0–1.00 s
+const V_RISE = [1, 2.12];      // the pack: 1.40–2.72 s after a 0.4 s pause; unified with the 16:9 intro
+const V_CLOSE = [4.56, 4.96];  // the pack: 3.20–3.60 s; the last ten frames of the 16:9 outro
+
+// The stacked 9:16 layout of «Логошоты вертикальный_Умное облако» at rest (frame 1080x1920, k = 1) and its
+// curves as 0..1 sliders on the unified timeline.
+export function verticalFrom(v) {
+  const L = (n) => dumpLayer(v, n);
+  const T = ['ADBE Transform Group'];
+  const top = shapeBoxAt(v, L('Shape Layer 1'), REST);
+  const cap = shapeBoxAt(v, L('Shape Layer 2'), REST);
+  const text = textBaselineAt(v, L('облачные и ИИ-сервисы'), REST);
+  const topScale = dumpKeys(v, 'Shape Layer 1', ...T, 'ADBE Scale');
+  const capScale = dumpKeys(v, 'Shape Layer 2', ...T, 'ADBE Scale');
+  const topY = dumpKeys(v, 'Shape Layer 1', ...T, 'ADBE Position_1');
+  const logoY = dumpKeys(v, 'LOGO', ...T, 'ADBE Position_1');
+  const open = progressSegment(topScale, 0, { dim: 0, t1: V_OPEN_END });
+  const logoRise = progressSegment(logoY, 0, { t0: 0, t1: V_OPEN_END });
+  if (JSON.stringify(open) !== JSON.stringify(logoRise)) throw new Error('vertical: the logo rises with another curve than the plate opens');
+  const close = progressSegment(topScale, 4, { dim: 1, t0: V_CLOSE[0], t1: V_CLOSE[1] });
+  if (JSON.stringify(close) !== JSON.stringify(progressSegment(capScale, 2, { dim: 1, t0: V_CLOSE[0], t1: V_CLOSE[1] }))) {
+    throw new Error('vertical: the plates close with different curves');
+  }
+  const scaleY = text.fontPx / text.doc.fontSize;
+  return {
+    plateW: r6(top.w),
+    topH: r6(top.h),
+    seam: r6(cap.y0 - top.y1),
+    capH2: r6(cap.h),
+    lead: r6(text.doc.leading * scaleY),
+    capBaseline: r6(text.baseline - cap.y0),
+    fontPx: Math.round(text.fontPx),          // 39.91 in the pack (30.7 pt at 130 %), whole pixels here
+    tracking: text.doc.tracking,
+    rise0: r6(logoY[0].value - logoY[1].value),
+    drop: r6(topY[1].value - topY[2].value),
+    keys: {
+      VOpen: open,
+      VRise: progressSegment(topY, 1, { t0: V_RISE[0], t1: V_RISE[1] }),
+      VGrow: progressSegment(capScale, 0, { dim: 1, t0: V_RISE[0], t1: V_RISE[1] }),
+      VClose: close,
+    },
+  };
+}
+
 // The cube flip: X Rotation of LOGO, first key moved from 1/3 s onto the frame grid (speeds rescaled).
 export function flipKeys(canon) {
   const keys = dumpKeys(canon, 'LOGO', 'ADBE Transform Group', 'ADBE Rotate X');
@@ -128,39 +179,76 @@ export function flipKeys(canon) {
   return { inPoint: times[0], keys: toBuilderKeys(keys, { fps: FPS, times }) };
 }
 
-export function expressions(layout, colors, captions) {
+// One preamble for every geometry expression: the 16:9 row (plates side by side, the pack's «Умное облако»)
+// or, when the frame is taller than wide, the 9:16 stack («Логошоты вертикальный»). It leaves the plates
+// pl / pc as [x0, y0, x1, y1], the lockup centre bx, by and scale ls (x the 16:9 lockup), and the caption
+// origin cap.
+export function expressions(layout, V, colors, captions) {
   const P = layout.plate;
   const pre = [
     'var R = thisComp.layer("RIG");',
-    'var k = Math.min(thisComp.width, thisComp.height) / 1080;',
-    'var cx = thisComp.width / 2, cy = thisComp.height / 2;',
-    `var LW = ${P.w} * k, LH = ${P.h} * k, GAP = ${layout.gap} * k, PADL = ${PAD_L} * k;`,
-    'var ink = thisComp.layer("CAPTION").sourceRectAtTime(0, false);',
+    'var W = thisComp.width, H = thisComp.height;',
+    'var k = Math.min(W, H) / 1080, cx = W / 2, cy = H / 2;',
+    'function sv(n) { return R.effect(n)(1).value; }',
+    'var pl, pc, ls, bx, by, cap;',
+    'if (H <= W) {',
+    `  var LW = ${P.w} * k, LH = ${P.h} * k, GAP = ${layout.gap} * k, PADL = ${PAD_L} * k;`,
+    '  var ink = thisComp.layer("CAPTION").sourceRectAtTime(0, false);',
     // whole master pixels, then x k: the 4K variant lands on the same pixels as the pack's 4K render
-    `var wc = Math.round(ink.width / k + ${PAD_L + PAD_R}) * k;`,
-    'var Wt = LW + GAP + wc;',
+    `  var wc = Math.round(ink.width / k + ${PAD_L + PAD_R}) * k;`,
+    '  var Wt = LW + GAP + wc;',
     // the lockup starts on a whole pixel, so plate edges stay crisp in every variant
-    'var L0 = Math.round(cx - Wt / 2);',
-    'var open = R.effect("Open")(1).value, slide = R.effect("Slide")(1).value, unroll = R.effect("Unroll")(1).value;',
-    'var closeW = R.effect("CloseW")(1).value, closeX = R.effect("CloseX")(1).value;',
-    'var X = L0 + LW / 2 + (Wt / 2 - LW / 2) * (1 - slide) + (Wt / 2 - LW) * closeX;',
+    '  var L0 = Math.round(cx - Wt / 2);',
+    '  var open = sv("Open"), slide = sv("Slide"), unroll = sv("Unroll"), closeW = sv("CloseW"), closeX = sv("CloseX");',
+    '  var X = L0 + LW / 2 + (Wt / 2 - LW / 2) * (1 - slide) + (Wt / 2 - LW) * closeX;',
+    '  pl = [X - LW / 2 * open + LW * closeW, cy - LH / 2, X + LW / 2 * open, cy + LH / 2];',
+    '  var w = wc * unroll * (1 - closeW);',
+    '  pc = [X + LW / 2 + GAP, cy - LH / 2, X + LW / 2 + GAP + w, cy + LH / 2];',
+    '  ls = k; bx = X; by = cy;',
+    `  cap = [X + LW / 2 + GAP + PADL - ink.left, cy + ${layout.caption.dy} * k];`,
+    '} else {',
+    // the pack's width, not rounded to the 2 px grid (G1 waits for the designer)
+    `  var HW = ${r6(V.plateW / 2)} * k, HT = ${V.topH} * k, SEAM = ${V.seam} * k, HC2 = ${V.capH2} * k;`,
+    `  var LEAD = ${V.lead} * k, DROP = ${V.drop} * k, RISE0 = ${V.rise0} * k;`,
+    '  var n = String(thisComp.layer("CAPTION_V").text.sourceText).split("\\r").length;',
+    '  var HC = HC2 - (2 - n) * LEAD;',
+    // the stack is centred on the frame (the pack had it 3.4 px left and 4 px high)
+    '  var T0 = Math.round(cy - (HT + SEAM + HC) / 2);',
+    '  var op = sv("VOpen"), ri = sv("VRise"), gr = sv("VGrow"), cl = sv("VClose");',
+    '  var off = DROP * (1 - ri);',
+    // top plate: opens from its centre, closes toward its bottom edge; caption plate grows down from the seam
+    '  pl = [cx - HW * op, T0 + off + HT * cl, cx + HW * op, T0 + off + HT];',
+    '  var c0 = T0 + HT + SEAM + off;',
+    '  pc = [cx - HW, c0, cx + HW, c0 + HC * gr * (1 - cl)];',
+    '  ls = 2 * k; bx = cx; by = T0 + off + HT / 2 + RISE0 * (1 - op);',
+    `  cap = [cx, c0 + ${V.capBaseline} * k];`,
+    '}',
   ].join('\n') + '\n';
   const theme = 'thisComp.layer("CTRL").effect("Theme")(1).value';
   const bg = 'thisComp.layer("CTRL").effect("Background")(1).value';
   const k = 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n';
   const q = (s) => JSON.stringify(s);
+  const pick = (list) => 'var c = thisComp.layer("CTRL").effect("Caption")(1).value;\n' +
+    `c == 2 ? ${q(list[1])} : (c == 3 ? ${q(list[2])} : ${q(list[0])})`;
+  const portrait = 'thisComp.height > thisComp.width';
   return {
-    plateLogoSize: pre + 'var a = X - LW / 2 * open + LW * closeW, b = X + LW / 2 * open;\n[Math.max(0, b - a), LH]',
-    plateLogoPos: pre + 'var a = X - LW / 2 * open + LW * closeW, b = X + LW / 2 * open;\n[(a + b) / 2, cy]',
-    plateCapSize: pre + '[wc * unroll * (1 - closeW), LH]',
-    plateCapPos: pre + 'var w = wc * unroll * (1 - closeW);\n[X + LW / 2 + GAP + w / 2, cy]',
+    plateLogoSize: pre + '[Math.max(0, pl[2] - pl[0]), Math.max(0, pl[3] - pl[1])]',
+    plateLogoPos: pre + '[(pl[0] + pl[2]) / 2, (pl[1] + pl[3]) / 2]',
+    plateCapSize: pre + '[Math.max(0, pc[2] - pc[0]), Math.max(0, pc[3] - pc[1])]',
+    plateCapPos: pre + '[(pc[0] + pc[2]) / 2, (pc[1] + pc[3]) / 2]',
     plateFill: `${theme} == 2 ? ${arr(colors.black)} : ${arr(colors.white)}`,
-    lockupPos: pre + `[X + ${layout.pivot.dx} * k, cy + ${layout.pivot.dy} * k, ${layout.pivot.z} * k]`,
-    lockupScale: k + '[100 * k, 100 * k, 100 * k]',
+    // the lockup box is centred on (bx, by); the pivot of the flip sits off its centre, 63.4 px behind it
+    lockupPos: pre + `[bx + ${r6(layout.pivot.lx - layout.lockup.w / 2)} * ls, by + ${r6(layout.pivot.ly - layout.lockup.h / 2)} * ls, ${layout.pivot.z} * ls]`,
+    lockupScale: pre + '[100 * ls, 100 * ls, 100 * ls]',
+    // the stack has no flip: in the pack the logo rises from below instead
+    lockupRotX: `${portrait} ? 0 : value`,
     wordFill: `${theme} == 2 ? ${arr(colors.white)} : ${arr(colors.black)}`,
-    captionText: 'var c = thisComp.layer("CTRL").effect("Caption")(1).value;\n' +
-      `c == 2 ? ${q(captions[1])} : (c == 3 ? ${q(captions[2])} : ${q(captions[0])})`,
-    captionPos: pre + `[X + LW / 2 + GAP + PADL - ink.left, cy + ${layout.caption.dy} * k]`,
+    captionText: pick(captions),
+    captionVText: pick(captions.map((c) => VERTICAL_BREAKS[c] || c)),
+    captionPos: pre + 'cap',
+    captionVPos: pre + 'cap',
+    captionOpacity: `${portrait} ? 0 : 100`,
+    captionVOpacity: `${portrait} ? 100 : 0`,
     captionFill: `${theme} == 2 ? ${arr(colors.white)} : ${arr(colors.black)}`,
     bgSize: '[thisComp.width, thisComp.height]',
     bgPos: '[thisComp.width / 2, thisComp.height / 2]',
@@ -178,8 +266,9 @@ export function expressions(layout, colors, captions) {
 }
 
 export function resolveLogoShot(sources = loadSources()) {
-  const { canon, svg, tokens } = sources;
+  const { canon, vertical, svg, tokens } = sources;
   const layout = layoutFrom(canon);
+  const vert = verticalFrom(vertical);
   const lockup = lockupPaths(svg, layout);
   const base = tokens.color.base;
   const colors = { green: rgba(base.green.hex), black: rgba(base.black.hex), white: rgba(base.white.hex), gray: rgba(base.gray.hex) };
@@ -194,7 +283,8 @@ export function resolveLogoShot(sources = loadSources()) {
     hex: { green: base.green.hex, black: base.black.hex, white: base.white.hex },
     layout,
     lockup,
-    rig: rigKeys(canon),
+    vertical: vert,
+    rig: { ...rigKeys(canon), ...vert.keys },
     flip: flipKeys(canon),
     markers: [
       { comment: 'in', time: 0, duration: 2.12 },
@@ -208,11 +298,12 @@ export function resolveLogoShot(sources = loadSources()) {
     // Essential Graphics: AE lists the newest controller first (S1), so they are added in reverse of the
     // order the panel and Premiere should show (Подпись, Тема, Фон).
     egp: ['Background', 'Theme', 'Caption'],
-    expr: expressions(layout, colors, captions),
+    captionsV: captions.map((c) => VERTICAL_BREAKS[c] || c),
+    expr: expressions(layout, vert, colors, captions),
     version: 1,
-    // Formats (tokens.video.formats); 9x16 joins when its stacked layout is in the master.
-    variants: ['16x9', '16x9_4K'].map((key) => ({ key, ...tokens.video.formats[key] })),
-    sweepTimes: [0, 0.32, 0.6, 1, 1.5, 2.12, REST, OUTRO_START, 4.4, 4.96],
+    // Formats (tokens.video.formats); the stacked layout switches on by the frame's proportion.
+    variants: ['16x9', '16x9_4K', '9x16'].map((key) => ({ key, ...tokens.video.formats[key] })),
+    sweepTimes: [0, 0.32, 0.6, 1, 1.5, 2.12, REST, OUTRO_START, 4.4, 4.6, 4.96],
     rest: REST,
   };
 }
