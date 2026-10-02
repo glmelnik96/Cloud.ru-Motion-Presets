@@ -1,0 +1,294 @@
+{
+    "schema":  "brandkit-inventory/1",
+    "collectedAt":  "2026-10-02T18:34:21Z",
+    "hostname":  "DESKTOP-RH19AI5",
+    "label":  "main-pc",
+    "os":  {
+               "name":  "Майкрософт Windows 11 Pro",
+               "version":  "25H2",
+               "build":  "10.0.26200"
+           },
+    "model":  "Micro-Star International Co., Ltd. MS-7E56",
+    "cpu":  {
+                "name":  "AMD Ryzen 7 9700X 8-Core Processor",
+                "cores":  8,
+                "threads":  16
+            },
+    "gpus":  [
+                 {
+                     "name":  "NVIDIA GeForce RTX 5060 Ti",
+                     "vramGB":  15.9,
+                     "cores":  null,
+                     "driver":  "32.0.15.9649"
+                 },
+                 {
+                     "name":  "AMD Radeon(TM) Graphics",
+                     "vramGB":  2,
+                     "cores":  null,
+                     "driver":  "32.0.13066.12"
+                 }
+             ],
+    "ramGB":  96,
+    "adobe":  {
+                  "afterEffects":  [
+                                       {
+                                           "name":  "Adobe After Effects 2026",
+                                           "version":  "26.5",
+                                           "path":  "C:\\Program Files\\Adobe\\Adobe After Effects 2026\\Support Files\\AfterFX.exe"
+                                       }
+                                   ],
+                  "premiere":  [
+                                   {
+                                       "name":  "Adobe Premiere Pro 2026",
+                                       "version":  "26.5.2",
+                                       "path":  "C:\\Program Files\\Adobe\\Adobe Premiere Pro 2026\\Adobe Premiere Pro.exe"
+                                   }
+                               ],
+                  "mediaEncoder":  [
+                                       {
+                                           "name":  "Adobe Media Encoder 2025",
+                                           "version":  "25.6.6",
+                                           "path":  "C:\\Program Files\\Adobe\\Adobe Media Encoder 2025\\Adobe Media Encoder.exe"
+                                       },
+                                       {
+                                           "name":  "Adobe Media Encoder 2026",
+                                           "version":  "26.5.2",
+                                           "path":  "C:\\Program Files\\Adobe\\Adobe Media Encoder 2026\\Adobe Media Encoder.exe"
+                                       }
+                                   ]
+              },
+    "creativeCloud":  {
+                          "present":  true,
+                          "version":  "6.10.0.253"
+                      },
+    "upia":  {
+                 "present":  true,
+                 "version":  "8.5.0.13"
+             },
+    "cep":  {
+                "CSXS.11":  "1",
+                "CSXS.12":  "1"
+            },
+    "sbSansFiles":  [
+                        "SBSansCondMono-Bold.otf",
+                        "SBSansCondMono-Regular.otf",
+                        "SBSansDisplay-Bold.otf",
+                        "SBSansDisplay-Light.otf",
+                        "SBSansDisplay-Medium.otf",
+                        "SBSansDisplay-Regular.otf",
+                        "SBSansDisplay-SemiBold.otf",
+                        "SBSansDisplay-Thin.otf",
+                        "SBSansText-Bold.otf",
+                        "SBSansText-BoldItalic.otf",
+                        "SBSansText-Heavy.otf",
+                        "SBSansText-Italic.otf",
+                        "SBSansText-Light.otf",
+                        "SBSansText-LightItalic.otf",
+                        "SBSansText-Medium.otf",
+                        "SBSansText-Regular.otf",
+                        "SBSansText-Semibold.otf",
+                        "SBSansText-SemiBoldItalic.otf",
+                        "SBSansText-Thin.otf",
+                        "SBSansTextCaps-Bold.otf",
+                        "SBSansTextCaps-Regular.otf",
+                        "SBSansTextComp-ExtraLight.otf",
+                        "SBSansTextComp-Light.otf",
+                        "SBSansTextCond-Bold.otf",
+                        "SBSansTextCond-Regular.otf",
+                        "SBSansTextMono-Bold.otf",
+                        "SBSansTextMono-Regular.otf",
+                        "SBSansUI-Bold.otf",
+                        "SBSansUI-Caps.otf",
+                        "SBSansUI-Italic.otf",
+                        "SBSansUI-Light.otf",
+                        "SBSansUI-LightItalic.otf",
+                        "SBSansUI-Regular.otf",
+                        "SBSansUI-Semibold.otf",
+                        "SBSansUI-SemiboldItalic.otf"
+                    ],
+    "fonts":  [
+                  {
+                      "postScriptName":  "SBSansCondMono-Bold",
+                      "version":  "1.001",
+                      "file":  "C:/Windows/Fonts/SBSansCondMono-Bold.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansCondMono-Regular",
+                      "version":  "1.001",
+                      "file":  "C:/Windows/Fonts/SBSansCondMono-Regular.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansDisplay-Bold",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansDisplay-Bold.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansDisplay-Light",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansDisplay-Light.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansDisplay-Medium",
+                      "version":  "1.003",
+                      "file":  "C:/Windows/Fonts/SBSansDisplay-Medium.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansDisplay-Regular",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansDisplay-Regular.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansDisplay-Semibold",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansDisplay-SemiBold.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansDisplay-Thin",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansDisplay-Thin.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansInterface-Bold",
+                      "version":  "1.004",
+                      "file":  "C:/Windows/Fonts/SBSansUI-Bold.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansInterface-Caps",
+                      "version":  "1.004",
+                      "file":  "C:/Windows/Fonts/SBSansUI-Caps.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansInterface-Italic",
+                      "version":  "1.005",
+                      "file":  "C:/Windows/Fonts/SBSansUI-Italic.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansInterface-Light",
+                      "version":  "1.005",
+                      "file":  "C:/Windows/Fonts/SBSansUI-Light.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansInterface-LightItalic",
+                      "version":  "1.005",
+                      "file":  "C:/Windows/Fonts/SBSansUI-LightItalic.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansInterface-Regular",
+                      "version":  "1.005",
+                      "file":  "C:/Windows/Fonts/SBSansUI-Regular.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansInterface-Semibold",
+                      "version":  "1.005",
+                      "file":  "C:/Windows/Fonts/SBSansUI-Semibold.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansInterface-SemiboldItalic",
+                      "version":  "1.005",
+                      "file":  "C:/Windows/Fonts/SBSansUI-SemiboldItalic.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansText-Bold",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansText-Bold.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansText-BoldItalic",
+                      "version":  "1.003",
+                      "file":  "C:/Windows/Fonts/SBSansText-BoldItalic.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansText-Heavy",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansText-Heavy.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansText-Italic",
+                      "version":  "1.003",
+                      "file":  "C:/Windows/Fonts/SBSansText-Italic.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansText-Light",
+                      "version":  "1.003",
+                      "file":  "C:/Windows/Fonts/SBSansText-Light.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansText-LightItalic",
+                      "version":  "1.003",
+                      "file":  "C:/Windows/Fonts/SBSansText-LightItalic.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansText-Medium",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansText-Medium.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansText-Regular",
+                      "version":  "1.003",
+                      "file":  "C:/Windows/Fonts/SBSansText-Regular.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansText-Semibold",
+                      "version":  "1.003",
+                      "file":  "C:/Windows/Fonts/SBSansText-Semibold.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansText-SemiboldItalic",
+                      "version":  "1.003",
+                      "file":  "C:/Windows/Fonts/SBSansText-SemiBoldItalic.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansText-Thin",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansText-Thin.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansTextCaps-Bold",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansTextCaps-Bold.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansTextCaps-Regular",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansTextCaps-Regular.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansTextComp-ExtraLight",
+                      "version":  "1.003",
+                      "file":  "C:/Windows/Fonts/SBSansTextComp-ExtraLight.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansTextComp-Light",
+                      "version":  "1.003",
+                      "file":  "C:/Windows/Fonts/SBSansTextComp-Light.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansTextCond-Bold",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansTextCond-Bold.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansTextCond-Regular",
+                      "version":  "1.002",
+                      "file":  "C:/Windows/Fonts/SBSansTextCond-Regular.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansTextMono-Bold",
+                      "version":  "1.001",
+                      "file":  "C:/Windows/Fonts/SBSansTextMono-Bold.otf"
+                  },
+                  {
+                      "postScriptName":  "SBSansTextMono-Regular",
+                      "version":  "1.001",
+                      "file":  "C:/Windows/Fonts/SBSansTextMono-Regular.otf"
+                  }
+              ],
+    "manual":  {
+                   "adobeIdSignedIn":  null,
+                   "updatesAvailable":  "",
+                   "notes":  ""
+               },
+    "errors":  [
+
+               ]
+}
