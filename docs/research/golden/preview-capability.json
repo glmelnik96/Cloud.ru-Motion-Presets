@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-02",
+  "slug": "logo",
+  "aeVersion": "26.5x89",
+  "capable": true,
+  "reason": null,
+  "omTemplate": "H.264 - Match Render Settings - 15 Mbps",
+  "templates": [
+    "AIFF 48kHz",
+    "Alpha Only",
+    "CRBK_ProRes4444_Alpha",
+    "H.264 - Match Render Settings -  5 Mbps",
+    "H.264 - Match Render Settings - 15 Mbps",
+    "H.264 - Match Render Settings - 40 Mbps",
+    "High Quality",
+    "High Quality with Alpha",
+    "Lossless",
+    "Lossless with Alpha",
+    "Multi-Machine Sequence",
+    "Photoshop",
+    "TIFF Sequence with Alpha",
+    "Untitled 1",
+    "_HIDDEN X-Factor 16",
+    "_HIDDEN X-Factor 16 Premul",
+    "_HIDDEN X-Factor 32",
+    "_HIDDEN X-Factor 32 Premul",
+    "_HIDDEN X-Factor 8",
+    "_HIDDEN X-Factor 8 Premul"
+  ],
+  "setup": {
+    "half": {
+      "keys": [
+        "Color Depth",
+        "Disk Cache",
+        "Effects",
+        "Field Render",
+        "Frame Blending",
+        "Frame Rate",
+        "Guide Layers",
+        "Motion Blur",
+        "Proxy Use",
+        "Quality",
+        "Resolution",
+        "Solo Switches",
+        "Time Span Duration",
+        "Time Span End",
+        "Time Span Start",
+        "Use this frame rate"
+      ],
+      "readBack": "Half",
+      "error": null,
+      "quality": "Best"
+    },
+    "omName": "H.264 - Match Render Settings - 15 Mbps",
+    "file": "C:\\CRBK\\work\\golden\\logo\\logoshot_est_gde_razvernutsya\\preview_half.mp4"
+  }
+}

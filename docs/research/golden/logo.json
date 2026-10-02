@@ -1,0 +1,1338 @@
+{
+  "slug": "logo",
+  "status": "ok",
+  "project": "logo_relinked.aep",
+  "aeVersion": "26.5x89",
+  "date": "2026-10-02",
+  "rule": "0.25 s to 15 s; 5 s to 60 s; markers; last 2 s by 0.25 s; last frame",
+  "comps": [
+    {
+      "id": 3399,
+      "name": "Логошот_Есть где развернуться",
+      "compSlug": "logoshot_est_gde_razvernutsya",
+      "width": 3840,
+      "height": 2160,
+      "fps": 50,
+      "duration": 12.2,
+      "resolutionBefore": [
+        1,
+        1
+      ],
+      "frames": [
+        {
+          "f": 0,
+          "ms": 0,
+          "bytes": 65052,
+          "sha256": "129026f649722edae1f9a8a9c6afd974b5603dfc0e44c5d7252b2305e4741bb8"
+        },
+        {
+          "f": 13,
+          "ms": 260,
+          "bytes": 65115,
+          "sha256": "5436443e4b50ec7a5d15d3c2c477cd2b29e58b56b0205295fbbe9b8f6b7aec85"
+        },
+        {
+          "f": 25,
+          "ms": 500,
+          "bytes": 79290,
+          "sha256": "1773f2df901ad465025fb1bc27c861fa39f7bbbd9f5c4d8e46f5d4fdf76b787c"
+        },
+        {
+          "f": 38,
+          "ms": 760,
+          "bytes": 93424,
+          "sha256": "412078fe49763466d32ef553633c6282e3df3168d9b9d19a9bf01409090fd50f"
+        },
+        {
+          "f": 50,
+          "ms": 1000,
+          "bytes": 90225,
+          "sha256": "e22cd0017afea7cc2de24ce4aeca694402f9bec3fec038a12d77ffcec42aaca3"
+        },
+        {
+          "f": 63,
+          "ms": 1260,
+          "bytes": 89913,
+          "sha256": "c2f13247701112e580089f377dd2f8cc94d3d2094b33252760e7e81bfff618fa"
+        },
+        {
+          "f": 75,
+          "ms": 1500,
+          "bytes": 94726,
+          "sha256": "31cfaf28305bda411aeb9e08dfcc0d7032e913eda1617aba1b8a37b48f7e71bc"
+        },
+        {
+          "f": 88,
+          "ms": 1760,
+          "bytes": 109910,
+          "sha256": "f2c186bab2ba01cfb85bb415674c88516a23970e920ff3d5ca990166f276f7f6"
+        },
+        {
+          "f": 100,
+          "ms": 2000,
+          "bytes": 134522,
+          "sha256": "ded58c43531344f521fe035d5237bddee4e5cef9e4a83e44b28263c0f67454d9"
+        },
+        {
+          "f": 113,
+          "ms": 2260,
+          "bytes": 115718,
+          "sha256": "925554674d9c18855c23c5e6fae2a1b14eb3ec4496cfd67fddab2ec8390b543f"
+        },
+        {
+          "f": 125,
+          "ms": 2500,
+          "bytes": 98592,
+          "sha256": "6a39ec8850ec018e4f6b569cfdc0e010741a88446dc28e9f59201f6479e9ecb1"
+        },
+        {
+          "f": 138,
+          "ms": 2760,
+          "bytes": 98568,
+          "sha256": "c2b41ee6ae6f2253866d046594a42a3acaa35984f890498f0d1afcc79059bdd1"
+        },
+        {
+          "f": 150,
+          "ms": 3000,
+          "bytes": 98568,
+          "sha256": "c2b41ee6ae6f2253866d046594a42a3acaa35984f890498f0d1afcc79059bdd1"
+        },
+        {
+          "f": 163,
+          "ms": 3260,
+          "bytes": 98591,
+          "sha256": "2af1b76e5a9f1a3175c5ec9fa8e7d6115e1753c900d958dac2a4f8e9bb6898f5"
+        },
+        {
+          "f": 175,
+          "ms": 3500,
+          "bytes": 100735,
+          "sha256": "438022c91ee243e8f3516a68a3da87266ff4ed793e4393e9b813ae80b6a93653"
+        },
+        {
+          "f": 188,
+          "ms": 3760,
+          "bytes": 71711,
+          "sha256": "39da85362f533597faad978650ae678fd5155ea0ca8a9900d003e113091b079b"
+        },
+        {
+          "f": 200,
+          "ms": 4000,
+          "bytes": 65116,
+          "sha256": "6b2ef54590399e3ca8aa94cb195973d1c26e5779f2afb323de88cba82d7643e8"
+        },
+        {
+          "f": 213,
+          "ms": 4260,
+          "bytes": 65071,
+          "sha256": "88cd7852c62109b7567739c1ac3a0934a05a38bc846ea5cc74e62fcee80e3bf6"
+        },
+        {
+          "f": 225,
+          "ms": 4500,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 226,
+          "ms": 4520,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 238,
+          "ms": 4760,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 250,
+          "ms": 5000,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 263,
+          "ms": 5260,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 275,
+          "ms": 5500,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 288,
+          "ms": 5760,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 300,
+          "ms": 6000,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 313,
+          "ms": 6260,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 325,
+          "ms": 6500,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 338,
+          "ms": 6760,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 350,
+          "ms": 7000,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 363,
+          "ms": 7260,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 366,
+          "ms": 7320,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 375,
+          "ms": 7500,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 388,
+          "ms": 7760,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 400,
+          "ms": 8000,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 413,
+          "ms": 8260,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 425,
+          "ms": 8500,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 438,
+          "ms": 8760,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 450,
+          "ms": 9000,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 463,
+          "ms": 9260,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 475,
+          "ms": 9500,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 488,
+          "ms": 9760,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 500,
+          "ms": 10000,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 510,
+          "ms": 10200,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 513,
+          "ms": 10260,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 523,
+          "ms": 10460,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 525,
+          "ms": 10500,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 535,
+          "ms": 10700,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 538,
+          "ms": 10760,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 548,
+          "ms": 10960,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 550,
+          "ms": 11000,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 560,
+          "ms": 11200,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 563,
+          "ms": 11260,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 573,
+          "ms": 11460,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 575,
+          "ms": 11500,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 585,
+          "ms": 11700,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 588,
+          "ms": 11760,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 598,
+          "ms": 11960,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 600,
+          "ms": 12000,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        },
+        {
+          "f": 609,
+          "ms": 12180,
+          "bytes": 65053,
+          "sha256": "5ab0a28afb9913dd930889159d8301c80c260828bc490c365fea7c68ddd03fbd"
+        }
+      ]
+    },
+    {
+      "id": 3379,
+      "name": "Логошот_Умное облако",
+      "compSlug": "logoshot_umnoe_oblako",
+      "width": 3840,
+      "height": 2160,
+      "fps": 50,
+      "duration": 12.2,
+      "resolutionBefore": [
+        1,
+        1
+      ],
+      "frames": [
+        {
+          "f": 0,
+          "ms": 0,
+          "bytes": 69635,
+          "sha256": "e6ad3c04dec33c8481255a4c540bb809de5feb502fd79eb5628b11a8827f6926"
+        },
+        {
+          "f": 13,
+          "ms": 260,
+          "bytes": 69717,
+          "sha256": "76b544547e7de08c9bedd21051d8c0e735ce3fae2deb48cbb92e0554750d7be7"
+        },
+        {
+          "f": 25,
+          "ms": 500,
+          "bytes": 83868,
+          "sha256": "0096aff08a0e76835067b32dd3ee12dad2f26e7c9be81ca13b0254d6c85f9dac"
+        },
+        {
+          "f": 38,
+          "ms": 760,
+          "bytes": 98070,
+          "sha256": "d380db7e9377730444dd0e1645621183a8caffd703d6b6f5fc27b3ec754b2b6f"
+        },
+        {
+          "f": 50,
+          "ms": 1000,
+          "bytes": 94673,
+          "sha256": "8a664ac170a08d08b7240707c57d7d83a4bad96a2a8b1516835159b4fa174f8b"
+        },
+        {
+          "f": 63,
+          "ms": 1260,
+          "bytes": 103196,
+          "sha256": "a9986524730ae4178421c4d017ae9678279af540739917bed0fe53c678630c90"
+        },
+        {
+          "f": 75,
+          "ms": 1500,
+          "bytes": 128452,
+          "sha256": "6ffd57a8f8af9ff488176e7bed94d0465db2ccd6c11c96f2a83f41c8681d881b"
+        },
+        {
+          "f": 88,
+          "ms": 1760,
+          "bytes": 136321,
+          "sha256": "403d7e46670f62b70afa28a464895c7dd6e33c69316689881384f9ff37a69c2e"
+        },
+        {
+          "f": 100,
+          "ms": 2000,
+          "bytes": 110996,
+          "sha256": "358e866359785f405587dc8a343843c227a6cd62026702a0a49a1ff9d97c8112"
+        },
+        {
+          "f": 113,
+          "ms": 2260,
+          "bytes": 103271,
+          "sha256": "5c96a5744deb4b1aacbb18aa26ee3a3ecbc1fec6a74486a784b1c990d8987be4"
+        },
+        {
+          "f": 125,
+          "ms": 2500,
+          "bytes": 103271,
+          "sha256": "5c96a5744deb4b1aacbb18aa26ee3a3ecbc1fec6a74486a784b1c990d8987be4"
+        },
+        {
+          "f": 138,
+          "ms": 2760,
+          "bytes": 103271,
+          "sha256": "5c96a5744deb4b1aacbb18aa26ee3a3ecbc1fec6a74486a784b1c990d8987be4"
+        },
+        {
+          "f": 150,
+          "ms": 3000,
+          "bytes": 103271,
+          "sha256": "5c96a5744deb4b1aacbb18aa26ee3a3ecbc1fec6a74486a784b1c990d8987be4"
+        },
+        {
+          "f": 163,
+          "ms": 3260,
+          "bytes": 103271,
+          "sha256": "5c96a5744deb4b1aacbb18aa26ee3a3ecbc1fec6a74486a784b1c990d8987be4"
+        },
+        {
+          "f": 175,
+          "ms": 3500,
+          "bytes": 112025,
+          "sha256": "f957cf4b4f06d342763f0cbaef6c803c0f25ed8367f14c628311b135796d04fb"
+        },
+        {
+          "f": 188,
+          "ms": 3760,
+          "bytes": 128905,
+          "sha256": "8e6caf36c89c94c638b607a490c20b926ba3c4c5f627370fd718d426d9129870"
+        },
+        {
+          "f": 200,
+          "ms": 4000,
+          "bytes": 80751,
+          "sha256": "1affe13ac027b653659cb3b700e7be98c6e346ecaab7ec5925a15191b7c9e5d8"
+        },
+        {
+          "f": 213,
+          "ms": 4260,
+          "bytes": 69677,
+          "sha256": "d96a060f4b7b395bf56d8852846e872c3587af4025bf163687b90c5f69b11049"
+        },
+        {
+          "f": 225,
+          "ms": 4500,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 226,
+          "ms": 4520,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 238,
+          "ms": 4760,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 250,
+          "ms": 5000,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 263,
+          "ms": 5260,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 275,
+          "ms": 5500,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 288,
+          "ms": 5760,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 300,
+          "ms": 6000,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 313,
+          "ms": 6260,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 325,
+          "ms": 6500,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 338,
+          "ms": 6760,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 350,
+          "ms": 7000,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 363,
+          "ms": 7260,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 366,
+          "ms": 7320,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 375,
+          "ms": 7500,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 388,
+          "ms": 7760,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 400,
+          "ms": 8000,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 413,
+          "ms": 8260,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 425,
+          "ms": 8500,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 438,
+          "ms": 8760,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 450,
+          "ms": 9000,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 463,
+          "ms": 9260,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 475,
+          "ms": 9500,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 488,
+          "ms": 9760,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 500,
+          "ms": 10000,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 510,
+          "ms": 10200,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 513,
+          "ms": 10260,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 523,
+          "ms": 10460,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 525,
+          "ms": 10500,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 535,
+          "ms": 10700,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 538,
+          "ms": 10760,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 548,
+          "ms": 10960,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 550,
+          "ms": 11000,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 560,
+          "ms": 11200,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 563,
+          "ms": 11260,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 573,
+          "ms": 11460,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 575,
+          "ms": 11500,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 585,
+          "ms": 11700,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 588,
+          "ms": 11760,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 598,
+          "ms": 11960,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 600,
+          "ms": 12000,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        },
+        {
+          "f": 609,
+          "ms": 12180,
+          "bytes": 69635,
+          "sha256": "0f1aecd28ff5d9dda778f68f989c0708fc4a5b9782a57cd360856e2a9dc1e9c6"
+        }
+      ]
+    },
+    {
+      "id": 2786,
+      "name": "Логошоты вертикальный_без саблайна",
+      "compSlug": "logoshoty_vertikalnyy_bez_sablayna",
+      "width": 1080,
+      "height": 1920,
+      "fps": 25,
+      "duration": 3,
+      "resolutionBefore": [
+        1,
+        1
+      ],
+      "frames": [
+        {
+          "f": 0,
+          "ms": 0,
+          "bytes": 16208,
+          "sha256": "b9f38e35e86fec743c5ce31c56b5985dcb0ca3b8a8490e2fcac61eb863e2b120"
+        },
+        {
+          "f": 6,
+          "ms": 240,
+          "bytes": 23048,
+          "sha256": "30d24e4a106a94d1de8e2c9a5336d6d5a865e0aa81ac865b07a2d01b1c5692d2"
+        },
+        {
+          "f": 13,
+          "ms": 520,
+          "bytes": 24059,
+          "sha256": "00f14feca93fe921f6a10c58c161065ad37c769032b12dc3ec50092d932ef9b7"
+        },
+        {
+          "f": 19,
+          "ms": 760,
+          "bytes": 23713,
+          "sha256": "3a9ddd31342b24c16f7e06aa8072272a8edf0d899445b3b7e84f322daafbfa32"
+        },
+        {
+          "f": 25,
+          "ms": 1000,
+          "bytes": 23254,
+          "sha256": "cdd635d39ae47817800e646df5ef7cafdd2ccf89a6bc7801c7ce6f77cef0c286"
+        },
+        {
+          "f": 31,
+          "ms": 1240,
+          "bytes": 31302,
+          "sha256": "007b869677af0460e7e57f8029d855a9c895f81958404b7eda528764c575c26d"
+        },
+        {
+          "f": 38,
+          "ms": 1520,
+          "bytes": 58466,
+          "sha256": "f544a4b006dffd9d0087930d2f487178353985292c0434a7bb930c02ab94968d"
+        },
+        {
+          "f": 44,
+          "ms": 1760,
+          "bytes": 59262,
+          "sha256": "1a7a076c01815a7ba9e2674cfb1b48ce33cb14ac65b5c6fd6f4302859283475a"
+        },
+        {
+          "f": 50,
+          "ms": 2000,
+          "bytes": 37907,
+          "sha256": "a5a407539e5074b1ad3583c28cb0296d54bdc1d9b8ea7f60037edd4c7e562488"
+        },
+        {
+          "f": 56,
+          "ms": 2240,
+          "bytes": 31071,
+          "sha256": "9513040379f97fd9975c19728fec20eb19c5dad437aa5d0a26f5564075449e3d"
+        },
+        {
+          "f": 63,
+          "ms": 2520,
+          "bytes": 31071,
+          "sha256": "9513040379f97fd9975c19728fec20eb19c5dad437aa5d0a26f5564075449e3d"
+        },
+        {
+          "f": 69,
+          "ms": 2760,
+          "bytes": 31071,
+          "sha256": "9513040379f97fd9975c19728fec20eb19c5dad437aa5d0a26f5564075449e3d"
+        },
+        {
+          "f": 74,
+          "ms": 2960,
+          "bytes": 31071,
+          "sha256": "9513040379f97fd9975c19728fec20eb19c5dad437aa5d0a26f5564075449e3d"
+        }
+      ]
+    },
+    {
+      "id": 3597,
+      "name": "Логошоты вертикальный_без саблайна с плашкой",
+      "compSlug": "logoshoty_vertikalnyy_bez_sablayna_s_plashkoy",
+      "width": 1080,
+      "height": 1920,
+      "fps": 25,
+      "duration": 3,
+      "resolutionBefore": [
+        1,
+        1
+      ],
+      "frames": [
+        {
+          "f": 0,
+          "ms": 0,
+          "bytes": 16208,
+          "sha256": "b9f38e35e86fec743c5ce31c56b5985dcb0ca3b8a8490e2fcac61eb863e2b120"
+        },
+        {
+          "f": 6,
+          "ms": 240,
+          "bytes": 22197,
+          "sha256": "8df871486ae9b4d189f312cf720a40847b5aa09b69217ba987f725f0b341f332"
+        },
+        {
+          "f": 13,
+          "ms": 520,
+          "bytes": 23947,
+          "sha256": "3b152887c9d5d66de2b4ef44422ea94eccb66abed6c6cd64508fe61240c04d06"
+        },
+        {
+          "f": 19,
+          "ms": 760,
+          "bytes": 23990,
+          "sha256": "85a9ad6efaff31eeb86f58132dab185ba20e9d510c04efae43710a2119c9f1d6"
+        },
+        {
+          "f": 25,
+          "ms": 1000,
+          "bytes": 23243,
+          "sha256": "5be87d837d47e605546f6208532b197683c94b1cb5aaafc9443d58ec5c58bf35"
+        },
+        {
+          "f": 31,
+          "ms": 1240,
+          "bytes": 28026,
+          "sha256": "4a8d2c35840d005621c91a8db2d4cffdeb88be122a87da06021d424f54f0141a"
+        },
+        {
+          "f": 38,
+          "ms": 1520,
+          "bytes": 51662,
+          "sha256": "f48be670756a429f550d9ca9bffd23f780208fedabd18bfa8079b62dff847e55"
+        },
+        {
+          "f": 44,
+          "ms": 1760,
+          "bytes": 50640,
+          "sha256": "d123bec4958cf91ba3a529111686607cee5a958f991518b39382be1b98340ad5"
+        },
+        {
+          "f": 50,
+          "ms": 2000,
+          "bytes": 33082,
+          "sha256": "bf1463e0d0f0facd3a4d09e62bf0ba6acec26549e507a532f34c50446d6cf2d3"
+        },
+        {
+          "f": 56,
+          "ms": 2240,
+          "bytes": 28074,
+          "sha256": "a2afef4e521b3d48999c0f1f8e66a9fdb0a11a7807456623954d7b5e994a0c47"
+        },
+        {
+          "f": 63,
+          "ms": 2520,
+          "bytes": 28074,
+          "sha256": "a2afef4e521b3d48999c0f1f8e66a9fdb0a11a7807456623954d7b5e994a0c47"
+        },
+        {
+          "f": 69,
+          "ms": 2760,
+          "bytes": 28074,
+          "sha256": "a2afef4e521b3d48999c0f1f8e66a9fdb0a11a7807456623954d7b5e994a0c47"
+        },
+        {
+          "f": 74,
+          "ms": 2960,
+          "bytes": 28074,
+          "sha256": "a2afef4e521b3d48999c0f1f8e66a9fdb0a11a7807456623954d7b5e994a0c47"
+        }
+      ]
+    },
+    {
+      "id": 3653,
+      "name": "Логошоты вертикальный_Умное облако",
+      "compSlug": "logoshoty_vertikalnyy_umnoe_oblako",
+      "width": 1080,
+      "height": 1920,
+      "fps": 25,
+      "duration": 3.64,
+      "resolutionBefore": [
+        1,
+        1
+      ],
+      "frames": [
+        {
+          "f": 0,
+          "ms": 0,
+          "bytes": 16208,
+          "sha256": "b9f38e35e86fec743c5ce31c56b5985dcb0ca3b8a8490e2fcac61eb863e2b120"
+        },
+        {
+          "f": 6,
+          "ms": 240,
+          "bytes": 16756,
+          "sha256": "11e3605d1df1d3e5aaa84c3f7eb966e3e486bb3f23df32320edf07b349c0acbe"
+        },
+        {
+          "f": 13,
+          "ms": 520,
+          "bytes": 17254,
+          "sha256": "2ddc2520dcd8652412653788087f749558a11d310f94fefc17b7ea65ce8a5702"
+        },
+        {
+          "f": 19,
+          "ms": 760,
+          "bytes": 44469,
+          "sha256": "281c0665f53dde6716ec85aa2567f2a8234f8f26ba5f0a1f5f8e8652e4d95c40"
+        },
+        {
+          "f": 25,
+          "ms": 1000,
+          "bytes": 27799,
+          "sha256": "e8e96c0be2a33a40e19e113a9afbf6436eaebb57c8dcfdccf7c09ef26f58b059"
+        },
+        {
+          "f": 31,
+          "ms": 1240,
+          "bytes": 27276,
+          "sha256": "af66efd327a52e0722dfd2b7f689c200f28246b64c981a08a8db3e1feb9c281e"
+        },
+        {
+          "f": 38,
+          "ms": 1520,
+          "bytes": 30275,
+          "sha256": "612c7b55e70a6b45469c6fd7d3ac0bc23d53dbdbfd2127a4566a0cadabb7c52f"
+        },
+        {
+          "f": 41,
+          "ms": 1640,
+          "bytes": 34154,
+          "sha256": "9e70b19dd805175eaba23864eb6fbb9f582949d25b632843086d4a1580304103"
+        },
+        {
+          "f": 44,
+          "ms": 1760,
+          "bytes": 41115,
+          "sha256": "c54c5ccc910d4295be0b159b9b88a58fb151decdc48e573c15275639ef1ff134"
+        },
+        {
+          "f": 47,
+          "ms": 1880,
+          "bytes": 43657,
+          "sha256": "c2804acd4b6de0545fbfcff367e8e5c4d80bac5b7e9b7d9a6013c653985e1451"
+        },
+        {
+          "f": 50,
+          "ms": 2000,
+          "bytes": 47118,
+          "sha256": "99e39239f5b78742d55b9721c7783380b8a4d69073c2ae0504c1012a3f871f47"
+        },
+        {
+          "f": 54,
+          "ms": 2160,
+          "bytes": 44765,
+          "sha256": "6c74e564ea52ee1aa08b58d23a8ed4a1e397e4b544b530aff12a52db814eefd8"
+        },
+        {
+          "f": 56,
+          "ms": 2240,
+          "bytes": 44118,
+          "sha256": "0696f1b42a4ef26c68f939bdd74a9f195f96d963e5d64ed8f8c6bc4d6e43dd35"
+        },
+        {
+          "f": 60,
+          "ms": 2400,
+          "bytes": 43298,
+          "sha256": "0dafcc4005ab3ddbb358978e2c5226ca53980755f234d81378b5f7cb2e497016"
+        },
+        {
+          "f": 63,
+          "ms": 2520,
+          "bytes": 42525,
+          "sha256": "4d4697e9015178004b92791cc87119ccab951ae280673840464da3469297575a"
+        },
+        {
+          "f": 66,
+          "ms": 2640,
+          "bytes": 41912,
+          "sha256": "45480002eb35fa5c7becef9e8cd1d444cb0e65bcd99826d68b21da53a35ab87e"
+        },
+        {
+          "f": 69,
+          "ms": 2760,
+          "bytes": 37890,
+          "sha256": "9b3ac29a7b9cad8960369ff515fa2c56d37de3bf1a670ece5691f1f9b2f9a3a5"
+        },
+        {
+          "f": 72,
+          "ms": 2880,
+          "bytes": 37890,
+          "sha256": "9b3ac29a7b9cad8960369ff515fa2c56d37de3bf1a670ece5691f1f9b2f9a3a5"
+        },
+        {
+          "f": 75,
+          "ms": 3000,
+          "bytes": 37890,
+          "sha256": "9b3ac29a7b9cad8960369ff515fa2c56d37de3bf1a670ece5691f1f9b2f9a3a5"
+        },
+        {
+          "f": 79,
+          "ms": 3160,
+          "bytes": 37890,
+          "sha256": "9b3ac29a7b9cad8960369ff515fa2c56d37de3bf1a670ece5691f1f9b2f9a3a5"
+        },
+        {
+          "f": 81,
+          "ms": 3240,
+          "bytes": 38252,
+          "sha256": "7c2d791d58874d48684db832ad288f0f2c2269ed5cdbe461c2657460232cb775"
+        },
+        {
+          "f": 85,
+          "ms": 3400,
+          "bytes": 31417,
+          "sha256": "f64c293ef5ca8f1c5beeca3559e5692053ff1d803c6e355cacc3075c946271aa"
+        },
+        {
+          "f": 88,
+          "ms": 3520,
+          "bytes": 16971,
+          "sha256": "d6bf9fda10151b8fcca5f4c2801510133abd7ee3c91f3f8e4995398e8daf2b12"
+        },
+        {
+          "f": 90,
+          "ms": 3600,
+          "bytes": 16288,
+          "sha256": "2339e36106d8b062ea5a7dc577116ed00e1a04da4ea14564c661de18ba25d061"
+        }
+      ]
+    },
+    {
+      "id": 3564,
+      "name": "Логошоты вертикальный_Умное облако_запасной вариант",
+      "compSlug": "logoshoty_vertikalnyy_umnoe_oblako_zapasnoy_variant",
+      "width": 1080,
+      "height": 1920,
+      "fps": 25,
+      "duration": 3.64,
+      "resolutionBefore": [
+        1,
+        1
+      ],
+      "frames": [
+        {
+          "f": 0,
+          "ms": 0,
+          "bytes": 16208,
+          "sha256": "b9f38e35e86fec743c5ce31c56b5985dcb0ca3b8a8490e2fcac61eb863e2b120"
+        },
+        {
+          "f": 6,
+          "ms": 240,
+          "bytes": 16756,
+          "sha256": "11e3605d1df1d3e5aaa84c3f7eb966e3e486bb3f23df32320edf07b349c0acbe"
+        },
+        {
+          "f": 13,
+          "ms": 520,
+          "bytes": 17254,
+          "sha256": "2ddc2520dcd8652412653788087f749558a11d310f94fefc17b7ea65ce8a5702"
+        },
+        {
+          "f": 19,
+          "ms": 760,
+          "bytes": 44469,
+          "sha256": "281c0665f53dde6716ec85aa2567f2a8234f8f26ba5f0a1f5f8e8652e4d95c40"
+        },
+        {
+          "f": 25,
+          "ms": 1000,
+          "bytes": 27799,
+          "sha256": "e8e96c0be2a33a40e19e113a9afbf6436eaebb57c8dcfdccf7c09ef26f58b059"
+        },
+        {
+          "f": 31,
+          "ms": 1240,
+          "bytes": 27276,
+          "sha256": "af66efd327a52e0722dfd2b7f689c200f28246b64c981a08a8db3e1feb9c281e"
+        },
+        {
+          "f": 38,
+          "ms": 1520,
+          "bytes": 30275,
+          "sha256": "612c7b55e70a6b45469c6fd7d3ac0bc23d53dbdbfd2127a4566a0cadabb7c52f"
+        },
+        {
+          "f": 41,
+          "ms": 1640,
+          "bytes": 34154,
+          "sha256": "9e70b19dd805175eaba23864eb6fbb9f582949d25b632843086d4a1580304103"
+        },
+        {
+          "f": 44,
+          "ms": 1760,
+          "bytes": 41338,
+          "sha256": "07ee0f16b145a3e4d6bb908c51169e535da6f3887015cc35487959235828161f"
+        },
+        {
+          "f": 47,
+          "ms": 1880,
+          "bytes": 43591,
+          "sha256": "61f8428804120e78400f3547802b368fab66f205ae4c4ddc1c15d7e657e9d1bf"
+        },
+        {
+          "f": 50,
+          "ms": 2000,
+          "bytes": 47057,
+          "sha256": "42859d9f55c9dbd25a6048ed028bd7636930fce0e964935c74449be683b1b3d5"
+        },
+        {
+          "f": 54,
+          "ms": 2160,
+          "bytes": 44781,
+          "sha256": "6b5754a9feffe92fe6668ea484cabf574fac78da95cdb3ab2f059ef0c3071da7"
+        },
+        {
+          "f": 56,
+          "ms": 2240,
+          "bytes": 44066,
+          "sha256": "5142d0b728fae6796b92e890365d8d50b2af2c9241be09f52094416c6a348919"
+        },
+        {
+          "f": 60,
+          "ms": 2400,
+          "bytes": 43187,
+          "sha256": "5b9d6f20bf8e7441d73658378a82654e76091a803b274654c6c61bd3ed483323"
+        },
+        {
+          "f": 63,
+          "ms": 2520,
+          "bytes": 42463,
+          "sha256": "08c083a05531d44778dc38697861f6c5e583017d61e1473b9c078e18d7d878d0"
+        },
+        {
+          "f": 66,
+          "ms": 2640,
+          "bytes": 41980,
+          "sha256": "2f3b7287db3a4ee24c5c3703ddba41a7f7c1c0ac0fb68837a56a99f8b686f76a"
+        },
+        {
+          "f": 69,
+          "ms": 2760,
+          "bytes": 37946,
+          "sha256": "6ab8c3c009e2c47ecd512128d95bdcd776e095bcf91032e2b23ad59c736bd508"
+        },
+        {
+          "f": 72,
+          "ms": 2880,
+          "bytes": 37946,
+          "sha256": "6ab8c3c009e2c47ecd512128d95bdcd776e095bcf91032e2b23ad59c736bd508"
+        },
+        {
+          "f": 75,
+          "ms": 3000,
+          "bytes": 37946,
+          "sha256": "6ab8c3c009e2c47ecd512128d95bdcd776e095bcf91032e2b23ad59c736bd508"
+        },
+        {
+          "f": 79,
+          "ms": 3160,
+          "bytes": 37946,
+          "sha256": "6ab8c3c009e2c47ecd512128d95bdcd776e095bcf91032e2b23ad59c736bd508"
+        },
+        {
+          "f": 81,
+          "ms": 3240,
+          "bytes": 38296,
+          "sha256": "0e9f2a8785462658d79255d1ee6e0a2099974363daeb1adcd37ee66695ac3445"
+        },
+        {
+          "f": 85,
+          "ms": 3400,
+          "bytes": 31341,
+          "sha256": "436f364aafdba20d04e5e6466a78fe4c47ecdb12cba44508e330d97005620032"
+        },
+        {
+          "f": 88,
+          "ms": 3520,
+          "bytes": 16971,
+          "sha256": "d6bf9fda10151b8fcca5f4c2801510133abd7ee3c91f3f8e4995398e8daf2b12"
+        },
+        {
+          "f": 90,
+          "ms": 3600,
+          "bytes": 16288,
+          "sha256": "2339e36106d8b062ea5a7dc577116ed00e1a04da4ea14564c661de18ba25d061"
+        }
+      ]
+    }
+  ],
+  "preview": {
+    "status": "ok",
+    "omTemplate": "H.264 - Match Render Settings - 15 Mbps",
+    "aerender": {
+      "code": 0,
+      "reason": null,
+      "ms": 67626
+    },
+    "files": [
+      {
+        "compSlug": "logoshot_est_gde_razvernutsya",
+        "file": "golden/logo/logoshot_est_gde_razvernutsya/preview_half.mp4",
+        "span": 12.2,
+        "width": 1920,
+        "height": 1080,
+        "duration": 12.2,
+        "sha256": "5a10dcbfa8a78aa45f8cc647c2e1831b07eb28f18e451a2d27c46c858ec8fd13"
+      },
+      {
+        "compSlug": "logoshot_umnoe_oblako",
+        "file": "golden/logo/logoshot_umnoe_oblako/preview_half.mp4",
+        "span": 12.2,
+        "width": 1920,
+        "height": 1080,
+        "duration": 12.2,
+        "sha256": "f23ef2bf2b92901dc7dbe25f0e652c8d6c8a2bb9e54e0d660d4c4f2e380fd9d2"
+      },
+      {
+        "compSlug": "logoshoty_vertikalnyy_bez_sablayna",
+        "file": "golden/logo/logoshoty_vertikalnyy_bez_sablayna/preview_half.mp4",
+        "span": 3,
+        "width": 540,
+        "height": 960,
+        "duration": 3,
+        "sha256": "fd67d39ae339dcaf2609e072ffb9cf909d5e04430e2ef23c907c7c5fd6ef9263"
+      },
+      {
+        "compSlug": "logoshoty_vertikalnyy_bez_sablayna_s_plashkoy",
+        "file": "golden/logo/logoshoty_vertikalnyy_bez_sablayna_s_plashkoy/preview_half.mp4",
+        "span": 3,
+        "width": 540,
+        "height": 960,
+        "duration": 3,
+        "sha256": "251ff03ae806f3bd9175f57cfee8f212575a240616f17f5b2dd937d1d92eb267"
+      },
+      {
+        "compSlug": "logoshoty_vertikalnyy_umnoe_oblako",
+        "file": "golden/logo/logoshoty_vertikalnyy_umnoe_oblako/preview_half.mp4",
+        "span": 3.64,
+        "width": 540,
+        "height": 960,
+        "duration": 3.64,
+        "sha256": "d19e9569e0a2cbd2a69262e21107e9603904492d912733bd9e963f8b7b69fdbc"
+      },
+      {
+        "compSlug": "logoshoty_vertikalnyy_umnoe_oblako_zapasnoy_variant",
+        "file": "golden/logo/logoshoty_vertikalnyy_umnoe_oblako_zapasnoy_variant/preview_half.mp4",
+        "span": 3.64,
+        "width": 540,
+        "height": 960,
+        "duration": 3.64,
+        "sha256": "5da2ca37bd43d4d2eb2177de10d2f1d4ee5d1bd8702238c138a1cac87403df5f"
+      }
+    ],
+    "failed": [],
+    "date": "2026-10-02"
+  },
+  "review": [
+    {
+      "date": "2026-10-02",
+      "ok": true,
+      "text": "logoshot_umnoe_oblako t2000/t4000/t7000/t11000 checked: SB Sans, full 3840x2160; the animation ends at ~5 s and the 12.2 s ROOT stays empty after it, as in the source (one precomp + background solid)"
+    }
+  ]
+}
