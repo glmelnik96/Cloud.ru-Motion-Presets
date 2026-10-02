@@ -1,0 +1,21 @@
+{
+  "source": "docs/research/2026-10-02/audit_*.json: brand_elements and templates[].build_notes",
+  "copies": [
+    { "slug": "logo", "comp": "Умное облако", "cube": "LOGO", "wordmark": "Cloud.ru" },
+    { "slug": "logo", "comp": "Есть где развернуться", "cube": "LOGO 2", "wordmark": "Cloud.ru 2" },
+    { "slug": "logo", "comp": "Логошот без саблайна", "cube": "Layer 3 Outlines 2", "wordmark": "Layer 2 Outlines 2" },
+    { "slug": "logo", "comp": "Логошоты вертикальный_Умное облако", "cube": "LOGO", "wordmark": "Cloud.ru" },
+    { "slug": "logo_conv", "comp": "Умное облако", "cube": "LOGO", "wordmark": "Cloud.ru" },
+    { "slug": "logo_conv", "comp": "Есть где развернуться", "cube": "LOGO 2", "wordmark": "Cloud.ru 2" },
+    { "slug": "logo_conv", "comp": "Логошот без саблайна", "cube": "Layer 3 Outlines 2", "wordmark": "Layer 2 Outlines 2" },
+    { "slug": "logo_conv", "comp": "Логошоты вертикальный_Умное облако", "cube": "LOGO", "wordmark": "Cloud.ru" },
+    { "slug": "webinars", "comp": "Logo", "cube": "Layer 4 Outlines 3", "wordmark": "Layer 3 Outlines 3" },
+    { "slug": "courses", "comp": "Logo", "cube": "Layer 4 Outlines 3", "wordmark": "Layer 3 Outlines 3" },
+    { "slug": "courses_conv", "comp": "Logo", "cube": "Layer 4 Outlines 3", "wordmark": "Layer 3 Outlines 3" },
+    { "slug": "smm", "comp": "Cloud.ru_BlackMono", "cube": "Layer 4 Outlines", "wordmark": "Layer 3 Outlines" },
+    { "slug": "smm", "comp": "Cloud.ru_BlackMono 3", "cube": "Layer 4 Outlines", "wordmark": "Layer 3 Outlines" },
+    { "slug": "podcast", "comp": "Cloud.ru_WhiteColour", "cube": "Layer 4 Outlines", "wordmark": "Layer 3 Outlines" },
+    { "slug": "podcast", "comp": "Cloud.ru_BlackColour", "cube": "Layer 4 Outlines", "wordmark": "Layer 3 Outlines" },
+    { "slug": "podcast", "comp": "Есть где развернуться", "cube": "LOGO 2", "wordmark": "Cloud.ru 2" }
+  ]
+}

@@ -2937,6 +2937,8 @@ Expected — один из двух вариантов:
 
 Долго: `aerender` стартует ~25 с на пакет и рендерит все ROOT-композиции, у длинных — первые 60 с. Запускать в фоне.
 
+Пока команда идёт, других команд для AE не запускать. Для каждого пакета она сначала собирает в открытом AE проект очереди рендера `<slug>_preview_rq.aep` и только потом зовёт `aerender`. Дамп (задача 6), запущенный параллельно 2026-10-02, получил `WRONG_PROJECT` на семи композициях подкаста. Копии не пострадали, но дамп пакета пришлось повторить.
+
 Run: `node tools/golden/render.mjs previews --all`
 Expected:
 - `<slug>: preview ok` у каждого пакета с эталоном. У превью ROOT-композиции длиннее минуты в манифесте (`preview.files`) стоит `"span": 60`, у остальных `span` равен длительности композиции;
@@ -4914,7 +4916,7 @@ describe('colors', () => {
 ```js
 import { describe, it, expect } from 'vitest';
 import {
-  applyPoint, bbox, compareOutlines, fingerprint, groupMatrix, multiply, normalize, pathData, samplePolyline, transformSubpath,
+  applyPoint, bbox, compareOutlines, dropPlate, fingerprint, groupMatrix, multiply, normalize, pathData, samplePolyline, transformSubpath,
 } from '../../tools/dump/geometry.mjs';
 
 const poly = (pts, closed = true) => ({
@@ -4991,6 +4993,19 @@ describe('geometry', () => {
     const s2 = poly([[2, 2], [3, 2], [3, 3]]);
     expect(fingerprint([s1, s2])).toBe(fingerprint([s2, s1]));
     expect(fingerprint([s1, s2])).not.toBe(fingerprint([s1, poly([[2, 2], [3, 2], [3, 3.1]])]));
+  });
+
+  it('drops a plate: an axis-aligned rectangle around all other contours (AE 26.5 dumps, logo D18)', () => {
+    const glyph = poly([[2, 2], [3, 2], [3, 4]]);
+    const plate = poly([[0, 0], [10, 0], [10, 6], [0, 6]]);
+    expect(dropPlate([plate, glyph])).toEqual({ subpaths: [glyph], dropped: true });
+    const touching = poly([[2, 0.005], [3, 0.005], [3, 4]]); // ends 0.005 above the plate top: within 0.2 %
+    expect(dropPlate([plate, touching]).dropped).toBe(true);
+    const inner = poly([[2.5, 2.5], [2.8, 2.5], [2.8, 2.8], [2.5, 2.8]]);
+    expect(dropPlate([glyph, inner]).dropped).toBe(false);
+    expect(dropPlate([plate]).dropped).toBe(false);
+    const tilted = poly([[0, 0], [10, 1], [10, 6], [0, 6]]);
+    expect(dropPlate([tilted, glyph]).dropped).toBe(false);
   });
 
   it('writes SVG path data', () => {
@@ -5209,6 +5224,37 @@ export function bbox(points) {
   return { x0, y0, x1, y1, w: x1 - x0, h: y1 - y0 };
 }
 
+// A plate in the same shape layer: a closed, straight-edged, axis-aligned rectangle whose box holds every
+// other contour. Several wordmark copies carry one (11 contours instead of 10, "Merge Paths: 2"); left in,
+// it sets the normalized box and the letters look 9 % off. It is not part of the logo, so it is dropped.
+function isPlateFor(sp, others) {
+  if (!sp.closed || sp.vertices.length !== 4) return false;
+  const flat = (t) => t.every(([x, y]) => Math.abs(x) < 1e-6 && Math.abs(y) < 1e-6);
+  if (!flat(sp.inTangents) || !flat(sp.outTangents)) return false;
+  const v = sp.vertices;
+  for (let i = 0; i < 4; i += 1) {
+    const a = v[i];
+    const b = v[(i + 1) % 4];
+    if (Math.abs(a[0] - b[0]) > 1e-6 && Math.abs(a[1] - b[1]) > 1e-6) return false;
+  }
+  const box = bbox(v);
+  const inner = bbox(others.flatMap((o) => samplePolyline(o)));
+  // The letters may touch the plate edge (seen: a wordmark whose "l" ends on the plate top), so the box
+  // test allows 0.2 % of the plate size.
+  const eps = 0.002 * Math.max(box.w, box.h);
+  return box.w > 0 && box.h > 0 && inner.x0 >= box.x0 - eps && inner.y0 >= box.y0 - eps &&
+    inner.x1 <= box.x1 + eps && inner.y1 <= box.y1 + eps;
+}
+
+export function dropPlate(subpaths) {
+  if (subpaths.length < 2) return { subpaths, dropped: false };
+  for (let i = 0; i < subpaths.length; i += 1) {
+    const others = subpaths.filter((_, j) => j !== i);
+    if (isPlateFor(subpaths[i], others)) return { subpaths: others, dropped: true };
+  }
+  return { subpaths, dropped: false };
+}
+
 // Translate the outline box to the origin and scale it to unit width (aspect kept).
 export function normalize(subpaths, steps = 16) {
   const box = bbox(subpaths.flatMap((sp) => samplePolyline(sp, steps)));
@@ -5327,7 +5373,7 @@ export function pathData(subpaths, k = 1) {
 - [ ] **Step 6: Запустить тесты**
 
 Run: `npx vitest run tests/dump/colors.test.mjs tests/dump/geometry.test.mjs`
-Expected: `17 passed`.
+Expected: `18 passed`.
 
 - [ ] **Step 7: Написать падающий тест сверки `tests/dump/logo-diff.test.mjs`**
 
@@ -5518,7 +5564,7 @@ import { fileURLToPath } from 'node:url';
 import { workPath } from '../lib/work.mjs';
 import { deltaE2000Hex } from '../color/deltae.mjs';
 import { classify, layerColors, loadPalette, normalizeHex } from './colors.mjs';
-import { compareOutlines, fingerprint, groupMatrix, IDENTITY, multiply, normalize, pathData, transformSubpath } from './geometry.mjs';
+import { compareOutlines, dropPlate, fingerprint, groupMatrix, IDENTITY, multiply, normalize, pathData, transformSubpath } from './geometry.mjs';
 import { child, layerProp, loadDumpRoot } from './model.mjs';
 
 const require = createRequire(import.meta.url);
@@ -5663,7 +5709,9 @@ function analysePart(part, copies, masterSubpaths) {
     c.shape = extractShape(c.layerData);
     if (!c.shape.subpaths.length) { c.error = 'нет контуров'; continue; }
     try {
-      c.norm = normalize(c.shape.subpaths);
+      const plate = dropPlate(c.shape.subpaths); // a plate in the same shape is not part of the logo
+      c.plateDropped = plate.dropped;
+      c.norm = normalize(plate.subpaths);
     } catch (e) {
       c.error = e.message;
       continue;
@@ -5755,6 +5803,7 @@ export function renderReport(analysis, { missing = [], palette, master, meta = {
       if (c.error) notes.push(c.error);
       if (s.ignored.length) notes.push(`без учёта: ${s.ignored.join(', ')}`);
       if (s.merges) notes.push(`Merge Paths: ${s.merges}`);
+      if (c.plateDropped) notes.push('плашка-прямоугольник в той же фигуре не сравнивается');
       if (s.offSkipped) notes.push(`выключено: ${s.offSkipped}`);
       const sc = s.layerScale ? `${s.layerScale[0]} × ${s.layerScale[1]} %` + (Math.abs(s.layerScale[0] - s.layerScale[1]) > 1e-6 ? ' (неравномерно)' : '') : '—';
       L.push(`| ${c.group || '—'} | ${esc(c.slug)} | ${esc(compCell(c))} | ${esc(c.layer)} | ${c.source} | ${s.pathCount} | ${sc} | ${esc(notes.join('; ') || '—')} |`);
@@ -5855,7 +5904,7 @@ if (isMain) {
 - [ ] **Step 11: Запустить тесты**
 
 Run: `npx vitest run tests/dump/colors.test.mjs tests/dump/geometry.test.mjs tests/dump/logo-diff.test.mjs`
-Expected: `25 passed`.
+Expected: `26 passed`.
 
 - [ ] **Step 12: Собрать отчёт по дампам задачи 6**
 
