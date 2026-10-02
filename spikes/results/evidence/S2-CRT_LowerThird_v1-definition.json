@@ -1,0 +1,591 @@
+{
+  "aelibCompliantVersion": "201710",
+  "apiVersion": "2.2",
+  "authorApp": "aefx",
+  "authorID": "",
+  "capsuleID": "8dbd64b4-19d7-48ab-af3b-518422f8b7a6",
+  "capsuleName": "CRT_LowerThird_v1",
+  "capsuleNameLocalized": {
+    "strDB": [
+      {
+        "localeString": "en_US",
+        "str": "CRT_LowerThird_v1"
+      }
+    ]
+  },
+  "capsuleTags": [],
+  "clientControls": [
+    {
+      "cacheID": "00000000-0000-0000-0000-000000000000",
+      "canAnimate": true,
+      "endtime": 256000,
+      "height": 400,
+      "id": "c41f38fd-5693-40cf-9e98-517555d6b93e",
+      "isExpanded": true,
+      "scale": 2,
+      "starttime": 0,
+      "thumbnail": "1ad2dead-9ba6-4186-9f88-92c375f219ab.png",
+      "timescale": 25600,
+      "type": 14,
+      "uiName": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": "Фото"
+          }
+        ]
+      },
+      "uiSuffix": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "uiToolTip": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "width": 400
+    },
+    {
+      "canAnimate": true,
+      "id": "71481a0d-d396-46e3-9f57-9a7f1975f8e0",
+      "menucontent": [
+        {
+          "strDB": [
+            {
+              "localeString": "en_US",
+              "str": "Dark"
+            }
+          ]
+        },
+        {
+          "strDB": [
+            {
+              "localeString": "en_US",
+              "str": "Light"
+            }
+          ]
+        }
+      ],
+      "type": 13,
+      "uiName": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": "Стиль"
+          }
+        ]
+      },
+      "uiSuffix": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "uiToolTip": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "value": 1
+    },
+    {
+      "canAnimate": true,
+      "id": "b3855382-4a53-45ad-a124-bba5c62222fa",
+      "type": 4,
+      "uiName": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": "Акцент"
+          }
+        ]
+      },
+      "uiSuffix": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "uiToolTip": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "value": [
+        0.1490200012922287,
+        0.8156899809837341,
+        0.486270010471344,
+        1
+      ]
+    },
+    {
+      "canAnimate": true,
+      "id": "618a576e-a2d5-4ac3-8e54-955a3350c5a5",
+      "max": 100,
+      "min": 0,
+      "type": 2,
+      "uiName": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": "Длительность (служебное, не менять)"
+          }
+        ]
+      },
+      "uiSuffix": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "uiToolTip": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "value": 10
+    },
+    {
+      "canAnimate": true,
+      "id": "ed25a649-65a6-4832-97c6-ae070183d747",
+      "type": 1,
+      "uiName": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": "Показать должность"
+          }
+        ]
+      },
+      "uiSuffix": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "uiToolTip": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "value": true
+    },
+    {
+      "alternateRectInfo": {
+        "compId": -1,
+        "isEnabled": false,
+        "layerId": -1
+      },
+      "canAnimate": true,
+      "fonteditinfo": {
+        "capPropFontEdit": false,
+        "capPropFontFauxStyleEdit": false,
+        "capPropFontSizeEdit": false,
+        "fontEditValue": "SBSansText-Regular",
+        "fontFSAllCapsValue": false,
+        "fontFSBoldValue": false,
+        "fontFSItalicValue": false,
+        "fontFSSmallCapsValue": false,
+        "fontSizeEditValue": 40
+      },
+      "id": "32e8abc4-f0ce-4986-a994-961755e6e883",
+      "type": 6,
+      "uiName": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": "Должность"
+          }
+        ]
+      },
+      "uiSuffix": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "uiToolTip": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "value": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": "Должность"
+          }
+        ]
+      }
+    },
+    {
+      "alternateRectInfo": {
+        "compId": -1,
+        "isEnabled": false,
+        "layerId": -1
+      },
+      "canAnimate": true,
+      "fonteditinfo": {
+        "capPropFontEdit": false,
+        "capPropFontFauxStyleEdit": false,
+        "capPropFontSizeEdit": false,
+        "fontEditValue": "SBSansDisplay-Semibold",
+        "fontFSAllCapsValue": false,
+        "fontFSBoldValue": false,
+        "fontFSItalicValue": false,
+        "fontFSSmallCapsValue": false,
+        "fontSizeEditValue": 60
+      },
+      "id": "779cb8e7-ffde-4479-ae65-6d0cf69f2551",
+      "type": 6,
+      "uiName": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": "Имя"
+          }
+        ]
+      },
+      "uiSuffix": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "uiToolTip": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "value": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": "Имя Фамилия"
+          }
+        ]
+      }
+    }
+  ],
+  "description": "",
+  "internalEffectsOnlyVersion": "0",
+  "licenseID": "",
+  "mobileCompatibilityVersion": "201904",
+  "platformSupport": [
+    "ppro"
+  ],
+  "responsiveDesignVersion": "201810",
+  "sourceInfoLocalized": {
+    "en_US": {
+      "alphachanneltype": 1,
+      "alphamattecolorb": 0,
+      "alphamattecolorg": 0,
+      "alphamattecolorr": 0,
+      "anywhereassetrequestinfo": {
+        "mAssetInfo": {
+          "mAssetIdentifier": "",
+          "mProductionIdentifier": "",
+          "mProductionRevision": ""
+        },
+        "mServerConnectInfo": {
+          "mAuthToken": "",
+          "mEARPort": "",
+          "mUserName": ""
+        }
+      },
+      "anywhereproductionrequestinfo": {
+        "mProductionInfo": {
+          "mDisplayName": "",
+          "mProductionIdentifier": "",
+          "mRevision": ""
+        },
+        "mServerConnectInfo": {
+          "mAuthToken": "",
+          "mEARPort": "",
+          "mUserName": ""
+        }
+      },
+      "appspecificsourceinfo": "{\"applicationID\":\"AfterEffects\",\"artisanQuality\":0,\"capsuleparamvalues\":{\"capParamValues\":[]},\"downSampleX\":1,\"downSampleY\":1,\"enableMenaIndic\":false,\"fieldType\":4,\"flatArtisanOptions\":[0,0,0,1,0,0,0,0,0,0,0,0],\"needsToPatchSourceForDownsample\":false,\"renderguidelayers\":false,\"stretchFactor\":1,\"stretchOffset\":0,\"useAELib\":false,\"version\":10}",
+      "audiochannellayout": [
+        {
+          "channellabel": 100
+        },
+        {
+          "channellabel": 101
+        }
+      ],
+      "audiosamplerate": {
+        "ticksperframe": 5292000
+      },
+      "capsuleparams": {
+        "capParams": [
+          {
+            "capPropAnimatable": false,
+            "capPropDefault": "00000000-0000-0000-0000-000000000000",
+            "capPropExpanded": true,
+            "capPropMatchName": "c41f38fd-5693-40cf-9e98-517555d6b93e",
+            "capPropType": 11,
+            "capPropUIName": "Фото",
+            "endtime": 256000,
+            "height": 400,
+            "mediareplacementversion": 1,
+            "scale": 2,
+            "starttime": 0,
+            "thumbnail": "1ad2dead-9ba6-4186-9f88-92c375f219ab.png",
+            "timescale": 25600,
+            "width": 400
+          },
+          {
+            "capPropAnimatable": false,
+            "capPropDefault": 1,
+            "capPropMatchName": "71481a0d-d396-46e3-9f57-9a7f1975f8e0",
+            "capPropType": 10,
+            "capPropUIName": "Стиль",
+            "menuContent": [
+              "Dark",
+              "Light"
+            ]
+          },
+          {
+            "capPropAnimatable": false,
+            "capPropDefault": [
+              0.1490200012922287,
+              0.8156899809837341,
+              0.486270010471344,
+              1
+            ],
+            "capPropMatchName": "b3855382-4a53-45ad-a124-bba5c62222fa",
+            "capPropType": 3,
+            "capPropUIName": "Акцент"
+          },
+          {
+            "capPropAnimatable": false,
+            "capPropDecimals": 0,
+            "capPropDefault": 10,
+            "capPropMatchName": "618a576e-a2d5-4ac3-8e54-955a3350c5a5",
+            "capPropMax": 100,
+            "capPropMin": 0,
+            "capPropType": 1,
+            "capPropUIName": "Длительность (служебное, не менять)"
+          },
+          {
+            "capPropAnimatable": false,
+            "capPropDefault": true,
+            "capPropMatchName": "ed25a649-65a6-4832-97c6-ae070183d747",
+            "capPropType": 2,
+            "capPropUIName": "Показать должность"
+          },
+          {
+            "capPropAnimatable": false,
+            "capPropDefault": "Должность",
+            "capPropFontEdit": false,
+            "capPropFontFauxStyleEdit": false,
+            "capPropFontSizeEdit": false,
+            "capPropMatchName": "32e8abc4-f0ce-4986-a994-961755e6e883",
+            "capPropTextRunCount": 1,
+            "capPropType": 0,
+            "capPropUIName": "Должность",
+            "fontEditValue": [
+              "SBSansText-Regular"
+            ],
+            "fontFSAllCapsValue": [
+              false
+            ],
+            "fontFSBoldValue": [
+              false
+            ],
+            "fontFSItalicValue": [
+              false
+            ],
+            "fontFSSmallCapsValue": [
+              false
+            ],
+            "fontSizeEditValue": [
+              40
+            ],
+            "fontTextRunLength": [
+              9
+            ],
+            "textEditValue": "Должность"
+          },
+          {
+            "capPropAnimatable": false,
+            "capPropDefault": "Имя Фамилия",
+            "capPropFontEdit": false,
+            "capPropFontFauxStyleEdit": false,
+            "capPropFontSizeEdit": false,
+            "capPropMatchName": "779cb8e7-ffde-4479-ae65-6d0cf69f2551",
+            "capPropTextRunCount": 1,
+            "capPropType": 0,
+            "capPropUIName": "Имя",
+            "fontEditValue": [
+              "SBSansDisplay-Semibold"
+            ],
+            "fontFSAllCapsValue": [
+              false
+            ],
+            "fontFSBoldValue": [
+              false
+            ],
+            "fontFSItalicValue": [
+              false
+            ],
+            "fontFSSmallCapsValue": [
+              false
+            ],
+            "fontSizeEditValue": [
+              60
+            ],
+            "fontTextRunLength": [
+              11
+            ],
+            "textEditValue": "Имя Фамилия"
+          }
+        ]
+      },
+      "colorAwareEffectsEnabled": 0,
+      "colorSpace": {
+        "baseColorProfile": {
+          "colorProfileName": "BT.709 RGB Full"
+        },
+        "baseProfileType": 1
+      },
+      "contentcredentialsinfo": "{\"ccdataarray\":[{\"path\":\"C:\\\\CRBK\\\\work\\\\fixtures\\\\media\\\\slot_a.png\",\"start\":0,\"end\":2540160000000,\"isVideo\":true,\"type\":0}]}",
+      "currenttime": {
+        "scale": 1,
+        "value": 0
+      },
+      "duration": {
+        "scale": 1,
+        "value": 10
+      },
+      "enableLogColorManagement": false,
+      "fieldtype": 4,
+      "framerate": {
+        "ticksperframe": 10160640000
+      },
+      "framesize": {
+        "size": {
+          "x": 1920,
+          "y": 1080
+        },
+        "topleft": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "graphicsWhiteLuminance": 100,
+      "hasFrozenUnstretchableRegions": true,
+      "hasaudio": false,
+      "hasvideo": true,
+      "id": "00000002-0000-0000-0000-000000000000",
+      "initialcontentstate": "6fa8de2d-5aed-9b9b-85f1-fc13f8c7526b",
+      "inpoint": {
+        "scale": 1,
+        "value": -400000
+      },
+      "isdropframe": false,
+      "ismedia": false,
+      "isxmpwritable": false,
+      "mediaproducerdescription": "",
+      "missingassets": {
+        "missAssetsOfflineMasks": false,
+        "missAssetsPropMissingFonts": [],
+        "missAssetsPropMissingFootage": [],
+        "missAssetsPropMissingPlugins": []
+      },
+      "name": "CRT_LowerThird_v1",
+      "nativefieldtype": 4,
+      "outpoint": {
+        "scale": 1,
+        "value": -400000
+      },
+      "parentprojectfile": "C:\\dev\\temp\\aegraphic\\a7612250-04a6-48fd-bb26-f7b2d9402f99\\aemogrtFiles\\",
+      "pixelaspectratio": {
+        "denominator": 1,
+        "numerator": 1
+      },
+      "pixelformatlist": [
+        {
+          "fourcc": 1650946625,
+          "properties": 532772
+        },
+        {
+          "fourcc": 1634887490,
+          "properties": 524580
+        }
+      ],
+      "sourceBitrate": 0,
+      "starttime": {
+        "scale": 1,
+        "value": 0
+      },
+      "supportsvideorenderingsessions": true,
+      "teamProjectName": "",
+      "workinpoint": {
+        "scale": 1,
+        "value": 0
+      },
+      "workoutpoint": {
+        "scale": 1,
+        "value": 10
+      }
+    }
+  },
+  "typekitOnlyVersion": "0",
+  "usedCompRenderers": [
+    "ADBE Escher"
+  ],
+  "usedEffects": [
+    "ADBE Checkbox Control",
+    "ADBE Color Control",
+    "ADBE Slider Control"
+  ],
+  "usedFileTypes": [
+    ".png"
+  ],
+  "usedFontsLocalized": {
+    "en_US": [
+      "SBSansDisplay-Semibold",
+      "SBSansText-Regular"
+    ]
+  }
+}

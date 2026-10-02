@@ -1,0 +1,216 @@
+{
+  "aelibCompliantVersion": "201710",
+  "apiVersion": "2.2",
+  "authorApp": "aefx",
+  "authorID": "",
+  "capsuleID": "946d17d6-42b1-48bb-a571-13f5f90489c2",
+  "capsuleName": "CRT_Hatch_v1",
+  "capsuleNameLocalized": {
+    "strDB": [
+      {
+        "localeString": "en_US",
+        "str": "CRT_Hatch_v1"
+      }
+    ]
+  },
+  "capsuleTags": [],
+  "clientControls": [
+    {
+      "canAnimate": true,
+      "id": "0b640517-644e-4870-a3d0-a0a50e034277",
+      "max": 100,
+      "min": 0,
+      "type": 2,
+      "uiName": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": "Длительность (служебное, не менять)"
+          }
+        ]
+      },
+      "uiSuffix": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "uiToolTip": {
+        "strDB": [
+          {
+            "localeString": "en_US",
+            "str": ""
+          }
+        ]
+      },
+      "value": 10
+    }
+  ],
+  "description": "",
+  "internalEffectsOnlyVersion": "0",
+  "licenseID": "",
+  "mobileCompatibilityVersion": "201904",
+  "platformSupport": [
+    "ppro"
+  ],
+  "responsiveDesignVersion": "0",
+  "sourceInfoLocalized": {
+    "en_US": {
+      "alphachanneltype": 1,
+      "alphamattecolorb": 0,
+      "alphamattecolorg": 0,
+      "alphamattecolorr": 0,
+      "anywhereassetrequestinfo": {
+        "mAssetInfo": {
+          "mAssetIdentifier": "",
+          "mProductionIdentifier": "",
+          "mProductionRevision": ""
+        },
+        "mServerConnectInfo": {
+          "mAuthToken": "",
+          "mEARPort": "",
+          "mUserName": ""
+        }
+      },
+      "anywhereproductionrequestinfo": {
+        "mProductionInfo": {
+          "mDisplayName": "",
+          "mProductionIdentifier": "",
+          "mRevision": ""
+        },
+        "mServerConnectInfo": {
+          "mAuthToken": "",
+          "mEARPort": "",
+          "mUserName": ""
+        }
+      },
+      "appspecificsourceinfo": "{\"applicationID\":\"AfterEffects\",\"artisanQuality\":0,\"capsuleparamvalues\":{\"capParamValues\":[]},\"downSampleX\":1,\"downSampleY\":1,\"enableMenaIndic\":false,\"fieldType\":4,\"flatArtisanOptions\":[0,0,0,1,0,0,0,0,0,0,0,0],\"needsToPatchSourceForDownsample\":false,\"renderguidelayers\":false,\"stretchFactor\":1,\"stretchOffset\":0,\"useAELib\":false,\"version\":10}",
+      "audiochannellayout": [
+        {
+          "channellabel": 100
+        },
+        {
+          "channellabel": 101
+        }
+      ],
+      "audiosamplerate": {
+        "ticksperframe": 5292000
+      },
+      "capsuleparams": {
+        "capParams": [
+          {
+            "capPropAnimatable": false,
+            "capPropDecimals": 0,
+            "capPropDefault": 10,
+            "capPropMatchName": "0b640517-644e-4870-a3d0-a0a50e034277",
+            "capPropMax": 100,
+            "capPropMin": 0,
+            "capPropType": 1,
+            "capPropUIName": "Длительность (служебное, не менять)"
+          }
+        ]
+      },
+      "colorAwareEffectsEnabled": 0,
+      "colorSpace": {
+        "baseColorProfile": {
+          "colorProfileName": "BT.709 RGB Full"
+        },
+        "baseProfileType": 1
+      },
+      "contentcredentialsinfo": "",
+      "currenttime": {
+        "scale": 1,
+        "value": 0
+      },
+      "duration": {
+        "scale": 1,
+        "value": 60
+      },
+      "enableLogColorManagement": false,
+      "fieldtype": 4,
+      "framerate": {
+        "ticksperframe": 10160640000
+      },
+      "framesize": {
+        "size": {
+          "x": 1920,
+          "y": 1080
+        },
+        "topleft": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "graphicsWhiteLuminance": 100,
+      "hasFrozenUnstretchableRegions": false,
+      "hasaudio": false,
+      "hasvideo": true,
+      "id": "00000019-0000-0000-0000-000000000000",
+      "initialcontentstate": "54e9a04d-8091-3d81-c6b6-c3cd2a862833",
+      "inpoint": {
+        "scale": 1,
+        "value": -400000
+      },
+      "isdropframe": false,
+      "ismedia": false,
+      "isxmpwritable": false,
+      "mediaproducerdescription": "",
+      "missingassets": {
+        "missAssetsOfflineMasks": false,
+        "missAssetsPropMissingFonts": [],
+        "missAssetsPropMissingFootage": [],
+        "missAssetsPropMissingPlugins": []
+      },
+      "name": "CRT_Hatch_v1",
+      "nativefieldtype": 4,
+      "outpoint": {
+        "scale": 1,
+        "value": -400000
+      },
+      "parentprojectfile": "C:\\dev\\temp\\aegraphic\\c16916f7-2f67-4a62-8648-2746426f91b3\\aemogrtFiles\\",
+      "pixelaspectratio": {
+        "denominator": 1,
+        "numerator": 1
+      },
+      "pixelformatlist": [
+        {
+          "fourcc": 1650946625,
+          "properties": 532772
+        },
+        {
+          "fourcc": 1634887490,
+          "properties": 524580
+        }
+      ],
+      "sourceBitrate": 0,
+      "starttime": {
+        "scale": 1,
+        "value": 0
+      },
+      "supportsvideorenderingsessions": true,
+      "teamProjectName": "",
+      "workinpoint": {
+        "scale": 1,
+        "value": 0
+      },
+      "workoutpoint": {
+        "scale": 1,
+        "value": 60
+      }
+    }
+  },
+  "typekitOnlyVersion": "201710",
+  "usedCompRenderers": [
+    "ADBE Escher"
+  ],
+  "usedEffects": [
+    "ADBE Checkbox Control",
+    "ADBE Slider Control"
+  ],
+  "usedFileTypes": [],
+  "usedFontsLocalized": {
+    "en_US": []
+  }
+}

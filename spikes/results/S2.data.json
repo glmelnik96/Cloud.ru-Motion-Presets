@@ -1,0 +1,231 @@
+{
+  "phases": [
+    {
+      "comp": "CRT_LowerThird_v1",
+      "again": false,
+      "probe": {
+        "comp": "CRT_LowerThird_v1",
+        "templateName": "CRT_LowerThird_v1",
+        "overwrite": true,
+        "returned": true,
+        "callMs": 6709,
+        "controllerCount": 7,
+        "dirtyAfterOpenInEGP": true,
+        "hostVersion": "26.5x89"
+      },
+      "wait": {
+        "ok": true,
+        "file": "C:/CRBK/work/mogrt/CRT_LowerThird_v1.mogrt",
+        "size": 129154,
+        "mtimeMs": 1790967436402.136,
+        "waitedMs": 2074
+      },
+      "otherNewMogrts": [],
+      "mogrt": {
+        "entries": [
+          "definition.json",
+          "project.aegraphic",
+          "thumb.mp4",
+          "thumb.png"
+        ],
+        "capsuleID": "8dbd64b4-19d7-48ab-af3b-518422f8b7a6",
+        "capsuleName": "CRT_LowerThird_v1",
+        "controls": [
+          {
+            "id": "c41f38fd-5693-40cf-9e98-517555d6b93e",
+            "type": 14,
+            "kind": "type14",
+            "names": [
+              "Фото"
+            ]
+          },
+          {
+            "id": "71481a0d-d396-46e3-9f57-9a7f1975f8e0",
+            "type": 13,
+            "kind": "type13",
+            "names": [
+              "Стиль"
+            ]
+          },
+          {
+            "id": "b3855382-4a53-45ad-a124-bba5c62222fa",
+            "type": 4,
+            "kind": "color",
+            "names": [
+              "Акцент"
+            ]
+          },
+          {
+            "id": "618a576e-a2d5-4ac3-8e54-955a3350c5a5",
+            "type": 2,
+            "kind": "slider",
+            "names": [
+              "Длительность (служебное, не менять)"
+            ]
+          },
+          {
+            "id": "ed25a649-65a6-4832-97c6-ae070183d747",
+            "type": 1,
+            "kind": "checkbox",
+            "names": [
+              "Показать должность"
+            ]
+          },
+          {
+            "id": "32e8abc4-f0ce-4986-a994-961755e6e883",
+            "type": 6,
+            "kind": "text",
+            "names": [
+              "Должность"
+            ]
+          },
+          {
+            "id": "779cb8e7-ffde-4479-ae65-6d0cf69f2551",
+            "type": 6,
+            "kind": "text",
+            "names": [
+              "Имя"
+            ]
+          }
+        ]
+      },
+      "definitionFile": "spikes/results/evidence/S2-CRT_LowerThird_v1-definition.json"
+    },
+    {
+      "comp": "CRT_Hatch_v1",
+      "again": false,
+      "probe": {
+        "comp": "CRT_Hatch_v1",
+        "templateName": "CRT_Hatch_v1",
+        "overwrite": true,
+        "returned": true,
+        "callMs": 84582,
+        "controllerCount": 1,
+        "dirtyAfterOpenInEGP": true,
+        "hostVersion": "26.5x89"
+      },
+      "wait": {
+        "ok": true,
+        "file": "C:/CRBK/work/mogrt/CRT_Hatch_v1.mogrt",
+        "size": 12078780,
+        "mtimeMs": 1790967523243.2546,
+        "waitedMs": 2076
+      },
+      "otherNewMogrts": [],
+      "mogrt": {
+        "entries": [
+          "definition.json",
+          "project.aegraphic",
+          "thumb.mp4",
+          "thumb.png"
+        ],
+        "capsuleID": "946d17d6-42b1-48bb-a571-13f5f90489c2",
+        "capsuleName": "CRT_Hatch_v1",
+        "controls": [
+          {
+            "id": "0b640517-644e-4870-a3d0-a0a50e034277",
+            "type": 2,
+            "kind": "slider",
+            "names": [
+              "Длительность (служебное, не менять)"
+            ]
+          }
+        ]
+      },
+      "definitionFile": "spikes/results/evidence/S2-CRT_Hatch_v1-definition.json"
+    },
+    {
+      "comp": "CRT_LowerThird_v1",
+      "again": true,
+      "probe": {
+        "comp": "CRT_LowerThird_v1",
+        "templateName": "CRT_LowerThird_v1",
+        "overwrite": true,
+        "returned": true,
+        "callMs": 8428,
+        "controllerCount": 7,
+        "dirtyAfterOpenInEGP": true,
+        "hostVersion": "26.5x89"
+      },
+      "wait": {
+        "ok": true,
+        "file": "C:/CRBK/work/mogrt/CRT_LowerThird_v1.mogrt",
+        "size": 129081,
+        "mtimeMs": 1790967537322.608,
+        "waitedMs": 2076
+      },
+      "otherNewMogrts": [],
+      "mogrt": {
+        "entries": [
+          "definition.json",
+          "project.aegraphic",
+          "thumb.mp4",
+          "thumb.png"
+        ],
+        "capsuleID": "f4a10682-c1c5-44d8-9666-cda268a48732",
+        "capsuleName": "CRT_LowerThird_v1",
+        "controls": [
+          {
+            "id": "c41f38fd-5693-40cf-9e98-517555d6b93e",
+            "type": 14,
+            "kind": "type14",
+            "names": [
+              "Фото"
+            ]
+          },
+          {
+            "id": "71481a0d-d396-46e3-9f57-9a7f1975f8e0",
+            "type": 13,
+            "kind": "type13",
+            "names": [
+              "Стиль"
+            ]
+          },
+          {
+            "id": "b3855382-4a53-45ad-a124-bba5c62222fa",
+            "type": 4,
+            "kind": "color",
+            "names": [
+              "Акцент"
+            ]
+          },
+          {
+            "id": "618a576e-a2d5-4ac3-8e54-955a3350c5a5",
+            "type": 2,
+            "kind": "slider",
+            "names": [
+              "Длительность (служебное, не менять)"
+            ]
+          },
+          {
+            "id": "ed25a649-65a6-4832-97c6-ae070183d747",
+            "type": 1,
+            "kind": "checkbox",
+            "names": [
+              "Показать должность"
+            ]
+          },
+          {
+            "id": "32e8abc4-f0ce-4986-a994-961755e6e883",
+            "type": 6,
+            "kind": "text",
+            "names": [
+              "Должность"
+            ]
+          },
+          {
+            "id": "779cb8e7-ffde-4479-ae65-6d0cf69f2551",
+            "type": 6,
+            "kind": "text",
+            "names": [
+              "Имя"
+            ]
+          }
+        ]
+      },
+      "definitionFile": "spikes/results/evidence/S2-CRT_LowerThird_v1-again-definition.json",
+      "capsuleBefore": "8dbd64b4-19d7-48ab-af3b-518422f8b7a6",
+      "capsuleSame": false
+    }
+  ]
+}

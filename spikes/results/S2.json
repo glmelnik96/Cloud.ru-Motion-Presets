@@ -1,0 +1,206 @@
+{
+  "id": "S2",
+  "title": "Экспорт MOGRT по одному",
+  "host": "ae",
+  "hostVersion": "26.5x89",
+  "date": "2026-10-02",
+  "verdict": "yes",
+  "verdictLocked": false,
+  "checks": [
+    {
+      "name": "project ready for CRT_LowerThird_v1",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\fixtures\\CRT_fixture_s2.aep, controllers: 7"
+    },
+    {
+      "name": "template name CRT_LowerThird_v1, saved, openInEssentialGraphics, clean",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CRT_LowerThird_v1",
+        "dirtyAfterOpenInEGP": true
+      }
+    },
+    {
+      "name": "exportAsMotionGraphicsTemplate returned true (CRT_LowerThird_v1)",
+      "pass": true,
+      "required": false,
+      "detail": "returned true after 6709 ms"
+    },
+    {
+      "name": "mogrt written and stable (CRT_LowerThird_v1)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "file": "C:/CRBK/work/mogrt/CRT_LowerThird_v1.mogrt",
+        "size": 129154,
+        "mtimeMs": 1790967436402.136,
+        "waitedMs": 2074,
+        "otherNewMogrts": [],
+        "returned": true
+      }
+    },
+    {
+      "name": "zip has definition.json and project.aegraphic (CRT_LowerThird_v1)",
+      "pass": true,
+      "required": true,
+      "detail": [
+        "definition.json",
+        "project.aegraphic",
+        "thumb.mp4",
+        "thumb.png"
+      ]
+    },
+    {
+      "name": "definition.json has every S1 controller (CRT_LowerThird_v1)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": [
+          "Имя",
+          "Должность",
+          "Показать должность",
+          "Длительность (служебное, не менять)",
+          "Акцент",
+          "Стиль",
+          "Фото"
+        ],
+        "missing": [],
+        "count": 7,
+        "s1Count": 7,
+        "s1": [
+          "Имя",
+          "Должность",
+          "Показать должность",
+          "Длительность (служебное, не менять)",
+          "Акцент",
+          "Стиль",
+          "Фото"
+        ],
+        "kinds": [
+          "type14:Фото",
+          "type13:Стиль",
+          "color:Акцент",
+          "slider:Длительность (служебное, не менять)",
+          "checkbox:Показать должность",
+          "text:Должность",
+          "text:Имя"
+        ]
+      }
+    },
+    {
+      "name": "project ready for CRT_Hatch_v1",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\fixtures\\CRT_fixture_s2.aep, controllers: 1"
+    },
+    {
+      "name": "template name CRT_Hatch_v1, saved, openInEssentialGraphics, clean",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CRT_Hatch_v1",
+        "dirtyAfterOpenInEGP": true
+      }
+    },
+    {
+      "name": "exportAsMotionGraphicsTemplate returned true (CRT_Hatch_v1)",
+      "pass": true,
+      "required": false,
+      "detail": "returned true after 84582 ms"
+    },
+    {
+      "name": "mogrt written and stable (CRT_Hatch_v1)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "file": "C:/CRBK/work/mogrt/CRT_Hatch_v1.mogrt",
+        "size": 12078780,
+        "mtimeMs": 1790967523243.2546,
+        "waitedMs": 2076,
+        "otherNewMogrts": [],
+        "returned": true
+      }
+    },
+    {
+      "name": "zip has definition.json and project.aegraphic (CRT_Hatch_v1)",
+      "pass": true,
+      "required": true,
+      "detail": [
+        "definition.json",
+        "project.aegraphic",
+        "thumb.mp4",
+        "thumb.png"
+      ]
+    },
+    {
+      "name": "definition.json has every S1 controller (CRT_Hatch_v1)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": [
+          "Длительность (служебное, не менять)"
+        ],
+        "missing": [],
+        "count": 1,
+        "s1Count": 1,
+        "s1": [
+          "Длительность (служебное, не менять)"
+        ],
+        "kinds": [
+          "slider:Длительность (служебное, не менять)"
+        ]
+      }
+    },
+    {
+      "name": "project ready for CRT_LowerThird_v1 (re-export)",
+      "pass": true,
+      "required": false,
+      "detail": "C:\\CRBK\\work\\fixtures\\CRT_fixture_s2.aep, controllers: 7"
+    },
+    {
+      "name": "template name CRT_LowerThird_v1, saved, openInEssentialGraphics, clean (re-export)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CRT_LowerThird_v1",
+        "dirtyAfterOpenInEGP": true
+      }
+    },
+    {
+      "name": "exportAsMotionGraphicsTemplate returned true (CRT_LowerThird_v1) (re-export)",
+      "pass": true,
+      "required": false,
+      "detail": "returned true after 8428 ms"
+    },
+    {
+      "name": "mogrt written and stable (CRT_LowerThird_v1, re-export)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "ok": true,
+        "file": "C:/CRBK/work/mogrt/CRT_LowerThird_v1.mogrt",
+        "size": 129081,
+        "mtimeMs": 1790967537322.608,
+        "waitedMs": 2076,
+        "otherNewMogrts": [],
+        "returned": true
+      }
+    },
+    {
+      "required": false,
+      "detail": "-",
+      "name": "no dialogs during the exports",
+      "pass": true,
+      "manual": true
+    }
+  ],
+  "fallback": "Экспорт MOGRT вручную по чек-листу; AE-сторона плагина от этого не зависит",
+  "notes": "exportAsMotionGraphicsTemplate вернул: true/true/true (LT/Hatch/повтор). Свойств в definition.json: CRT_LowerThird_v1: 7, CRT_Hatch_v1: 1. Повторный экспорт с overwrite=true: capsuleID новый (вход для S6). Экспорт с overwrite=false не проверялся: возможен модальный вопрос.",
+  "evidence": [
+    "spikes/results/S2.data.json"
+  ]
+}
