@@ -1,0 +1,172 @@
+{
+  "courses": {
+    "date": "2026-10-02",
+    "aeVersion": "26.5x89",
+    "replaced": 0,
+    "unresolvedBefore": [],
+    "missingAfter": [],
+    "external": 0,
+    "relinkOk": true,
+    "goldenOk": true,
+    "usedFonts": [
+      "SBSansDisplay-Regular 1.002",
+      "SBSansDisplay-Semibold 1.002",
+      "SBSansText-Regular 1.003"
+    ],
+    "missingOrSubstitutedFonts": [],
+    "suspiciousFonts": [],
+    "expressionEngine": "extendscript",
+    "notes": []
+  },
+  "courses_conv": {
+    "date": "2026-10-02",
+    "aeVersion": "26.5x89",
+    "replaced": 0,
+    "unresolvedBefore": [
+      "Запись экрана 2026-09-01 в 12.42.01.mov (missing: not in pack)",
+      "3D.png (missing: not in pack)",
+      "slide_01.png (missing: not in pack)",
+      "slide_01.png (missing: not in pack)"
+    ],
+    "missingAfter": [
+      "Запись экрана 2026-09-01 в 12.42.01.mov",
+      "3D.png",
+      "slide_01.png",
+      "slide_01.png"
+    ],
+    "external": 0,
+    "relinkOk": true,
+    "goldenOk": false,
+    "usedFonts": [
+      "SBSansDisplay-Regular 1.002",
+      "SBSansDisplay-Semibold 1.002",
+      "SBSansText-Regular 1.003"
+    ],
+    "missingOrSubstitutedFonts": [],
+    "suspiciousFonts": [],
+    "expressionEngine": "extendscript",
+    "notes": []
+  },
+  "logo": {
+    "date": "2026-10-02",
+    "aeVersion": "26.5x89",
+    "replaced": 0,
+    "unresolvedBefore": [],
+    "missingAfter": [],
+    "external": 0,
+    "relinkOk": true,
+    "goldenOk": true,
+    "usedFonts": [
+      "SBSansDisplay-Semibold 1.002"
+    ],
+    "missingOrSubstitutedFonts": [],
+    "suspiciousFonts": [],
+    "expressionEngine": "extendscript",
+    "notes": []
+  },
+  "logo_conv": {
+    "date": "2026-10-02",
+    "aeVersion": "26.5x89",
+    "replaced": 0,
+    "unresolvedBefore": [],
+    "missingAfter": [],
+    "external": 0,
+    "relinkOk": true,
+    "goldenOk": true,
+    "usedFonts": [
+      "SBSansDisplay-Semibold 1.002"
+    ],
+    "missingOrSubstitutedFonts": [],
+    "suspiciousFonts": [],
+    "expressionEngine": "extendscript",
+    "notes": []
+  },
+  "podcast": {
+    "date": "2026-10-02",
+    "aeVersion": "26.5x89",
+    "replaced": 0,
+    "unresolvedBefore": [],
+    "missingAfter": [],
+    "external": 0,
+    "relinkOk": true,
+    "goldenOk": true,
+    "usedFonts": [
+      "SBSansDisplay-Regular 1.002",
+      "SBSansDisplay-Semibold 1.002",
+      "SBSansDisplay-Bold 1.002"
+    ],
+    "missingOrSubstitutedFonts": [],
+    "suspiciousFonts": [],
+    "expressionEngine": "extendscript",
+    "notes": []
+  },
+  "smm": {
+    "date": "2026-10-02",
+    "aeVersion": "26.5x89",
+    "replaced": 0,
+    "unresolvedBefore": [],
+    "missingAfter": [],
+    "external": 0,
+    "relinkOk": true,
+    "goldenOk": true,
+    "usedFonts": [
+      "SBSansDisplay-Semibold 1.002"
+    ],
+    "missingOrSubstitutedFonts": [],
+    "suspiciousFonts": [],
+    "expressionEngine": "extendscript",
+    "notes": []
+  },
+  "titles": {
+    "date": "2026-10-02",
+    "aeVersion": "26.5x89",
+    "replaced": 0,
+    "unresolvedBefore": [],
+    "missingAfter": [],
+    "external": 0,
+    "relinkOk": true,
+    "goldenOk": true,
+    "usedFonts": [
+      "SBSansText-Regular 1.003"
+    ],
+    "missingOrSubstitutedFonts": [],
+    "suspiciousFonts": [],
+    "expressionEngine": "extendscript",
+    "notes": []
+  },
+  "titles_conv": {
+    "date": "2026-10-02",
+    "aeVersion": "26.5x89",
+    "replaced": 0,
+    "unresolvedBefore": [],
+    "missingAfter": [],
+    "external": 0,
+    "relinkOk": true,
+    "goldenOk": true,
+    "usedFonts": [
+      "SBSansText-Regular 1.003"
+    ],
+    "missingOrSubstitutedFonts": [],
+    "suspiciousFonts": [],
+    "expressionEngine": "extendscript",
+    "notes": []
+  },
+  "webinars": {
+    "date": "2026-10-02",
+    "aeVersion": "26.5x89",
+    "replaced": 2,
+    "unresolvedBefore": [],
+    "missingAfter": [],
+    "external": 0,
+    "relinkOk": true,
+    "goldenOk": true,
+    "usedFonts": [
+      "SBSansDisplay-Regular 1.002",
+      "SBSansDisplay-Semibold 1.002"
+    ],
+    "missingOrSubstitutedFonts": [],
+    "suspiciousFonts": [],
+    "expressionEngine": "extendscript",
+    "notes": []
+  }
+}
