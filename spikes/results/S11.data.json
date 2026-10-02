@@ -1,0 +1,238 @@
+{
+  "win32": {
+    "date": "2026-10-02",
+    "machine": {
+      "hostname": "DESKTOP-RH19AI5",
+      "platform": "win32",
+      "release": "10.0.26200",
+      "cpu": "AMD Ryzen 7 9700X 8-Core Processor",
+      "threads": 16,
+      "ramGb": 100,
+      "gpus": [
+        "NVIDIA GeForce RTX 5060 Ti (driver 32.0.15.9649)",
+        "AMD Radeon(TM) Graphics (driver 32.0.13066.12)"
+      ]
+    },
+    "ffmpeg": "ffmpeg 8.0.1-full_build-www.gyan.dev",
+    "seconds": 10,
+    "rows": [
+      {
+        "key": "bg_1x1",
+        "label": "SMM фон 1440×1440",
+        "source": "4_SMM_Pack/Render/BG/BG_pattern_1x1_1.mov",
+        "startSec": 10,
+        "w": 1440,
+        "h": 1440,
+        "fps": 25,
+        "variants": {
+          "prores_ae": {
+            "file": "C:/CRBK/work/s11/bg_1x1_prores_ae.mov",
+            "bytes": 161705284,
+            "frames": 250,
+            "encodeMs": 264,
+            "mbps": 16.170528400000002,
+            "mbpsPerMp": 7.798287229938273,
+            "dec1Fps": 129.73533990659055,
+            "decNFps": 741.8397626112759
+          },
+          "prores_ks": {
+            "file": "C:/CRBK/work/s11/bg_1x1_prores_ks.mov",
+            "bytes": 173052536,
+            "frames": 250,
+            "encodeMs": 3877,
+            "mbps": 17.3052536,
+            "mbpsPerMp": 8.345511959876545,
+            "dec1Fps": 123.88503468780972,
+            "decNFps": 896.0573476702508
+          },
+          "png": {
+            "file": "C:/CRBK/work/s11/bg_1x1_png.mov",
+            "bytes": 18474724,
+            "frames": 250,
+            "encodeMs": 817,
+            "mbps": 1.8474723999999998,
+            "mbpsPerMp": 0.8909492669753086,
+            "dec1Fps": 113.22463768115941,
+            "decNFps": 1295.3367875647668
+          }
+        },
+        "frames": 250
+      },
+      {
+        "key": "overlay_16x9",
+        "label": "оверлей курсов 1920×1080",
+        "source": "3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Оверлей 16 на 9.mov",
+        "startSec": 60,
+        "w": 1920,
+        "h": 1080,
+        "fps": 25,
+        "variants": {
+          "prores_ae": {
+            "file": "C:/CRBK/work/s11/overlay_16x9_prores_ae.mov",
+            "bytes": 25313952,
+            "frames": 250,
+            "encodeMs": 70,
+            "mbps": 2.5313952,
+            "mbpsPerMp": 1.2207731481481483,
+            "dec1Fps": 157.03517587939697,
+            "decNFps": 996.01593625498
+          },
+          "prores_ks": {
+            "file": "C:/CRBK/work/s11/overlay_16x9_prores_ks.mov",
+            "bytes": 24356028,
+            "frames": 250,
+            "encodeMs": 3649,
+            "mbps": 2.4356028,
+            "mbpsPerMp": 1.1745769675925926,
+            "dec1Fps": 163.2919660352711,
+            "decNFps": 1004.0160642570281
+          },
+          "png": {
+            "file": "C:/CRBK/work/s11/overlay_16x9_png.mov",
+            "bytes": 7330392,
+            "frames": 250,
+            "encodeMs": 713,
+            "mbps": 0.7330392,
+            "mbpsPerMp": 0.35351041666666666,
+            "dec1Fps": 116.06313834726092,
+            "decNFps": 1396.6480446927376
+          }
+        },
+        "frames": 250
+      },
+      {
+        "key": "intro_4k",
+        "label": "интро подкаста 3840×2160 (весь файл, 7 с)",
+        "source": "6_Podcast_Cloud.ru_Pack/Ready mov/Заставка_ПОДКАСТ_CLOUD.RU.mov",
+        "startSec": 0,
+        "w": 3840,
+        "h": 2160,
+        "fps": 25,
+        "variants": {
+          "prores_ae": {
+            "file": "C:/CRBK/work/s11/intro_4k_prores_ae.mov",
+            "bytes": 172099140,
+            "frames": 175,
+            "encodeMs": 187,
+            "mbps": 24.58559142857143,
+            "mbpsPerMp": 2.9641193369709,
+            "dec1Fps": 34.15967206714815,
+            "decNFps": 187.1657754010695
+          },
+          "prores_ks": {
+            "file": "C:/CRBK/work/s11/intro_4k_prores_ks.mov",
+            "bytes": 192586216,
+            "frames": 175,
+            "encodeMs": 10592,
+            "mbps": 27.512316571428574,
+            "mbpsPerMp": 3.3169748952821876,
+            "dec1Fps": 31.78350889938249,
+            "decNFps": 222.64631043256998
+          },
+          "png": {
+            "file": "C:/CRBK/work/s11/intro_4k_png.mov",
+            "bytes": 37822947,
+            "frames": 175,
+            "encodeMs": 1951,
+            "mbps": 5.403278142857142,
+            "mbpsPerMp": 0.6514368902943122,
+            "dec1Fps": 28.801843317972352,
+            "decNFps": 336.53846153846155
+          }
+        },
+        "frames": 175
+      }
+    ],
+    "bitrates": {
+      "spike": "S11",
+      "date": "2026-10-02",
+      "platform": "win32",
+      "fps": 25,
+      "unit": "MB/s per megapixel at 25 fps (MB = 10^6 bytes)",
+      "note": "prores_ae = stream copy of the AE render: use it for ProRes 4444 weight; prores_ks = the same frames encoded by ffmpeg, for a like-for-like size comparison with png",
+      "codecs": {
+        "prores_ae": {
+          "mean": 3.994,
+          "max": 7.798,
+          "samples": [
+            {
+              "key": "bg_1x1",
+              "w": 1440,
+              "h": 1440,
+              "mbPerSec": 16.171,
+              "mbPerSecPerMp": 7.798
+            },
+            {
+              "key": "overlay_16x9",
+              "w": 1920,
+              "h": 1080,
+              "mbPerSec": 2.531,
+              "mbPerSecPerMp": 1.221
+            },
+            {
+              "key": "intro_4k",
+              "w": 3840,
+              "h": 2160,
+              "mbPerSec": 24.586,
+              "mbPerSecPerMp": 2.964
+            }
+          ]
+        },
+        "prores_ks": {
+          "mean": 4.279,
+          "max": 8.346,
+          "samples": [
+            {
+              "key": "bg_1x1",
+              "w": 1440,
+              "h": 1440,
+              "mbPerSec": 17.305,
+              "mbPerSecPerMp": 8.346
+            },
+            {
+              "key": "overlay_16x9",
+              "w": 1920,
+              "h": 1080,
+              "mbPerSec": 2.436,
+              "mbPerSecPerMp": 1.175
+            },
+            {
+              "key": "intro_4k",
+              "w": 3840,
+              "h": 2160,
+              "mbPerSec": 27.512,
+              "mbPerSecPerMp": 3.317
+            }
+          ]
+        },
+        "png": {
+          "mean": 0.632,
+          "max": 0.891,
+          "samples": [
+            {
+              "key": "bg_1x1",
+              "w": 1440,
+              "h": 1440,
+              "mbPerSec": 1.847,
+              "mbPerSecPerMp": 0.891
+            },
+            {
+              "key": "overlay_16x9",
+              "w": 1920,
+              "h": 1080,
+              "mbPerSec": 0.733,
+              "mbPerSecPerMp": 0.354
+            },
+            {
+              "key": "intro_4k",
+              "w": 3840,
+              "h": 2160,
+              "mbPerSec": 5.403,
+              "mbPerSecPerMp": 0.651
+            }
+          ]
+        }
+      }
+    }
+  }
+}

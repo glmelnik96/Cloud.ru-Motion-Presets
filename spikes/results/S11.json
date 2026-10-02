@@ -1,0 +1,122 @@
+{
+  "id": "S11",
+  "title": "Кодек петель T2",
+  "host": "ffmpeg+pr+ae",
+  "hostVersion": "ffmpeg 8.0.1-full_build-www.gyan.dev",
+  "date": "2026-10-02",
+  "verdict": "yes",
+  "verdictLocked": false,
+  "checks": [
+    {
+      "name": "win32: png at least 2x lighter than the AE ProRes 4444 render, bg_1x1 1440x1440",
+      "pass": true,
+      "required": true,
+      "detail": "png 1.85 MB/s, AE ProRes 16.17 MB/s, gain 8.75x",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: png lighter than prores_ks 4444, bg_1x1 1440x1440",
+      "pass": true,
+      "required": false,
+      "detail": "prores_ks 17.31 MB/s, gain 9.37x",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: png decodes at >= 25 fps (ffmpeg, default threads), bg_1x1 1440x1440",
+      "pass": true,
+      "required": true,
+      "detail": "1295.3 fps",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: png decodes at >= 25 fps (ffmpeg, 1 thread), bg_1x1 1440x1440",
+      "pass": true,
+      "required": false,
+      "detail": "113.2 fps",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: prores_ks decodes at >= 25 fps (ffmpeg, 1 thread), bg_1x1 1440x1440",
+      "pass": true,
+      "required": false,
+      "detail": "123.9 fps",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: png at least 2x lighter than the AE ProRes 4444 render, overlay_16x9 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": "png 0.73 MB/s, AE ProRes 2.53 MB/s, gain 3.45x",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: png lighter than prores_ks 4444, overlay_16x9 1920x1080",
+      "pass": true,
+      "required": false,
+      "detail": "prores_ks 2.44 MB/s, gain 3.32x",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: png decodes at >= 25 fps (ffmpeg, default threads), overlay_16x9 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": "1396.6 fps",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: png decodes at >= 25 fps (ffmpeg, 1 thread), overlay_16x9 1920x1080",
+      "pass": true,
+      "required": false,
+      "detail": "116.1 fps",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: prores_ks decodes at >= 25 fps (ffmpeg, 1 thread), overlay_16x9 1920x1080",
+      "pass": true,
+      "required": false,
+      "detail": "163.3 fps",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: png at least 2x lighter than the AE ProRes 4444 render, intro_4k 3840x2160",
+      "pass": true,
+      "required": true,
+      "detail": "png 5.4 MB/s, AE ProRes 24.59 MB/s, gain 4.55x",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: png lighter than prores_ks 4444, intro_4k 3840x2160",
+      "pass": true,
+      "required": false,
+      "detail": "prores_ks 27.51 MB/s, gain 5.09x",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: png decodes at >= 25 fps (ffmpeg, default threads), intro_4k 3840x2160",
+      "pass": true,
+      "required": true,
+      "detail": "336.5 fps",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: png decodes at >= 25 fps (ffmpeg, 1 thread), intro_4k 3840x2160",
+      "pass": true,
+      "required": false,
+      "detail": "28.8 fps",
+      "stage": "auto:win32"
+    },
+    {
+      "name": "win32: prores_ks decodes at >= 25 fps (ffmpeg, 1 thread), intro_4k 3840x2160",
+      "pass": true,
+      "required": false,
+      "detail": "31.8 fps",
+      "stage": "auto:win32"
+    }
+  ],
+  "fallback": "ProRes 4444 и сокращённая матрица T2 (D24)",
+  "notes": "Автоматическая часть — размеры файлов и декодирование ffmpeg; решение по кодеку — вместе с ручной проверкой воспроизведения в Premiere и AE (задача 21). Цифры: spikes/results/S11.data.json.",
+  "evidence": [
+    "spikes/results/S11.data.json",
+    "C:/CRBK/work/s11/bitrates.json"
+  ]
+}
