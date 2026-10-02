@@ -3276,6 +3276,15 @@ describe('checkFixtureDump', () => {
     expect(failed(d)).toEqual(['TXT_ROLE Opacity expression reads ShowRole and gives 100']);
   });
 
+  it('accepts the dropdown as AE 26.5 dumps it: a pseudo effect whose first parameter is Menu', () => {
+    const d = fixtureDump();
+    d.layers[0].effects[3].matchName = 'Pseudo/@@H9+Z0L1YQfegdADzjPemfg';
+    d.layers[0].effects[3].params = [{ matchName: 'Pseudo/@@H9+Z0L1YQfegdADzjPemfg-0001', name: 'Menu', index: 1 }];
+    expect(failed(d)).toEqual([]);
+    d.layers[0].effects[3].params = [{ matchName: 'Pseudo/@@x-0001', name: 'Slider', index: 1 }];
+    expect(failed(d)).toEqual(['CTRL effects by name and matchName']);
+  });
+
   it('catches a lost protected region and a renamed control', () => {
     const d = fixtureDump();
     d.comp.markers[1].protectedRegion = false;
@@ -3344,7 +3353,12 @@ export function checkFixtureDump(dump) {
 
   const ctrl = findLayers(dump, 'CTRL')[0];
   const fx = ctrl ? ctrl.effects : [];
-  add('CTRL effects by name and matchName', CTRL_EFFECTS.every(([n, mn]) => fx.some((e) => e.name === n && e.matchName === mn)),
+  // AE 26.5 dumps a Dropdown Menu Control as a per-instance pseudo effect "Pseudo/@@<id>" whose first
+  // parameter is "Menu" (seen live 2026-10-02); that counts as 'ADBE Dropdown Control'.
+  const isDropdown = (e) => /^Pseudo\/@@/.test(e.matchName) && Array.isArray(e.params) && e.params.length > 0 &&
+    e.params[0].name === 'Menu' && e.params[0].matchName === e.matchName + '-0001';
+  const matches = (e, mn) => e.matchName === mn || (mn === 'ADBE Dropdown Control' && isDropdown(e));
+  add('CTRL effects by name and matchName', CTRL_EFFECTS.every(([n, mn]) => fx.some((e) => e.name === n && matches(e, mn))),
     fx.map((e) => `${e.name}=${e.matchName}`).join(', '));
 
   const role = findLayers(dump, 'TXT_ROLE')[0];
@@ -3377,7 +3391,7 @@ if (isMain) {
 - [ ] **Step 8: Запустить тест**
 
 Run: `npx vitest run tests/dump/check-fixture-dump.test.mjs`
-Expected: `5 passed`.
+Expected: `6 passed`.
 
 - [ ] **Step 9: Написать фейковый хост AE и падающие тесты дампера**
 
@@ -4681,7 +4695,7 @@ if (isMain) {
 - [ ] **Step 13: Запустить тесты и линтер**
 
 Run: `npx vitest run tests/dump && node tools/jsx/lint-jsx.cjs tools/dump/dump-project.jsx`
-Expected: `30 passed` (4 файла); `OK    tools/dump/dump-project.jsx`.
+Expected: `31 passed` (4 файла); `OK    tools/dump/dump-project.jsx`.
 
 - [ ] **Step 14: Проверить CLI в чистом Node**
 
