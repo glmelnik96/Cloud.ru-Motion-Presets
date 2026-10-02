@@ -1,0 +1,11 @@
+{
+  "_note": "Box-text baselines of the Titles speaker title, which the JSX dump does not record. Measured live on AE 26.5 with tools/masters/jsx/text-metrics.jsx on C:/CRBK/packs/titles/titles_relinked.aep (read only, closed without saving), comp «Подпись_спикеров», t = 2.0 s, 2026-10-03. Layer space of each text layer; baselineLocs per line [x0, y0, x1, y1]; the role layer starts with an empty line (3.4e38).",
+  "pack": "titles",
+  "comp": "Подпись_спикеров",
+  "t": 2.0,
+  "layers": {
+    "Александр Стародубцев": { "fontSize": 40, "leading": 45, "lines": [[-501, -153, -15.4400024414062, -153]] },
+    " Технический лидер Cloud.ru": { "fontSize": 40, "lineFontSize": 30, "leading": 35, "lines": [null, [-501, -118, -209.160003662109, -118], [-501, -83, -374.010009765625, -83]],
+      "_lineFontSize": "the role lines are set in 30 (the first, empty line keeps 40; the dump records character 0 only): cap height 53 vs 71 px of the name on the golden frame, ratio 0.746" }
+  }
+}

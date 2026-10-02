@@ -1,0 +1,36 @@
+{
+  "id": "TTL_LowerThird",
+  "_note": "Golden comparison against the Titles pack («Подпись_спикеров», canvas 1500x500 at UHD scale). The 4K variant is rendered with the pack's texts and the canvas window is registered on the first gate frame (sub-pixel). The master keeps the pack timing up to 4.40 s and starts its exit 0.48 s later so it ends on the last frame. gate = static frames (hold 1.52–4.28 s in the pack); view = moving frames (motion blur in the pack, none in the master, C35).",
+  "cases": [
+    {
+      "name": "titles",
+      "title": "«Титры», слева: Александр Стародубцев / Технический лидер / Cloud.ru",
+      "golden": { "slug": "titles", "compSlug": "podpis_spikerov" },
+      "variant": "16x9_4K",
+      "ctrl": { "Side": 1 },
+      "text": { "TXT_NAME": "Александр Стародубцев", "TXT_ROLE1": "Технический лидер", "TXT_ROLE2": "Cloud.ru" },
+      "crop": { "offset": [149.42, 1588.57], "search": 4 },
+      "shift": [{ "from": 0, "to": 4.4, "by": 0 }, { "from": 4.4, "to": 60, "by": 0.48 }],
+      "gate": [2000, 3000, 4000],
+      "view": [240, 520, 760, 1000, 1240, 4520, 4760, 5000, 5240]
+    }
+  ],
+  "premiere": {
+    "_note": "MOGRT in Premiere against the same variant rendered in AE. B is 10 s long, on the right, with a long name and one role line: intro and exit must keep master speed (exit = last 1.12 s).",
+    "variant": "16x9",
+    "sequencePreset": "HD 1080p 25 fps",
+    "clips": [
+      { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Side": 1 },
+        "text": { "TXT_NAME": "Александр Стародубцев", "TXT_ROLE1": "Технический лидер", "TXT_ROLE2": "Cloud.ru" } },
+      { "key": "B", "atSec": 10, "lenSec": 10, "ctrl": { "Side": 2 },
+        "text": { "TXT_NAME": "Анна-Мария Ёлкина-Константинопольская", "TXT_ROLE1": "Руководитель облачной платформы", "TXT_ROLE2": "" } }
+    ],
+    "frames": [
+      { "key": "A_hold", "clip": "A", "sec": 3.0, "master": 3.0 },
+      { "key": "A_intro", "clip": "A", "sec": 0.52, "master": 0.52 },
+      { "key": "B_intro", "clip": "B", "sec": 0.76, "master": 0.76 },
+      { "key": "B_hold", "clip": "B", "sec": 5.0, "master": 3.0 },
+      { "key": "B_exit", "clip": "B", "sec": 9.4, "master": 5.4 }
+    ]
+  }
+}

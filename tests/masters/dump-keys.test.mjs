@@ -39,6 +39,13 @@ describe('dump-keys', () => {
     expect(moved.map((k) => k.t)).toEqual([3.96, 5.08]);
   });
 
+  it('takes one dimension of a multi-dimensional ease (Scale X)', () => {
+    const keys = [key(0, [0, 100, 100], [[0, 33.3], [0, 10], [0, 10]]), key(0.8, [183.7, 100, 100], undefined, [[0, 100], [0, 20], [0, 20]])];
+    const p = progressSegment(keys, 0, { dim: 0 });
+    expect([p[0].outEase, p[1].inEase]).toEqual([[[0, 33.3]], [[0, 100]]]);
+    expect(() => progressSegment(keys, 0)).toThrow(/pass dim/);
+  });
+
   it('refuses a segment with ease speed (its curve depends on the value range)', () => {
     expect(() => progressSegment(dumpKeys(dump, 'Back', 'ADBE Transform Group', 'ADBE Rotate X'), 0)).toThrow(/non-zero ease speed/);
   });

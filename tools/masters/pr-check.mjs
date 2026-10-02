@@ -41,12 +41,12 @@ async function prCall(params, extra) {
   return r;
 }
 
-async function aeRender(params, variant, ctrl, frames) {
+async function aeRender(params, variant, ctrl, frames, text = {}) {
   const { aep } = packagePaths(params);
   const v = variantPlan(params).find((x) => x.key === variant);
   for (const f of frames) rmSync(f.file, { force: true });
   const body = composeProbe(['spikes/lib/ae-project.jsx', 'tools/masters/jsx/render-case.jsx'], {
-    workDir: params.workDir, aep, comp: v.comp, ctrl, frames,
+    workDir: params.workDir, aep, comp: v.comp, ctrl, text, frames,
   });
   const r = await run('ae', body, { timeoutMs: 300000 });
   if (printChecks(r.checks, () => {})) throw new Error('AE render failed: ' + JSON.stringify(r.checks).slice(0, 400));
@@ -85,7 +85,8 @@ if (isMain) {
   const v = variantPlan(params).find((x) => x.key === plan.variant);
   const mogrt = path.posix.join(packagePaths(params).mogrtDir, v.template + '.mogrt');
   const base = prBaseParams();
-  const clips = plan.clips.map((c) => ({ key: c.key, atSec: c.atSec, lenSec: c.lenSec, values: prValues(c.ctrl, params) }));
+  const prTexts = (text = {}) => Object.fromEntries(Object.entries(text).map(([layer, v]) => [params.text[layer].label, v]));
+  const clips = plan.clips.map((c) => ({ key: c.key, atSec: c.atSec, lenSec: c.lenSec, values: prValues(c.ctrl, params), texts: prTexts(c.text) }));
   const common = {
     ...base, project: PR_PROJECT(), mogrt, clips, framesDir: dir, tpf: TPF_25,
     seqPreset: stagePreset(presetSources().seq1080p25, 'HD1080p25.sqpreset'), seqBase: `CRT_${id}_${plan.variant}`,
@@ -106,7 +107,7 @@ if (isMain) {
     await waitForStableFiles(plan.frames.map((f) => path.posix.join(dir, 'pr_' + f.key + '.png')), { timeoutMs: 120000 });
     for (const c of plan.clips) {
       const frames = plan.frames.filter((f) => f.clip === c.key).map((f) => ({ t: f.master, file: path.posix.join(dir, 'ae_' + f.key + '.png') }));
-      await aeRender(params, plan.variant, c.ctrl, frames);
+      await aeRender(params, plan.variant, c.ctrl, frames, c.text);
     }
     for (const f of plan.frames) {
       const pr = readPng(path.posix.join(dir, 'pr_' + f.key + '.png'));

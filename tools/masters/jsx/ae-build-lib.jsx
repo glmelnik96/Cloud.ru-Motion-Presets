@@ -271,3 +271,74 @@ function bdExprSweep(comp, times) {
   }
   return { count: list.length, errors: bad };
 }
+
+// Text animators (words or lines rising inside their plate). Every addProperty invalidates earlier
+// references (ae-quirks #3), so each helper re-resolves by name. basedOn: 1 characters, 2 characters
+// excluding spaces, 3 words, 4 lines.
+function bdAnimator(L, name) {
+  return L.property('ADBE Text Properties').property('ADBE Text Animators').property(name);
+}
+
+function bdAddAnimator(L, name) {
+  L.property('ADBE Text Properties').property('ADBE Text Animators').addProperty('ADBE Text Animator');
+  var anims = L.property('ADBE Text Properties').property('ADBE Text Animators');
+  anims.property(anims.numProperties).name = name;
+  return bdAnimator(L, name);
+}
+
+function bdAnimatorPosition(L, name) {
+  bdAnimator(L, name).property('ADBE Text Animator Properties').addProperty('ADBE Text Position 3D');
+  return bdAnimator(L, name).property('ADBE Text Animator Properties').property('ADBE Text Position 3D');
+}
+
+function bdRangeSelector(L, name, basedOn) {
+  var sels = bdAnimator(L, name).property('ADBE Text Selectors');
+  if (sels.numProperties === 0) {
+    sels.addProperty('ADBE Text Selector');
+  }
+  var sel = bdAnimator(L, name).property('ADBE Text Selectors').property(1);
+  sel.property('ADBE Text Range Advanced').property('ADBE Text Range Type2').setValue(basedOn);
+  return bdAnimator(L, name).property('ADBE Text Selectors').property(1);
+}
+
+// canAdd first, add only when it says yes, dialogs suppressed (S1). Returns the controller names read
+// back from index 1 (AE 26.5: newest first).
+function bdEgpAdd(comp, prop, label) {
+  var can = null;
+  var ok = null;
+  app.beginSuppressDialogs();
+  try {
+    can = prop.canAddToMotionGraphicsTemplate(comp);
+    if (can === true) {
+      ok = prop.addToMotionGraphicsTemplateAs(comp, label);
+    }
+  } finally {
+    app.endSuppressDialogs(false);
+  }
+  return label + ': canAdd=' + can + ', add=' + ok;
+}
+
+function bdEgpNames(comp) {
+  var names = [];
+  for (var j = 1; j <= comp.motionGraphicsTemplateControllerCount; j++) {
+    names.push(comp.getMotionGraphicsTemplateControllerName(j));
+  }
+  return names;
+}
+
+// Display-referred project colour (see masters/README.md): 8 bpc, no working space, no linearization.
+function bdProjectColour() {
+  var p = app.project;
+  var before = { bpc: p.bitsPerChannel, space: String(p.workingSpace), linearize: p.linearizeWorkingSpace, linearBlending: p.linearBlending };
+  bkQuiet(function () {
+    p.linearizeWorkingSpace = false;
+    p.linearBlending = false;
+    if (String(p.workingSpace) !== 'None') {
+      p.workingSpace = 'None';
+    }
+    p.bitsPerChannel = 8;
+  });
+  var after = { bpc: p.bitsPerChannel, space: String(p.workingSpace), linearize: p.linearizeWorkingSpace, linearBlending: p.linearBlending };
+  return { pass: after.bpc === 8 && after.space === 'None' && after.linearize === false && after.linearBlending === false,
+    detail: { before: before, after: after } };
+}

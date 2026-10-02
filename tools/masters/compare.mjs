@@ -13,6 +13,7 @@ import { waitForStableFiles } from '../golden/png.mjs';
 import { workPath } from '../lib/work.mjs';
 import { compareFrames } from '../qa/ssim.mjs';
 import { sideBySide } from '../qa/side-by-side.mjs';
+import { registerWindow, sampleWindow } from '../qa/register.mjs';
 import { readPng } from '../png/read-png.mjs';
 import { loadMaster, printChecks } from './build-master.mjs';
 import { packagePaths, variantPlan } from './package.mjs';
@@ -35,7 +36,7 @@ async function renderCase(params, c, frames) {
   for (const f of frames) rmSync(f.file, { force: true });
   const since = Date.now();
   const body = composeProbe(['spikes/lib/ae-project.jsx', 'tools/masters/jsx/render-case.jsx'], {
-    workDir: params.workDir, aep, comp: v.comp, ctrl: c.ctrl, frames: frames.map((f) => ({ t: f.t, file: f.file })),
+    workDir: params.workDir, aep, comp: v.comp, ctrl: c.ctrl, text: c.text || {}, frames: frames.map((f) => ({ t: f.t, file: f.file })),
   });
   const r = await run('ae', body, { timeoutMs: 300000 });
   if (printChecks(r.checks, () => {})) throw new Error(`${c.name}: render call failed: ${JSON.stringify(r.checks).slice(0, 400)}`);
@@ -76,11 +77,21 @@ if (isMain) {
         if (!r.wait.ok) throw new Error(`${c.name}: frames missing ${JSON.stringify(r.wait).slice(0, 300)}`);
       }
       const rows = [];
+      // A golden canvas smaller than the frame (crop) is registered once, on the first gate frame, and the
+      // same window is used for every frame of the case (moving frames must not be re-aligned).
+      let origin = null;
+      if (c.crop) {
+        const ref = frames.find((f) => f.gate) || frames[0];
+        const reg = registerWindow(readPng(workPath('golden', c.golden.slug, c.golden.compSlug, `t${ref.ms}.png`)), readPng(ref.file),
+          { offset: c.crop.offset, search: c.crop.search || 4 });
+        origin = reg.origin;
+        console.log(`${c.name}: window origin ${origin.join(', ')} (predicted ${c.crop.offset.join(', ')}, coarse ${reg.coarse.join(', ')}, MAD ${reg.mad.toFixed(2)})`);
+      }
       for (const f of frames) {
         const golden = workPath('golden', c.golden.slug, c.golden.compSlug, `t${f.ms}.png`);
         if (!existsSync(golden)) { rows.push({ ms: f.ms, error: 'no golden ' + golden }); continue; }
         const g = readPng(golden);
-        const m = readPng(f.file);
+        const m = origin ? sampleWindow(readPng(f.file), origin[0], origin[1], g.width, g.height) : readPng(f.file);
         const res = compareFrames(g, m);
         sideBySide(g, m, path.posix.join(dir, `cmp_t${f.ms}.png`), { rect: res.rect });
         const pass = f.gate ? judge(res, min) : null;
@@ -90,7 +101,7 @@ if (isMain) {
         console.log(`${c.name} t${f.ms} (master ${f.t}s) ssim ${res.ssim.toFixed(4)} luma ${res.luma.toFixed(4)} alpha ${res.alpha.toFixed(4)}` +
           (f.gate ? (pass ? '  PASS' : '  FAIL') : '  view'));
       }
-      report.cases.push({ name: c.name, title: c.title, golden: c.golden, ctrl: c.ctrl, rows });
+      report.cases.push({ name: c.name, title: c.title, golden: c.golden, ctrl: c.ctrl, text: c.text, origin, rows });
     }
   } finally {
     if (!argv.includes('--no-render')) await closeProject(params).catch((e) => console.error('close: ' + e.message));

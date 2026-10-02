@@ -51,13 +51,19 @@ export function toBuilderKeys(keys, { fps = 25, times, a = 1, b = 0 } = {}) {
 // One segment of a dumped property as a 0..1 progress slider: two keys at t0 and t1 that carry the
 // segment's out- and in-influence. Only for segments whose ease speeds are zero (then the normalized
 // curve is the same for any value range); a speed above `tolerance` throws.
-export function progressSegment(keys, i, { t0, t1, fps = 25, tolerance = 1e-3 } = {}) {
+// dim: which dimension's ease to take from a multi-dimensional property (Scale X = 0); 1-D otherwise.
+export function progressSegment(keys, i, { t0, t1, fps = 25, tolerance = 1e-3, dim } = {}) {
   const k0 = keys[i];
   const k1 = keys[i + 1];
   if (!k0 || !k1) throw new Error(`progressSegment: no segment ${i}`);
-  const out = k0.outEase || [];
-  const inn = k1.inEase || [];
-  if (out.length !== 1 || inn.length !== 1) throw new Error('progressSegment: a 1-D property is expected');
+  let out = k0.outEase || [];
+  let inn = k1.inEase || [];
+  if (dim !== undefined) {
+    if (!out[dim] || !inn[dim]) throw new Error(`progressSegment: no ease for dimension ${dim}`);
+    out = [out[dim]];
+    inn = [inn[dim]];
+  }
+  if (out.length !== 1 || inn.length !== 1) throw new Error('progressSegment: a 1-D property is expected (or pass dim)');
   if (Math.abs(out[0].speed) > tolerance || Math.abs(inn[0].speed) > tolerance) {
     throw new Error(`progressSegment: segment ${i} has non-zero ease speed (${out[0].speed}, ${inn[0].speed})`);
   }

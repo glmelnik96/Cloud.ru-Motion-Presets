@@ -22,6 +22,16 @@ export function variantPlan(params) {
   }));
 }
 
+// Essential Graphics labels of an item. params.egp lists controllers in the order they are added (newest
+// first in AE): an effect name on CTRL (LOGO_Shot style) or { effect } / { text: layer }.
+export function egpLabels(params) {
+  return params.egp.map((e) => {
+    if (typeof e === 'string') return params.ctrl[e].label;
+    if (e.effect) return params.ctrl[e.effect].label;
+    return params.text[e.text].label;
+  });
+}
+
 export function packagePaths(params) {
   return {
     aep: path.posix.join(params.out.dir, `${params.id}_v${params.version}.aep`),
@@ -71,7 +81,7 @@ export async function exportMogrts(params) {
   const plan = variantPlan(params);
   const { aep, mogrtDir } = packagePaths(params);
   mkdirSync(mogrtDir, { recursive: true });
-  const labels = params.egp.map((k) => params.ctrl[k].label);
+  const labels = egpLabels(params);
   const dropdowns = Object.fromEntries(Object.values(params.ctrl).map((c) => [c.label, c.items]));
   const results = [];
   let failed = 0;

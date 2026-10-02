@@ -1,5 +1,6 @@
 // Renders frames of one variant comp with given control values (golden comparison). Composed after
-// check.jsx and ae-project.jsx. PARAMS: workDir, aep, comp, ctrl { effectName: value }, frames [{ t, file }].
+// check.jsx and ae-project.jsx. PARAMS: workDir, aep, comp, ctrl { effectName: value }, text { layer: string },
+// frames [{ t, file }].
 // saveFrameToPng is undocumented and asynchronous (ae-quirks #27, #34): it renders at the comp's
 // resolution factor, so that is set to full, and the control values must stay until the files exist.
 // The project is left dirty; Node closes it without saving after the files are in (close-project.jsx).
@@ -21,6 +22,21 @@ check('controls set', function () {
       var p = C.property('ADBE Effect Parade').property(key).property(1);
       p.setValue(PARAMS.ctrl[key]);
       got[key] = p.value;
+    }
+  }
+  return { pass: true, detail: got };
+}, true);
+
+check('texts set', function () {
+  var got = {};
+  var list = PARAMS.text || {};
+  for (var name in list) {
+    if (list.hasOwnProperty(name)) {
+      var st = bkSourceText(bkLayer(RC.comp, name));
+      var doc = st.valueAtTime(0, true);
+      doc.text = list[name];
+      st.setValue(doc);
+      got[name] = st.valueAtTime(0, true).text;
     }
   }
   return { pass: true, detail: got };

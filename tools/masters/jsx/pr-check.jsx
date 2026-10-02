@@ -77,10 +77,24 @@ if (ready && P.stage === 'insert') {
         data.clips[spec.key] = info;
         return { pass: !!r.clip && (!spec.lenSec || info.lenAfterF === secToFrames(spec.lenSec, tpf)), detail: info };
       });
-      check('fields of ' + spec.key + ' written: ' + JSON.stringify(spec.values), function () {
+      check('fields of ' + spec.key + ' written: ' + JSON.stringify(spec.values) + ' ' + JSON.stringify(spec.texts || {}), function () {
         var clip = mpClipAt(spec.atSec);
         var got = {};
         var ok = true;
+        var texts = spec.texts || {};
+        for (var tl in texts) {
+          if (texts.hasOwnProperty(tl)) {
+            var tp = mgtParam(clip, tl);
+            if (!tp) {
+              ok = false;
+              got[tl] = 'no parameter';
+              continue;
+            }
+            setMgtText(tp, texts[tl]);
+            got[tl] = readMgtText(tp);
+            ok = ok && got[tl] === texts[tl];
+          }
+        }
         for (var label in spec.values) {
           if (spec.values.hasOwnProperty(label)) {
             var p = mgtParam(clip, label);
@@ -120,6 +134,14 @@ if (ready && P.stage === 'readback') {
         for (var label in spec.values) {
           if (ok && spec.values.hasOwnProperty(label)) {
             ok = Number(got[label]) === spec.values[label];
+          }
+        }
+        var texts = spec.texts || {};
+        for (var tl in texts) {
+          if (ok && texts.hasOwnProperty(tl)) {
+            var back = readMgtText(mgtParam(clip, tl));
+            got[tl] = back;
+            ok = back === texts[tl];
           }
         }
         data.clips[spec.key] = got;
