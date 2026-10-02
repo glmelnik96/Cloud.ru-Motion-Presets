@@ -27,7 +27,12 @@ const OUT_START = 4.52;        // the longest exit («Подкаст», 1.48 s) 
 // Calibrated against the AE ink of the pack texts (measure cases below, 2026-10-03): podcast plate =
 // name ink + 25.8 px on the left (the pack's 1334.29 px), the role keeps the same right padding; webinar
 // plates = ink + 16 px on the right (the pack: 13.95 / 16.41 / 17.25, hand-fitted). See README.
-const PADS = { nameL: 25.8, roleR: 25.8, noRoleH: 133.45, webR: 16 };
+// roleClipDrop / roleClipRaise: the pack's role mask ends 3.3 px under the last role baseline (it cuts the
+// descenders of Д, Ц, Щ in caps) and starts just above the caps (it cuts the breve of Й and the dots of Ё:
+// the pack render shows ТЕХНИЧЕСКИИ). The band is 8 px lower and 12 px higher here, still clear of the name.
+// roleRise: the pack's 94.5 px leaves the accents of a waiting first line (Й, Ё) inside the band before the
+// words rise; 106 px keeps them under it.
+const PADS = { nameL: 25.8, roleR: 25.8, noRoleH: 133.45, webR: 16, roleClipDrop: 8, roleClipRaise: 12, roleRise: 106 };
 
 const r6 = (v) => Math.round(v * 1e6) / 1e6;
 

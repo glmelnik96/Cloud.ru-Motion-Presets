@@ -95,7 +95,7 @@
           "y": 1585,
           "w": 75,
           "h": 45,
-          "reason": "pack defect: «Й» of ТЕХНИЧЕСКИЙ is drawn as «И» in the pack render (decomposed й with all caps); the master shows «Й»"
+          "reason": "pack defect: the pack's role mask cuts the breve of «Й» (the render shows ТЕХНИЧЕСКИИ); the master's band keeps it"
         }
       ],
       "shift": [

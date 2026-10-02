@@ -57,9 +57,18 @@ export function podcastLayout(pod) {
     // arrow anchors at rest and at the start, relative to the plate edges they belong to (host layout)
     arrow1: { restFromLeft: r6((a1[0] - plate.x0) * S), startFromRight: r6((a1s[0] - plate.x1) * S), dyFromLine2: r6((a1[1] - role2[1]) * S) },
     arrow2: { restFromRight: r6((a2[0] - plate.x1) * S), startFromRight: r6((a2s[0] - plate.x1) * S), dyFromLine1: r6((a2[1] - role1[1]) * S) },
+    // the pack's rectangular text masks: the words rise into these bands (above the plate bottom), so the
+    // role never crosses the name; FHD px above the plate bottom
+    clip: { name: maskBand(L(POD.name), pod, plate), role: maskBand(L(POD.role), pod, plate) },
     name: { font: nd.font, size: r6(nd.fontSize * S), tracking: nd.tracking, rise: r6(rise(POD.name) * S) },
     role: { font: rd.font, size: r6(rd.fontSize * S), tracking: rd.tracking, leading: r6(leading), rise: r6(rise(POD.role) * S) },
   };
+}
+
+function maskBand(layer, pod, plate) {
+  const m = layer.masks[0].path.value;
+  const ys = m.vertices.map((v) => applyPoint(layerToCompAt(pod, layer, REST), v)[1]);
+  return { top: r6((plate.y1 - Math.min(...ys)) * S), bottom: r6((plate.y1 - Math.max(...ys)) * S) };
 }
 
 // Arrow shapes of the pack (a triangle, and two side by side), their group positions and layer anchors.
@@ -126,6 +135,8 @@ export function addPodcast(spec, { layout: L, arrows, keys, hex, pads }) {
   const a1 = L.arrow1;
   const a2 = L.arrow2;
   spec.add(
+    shape('CLIP_ROLE', [rectGroup('Clip', hex.black)]),
+    shape('CLIP_NAME', [rectGroup('Clip', hex.black)]),
     shape('PL_POD', [rectGroup('Plate', hex.gray)]),
     text('POD_ROLE', { font: L.role.font, size: L.role.size, fill: hex.black, tracking: L.role.tracking, justify: 'LEFT', leading: L.role.leading, allCaps: true, value: 'Должность' }),
     text('POD_NAME', { font: L.name.font, size: L.name.size, fill: hex.black, tracking: L.name.tracking, justify: 'RIGHT', allCaps: true, value: 'Имя Фамилия' }),
@@ -133,6 +144,14 @@ export function addPodcast(spec, { layout: L, arrows, keys, hex, pads }) {
     shape('ARROW_2', arrows.arrow2.groups.map((g, i) => pathGroup('Arrow ' + (i + 1), hex.black, [g.path], g.position)), { anchor: arrows.arrow2.anchor }),
   );
   spec.key('POD_NAME', P.start(), keys.nameStart).key('POD_ROLE', P.start(), keys.roleStart);
+  // text clips: the pack's mask band cut by the plate (which grows and then closes down)
+  const roleBottom = Math.max(0, L.clip.role.bottom - pads.roleClipDrop);
+  for (const [layer, band] of [['CLIP_NAME', L.clip.name], ['CLIP_ROLE', { top: L.clip.role.top + pads.roleClipRaise, bottom: roleBottom }]]) {
+    const clip = pre + `var c0 = Math.max(py0, yb - ${band.top} * k), c1 = yb - ${band.bottom} * k;
+`;
+    spec.expr(layer, P.rectSize('Clip'), clip + '[Math.max(0, px1 - px0), Math.max(0, c1 - c0)]');
+    spec.expr(layer, P.rectPos('Clip'), clip + '[(px0 + px1) / 2, (c0 + c1) / 2]');
+  }
   spec.expr('PL_POD', P.rectSize('Plate'), pre + '[Math.max(0, px1 - px0), Math.max(0, yb - py0)]');
   spec.expr('PL_POD', P.rectPos('Plate'), pre + '[(px0 + px1) / 2, (py0 + yb) / 2]');
   spec.expr('POD_NAME', P.text, 'String(thisComp.layer("TXT_NAME").text.sourceText)');
@@ -141,7 +160,7 @@ export function addPodcast(spec, { layout: L, arrows, keys, hex, pads }) {
   spec.expr('POD_NAME', P.pos, pre + `[x1 - GR, yb - ${L.nameBaseline} * k]`);
   spec.expr('POD_ROLE', P.pos, pre + 'right ? [x0 + IND, b1] : [x0 + IND, b1]');
   spec.expr('POD_NAME', P.rise(), k + `[0, ${L.name.rise} * k, 0]`);
-  spec.expr('POD_ROLE', P.rise(), k + `[0, ${L.role.rise} * k, 0]`);
+  spec.expr('POD_ROLE', P.rise(), k + `[0, ${pads.roleRise || L.role.rise} * k, 0]`);
   // arrows: the host's arrows point left and come in from the right; «Слева» mirrors them
   spec.expr('ARROW_1', P.pos, pre + `var a = sv("PodArrow1");\n` +
     `var rest = right ? x0 + ${a1.restFromLeft} * k : x1 - ${a1.restFromLeft} * k, from = right ? x1 + ${a1.startFromRight} * k : x0 - ${a1.startFromRight} * k;\n` +
@@ -157,5 +176,6 @@ export function addPodcast(spec, { layout: L, arrows, keys, hex, pads }) {
   for (const layer of ['ARROW_1', 'ARROW_2']) {
     spec.expr(layer, P.opacity, pre + 'thisComp.layer("CTRL").effect("Style")(1).value == 2 && lines > 0 ? 100 : 0');
   }
-  spec.matte('POD_NAME', 'PL_POD').matte('POD_ROLE', 'PL_POD').matte('ARROW_1', 'PL_POD').matte('ARROW_2', 'PL_POD');
+  spec.matte('POD_NAME', 'CLIP_NAME', 'ALPHA', { keepVisible: false }).matte('POD_ROLE', 'CLIP_ROLE', 'ALPHA', { keepVisible: false });
+  spec.matte('ARROW_1', 'PL_POD').matte('ARROW_2', 'PL_POD');
 }
