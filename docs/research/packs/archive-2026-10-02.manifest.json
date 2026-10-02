@@ -1,0 +1,750 @@
+{
+  "source": "C:/Users/Глеб/Documents/Граф пакет Cloud.ru",
+  "createdAt": "2026-10-02T18:37:15.527Z",
+  "excludeRenders": false,
+  "totals": {
+    "files": 123,
+    "bytes": 13084049891
+  },
+  "files": [
+    {
+      "path": "1_Логошоты/Логошот (converted).aep",
+      "size": 1389821,
+      "mtime": "2026-09-30T17:26:06.963Z",
+      "sha256": "63426eb42a2ac5e3fb393b01ead422f1e40e93f135a0ada5230b28cbf52ee9a5"
+    },
+    {
+      "path": "1_Логошоты/Логошот.aep",
+      "size": 1326989,
+      "mtime": "2026-09-28T10:22:04.000Z",
+      "sha256": "088015f1933ab95c46ba38951a0f3d6048ead21693f5a2d53a313b41493a8500"
+    },
+    {
+      "path": "1_Логошоты/ЛогошотReport.txt",
+      "size": 1039,
+      "mtime": "2026-09-28T10:22:04.000Z",
+      "sha256": "16dafa35ea7f66b019beadf1902f390cd98de54b51442b51013aa8ac8128464d"
+    },
+    {
+      "path": "2_Вебинары/(Footage)/Folder/Img/Group 2131327780.png",
+      "size": 919,
+      "mtime": "2026-10-02T00:53:20.000Z",
+      "sha256": "436739b86d583b76e0d0f8488ffca5fca581826198d57de00a76c015ecf0e12b"
+    },
+    {
+      "path": "2_Вебинары/(Footage)/Folder/Img/Смирнов Илья_v1_20.03 1.png",
+      "size": 897792,
+      "mtime": "2026-10-02T00:53:20.000Z",
+      "sha256": "8543f9a391fe39c487b0397dca38ac25fe23f144046aa512de1857e083246861"
+    },
+    {
+      "path": "2_Вебинары/(Footage)/Folder/Music/Music vebinar.mp3",
+      "size": 737948,
+      "mtime": "2026-10-02T00:53:20.000Z",
+      "sha256": "3adb281628095f2b4467371c3ba5c66051d219f1330571053a5f23cbda0f6d9c"
+    },
+    {
+      "path": "2_Вебинары/(Footage)/Folder/Music/Музыка вебинар 5 минут.mp3",
+      "size": 7129560,
+      "mtime": "2026-10-02T00:53:20.000Z",
+      "sha256": "87fe48268a20fdaab54c85cec7dbb1c9f76cd95a5cebfa6daf2d470eb16bc8c2"
+    },
+    {
+      "path": "2_Вебинары/(Footage)/Folder/Video/A_robotic_arm_performing_minimal,_precise_technological_movements._The_scene_showcases_a_sleek_modern_design_with_smooth_metallic_textures_and_geometric_forms,_conveying_a_photographic_minimalism_inspired_by_Carl_Kleiner_and_Jeffrey_Milstei.mp4",
+      "size": 13016356,
+      "mtime": "2026-10-02T00:53:20.000Z",
+      "sha256": "b0167d587a27780a44816ed7ea5c359f93829aa511468d4506a7df9f11e730c9"
+    },
+    {
+      "path": "2_Вебинары/(Footage)/Folder/Video/Seedance.mp4",
+      "size": 18017266,
+      "mtime": "2026-10-02T00:53:22.000Z",
+      "sha256": "f46f77089c94ab9f80f8cdb687473e4a801ff5c3869146d8326fba7bdd6792ba"
+    },
+    {
+      "path": "2_Вебинары/Вебинары.aep",
+      "size": 4962239,
+      "mtime": "2026-10-02T00:53:22.000Z",
+      "sha256": "67411a1a3fecdf2a58d2086301b144bbd50fbfbd71ad8d6774b69236f00feb9d"
+    },
+    {
+      "path": "2_Вебинары/ВебинарыReport.txt",
+      "size": 1629,
+      "mtime": "2026-10-02T00:53:22.000Z",
+      "sha256": "7cff60d0653ddde0635b38acc2db5b160e74c9fb6bd97cbba14a936cb2a60cc5"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/(Footage)/Folder/Music/Music Intro.mp3",
+      "size": 528082,
+      "mtime": "2026-09-28T10:21:52.000Z",
+      "sha256": "0bab54009f36c3b659a39da5bb13e97f35d3afb21172755e91268bb9da8570de"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/(Footage)/Folder/Patterns/Pattern Arrow.png",
+      "size": 456037,
+      "mtime": "2026-09-28T10:21:52.000Z",
+      "sha256": "85b87fbe9f1df1a392b08af062af31736e395ef44c348540f6dbeb5d7e504ded"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/(Footage)/Folder/Visuals/Kubernetes.png",
+      "size": 789264,
+      "mtime": "2026-09-28T10:21:52.000Z",
+      "sha256": "49d71be5ef447f4549ec5217e94ae84d3cbad419353f29cb51d3aabe6dc13f0e"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Adobe After Effects Auto-Save/Обучающие курсы (converted) auto-save 1.aep",
+      "size": 2800748,
+      "mtime": "2026-09-28T15:27:56.356Z",
+      "sha256": "413efd233c78de532cdd3aa2e451f99eada6e80cbaaa992cde6e7149fcd6d34c"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Оверлей 16 на 9.mov",
+      "size": 1543633652,
+      "mtime": "2026-09-28T10:21:52.000Z",
+      "sha256": "371fec7d47fd2e450bb13a7585d80e2db6b1fc8bab1b927747d896c98423607d"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Оверлей со спикером.mov",
+      "size": 4254796356,
+      "mtime": "2026-09-28T10:22:34.000Z",
+      "sha256": "46e89a17a4dfb1326bf87556373b0d670d87fe7de51785b4bd5d9527dd14aad1"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Оверлей со спикером_1.mov",
+      "size": 4224567012,
+      "mtime": "2026-09-28T10:25:44.000Z",
+      "sha256": "e09f6be3ca24dd4489922d64f44088fa4a08f935961d450bfef2e7c3bc443485"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Render Overlays/FullHD/Переход.mov",
+      "size": 9257892,
+      "mtime": "2026-09-28T10:28:54.000Z",
+      "sha256": "34e3c16a4d37f56cd5da326a47ca6c6420ce2b2262a9716980fc53709b1729d4"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000.cfa",
+      "size": 3145728,
+      "mtime": "2026-09-29T08:55:52.112Z",
+      "sha256": "bbd05cf6097ac9b1f89ea29d2542c1b7b67ee46848393895f5a9e43fa1f621e5"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000.pek",
+      "size": 12356,
+      "mtime": "2026-09-29T08:55:52.114Z",
+      "sha256": "8506b2450d2f23180338c45bd20af358d8bb4e9dd20103f1d2177dd5664c2386"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_1.cfa",
+      "size": 3145728,
+      "mtime": "2026-09-30T06:58:04.054Z",
+      "sha256": "bbd05cf6097ac9b1f89ea29d2542c1b7b67ee46848393895f5a9e43fa1f621e5"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_1.pek",
+      "size": 12356,
+      "mtime": "2026-09-30T06:58:04.056Z",
+      "sha256": "26592e3750d1f650c52d903fadeb0cc73ffadb779d64ed49a61034628e41b00e"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_2.cfa",
+      "size": 3145728,
+      "mtime": "2026-09-30T17:22:59.495Z",
+      "sha256": "bbd05cf6097ac9b1f89ea29d2542c1b7b67ee46848393895f5a9e43fa1f621e5"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_2.pek",
+      "size": 12356,
+      "mtime": "2026-09-30T17:22:59.499Z",
+      "sha256": "8e2e0c7ce3b284e21dae0099f724e67929bda9912bfc23005c76ec9c6c03d4a4"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_3.cfa",
+      "size": 3145728,
+      "mtime": "2026-09-30T17:24:40.262Z",
+      "sha256": "bbd05cf6097ac9b1f89ea29d2542c1b7b67ee46848393895f5a9e43fa1f621e5"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_3.pek",
+      "size": 12356,
+      "mtime": "2026-09-30T17:24:40.265Z",
+      "sha256": "4d4842a4129dfdedf46e0e6528f0f0cd522b742ac62242a623870f5bcb2dd1a4"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_4.cfa",
+      "size": 3145728,
+      "mtime": "2026-09-30T17:25:31.822Z",
+      "sha256": "bbd05cf6097ac9b1f89ea29d2542c1b7b67ee46848393895f5a9e43fa1f621e5"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #1.aep 48000_4.pek",
+      "size": 12356,
+      "mtime": "2026-09-30T17:25:31.825Z",
+      "sha256": "1ca6d6dcf3ea9b8b085dba2de61638a37568cbe496ebeeb76bd7ece4a664ccf1"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000.cfa",
+      "size": 3145728,
+      "mtime": "2026-09-29T08:55:53.702Z",
+      "sha256": "bbd05cf6097ac9b1f89ea29d2542c1b7b67ee46848393895f5a9e43fa1f621e5"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000.pek",
+      "size": 12356,
+      "mtime": "2026-09-29T08:55:53.704Z",
+      "sha256": "6ed78e4dae3fbac3e83b7389526f96f9a1f705b868afd06392129d6566597ebf"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_1.cfa",
+      "size": 3145728,
+      "mtime": "2026-09-30T06:58:03.776Z",
+      "sha256": "bbd05cf6097ac9b1f89ea29d2542c1b7b67ee46848393895f5a9e43fa1f621e5"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_1.pek",
+      "size": 12356,
+      "mtime": "2026-09-30T06:58:03.780Z",
+      "sha256": "174eacf83583beee225b9b018b2d67a1d799948795e183a66dd633945cffcf42"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_2.cfa",
+      "size": 3145728,
+      "mtime": "2026-09-30T17:22:59.759Z",
+      "sha256": "bbd05cf6097ac9b1f89ea29d2542c1b7b67ee46848393895f5a9e43fa1f621e5"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_2.pek",
+      "size": 12356,
+      "mtime": "2026-09-30T17:22:59.762Z",
+      "sha256": "c8560f7503b88fd36e70e44c463d03cb77cc35adce8e3cbd0b796259a90d02dc"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_3.cfa",
+      "size": 3145728,
+      "mtime": "2026-09-30T17:24:40.542Z",
+      "sha256": "bbd05cf6097ac9b1f89ea29d2542c1b7b67ee46848393895f5a9e43fa1f621e5"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_3.pek",
+      "size": 12356,
+      "mtime": "2026-09-30T17:24:40.545Z",
+      "sha256": "41fcb2623c1a6cd9b4e2d1317cf3f6a79678f9c5ce6c342e7fb0962639d3d167"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_4.cfa",
+      "size": 3145728,
+      "mtime": "2026-09-30T17:25:31.556Z",
+      "sha256": "bbd05cf6097ac9b1f89ea29d2542c1b7b67ee46848393895f5a9e43fa1f621e5"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted) Обложка #4.aep 48000_4.pek",
+      "size": 12356,
+      "mtime": "2026-09-30T17:25:31.559Z",
+      "sha256": "032fa2273e29d58f21b2026fea76997fce2bd4d204e0d6e2894c06757167aa91"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы (converted).aep",
+      "size": 3502367,
+      "mtime": "2026-09-30T17:25:28.470Z",
+      "sha256": "ca6dba38f64e3ffacdf4c81d3ef30fbc31e9a4c6e4b6d3f8a0822f4fb07a1d97"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсы.aep",
+      "size": 3759973,
+      "mtime": "2026-09-28T10:28:54.000Z",
+      "sha256": "e565aef227ae9caf62bc8031e8dc910e5bb7cce76a71d1b4a227730a9003a151"
+    },
+    {
+      "path": "3_Обучающие_курсы/3_Обучающие курсы/Обучающие курсыReport.txt",
+      "size": 1006,
+      "mtime": "2026-09-28T10:28:54.000Z",
+      "sha256": "2e9b13a6c7e58f2a9547f1c8979b293045a8f812af50093f11f1069b41f2572e"
+    },
+    {
+      "path": "4_SMM_Pack/(Footage)/Folder/Solids/Rectangle 34627972.png",
+      "size": 3219743,
+      "mtime": "2026-10-02T00:53:24.000Z",
+      "sha256": "e438914c39914142acc7ddcf5ff6baffb3ae20407c3ee85b6eff58b688ed2b3d"
+    },
+    {
+      "path": "4_SMM_Pack/(Footage)/Folder/Video/kling_20250925_Image_to_Video_camera_orb_2946_1.mp4",
+      "size": 16017331,
+      "mtime": "2026-10-02T00:53:24.000Z",
+      "sha256": "4704b616e47ea275157df6674ba0d5cd811375d4ff7d154812e04d429e7e595d"
+    },
+    {
+      "path": "4_SMM_Pack/Render/BG/BG_pattern_1x1_1.mov",
+      "size": 474803668,
+      "mtime": "2026-10-02T00:53:24.000Z",
+      "sha256": "5a10835ed9299e38ff604121b62daf0aa662c9f5954975cca6aa6b695e5add01"
+    },
+    {
+      "path": "4_SMM_Pack/Render/BG/BG_pattern_1x1_2.mov",
+      "size": 509363732,
+      "mtime": "2026-10-02T00:53:46.000Z",
+      "sha256": "7e5df947e90fca7ab53244230c76ee34dea56826e65212a29416d2f113deac57"
+    },
+    {
+      "path": "4_SMM_Pack/Render/BG/BG_pattern_9x16_1.mov",
+      "size": 377006116,
+      "mtime": "2026-10-02T00:54:02.000Z",
+      "sha256": "39e70d91ef5c2ec01ae91da0c36f625ee0b077c7443eb03369cff727b1f01872"
+    },
+    {
+      "path": "4_SMM_Pack/Render/BG/BG_pattern_9x16_2.mov",
+      "size": 513042308,
+      "mtime": "2026-10-02T00:54:18.000Z",
+      "sha256": "4531a504a4588a9fe3123493100656315b88ccf2fa22ded6a2f39eeea3caab33"
+    },
+    {
+      "path": "4_SMM_Pack/Render/Overlay/Оверлей_1x1.mov",
+      "size": 120149972,
+      "mtime": "2026-10-02T00:54:36.000Z",
+      "sha256": "989adc39382714439338063a47f80a549976f58450b59fd377de436cad8fdcf6"
+    },
+    {
+      "path": "4_SMM_Pack/Render/Overlay/Оверлей_9x16.mov",
+      "size": 123961220,
+      "mtime": "2026-10-02T00:54:36.000Z",
+      "sha256": "077ff0877193cec7d42a3634744db0fdb06ec7c64c25453a1fc141a8ecf8beea"
+    },
+    {
+      "path": "4_SMM_Pack/Render/Transitions/Transition with Logo.mov",
+      "size": 4942916,
+      "mtime": "2026-10-02T00:54:38.000Z",
+      "sha256": "3cc39c4e0e8a9f10d085d7e01225b3598b929c0b2466aaf5c27d5536609b6e94"
+    },
+    {
+      "path": "4_SMM_Pack/Render/Transitions/Transition_gray.mov",
+      "size": 4432036,
+      "mtime": "2026-10-02T00:54:38.000Z",
+      "sha256": "a723a56506ab8d0e7d5005128e68f2f5d607694010de2e8362c372f85d5f1c6f"
+    },
+    {
+      "path": "4_SMM_Pack/Render/Transitions/Transition_green.mov",
+      "size": 4708340,
+      "mtime": "2026-10-02T00:54:38.000Z",
+      "sha256": "b0c03e784655572fbab60468fcda9dcbfde8b826456120db9390b7da5ef9fb4f"
+    },
+    {
+      "path": "4_SMM_Pack/Render/Transitions/Transition_white.mov",
+      "size": 4466788,
+      "mtime": "2026-10-02T00:54:38.000Z",
+      "sha256": "700d449b157ccd8f88accc26ae5770b7c3e6a7704bbc9a55276acba590d38ec7"
+    },
+    {
+      "path": "4_SMM_Pack/SMM_pack.aep",
+      "size": 7487577,
+      "mtime": "2026-10-02T00:54:38.000Z",
+      "sha256": "b07d2cb2ff2fdb5e778bfb15db4491306d003a7ff4026a57c812ce8920877abb"
+    },
+    {
+      "path": "4_SMM_Pack/SMM_packReport.txt",
+      "size": 1267,
+      "mtime": "2026-10-02T00:54:38.000Z",
+      "sha256": "2bd593a50a5d33117dc9358d0817fc7f60f3fd515ea665c6ca42e5aa755a6211"
+    },
+    {
+      "path": "5_Titles/Titles (3) (converted).aep",
+      "size": 560380,
+      "mtime": "2026-09-28T20:55:32.185Z",
+      "sha256": "703cef805ea4907f460b83886e38533da432948f16f7dae5250b1768c67ad536"
+    },
+    {
+      "path": "5_Titles/Titles (3).aep",
+      "size": 315078,
+      "mtime": "2026-09-28T10:21:56.000Z",
+      "sha256": "8e9e65c601e8c197dcf809f3fad17fe7518c446e59e478904d82422573a72acf"
+    },
+    {
+      "path": "5_Titles/Titles (3)Report.txt",
+      "size": 450,
+      "mtime": "2026-09-28T10:21:58.000Z",
+      "sha256": "1fc4f5f58f3e08bd109c691dd6853f903d1ca69d2fb6d294ff8633a25e290b66"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/02 Simple Whoosh B.wav",
+      "size": 582326,
+      "mtime": "2026-10-02T00:53:28.000Z",
+      "sha256": "764b1f05e1619a5f03302206fd29c89f03ce970f7ca79c80baa1b4425b60b63d"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/Podcasts_1.wav",
+      "size": 30658600,
+      "mtime": "2026-10-02T00:53:28.000Z",
+      "sha256": "8180289cb4e0c8b50fba78b247665242f286af398fe0054144f10c5c1832cc64"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/QR/._QR Code_Тимур_1.png",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "c429cd6f3dd2377c3621cda80dfd28259b3d4c6dd8a9a7651dc59d1fa24048a6"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/QR/._STRDUB.png",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/QR/._Балун.png",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/QR/._ТК канал Cloud.ru.png",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/QR/QR Code_Тимур_1.png",
+      "size": 10931,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "41036a374b33b4a9fd777a23e52cda223a468464fcc259943a59665f8854910f"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/QR/STRDUB.png",
+      "size": 9469,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "94042849064f37355c4e50c60a204c62697ed115203f3d87ba4f43c778081925"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/QR/Балун.png",
+      "size": 11468,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "2d45ddd3faa837673306ba95c6dab596c972b785cb6b03a1ea1e0f0ddd4edf28"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/QR/ТК канал Cloud.ru.png",
+      "size": 10452,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "021fdb40dddd1c884e0b9778dde0c96d631a8749dac9fe81e283c5e60d9b7d40"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SCIMach_SMorph_Motion Graphics - Micro SFX 04.wav",
+      "size": 4074062,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "a99485d20f18c2a0146621e40d343ec7b8e3a46f3083ac31c7c2c4462f4d75dd"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._QR_код_1.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._QR_код_2.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._QR_код_3.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Дисклеймер.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Заставка_ПОДКАСТ_CLOUD.RU.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Контент_1.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Контент_2.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Контент_3.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._О_госте.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Подписывайтесь на канал CLOUD.RU.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Подпись_спикера_1.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Текст на плашке_1.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Текст на плашке_2.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/._Текст на плашке_3.wav",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/QR_код_1.wav",
+      "size": 1917690,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "a3ecc3107222fb4311e03998347c77831be9797bb692cc7cd3c3aa7f0390646d"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/QR_код_2.wav",
+      "size": 1925818,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "1daecc1c39e5fb8ce6e5e43d23e2c2dcaa503940f83d50b3fbcd9513c61cd7fa"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/QR_код_3.wav",
+      "size": 1926358,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "a5294c74cd05082ccf939c572efe0d0a20fff51e19bef44df35232a33c38e100"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Дисклеймер.wav",
+      "size": 5980510,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "9d7598aac9b8ba6413002442103c4e241f95dd8b0e6a40b2339f5e3a190012a9"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Заставка_ПОДКАСТ_CLOUD.RU.wav",
+      "size": 5057922,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "704a0541e035a1f46f5ac5b02f709e8cc1d9444fdf62ffc3b26848631b3c1de1"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Контент_1.wav",
+      "size": 1911472,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "fd676d17771c503ccef617f85dc100f12058782e005725c7d4a91ff081f396e1"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Контент_2.wav",
+      "size": 1906506,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "173d81314e270d5f21c1ed202294aaf7110c00f189709a7e0c3c666fcd6bac99"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Контент_3.wav",
+      "size": 1915458,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "4f206de9d557b842aec0e75dc3152aedb20e62e0c926173ef5d24f54e1366baa"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/О_госте.wav",
+      "size": 1918322,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "25f4797a92068a01ffcfb060eed7a4702497c287cfd8c207d40e30d0d613af84"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Подписывайтесь на канал CLOUD.RU.wav",
+      "size": 1952346,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "60a29344e013f59ecd64bee5f6254a3a3667818faec5fa3df6700b8828318c32"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Подпись_спикера_1.wav",
+      "size": 1920610,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "afd8fcc92da04f1cc0d123ae32536e45227551a2b648e3b7e2552e7861c65253"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Текст на плашке_1.wav",
+      "size": 1930992,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "ee46346b2c8b7a37419aafe2f675d9be88c7e2aa51483a8c2f4a04e762779479"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Текст на плашке_2.wav",
+      "size": 1918996,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "09f340013fea8c48f64782dd024ec0af91387922b81c65af25e8fd14ee8c75bf"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SFX/Текст на плашке_3.wav",
+      "size": 1918996,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "d8ab9f26dd768f8d518ba8a315ac8e34657ef11fa5bf646755ac0d9054e865d4"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/SoundsCrate-Fighting-Woosh-9.mp3",
+      "size": 13677,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "e9420267166fe2846575e83670dcac7cb994c503095020c4ba843acefd354b8d"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/Still/._Still 2025-12-10 132207_1.1.1.png",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/Still/._Still 2025-12-10 132207_1.2.1.png",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/Still/._Still 2025-12-10 132207_1.3.1.png",
+      "size": 4096,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "0150b2326a3a4d0ebbe7261614930781df45e7f036550b52ab2887246c711f51"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/Still/Still 2025-12-10 132207_1.1.1.png",
+      "size": 6231977,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "200e1abba895fb8798d0eed91707b05c022f8754d54449b82e0f31eb64ce80b5"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/Still/Still 2025-12-10 132207_1.2.1.png",
+      "size": 6231977,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "aab8ccbe482ac9df0c6c9b9949f81096426f6d9afc2801165509dd3f112c7010"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/Still/Still 2025-12-10 132207_1.3.1.png",
+      "size": 6231977,
+      "mtime": "2026-10-02T00:53:32.000Z",
+      "sha256": "2834fd1f02c0de4dd1523e1d9429f4257c0724074881699857db2a96faf5d18a"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/Whoosh 42.mp3",
+      "size": 31306,
+      "mtime": "2026-10-02T00:53:32.000Z",
+      "sha256": "684379915739f3f13013f932b1dedd71fcbd371d2f85cb837e34eff8fd0868dc"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/_experimental.wav",
+      "size": 384168,
+      "mtime": "2026-10-02T00:53:32.000Z",
+      "sha256": "04d7339f12966c780fd49bb014650fd1ae9f4cabb2e03027c68571d4f9b10644"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/(Footage)/soundscrate-air-woosh-2.mp3",
+      "size": 21996,
+      "mtime": "2026-10-02T00:53:32.000Z",
+      "sha256": "334f7d69133556cc43c4eb84c113d9e701c89e733ec08ff2eacff302ae744000"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/Podcast_Pack.aep",
+      "size": 7443746,
+      "mtime": "2026-10-02T00:53:32.000Z",
+      "sha256": "628958975639980a9bad04f55095b6ccc560acb6398ff040b259c15cbe753d43"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/Podcast_PackReport.txt",
+      "size": 3496,
+      "mtime": "2026-10-02T00:53:32.000Z",
+      "sha256": "09707da4b0aa54b41384e8b09042214519eac1d926b82e4839d0d61981959c68"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/Ready mov/OUTRO.mov",
+      "size": 50790740,
+      "mtime": "2026-10-02T00:53:32.000Z",
+      "sha256": "28432343adc90f962a2bfcf6f6344a45341918ad5ae8ce2346ffbfe3ce5839db"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/Ready mov/Заставка_ПОДКАСТ_CLOUD.RU.mov",
+      "size": 174488932,
+      "mtime": "2026-10-02T00:53:32.000Z",
+      "sha256": "2a97dbbeffc9d4126a67b26f0be3f8fffb4248b8d9030ba38dbc3acbf628afae"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/Ready mov/Заставка_ПОДКАСТ_CLOUD.RU_9x16.mov",
+      "size": 361314390,
+      "mtime": "2026-10-02T00:53:38.000Z",
+      "sha256": "8c4bfafd1911b1cd9dad454669ce2d4388591f0e5a2d4b1cfb6aa67e9456d99f"
+    },
+    {
+      "path": "6_Podcast_Cloud.ru_Pack/Ready mov/Подписывайся! Ссылки в описании.mov",
+      "size": 113267748,
+      "mtime": "2026-10-02T00:53:44.000Z",
+      "sha256": "2253ae9485305d3367391d4172610b4c1dea830cbad8f2a43554a5808309d4b2"
+    },
+    {
+      "path": "7_Пресеты_Media_Encoder/4K.epr",
+      "size": 46041,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "8371bf50d4649d343a0380f24e634919b223e5af1d3bdab714cf20cc5ae755f6"
+    },
+    {
+      "path": "7_Пресеты_Media_Encoder/FullHD.epr",
+      "size": 46111,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "c6348e10fcdf5b2f169aa51e940e2ec11509521615a931c2132d64a2c264b0d8"
+    },
+    {
+      "path": "7_Пресеты_Media_Encoder/SMM_1440x1080.epr",
+      "size": 46086,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "786486b74b5ab77223ee51c4f4c1c69154680ea3954c1db9c97e6cee3a077959"
+    },
+    {
+      "path": "7_Пресеты_Media_Encoder/SMM_16x9.epr",
+      "size": 46091,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "bfcb1e5aeea02adf8593427a84166e1b87b7576929dc365ed12eec7e8db2fd1a"
+    },
+    {
+      "path": "7_Пресеты_Media_Encoder/SMM_1x1.epr",
+      "size": 46063,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "dfa9dbaf303aa9e5058945778de1fb15515215633b9dcb6fe05c92b191c8e330"
+    },
+    {
+      "path": "7_Пресеты_Media_Encoder/SMM_9x16.epr",
+      "size": 46091,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "34eb75aa672e6cc83a2b020a9fe5eb6660904522d775d31bf4ff53bd3f26ed3d"
+    },
+    {
+      "path": "7_Пресеты_Media_Encoder/Webinar_Final render.epr",
+      "size": 46088,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "6278b53234191c85e6ad000cd10f009b6bbda25a7f795cf5b2ebf52e0fdd1d26"
+    },
+    {
+      "path": "7_Пресеты_Media_Encoder/Webinar_Timer.epr",
+      "size": 46077,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "461454ef267370f2003f288e4eb7201dcd7337c1461726a541a9fd40f3220671"
+    },
+    {
+      "path": "7_Пресеты_Media_Encoder/Webinar_Zastavka.epr",
+      "size": 46084,
+      "mtime": "2026-10-02T00:53:30.000Z",
+      "sha256": "c46d04ae13863cf42c091904b1e0bd85be6f90d5bf1d62440ea9f23319aa2b8d"
+    }
+  ],
+  "excluded": []
+}
