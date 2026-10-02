@@ -1,0 +1,149 @@
+{
+  "id": "S4",
+  "title": "applyPreset и оба движка выражений",
+  "host": "ae",
+  "hostVersion": "26.5x89",
+  "date": "2026-10-02",
+  "verdict": "yes",
+  "verdictLocked": false,
+  "checks": [
+    {
+      "name": "fixture opened from disk",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\fixtures\\CRT_fixture.aep, engine javascript-1.0"
+    },
+    {
+      "name": "fixture expressions found (expected 8)",
+      "pass": true,
+      "required": true,
+      "detail": [
+        "CRT_LowerThird_v1 QA_PATCH/ADBE Transform Group/ADBE Opacity",
+        "CRT_LowerThird_v1 PL_NAME/ADBE Root Vectors Group/ADBE Vector Group/ADBE Vectors Group/ADBE Vector Shape - Rect/ADBE Vector Rect Size",
+        "CRT_LowerThird_v1 PL_NAME/ADBE Root Vectors Group/ADBE Vector Group/ADBE Vectors Group/ADBE Vector Shape - Rect/ADBE Vector Rect Position",
+        "CRT_LowerThird_v1 PL_NAME/ADBE Root Vectors Group/ADBE Vector Group/ADBE Vectors Group/ADBE Vector Graphic - Fill/ADBE Vector Fill Color",
+        "CRT_LowerThird_v1 TXT_ROLE/ADBE Transform Group/ADBE Opacity",
+        "CRT_Hatch_v1 QA_PATCH/ADBE Transform Group/ADBE Opacity",
+        "CRT_Hatch_v1 PROBE_SQ/ADBE Transform Group/ADBE Position",
+        "CRT_Hatch_v1 HATCH/ADBE Root Vectors Group/ADBE Vector Group/ADBE Vectors Group/ADBE Vector Filter - Repeater/ADBE Vector Repeater Offset"
+      ]
+    },
+    {
+      "name": "engine extendscript: every expression without errors",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "count": 8,
+        "errors": [],
+        "engineNow": "extendscript"
+      }
+    },
+    {
+      "name": "engine javascript-1.0: every expression without errors",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "count": 8,
+        "errors": [],
+        "engineNow": "javascript-1.0"
+      }
+    },
+    {
+      "name": "effect value without .value (bare property arithmetic) in both engines",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "extendscript": {
+          "error": "",
+          "value": 100
+        },
+        "javascript-1.0": {
+          "error": "",
+          "value": 100
+        }
+      }
+    },
+    {
+      "name": "applyPreset, TXT_ROLE selected: preset lands on TXT_ROLE only",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "selected": [
+          "TXT_ROLE"
+        ],
+        "compTime": 2,
+        "layersBefore": 7,
+        "layersAfter": 7,
+        "effectsChangedOn": [
+          "TXT_ROLE"
+        ]
+      }
+    },
+    {
+      "name": "applyPreset: first keyframe at comp.time (2 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "t": 2,
+        "at": "TXT_ROLE/effects/ADBE Linear Wipe/ADBE Linear Wipe-0001"
+      }
+    },
+    {
+      "name": "text preset on TXT_NAME selected: animator keys start at comp.time (3 s)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "animators": 1,
+        "first": {
+          "t": 3,
+          "at": "TXT_NAME/animators/ADBE Text Animator/ADBE Text Selectors/ADBE Text Selector/ADBE Text Percent Start"
+        }
+      }
+    },
+    {
+      "name": "applyPreset with nothing selected: a new solid layer appears",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "selectedBefore": [],
+        "layersBefore": 7,
+        "layersAfter": 8,
+        "newLayer": "Solid 1",
+        "solid": true,
+        "firstKey": {
+          "t": 4,
+          "at": "new layer/effects/ADBE Linear Wipe/ADBE Linear Wipe-0001"
+        }
+      }
+    },
+    {
+      "name": "engine restored and scratch copy saved",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "path": "C:\\CRBK\\work\\s4\\CRT_fixture_s4.aep",
+        "bytes": 321343,
+        "dirty": false
+      }
+    },
+    {
+      "required": false,
+      "detail": "read by script in CRT_fixture_s4.aep: TXT_ROLE Linear Wipe first key 2 s, TXT_NAME animator 3 s, new Solid 1 Linear Wipe 4 s",
+      "name": "timeline: preset keys start at 2 s, 3 s and 4 s",
+      "pass": true,
+      "manual": true
+    },
+    {
+      "required": false,
+      "detail": "-",
+      "name": "no dialogs during the run",
+      "pass": true,
+      "manual": true
+    }
+  ],
+  "fallback": "Панель требует выделения перед применением пресета",
+  "notes": "Пресеты из поставки AE: Transitions - Wipes/Linear Wipe.ffx (общий), Text/Animate In/Fade Up Characters.ffx (текстовый); копии в рабочей папке. Обязательные проверки: пресет на выделенный слой, первый ключ на comp.time, выражения фикстуры в обоих движках. Без выделения, текстовый пресет и арифметика без .value — наблюдения.",
+  "evidence": [
+    "spikes/results/S4.data.json"
+  ]
+}

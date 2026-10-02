@@ -1,0 +1,25 @@
+{
+  "engineBefore": "javascript-1.0",
+  "engines": {
+    "extendscript": {
+      "count": 8,
+      "errors": [],
+      "engineNow": "extendscript"
+    },
+    "javascript-1.0": {
+      "count": 8,
+      "errors": [],
+      "engineNow": "javascript-1.0"
+    }
+  },
+  "presets": {
+    "generic": "C:/CRBK/work/s4/presets/linear_wipe.ffx",
+    "text": "C:/CRBK/work/s4/presets/fade_up_characters.ffx"
+  },
+  "times": {
+    "selected": 2,
+    "text": 3,
+    "none": 4
+  },
+  "hostVersion": "26.5x89"
+}
