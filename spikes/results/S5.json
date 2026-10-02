@@ -1,0 +1,1130 @@
+{
+  "id": "S5",
+  "title": "importMGT и запись полей (CEP)",
+  "host": "pr",
+  "hostVersion": "26.5.2",
+  "date": "2026-10-02",
+  "verdict": "partial",
+  "verdictLocked": false,
+  "checks": [
+    {
+      "name": "active project is CRT_pr_test.prproj",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj",
+      "stage": "insert"
+    },
+    {
+      "name": "work clone of CRT_Seq_1080p25 is active",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CRT_S5_work",
+        "id": "635ec6f4-220b-4c33-9e07-2ca280aa08a5",
+        "rv": "true"
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "S2 MOGRT files exist",
+      "pass": true,
+      "required": true,
+      "detail": [
+        "C:/CRBK/work/mogrt/CRT_LowerThird_v1.mogrt",
+        "C:/CRBK/work/mogrt/CRT_Hatch_v1.mogrt"
+      ],
+      "stage": "insert"
+    },
+    {
+      "name": "undo groups exist in Premiere ExtendScript (app.beginUndoGroup)",
+      "pass": false,
+      "required": false,
+      "detail": "undefined",
+      "stage": "insert"
+    },
+    {
+      "name": "importMGT onto the occupied V2 at 12 s overwrites bars2, nothing shifts",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "v2Before": [
+          {
+            "startF": 250,
+            "endF": 500,
+            "inF": 0,
+            "outF": 250,
+            "onGrid": true,
+            "startTicks": "2540160000000",
+            "endTicks": "5080320000000",
+            "name": "bars2_1080p25_10s.mp4"
+          }
+        ],
+        "v2After": [
+          {
+            "startF": 250,
+            "endF": 300,
+            "inF": 0,
+            "outF": 50,
+            "onGrid": true,
+            "startTicks": "2540160000000",
+            "endTicks": "3048192000000",
+            "name": "bars2_1080p25_10s.mp4"
+          },
+          {
+            "startF": 300,
+            "endF": 550,
+            "inF": 90000,
+            "outF": 90250,
+            "onGrid": true,
+            "startTicks": "3048192000000",
+            "endTicks": "5588352000000",
+            "name": "CRT_LowerThird_v1"
+          }
+        ],
+        "returned": true,
+        "lenF": 250,
+        "error": null,
+        "v1Same": true
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "importMGT onto the free V3 at 40 s: the clip is there",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "wasFree": true,
+        "startF": 1000,
+        "lenF": 250,
+        "returned": true,
+        "returnedName": "CRT_LowerThird_v1",
+        "ms": 59,
+        "error": null,
+        "times": {
+          "startF": 1000,
+          "endF": 1250,
+          "inF": 90000,
+          "outF": 90250,
+          "onGrid": true,
+          "startTicks": "10160640000000",
+          "endTicks": "12700800000000"
+        },
+        "rdt": {
+          "before": {
+            "startF": 1000,
+            "endF": 1250,
+            "inF": 90000,
+            "outF": 90250,
+            "onGrid": true,
+            "startTicks": "10160640000000",
+            "endTicks": "12700800000000"
+          },
+          "after": {
+            "startF": 1000,
+            "endF": 1375,
+            "inF": 90000,
+            "outF": 90375,
+            "onGrid": true,
+            "startTicks": "10160640000000",
+            "endTicks": "13970880000000"
+          }
+        }
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "importMGT returns the TrackItem it placed",
+      "pass": true,
+      "required": false,
+      "detail": "CRT_LowerThird_v1",
+      "stage": "insert"
+    },
+    {
+      "name": "default length of the LowerThird recorded",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "frames": 250,
+        "sec": 10,
+        "times": {
+          "startF": 1000,
+          "endF": 1250,
+          "inF": 90000,
+          "outF": 90250,
+          "onGrid": true,
+          "startTicks": "10160640000000",
+          "endTicks": "12700800000000"
+        }
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "Essential Graphics parameters found by display name",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "missing": [],
+        "params": [
+          {
+            "index": 0,
+            "displayName": "Фото",
+            "value": {
+              "type": "string",
+              "value": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          {
+            "index": 1,
+            "displayName": "Стиль",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          },
+          {
+            "index": 2,
+            "displayName": "Акцент",
+            "value": {
+              "type": "number",
+              "value": 72099378969476100
+            }
+          },
+          {
+            "index": 3,
+            "displayName": "Длительность (служебное, не менять)",
+            "value": {
+              "type": "number",
+              "value": 10
+            }
+          },
+          {
+            "index": 4,
+            "displayName": "Показать должность",
+            "value": {
+              "type": "boolean",
+              "value": true
+            }
+          },
+          {
+            "index": 5,
+            "displayName": "Должность",
+            "value": {
+              "type": "string",
+              "value": "{\"capPropFontEdit\":false,\"capPropFontFauxStyleEdit\":false,\"capPropFontSizeEdit\":false,\"capPropTextRunCount\":1,\"fontEditValue\":[\"SBSansText-Regular\"],\"fontFSAllCapsValue\":[false],\"fontFSBoldValue\":[false],\"fontFSItalicValue\":[false],\"fontFSSmallCapsValue\":[false],\"fontSizeEditValue\":[40],\"fontTextRunLength\":[9],\"textEditValue\":\"Должность\"}"
+            }
+          },
+          {
+            "index": 6,
+            "displayName": "Имя",
+            "value": {
+              "type": "string",
+              "value": "{\"capPropFontEdit\":false,\"capPropFontFauxStyleEdit\":false,\"capPropFontSizeEdit\":false,\"capPropTextRunCount\":1,\"fontEditValue\":[\"SBSansDisplay-Semibold\"],\"fontFSAllCapsValue\":[false],\"fontFSBoldValue\":[false],\"fontFSItalicValue\":[false],\"fontFSSmallCapsValue\":[false],\"fontSizeEditValue\":[60],\"fontTextRunLength\":[11],\"textEditValue\":\"Имя Фамилия\"}"
+            }
+          }
+        ]
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "media replacement Фото: what Premiere exposes (not writable by script, spec 1.1)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "found": true,
+        "value": {
+          "type": "string",
+          "value": "00000000-0000-0000-0000-000000000000"
+        }
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "text with Cyrillic written and read back: Имя",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": "Имя Фамилия",
+        "rv": {
+          "type": "boolean",
+          "value": true
+        },
+        "runsBefore": 1,
+        "back": "Анна-Мария Ёлкина-Константинопольская"
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "text written and read back: Должность",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": "Должность",
+        "rv": {
+          "type": "boolean",
+          "value": true
+        },
+        "runsBefore": 1,
+        "back": "Руководитель облачной платформы"
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "checkbox written and read back: Показать должность",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": {
+          "type": "boolean",
+          "value": true
+        },
+        "written": {
+          "type": "boolean",
+          "value": false
+        },
+        "rv": {
+          "type": "boolean",
+          "value": true
+        },
+        "back": {
+          "type": "boolean",
+          "value": false
+        }
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "slider written and read back: Длительность (служебное, не менять)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": {
+          "type": "number",
+          "value": 10
+        },
+        "rv": {
+          "type": "boolean",
+          "value": true
+        },
+        "back": {
+          "type": "number",
+          "value": 15
+        }
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "colour written and read back: Акцент",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "before": "[1,38,208,123]",
+        "rv": {
+          "type": "boolean",
+          "value": true
+        },
+        "back": "[255,160,104,255]"
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "explicit length of 15 s on the RDT LowerThird (outPoint, then end)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": {
+          "startF": 1000,
+          "endF": 1250,
+          "inF": 90000,
+          "outF": 90250,
+          "onGrid": true,
+          "startTicks": "10160640000000",
+          "endTicks": "12700800000000"
+        },
+        "after": {
+          "startF": 1000,
+          "endF": 1375,
+          "inF": 90000,
+          "outF": 90375,
+          "onGrid": true,
+          "startTicks": "10160640000000",
+          "endTicks": "13970880000000"
+        }
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "second LowerThird at 60 s for the dropdown",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "startF": 1500,
+        "lenF": 250,
+        "error": null
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "dropdown written and read back: Стиль",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": {
+          "type": "number",
+          "value": 0
+        },
+        "written": 1,
+        "rv": {
+          "type": "boolean",
+          "value": true
+        },
+        "back": {
+          "type": "number",
+          "value": 1
+        }
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "reference LowerThird at 75 s (template defaults)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "startF": 1875,
+        "lenF": 250,
+        "error": null
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "Hatch MOGRT at 90 s: the clip is there",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "startF": 2250,
+        "lenF": 1500,
+        "returned": true,
+        "ms": 60,
+        "error": null,
+        "times": {
+          "startF": 2250,
+          "endF": 3750,
+          "inF": 0,
+          "outF": 1500,
+          "onGrid": true,
+          "startTicks": "22861440000000",
+          "endTicks": "38102400000000"
+        },
+        "duration": {
+          "before": {
+            "type": "number",
+            "value": 10
+          },
+          "rv": {
+            "type": "boolean",
+            "value": true
+          },
+          "back": {
+            "type": "number",
+            "value": 12
+          }
+        },
+        "trimmed": {
+          "startF": 2250,
+          "endF": 2550,
+          "inF": 0,
+          "outF": 300,
+          "onGrid": true,
+          "startTicks": "22861440000000",
+          "endTicks": "25909632000000"
+        }
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "Hatch: slider written and read back: Длительность (служебное, не менять)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": {
+          "type": "number",
+          "value": 10
+        },
+        "rv": {
+          "type": "boolean",
+          "value": true
+        },
+        "back": {
+          "type": "number",
+          "value": 12
+        }
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "Hatch trimmed to 12 s (outPoint, then end)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "startF": 2250,
+        "endF": 2550,
+        "inF": 0,
+        "outF": 300,
+        "onGrid": true,
+        "startTicks": "22861440000000",
+        "endTicks": "25909632000000"
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "L1 left selected for the manual Properties check",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "type": "boolean",
+        "value": true
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "project saved",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "type": "boolean",
+        "value": true
+      },
+      "stage": "insert"
+    },
+    {
+      "name": "active project is CRT_pr_test.prproj",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj",
+      "stage": "shots"
+    },
+    {
+      "name": "work sequence of an earlier stage is active",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": "CRT_S5_work",
+        "wanted": "635ec6f4-220b-4c33-9e07-2ca280aa08a5"
+      },
+      "stage": "shots"
+    },
+    {
+      "name": "frame l1Intro (1012) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:00:40:12",
+        "playhead": "10282567680000",
+        "attempts": []
+      },
+      "stage": "shots"
+    },
+    {
+      "name": "frame l1Outro (1362) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:00:54:12",
+        "playhead": "13838791680000",
+        "attempts": []
+      },
+      "stage": "shots"
+    },
+    {
+      "name": "frame l1Hold (1125) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:00:45:00",
+        "playhead": "11430720000000",
+        "attempts": []
+      },
+      "stage": "shots"
+    },
+    {
+      "name": "frame l2Hold (1625) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:01:05:00",
+        "playhead": "16511040000000",
+        "attempts": []
+      },
+      "stage": "shots"
+    },
+    {
+      "name": "frame l3Hold (2000) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:01:20:00",
+        "playhead": "20321280000000",
+        "attempts": []
+      },
+      "stage": "shots"
+    },
+    {
+      "name": "frame hatchHold (2512) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:01:40:12",
+        "playhead": "25523527680000",
+        "attempts": []
+      },
+      "stage": "shots"
+    },
+    {
+      "name": "frame hatchOut (2537) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:01:41:12",
+        "playhead": "25777543680000",
+        "attempts": []
+      },
+      "stage": "shots"
+    },
+    {
+      "name": "frame l1Intro is a complete 1920x1080 PNG",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080",
+      "stage": "frames"
+    },
+    {
+      "name": "frame l1Outro is a complete 1920x1080 PNG",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080",
+      "stage": "frames"
+    },
+    {
+      "name": "frame l1Hold is a complete 1920x1080 PNG",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080",
+      "stage": "frames"
+    },
+    {
+      "name": "frame l2Hold is a complete 1920x1080 PNG",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080",
+      "stage": "frames"
+    },
+    {
+      "name": "frame l3Hold is a complete 1920x1080 PNG",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080",
+      "stage": "frames"
+    },
+    {
+      "name": "frame hatchHold is a complete 1920x1080 PNG",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080",
+      "stage": "frames"
+    },
+    {
+      "name": "frame hatchOut is a complete 1920x1080 PNG",
+      "pass": true,
+      "required": true,
+      "detail": "1920x1080",
+      "stage": "frames"
+    },
+    {
+      "name": "RDT LowerThird made 15 s long: the intro keeps its speed (PROBE_SQ x~148 at 0.48 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "frame": 62,
+        "x": 148,
+        "count": 1600,
+        "expected": {
+          "rdt": 148,
+          "uniform": 132,
+          "none": 148
+        },
+        "explainedBy": [
+          "rdt",
+          "none"
+        ]
+      },
+      "stage": "frames"
+    },
+    {
+      "name": "RDT LowerThird made 15 s long: the outro keeps its speed (PROBE_SQ x~248 at 14.48 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "frame": 412,
+        "x": 248,
+        "count": 1600,
+        "expected": {
+          "rdt": 248,
+          "uniform": 265.33,
+          "none": null
+        },
+        "explainedBy": [
+          "rdt"
+        ],
+        "heldLastFrame": false
+      },
+      "stage": "frames"
+    },
+    {
+      "name": "Hatch trimmed to 12 s, Duration 12: PROBE_SQ x~100 at 10.48 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "localFrame": 262,
+        "x": 100,
+        "count": 1600,
+        "expected": 100,
+        "ifDurationIgnored": 200
+      },
+      "stage": "frames"
+    },
+    {
+      "name": "Hatch trimmed to 12 s, Duration 12: PROBE_SQ x~148 at 11.48 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "localFrame": 287,
+        "x": 148,
+        "count": 1600,
+        "expected": 148,
+        "ifDurationIgnored": 200
+      },
+      "stage": "frames"
+    },
+    {
+      "name": "render: the written name widens the plate (L1 against L3)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "written": {
+          "x0": 180,
+          "y0": 727,
+          "x1": 1556,
+          "y1": 831,
+          "w": 1377,
+          "h": 105
+        },
+        "defaults": {
+          "x0": 185,
+          "y0": 736,
+          "x1": 646,
+          "y1": 820,
+          "w": 462,
+          "h": 85
+        }
+      },
+      "stage": "frames"
+    },
+    {
+      "name": "render: the checkbox write hides the role line",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "written": 0,
+        "defaults": 1738,
+        "expectHidden": true
+      },
+      "stage": "frames"
+    },
+    {
+      "name": "render: the dropdown write turns the plate light; index base zero-based",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "base": "zero-based",
+        "readDefault": {
+          "type": "number",
+          "value": 0
+        },
+        "written": 1,
+        "lightOnL2": 32732,
+        "darkOnL3": 31700
+      },
+      "stage": "frames"
+    },
+    {
+      "name": "colour patch in Premiere: dE2000 <= 2 against #26D07C",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "mean": "#26D07C",
+        "alpha": 255,
+        "dE": 0
+      },
+      "stage": "frames"
+    },
+    {
+      "name": "active project is CRT_pr_test.prproj",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj",
+      "stage": "readback"
+    },
+    {
+      "name": "work sequence of an earlier stage is active",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": "CRT_S5_work",
+        "wanted": "635ec6f4-220b-4c33-9e07-2ca280aa08a5"
+      },
+      "stage": "readback"
+    },
+    {
+      "name": "L1, L2 and the Hatch are still on V3",
+      "pass": true,
+      "required": true,
+      "detail": [
+        40,
+        60,
+        90
+      ],
+      "stage": "readback"
+    },
+    {
+      "name": "L1 text fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "Анна-Мария Ёлкина-Константинопольская",
+        "role": "Руководитель облачной платформы",
+        "showRole": {
+          "type": "boolean",
+          "value": false
+        },
+        "duration": {
+          "type": "number",
+          "value": 15
+        },
+        "style": {
+          "type": "number",
+          "value": 1
+        },
+        "hatchDuration": {
+          "type": "number",
+          "value": 12
+        }
+      },
+      "stage": "readback"
+    },
+    {
+      "name": "L1 checkbox and slider read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          {
+            "type": "boolean",
+            "value": false
+          },
+          {
+            "type": "number",
+            "value": 15
+          }
+        ],
+        "want": [
+          false,
+          15
+        ]
+      },
+      "stage": "readback"
+    },
+    {
+      "name": "L2 dropdown read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": {
+          "type": "number",
+          "value": 1
+        },
+        "want": 1
+      },
+      "stage": "readback"
+    },
+    {
+      "name": "Hatch slider read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": {
+          "type": "number",
+          "value": 12
+        },
+        "want": 12
+      },
+      "stage": "readback"
+    },
+    {
+      "name": "L1 keeps its explicit length of 15 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "startF": 1000,
+        "endF": 1375,
+        "inF": 90000,
+        "outF": 90375,
+        "onGrid": true,
+        "startTicks": "10160640000000",
+        "endTicks": "13970880000000"
+      },
+      "stage": "readback"
+    },
+    {
+      "name": "active project is CRT_pr_test.prproj",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj",
+      "stage": "series"
+    },
+    {
+      "name": "work clone of CRT_Seq_1080p25 is active",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CRT_S5_series",
+        "id": "e8ce1d72-4e4f-4220-9c51-017f268d973a",
+        "rv": "true"
+      },
+      "stage": "series"
+    },
+    {
+      "name": "series range is free on V3",
+      "pass": true,
+      "required": true,
+      "detail": [
+        200,
+        800
+      ],
+      "stage": "series"
+    },
+    {
+      "name": "series ran to the end",
+      "pass": true,
+      "required": true,
+      "detail": "50 of 50",
+      "stage": "series"
+    },
+    {
+      "name": "project items added by the series recorded",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "before": 9,
+        "after": 9
+      },
+      "stage": "series"
+    },
+    {
+      "name": "series: no silent drops",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "dropped": 0,
+        "dropRate": 0
+      },
+      "stage": "series"
+    },
+    {
+      "name": "series: one default length",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "250": 50
+      },
+      "stage": "series"
+    },
+    {
+      "name": "series: the return value of importMGT tells whether the clip landed",
+      "pass": true,
+      "required": false,
+      "detail": 0,
+      "stage": "series"
+    },
+    {
+      "name": "active project is CRT_pr_test.prproj",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj",
+      "stage": "count"
+    },
+    {
+      "name": "work sequence of an earlier stage is active",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": "CRT_S5_series",
+        "wanted": "e8ce1d72-4e4f-4220-9c51-017f268d973a"
+      },
+      "stage": "count"
+    },
+    {
+      "name": "series recounted on V3",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "5000": 250,
+        "5300": 250,
+        "5600": 250,
+        "5900": 250,
+        "6200": 250,
+        "6500": 250,
+        "6800": 250,
+        "7100": 250,
+        "7400": 250,
+        "7700": 250,
+        "8000": 250,
+        "8300": 250,
+        "8600": 250,
+        "8900": 250,
+        "9200": 250,
+        "9500": 250,
+        "9800": 250,
+        "10100": 250,
+        "10400": 250,
+        "10700": 250,
+        "11000": 250,
+        "11300": 250,
+        "11600": 250,
+        "11900": 250,
+        "12200": 250,
+        "12500": 250,
+        "12800": 250,
+        "13100": 250,
+        "13400": 250,
+        "13700": 250,
+        "14000": 250,
+        "14300": 250,
+        "14600": 250,
+        "14900": 250,
+        "15200": 250,
+        "15500": 250,
+        "15800": 250,
+        "16100": 250,
+        "16400": 250,
+        "16700": 250,
+        "17000": 250,
+        "17300": 250,
+        "17600": 250,
+        "17900": 250,
+        "18200": 250,
+        "18500": 250,
+        "18800": 250,
+        "19100": 250,
+        "19400": 250,
+        "19700": 250
+      },
+      "stage": "count"
+    },
+    {
+      "name": "recount: no clip appeared after the 2 s check (a blind retry would have doubled it)",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "late": []
+      },
+      "stage": "count"
+    },
+    {
+      "name": "recount: every clip seen during the series is still there",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "gone": []
+      },
+      "stage": "count"
+    },
+    {
+      "name": "recount: the drops seen by a new host call recorded",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "missing": []
+      },
+      "stage": "count"
+    },
+    {
+      "name": "active project is CRT_pr_test.prproj",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj",
+      "stage": "undo"
+    },
+    {
+      "name": "work sequence of an earlier stage is active",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": "CRT_S5_work",
+        "wanted": "635ec6f4-220b-4c33-9e07-2ca280aa08a5"
+      },
+      "stage": "undo"
+    },
+    {
+      "name": "one LowerThird inserted at 900 s on V3",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "startF": 22500,
+        "lenF": 250,
+        "error": null
+      },
+      "stage": "undo"
+    },
+    {
+      "name": "three fields written: text, checkbox, dropdown",
+      "pass": true,
+      "required": false,
+      "detail": "Проверка отмены",
+      "stage": "undo"
+    },
+    {
+      "name": "the clip is selected for the History count",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "type": "boolean",
+        "value": true
+      },
+      "stage": "undo"
+    },
+    {
+      "required": false,
+      "detail": "counted by script: qe.project.undo() once (same stack as Edit > Undo) removed the insert at 900 s of CRT_S5_work; V3 5 -> 4 clips, the L1 clip at 40 s stayed; History panel not inspected visually",
+      "name": "manual: one scripted insert with three writes undoes in one step (no undo group)",
+      "pass": true,
+      "manual": true
+    }
+  ],
+  "fallback": "Если явная длительность ломает анимацию rdt-шаблона — вставка с длиной по умолчанию и ручное растягивание; trim-шаблоны панель всегда обрезает сама. Если не пишется текст — Premiere становится «только вставка», текст правится в Properties",
+  "notes": "Клон CRT_S5_work* секвенции CRT_Seq_1080p25 в CRT_pr_test.prproj: проверка перезаписи на V2 в 12 с; на V3 — L1 (поля записаны, 15 с) в 40 с, L2 (список) в 60 с, L3 (по умолчанию) в 75 с, Hatch (12 с) в 90 с, вставки для подсчёта отмены с 900 с. Серия — в своём клоне CRT_S5_series*, на V3 с 200 с.\nseries: 50 importMGT, 0 not on the track within 2 s (0 %), lengths in frames {\"250\":50}, step 12 s, mean 86 ms\ncount: recount: 50 of 50 on the track, late 0, gone 0",
+  "evidence": [
+    "C:/CRBK/work/s5/run-20261002-192657/frames/l1Intro.png",
+    "C:/CRBK/work/s5/run-20261002-192657/frames/l1Outro.png",
+    "C:/CRBK/work/s5/run-20261002-192657/frames/l1Hold.png",
+    "C:/CRBK/work/s5/run-20261002-192657/frames/l2Hold.png",
+    "C:/CRBK/work/s5/run-20261002-192657/frames/l3Hold.png",
+    "C:/CRBK/work/s5/run-20261002-192657/frames/hatchHold.png",
+    "C:/CRBK/work/s5/run-20261002-192657/frames/hatchOut.png"
+  ]
+}

@@ -1,0 +1,2032 @@
+{
+  "meta": {
+    "runDir": "C:/CRBK/work/s5/run-20261002-192657",
+    "startedAt": "2026-10-02T19:26:57.648Z"
+  },
+  "stages": {
+    "insert": {
+      "at": "2026-10-02T19:26:59.377Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_test.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj"
+        },
+        {
+          "name": "work clone of CRT_Seq_1080p25 is active",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRT_S5_work",
+            "id": "635ec6f4-220b-4c33-9e07-2ca280aa08a5",
+            "rv": "true"
+          }
+        },
+        {
+          "name": "S2 MOGRT files exist",
+          "pass": true,
+          "required": true,
+          "detail": [
+            "C:/CRBK/work/mogrt/CRT_LowerThird_v1.mogrt",
+            "C:/CRBK/work/mogrt/CRT_Hatch_v1.mogrt"
+          ]
+        },
+        {
+          "name": "undo groups exist in Premiere ExtendScript (app.beginUndoGroup)",
+          "pass": false,
+          "required": false,
+          "detail": "undefined"
+        },
+        {
+          "name": "importMGT onto the occupied V2 at 12 s overwrites bars2, nothing shifts",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "v2Before": [
+              {
+                "startF": 250,
+                "endF": 500,
+                "inF": 0,
+                "outF": 250,
+                "onGrid": true,
+                "startTicks": "2540160000000",
+                "endTicks": "5080320000000",
+                "name": "bars2_1080p25_10s.mp4"
+              }
+            ],
+            "v2After": [
+              {
+                "startF": 250,
+                "endF": 300,
+                "inF": 0,
+                "outF": 50,
+                "onGrid": true,
+                "startTicks": "2540160000000",
+                "endTicks": "3048192000000",
+                "name": "bars2_1080p25_10s.mp4"
+              },
+              {
+                "startF": 300,
+                "endF": 550,
+                "inF": 90000,
+                "outF": 90250,
+                "onGrid": true,
+                "startTicks": "3048192000000",
+                "endTicks": "5588352000000",
+                "name": "CRT_LowerThird_v1"
+              }
+            ],
+            "returned": true,
+            "lenF": 250,
+            "error": null,
+            "v1Same": true
+          }
+        },
+        {
+          "name": "importMGT onto the free V3 at 40 s: the clip is there",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "wasFree": true,
+            "startF": 1000,
+            "lenF": 250,
+            "returned": true,
+            "returnedName": "CRT_LowerThird_v1",
+            "ms": 59,
+            "error": null,
+            "times": {
+              "startF": 1000,
+              "endF": 1250,
+              "inF": 90000,
+              "outF": 90250,
+              "onGrid": true,
+              "startTicks": "10160640000000",
+              "endTicks": "12700800000000"
+            },
+            "rdt": {
+              "before": {
+                "startF": 1000,
+                "endF": 1250,
+                "inF": 90000,
+                "outF": 90250,
+                "onGrid": true,
+                "startTicks": "10160640000000",
+                "endTicks": "12700800000000"
+              },
+              "after": {
+                "startF": 1000,
+                "endF": 1375,
+                "inF": 90000,
+                "outF": 90375,
+                "onGrid": true,
+                "startTicks": "10160640000000",
+                "endTicks": "13970880000000"
+              }
+            }
+          }
+        },
+        {
+          "name": "importMGT returns the TrackItem it placed",
+          "pass": true,
+          "required": false,
+          "detail": "CRT_LowerThird_v1"
+        },
+        {
+          "name": "default length of the LowerThird recorded",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "frames": 250,
+            "sec": 10,
+            "times": {
+              "startF": 1000,
+              "endF": 1250,
+              "inF": 90000,
+              "outF": 90250,
+              "onGrid": true,
+              "startTicks": "10160640000000",
+              "endTicks": "12700800000000"
+            }
+          }
+        },
+        {
+          "name": "Essential Graphics parameters found by display name",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "missing": [],
+            "params": [
+              {
+                "index": 0,
+                "displayName": "Фото",
+                "value": {
+                  "type": "string",
+                  "value": "00000000-0000-0000-0000-000000000000"
+                }
+              },
+              {
+                "index": 1,
+                "displayName": "Стиль",
+                "value": {
+                  "type": "number",
+                  "value": 0
+                }
+              },
+              {
+                "index": 2,
+                "displayName": "Акцент",
+                "value": {
+                  "type": "number",
+                  "value": 72099378969476100
+                }
+              },
+              {
+                "index": 3,
+                "displayName": "Длительность (служебное, не менять)",
+                "value": {
+                  "type": "number",
+                  "value": 10
+                }
+              },
+              {
+                "index": 4,
+                "displayName": "Показать должность",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              },
+              {
+                "index": 5,
+                "displayName": "Должность",
+                "value": {
+                  "type": "string",
+                  "value": "{\"capPropFontEdit\":false,\"capPropFontFauxStyleEdit\":false,\"capPropFontSizeEdit\":false,\"capPropTextRunCount\":1,\"fontEditValue\":[\"SBSansText-Regular\"],\"fontFSAllCapsValue\":[false],\"fontFSBoldValue\":[false],\"fontFSItalicValue\":[false],\"fontFSSmallCapsValue\":[false],\"fontSizeEditValue\":[40],\"fontTextRunLength\":[9],\"textEditValue\":\"Должность\"}"
+                }
+              },
+              {
+                "index": 6,
+                "displayName": "Имя",
+                "value": {
+                  "type": "string",
+                  "value": "{\"capPropFontEdit\":false,\"capPropFontFauxStyleEdit\":false,\"capPropFontSizeEdit\":false,\"capPropTextRunCount\":1,\"fontEditValue\":[\"SBSansDisplay-Semibold\"],\"fontFSAllCapsValue\":[false],\"fontFSBoldValue\":[false],\"fontFSItalicValue\":[false],\"fontFSSmallCapsValue\":[false],\"fontSizeEditValue\":[60],\"fontTextRunLength\":[11],\"textEditValue\":\"Имя Фамилия\"}"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "media replacement Фото: what Premiere exposes (not writable by script, spec 1.1)",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "found": true,
+            "value": {
+              "type": "string",
+              "value": "00000000-0000-0000-0000-000000000000"
+            }
+          }
+        },
+        {
+          "name": "text with Cyrillic written and read back: Имя",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "before": "Имя Фамилия",
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "runsBefore": 1,
+            "back": "Анна-Мария Ёлкина-Константинопольская"
+          }
+        },
+        {
+          "name": "text written and read back: Должность",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "before": "Должность",
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "runsBefore": 1,
+            "back": "Руководитель облачной платформы"
+          }
+        },
+        {
+          "name": "checkbox written and read back: Показать должность",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "before": {
+              "type": "boolean",
+              "value": true
+            },
+            "written": {
+              "type": "boolean",
+              "value": false
+            },
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "back": {
+              "type": "boolean",
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "slider written and read back: Длительность (служебное, не менять)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "before": {
+              "type": "number",
+              "value": 10
+            },
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "back": {
+              "type": "number",
+              "value": 15
+            }
+          }
+        },
+        {
+          "name": "colour written and read back: Акцент",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "before": "[1,38,208,123]",
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "back": "[255,160,104,255]"
+          }
+        },
+        {
+          "name": "explicit length of 15 s on the RDT LowerThird (outPoint, then end)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "before": {
+              "startF": 1000,
+              "endF": 1250,
+              "inF": 90000,
+              "outF": 90250,
+              "onGrid": true,
+              "startTicks": "10160640000000",
+              "endTicks": "12700800000000"
+            },
+            "after": {
+              "startF": 1000,
+              "endF": 1375,
+              "inF": 90000,
+              "outF": 90375,
+              "onGrid": true,
+              "startTicks": "10160640000000",
+              "endTicks": "13970880000000"
+            }
+          }
+        },
+        {
+          "name": "second LowerThird at 60 s for the dropdown",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "startF": 1500,
+            "lenF": 250,
+            "error": null
+          }
+        },
+        {
+          "name": "dropdown written and read back: Стиль",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "before": {
+              "type": "number",
+              "value": 0
+            },
+            "written": 1,
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "back": {
+              "type": "number",
+              "value": 1
+            }
+          }
+        },
+        {
+          "name": "reference LowerThird at 75 s (template defaults)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "startF": 1875,
+            "lenF": 250,
+            "error": null
+          }
+        },
+        {
+          "name": "Hatch MOGRT at 90 s: the clip is there",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "startF": 2250,
+            "lenF": 1500,
+            "returned": true,
+            "ms": 60,
+            "error": null,
+            "times": {
+              "startF": 2250,
+              "endF": 3750,
+              "inF": 0,
+              "outF": 1500,
+              "onGrid": true,
+              "startTicks": "22861440000000",
+              "endTicks": "38102400000000"
+            },
+            "duration": {
+              "before": {
+                "type": "number",
+                "value": 10
+              },
+              "rv": {
+                "type": "boolean",
+                "value": true
+              },
+              "back": {
+                "type": "number",
+                "value": 12
+              }
+            },
+            "trimmed": {
+              "startF": 2250,
+              "endF": 2550,
+              "inF": 0,
+              "outF": 300,
+              "onGrid": true,
+              "startTicks": "22861440000000",
+              "endTicks": "25909632000000"
+            }
+          }
+        },
+        {
+          "name": "Hatch: slider written and read back: Длительность (служебное, не менять)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "before": {
+              "type": "number",
+              "value": 10
+            },
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "back": {
+              "type": "number",
+              "value": 12
+            }
+          }
+        },
+        {
+          "name": "Hatch trimmed to 12 s (outPoint, then end)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "startF": 2250,
+            "endF": 2550,
+            "inF": 0,
+            "outF": 300,
+            "onGrid": true,
+            "startTicks": "22861440000000",
+            "endTicks": "25909632000000"
+          }
+        },
+        {
+          "name": "L1 left selected for the manual Properties check",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "name": "project saved",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "data": {
+        "writes": {
+          "name": {
+            "before": "Имя Фамилия",
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "runsBefore": 1,
+            "back": "Анна-Мария Ёлкина-Константинопольская"
+          },
+          "role": {
+            "before": "Должность",
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "runsBefore": 1,
+            "back": "Руководитель облачной платформы"
+          },
+          "showRole": {
+            "before": {
+              "type": "boolean",
+              "value": true
+            },
+            "written": {
+              "type": "boolean",
+              "value": false
+            },
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "back": {
+              "type": "boolean",
+              "value": false
+            }
+          },
+          "duration": {
+            "before": {
+              "type": "number",
+              "value": 10
+            },
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "back": {
+              "type": "number",
+              "value": 15
+            }
+          },
+          "accent": {
+            "before": "[1,38,208,123]",
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "back": "[255,160,104,255]"
+          }
+        },
+        "workSeq": "CRT_S5_work",
+        "workSeqId": "635ec6f4-220b-4c33-9e07-2ca280aa08a5",
+        "undoApi": "undefined",
+        "overwrite": {
+          "v2Before": [
+            {
+              "startF": 250,
+              "endF": 500,
+              "inF": 0,
+              "outF": 250,
+              "onGrid": true,
+              "startTicks": "2540160000000",
+              "endTicks": "5080320000000",
+              "name": "bars2_1080p25_10s.mp4"
+            }
+          ],
+          "v2After": [
+            {
+              "startF": 250,
+              "endF": 300,
+              "inF": 0,
+              "outF": 50,
+              "onGrid": true,
+              "startTicks": "2540160000000",
+              "endTicks": "3048192000000",
+              "name": "bars2_1080p25_10s.mp4"
+            },
+            {
+              "startF": 300,
+              "endF": 550,
+              "inF": 90000,
+              "outF": 90250,
+              "onGrid": true,
+              "startTicks": "3048192000000",
+              "endTicks": "5588352000000",
+              "name": "CRT_LowerThird_v1"
+            }
+          ],
+          "returned": true,
+          "lenF": 250,
+          "error": null,
+          "v1Same": true
+        },
+        "l1": {
+          "wasFree": true,
+          "startF": 1000,
+          "lenF": 250,
+          "returned": true,
+          "returnedName": "CRT_LowerThird_v1",
+          "ms": 59,
+          "error": null,
+          "times": {
+            "startF": 1000,
+            "endF": 1250,
+            "inF": 90000,
+            "outF": 90250,
+            "onGrid": true,
+            "startTicks": "10160640000000",
+            "endTicks": "12700800000000"
+          },
+          "rdt": {
+            "before": {
+              "startF": 1000,
+              "endF": 1250,
+              "inF": 90000,
+              "outF": 90250,
+              "onGrid": true,
+              "startTicks": "10160640000000",
+              "endTicks": "12700800000000"
+            },
+            "after": {
+              "startF": 1000,
+              "endF": 1375,
+              "inF": 90000,
+              "outF": 90375,
+              "onGrid": true,
+              "startTicks": "10160640000000",
+              "endTicks": "13970880000000"
+            }
+          }
+        },
+        "params": [
+          {
+            "index": 0,
+            "displayName": "Фото",
+            "value": {
+              "type": "string",
+              "value": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          {
+            "index": 1,
+            "displayName": "Стиль",
+            "value": {
+              "type": "number",
+              "value": 0
+            }
+          },
+          {
+            "index": 2,
+            "displayName": "Акцент",
+            "value": {
+              "type": "number",
+              "value": 72099378969476100
+            }
+          },
+          {
+            "index": 3,
+            "displayName": "Длительность (служебное, не менять)",
+            "value": {
+              "type": "number",
+              "value": 10
+            }
+          },
+          {
+            "index": 4,
+            "displayName": "Показать должность",
+            "value": {
+              "type": "boolean",
+              "value": true
+            }
+          },
+          {
+            "index": 5,
+            "displayName": "Должность",
+            "value": {
+              "type": "string",
+              "value": "{\"capPropFontEdit\":false,\"capPropFontFauxStyleEdit\":false,\"capPropFontSizeEdit\":false,\"capPropTextRunCount\":1,\"fontEditValue\":[\"SBSansText-Regular\"],\"fontFSAllCapsValue\":[false],\"fontFSBoldValue\":[false],\"fontFSItalicValue\":[false],\"fontFSSmallCapsValue\":[false],\"fontSizeEditValue\":[40],\"fontTextRunLength\":[9],\"textEditValue\":\"Должность\"}"
+            }
+          },
+          {
+            "index": 6,
+            "displayName": "Имя",
+            "value": {
+              "type": "string",
+              "value": "{\"capPropFontEdit\":false,\"capPropFontFauxStyleEdit\":false,\"capPropFontSizeEdit\":false,\"capPropTextRunCount\":1,\"fontEditValue\":[\"SBSansDisplay-Semibold\"],\"fontFSAllCapsValue\":[false],\"fontFSBoldValue\":[false],\"fontFSItalicValue\":[false],\"fontFSSmallCapsValue\":[false],\"fontSizeEditValue\":[60],\"fontTextRunLength\":[11],\"textEditValue\":\"Имя Фамилия\"}"
+            }
+          }
+        ],
+        "photo": {
+          "found": true,
+          "value": {
+            "type": "string",
+            "value": "00000000-0000-0000-0000-000000000000"
+          }
+        },
+        "style": {
+          "before": {
+            "type": "number",
+            "value": 0
+          },
+          "written": 1,
+          "rv": {
+            "type": "boolean",
+            "value": true
+          },
+          "back": {
+            "type": "number",
+            "value": 1
+          }
+        },
+        "hatch": {
+          "startF": 2250,
+          "lenF": 1500,
+          "returned": true,
+          "ms": 60,
+          "error": null,
+          "times": {
+            "startF": 2250,
+            "endF": 3750,
+            "inF": 0,
+            "outF": 1500,
+            "onGrid": true,
+            "startTicks": "22861440000000",
+            "endTicks": "38102400000000"
+          },
+          "duration": {
+            "before": {
+              "type": "number",
+              "value": 10
+            },
+            "rv": {
+              "type": "boolean",
+              "value": true
+            },
+            "back": {
+              "type": "number",
+              "value": 12
+            }
+          },
+          "trimmed": {
+            "startF": 2250,
+            "endF": 2550,
+            "inF": 0,
+            "outF": 300,
+            "onGrid": true,
+            "startTicks": "22861440000000",
+            "endTicks": "25909632000000"
+          }
+        },
+        "hostVersion": "26.5.2"
+      },
+      "evidence": [],
+      "notes": ""
+    },
+    "shots": {
+      "at": "2026-10-02T19:27:00.796Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_test.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj"
+        },
+        {
+          "name": "work sequence of an earlier stage is active",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "found": "CRT_S5_work",
+            "wanted": "635ec6f4-220b-4c33-9e07-2ca280aa08a5"
+          }
+        },
+        {
+          "name": "frame l1Intro (1012) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:40:12",
+            "playhead": "10282567680000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "frame l1Outro (1362) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:54:12",
+            "playhead": "13838791680000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "frame l1Hold (1125) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:00:45:00",
+            "playhead": "11430720000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "frame l2Hold (1625) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:01:05:00",
+            "playhead": "16511040000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "frame l3Hold (2000) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:01:20:00",
+            "playhead": "20321280000000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "frame hatchHold (2512) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:01:40:12",
+            "playhead": "25523527680000",
+            "attempts": []
+          }
+        },
+        {
+          "name": "frame hatchOut (2537) exported",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "method": "qe",
+            "tc": "00:01:41:12",
+            "playhead": "25777543680000",
+            "attempts": []
+          }
+        }
+      ],
+      "data": {
+        "frames": {
+          "l1Intro": "C:/CRBK/work/s5/run-20261002-192657/frames/l1Intro.png",
+          "l1Outro": "C:/CRBK/work/s5/run-20261002-192657/frames/l1Outro.png",
+          "l1Hold": "C:/CRBK/work/s5/run-20261002-192657/frames/l1Hold.png",
+          "l2Hold": "C:/CRBK/work/s5/run-20261002-192657/frames/l2Hold.png",
+          "l3Hold": "C:/CRBK/work/s5/run-20261002-192657/frames/l3Hold.png",
+          "hatchHold": "C:/CRBK/work/s5/run-20261002-192657/frames/hatchHold.png",
+          "hatchOut": "C:/CRBK/work/s5/run-20261002-192657/frames/hatchOut.png"
+        },
+        "workSeq": "CRT_S5_work",
+        "workSeqId": "635ec6f4-220b-4c33-9e07-2ca280aa08a5",
+        "hostVersion": "26.5.2"
+      },
+      "evidence": [
+        "C:/CRBK/work/s5/run-20261002-192657/frames/l1Intro.png",
+        "C:/CRBK/work/s5/run-20261002-192657/frames/l1Outro.png",
+        "C:/CRBK/work/s5/run-20261002-192657/frames/l1Hold.png",
+        "C:/CRBK/work/s5/run-20261002-192657/frames/l2Hold.png",
+        "C:/CRBK/work/s5/run-20261002-192657/frames/l3Hold.png",
+        "C:/CRBK/work/s5/run-20261002-192657/frames/hatchHold.png",
+        "C:/CRBK/work/s5/run-20261002-192657/frames/hatchOut.png"
+      ],
+      "notes": ""
+    },
+    "frames": {
+      "at": "2026-10-02T19:27:02.846Z",
+      "host": "node",
+      "hostVersion": null,
+      "checks": [
+        {
+          "name": "frame l1Intro is a complete 1920x1080 PNG",
+          "pass": true,
+          "required": true,
+          "detail": "1920x1080"
+        },
+        {
+          "name": "frame l1Outro is a complete 1920x1080 PNG",
+          "pass": true,
+          "required": true,
+          "detail": "1920x1080"
+        },
+        {
+          "name": "frame l1Hold is a complete 1920x1080 PNG",
+          "pass": true,
+          "required": true,
+          "detail": "1920x1080"
+        },
+        {
+          "name": "frame l2Hold is a complete 1920x1080 PNG",
+          "pass": true,
+          "required": true,
+          "detail": "1920x1080"
+        },
+        {
+          "name": "frame l3Hold is a complete 1920x1080 PNG",
+          "pass": true,
+          "required": true,
+          "detail": "1920x1080"
+        },
+        {
+          "name": "frame hatchHold is a complete 1920x1080 PNG",
+          "pass": true,
+          "required": true,
+          "detail": "1920x1080"
+        },
+        {
+          "name": "frame hatchOut is a complete 1920x1080 PNG",
+          "pass": true,
+          "required": true,
+          "detail": "1920x1080"
+        },
+        {
+          "name": "RDT LowerThird made 15 s long: the intro keeps its speed (PROBE_SQ x~148 at 0.48 s)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "frame": 62,
+            "x": 148,
+            "count": 1600,
+            "expected": {
+              "rdt": 148,
+              "uniform": 132,
+              "none": 148
+            },
+            "explainedBy": [
+              "rdt",
+              "none"
+            ]
+          }
+        },
+        {
+          "name": "RDT LowerThird made 15 s long: the outro keeps its speed (PROBE_SQ x~248 at 14.48 s)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "frame": 412,
+            "x": 248,
+            "count": 1600,
+            "expected": {
+              "rdt": 248,
+              "uniform": 265.33,
+              "none": null
+            },
+            "explainedBy": [
+              "rdt"
+            ],
+            "heldLastFrame": false
+          }
+        },
+        {
+          "name": "Hatch trimmed to 12 s, Duration 12: PROBE_SQ x~100 at 10.48 s",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "localFrame": 262,
+            "x": 100,
+            "count": 1600,
+            "expected": 100,
+            "ifDurationIgnored": 200
+          }
+        },
+        {
+          "name": "Hatch trimmed to 12 s, Duration 12: PROBE_SQ x~148 at 11.48 s",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "localFrame": 287,
+            "x": 148,
+            "count": 1600,
+            "expected": 148,
+            "ifDurationIgnored": 200
+          }
+        },
+        {
+          "name": "render: the written name widens the plate (L1 against L3)",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "written": {
+              "x0": 180,
+              "y0": 727,
+              "x1": 1556,
+              "y1": 831,
+              "w": 1377,
+              "h": 105
+            },
+            "defaults": {
+              "x0": 185,
+              "y0": 736,
+              "x1": 646,
+              "y1": 820,
+              "w": 462,
+              "h": 85
+            }
+          }
+        },
+        {
+          "name": "render: the checkbox write hides the role line",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "written": 0,
+            "defaults": 1738,
+            "expectHidden": true
+          }
+        },
+        {
+          "name": "render: the dropdown write turns the plate light; index base zero-based",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "base": "zero-based",
+            "readDefault": {
+              "type": "number",
+              "value": 0
+            },
+            "written": 1,
+            "lightOnL2": 32732,
+            "darkOnL3": 31700
+          }
+        },
+        {
+          "name": "colour patch in Premiere: dE2000 <= 2 against #26D07C",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "mean": "#26D07C",
+            "alpha": 255,
+            "dE": 0
+          }
+        }
+      ],
+      "data": {
+        "intro": {
+          "frame": 62,
+          "x": 148,
+          "count": 1600,
+          "expected": {
+            "rdt": 148,
+            "uniform": 132,
+            "none": 148
+          },
+          "explainedBy": [
+            "rdt",
+            "none"
+          ]
+        },
+        "outro": {
+          "frame": 412,
+          "x": 248,
+          "count": 1600,
+          "expected": {
+            "rdt": 248,
+            "uniform": 265.33,
+            "none": null
+          },
+          "explainedBy": [
+            "rdt"
+          ],
+          "heldLastFrame": false
+        },
+        "hatchHold": {
+          "localFrame": 262,
+          "x": 100,
+          "count": 1600,
+          "expected": 100,
+          "ifDurationIgnored": 200
+        },
+        "hatchOut": {
+          "localFrame": 287,
+          "x": 148,
+          "count": 1600,
+          "expected": 148,
+          "ifDurationIgnored": 200
+        },
+        "plates": {
+          "written": {
+            "x0": 180,
+            "y0": 727,
+            "x1": 1556,
+            "y1": 831,
+            "w": 1377,
+            "h": 105
+          },
+          "defaults": {
+            "x0": 185,
+            "y0": 736,
+            "x1": 646,
+            "y1": 820,
+            "w": 462,
+            "h": 85
+          }
+        },
+        "role": {
+          "written": 0,
+          "defaults": 1738,
+          "expectHidden": true
+        },
+        "dropdown": {
+          "base": "zero-based",
+          "readDefault": {
+            "type": "number",
+            "value": 0
+          },
+          "written": 1,
+          "lightOnL2": 32732,
+          "darkOnL3": 31700
+        },
+        "patch": {
+          "mean": "#26D07C",
+          "alpha": 255,
+          "dE": 0
+        }
+      },
+      "evidence": [],
+      "notes": ""
+    },
+    "readback": {
+      "at": "2026-10-02T19:27:02.874Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_test.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj"
+        },
+        {
+          "name": "work sequence of an earlier stage is active",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "found": "CRT_S5_work",
+            "wanted": "635ec6f4-220b-4c33-9e07-2ca280aa08a5"
+          }
+        },
+        {
+          "name": "L1, L2 and the Hatch are still on V3",
+          "pass": true,
+          "required": true,
+          "detail": [
+            40,
+            60,
+            90
+          ]
+        },
+        {
+          "name": "L1 text fields read back in a new call",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "Анна-Мария Ёлкина-Константинопольская",
+            "role": "Руководитель облачной платформы",
+            "showRole": {
+              "type": "boolean",
+              "value": false
+            },
+            "duration": {
+              "type": "number",
+              "value": 15
+            },
+            "style": {
+              "type": "number",
+              "value": 1
+            },
+            "hatchDuration": {
+              "type": "number",
+              "value": 12
+            }
+          }
+        },
+        {
+          "name": "L1 checkbox and slider read back in a new call",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "got": [
+              {
+                "type": "boolean",
+                "value": false
+              },
+              {
+                "type": "number",
+                "value": 15
+              }
+            ],
+            "want": [
+              false,
+              15
+            ]
+          }
+        },
+        {
+          "name": "L2 dropdown read back in a new call",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "got": {
+              "type": "number",
+              "value": 1
+            },
+            "want": 1
+          }
+        },
+        {
+          "name": "Hatch slider read back in a new call",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "got": {
+              "type": "number",
+              "value": 12
+            },
+            "want": 12
+          }
+        },
+        {
+          "name": "L1 keeps its explicit length of 15 s",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "startF": 1000,
+            "endF": 1375,
+            "inF": 90000,
+            "outF": 90375,
+            "onGrid": true,
+            "startTicks": "10160640000000",
+            "endTicks": "13970880000000"
+          }
+        }
+      ],
+      "data": {
+        "values": {
+          "name": "Анна-Мария Ёлкина-Константинопольская",
+          "role": "Руководитель облачной платформы",
+          "showRole": {
+            "type": "boolean",
+            "value": false
+          },
+          "duration": {
+            "type": "number",
+            "value": 15
+          },
+          "style": {
+            "type": "number",
+            "value": 1
+          },
+          "hatchDuration": {
+            "type": "number",
+            "value": 12
+          }
+        },
+        "workSeq": "CRT_S5_work",
+        "workSeqId": "635ec6f4-220b-4c33-9e07-2ca280aa08a5",
+        "hostVersion": "26.5.2"
+      },
+      "evidence": [],
+      "notes": ""
+    },
+    "series": {
+      "at": "2026-10-02T19:27:07.400Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_test.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj"
+        },
+        {
+          "name": "work clone of CRT_Seq_1080p25 is active",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRT_S5_series",
+            "id": "e8ce1d72-4e4f-4220-9c51-017f268d973a",
+            "rv": "true"
+          }
+        },
+        {
+          "name": "series range is free on V3",
+          "pass": true,
+          "required": true,
+          "detail": [
+            200,
+            800
+          ]
+        },
+        {
+          "name": "series ran to the end",
+          "pass": true,
+          "required": true,
+          "detail": "50 of 50"
+        },
+        {
+          "name": "project items added by the series recorded",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "before": 9,
+            "after": 9
+          }
+        },
+        {
+          "name": "series: no silent drops",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "dropped": 0,
+            "dropRate": 0
+          }
+        },
+        {
+          "name": "series: one default length",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "250": 50
+          }
+        },
+        {
+          "name": "series: the return value of importMGT tells whether the clip landed",
+          "pass": true,
+          "required": false,
+          "detail": 0
+        }
+      ],
+      "data": {
+        "rows": [
+          {
+            "i": 0,
+            "startF": 5000,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 58,
+            "error": null
+          },
+          {
+            "i": 1,
+            "startF": 5300,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 58,
+            "error": null
+          },
+          {
+            "i": 2,
+            "startF": 5600,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 58,
+            "error": null
+          },
+          {
+            "i": 3,
+            "startF": 5900,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 60,
+            "error": null
+          },
+          {
+            "i": 4,
+            "startF": 6200,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 60,
+            "error": null
+          },
+          {
+            "i": 5,
+            "startF": 6500,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 60,
+            "error": null
+          },
+          {
+            "i": 6,
+            "startF": 6800,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 63,
+            "error": null
+          },
+          {
+            "i": 7,
+            "startF": 7100,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 64,
+            "error": null
+          },
+          {
+            "i": 8,
+            "startF": 7400,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 67,
+            "error": null
+          },
+          {
+            "i": 9,
+            "startF": 7700,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 65,
+            "error": null
+          },
+          {
+            "i": 10,
+            "startF": 8000,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 68,
+            "error": null
+          },
+          {
+            "i": 11,
+            "startF": 8300,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 66,
+            "error": null
+          },
+          {
+            "i": 12,
+            "startF": 8600,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 78,
+            "error": null
+          },
+          {
+            "i": 13,
+            "startF": 8900,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 70,
+            "error": null
+          },
+          {
+            "i": 14,
+            "startF": 9200,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 72,
+            "error": null
+          },
+          {
+            "i": 15,
+            "startF": 9500,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 75,
+            "error": null
+          },
+          {
+            "i": 16,
+            "startF": 9800,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 74,
+            "error": null
+          },
+          {
+            "i": 17,
+            "startF": 10100,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 75,
+            "error": null
+          },
+          {
+            "i": 18,
+            "startF": 10400,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 74,
+            "error": null
+          },
+          {
+            "i": 19,
+            "startF": 10700,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 77,
+            "error": null
+          },
+          {
+            "i": 20,
+            "startF": 11000,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 80,
+            "error": null
+          },
+          {
+            "i": 21,
+            "startF": 11300,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 85,
+            "error": null
+          },
+          {
+            "i": 22,
+            "startF": 11600,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 84,
+            "error": null
+          },
+          {
+            "i": 23,
+            "startF": 11900,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 90,
+            "error": null
+          },
+          {
+            "i": 24,
+            "startF": 12200,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 88,
+            "error": null
+          },
+          {
+            "i": 25,
+            "startF": 12500,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 85,
+            "error": null
+          },
+          {
+            "i": 26,
+            "startF": 12800,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 91,
+            "error": null
+          },
+          {
+            "i": 27,
+            "startF": 13100,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 90,
+            "error": null
+          },
+          {
+            "i": 28,
+            "startF": 13400,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 90,
+            "error": null
+          },
+          {
+            "i": 29,
+            "startF": 13700,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 91,
+            "error": null
+          },
+          {
+            "i": 30,
+            "startF": 14000,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 95,
+            "error": null
+          },
+          {
+            "i": 31,
+            "startF": 14300,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 92,
+            "error": null
+          },
+          {
+            "i": 32,
+            "startF": 14600,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 98,
+            "error": null
+          },
+          {
+            "i": 33,
+            "startF": 14900,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 100,
+            "error": null
+          },
+          {
+            "i": 34,
+            "startF": 15200,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 104,
+            "error": null
+          },
+          {
+            "i": 35,
+            "startF": 15500,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 99,
+            "error": null
+          },
+          {
+            "i": 36,
+            "startF": 15800,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 103,
+            "error": null
+          },
+          {
+            "i": 37,
+            "startF": 16100,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 100,
+            "error": null
+          },
+          {
+            "i": 38,
+            "startF": 16400,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 102,
+            "error": null
+          },
+          {
+            "i": 39,
+            "startF": 16700,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 104,
+            "error": null
+          },
+          {
+            "i": 40,
+            "startF": 17000,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 101,
+            "error": null
+          },
+          {
+            "i": 41,
+            "startF": 17300,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 103,
+            "error": null
+          },
+          {
+            "i": 42,
+            "startF": 17600,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 108,
+            "error": null
+          },
+          {
+            "i": 43,
+            "startF": 17900,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 104,
+            "error": null
+          },
+          {
+            "i": 44,
+            "startF": 18200,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 109,
+            "error": null
+          },
+          {
+            "i": 45,
+            "startF": 18500,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 108,
+            "error": null
+          },
+          {
+            "i": 46,
+            "startF": 18800,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 110,
+            "error": null
+          },
+          {
+            "i": 47,
+            "startF": 19100,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 109,
+            "error": null
+          },
+          {
+            "i": 48,
+            "startF": 19400,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 108,
+            "error": null
+          },
+          {
+            "i": 49,
+            "startF": 19700,
+            "found": true,
+            "returned": true,
+            "lenF": 250,
+            "ms": 135,
+            "error": null
+          }
+        ],
+        "workSeq": "CRT_S5_series",
+        "workSeqId": "e8ce1d72-4e4f-4220-9c51-017f268d973a",
+        "itemsBefore": 9,
+        "itemsAfter": 9,
+        "hostVersion": "26.5.2",
+        "summary": {
+          "total": 50,
+          "landed": 50,
+          "dropped": 0,
+          "dropRate": 0,
+          "returnMismatch": 0,
+          "lengths": {
+            "250": 50
+          },
+          "meanMs": 86
+        },
+        "params": {
+          "mogrt": "C:/CRBK/work/mogrt/CRT_LowerThird_v1.mogrt",
+          "startSec": 200,
+          "stepSec": 12,
+          "count": 50,
+          "vIdx": 2
+        }
+      },
+      "evidence": [],
+      "notes": "50 importMGT, 0 not on the track within 2 s (0 %), lengths in frames {\"250\":50}, step 12 s, mean 86 ms"
+    },
+    "count": {
+      "at": "2026-10-02T19:27:07.561Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_test.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj"
+        },
+        {
+          "name": "work sequence of an earlier stage is active",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "found": "CRT_S5_series",
+            "wanted": "e8ce1d72-4e4f-4220-9c51-017f268d973a"
+          }
+        },
+        {
+          "name": "series recounted on V3",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "5000": 250,
+            "5300": 250,
+            "5600": 250,
+            "5900": 250,
+            "6200": 250,
+            "6500": 250,
+            "6800": 250,
+            "7100": 250,
+            "7400": 250,
+            "7700": 250,
+            "8000": 250,
+            "8300": 250,
+            "8600": 250,
+            "8900": 250,
+            "9200": 250,
+            "9500": 250,
+            "9800": 250,
+            "10100": 250,
+            "10400": 250,
+            "10700": 250,
+            "11000": 250,
+            "11300": 250,
+            "11600": 250,
+            "11900": 250,
+            "12200": 250,
+            "12500": 250,
+            "12800": 250,
+            "13100": 250,
+            "13400": 250,
+            "13700": 250,
+            "14000": 250,
+            "14300": 250,
+            "14600": 250,
+            "14900": 250,
+            "15200": 250,
+            "15500": 250,
+            "15800": 250,
+            "16100": 250,
+            "16400": 250,
+            "16700": 250,
+            "17000": 250,
+            "17300": 250,
+            "17600": 250,
+            "17900": 250,
+            "18200": 250,
+            "18500": 250,
+            "18800": 250,
+            "19100": 250,
+            "19400": 250,
+            "19700": 250
+          }
+        },
+        {
+          "name": "recount: no clip appeared after the 2 s check (a blind retry would have doubled it)",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "late": []
+          }
+        },
+        {
+          "name": "recount: every clip seen during the series is still there",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "gone": []
+          }
+        },
+        {
+          "name": "recount: the drops seen by a new host call recorded",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "missing": []
+          }
+        }
+      ],
+      "data": {
+        "present": {
+          "5000": 250,
+          "5300": 250,
+          "5600": 250,
+          "5900": 250,
+          "6200": 250,
+          "6500": 250,
+          "6800": 250,
+          "7100": 250,
+          "7400": 250,
+          "7700": 250,
+          "8000": 250,
+          "8300": 250,
+          "8600": 250,
+          "8900": 250,
+          "9200": 250,
+          "9500": 250,
+          "9800": 250,
+          "10100": 250,
+          "10400": 250,
+          "10700": 250,
+          "11000": 250,
+          "11300": 250,
+          "11600": 250,
+          "11900": 250,
+          "12200": 250,
+          "12500": 250,
+          "12800": 250,
+          "13100": 250,
+          "13400": 250,
+          "13700": 250,
+          "14000": 250,
+          "14300": 250,
+          "14600": 250,
+          "14900": 250,
+          "15200": 250,
+          "15500": 250,
+          "15800": 250,
+          "16100": 250,
+          "16400": 250,
+          "16700": 250,
+          "17000": 250,
+          "17300": 250,
+          "17600": 250,
+          "17900": 250,
+          "18200": 250,
+          "18500": 250,
+          "18800": 250,
+          "19100": 250,
+          "19400": 250,
+          "19700": 250
+        },
+        "workSeq": "CRT_S5_series",
+        "workSeqId": "e8ce1d72-4e4f-4220-9c51-017f268d973a",
+        "hostVersion": "26.5.2",
+        "late": []
+      },
+      "evidence": [],
+      "notes": "recount: 50 of 50 on the track, late 0, gone 0"
+    },
+    "undo": {
+      "at": "2026-10-02T19:28:47.526Z",
+      "host": "pr",
+      "hostVersion": "26.5.2",
+      "checks": [
+        {
+          "name": "active project is CRT_pr_test.prproj",
+          "pass": true,
+          "required": true,
+          "detail": "C:\\CRBK\\work\\pr\\CRT_pr_test.prproj"
+        },
+        {
+          "name": "work sequence of an earlier stage is active",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "found": "CRT_S5_work",
+            "wanted": "635ec6f4-220b-4c33-9e07-2ca280aa08a5"
+          }
+        },
+        {
+          "name": "one LowerThird inserted at 900 s on V3",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "startF": 22500,
+            "lenF": 250,
+            "error": null
+          }
+        },
+        {
+          "name": "three fields written: text, checkbox, dropdown",
+          "pass": true,
+          "required": false,
+          "detail": "Проверка отмены"
+        },
+        {
+          "name": "the clip is selected for the History count",
+          "pass": true,
+          "required": false,
+          "detail": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "data": {
+        "undoGroup": false,
+        "workSeq": "CRT_S5_work",
+        "workSeqId": "635ec6f4-220b-4c33-9e07-2ca280aa08a5",
+        "atSec": 900,
+        "back": "Проверка отмены",
+        "hostVersion": "26.5.2"
+      },
+      "evidence": [],
+      "notes": ""
+    }
+  }
+}
