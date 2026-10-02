@@ -6642,7 +6642,7 @@ dumps.json: M files, Y MB, courses …, courses_conv …, fixture …, logo …,
 - [ ] **Step 7: Прогнать все тесты и линтер**
 
 Run: `npm test && node tools/jsx/lint-jsx.cjs tools/dump/dump-project.jsx`
-Expected: все тесты зелёные (в `tests/dump` — 63 теста в 9 файлах); `OK    tools/dump/dump-project.jsx`.
+Expected: все тесты зелёные (в `tests/dump` — 65 тестов в 9 файлах); `OK    tools/dump/dump-project.jsx`.
 
 - [ ] **Step 8: Проверить, что в коммит не попадут кадры и дампы**
 
