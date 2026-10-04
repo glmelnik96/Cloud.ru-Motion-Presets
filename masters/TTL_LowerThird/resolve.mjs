@@ -1,6 +1,8 @@
 // TTL_LowerThird «Подпись спикера»: one master, three styles chosen by «Стиль» (D15):
 //   1 «Титры» — the Titles pack (style-titles.mjs), 2 «Подкаст» — the podcast pack (style-podcast.mjs),
-//   3 «Вебинар» — the webinars pack, motion new (style-webinar.mjs).
+//   3 «Вебинар» — the webinars pack, static as there (style-webinar.mjs).
+// Speed («Скорость», tools/masters/speed.mjs) and text size («Размер текста», anchored at the block's corner)
+// are user requirements of 2026-10-05.
 // The text fields (TXT_NAME, TXT_ROLE1, TXT_ROLE2) are shared; every style draws them with its own layers,
 // fonts fixed per layer (no font switching by expression). Built from a declarative spec
 // (tools/masters/jsx/build-spec.jsx). Provisional choices are listed in masters/TTL_LowerThird/README.md.
@@ -11,9 +13,10 @@ import { readJson } from '../../tools/dump/model.mjs';
 import { workDir, workPath } from '../../tools/lib/work.mjs';
 import { dumpKeys, toBuilderKeys } from '../../tools/masters/dump-keys.mjs';
 import { nul, P, rectGroup, shape, Spec } from '../../tools/masters/spec.mjs';
-import { addTitles, checkRise, layoutFrom, NAME, rigKeys, START } from './style-titles.mjs';
+import { regions, SPEED_CTRL, timeMapJs } from '../../tools/masters/speed.mjs';
+import { addTitles, checkRise, layoutFrom, NAME, rigKeys, SIZE_CTRL, START } from './style-titles.mjs';
 import { addPodcast, arrowShapes, podcastLayout, podcastRig } from './style-podcast.mjs';
-import { addWebinar, webinarLayout, webinarRig } from './style-webinar.mjs';
+import { addWebinar, webinarLayout } from './style-webinar.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(here, '../..');
@@ -32,7 +35,11 @@ const OUT_START = 4.52;        // the longest exit («Подкаст», 1.48 s) 
 // the pack render shows ТЕХНИЧЕСКИИ). The band is 8 px lower and 12 px higher here, still clear of the name.
 // roleRise: the pack's 94.5 px leaves the accents of a waiting first line (Й, Ё) inside the band before the
 // words rise; 106 px keeps them under it.
-const PADS = { nameL: 25.8, roleR: 25.8, noRoleH: 133.45, webR: 16, roleClipDrop: 8, roleClipRaise: 12, roleRise: 106 };
+// arrowZone: the upper role line of «Подкаст» stops this far from the plate edge of the double arrow (the
+// arrow spans 31–78 px from the edge, plus a 20 px gap).
+// nameRsb: the name is placed by its ink now; the pack's line ended 3.53 px after the ink (side bearing of «В»).
+const PADS = { nameL: 25.8, roleR: 25.8, noRoleH: 133.45, webR: 16, roleClipDrop: 8, roleClipRaise: 12, roleRise: 106, arrowZone: 98, nameRsb: 3.53 };
+const TIME_MAP = timeMapJs({ introEnd: IN_END, outroStart: OUT_START });
 
 const r6 = (v) => Math.round(v * 1e6) / 1e6;
 
@@ -57,7 +64,6 @@ export function resolveLowerThird(sources = loadSources()) {
   const podL = podcastLayout(pod);
   const podK = podcastRig(pod);
   const webL = webinarLayout(web);
-  const webK = webinarRig(titlesRig, nameStart);
   const textStyle = (size) => ({ font: layout.font, size, fill: hex.white, tracking: 0, justify: 'LEFT' });
   const text = {
     TXT_NAME: { value: 'Имя Фамилия', label: 'Имя', style: textStyle(layout.nameSize) },
@@ -67,13 +73,16 @@ export function resolveLowerThird(sources = loadSources()) {
   const ctrl = {
     Style: { label: 'Стиль', items: ['Титры', 'Подкаст', 'Вебинар'], value: 1 },
     Side: { label: 'Сторона', items: ['Слева', 'Справа'], value: 1 },
+    Speed: SPEED_CTRL,
+    Size: SIZE_CTRL,
   };
-  const rig = { ...titlesRig, ...podK.rig, ...webK.rig };
+  const rig = { ...titlesRig, ...podK.rig };
+  const reg = regions({ introEnd: IN_END, outroStart: OUT_START, duration: DURATION, fps: FPS });
 
   const spec = new Spec({ name: COMP, w: 1920, h: 1080, fps: FPS, duration: DURATION });
-  addTitles(spec, { layout, rig: titlesRig, nameStart, text, hex });
-  addPodcast(spec, { layout: podL, arrows: arrowShapes(pod), keys: podK, hex, pads: PADS });
-  addWebinar(spec, { layout: webL, keys: webK, hex, pads: PADS });
+  addTitles(spec, { layout, rig: titlesRig, nameStart, text, hex, timeMap: TIME_MAP });
+  addPodcast(spec, { layout: podL, arrows: arrowShapes(pod), keys: podK, hex, pads: PADS, timeMap: TIME_MAP });
+  addWebinar(spec, { layout: webL, hex, pads: PADS, timeMap: TIME_MAP });
   const k = 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n';
   spec.add(shape('QA_PATCH', [rectGroup('Patch', hex.green)]));
   spec.expr('QA_PATCH', P.rectSize('Patch'), k + '[100 * k, 100 * k]');
@@ -84,11 +93,14 @@ export function resolveLowerThird(sources = loadSources()) {
   spec.add(nul('CTRL', [
     { kind: 'dropdown', name: 'Style', items: ctrl.Style.items, value: ctrl.Style.value },
     { kind: 'dropdown', name: 'Side', items: ctrl.Side.items, value: ctrl.Side.value },
+    { kind: 'dropdown', name: 'Speed', items: ctrl.Speed.items, value: ctrl.Speed.value },
+    { kind: 'dropdown', name: 'Size', items: ctrl.Size.items, value: ctrl.Size.value },
     { kind: 'checkbox', name: 'QA', value: false },
   ]));
 
-  // AE lists the newest controller first: added in reverse of Имя, Должность, 2-я строка, Стиль, Сторона
-  const egp = [{ effect: 'Side' }, { effect: 'Style' }, { text: 'TXT_ROLE2' }, { text: 'TXT_ROLE1' }, { text: 'TXT_NAME' }];
+  // AE lists the newest controller first: added in reverse of Имя, Должность, 2-я строка, Стиль, Сторона,
+  // Скорость, Размер текста
+  const egp = [{ effect: 'Size' }, { effect: 'Speed' }, { effect: 'Side' }, { effect: 'Style' }, { text: 'TXT_ROLE2' }, { text: 'TXT_ROLE1' }, { text: 'TXT_NAME' }];
   const pack = { TXT_NAME: 'Александр Стародубцев', TXT_ROLE1: 'Технический лидер', TXT_ROLE2: 'Cloud.ru' };
   const built = spec.toJSON();
   return {
@@ -103,27 +115,25 @@ export function resolveLowerThird(sources = loadSources()) {
     ctrl,
     egp,
     rig,
-    markers: [
-      { comment: 'in', time: 0, duration: IN_END },
-      { comment: 'out', time: OUT_START, duration: r6(DURATION - OUT_START) },
-    ],
+    markers: reg.markers,
+    duration: reg.duration,
     spec: {
       ...built,
       fonts: [layout.font, podL.name.font, podL.role.font, webL.font],
-      markers: [
-        { comment: 'in', time: 0, duration: IN_END },
-        { comment: 'out', time: OUT_START, duration: r6(DURATION - OUT_START) },
-      ],
+      markers: reg.markers,
       egp: egp.map((e) => (e.text ? { text: e.text, label: text[e.text].label } : { effect: e.effect, matchName: 'ADBE Dropdown Control', label: ctrl[e.effect].label })),
-      egpNames: [text.TXT_NAME.label, text.TXT_ROLE1.label, text.TXT_ROLE2.label, ctrl.Style.label, ctrl.Side.label],
+      egpNames: [text.TXT_NAME.label, text.TXT_ROLE1.label, text.TXT_ROLE2.label, ctrl.Style.label, ctrl.Side.label, ctrl.Speed.label, ctrl.Size.label],
       // the pack texts in every style, for the plate calibration and the README
       measure: [
         { name: 'titles', t: 2.0, ctrl: { Style: 1, Side: 1 }, text: pack, layers: ['PL_NAME', 'PL_ROLE', 'TXT_NAME', 'TXT_ROLE1', 'TXT_ROLE2'] },
-        { name: 'podcast', t: 3.0, ctrl: { Style: 2, Side: 2 }, text: pack, layers: ['PL_POD', 'POD_NAME', 'POD_ROLE', 'ARROW_1', 'ARROW_2'] },
+        { name: 'podcast', t: 3.0, ctrl: { Style: 2, Side: 2 }, text: pack, layers: ['PL_POD', 'POD_NAME', 'POD_ROLE1', 'POD_ROLE2', 'ARROW_1', 'ARROW_2'] },
+        { name: 'podcast_guest', t: 3.0, ctrl: { Style: 2, Side: 1 },
+          text: { TXT_NAME: 'Анна-Мария Ёлкина', TXT_ROLE1: 'Руководитель облачной платформы', TXT_ROLE2: 'Cloud.ru' },
+          layers: ['PL_POD', 'POD_NAME', 'POD_ROLE1', 'POD_ROLE2', 'ARROW_1', 'ARROW_2'] },
         { name: 'webinar', t: 3.0, ctrl: { Style: 3, Side: 1 }, text: { TXT_NAME: 'Александр Константинов', TXT_ROLE1: 'Технический эксперт', TXT_ROLE2: 'по облачным технологиям' },
           layers: ['PL_WEB1', 'PL_WEB2', 'PL_WEB3', 'WEB_L1', 'WEB_L2', 'WEB_L3'] },
       ],
-      defaults: { text: { TXT_NAME: text.TXT_NAME.value, TXT_ROLE1: text.TXT_ROLE1.value, TXT_ROLE2: text.TXT_ROLE2.value }, ctrl: { Style: 1, Side: 1 } },
+      defaults: { text: { TXT_NAME: text.TXT_NAME.value, TXT_ROLE1: text.TXT_ROLE1.value, TXT_ROLE2: text.TXT_ROLE2.value }, ctrl: { Style: 1, Side: 1, Speed: 2, Size: 2 } },
     },
     check: { name: pack.TXT_NAME, role1: pack.TXT_ROLE1, role2: pack.TXT_ROLE2 },
     version: 1,

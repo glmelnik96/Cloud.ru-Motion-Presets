@@ -7,40 +7,153 @@
       "title_ru": "Логошот с подписью",
       "category": "logo",
       "tier": "T1",
-      "hosts": ["ae", "pr"],
+      "hosts": [
+        "ae",
+        "pr"
+      ],
       "version": 1,
       "fit": "rdt",
-      "duration": { "introSec": 2.12, "holdSec": 1.84, "outroSec": 1.04 },
-      "requiredFonts": [{ "postScriptName": "SBSansDisplay-Semibold" }],
+      "duration": {
+        "introSec": 2.84,
+        "holdSec": 0.76,
+        "outroSec": 1.4
+      },
+      "requiredFonts": [
+        {
+          "postScriptName": "SBSansDisplay-Semibold"
+        }
+      ],
       "fields": [
         {
-          "key": "caption", "label_ru": "Подпись", "type": "dropdown", "egpName": "Подпись", "egpIndex": 0, "default": 1,
+          "key": "caption",
+          "label_ru": "Подпись",
+          "type": "dropdown",
+          "egpName": "Подпись",
+          "egpIndex": 0,
+          "default": 1,
           "options": [
-            { "index": 1, "label_ru": "облачные и ИИ-сервисы" },
-            { "index": 2, "label_ru": "умное облако" },
-            { "index": 3, "label_ru": "есть где развернуться" }
+            {
+              "index": 1,
+              "label_ru": "облачные и ИИ-сервисы"
+            },
+            {
+              "index": 2,
+              "label_ru": "умное облако"
+            },
+            {
+              "index": 3,
+              "label_ru": "есть где развернуться"
+            }
           ]
         },
         {
-          "key": "theme", "label_ru": "Тема", "type": "dropdown", "egpName": "Тема", "egpIndex": 1, "default": 1,
+          "key": "theme",
+          "label_ru": "Тема",
+          "type": "dropdown",
+          "egpName": "Тема",
+          "egpIndex": 1,
+          "default": 1,
           "options": [
-            { "index": 1, "label_ru": "Светлая" },
-            { "index": 2, "label_ru": "Тёмная" }
+            {
+              "index": 1,
+              "label_ru": "Светлая"
+            },
+            {
+              "index": 2,
+              "label_ru": "Тёмная"
+            }
           ]
         },
         {
-          "key": "background", "label_ru": "Фон", "type": "dropdown", "egpName": "Фон", "egpIndex": 2, "default": 1,
+          "key": "background",
+          "label_ru": "Фон",
+          "type": "dropdown",
+          "egpName": "Фон",
+          "egpIndex": 2,
+          "default": 1,
           "options": [
-            { "index": 1, "label_ru": "Прозрачный" },
-            { "index": 2, "label_ru": "Тёмный" },
-            { "index": 3, "label_ru": "Светлый" }
+            {
+              "index": 1,
+              "label_ru": "Прозрачный"
+            },
+            {
+              "index": 2,
+              "label_ru": "Тёмный"
+            },
+            {
+              "index": 3,
+              "label_ru": "Светлый"
+            }
           ]
+        },
+        {
+          "key": "speed",
+          "label_ru": "Скорость",
+          "type": "dropdown",
+          "egpName": "Скорость",
+          "default": 2,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "0,75×"
+            },
+            {
+              "index": 2,
+              "label_ru": "1×"
+            },
+            {
+              "index": 3,
+              "label_ru": "1,25×"
+            },
+            {
+              "index": 4,
+              "label_ru": "1,5×"
+            },
+            {
+              "index": 5,
+              "label_ru": "2×"
+            }
+          ],
+          "egpIndex": 3
         }
       ],
       "variants": [
-        { "key": "16x9", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25, "aeComp": "CR_LOGO_Shot_16x9", "minHostVersion": { "ae": "26.0", "pr": "26.0" } },
-        { "key": "16x9_4K", "aspect": "16x9", "w": 3840, "h": 2160, "fps": 25, "aeComp": "CR_LOGO_Shot_16x9_4K", "minHostVersion": { "ae": "26.0", "pr": "26.0" } },
-        { "key": "9x16", "aspect": "9x16", "w": 1080, "h": 1920, "fps": 25, "aeComp": "CR_LOGO_Shot_9x16", "minHostVersion": { "ae": "26.0", "pr": "26.0" } }
+        {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Shot_16x9",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Shot_16x9_4K",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Shot_9x16",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
       ]
     },
     {
@@ -48,32 +161,134 @@
       "title_ru": "Логотип без подписи",
       "category": "logo",
       "tier": "T1",
-      "hosts": ["ae", "pr"],
+      "hosts": [
+        "ae",
+        "pr"
+      ],
       "version": 1,
       "fit": "rdt",
-      "duration": { "introSec": 2.2, "holdSec": 0.8, "outroSec": 0.6 },
+      "duration": {
+        "introSec": 2.96,
+        "holdSec": 0.24,
+        "outroSec": 0.8
+      },
       "fields": [
-        { "key": "plate", "label_ru": "Подложка", "type": "checkbox", "egpName": "Подложка", "egpIndex": 0, "default": true },
         {
-          "key": "theme", "label_ru": "Тема", "type": "dropdown", "egpName": "Тема", "egpIndex": 1, "default": 2,
+          "key": "plate",
+          "label_ru": "Подложка",
+          "type": "checkbox",
+          "egpName": "Подложка",
+          "egpIndex": 0,
+          "default": true
+        },
+        {
+          "key": "theme",
+          "label_ru": "Тема",
+          "type": "dropdown",
+          "egpName": "Тема",
+          "egpIndex": 1,
+          "default": 2,
           "options": [
-            { "index": 1, "label_ru": "Светлая" },
-            { "index": 2, "label_ru": "Тёмная" }
+            {
+              "index": 1,
+              "label_ru": "Светлая"
+            },
+            {
+              "index": 2,
+              "label_ru": "Тёмная"
+            }
           ]
         },
         {
-          "key": "background", "label_ru": "Фон", "type": "dropdown", "egpName": "Фон", "egpIndex": 2, "default": 1,
+          "key": "background",
+          "label_ru": "Фон",
+          "type": "dropdown",
+          "egpName": "Фон",
+          "egpIndex": 2,
+          "default": 1,
           "options": [
-            { "index": 1, "label_ru": "Прозрачный" },
-            { "index": 2, "label_ru": "Тёмный" },
-            { "index": 3, "label_ru": "Светлый" }
+            {
+              "index": 1,
+              "label_ru": "Прозрачный"
+            },
+            {
+              "index": 2,
+              "label_ru": "Тёмный"
+            },
+            {
+              "index": 3,
+              "label_ru": "Светлый"
+            }
           ]
+        },
+        {
+          "key": "speed",
+          "label_ru": "Скорость",
+          "type": "dropdown",
+          "egpName": "Скорость",
+          "default": 2,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "0,75×"
+            },
+            {
+              "index": 2,
+              "label_ru": "1×"
+            },
+            {
+              "index": 3,
+              "label_ru": "1,25×"
+            },
+            {
+              "index": 4,
+              "label_ru": "1,5×"
+            },
+            {
+              "index": 5,
+              "label_ru": "2×"
+            }
+          ],
+          "egpIndex": 3
         }
       ],
       "variants": [
-        { "key": "16x9", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25, "aeComp": "CR_LOGO_Mark_16x9", "minHostVersion": { "ae": "26.0", "pr": "26.0" } },
-        { "key": "16x9_4K", "aspect": "16x9", "w": 3840, "h": 2160, "fps": 25, "aeComp": "CR_LOGO_Mark_16x9_4K", "minHostVersion": { "ae": "26.0", "pr": "26.0" } },
-        { "key": "9x16", "aspect": "9x16", "w": 1080, "h": 1920, "fps": 25, "aeComp": "CR_LOGO_Mark_9x16", "minHostVersion": { "ae": "26.0", "pr": "26.0" } }
+        {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Mark_16x9",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Mark_16x9_4K",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Mark_9x16",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
       ]
     },
     {
@@ -81,41 +296,209 @@
       "title_ru": "Подпись спикера",
       "category": "titles",
       "tier": "T1",
-      "hosts": ["ae", "pr"],
+      "hosts": [
+        "ae",
+        "pr"
+      ],
       "version": 1,
       "fit": "rdt",
-      "duration": { "introSec": 1.64, "holdSec": 2.88, "outroSec": 1.48 },
+      "duration": {
+        "introSec": 2.2,
+        "holdSec": 1.8,
+        "outroSec": 2.0
+      },
       "requiredFonts": [
-        { "postScriptName": "SBSansText-Regular" },
-        { "postScriptName": "SBSansDisplay-Bold" },
-        { "postScriptName": "SBSansDisplay-Semibold" },
-        { "postScriptName": "SBSansDisplay-Regular" }
+        {
+          "postScriptName": "SBSansText-Regular"
+        },
+        {
+          "postScriptName": "SBSansDisplay-Bold"
+        },
+        {
+          "postScriptName": "SBSansDisplay-Semibold"
+        },
+        {
+          "postScriptName": "SBSansDisplay-Regular"
+        }
       ],
       "fields": [
-        { "key": "name", "label_ru": "Имя", "type": "text", "egpName": "Имя", "egpIndex": 0, "maxLen": 40, "default": "Имя Фамилия" },
-        { "key": "role1", "label_ru": "Должность", "type": "text", "egpName": "Должность", "egpIndex": 1, "maxLen": 50, "default": "Должность" },
-        { "key": "role2", "label_ru": "Должность, 2-я строка", "type": "text", "egpName": "Должность, 2-я строка", "egpIndex": 2, "maxLen": 50, "default": "" },
         {
-          "key": "style", "label_ru": "Стиль", "type": "dropdown", "egpName": "Стиль", "egpIndex": 3, "default": 1,
+          "key": "name",
+          "label_ru": "Имя",
+          "type": "text",
+          "egpName": "Имя",
+          "egpIndex": 0,
+          "maxLen": 40,
+          "default": "Имя Фамилия"
+        },
+        {
+          "key": "role1",
+          "label_ru": "Должность",
+          "type": "text",
+          "egpName": "Должность",
+          "egpIndex": 1,
+          "maxLen": 50,
+          "default": "Должность"
+        },
+        {
+          "key": "role2",
+          "label_ru": "Должность, 2-я строка",
+          "type": "text",
+          "egpName": "Должность, 2-я строка",
+          "egpIndex": 2,
+          "maxLen": 50,
+          "default": ""
+        },
+        {
+          "key": "style",
+          "label_ru": "Стиль",
+          "type": "dropdown",
+          "egpName": "Стиль",
+          "egpIndex": 3,
+          "default": 1,
           "options": [
-            { "index": 1, "label_ru": "Титры" },
-            { "index": 2, "label_ru": "Подкаст" },
-            { "index": 3, "label_ru": "Вебинар" }
+            {
+              "index": 1,
+              "label_ru": "Титры"
+            },
+            {
+              "index": 2,
+              "label_ru": "Подкаст"
+            },
+            {
+              "index": 3,
+              "label_ru": "Вебинар"
+            }
           ]
         },
         {
-          "key": "side", "label_ru": "Сторона", "type": "dropdown", "egpName": "Сторона", "egpIndex": 4, "default": 1,
+          "key": "side",
+          "label_ru": "Сторона",
+          "type": "dropdown",
+          "egpName": "Сторона",
+          "egpIndex": 4,
+          "default": 1,
           "options": [
-            { "index": 1, "label_ru": "Слева" },
-            { "index": 2, "label_ru": "Справа" }
+            {
+              "index": 1,
+              "label_ru": "Слева"
+            },
+            {
+              "index": 2,
+              "label_ru": "Справа"
+            }
           ]
+        },
+        {
+          "key": "speed",
+          "label_ru": "Скорость",
+          "type": "dropdown",
+          "egpName": "Скорость",
+          "default": 2,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "0,75×"
+            },
+            {
+              "index": 2,
+              "label_ru": "1×"
+            },
+            {
+              "index": 3,
+              "label_ru": "1,25×"
+            },
+            {
+              "index": 4,
+              "label_ru": "1,5×"
+            },
+            {
+              "index": 5,
+              "label_ru": "2×"
+            }
+          ],
+          "egpIndex": 5
+        },
+        {
+          "key": "size",
+          "label_ru": "Размер текста",
+          "type": "dropdown",
+          "egpName": "Размер текста",
+          "default": 2,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "80 %"
+            },
+            {
+              "index": 2,
+              "label_ru": "100 %"
+            },
+            {
+              "index": 3,
+              "label_ru": "120 %"
+            },
+            {
+              "index": 4,
+              "label_ru": "140 %"
+            },
+            {
+              "index": 5,
+              "label_ru": "160 %"
+            }
+          ],
+          "egpIndex": 6
         }
       ],
       "variants": [
-        { "key": "16x9", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25, "aeComp": "CR_TTL_LowerThird_16x9", "minHostVersion": { "ae": "26.0", "pr": "26.0" } },
-        { "key": "16x9_4K", "aspect": "16x9", "w": 3840, "h": 2160, "fps": 25, "aeComp": "CR_TTL_LowerThird_16x9_4K", "minHostVersion": { "ae": "26.0", "pr": "26.0" } },
-        { "key": "9x16", "aspect": "9x16", "w": 1080, "h": 1920, "fps": 25, "aeComp": "CR_TTL_LowerThird_9x16", "minHostVersion": { "ae": "26.0", "pr": "26.0" } },
-        { "key": "1x1", "aspect": "1x1", "w": 1080, "h": 1080, "fps": 25, "aeComp": "CR_TTL_LowerThird_1x1", "minHostVersion": { "ae": "26.0", "pr": "26.0" } }
+        {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_TTL_LowerThird_16x9",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_TTL_LowerThird_16x9_4K",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "aeComp": "CR_TTL_LowerThird_9x16",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_TTL_LowerThird_1x1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
       ]
     }
   ]

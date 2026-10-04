@@ -106,29 +106,44 @@ export function plateExpr(pre, x, w, h, y, inn, out) {
   };
 }
 
-export const PLATE_PRE = [
-  'var C = thisComp.layer("CTRL"), R = thisComp.layer("RIG");',
-  'var k = Math.min(thisComp.width, thisComp.height) / 1080;',
-  'var W = thisComp.width, H = thisComp.height, M = ' + MARGIN + ' * k;',
-  'var right = C.effect("Side")(1).value == 2;',
-  'function ink(n) { var r = thisComp.layer(n).sourceRectAtTime(0, false); return r.width > 0 ? r.left + r.width : 0; }',
-  'function sl(e, t) { return R.effect(e)(1).valueAtTime(t); }',
-  'var d = thisComp.frameDuration;',
-  // dark plate extents along x: grows from its start edge, collapses toward the other edge
-  'function span(x, w, a, b) { return right ? [x + w * (1 - a), x + w * (1 - b)] : [x + w * b, x + w * a]; }',
-].join('\n') + '\n';
+// Size control (user, 2026-10-05: text size anchored to its position): f scales the block; the block keeps
+// its corner (margins stay x k), text layers are scaled by f (their ink is read back x f).
+export const SIZES = [0.8, 1, 1.2, 1.4, 1.6];
+export const SIZE_CTRL = { label: 'Размер текста', items: ['80 %', '100 %', '120 %', '140 %', '160 %'], value: 2 };
+export const SIZE_JS = `var f = [${SIZES.join(', ')}][thisComp.layer("CTRL").effect("Size")(1).value - 1] || 1;`;
+
+// Shared head of the plate expressions: k, f, margins, side, the speed map T and sliders read through it.
+export function platePre(timeMap) {
+  return [
+    'var C = thisComp.layer("CTRL"), R = thisComp.layer("RIG");',
+    'var k = Math.min(thisComp.width, thisComp.height) / 1080;',
+    SIZE_JS,
+    'var kt = k * f;',
+    'var W = thisComp.width, H = thisComp.height, M = ' + MARGIN + ' * k;',
+    'var right = C.effect("Side")(1).value == 2;',
+    'function ink(n) { var r = thisComp.layer(n).sourceRectAtTime(0, false); return r.width > 0 ? (r.left + r.width) * f : 0; }',
+    timeMap.trim(),
+    'function sl(e, t) { return R.effect(e)(1).valueAtTime(T(t)); }',
+    'var d = thisComp.frameDuration;',
+    // dark plate extents along x: grows from its start edge, collapses toward the other edge
+    'function span(x, w, a, b) { return right ? [x + w * (1 - a), x + w * (1 - b)] : [x + w * b, x + w * a]; }',
+  ].join('\n') + '\n';
+}
 
 export const visible = (style) => `thisComp.layer("CTRL").effect("Style")(1).value == ${style} ? 100 : 0`;
+export const scaleExpr = SIZE_JS + '\n[100 * f, 100 * f]';
 
 // Adds the style's layers (bottom first), keys and expressions to the spec.
-export function addTitles(spec, { layout: L, rig, nameStart, text: T, hex }) {
-  const pre = PLATE_PRE + [
+export function addTitles(spec, { layout: L, rig, nameStart, text: T, hex, timeMap }) {
+  const pre = platePre(timeMap) + [
+    // «Титры» stand on the left only (user, 2026-10-05: no right side)
+    'right = false;',
     'var n = ink("TXT_NAME"), r1 = ink("TXT_ROLE1"), r2 = ink("TXT_ROLE2");',
     'var lines = (r1 > 0 ? 1 : 0) + (r2 > 0 ? 1 : 0);',
-    `var TX = ${L.textX} * k, PR = ${PAD_R} * k;`,
+    `var TX = ${L.textX} * kt, PR = ${PAD_R} * kt;`,
     'var Wn = n > 0 ? Math.round((TX + n + PR) / k) * k : 0;',
     'var Wr = lines > 0 ? Math.round((TX + Math.max(r1, r2) + PR) / k) * k : 0;',
-    `var Hn = ${L.name.h} * k, G = ${L.gap} * k, Hr2 = ${L.role.h} * k, STEP = ${L.roleStep} * k;`,
+    `var Hn = ${L.name.h} * kt, G = ${L.gap} * kt, Hr2 = ${L.role.h} * kt, STEP = ${L.roleStep} * kt;`,
     'var Hr = lines == 2 ? Hr2 : (lines == 1 ? Hr2 - STEP : 0);',
     'var y0 = H - M - (Hn + G + Hr2);',
     'var xn = right ? W - M - Wn : M, xr = right ? W - M - Wr : M, yr = y0 + Hn + G;',
@@ -144,6 +159,7 @@ export function addTitles(spec, { layout: L, rig, nameStart, text: T, hex }) {
     shape('EDGE_NAME', [rectGroup('In', hex.white), rectGroup('Out', hex.white)]),
   );
   spec.key('TXT_NAME', P.start(), nameStart);
+  spec.expr('TXT_NAME', P.start(), timeMap + 'valueAtTime(T(time))');
   const np = plateExpr(pre, 'xn', 'Wn', 'Hn', 'y0', 'NameIn', 'NameOut');
   const rp = plateExpr(pre, 'xr', 'Wr', 'Hr', 'yr', 'RoleIn', 'RoleOut');
   spec.expr('PL_NAME', P.rectSize('Plate'), np.size).expr('PL_NAME', P.rectPos('Plate'), np.pos);
@@ -155,17 +171,20 @@ export function addTitles(spec, { layout: L, rig, nameStart, text: T, hex }) {
       spec.expr(layer, P.rectSize(g), b.size).expr(layer, P.rectPos(g), b.pos);
     }
   }
-  spec.expr('TXT_NAME', P.pos, pre + `[xn + TX, y0 + ${L.nameBaseline} * k]`);
-  spec.expr('TXT_ROLE1', P.pos, pre + `[xr + TX, yr + ${L.roleBaselines[0]} * k]`);
+  spec.expr('TXT_NAME', P.pos, pre + `[xn + TX, y0 + ${L.nameBaseline} * kt]`);
+  spec.expr('TXT_ROLE1', P.pos, pre + `[xr + TX, yr + ${L.roleBaselines[0]} * kt]`);
   // role 2 takes the first line when role 1 is empty
-  spec.expr('TXT_ROLE2', P.pos, pre + `[xr + TX, yr + (r1 > 0 ? ${L.roleBaselines[1]} : ${L.roleBaselines[0]}) * k]`);
+  spec.expr('TXT_ROLE2', P.pos, pre + `[xr + TX, yr + (r1 > 0 ? ${L.roleBaselines[1]} : ${L.roleBaselines[0]}) * kt]`);
+  // rise offsets in layer units: the layer scale f carries them with the text
   spec.expr('TXT_NAME', P.rise(), k + `[0, ${L.nameRise} * k, 0]`);
   spec.expr('TXT_ROLE1', P.rise(), k + `[0, ${L.roleRise} * k, 0]`);
   spec.expr('TXT_ROLE2', P.rise(), k + `[0, ${L.roleRise} * k, 0]`);
+  for (const layer of ['TXT_NAME', 'TXT_ROLE1', 'TXT_ROLE2']) spec.expr(layer, P.scale, scaleExpr);
   // the pack's role selector ran over three lines (an empty first one): line 2 moved while Start passed
   // 33.3-66.7 %, line 3 while it passed 66.7-100 %. Each role layer gets its own window of that Start.
-  spec.expr('TXT_ROLE1', P.start(), 'var S = thisComp.layer("RIG").effect("RoleStart")(1).value;\nlinear(S, 100 / 3, 200 / 3, 0, 100)');
-  spec.expr('TXT_ROLE2', P.start(), 'var S = thisComp.layer("RIG").effect("RoleStart")(1).value;\n' +
+  const roleS = timeMap + 'var S = thisComp.layer("RIG").effect("RoleStart")(1).valueAtTime(T(time));\n';
+  spec.expr('TXT_ROLE1', P.start(), roleS + 'linear(S, 100 / 3, 200 / 3, 0, 100)');
+  spec.expr('TXT_ROLE2', P.start(), roleS +
     'var first = thisComp.layer("TXT_ROLE1").sourceRectAtTime(0, false).width <= 0;\n' +
     'first ? linear(S, 100 / 3, 200 / 3, 0, 100) : linear(S, 200 / 3, 100, 0, 100)');
   for (const layer of ['PL_ROLE', 'PL_NAME', 'TXT_ROLE2', 'TXT_ROLE1', 'TXT_NAME', 'EDGE_ROLE', 'EDGE_NAME']) spec.expr(layer, P.opacity, visible(1));

@@ -25,6 +25,16 @@ function lmRect(L, group, hex) {
   bdFill(L, group, hex, 'Fill');
 }
 
+// One mask on the layer (added on first use): the plate closing over the logo (outro with the plate).
+function lmMaskPath(name) {
+  var L = lmLayer(name);
+  if (L.property('ADBE Mask Parade').numProperties === 0) {
+    L.property('ADBE Mask Parade').addProperty('ADBE Mask Atom');
+    L.property('ADBE Mask Parade').property(1).name = 'PlateMask';
+  }
+  return lmLayer(name).property('ADBE Mask Parade').property(1).property('ADBE Mask Shape');
+}
+
 function lmRectProp(name, group, item, matchName) {
   return bdGroupItem(lmLayer(name), group, item).property(matchName);
 }
@@ -92,12 +102,12 @@ lmStep('RIG: the pack curves of both animations and the outro (shy, not in Essen
   return { pass: true, detail: out };
 });
 
-lmStep('CTRL: Plate (checkbox), Theme, Background (dropdowns, Cyrillic items), QA', true, function () {
+lmStep('CTRL: Plate (checkbox), Theme, Background, Speed (dropdowns, Cyrillic items), QA', true, function () {
   var L = bdNull(LM.comp, 'CTRL');
   bdCheckbox(L, 'Plate', PARAMS.ctrl.Plate.value === 1);
   var got = {};
   var ok = true;
-  var names = ['Theme', 'Background'];
+  var names = ['Theme', 'Background', 'Speed'];
   for (var i = 0; i < names.length; i++) {
     var spec = PARAMS.ctrl[names[i]];
     var r = bdDropdown(L, names[i], spec.items, spec.value);
@@ -117,6 +127,8 @@ lmStep('expressions: shared transform, wipe, plate, colours, background, QA patc
     list.push([LM_SHARED[i] + ' scale', bdXform(lmLayer(LM_SHARED[i]), 'ADBE Scale'), X.scale]);
   }
   list.push(['CUBE opacity', bdXform(lmLayer('CUBE'), 'ADBE Opacity'), X.cubeOpacity]);
+  list.push(['CUBE plate mask', lmMaskPath('CUBE'), X.logoMask]);
+  list.push(['WORDMARK plate mask', lmMaskPath('WORDMARK'), X.logoMask]);
   list.push(['WIPE size', lmRectProp('WIPE', 'Wipe', 'Rect', 'ADBE Vector Rect Size'), X.wipeSize]);
   list.push(['WIPE position', lmRectProp('WIPE', 'Wipe', 'Rect', 'ADBE Vector Rect Position'), X.wipePos]);
   list.push(['PLATE size', lmRectProp('PLATE', 'Plate', 'Rect', 'ADBE Vector Rect Size'), X.plateSize]);
@@ -190,7 +202,7 @@ lmStep('rest layout at ' + PARAMS.rest + ' s: cube, wordmark and plate where the
   return { pass: true, detail: { cube: box('CUBE'), wordmark: box('WORDMARK'), plate: box('PLATE') } };
 });
 
-lmStep('Essential Graphics: Подложка, Тема, Фон; QA left out', true, function () {
+lmStep('Essential Graphics: Подложка, Тема, Фон, Скорость; QA left out', true, function () {
   var added = [];
   for (var i = 0; i < PARAMS.egp.length; i++) {
     var e = PARAMS.egp[i].effect;
@@ -198,7 +210,7 @@ lmStep('Essential Graphics: Подложка, Тема, Фон; QA left out', tr
     added.push(bdEgpAdd(LM.comp, bkEffect(lmLayer('CTRL'), e, matchName).property(1), PARAMS.ctrl[e].label));
   }
   var names = bdEgpNames(LM.comp);
-  var want = [PARAMS.ctrl.Plate.label, PARAMS.ctrl.Theme.label, PARAMS.ctrl.Background.label];
+  var want = [PARAMS.ctrl.Plate.label, PARAMS.ctrl.Theme.label, PARAMS.ctrl.Background.label, PARAMS.ctrl.Speed.label];
   return { pass: names.join('|') === want.join('|'), detail: { added: added, names: names } };
 });
 

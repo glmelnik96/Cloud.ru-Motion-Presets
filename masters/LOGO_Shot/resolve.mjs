@@ -11,6 +11,7 @@ import { masterParts } from '../../tools/dump/logo-diff.mjs';
 import { workDir, workPath } from '../../tools/lib/work.mjs';
 import { dumpKeys, dumpLayer, progressSegment, toBuilderKeys } from '../../tools/masters/dump-keys.mjs';
 import { layerToCompAt, shapeBoxAt, textBaselineAt } from '../../tools/masters/dump-geometry.mjs';
+import { regions, SPEED_CTRL, timeMapJs } from '../../tools/masters/speed.mjs';
 
 const require = createRequire(import.meta.url);
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -22,6 +23,9 @@ const FPS = 25;
 const DURATION = 5;          // 125 frames: the work area of the pack's logoshots, rounded to the frame grid
 const REST = 3.0;            // inside the hold of «Умное облако» (2.12–3.32 s)
 const OUTRO_START = 3.96;    // the pack's outro (3.32 s) moved so that it ends on the last frame
+const INTRO_END = 2.12;      // slide and caption unroll end (16:9); the 9:16 stack rises until the same time
+const FLIP_IN = 0.32;        // the cube appears with its flip (the pack's layer starts at 1/3 s)
+const TIME_MAP = timeMapJs({ introEnd: INTRO_END, outroStart: OUTRO_START });
 // Caption plate = ink + PAD_L + PAD_R, rounded to whole master pixels. Measured in the pack (hand-fitted
 // plates): ink starts 27.2–27.5 px after the plate edge, ends 29.2–30.8 px before it; these two reproduce
 // «есть где развернуться» exactly (485 px) and «облачные и ИИ-сервисы» within 1 px (534 vs 535).
@@ -189,7 +193,9 @@ export function expressions(layout, V, colors, captions) {
     'var R = thisComp.layer("RIG");',
     'var W = thisComp.width, H = thisComp.height;',
     'var k = Math.min(W, H) / 1080, cx = W / 2, cy = H / 2;',
-    'function sv(n) { return R.effect(n)(1).value; }',
+    TIME_MAP.trim(),
+    'var TT = T(time);',
+    'function sv(n) { return R.effect(n)(1).valueAtTime(TT); }',
     'var pl, pc, ls, bx, by, cap;',
     'if (H <= W) {',
     `  var LW = ${P.w} * k, LH = ${P.h} * k, GAP = ${layout.gap} * k, PADL = ${PAD_L} * k;`,
@@ -231,25 +237,28 @@ export function expressions(layout, V, colors, captions) {
   const pick = (list) => 'var c = thisComp.layer("CTRL").effect("Caption")(1).value;\n' +
     `c == 2 ? ${q(list[1])} : (c == 3 ? ${q(list[2])} : ${q(list[0])})`;
   const portrait = 'thisComp.height > thisComp.width';
+  const dark = `var dark = ${theme} == 2 && ${bg} != 2;`;
   return {
     plateLogoSize: pre + '[Math.max(0, pl[2] - pl[0]), Math.max(0, pl[3] - pl[1])]',
     plateLogoPos: pre + '[(pl[0] + pl[2]) / 2, (pl[1] + pl[3]) / 2]',
     plateCapSize: pre + '[Math.max(0, pc[2] - pc[0]), Math.max(0, pc[3] - pc[1])]',
     plateCapPos: pre + '[(pc[0] + pc[2]) / 2, (pc[1] + pc[3]) / 2]',
-    plateFill: `${theme} == 2 ? ${arr(colors.black)} : ${arr(colors.white)}`,
+    // contrast (user, 2026-10-05): dark plates on the dark background turn light
+    plateFill: `${dark}\ndark ? ${arr(colors.black)} : ${arr(colors.white)}`,
     // the lockup box is centred on (bx, by); the pivot of the flip sits off its centre, 63.4 px behind it
     lockupPos: pre + `[bx + ${r6(layout.pivot.lx - layout.lockup.w / 2)} * ls, by + ${r6(layout.pivot.ly - layout.lockup.h / 2)} * ls, ${layout.pivot.z} * ls]`,
     lockupScale: pre + '[100 * ls, 100 * ls, 100 * ls]',
     // the stack has no flip: in the pack the logo rises from below instead
-    lockupRotX: `${portrait} ? 0 : value`,
-    wordFill: `${theme} == 2 ? ${arr(colors.white)} : ${arr(colors.black)}`,
+    lockupRotX: TIME_MAP + `${portrait} ? 0 : valueAtTime(T(time))`,
+    lockupOpacity: TIME_MAP + `${portrait} || T(time) >= ${FLIP_IN} ? 100 : 0`,
+    wordFill: `${dark}\ndark ? ${arr(colors.white)} : ${arr(colors.black)}`,
     captionText: pick(captions),
     captionVText: pick(captions.map((c) => VERTICAL_BREAKS[c] || c)),
     captionPos: pre + 'cap',
     captionVPos: pre + 'cap',
     captionOpacity: `${portrait} ? 0 : 100`,
     captionVOpacity: `${portrait} ? 100 : 0`,
-    captionFill: `${theme} == 2 ? ${arr(colors.white)} : ${arr(colors.black)}`,
+    captionFill: `${dark}\ndark ? ${arr(colors.white)} : ${arr(colors.black)}`,
     bgSize: '[thisComp.width, thisComp.height]',
     bgPos: '[thisComp.width / 2, thisComp.height / 2]',
     bgFill: `${bg} == 3 ? ${arr(colors.gray)} : ${arr(colors.black)}`,
@@ -273,6 +282,7 @@ export function resolveLogoShot(sources = loadSources()) {
   const base = tokens.color.base;
   const colors = { green: rgba(base.green.hex), black: rgba(base.black.hex), white: rgba(base.white.hex), gray: rgba(base.gray.hex) };
   const captions = [tokens.terms.descriptor.packages].concat(tokens.terms.slogans.values);
+  const reg = regions({ introEnd: INTRO_END, outroStart: OUTRO_START, duration: DURATION, fps: FPS });
   return {
     id: ID,
     workDir: workDir(),
@@ -286,18 +296,17 @@ export function resolveLogoShot(sources = loadSources()) {
     vertical: vert,
     rig: { ...rigKeys(canon), ...vert.keys },
     flip: flipKeys(canon),
-    markers: [
-      { comment: 'in', time: 0, duration: 2.12 },
-      { comment: 'out', time: OUTRO_START, duration: r6(DURATION - OUTRO_START) },
-    ],
+    markers: reg.markers,
+    duration: reg.duration,
     ctrl: {
       Caption: { label: 'Подпись', items: captions, value: 1 },
       Theme: { label: 'Тема', items: ['Светлая', 'Тёмная'], value: 1 },
       Background: { label: 'Фон', items: ['Прозрачный', 'Тёмный', 'Светлый'], value: 1 },
+      Speed: SPEED_CTRL,
     },
     // Essential Graphics: AE lists the newest controller first (S1), so they are added in reverse of the
-    // order the panel and Premiere should show (Подпись, Тема, Фон).
-    egp: ['Background', 'Theme', 'Caption'],
+    // order the panel and Premiere should show (Подпись, Тема, Фон, Скорость).
+    egp: ['Speed', 'Background', 'Theme', 'Caption'],
     captionsV: captions.map((c) => VERTICAL_BREAKS[c] || c),
     expr: expressions(layout, vert, colors, captions),
     version: 1,

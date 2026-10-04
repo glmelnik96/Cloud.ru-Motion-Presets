@@ -10,6 +10,7 @@ import { workDir, workPath } from '../../tools/lib/work.mjs';
 import { dumpKeys, dumpLayer, toBuilderKeys } from '../../tools/masters/dump-keys.mjs';
 import { layerToCompAt, restValueAt, shapeBoxAt } from '../../tools/masters/dump-geometry.mjs';
 import { fitCube, masterLockup } from '../../tools/masters/logo.mjs';
+import { regions, SPEED_CTRL, timeMapJs } from '../../tools/masters/speed.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(here, '../..');
@@ -18,8 +19,15 @@ export const ID = 'LOGO_Mark';
 export const COMP = 'CR_LOGO_Mark';
 const FPS = 25;
 const REST = 2.6;              // the pack holds 2.20–3.00 s
-const DURATION = 3.6;          // intro 0–2.20, hold, outro 3.00–3.60 (new, provisional)
-const OUTRO = { wipe: [3.0, 3.36], collapse: [3.2, 3.56] };
+const INTRO_END = 2.2;
+// 4.0 s: at the slowest speed (0.75x) the intro takes 2.93 s and the outro 0.8 s (tools/masters/speed.mjs).
+const DURATION = 4.0;
+// Outros (new, the pack has none). Without the plate: the wordmark slides back behind the cube, the cube
+// collapses into its centre. With the plate (user, 2026-10-05): the plate closes into its centre line and
+// cuts the logo off with its edges, no separate scale of the logo. The plate closes with the curve of the
+// logoshot plates (LOGO_Shot CloseW: 73.9 / 59.6).
+const OUTRO = { wipe: [3.4, 3.76], collapse: [3.6, 3.96], plateClose: [3.4, 3.96] };
+const OUTRO_START = 3.4;
 const PORTRAIT_SCALE = 1.35;   // the pack's 9:16 wrappers hold the FHD comp at 135 %
 const CUBE = 'Layer 3 Outlines 2';
 const WIPE = 'Shape Layer 1';
@@ -142,11 +150,14 @@ export function expressions(L, colors) {
     'var R = thisComp.layer("RIG"), C = thisComp.layer("CTRL");',
     'var W = thisComp.width, H = thisComp.height;',
     `var k = Math.min(W, H) / 1080 * (H > W ? ${PORTRAIT_SCALE} : 1), cx = W / 2, cy = H / 2;`,
-    'function sv(n) { return R.effect(n)(1).value; }',
+    timeMapJs({ introEnd: INTRO_END, outroStart: OUTRO_START }).trim(),
+    'var TT = T(time);',
+    'function sv(n) { return R.effect(n)(1).valueAtTime(TT); }',
     'var B = C.effect("Plate")(1).value == 1;',
     'var X = B ? sv("X_B") : sv("X_A"), S = (B ? sv("S_B") : sv("S_A")) / 100;',
-    'var wb = sv("WipeBack"), cl = sv("Collapse");',
-    // the outro collapses toward the cube centre
+    // without the plate: the wordmark slides back and the cube collapses into its centre;
+    // with the plate: neither, the plate closes and masks the logo (pc)
+    'var wb = B ? 0 : sv("WipeBack"), cl = B ? 0 : sv("Collapse"), pc = B ? sv("PlateClose") : 0;',
     'var S1 = S * (1 - cl);',
     `var px = cx + (X + ${r6(ccx - ax)} * (S - S1)) * k, py = cy + (${L.dy} + ${r6(ccy - ay)} * (S - S1)) * k;`,
   ].join('\n') + '\n';
@@ -156,8 +167,7 @@ export function expressions(L, colors) {
   return {
     position: pre + '[px, py]',
     scale: pre + '[100 * S1 * k, 100 * S1 * k]',
-    cubeOpacity: 'var R = thisComp.layer("RIG"), B = thisComp.layer("CTRL").effect("Plate")(1).value == 1;\n' +
-      '(B ? R.effect("O_B")(1).value : R.effect("O_A")(1).value)',
+    cubeOpacity: pre + '(B ? sv("O_B") : sv("O_A"))',
     // the wipe rect leaves the wordmark (inverted matte) as it moves; the outro moves it back
     wipeSize: pre + 'var wx = (B ? sv("W_B") : sv("W_A"));\n' +
       `var w0 = B ? ${'W_B_START'} : ${'W_A_START'};\n` +
@@ -165,10 +175,20 @@ export function expressions(L, colors) {
     wipePos: pre + 'var wx = (B ? sv("W_B") : sv("W_A"));\n' +
       `var w0 = B ? ${'W_B_START'} : ${'W_A_START'};\n` +
       `wx = wx - (wx - w0) * wb;\n[wx + ${r6((L.wipe.w0 + L.wipe.w1) / 2)}, ${r6((L.wipe.y0 + L.wipe.y1) / 2)}]`,
-    plateSize: pre + `var sx = B ? sv("P_B") / 100 * (1 - wb) : 0;\n[Math.max(0, ${r6(L.plate.p1 - L.plate.p0)} * sx), ${r6(L.plate.y1 - L.plate.y0)}]`,
-    platePos: pre + `var sx = B ? sv("P_B") / 100 * (1 - wb) : 0;\n[${L.plate.px} + ${r6((L.plate.p0 + L.plate.p1) / 2)} * sx, ${r6((L.plate.y0 + L.plate.y1) / 2)}]`,
-    plateFill: `${theme} == 2 ? ${arr(colors.black)} : ${arr(colors.white)}`,
-    wordFill: `${theme} == 2 ? ${arr(colors.white)} : ${arr(colors.black)}`,
+    plateSize: pre + `var sx = B ? sv("P_B") / 100 : 0;\n[Math.max(0, ${r6(L.plate.p1 - L.plate.p0)} * sx * (1 - pc)), ${r6(L.plate.y1 - L.plate.y0)}]`,
+    platePos: pre + `var sx = B ? sv("P_B") / 100 : 0;\n[${L.plate.px} + ${r6((L.plate.p0 + L.plate.p1) / 2)} * sx, ${r6((L.plate.y0 + L.plate.y1) / 2)}]`,
+    // the plate as a mask of the logo while it closes (layer space shared by PLATE, CUBE and WORDMARK)
+    logoMask: pre + `var sx = B ? sv("P_B") / 100 : 0;\n` +
+      `var w = ${r6(L.plate.p1 - L.plate.p0)} * sx * (1 - pc), c = ${L.plate.px} + ${r6((L.plate.p0 + L.plate.p1) / 2)} * sx;\n` +
+      `var y0 = ${L.plate.y0}, y1 = ${L.plate.y1}, big = 100000;\n` +
+      'pc > 0 ? createPath([[c - w / 2, y0], [c + w / 2, y0], [c + w / 2, y1], [c - w / 2, y1]], [], [], true) : ' +
+      'createPath([[-big, -big], [big, -big], [big, big], [-big, big]], [], [], true)',
+    // contrast (user, 2026-10-05): a dark plate on the dark background turns light; without the plate the
+    // wordmark takes the colour that stands out on the chosen background
+    plateFill: `var th = ${theme}, bg = ${bg};\nth == 2 && bg != 2 ? ${arr(colors.black)} : ${arr(colors.white)}`,
+    wordFill: `var th = ${theme}, bg = ${bg}, B = thisComp.layer("CTRL").effect("Plate")(1).value == 1;\n` +
+      'var white = B ? (th == 2 && bg != 2) : (bg == 2 ? true : (bg == 3 ? false : th == 2));\n' +
+      `white ? ${arr(colors.white)} : ${arr(colors.black)}`,
     bgSize: '[thisComp.width, thisComp.height]',
     bgPos: '[thisComp.width / 2, thisComp.height / 2]',
     bgFill: `${bg} == 3 ? ${arr(colors.gray)} : ${arr(colors.black)}`,
@@ -195,7 +215,9 @@ export function resolveLogoMark(sources = loadSources()) {
     X_B: Bk.X, S_B: Bk.S, O_B: Bk.O, W_B: Bk.W, P_B: Bk.P,
     WipeBack: outroKeys(OUTRO.wipe[0], OUTRO.wipe[1], 60, 60),
     Collapse: outroKeys(OUTRO.collapse[0], OUTRO.collapse[1], 70, 20),
+    PlateClose: outroKeys(OUTRO.plateClose[0], OUTRO.plateClose[1], 73.903212, 59.564555),
   };
+  const reg = regions({ introEnd: INTRO_END, outroStart: OUTRO_START, duration: DURATION, fps: FPS });
   return {
     id: ID,
     workDir: workDir(),
@@ -205,20 +227,20 @@ export function resolveLogoMark(sources = loadSources()) {
     layout: L,
     lockup: L.lockup,
     rig,
-    markers: [
-      { comment: 'in', time: 0, duration: 2.2 },
-      { comment: 'out', time: OUTRO.wipe[0], duration: r6(DURATION - OUTRO.wipe[0]) },
-    ],
+    markers: reg.markers,
+    duration: reg.duration,
     ctrl: {
       Plate: { label: 'Подложка', kind: 'checkbox', value: 1 },
       Theme: { label: 'Тема', items: ['Светлая', 'Тёмная'], value: 2 },
       Background: { label: 'Фон', items: ['Прозрачный', 'Тёмный', 'Светлый'], value: 1 },
+      Speed: SPEED_CTRL,
     },
-    egp: [{ effect: 'Background' }, { effect: 'Theme' }, { effect: 'Plate' }],
+    // AE lists the newest controller first: added in reverse of Подложка, Тема, Фон, Скорость
+    egp: [{ effect: 'Speed' }, { effect: 'Background' }, { effect: 'Theme' }, { effect: 'Plate' }],
     expr,
     version: 1,
     variants: ['16x9', '16x9_4K', '9x16'].map((key) => ({ key, ...tokens.video.formats[key] })),
-    sweepTimes: [0, 0.5, 1, 1.4, 1.76, 2.2, REST, 3.1, 3.3, 3.56],
+    sweepTimes: [0, 0.5, 1, 1.4, 1.76, 2.2, REST, 3.5, 3.7, 3.96],
     rest: REST,
   };
 }

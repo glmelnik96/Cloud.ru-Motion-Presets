@@ -7,7 +7,7 @@ import { layerToCompAt, restValueAt, shapeBoxAt } from '../../tools/masters/dump
 import { applyPoint } from '../../tools/dump/geometry.mjs';
 import { layerProp } from '../../tools/dump/model.mjs';
 import { P, pathGroup, rectGroup, shape, text } from '../../tools/masters/spec.mjs';
-import { START, visible } from './style-titles.mjs';
+import { scaleExpr, SIZE_JS, START, visible } from './style-titles.mjs';
 
 const S = 0.5;                 // 4K pack -> FHD
 const REST = 3.0;
@@ -99,83 +99,108 @@ export function podcastRig(pod) {
       PodOut: progressSegment(plate, 2, { dim: 1, t0: r6(plate[2].time + OUT_SHIFT), t1: r6(plate[3].time + OUT_SHIFT) }),
       PodArrow1: shiftIn(pos(POD.arrow1), 0),
       PodArrow2: shiftIn(pos(POD.arrow2), 0),
+      // the pack's role Start (words over both lines), split between the two role layers by word count
+      PodRoleStart: startKeys(POD.role),
     },
     nameStart: startKeys(POD.name),
-    roleStart: startKeys(POD.role),
   };
 }
 
-export function addPodcast(spec, { layout: L, arrows, keys, hex, pads }) {
+// «Слева» (guest) is the full mirror of the host (user, 2026-10-05: the guest layout broke with a long role):
+// the name sits at the anchored edge (right for the host, left for the guest), the role lines align to the
+// other side behind its indent, where the single arrow lives; the upper role line keeps clear of the
+// double arrow (zone Z1 = the arrow and a gap). Text layers are left-justified and placed by their ink.
+export function addPodcast(spec, { layout: L, arrows, keys, hex, pads, timeMap }) {
   const k = 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n';
   const pre = [
     'var C = thisComp.layer("CTRL"), R = thisComp.layer("RIG");',
     'var k = Math.min(thisComp.width, thisComp.height) / 1080;',
+    SIZE_JS,
+    'var kt = k * f;',
     'var W = thisComp.width, H = thisComp.height;',
     'var right = C.effect("Side")(1).value == 2;',
-    'function sv(e) { return R.effect(e)(1).value; }',
-    'var nm = thisComp.layer("POD_NAME").sourceRectAtTime(0, false);',
-    'var rl = thisComp.layer("POD_ROLE").sourceRectAtTime(0, false);',
-    'function has(n) { return thisComp.layer(n).sourceRectAtTime(0, false).width > 0; }',
-    'var lines = (has("TXT_ROLE1") ? 1 : 0) + (has("TXT_ROLE2") ? 1 : 0);',
-    // the name is right-aligned at a fixed gap from the plate's right edge; the plate takes the wider of
-    // the name and the indented role
-    `var GR = ${L.nameGapR} * k, PADL = ${pads.nameL} * k, IND = ${L.roleIndent} * k, PADR = ${pads.roleR} * k;`,
-    'var nameW = nm.width > 0 ? GR - nm.left + PADL : 0;',
-    'var roleW = lines > 0 ? IND + rl.left + rl.width + PADR : 0;',
+    timeMap.trim(),
+    'var TT = T(time);',
+    'function sv(e) { return R.effect(e)(1).valueAtTime(TT); }',
+    'function ink(n) { var r = thisComp.layer(n).sourceRectAtTime(0, false); return { l: r.left * f, w: r.width > 0 ? r.width * f : 0 }; }',
+    'var nm = ink("POD_NAME"), r1 = ink("POD_ROLE1"), r2 = ink("POD_ROLE2");',
+    'var lines = (r1.w > 0 ? 1 : 0) + (r2.w > 0 ? 1 : 0);',
+    'var up = r1.w > 0 ? r1 : r2;',
+    // GR: from the plate edge to the name's ink (the pack's gap to the line end + the side bearing of its last letter)
+    `var GR = ${L.nameGapR + pads.nameRsb} * kt, PADL = ${pads.nameL} * kt, IND = ${L.roleIndent} * kt, PADR = ${pads.roleR} * kt, Z1 = ${pads.arrowZone} * kt;`,
+    'var nameW = nm.w > 0 ? GR + nm.w + PADL : 0;',
+    'var roleW = lines > 0 ? IND + Math.max(up.w + Z1, (lines == 2 ? r2.w : 0) + PADR) : 0;',
     // not rounded: the pack's plate edge is fractional too (1066.4 px in 4K); G1 waits for the designer
     'var Wp = Math.max(nameW, roleW);',
-    `var LEAD = ${L.lead} * k, H2 = ${L.plate.h} * k;`,
-    `var Hp = lines == 2 ? H2 : (lines == 1 ? H2 - LEAD : ${pads.noRoleH} * k);`,
+    `var LEAD = ${L.lead} * kt, H2 = ${L.plate.h} * kt;`,
+    `var Hp = lines == 2 ? H2 : (lines == 1 ? H2 - LEAD : ${pads.noRoleH} * kt);`,
     `var x1 = right ? W - ${L.corner.right} * k : ${L.corner.left} * k + Wp, x0 = x1 - Wp, yb = H - ${L.corner.bottom} * k;`,
-    `var b1 = yb - (lines == 2 ? ${L.roleBaselines[0]} : ${L.roleBaselines[1]}) * k, b2 = yb - ${L.roleBaselines[1]} * k;`,
+    `var b1 = yb - (lines == 2 ? ${L.roleBaselines[0]} : ${L.roleBaselines[1]}) * kt, b2 = yb - ${L.roleBaselines[1]} * kt;`,
     'var pin = sv("PodIn"), pout = sv("PodOut");',
-    // grows from its anchored edge (right for the host), closes down to its bottom edge
+    // grows from its anchored edge, closes down to its bottom edge
     'var px0 = right ? x1 - Wp * pin : x0, px1 = right ? x1 : x0 + Wp * pin, py0 = yb - Hp * (1 - pout);',
+    // role lines: after the indent from the far edge (host) or before it from the far edge (guest)
+    'function roleX(r) { return right ? x0 + IND : x1 - IND - (r.l + r.w); }',
   ].join('\n') + '\n';
   const a1 = L.arrow1;
   const a2 = L.arrow2;
+  const role = (value) => ({ font: L.role.font, size: L.role.size, fill: hex.black, tracking: L.role.tracking, justify: 'LEFT', allCaps: true, value });
   spec.add(
     shape('CLIP_ROLE', [rectGroup('Clip', hex.black)]),
     shape('CLIP_NAME', [rectGroup('Clip', hex.black)]),
     shape('PL_POD', [rectGroup('Plate', hex.gray)]),
-    text('POD_ROLE', { font: L.role.font, size: L.role.size, fill: hex.black, tracking: L.role.tracking, justify: 'LEFT', leading: L.role.leading, allCaps: true, value: 'Должность' }),
-    text('POD_NAME', { font: L.name.font, size: L.name.size, fill: hex.black, tracking: L.name.tracking, justify: 'RIGHT', allCaps: true, value: 'Имя Фамилия' }),
+    text('POD_ROLE2', role('')),
+    text('POD_ROLE1', role('Должность')),
+    text('POD_NAME', { font: L.name.font, size: L.name.size, fill: hex.black, tracking: L.name.tracking, justify: 'LEFT', allCaps: true, value: 'Имя Фамилия' }),
     shape('ARROW_1', arrows.arrow1.groups.map((g, i) => pathGroup('Arrow ' + (i + 1), hex.black, [g.path], g.position)), { anchor: arrows.arrow1.anchor }),
     shape('ARROW_2', arrows.arrow2.groups.map((g, i) => pathGroup('Arrow ' + (i + 1), hex.black, [g.path], g.position)), { anchor: arrows.arrow2.anchor }),
   );
-  spec.key('POD_NAME', P.start(), keys.nameStart).key('POD_ROLE', P.start(), keys.roleStart);
+  spec.key('POD_NAME', P.start(), keys.nameStart);
+  spec.expr('POD_NAME', P.start(), timeMap + 'valueAtTime(T(time))');
+  // the pack's role Start ran over the words of both lines: line 1 takes its share of words first
+  const words = [
+    'function wc(s) { s = String(s).replace(/^\\s+|\\s+$/g, ""); return s.length ? s.split(/\\s+/).length : 0; }',
+    'var wa = wc(thisComp.layer("TXT_ROLE1").text.sourceText), wb = wc(thisComp.layer("TXT_ROLE2").text.sourceText);',
+    'var fr = wa + wb > 0 ? wa / (wa + wb) : 1;',
+    'var S = thisComp.layer("RIG").effect("PodRoleStart")(1).valueAtTime(T(time));',
+  ].join('\n') + '\n';
+  spec.expr('POD_ROLE1', P.start(), timeMap + words + 'fr > 0 ? linear(S, 0, 100 * fr, 0, 100) : 100');
+  spec.expr('POD_ROLE2', P.start(), timeMap + words + 'fr < 1 ? linear(S, 100 * fr, 100, 0, 100) : 100');
   // text clips: the pack's mask band cut by the plate (which grows and then closes down)
   const roleBottom = Math.max(0, L.clip.role.bottom - pads.roleClipDrop);
   for (const [layer, band] of [['CLIP_NAME', L.clip.name], ['CLIP_ROLE', { top: L.clip.role.top + pads.roleClipRaise, bottom: roleBottom }]]) {
-    const clip = pre + `var c0 = Math.max(py0, yb - ${band.top} * k), c1 = yb - ${band.bottom} * k;
-`;
+    const clip = pre + `var c0 = Math.max(py0, yb - ${band.top} * kt), c1 = yb - ${band.bottom} * kt;\n`;
     spec.expr(layer, P.rectSize('Clip'), clip + '[Math.max(0, px1 - px0), Math.max(0, c1 - c0)]');
     spec.expr(layer, P.rectPos('Clip'), clip + '[(px0 + px1) / 2, (c0 + c1) / 2]');
   }
   spec.expr('PL_POD', P.rectSize('Plate'), pre + '[Math.max(0, px1 - px0), Math.max(0, yb - py0)]');
   spec.expr('PL_POD', P.rectPos('Plate'), pre + '[(px0 + px1) / 2, (py0 + yb) / 2]');
   spec.expr('POD_NAME', P.text, 'String(thisComp.layer("TXT_NAME").text.sourceText)');
-  spec.expr('POD_ROLE', P.text, 'var a = String(thisComp.layer("TXT_ROLE1").text.sourceText), b = String(thisComp.layer("TXT_ROLE2").text.sourceText);\n' +
-    'a.length && b.length ? a + "\\r" + b : a + b');
-  spec.expr('POD_NAME', P.pos, pre + `[x1 - GR, yb - ${L.nameBaseline} * k]`);
-  spec.expr('POD_ROLE', P.pos, pre + 'right ? [x0 + IND, b1] : [x0 + IND, b1]');
+  spec.expr('POD_ROLE1', P.text, 'String(thisComp.layer("TXT_ROLE1").text.sourceText)');
+  spec.expr('POD_ROLE2', P.text, 'String(thisComp.layer("TXT_ROLE2").text.sourceText)');
+  spec.expr('POD_NAME', P.pos, pre + `[right ? x1 - GR - (nm.l + nm.w) : x0 + GR - nm.l, yb - ${L.nameBaseline} * kt]`);
+  // one role line stands on the lower slot (b1 = b2 then)
+  spec.expr('POD_ROLE1', P.pos, pre + '[roleX(r1), b1]');
+  spec.expr('POD_ROLE2', P.pos, pre + '[roleX(r2), b2]');
   spec.expr('POD_NAME', P.rise(), k + `[0, ${L.name.rise} * k, 0]`);
-  spec.expr('POD_ROLE', P.rise(), k + `[0, ${pads.roleRise || L.role.rise} * k, 0]`);
+  for (const layer of ['POD_ROLE1', 'POD_ROLE2']) spec.expr(layer, P.rise(), k + `[0, ${pads.roleRise || L.role.rise} * k, 0]`);
+  for (const layer of ['POD_NAME', 'POD_ROLE1', 'POD_ROLE2']) spec.expr(layer, P.scale, scaleExpr);
   // arrows: the host's arrows point left and come in from the right; «Слева» mirrors them
-  spec.expr('ARROW_1', P.pos, pre + `var a = sv("PodArrow1");\n` +
-    `var rest = right ? x0 + ${a1.restFromLeft} * k : x1 - ${a1.restFromLeft} * k, from = right ? x1 + ${a1.startFromRight} * k : x0 - ${a1.startFromRight} * k;\n` +
-    `[from + (rest - from) * a, b2 + ${a1.dyFromLine2} * k]`);
-  spec.expr('ARROW_2', P.pos, pre + `var a = sv("PodArrow2");\n` +
-    `var rest = right ? x1 + ${a2.restFromRight} * k : x0 - ${a2.restFromRight} * k, from = right ? x1 + ${a2.startFromRight} * k : x0 - ${a2.startFromRight} * k;\n` +
-    `[from + (rest - from) * a, b1 + ${a2.dyFromLine1} * k]`);
+  spec.expr('ARROW_1', P.pos, pre + 'var a = sv("PodArrow1");\n' +
+    `var rest = right ? x0 + ${a1.restFromLeft} * kt : x1 - ${a1.restFromLeft} * kt, from = right ? x1 + ${a1.startFromRight} * kt : x0 - ${a1.startFromRight} * kt;\n` +
+    `[from + (rest - from) * a, b2 + ${a1.dyFromLine2} * kt]`);
+  spec.expr('ARROW_2', P.pos, pre + 'var a = sv("PodArrow2");\n' +
+    `var rest = right ? x1 + ${a2.restFromRight} * kt : x0 - ${a2.restFromRight} * kt, from = right ? x1 + ${a2.startFromRight} * kt : x0 - ${a2.startFromRight} * kt;\n` +
+    `[from + (rest - from) * a, b1 + ${a2.dyFromLine1} * kt]`);
   for (const [n, s] of [['ARROW_1', arrows.arrow1.scale], ['ARROW_2', arrows.arrow2.scale]]) {
-    spec.expr(n, P.scale, pre + `[(right ? -1 : 1) * ${r6(s * 100)} * k, ${r6(s * 100)} * k]`);
+    spec.expr(n, P.scale, pre + `[(right ? -1 : 1) * ${r6(s * 100)} * kt, ${r6(s * 100)} * kt]`);
   }
-  for (const layer of ['PL_POD', 'POD_ROLE', 'POD_NAME']) spec.expr(layer, P.opacity, visible(2));
+  for (const layer of ['PL_POD', 'POD_ROLE1', 'POD_ROLE2', 'POD_NAME']) spec.expr(layer, P.opacity, visible(2));
   // no role, no arrows
   for (const layer of ['ARROW_1', 'ARROW_2']) {
     spec.expr(layer, P.opacity, pre + 'thisComp.layer("CTRL").effect("Style")(1).value == 2 && lines > 0 ? 100 : 0');
   }
-  spec.matte('POD_NAME', 'CLIP_NAME', 'ALPHA', { keepVisible: false }).matte('POD_ROLE', 'CLIP_ROLE', 'ALPHA', { keepVisible: false });
+  spec.matte('POD_NAME', 'CLIP_NAME', 'ALPHA', { keepVisible: false });
+  spec.matte('POD_ROLE1', 'CLIP_ROLE', 'ALPHA', { keepVisible: false }).matte('POD_ROLE2', 'CLIP_ROLE', 'ALPHA', { keepVisible: false });
   spec.matte('ARROW_1', 'PL_POD').matte('ARROW_2', 'PL_POD');
 }

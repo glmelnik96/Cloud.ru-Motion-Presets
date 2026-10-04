@@ -106,7 +106,8 @@ lsStep('layers: BG, PL_LOGO, PL_CAPTION, LOCKUP, CAPTION, CAPTION_V, QA_PATCH (g
   }
   bdFill(L, 'Wordmark', PARAMS.hex.black, 'Fill');
   L.threeDLayer = true;
-  bdSpan(L, LS.comp.duration, PARAMS.flip.inPoint);
+  // from 0: the cube shows up with its flip by opacity (LOCKUP opacity), so the speed control moves it too
+  bdSpan(L, LS.comp.duration, 0);
   var pv = PARAMS.layout.pivot;
   bdXform(L, 'ADBE Anchor Point').setValue([pv.lx, pv.ly, pv.z]);
   var T = bdText(LS.comp, 'CAPTION', PARAMS.ctrl.Caption.items[0], { font: PARAMS.font, size: PARAMS.fontPx, fill: PARAMS.hex.black, tracking: 0, justify: 'LEFT' });
@@ -147,11 +148,11 @@ lsStep('RIG: progress sliders with the pack curves (shy, not in Essential Graphi
   return { pass: true, detail: out };
 });
 
-lsStep('CTRL: Caption, Theme, Background (dropdowns, Cyrillic items), QA', true, function () {
+lsStep('CTRL: Caption, Theme, Background, Speed (dropdowns, Cyrillic items), QA', true, function () {
   var L = bdNull(LS.comp, 'CTRL');
   var got = {};
   var ok = true;
-  var names = ['Caption', 'Theme', 'Background'];
+  var names = ['Caption', 'Theme', 'Background', 'Speed'];
   for (var i = 0; i < names.length; i++) {
     var spec = PARAMS.ctrl[names[i]];
     var r = bdDropdown(L, names[i], spec.items, spec.value);
@@ -188,6 +189,7 @@ lsStep('expressions: plates, lockup, caption, background, QA patch', true, funct
     ['CAPTION_V position', bdXform(lsLayer('CAPTION_V'), 'ADBE Position'), X.captionVPos],
     ['CAPTION_V opacity', bdXform(lsLayer('CAPTION_V'), 'ADBE Opacity'), X.captionVOpacity],
     ['LOCKUP x rotation', bdXform(lsLayer('LOCKUP'), 'ADBE Rotate X'), X.lockupRotX],
+    ['LOCKUP opacity', bdXform(lsLayer('LOCKUP'), 'ADBE Opacity'), X.lockupOpacity],
     ['QA_PATCH size', lsRectProp('QA_PATCH', 'Patch', 'Rect', 'ADBE Vector Rect Size'), X.qaSize],
     ['QA_PATCH position', lsRectProp('QA_PATCH', 'Patch', 'Rect', 'ADBE Vector Rect Position'), X.qaPos],
     ['QA_PATCH opacity', bdXform(lsLayer('QA_PATCH'), 'ADBE Opacity'), X.qaOpacity]
@@ -271,7 +273,7 @@ lsStep('rest layout at ' + PARAMS.rest + ' s: plate sizes and positions', true, 
 
 // canAdd first, add only when it says yes, dialogs suppressed (S1). Names read back from index 1,
 // newest first (AE 26.5).
-lsStep('Essential Graphics: Caption, Theme, Background with Russian names, QA left out', true, function () {
+lsStep('Essential Graphics: Caption, Theme, Background, Speed with Russian names, QA left out', true, function () {
   var C = lsLayer('CTRL');
   var added = [];
   for (var i = 0; i < PARAMS.egp.length; i++) {
