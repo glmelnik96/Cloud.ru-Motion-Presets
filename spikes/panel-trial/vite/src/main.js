@@ -1,6 +1,6 @@
-// Own-Vite trial panel (task 29): Preact renders in CEP and shows which host and Chromium loaded it.
-import { h, render } from 'preact';
-
+// Own-Vite trial panel (task 29): shows which host and Chromium loaded it. Plain DOM: the npm downloads of
+// the trial (preact, vite@latest) were not allowed, so it builds with the vite the repo already has (the
+// vitest dependency) and no UI library; Preact (N2) is checked when the real panel is built.
 function hostInfo() {
   try {
     const env = JSON.parse(window.__adobe_cep__.getHostEnvironment());
@@ -11,11 +11,11 @@ function hostInfo() {
 }
 
 const chrome = (navigator.userAgent.match(/Chrome\/[\d.]+/) || ['Chrome ?'])[0];
-
-render(
-  h('div', { style: 'font: 13px sans-serif; color: #ddd; padding: 8px' },
-    h('b', null, 'BrandKit Trial Vite'),
-    h('div', null, 'host: ' + hostInfo()),
-    h('div', null, chrome)),
-  document.getElementById('app'),
-);
+const app = document.getElementById('app');
+app.style.cssText = 'font: 13px sans-serif; color: #ddd; padding: 8px';
+for (const [tag, text] of [['b', 'BrandKit Trial Vite'], ['div', 'host: ' + hostInfo()], ['div', chrome]]) {
+  const el = document.createElement(tag);
+  el.textContent = text;
+  el.style.display = 'block';
+  app.appendChild(el);
+}

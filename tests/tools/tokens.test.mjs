@@ -7,8 +7,8 @@ const tokens = JSON.parse(raw);
 const data = (obj) => Object.fromEntries(Object.entries(obj).filter(([k]) => !k.startsWith('_')));
 
 describe('brand/tokens.json', () => {
-  it('is a draft', () => {
-    expect(tokens.status).toBe('draft');
+  it('is approved (A1, phase 0 closed 2026-10-05)', () => {
+    expect(tokens.status).toBe('approved');
   });
   it('holds the D1 palette from brandbook page 18', () => {
     const hex = Object.values(tokens.color.base).map((c) => c.hex);
