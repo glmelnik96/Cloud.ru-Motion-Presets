@@ -67,6 +67,7 @@ export function planPreset(item: Item, ctx: HostContext, libraryRoot: string): P
 // What applyPreset of the AE adapter answers: per selected layer, whether the preset changed it (effects,
 // text animators or keys), and layers that appeared (a preset may add one).
 export interface PresetReply {
+  // firstKeySec: the earliest key of the layer after the preset (its start on a layer that had no keys).
   layers: Array<{ name: string; layerId: number; changed: boolean; firstKeySec: number | null }>;
   newLayers: string[];
 }

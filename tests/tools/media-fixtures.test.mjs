@@ -74,4 +74,24 @@ describe.skipIf(!HAS_FFMPEG)('synthetic media pack', () => {
     const again = await buildMediaFixtures({ realBuild: path.join(root, 'build'), out: path.join(root, 'media') });
     expect(again.made).toEqual([]);
   }, 120000);
+
+  it('adds the effects when the AE presets are there', async () => {
+    const root = mkdtempSync(path.join(os.tmpdir(), 'bk-media-fx-'));
+    fakeLowerThird(path.join(root, 'build'));
+    const presets = path.join(root, 'Presets');
+    for (const parts of [['Text', 'Animate In', 'Fade Up Characters.ffx'], ['Transitions - Wipes', 'Linear Wipe.ffx']]) {
+      mkdirSync(path.join(presets, ...parts.slice(0, -1)), { recursive: true });
+      writeFileSync(path.join(presets, ...parts), 'RIFX ' + parts.at(-1));
+    }
+    const r = await buildMediaFixtures({ realBuild: path.join(root, 'build'), out: path.join(root, 'media'), presets });
+    expect(r.problems).toEqual([]);
+    expect(r.fx).toBe(true);
+    const lib = JSON.parse(readFileSync(path.join(r.libraryRoot, 'library.json'), 'utf8'));
+    expect(lib.items.filter((i) => i.category === 'effects').map((i) => [i.id, i.variants[0].file])).toEqual([
+      ['FX_TextRise', 'items/FX_TextRise/FX_TextRise_ffx_v1.ffx'],
+      ['FX_PlateGrow', 'items/FX_PlateGrow/FX_PlateGrow_ffx_v1.ffx'],
+    ]);
+    expect(readFileSync(path.join(r.libraryRoot, 'items/FX_PlateGrow/FX_PlateGrow_ffx_v1.ffx'), 'utf8')).toBe('RIFX Linear Wipe.ffx');
+  }, 120000);
 });
+

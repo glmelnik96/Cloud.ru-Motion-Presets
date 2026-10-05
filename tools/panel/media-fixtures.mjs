@@ -6,7 +6,7 @@
 // The codec is PNG in MOV (alpha, light); the choice for the real pack is S11's, not this one's.
 //   node tools/panel/media-fixtures.mjs [--build <work>/build] [--out <work>/panel-live/media]
 // Writes <out>/build/<id>/..., <out>/library.src.json and the catalog in <out>/library.
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -19,16 +19,28 @@ const readJson = (p) => JSON.parse(readFileSync(p, 'utf8').replace(/^﻿/, ''));
 
 export const MEDIA_IDS = ['TRN_StepWipe', 'BG_Arrows', 'BG_DotGrid', 'SFX_WhooshIn'];
 export const T1_ID = 'TTL_LowerThird';
+// Stand-ins for the brand .ffx (spec 5 «Пресеты .ffx»), from the presets AE installs, as in S4.
+export const FX_STANDINS = {
+  FX_TextRise: ['Text', 'Animate In', 'Fade Up Characters.ffx'],
+  FX_PlateGrow: ['Transitions - Wipes', 'Linear Wipe.ffx'],
+};
+
+export function aePresetsDir(env = process.env, platform = process.platform) {
+  if (env.BRANDKIT_AE_PRESETS) return env.BRANDKIT_AE_PRESETS;
+  return platform === 'win32' ? 'C:/Program Files/Adobe/Adobe After Effects 2026/Support Files/Presets' : '/Applications/Adobe After Effects 2026/Presets';
+}
 const GREEN = '0x26D07C';
 
-// The live source: the lower third of the real library with two companions, and the example media items.
-export function mediaSource(real, example) {
+// The live source: the lower third of the real library with two companions, the example media items and,
+// when AE's presets are there, the example effects (fx: true).
+export function mediaSource(real, example, { fx = false } = {}) {
   const ttl = structuredClone(real.items.find((i) => i.id === T1_ID));
   ttl.companions = [
     { ref: 'BG_Arrows', kind: 'video', placement: 'under', default: true },
     { ref: 'SFX_WhooshIn', kind: 'sfx', placement: 'out', default: true },
   ];
-  const media = MEDIA_IDS.map((id) => structuredClone(example.items.find((i) => i.id === id)));
+  const ids = fx ? [...MEDIA_IDS, ...Object.keys(FX_STANDINS)] : MEDIA_IDS;
+  const media = ids.map((id) => structuredClone(example.items.find((i) => i.id === id)));
   return { $schema: real.$schema, schemaVersion: 1, items: [ttl, ...media] };
 }
 
@@ -95,9 +107,17 @@ export function makeMedia(buildDir, items, { ffmpeg = 'ffmpeg', force = false } 
   return made;
 }
 
-export async function buildMediaFixtures({ realBuild = workPath('build'), out = workPath('panel-live', 'media'), ffmpeg = 'ffmpeg', force = false } = {}) {
-  const src = mediaSource(readJson(path.join(REPO, 'library', 'library.src.json')), readJson(path.join(REPO, 'docs', 'library', 'example.src.json')));
+export async function buildMediaFixtures({ realBuild = workPath('build'), out = workPath('panel-live', 'media'), ffmpeg = 'ffmpeg', force = false, presets = aePresetsDir() } = {}) {
+  const fx = Object.values(FX_STANDINS).every((parts) => existsSync(path.join(presets, ...parts)));
+  const src = mediaSource(readJson(path.join(REPO, 'library', 'library.src.json')), readJson(path.join(REPO, 'docs', 'library', 'example.src.json')), { fx });
   const buildDir = path.join(out, 'build');
+  if (fx) {
+    for (const [id, parts] of Object.entries(FX_STANDINS)) {
+      const dst = path.join(buildDir, id, `${id}_ffx_v1.ffx`);
+      mkdirSync(path.dirname(dst), { recursive: true });
+      copyFileSync(path.join(presets, ...parts), dst);
+    }
+  }
   const t1 = path.join(realBuild, T1_ID);
   if (!existsSync(path.join(t1, `${T1_ID}_v1.aep`))) throw new Error(`no built ${T1_ID} in ${realBuild}: build the masters first`);
   copyTree(t1, path.join(buildDir, T1_ID));
@@ -105,7 +125,7 @@ export async function buildMediaFixtures({ realBuild = workPath('build'), out = 
   writeFileSync(path.join(out, 'library.src.json'), JSON.stringify(src, null, 2) + '\n', 'utf8');
   const tokens = readJson(path.join(REPO, 'brand', 'tokens.json'));
   const built = await buildCatalog({ src, buildDir, outDir: path.join(out, 'library'), tokens, libraryVersion: calver() });
-  return { ...built, made, buildDir, libraryRoot: path.join(out, 'library') };
+  return { ...built, made, fx, buildDir, libraryRoot: path.join(out, 'library') };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -116,5 +136,5 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     console.error('FAIL', JSON.stringify(r.problems, null, 2));
     process.exit(1);
   }
-  console.log(`OK ${r.libraryRoot}: ${r.catalog.items.length} items; made ${r.made.length} files`);
+  console.log(`OK ${r.libraryRoot}: ${r.catalog.items.length} items; made ${r.made.length} files; effects ${r.fx ? 'from the AE presets' : 'left out (no AE presets)'}`);
 }

@@ -150,6 +150,75 @@ function lvTimeline() {
   });
 }
 
+// Effects checks: a text layer and a solid in the comp, selected by name, read back per layer.
+function lvFxLayers() {
+  check('a text layer and a solid in comp ' + PARAMS.id, function () {
+    var c = lvComp(PARAMS.id);
+    var t = c.layers.addText('Анна Проверкина');
+    var s = c.layers.addSolid([0.15, 0.82, 0.49], 'BK Плашка', 600, 120, 1, c.duration);
+    t.name = 'BK Имя';
+    DATA.layers = { text: t.id, solid: s.id };
+    return true;
+  });
+}
+
+function lvSelect() {
+  check('comp ' + PARAMS.id + ': selected ' + (PARAMS.names.join(', ') || 'nothing'), function () {
+    var c = lvComp(PARAMS.id);
+    var i, l, n;
+    c.openInViewer();
+    for (i = 1; i <= c.numLayers; i++) {
+      l = c.layer(i);
+      l.selected = false;
+      for (n = 0; n < PARAMS.names.length; n++) {
+        if (l.name === PARAMS.names[n]) {
+          l.selected = true;
+        }
+      }
+    }
+    c.time = PARAMS.time;
+    return c.selectedLayers.length === PARAMS.names.length;
+  });
+}
+
+function lvFxKeys(group, depth, acc) {
+  var i, p;
+  if (!group || depth > 6) {
+    return acc;
+  }
+  for (i = 1; i <= group.numProperties; i++) {
+    p = group.property(i);
+    if (p.propertyType === PropertyType.PROPERTY) {
+      if (p.numKeys > 0 && (acc.first === null || p.keyTime(1) < acc.first)) {
+        acc.first = p.keyTime(1);
+      }
+    } else {
+      lvFxKeys(p, depth + 1, acc);
+    }
+  }
+  return acc;
+}
+
+function lvFxRead() {
+  check('effects of comp ' + PARAMS.id + ' read', function () {
+    var c = lvComp(PARAMS.id);
+    var out = [];
+    var i, l, fx, anim, acc;
+    for (i = 1; i <= c.numLayers; i++) {
+      l = c.layer(i);
+      fx = l.property('ADBE Effect Parade');
+      anim = null;
+      try { anim = l.property('ADBE Text Properties').property('ADBE Text Animators'); } catch (e) { anim = null; }
+      acc = lvFxKeys(fx, 0, { first: null });
+      lvFxKeys(anim, 0, acc);
+      out.push({ name: String(l.name), effects: fx ? fx.numProperties : 0, animators: anim ? anim.numProperties : 0,
+        firstKey: acc.first === null ? null : Math.round(acc.first * 1000) / 1000 });
+    }
+    DATA.fx = out;
+    return true;
+  });
+}
+
 function lvSave() {
   check('scratch project saved', function () {
     bkQuiet(function () {
@@ -173,6 +242,12 @@ if (PARAMS.op === 'setup') {
   lvRange();
 } else if (PARAMS.op === 'timeline') {
   lvTimeline();
+} else if (PARAMS.op === 'fxLayers') {
+  lvFxLayers();
+} else if (PARAMS.op === 'select') {
+  lvSelect();
+} else if (PARAMS.op === 'fxRead') {
+  lvFxRead();
 } else if (PARAMS.op === 'save') {
   lvSave();
 }
