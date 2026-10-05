@@ -1,0 +1,186 @@
+{
+  "when": "2026-10-05",
+  "os": "Windows",
+  "branch": "claude/determined-cannon-eum3ei",
+  "hosts": {
+    "afterEffects": "26.5",
+    "premiere": "26.5.2"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "name": "npm ci",
+      "exit": 0,
+      "output": "45 packages, 0 vulnerabilities"
+    },
+    {
+      "step": 1,
+      "name": "npm test",
+      "exit": 1,
+      "output": "1 file failed, 77 passed, 1 skipped. Tests: 4 failed, 582 passed, 4 skipped (590). All 4 failures are tests/installer/installer.test.mjs.",
+      "failures": [
+        "packs the signed panel…: install.command mode is 438 (0o666). The assertion wants 493 (0o755). chmodSync on Windows does not keep the executable bit. The zip entry sets the unix mode separately; this assertion is on the file on disk.",
+        "install.command installs the panel…: spawnSync('bash') fails. WSL relay: CreateProcessCommon execvpe(/bin/bash) failed. stdout is empty.",
+        "install.command updates…: same missing bash.",
+        "install.command leaves a foreign extension…: same missing bash, so the «занята другим расширением» assertion also fails."
+      ],
+      "note": "These are the macOS installer checks. install.ps1 was not changed."
+    },
+    {
+      "step": 2,
+      "name": "build.mjs",
+      "command": "node tools/installer/build.mjs --zxp C:/CRBK/work/panel/CloudRuBrandKit-0.1.0.zxp --library C:/CRBK/work/panel-live/library",
+      "exit": 0,
+      "output": "OK C:\\CRBK\\work\\release\\CloudRuBrandKit-0.1.0-2026.10.05.zip: 10 MOGRT, signed, 1.0 MB"
+    },
+    {
+      "step": 3,
+      "name": "sandbox",
+      "command": "install.cmd -Sandbox C:\\CRBK\\work\\installer-sandbox",
+      "exit": 0,
+      "output": "Cloud.ru BrandKit: панель 0.1.0, библиотека 2026.10.05\nПанель: C:\\CRBK\\work\\installer-sandbox\\AppData\\Roaming\\Adobe\\CEP\\extensions\\ru.cloud.brandkit\nБиблиотека: C:\\CRBK\\work\\installer-sandbox\\ProgramData\\CloudRuBrandKit\\library\nШаблоны MOGRT: 10 в C:\\CRBK\\work\\installer-sandbox\\AppData\\Roaming\\Adobe\\Common\\Motion Graphics Templates, убрано прежних: 0\nГотово. Запустите After Effects или Premiere: Window > Extensions > Cloud.ru BrandKit.",
+      "checked": {
+        "cep": true,
+        "debugFile": false,
+        "manifest": true,
+        "libraryJson": true,
+        "mogrts": [
+          "LOGO_Mark_16x9_4K_v1.mogrt",
+          "LOGO_Mark_16x9_v1.mogrt",
+          "LOGO_Mark_9x16_v1.mogrt",
+          "LOGO_Shot_16x9_4K_v1.mogrt",
+          "LOGO_Shot_16x9_v1.mogrt",
+          "LOGO_Shot_9x16_v1.mogrt",
+          "TTL_LowerThird_16x9_4K_v1.mogrt",
+          "TTL_LowerThird_16x9_v1.mogrt",
+          "TTL_LowerThird_1x1_v1.mogrt",
+          "TTL_LowerThird_9x16_v1.mogrt"
+        ]
+      },
+      "cyrillic": "Readable cp866 in a real console (панель = bytes AF A0 AD A5 AB EC). Not mojibake."
+    },
+    {
+      "step": 3,
+      "name": "sandbox -WithAme",
+      "command": "install.cmd -Sandbox C:\\CRBK\\work\\installer-sandbox -WithAme",
+      "exit": 0,
+      "output": "Cloud.ru BrandKit: панель 0.1.0, библиотека 2026.10.05\nПанель: C:\\CRBK\\work\\installer-sandbox\\AppData\\Roaming\\Adobe\\CEP\\extensions\\ru.cloud.brandkit\nБиблиотека: C:\\CRBK\\work\\installer-sandbox\\ProgramData\\CloudRuBrandKit\\library\nШаблоны MOGRT: 10 в C:\\CRBK\\work\\installer-sandbox\\AppData\\Roaming\\Adobe\\Common\\Motion Graphics Templates, убрано прежних: 0\nПресеты AME: нечего ставить или нет папки C:\\CRBK\\work\\installer-sandbox\\Documents\\Adobe\\Adobe Media Encoder\nГотово. Запустите After Effects или Premiere: Window > Extensions > Cloud.ru BrandKit."
+    },
+    {
+      "step": 4,
+      "name": "refuse while After Effects and Premiere are open",
+      "command": "install.cmd",
+      "exit": 2,
+      "output": "Cloud.ru BrandKit: панель 0.1.0, библиотека 2026.10.05\nЗакройте After Effects и Premiere и запустите установщик снова.",
+      "unchanged": "CEP file count stayed 5, .debug stayed, library stayed 2026.10.05."
+    },
+    {
+      "step": 5,
+      "name": "real install",
+      "command": "install.cmd",
+      "exit": 0,
+      "output": "Cloud.ru BrandKit: панель 0.1.0, библиотека 2026.10.05\nПанель: C:\\Users\\Глеб\\AppData\\Roaming\\Adobe\\CEP\\extensions\\ru.cloud.brandkit\nБиблиотека: C:\\ProgramData\\CloudRuBrandKit\\library\nШаблоны MOGRT: 10 в C:\\Users\\Глеб\\AppData\\Roaming\\Adobe\\Common\\Motion Graphics Templates, убрано прежних: 0\nГотово. Запустите After Effects или Premiere: Window > Extensions > Cloud.ru BrandKit.",
+      "note": "install.cmd with no arguments prints «Для продолжения нажмите любую клавишу» and waits. Stdin was nul so the exit code stayed 0.",
+      "layout": {
+        "debugFile": false,
+        "signature": "META-INF/signatures.xml",
+        "libraryVersion": "2026.10.05",
+        "state": "plugin=0.1.0, library=2026.10.05, installed=2026-10-05T08:22:51Z"
+      }
+    }
+  ],
+  "insert": {
+    "afterEffects": {
+      "card": "Подпись спикера",
+      "name": "Анна Проверкина",
+      "style": "Подкаст",
+      "panel": "done: Вставлено: слой выделен в композиции.",
+      "beforeLayers": 2,
+      "afterLayers": 3,
+      "layerName": "CR_TTL_LowerThird_16x9_v1",
+      "template": "TTL_LowerThird_v1.aep",
+      "projectDirty": true,
+      "note": "The stock engine's JSON.stringify throws on a hyphen, so getContext (the project path contains panel-live) never arrives and the chip stays «Нет композиции» / «AE —». A session-only replacement of JSON.stringify, not a change to the extension, let the same installed panel read the comp and insert. Catalog and library version were already on screen."
+    },
+    "premiere": {
+      "sequence": "UI_check",
+      "frameSize": "1920x1080",
+      "panel": "done: Вставлено: клип выделен на таймлайне.",
+      "clip": "TTL_LowerThird_16x9_v1 on video track 2",
+      "properties": "Essential Graphics edit fields: Имя Анна Проверкина, Стиль Подкаст",
+      "status": "Шрифты SB Sans на месте / Pr 26.5.2 · панель 0.1.0 · библиотека 2026.10.05",
+      "chip": "Авто 1920×1080 · 25p"
+    }
+  },
+  "essentialGraphics": {
+    "localTemplatesFolder": "C:\\Users\\Глеб\\AppData\\Roaming\\Adobe\\Common\\Motion Graphics Templates",
+    "brandkit": [
+      "LOGO_Mark_16x9_4K_v1.mogrt",
+      "LOGO_Mark_16x9_v1.mogrt",
+      "LOGO_Mark_9x16_v1.mogrt",
+      "LOGO_Shot_16x9_4K_v1.mogrt",
+      "LOGO_Shot_16x9_v1.mogrt",
+      "LOGO_Shot_9x16_v1.mogrt",
+      "TTL_LowerThird_16x9_4K_v1.mogrt",
+      "TTL_LowerThird_16x9_v1.mogrt",
+      "TTL_LowerThird_1x1_v1.mogrt",
+      "TTL_LowerThird_9x16_v1.mogrt"
+    ],
+    "alsoPresent": ["Basic Lower Third.mogrt", "Basic Title.mogrt"],
+    "duplicateBrandFiles": false,
+    "ui": "The docked panel group shows a tab named Graphics Templates next to Effects, Info, Essential Sound and Lumetri Color. The inserted clip's Properties view is the Essential Graphics editor for TTL_LowerThird_16x9_v1. Injected clicks land on that tab's letters and do not switch the panel, so the Browse grid itself was not captured. The folder above is what Local Templates lists."
+  },
+  "icacls": {
+    "path": "C:\\ProgramData\\CloudRuBrandKit",
+    "expected": "BUILTIN\\Users (OI)(CI)(M)",
+    "actual": "Inherited. BUILTIN\\Пользователи: ReadAndExecute, Synchronize (OI)(CI); Write (CI) only. Not Modify.",
+    "aces": [
+      "NT AUTHORITY\\СИСТЕМА | FullControl | ContainerInherit, ObjectInherit | inherited",
+      "BUILTIN\\Администраторы | FullControl | ContainerInherit, ObjectInherit | inherited",
+      "СОЗДАТЕЛЬ-ВЛАДЕЛЕЦ | 268435456 | ContainerInherit, ObjectInherit, InheritOnly | inherited",
+      "BUILTIN\\Пользователи | ReadAndExecute, Synchronize | ContainerInherit, ObjectInherit | inherited",
+      "BUILTIN\\Пользователи | Write | ContainerInherit | inherited"
+    ],
+    "why": "install.ps1 runs icacls only when C:\\ProgramData\\CloudRuBrandKit is created for the first time. The folder already existed from the dev install, so the real install skipped the grant. ACL before and after the install was the same."
+  },
+  "playerDebugMode": {
+    "before": { "CSXS.11": "1", "CSXS.12": "1" },
+    "tested": "0",
+    "restored": { "CSXS.11": "1", "CSXS.12": "1" },
+    "debugFileRemoved": true,
+    "portsDown": [8091, 8094, 8095, 8096, 8123],
+    "afterEffects": "Window Cloud.ru BrandKit opened. Catalog of three cards, library 2026.10.05, fonts present. Chip «Нет композиции», status «AE —» (the hyphen bug; the project panel_ui.aep was open).",
+    "premiere": "Window Cloud.ru BrandKit opened. Catalog of three cards. Chip «Авто 1920×1080 · 25p». Status «Pr 26.5.2 · панель 0.1.0 · библиотека 2026.10.05». No .debug and no debug port."
+  },
+  "update": {
+    "libraryBuild": {
+      "command": "npm run library:build -- --out C:/CRBK/work/library-v2 --version 2026.10.06",
+      "exit": 0,
+      "output": "OK C:\\CRBK\\work\\library-v2\\library.json: 2026.10.06, 3 items, 13 files, 4.2 MB"
+    },
+    "package": {
+      "command": "node tools/installer/build.mjs --zxp C:/CRBK/work/panel/CloudRuBrandKit-0.1.0.zxp --library C:/CRBK/work/library-v2",
+      "exit": 0,
+      "output": "OK C:\\CRBK\\work\\release\\CloudRuBrandKit-0.1.0-2026.10.06.zip: 10 MOGRT, signed, 1.0 MB"
+    },
+    "install": {
+      "command": "install.cmd",
+      "exit": 0,
+      "output": "Cloud.ru BrandKit: панель 0.1.0, библиотека 2026.10.06\nПанель: C:\\Users\\Глеб\\AppData\\Roaming\\Adobe\\CEP\\extensions\\ru.cloud.brandkit\nБиблиотека: C:\\ProgramData\\CloudRuBrandKit\\library\nШаблоны MOGRT: 10 в C:\\Users\\Глеб\\AppData\\Roaming\\Adobe\\Common\\Motion Graphics Templates, убрано прежних: 0\nГотово. Запустите After Effects или Premiere: Window > Extensions > Cloud.ru BrandKit.",
+      "libraryVersion": "2026.10.06",
+      "removed": 0,
+      "whyRemovedIsZero": "The new mogrt.txt lists the same ten filenames. install.ps1 only deletes a previous name that is absent from the new list, so N is 0. Local Templates still has those ten files once each, plus Adobe Basic Lower Third and Basic Title. No brand duplicates.",
+      "state": "plugin=0.1.0, library=2026.10.06, installed=2026-10-05T08:51:28Z"
+    }
+  },
+  "bugs": [
+    "npm test's new installer tests fail on this PC: no bash, and Windows file mode is 0o666 rather than 0o755.",
+    "icacls Users Modify runs only the first time C:\\ProgramData\\CloudRuBrandKit is created. An existing folder keeps the inherited ReadAndExecute plus Write, not (OI)(CI)(M).",
+    "The JSON polyfill in brandkit.jsx installs only when JSON.stringify is missing. On After Effects 26.5, stringify of a string that contains '-' throws, so a project path like panel-live makes the panel show «Нет композиции» and «AE —». Premiere 26.5.2 on a fresh engine returned the sequence and the host version without that override.",
+    "install.cmd with no arguments always pauses. That is the double-click behaviour. The recorded runs fed nul.",
+    "The OK line uses backslashes and appends «, 1.0 MB». Count, signed, and the date match the handoff.",
+    "Sandbox -WithAme does not copy presets: the sandbox has no Adobe Media Encoder version folder. The script says so.",
+    "The status line concatenates the font sentence directly onto the host version.",
+    "Opening the scratch prproj as a Premiere command-line argument has produced «This file path does not exist on disk at this location» for C:\\CRBK\\work\\panel-live\\pr\\panel_live.prproj while the file was on disk. Opening it through the shell association, with Premiere already running and no path argument, opened the project (17 sequences)."
+  ]
+}
