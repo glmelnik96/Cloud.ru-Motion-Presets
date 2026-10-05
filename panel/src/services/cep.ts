@@ -59,7 +59,6 @@ export interface NodeServices {
   readText(path: string): string | null;
   logFs: LogFs;
   fontFs: FontFs;
-  copy(text: string): void;
 }
 
 export function nodeServices(req: NodeRequire): NodeServices {
@@ -83,16 +82,28 @@ export function nodeServices(req: NodeRequire): NodeServices {
       remove: (file) => fs.unlinkSync(file),
     },
     fontFs: {
+      // By hand, two levels deep: the Node of CEP 12 may predate readdirSync({ recursive }); Adobe's font
+      // folder keeps faces in subfolders, the system folders are flat.
       list: (dir) => {
-        const names: string[] = fs.readdirSync(dir, { recursive: true });
-        return names.map((n) => joinPath(dir, String(n)));
+        const out: string[] = [];
+        const walk = (d: string, depth: number) => {
+          for (const name of fs.readdirSync(d) as string[]) {
+            const p = joinPath(d, name);
+            let isDir = false;
+            try {
+              isDir = fs.statSync(p).isDirectory();
+            } catch {
+              continue;
+            }
+            if (isDir) {
+              if (depth < 2) walk(p, depth + 1);
+            } else out.push(p);
+          }
+        };
+        walk(dir, 0);
+        return out;
       },
       read: (file) => new Uint8Array(fs.readFileSync(file)),
-    },
-    copy: (text) => {
-      const cp = req('child_process');
-      if (platform === 'win') cp.execSync('clip', { input: text });
-      else cp.execSync('pbcopy', { input: text });
     },
   };
 }

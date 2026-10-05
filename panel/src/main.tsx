@@ -29,6 +29,19 @@ function fileUrl(root: string, platform: 'win' | 'mac', file: string): string {
   return (platform === 'win' ? 'file:///' : 'file://') + encodeURI(joinPath(root, file));
 }
 
+// The clipboard through the page: works in CEP without permissions and keeps Cyrillic (the Windows `clip`
+// command reads its input in the OEM code page).
+function copyText(text: string): void {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+}
+
 async function start(el: HTMLElement): Promise<void> {
   applyTheme();
   const rt = cepRuntime();
@@ -70,7 +83,7 @@ async function start(el: HTMLElement): Promise<void> {
   });
   const ui: UiServices = {
     fileUrl: (file) => fileUrl(rt.libraryRoot, rt.platform, file),
-    copy: (text) => rt.node.copy(text),
+    copy: copyText,
     pickFile: rt.host === 'ae' && window.cep?.fs
       ? async (accepts) => {
         const types = accepts.flatMap((a) => EXT[a] ?? []);
