@@ -48,8 +48,8 @@ describe('bridge', () => {
   });
 
   it('guards a call with the version of the bundle when it has one', () => {
-    expect(hostScript('ping', null, '0.1.9')).toBe(
-      `((typeof BK!=='undefined'&&BK&&typeof BK.call==='function'&&BK.version==="0.1.9")?BK.call("ping","null"):'BK_STALE '+((typeof BK!=='undefined'&&BK&&typeof BK.call==='function')?String(BK.version):'none'))`);
+    expect(hostScript('ping', null, '0.1.10')).toBe(
+      `((typeof BK!=='undefined'&&BK&&typeof BK.call==='function'&&BK.version==="0.1.10")?BK.call("ping","null"):'BK_STALE '+((typeof BK!=='undefined'&&BK&&typeof BK.call==='function')?String(BK.version):'none'))`);
     expect(parseReply('BK_STALE 0.1.4')).toBe(STALE);
     expect(parseReply('BK_STALE none')).toBe(STALE);
   });

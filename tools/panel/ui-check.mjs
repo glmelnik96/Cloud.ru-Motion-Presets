@@ -140,7 +140,17 @@ if (isMain) {
     await waitFor(s, `!!document.getElementById('f-name')`);
     check('format chip follows UI_check 1920x1080', /1920×1080/.test(await evaluate(s, page.text('.chip-format'))), await evaluate(s, page.text('.chip-format')));
     check('name typed', await evaluate(s, page.type('f-name', 'Анна Проверкина')));
+    // The preview of the form follows the style (previews per format and look, tools/masters/preview.mjs),
+    // when the library carries them.
+    const heroSrc = `(() => { const p = document.querySelector('.hero .poster'); return p ? p.getAttribute('src') : ''; })()`;
+    const before = await evaluate(s, heroSrc);
     check('style «Подкаст» picked', await evaluate(s, page.pressSeg('Подкаст')));
+    if (/poster_16x9_style-1\.jpg/.test(before)) {
+      const after = await waitFor(s, `(() => { const v = ${heroSrc}; return /style-2/.test(v) ? v : ''; })()`, { timeoutMs: 5000 }).catch(() => '');
+      check('form preview: «Подкаст» shows its own preview', /poster_16x9_style-2\.jpg/.test(after), { before, after: after || await evaluate(s, heroSrc) });
+    } else {
+      check('form preview: no previews per style in this library yet', true, before);
+    }
     await shot('2-form');
     check('«Вставить на плейхед» clicked', await evaluate(s, page.insert));
     const outcome = await waitFor(s, page.outcome, { timeoutMs: 120000 });
