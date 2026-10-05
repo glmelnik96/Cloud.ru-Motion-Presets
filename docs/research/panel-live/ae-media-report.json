@@ -1,10 +1,10 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-05T20:45:13.016Z",
-  "finishedAt": "2026-10-05T20:45:18.490Z",
+  "startedAt": "2026-10-05T22:58:35.350Z",
+  "finishedAt": "2026-10-05T22:58:40.909Z",
   "summary": {
-    "checks": 189,
-    "passed": 189,
+    "checks": 205,
+    "passed": 205,
     "failed": 0
   },
   "failed": [],
@@ -30,7 +30,7 @@
         "data": {
           "app": "ae",
           "version": "26.5x89",
-          "bk": "0.1.11"
+          "bk": "0.1.12"
         }
       }
     },
@@ -2790,7 +2790,9 @@
         ],
         "fillKeys": 0,
         "text": null,
-        "solid": null
+        "solid": null,
+        "fillEffects": 0,
+        "fillEffect": null
       }
     },
     {
@@ -2927,7 +2929,9 @@
         ],
         "fillKeys": 0,
         "text": null,
-        "solid": null
+        "solid": null,
+        "fillEffects": 0,
+        "fillEffect": null
       }
     },
     {
@@ -2992,7 +2996,9 @@
           0.9608,
           0
         ],
-        "solid": null
+        "solid": null,
+        "fillEffects": 0,
+        "fillEffect": null
       }
     },
     {
@@ -3067,7 +3073,9 @@
         ],
         "fillKeys": 3,
         "text": null,
-        "solid": null
+        "solid": null,
+        "fillEffects": 0,
+        "fillEffect": null
       }
     },
     {
@@ -3147,7 +3155,9 @@
           ],
           "fillKeys": 0,
           "text": null,
-          "solid": null
+          "solid": null,
+          "fillEffects": 0,
+          "fillEffect": null
         },
         "after": {
           "fills": [
@@ -3168,7 +3178,9 @@
           ],
           "fillKeys": 0,
           "text": null,
-          "solid": null
+          "solid": null,
+          "fillEffects": 0,
+          "fillEffect": null
         }
       }
     },
@@ -3269,8 +3281,248 @@
           0.949,
           0.949,
           0.949
-        ]
+        ],
+        "fillEffects": 0,
+        "fillEffect": null
       }
+    },
+    {
+      "name": "colors effect: select: comp 1: selected BK Text, BK Solid",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors effect: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors effect: read before: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors effect: read: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors effect: properties set {\"BK Text\":1,\"BK Solid\":1}",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "BK Solid",
+              "set": 1,
+              "keyed": 0,
+              "expressions": [],
+              "addedFill": true
+            },
+            {
+              "name": "BK Text",
+              "set": 1,
+              "keyed": 0,
+              "expressions": [],
+              "addedFill": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors effect: warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors effect: one Fill effect on each layer, #26D07C",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "text": {
+          "fills": [],
+          "strokes": [],
+          "fillKeys": 0,
+          "text": [
+            0.8118,
+            0.9608,
+            0
+          ],
+          "solid": null,
+          "fillEffects": 1,
+          "fillEffect": [
+            0.149,
+            0.8157,
+            0.4863,
+            1
+          ]
+        },
+        "solid": {
+          "fills": [],
+          "strokes": [],
+          "fillKeys": 0,
+          "text": null,
+          "solid": [
+            0.949,
+            0.949,
+            0.949
+          ],
+          "fillEffects": 1,
+          "fillEffect": [
+            0.149,
+            0.8157,
+            0.4863,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors effect: the effect added",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "name": "BK Solid",
+          "set": 1,
+          "keyed": 0,
+          "expressions": [],
+          "addedFill": true
+        },
+        {
+          "name": "BK Text",
+          "set": 1,
+          "keyed": 0,
+          "expressions": [],
+          "addedFill": true
+        }
+      ]
+    },
+    {
+      "name": "colors effectAgain: select: comp 1: selected BK Text, BK Solid",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors effectAgain: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors effectAgain: read before: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors effectAgain: read: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors effectAgain: properties set {\"BK Text\":1,\"BK Solid\":1}",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "BK Solid",
+              "set": 1,
+              "keyed": 0,
+              "expressions": []
+            },
+            {
+              "name": "BK Text",
+              "set": 1,
+              "keyed": 0,
+              "expressions": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors effectAgain: warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors effectAgain: one Fill effect on each layer, #A068FF",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "text": {
+          "fills": [],
+          "strokes": [],
+          "fillKeys": 0,
+          "text": [
+            0.8118,
+            0.9608,
+            0
+          ],
+          "solid": null,
+          "fillEffects": 1,
+          "fillEffect": [
+            0.6275,
+            0.4078,
+            1,
+            1
+          ]
+        },
+        "solid": {
+          "fills": [],
+          "strokes": [],
+          "fillKeys": 0,
+          "text": null,
+          "solid": [
+            0.949,
+            0.949,
+            0.949
+          ],
+          "fillEffects": 1,
+          "fillEffect": [
+            0.6275,
+            0.4078,
+            1,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors effectAgain: the effect reused",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "name": "BK Solid",
+          "set": 1,
+          "keyed": 0,
+          "expressions": []
+        },
+        {
+          "name": "BK Text",
+          "set": 1,
+          "keyed": 0,
+          "expressions": []
+        }
+      ]
     },
     {
       "name": "colors none: select: comp 1: selected nothing",
