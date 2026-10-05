@@ -1,10 +1,10 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-05T06:50:33.287Z",
-  "finishedAt": "2026-10-05T06:55:03.590Z",
+  "startedAt": "2026-10-05T15:56:23.209Z",
+  "finishedAt": "2026-10-05T15:56:51.659Z",
   "summary": {
-    "checks": 182,
-    "passed": 181,
+    "checks": 177,
+    "passed": 177,
     "failed": 0
   },
   "failed": [],
@@ -30,7 +30,7 @@
         "data": {
           "app": "ae",
           "version": "26.5x89",
-          "bk": "0.1.0"
+          "bk": "0.1.7"
         }
       }
     },
@@ -112,7 +112,8 @@
           "imported": true,
           "notes": [
             "footage: 0"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -138,7 +139,8 @@
           "imported": false,
           "notes": [
             "remap keys: 4"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -395,7 +397,8 @@
             "Скорость": 2
           },
           "imported": false,
-          "notes": []
+          "notes": [],
+          "companions": []
         }
       }
     },
@@ -421,7 +424,8 @@
           "imported": false,
           "notes": [
             "remap keys: 4"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -678,7 +682,8 @@
             "Скорость": 2
           },
           "imported": false,
-          "notes": []
+          "notes": [],
+          "companions": []
         }
       }
     },
@@ -704,7 +709,8 @@
           "imported": false,
           "notes": [
             "remap keys: 4"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -963,7 +969,8 @@
           "imported": true,
           "notes": [
             "footage: 0"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -989,7 +996,8 @@
           "imported": false,
           "notes": [
             "remap keys: 4"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -1246,7 +1254,8 @@
             "Скорость": 2
           },
           "imported": false,
-          "notes": []
+          "notes": [],
+          "companions": []
         }
       }
     },
@@ -1272,7 +1281,8 @@
           "imported": false,
           "notes": [
             "remap keys: 4"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -1529,7 +1539,8 @@
             "Скорость": 2
           },
           "imported": false,
-          "notes": []
+          "notes": [],
+          "companions": []
         }
       }
     },
@@ -1555,7 +1566,8 @@
           "imported": false,
           "notes": [
             "remap keys: 4"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -1817,7 +1829,8 @@
           "imported": true,
           "notes": [
             "footage: 0"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -1846,7 +1859,8 @@
           "imported": false,
           "notes": [
             "remap keys: 4"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -2112,7 +2126,8 @@
             "Размер текста": 2
           },
           "imported": false,
-          "notes": []
+          "notes": [],
+          "companions": []
         }
       }
     },
@@ -2141,7 +2156,8 @@
           "imported": false,
           "notes": [
             "remap keys: 4"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -2407,7 +2423,8 @@
             "Размер текста": 2
           },
           "imported": false,
-          "notes": []
+          "notes": [],
+          "companions": []
         }
       }
     },
@@ -2436,7 +2453,8 @@
           "imported": false,
           "notes": [
             "remap keys: 4"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -2702,7 +2720,8 @@
             "Размер текста": 2
           },
           "imported": false,
-          "notes": []
+          "notes": [],
+          "companions": []
         }
       }
     },
@@ -2731,7 +2750,8 @@
           "imported": false,
           "notes": [
             "remap keys: 4"
-          ]
+          ],
+          "companions": []
         }
       }
     },
@@ -2974,7 +2994,7 @@
         {
           "code": "NO_VARIANT",
           "severity": "error",
-          "message": "Нет варианта под кадр 2560×1440. Ближайший — 16x9_4K, он будет вписан в кадр.",
+          "message": "Нет варианта под кадр 2560×1440. Ближайший — 16:9 · 3840×2160 · 25p, он будет вписан в кадр.",
           "detail": {
             "key": "16x9_4K",
             "scale": 0.6666666666666666
@@ -3010,7 +3030,8 @@
             "Скорость": 2
           },
           "imported": false,
-          "notes": []
+          "notes": [],
+          "companions": []
         }
       }
     },
@@ -3072,42 +3093,6 @@
         ],
         "before": 0,
         "after": 0
-      }
-    },
-    {
-      "name": "activate undo at 2 s: comp 145 active at 2 s",
-      "pass": true,
-      "required": true,
-      "detail": {
-        "active": "LIVE_undo"
-      }
-    },
-    {
-      "name": "count: layers of comp 145 counted",
-      "pass": true,
-      "required": true,
-      "detail": ""
-    },
-    {
-      "name": "undo: Edit > Undo once (executeCommand 16)",
-      "pass": true,
-      "required": false,
-      "detail": ""
-    },
-    {
-      "name": "count: layers of comp 145 counted",
-      "pass": true,
-      "required": true,
-      "detail": ""
-    },
-    {
-      "name": "undo: one undo step removes the insert with its field writes",
-      "pass": false,
-      "required": false,
-      "detail": {
-        "before": 0,
-        "mid": 1,
-        "end": 1
       }
     },
     {
