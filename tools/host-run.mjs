@@ -8,7 +8,7 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildPayload, parseResponse, hostPort } from './lib/payload.mjs';
+import { buildPayload, parseResponse, hostPorts } from './lib/payload.mjs';
 import { getPageTarget, cdpEval } from './lib/cdp.mjs';
 
 const require = createRequire(import.meta.url);
@@ -25,7 +25,7 @@ export function lintOrThrow(jsx) {
 
 export async function run(host, jsx, { timeoutMs = 120000, lint: doLint = true, prelude = true } = {}) {
   if (doLint) lintOrThrow(jsx);
-  const page = await getPageTarget(hostPort(host));
+  const page = await getPageTarget(hostPorts(host));
   const raw = await cdpEval(page.webSocketDebuggerUrl, buildPayload(jsx, prelude ? PRELUDE : ''), { timeoutMs });
   return parseResponse(raw);
 }

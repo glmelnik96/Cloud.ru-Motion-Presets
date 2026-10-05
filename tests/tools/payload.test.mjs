@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import vm from 'node:vm';
-import { asciiEscape, buildPayload, parseResponse, hostPort } from '../../tools/lib/payload.mjs';
+import { asciiEscape, buildPayload, parseResponse, hostPort, hostPorts } from '../../tools/lib/payload.mjs';
 
 describe('payload', () => {
   it('escapes non-ASCII into \\uXXXX', () => {
@@ -31,5 +31,9 @@ describe('payload', () => {
     expect(hostPort('pr', {})).toBe(8096);
     expect(hostPort('ae', { BRANDKIT_AE_PORT: '9001' })).toBe(9001);
     expect(() => hostPort('ps', {})).toThrow(/unknown host/);
+    // the background panel, then the visible one; a port set in the environment alone
+    expect(hostPorts('ae', {})).toEqual([8094, 8095]);
+    expect(hostPorts('pr', {})).toEqual([8096, 8097]);
+    expect(hostPorts('pr', { BRANDKIT_PR_PORT: '9002' })).toEqual([9002]);
   });
 });

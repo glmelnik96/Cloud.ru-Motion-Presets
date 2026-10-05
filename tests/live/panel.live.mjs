@@ -10,7 +10,7 @@ import { Bridge, evalFileScript } from '../../panel/src/bridge/bridge.ts';
 import { parseCatalog } from '../../panel/src/core/library.ts';
 import { run } from '../../tools/host-run.mjs';
 import { cdpEval, getPageTarget } from '../../tools/lib/cdp.mjs';
-import { buildPayload, hostPort } from '../../tools/lib/payload.mjs';
+import { buildPayload, hostPorts } from '../../tools/lib/payload.mjs';
 import { workPath } from '../../tools/lib/work.mjs';
 import { buildCatalog, calver } from '../../tools/library/build-catalog.mjs';
 import { composeProbe, REPO } from '../../tools/spike/runner.mjs';
@@ -49,7 +49,7 @@ describe.skipIf(HOST !== 'ae' && HOST !== 'pr')('panel live', () => {
       // The host bundle as the panel ships it, loaded with $.evalFile by the bridge on a cold start.
       const bundleFile = path.posix.join(outDir, 'brandkit.jsx');
       writeFileSync(bundleFile, composeHost(), 'ascii');
-      const page = await getPageTarget(hostPort(HOST));
+      const page = await getPageTarget(hostPorts(HOST));
       const evalScript = (script) => cdpEval(page.webSocketDebuggerUrl, buildPayload(script, ''), { timeoutMs: 180000 });
       const bridge = new Bridge({
         evalScript,

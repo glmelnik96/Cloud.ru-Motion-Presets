@@ -32,3 +32,11 @@ export function hostPort(host, env = process.env) {
   if (host === 'pr') return Number(env.BRANDKIT_PR_PORT || 8096);
   throw new Error('unknown host: ' + host + ' (expected ae or pr)');
 }
+
+// Ports to try for a host: the one set in the environment, else the background BrandKit Dev panel and then
+// its visible panel (dev/harness/.debug: 8094/8095 for AE, 8096/8097 for Premiere).
+export function hostPorts(host, env = process.env) {
+  if (host === 'ae') return env.BRANDKIT_AE_PORT ? [Number(env.BRANDKIT_AE_PORT)] : [8094, 8095];
+  if (host === 'pr') return env.BRANDKIT_PR_PORT ? [Number(env.BRANDKIT_PR_PORT)] : [8096, 8097];
+  throw new Error('unknown host: ' + host + ' (expected ae or pr)');
+}

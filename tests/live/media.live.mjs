@@ -15,7 +15,7 @@ import { parseCatalog } from '../../panel/src/core/library.ts';
 import { prepareFiles } from '../../panel/src/services/files.ts';
 import { run } from '../../tools/host-run.mjs';
 import { cdpEval, getPageTarget } from '../../tools/lib/cdp.mjs';
-import { buildPayload, hostPort } from '../../tools/lib/payload.mjs';
+import { buildPayload, hostPorts } from '../../tools/lib/payload.mjs';
 import { workPath } from '../../tools/lib/work.mjs';
 import { buildMediaFixtures } from '../../tools/panel/media-fixtures.mjs';
 import { composeProbe, REPO } from '../../tools/spike/runner.mjs';
@@ -62,7 +62,7 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
 
       const bundleFile = path.posix.join(outDir, 'brandkit.jsx');
       writeFileSync(bundleFile, composeHost(), 'ascii');
-      const page = await getPageTarget(hostPort(HOST));
+      const page = await getPageTarget(hostPorts(HOST));
       const evalScript = (script) => cdpEval(page.webSocketDebuggerUrl, buildPayload(script, ''), { timeoutMs: 180000 });
       const bundleVersion = JSON.parse(readFileSync(path.join(REPO, 'panel', 'package.json'), 'utf8')).version;
       const bridge = new Bridge({ evalScript, bundleVersion, loadHost: async () => { await evalScript(evalFileScript(bundleFile)); }, timeoutMs: 120000 });

@@ -1,15 +1,24 @@
 // Chrome DevTools Protocol: find the panel page and evaluate one expression in it.
-export async function getPageTarget(port) {
-  let targets;
-  try {
-    const res = await fetch(`http://localhost:${port}/json`);
-    targets = await res.json();
-  } catch (e) {
-    throw new Error(`CDP_UNREACHABLE: port ${port} — open the BrandKit Dev panel (Window > Extensions) (${e.message})`);
+// The page target of the BrandKit Dev panel on the first port that answers. Several ports: the background
+// panel first, then the visible one — both run JSX in the same host (build PC, 2026-10-05: after a restart
+// of Premiere the background panel on 8096 did not come up, the visible one on 8097 did).
+export async function getPageTarget(ports) {
+  const list = Array.isArray(ports) ? ports : [ports];
+  const errors = [];
+  for (const port of list) {
+    let targets;
+    try {
+      const res = await fetch(`http://localhost:${port}/json`);
+      targets = await res.json();
+    } catch (e) {
+      errors.push(`port ${port}: ${e.message}`);
+      continue;
+    }
+    const page = targets.find((t) => t.type === 'page');
+    if (page) return page;
+    errors.push(`port ${port}: no page target`);
   }
-  const page = targets.find((t) => t.type === 'page');
-  if (!page) throw new Error(`CDP_NO_PAGE: no page target on port ${port} (panel closed?)`);
-  return page;
+  throw new Error(`CDP_UNREACHABLE: ${errors.join('; ')} — open the BrandKit Dev panel (Window > Extensions)`);
 }
 
 export function cdpEval(wsUrl, expression, { timeoutMs = 120000 } = {}) {
