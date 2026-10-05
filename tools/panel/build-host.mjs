@@ -29,21 +29,29 @@ export function stampOf(parts) {
   return createHash('sha256').update([parts.prelude, parts.common, parts.ae, parts.pr].join('\n\0')).digest('hex').slice(0, 12);
 }
 
+// One host's adapter -> { source, warnings }; throws on non-ASCII or an ES3 lint error. Separate from buildHost so
+// the adapter tests (tests/panel-host/vm-host.mjs) load one host without failing on the other host's file.
+export function assemble(parts, host, build = stampOf(parts)) {
+  if (!HOSTS.includes(host)) throw new Error(`unknown host ${host}`);
+  const source = [parts.prelude, parts.common, parts[host]].join('\n').split(STAMP).join(build);
+  const bad = source.match(/[^\x00-\x7f]/);
+  if (bad) {
+    const line = source.slice(0, bad.index).split('\n').length;
+    throw new Error(`host ${host}: non-ASCII character ${JSON.stringify(bad[0])} on line ${line} of the assembly`);
+  }
+  const r = lint(source, { lib: true });
+  if (r.errors.length) throw new Error(`host ${host}: ES3 lint: ${r.errors.join('; ')}`);
+  return { source, warnings: r.warnings };
+}
+
 // -> { build, ae, pr, warnings: { ae: [], pr: [] } }; throws on non-ASCII or an ES3 lint error.
 export function buildHost(parts = readParts()) {
   const build = stampOf(parts);
   const out = { build, warnings: {} };
   for (const host of HOSTS) {
-    const src = [parts.prelude, parts.common, parts[host]].join('\n').split(STAMP).join(build);
-    const bad = src.match(/[^\x00-\x7f]/);
-    if (bad) {
-      const line = src.slice(0, bad.index).split('\n').length;
-      throw new Error(`host ${host}: non-ASCII character ${JSON.stringify(bad[0])} on line ${line} of the assembly`);
-    }
-    const r = lint(src, { lib: true });
-    if (r.errors.length) throw new Error(`host ${host}: ES3 lint: ${r.errors.join('; ')}`);
-    out[host] = src;
-    out.warnings[host] = r.warnings;
+    const { source, warnings } = assemble(parts, host, build);
+    out[host] = source;
+    out.warnings[host] = warnings;
   }
   return out;
 }

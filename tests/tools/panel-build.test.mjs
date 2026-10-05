@@ -34,6 +34,15 @@ describe('panel build', () => {
       expect(h[host]).toContain(`CRBK.build = '${h.build}'`);
     }
   });
+  it('refreshes the generated schema validator before vite bundles it (plan P8)', () => {
+    // The main block runs vite, so the order is read from the source; refresh itself is tested in tests/library.
+    const main = readFileSync(new URL('../../tools/panel/build.mjs', import.meta.url), 'utf8');
+    expect(main).toMatch(/^import \{[^}]*\brefresh as refreshValidator\b[^}]*\} from '\.\.\/library\/gen-standalone\.mjs';$/m);
+    const call = main.indexOf('refreshValidator()');
+    expect(call).toBeGreaterThan(main.indexOf('if (isMain)'));
+    expect(call).toBeLessThan(main.indexOf('await build('));
+  });
+
   it('refuses a non-ASCII adapter and an ES3 lint error', () => {
     const parts = readParts();
     expect(() => buildHost({ ...parts, ae: parts.ae + '\n// \u0436\n' })).toThrow(/non-ASCII/);

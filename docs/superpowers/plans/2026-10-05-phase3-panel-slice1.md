@@ -169,32 +169,32 @@ export interface InsertPlan { item: Item; variant: Variant; lenSec: number; lenF
 
 **Файлы:** `package.json`, `vitest.config.mjs`, `panel/*` (каркас), `panel/src/core/types.ts`, `tools/panel/build.mjs` (каркас), `tools/dev/link-panel.ps1`, `.gitignore` (`*.p12`, `*password*`, `panel/dist/`).
 
-- [ ] `npm install --save-exact preact@10.29.8` и `npm install --save-dev --save-exact typescript@7.0.2 vite@8.3.2`. Проверить: `npx tsc -v`, vite не задвоился.
-- [ ] Каркас `panel/`:
+- [x] `npm install --save-exact preact@10.29.8` и `npm install --save-dev --save-exact typescript@7.0.2 vite@8.3.2`. Проверить: `npx tsc -v`, vite не задвоился.
+- [x] Каркас `panel/`:
   - `vite.config.mjs` с `root: panel`, `base: './'`, target `chrome99`, IIFE, `modulePreload: false`, `oxc.jsx { runtime:'automatic', importSource:'preact' }`;
   - плагин снимает `type="module" crossorigin` у скрипта и `crossorigin` у CSS;
   - `tsconfig.json`: strict, `jsxImportSource: preact`, `moduleResolution: bundler`, `noEmit`, lib ES2021 и DOM;
   - `main.tsx` показывает хост, версию и Chrome.
-- [ ] Манифест: id `ru.cloud.brandkit`, расширение `ru.cloud.brandkit.panel`, меню «Cloud.ru BrandKit», размер 420×720, минимум 320×400. Флаги CEF: `--enable-nodejs --mixed-context --allow-file-access-from-files --allow-file-access --disable-application-cache`. StartOn не нужен.
-- [ ] `tools/panel/build.mjs`: склейка адаптеров (пока заглушка `CRBK.ping`), линт в lib-режиме, проверка ASCII, метка сборки → `vite build` с `define __CRBK_BUILD__` → `dist/host/{ae,pr}.jsx`. С `--dev` ещё `dist/.debug` (8101/8102). Команды: `npm run panel:build`, `npm run panel:dev`, `npm run panel:typecheck`.
-- [ ] `vitest.config.mjs` берёт ещё `tests/**/*.test.ts` и `tests/**/*.test.tsx`.
-- [ ] `tools/dev/link-panel.ps1`: джанкшн `%APPDATA%\Adobe\CEP\extensions\ru.cloud.brandkit` → `panel\dist`. Старую ссылку снимает `cmd /c rmdir` (не-джанкшн не трогает). Пишет `%LOCALAPPDATA%\CloudRuBrandKit\settings.json` с `libraryRoot`.
-- [ ] Живая проверка:
+- [x] Манифест: id `ru.cloud.brandkit`, расширение `ru.cloud.brandkit.panel`, меню «Cloud.ru BrandKit», размер 420×720, минимум 320×400. Флаги CEF: `--enable-nodejs --mixed-context --allow-file-access-from-files --allow-file-access --disable-application-cache`. StartOn не нужен.
+- [x] `tools/panel/build.mjs`: склейка адаптеров (пока заглушка `CRBK.ping`), линт в lib-режиме, проверка ASCII, метка сборки → `vite build` с `define __CRBK_BUILD__` → `dist/host/{ae,pr}.jsx`. С `--dev` ещё `dist/.debug` (8101/8102). Команды: `npm run panel:build`, `npm run panel:dev`, `npm run panel:typecheck`.
+- [x] `vitest.config.mjs` берёт ещё `tests/**/*.test.ts` и `tests/**/*.test.tsx`.
+- [x] `tools/dev/link-panel.ps1`: джанкшн `%APPDATA%\Adobe\CEP\extensions\ru.cloud.brandkit` → `panel\dist`. Старую ссылку снимает `cmd /c rmdir` (не-джанкшн не трогает). Пишет `%LOCALAPPDATA%\CloudRuBrandKit\settings.json` с `libraryRoot`.
+- [x] Живая проверка:
   1. Перезапустить AE и Premiere: новое расширение видно только после старта. Перед этим проверить, что открыты только наши проекты и AE пуст; иначе спросить пользователя.
   2. Открыть панель через `CSInterface.requestOpenExtension('ru.cloud.brandkit.panel','')` со страницы dev-расширения (CDP 8094/8096).
   3. Через CDP 8101/8102 прочитать DOM: видны хост и `Chrome/99`. Это N3 и N4 в `panel-framework.md`.
-- [ ] `npm test`, `npm run panel:typecheck` — зелёные. Коммит.
+- [x] `npm test`, `npm run panel:typecheck` — зелёные. Коммит.
 
 ### Задача 2 (волна A): библиотека — сборщик каталога и превью
 
 **Файлы:** `tools/library/rules.mjs` (новый, вынос из `validate.mjs`), `tools/library/validate.mjs` (импортирует rules), `tools/library/build-catalog.mjs`, `tools/library/gen-standalone.mjs`, `panel/src/generated/catalog-validate.mjs`, тесты `tests/library/*.test.mjs`.
 
-- [ ] Вынести `checkItem`/`crossCheck` в `rules.mjs` без `fs`. `validate.mjs` и его 26 тестов не меняют поведения. Дописать правила, которых нет:
+- [x] Вынести `checkItem`/`crossCheck` в `rules.mjs` без `fs`. `validate.mjs` и его 26 тестов не меняют поведения. Дописать правила, которых нет:
   - `egpIndex` 0..n−1 без дыр и повторов у T1;
   - у вариантов нет повторов w×h;
   - fps одинаковый у всех вариантов, если у элемента нет `loop`.
-- [ ] `gen-standalone.mjs`: ajv standalone (ESM) из обеих схем → `panel/src/generated/catalog-validate.mjs`. Тест сверяет, что сгенерированный файл совпадает с тем, что даёт генератор (свежесть).
-- [ ] `build-catalog.mjs --root <dir> [--date YYYY.MM.DD]`:
+- [x] `gen-standalone.mjs`: ajv standalone (ESM) из обеих схем → `panel/src/generated/catalog-validate.mjs`. Тест сверяет, что сгенерированный файл совпадает с тем, что даёт генератор (свежесть).
+- [x] `build-catalog.mjs --root <dir> [--date YYYY.MM.DD]`:
   - каждый элемент источника копируется как есть;
   - `requiredFonts[].build` берётся из `brand/tokens.json`;
   - `aeComp += '_v'+version`;
@@ -202,60 +202,60 @@ export interface InsertPlan { item: Item; variant: Variant; lenSec: number; lenF
   - превью по P7 (ffmpeg из `C:/ffmpeg/bin`);
   - `libraryVersion` — calver с `.N` для второй сборки за день, `minPluginVersion` — из `panel/package` (0.1.0), `generatedAt`;
   - проверка `validateLibrary(…, 'catalog')`, затем запись `library.json`.
-- [ ] Сверка каталога с MOGRT: `checkMogrt` (метки по egpIndex, пункты списков), `usedFontsLocalized` = `requiredFonts`, `usedFileTypes` = []. Расхождение — отказ.
-- [ ] Тесты: временный корень, фикстуры MOGRT собираются adm-zip (без настоящих сборок). Отдельный тест, пропускаемый без `C:/CRBK/work/build`, собирает настоящий каталог и проверяет его.
-- [ ] Прогон: `node tools/library/build-catalog.mjs --root C:/CRBK/work/library` → `OK library.json: 3 items` и 10 MOGRT, 3 AEP, 3 превью, 3 постера на диске.
+- [x] Сверка каталога с MOGRT: `checkMogrt` (метки по egpIndex, пункты списков), `usedFontsLocalized` = `requiredFonts`, `usedFileTypes` = []. Расхождение — отказ.
+- [x] Тесты: временный корень, фикстуры MOGRT собираются adm-zip (без настоящих сборок). Отдельный тест, пропускаемый без `C:/CRBK/work/build`, собирает настоящий каталог и проверяет его.
+- [x] Прогон: `node tools/library/build-catalog.mjs --root C:/CRBK/work/library` → `OK library.json: 3 items` и 10 MOGRT, 3 AEP, 3 превью, 3 постера на диске.
 
 ### Задача 3 (волна A): ядро
 
 **Файлы:** `panel/src/core/{library,variant,fields,duration,versions,checks,errors,insert,log}.ts`, тесты `tests/panel/core/*.test.ts`. Фикстура — `library.json`, собранный из `library/library.src.json` (без файлов на диске).
 
-- [ ] `library.ts`: `parseLibrary(text)` → `{ok, library | issues}`. Проверка — сгенерированный валидатор и `rules.mjs`. Если `minPluginVersion` выше версии панели — `PLUGIN_TOO_OLD`.
-- [ ] `variant.ts`: `chooseVariant(item, target, manualKey?)` → `{variant, match:'exact'|'manual'|'none', nearest?}` по P1. Ближайший — та же пропорция с точностью 1 % и минимальная разница площадей.
-- [ ] `fields.ts`:
+- [x] `library.ts`: `parseLibrary(text)` → `{ok, library | issues}`. Проверка — сгенерированный валидатор и `rules.mjs`. Если `minPluginVersion` выше версии панели — `PLUGIN_TOO_OLD`.
+- [x] `variant.ts`: `chooseVariant(item, target, manualKey?)` → `{variant, match:'exact'|'manual'|'none', nearest?}` по P1. Ближайший — та же пропорция с точностью 1 % и минимальная разница площадей.
+- [x] `fields.ts`:
   - `defaults(item)`, `merge(remembered, item)`, `validate(values)` (maxLen, пункт списка в 1..n);
   - `toWrites(item, values, host)`: Premiere — список −1, флажок 1/0; AE — как есть; текст как есть;
   - `sameValue(host, type, written, back)` нормализует чтение назад (boolean ↔ 0/1, число ↔ строка).
-- [ ] `duration.ts`:
+- [x] `duration.ts`:
   - `defaultLen(item)`, `minLen(item)` = intro + outro;
   - `toFrames(sec, fps)` с округлением к сетке (2,2·25 = 55,000…01);
   - `c27Keys(D, inSec, outSec, L)` = [[0,0],[in,in],[L−(D−out),out],[L,D]] (порт `spikes/s3-instance/analyze.mjs` с его тестами);
   - Premiere: `startTicks`, `lenFrames`.
-- [ ] `versions.ts`: разбор `'26.5x89'`, `'26.5.2'`, `'26.0'`, сравнение semver/calver.
-- [ ] `checks.ts`: `preflight(ctx, item, values, lenSec, fonts, pluginVersion)` → `Issue[]` по всем отказам и предупреждениям §8.2. Путь длиннее 260 символов (Premiere: путь проекта + `Motion Graphics Template Media` + имя) — `PATH_TOO_LONG`.
-- [ ] `insert.ts`: `planInsert(...)` → `InsertPlan`. `runInsert(host, plan, ctx, deps)`:
+- [x] `versions.ts`: разбор `'26.5x89'`, `'26.5.2'`, `'26.0'`, сравнение semver/calver.
+- [x] `checks.ts`: `preflight(ctx, item, values, lenSec, fonts, pluginVersion)` → `Issue[]` по всем отказам и предупреждениям §8.2. Путь длиннее 260 символов (Premiere: путь проекта + `Motion Graphics Template Media` + имя) — `PATH_TOO_LONG`.
+- [x] `insert.ts`: `planInsert(...)` → `InsertPlan`. `runInsert(host, plan, ctx, deps)`:
   1. preflight;
   2. `insertItem`;
   3. при `TIMEOUT` — `findPlaced`, без повтора;
   4. при `READBACK_MISMATCH` — результат со списком несовпавших полей, без отката.
-- [ ] `errors.ts`: код → русский текст с параметрами; у каждого кода из списка выше есть текст (тест).
-- [ ] `log.ts`: структура записи `{ts, level, code, msg, data}`; запись делает внедрённый приёмник.
-- [ ] Покрытие: все функции, крайние случаи P1–P3, обе базы индексов, кириллица и `×`.
+- [x] `errors.ts`: код → русский текст с параметрами; у каждого кода из списка выше есть текст (тест).
+- [x] `log.ts`: структура записи `{ts, level, code, msg, data}`; запись делает внедрённый приёмник.
+- [x] Покрытие: все функции, крайние случаи P1–P3, обе базы индексов, кириллица и `×`.
 
 ### Задача 4 (волна A): мост
 
 **Файлы:** `panel/src/bridge/{ascii,reply,host}.ts`, `tests/panel/bridge/*.test.ts`.
 
-- [ ] `ascii.ts`: `asciiJson(value)` экранирует ≥ U+007F как `\uXXXX`; `jsxCall(fn, args)` собирает строку `CRBK.call("fn", "<ascii json>")`. Проверка: строка чистый ASCII, и обратный разбор даёт исходный объект с кириллицей и `×`.
-- [ ] `reply.ts`: разбор ответа:
+- [x] `ascii.ts`: `asciiJson(value)` экранирует ≥ U+007F как `\uXXXX`; `jsxCall(fn, args)` собирает строку `CRBK.call("fn", "<ascii json>")`. Проверка: строка чистый ASCII, и обратный разбор даёт исходный объект с кириллицей и `×`.
+- [x] `reply.ts`: разбор ответа:
   - `''`, `'undefined'`, `'null'` → `HOST_EMPTY`;
   - `EvalScript error` → `HOST_EVAL_ERROR`;
   - не JSON → `HOST_BAD_REPLY`;
   - JSON без `ok` → `HOST_BAD_REPLY`.
-- [ ] `host.ts`: `createBridge({ evalScript, readAdapterSource, build, clock })` → `HostApi`:
+- [x] `host.ts`: `createBridge({ evalScript, readAdapterSource, build, clock })` → `HostApi`:
   - очередь: следующий вызов только после ответа предыдущего;
   - таймауты: 30 с чтение, 120 с вставка (S8: первая вставка до 18 с);
   - при старте и при `HOST_EMPTY`/`HOST_EVAL_ERROR` — `ping`; если нет `CRBK` или метка не та, адаптер загружается заново исходником;
   - повтор: только для читающих вызовов, на 0/300/900 мс;
   - изменяющий вызов не повторяется никогда; по таймауту — `{ok:false, error:{code:'TIMEOUT'}}`;
   - поздний ответ после таймаута пишется в лог.
-- [ ] Тесты с поддельным `evalScript` (таймеры vitest): порядок очереди, холодный старт, загрузка адаптера, отсутствие повтора у изменяющего вызова, поздний ответ.
+- [x] Тесты с поддельным `evalScript` (таймеры vitest): порядок очереди, холодный старт, загрузка адаптера, отсутствие повтора у изменяющего вызова, поздний ответ.
 
 ### Задача 5 (волна A): общий код хоста и сборка адаптеров
 
 **Файлы:** `panel/host/common.jsx`, `tools/panel/build-host.mjs` (используется из `build.mjs`), `tests/panel-host/common.test.mjs`.
 
-- [ ] `common.jsx`:
+- [x] `common.jsx`:
   - `$.global.CRBK` с охраной: если `CRBK` уже есть с той же меткой, файл ничего не меняет;
   - `CRBK.build = '__CRBK_BUILD__'`;
   - `CRBK.call(fn, json)` разбирает JSON и вызывает `CRBK.fns[fn]` внутри `_wrap`;
@@ -263,12 +263,12 @@ export interface InsertPlan { item: Item; variant: Variant; lenSec: number; lenF
   - `CRBK.ok(data)`, `CRBK.fail(code, message)`;
   - `CRBK.fns.ping`;
   - только ASCII, без глобалов кроме `CRBK`.
-- [ ] `build-host.mjs`:
+- [x] `build-host.mjs`:
   - склейка `tools/jsx/prelude-json.jsx` + `common.jsx` + `<host>.jsx`;
   - подстановка метки (sha256 склейки, 12 знаков);
   - `lint(src, {lib:true})` — ошибка при любой ошибке линта и при не-ASCII;
   - отдаёт `{ae, pr, build}`.
-- [ ] Тесты в `node:vm`: вызов `ping`, неизвестная функция → `UNKNOWN_FN`, исключение → `HOST_EXCEPTION` с номером строки, повторная загрузка не ломает состояние, JSON-аргумент с `\u0410` даёт «А».
+- [x] Тесты в `node:vm`: вызов `ping`, неизвестная функция → `UNKNOWN_FN`, исключение → `HOST_EXCEPTION` с номером строки, повторная загрузка не ломает состояние, JSON-аргумент с `\u0410` даёт «А».
 
 ### Задача 6 (волна B): адаптер Premiere
 
@@ -331,19 +331,19 @@ export interface InsertPlan { item: Item; variant: Variant; lenSec: number; lenF
 
 **Файлы:** `panel/src/services/{cep,files,logsink,fonts,settings}.ts`, `panel/src/types/cep.d.ts`, `tests/panel/services/*.test.ts`.
 
-- [ ] `cep.ts`:
+- [x] `cep.ts`:
   - `evalScript` через `window.__adobe_cep__.evalScript`;
   - `hostEnv()` (appName `AEFT`/`PPRO`, appVersion);
   - путь расширения;
   - `nodeRequire()` — `window.cep_node?.require ?? window.require`.
-- [ ] `files.ts` (Node fs через `nodeRequire`): `readText`, `exists`, `stat`, `readDir`, `sha256(file)` (поток), `mkdirp`, `append`. Пути внутри — POSIX, наружу — родные.
-- [ ] `logsink.ts`: JSONL по дням в `%LOCALAPPDATA%\CloudRuBrandKit\logs` (Mac `~/Library/Logs/CloudRuBrandKit`). Ротация: старше 7 дней или больше 5 МБ.
-- [ ] `fonts.ts`: порт `tools/fonts/opentype-name.mjs` и `scan-fonts.mjs`. Папки Windows: `C:\Windows\Fonts`, `%LOCALAPPDATA%\Microsoft\Windows\Fonts`; Mac — три стандартные. Результат — `FontStatus[]` для Premiere.
-- [ ] `settings.ts`:
+- [x] `files.ts` (Node fs через `nodeRequire`): `readText`, `exists`, `stat`, `readDir`, `sha256(file)` (поток), `mkdirp`, `append`. Пути внутри — POSIX, наружу — родные.
+- [x] `logsink.ts`: JSONL по дням в `%LOCALAPPDATA%\CloudRuBrandKit\logs` (Mac `~/Library/Logs/CloudRuBrandKit`). Ротация: старше 7 дней или больше 5 МБ.
+- [x] `fonts.ts`: порт `tools/fonts/opentype-name.mjs` и `scan-fonts.mjs`. Папки Windows: `C:\Windows\Fonts`, `%LOCALAPPDATA%\Microsoft\Windows\Fonts`; Mac — три стандартные. Результат — `FontStatus[]` для Premiere.
+- [x] `settings.ts`:
   - корень библиотеки по P6;
   - запомненные значения полей по `itemId@version` (`localStorage`, с try/catch);
   - ручной вариант по элементу.
-- [ ] Тесты: временные папки, шрифт-фикстура (если в репо есть мини-OTF, иначе синтетический name-table), ротация лога.
+- [x] Тесты: временные папки, шрифт-фикстура (если в репо есть мини-OTF, иначе синтетический name-table), ротация лога.
 
 ### Задача 9 (волна B): интерфейс
 
@@ -398,3 +398,23 @@ export interface InsertPlan { item: Item; variant: Variant; lenSec: number; lenF
 
   Каждая находка проверяется отдельно.
 - [ ] Исправить подтверждённое, прогнать тесты и E2E, коммит. Отчёт пользователю: что работает, что вне среза, решения P1–P10.
+
+---
+
+## Ход работ
+
+**Контрольная точка 2026-10-05: задачи 1–5 и 8 сделаны** (ветка `panel-v1`).
+- Каждую задачу волны A проверил независимый рецензент, подтверждённые находки исправлены.
+- Тесты: все зелёные. Проверка типов чистая, dev-сборка собирается.
+
+Решения и находки по ходу (дополняют P1–P10):
+- **Открытие панели скриптом.** `requestOpenExtension` работает только из видимой панели; из невидимого расширения CEP 12 пишет «Unknown Exception». Меню Premiere из скрипта не открыть. Поэтому:
+  - `tools/dev/open-panel.mjs` открывает панель через видимую панель BrandKit Dev, а в AE — командой меню;
+  - в Premiere пользователь открывает её один раз, хост запоминает её в рабочем пространстве.
+- **Операторы в AE.** У объектов AE 26.5 есть унаследованные члены `*`, `+`, `-` и `/`. Из-за этого старый полифил JSON ломался на путях и именах через дефис. Исправлено в `tools/jsx/prelude-json.jsx` (`35b9993`). Поиск по произвольным ключам в адаптерах — только через `hasOwnProperty`.
+- **Окна ошибок в AE.** Неперехваченная ошибка dev-скрипта оставляет в AE модальное окно. Закрывать его — `tools/dev/close-host-dialog.ps1` (`WM_CLOSE`, без фокуса). Ручные пробы — только через линтер.
+- **Минимальная длина в AE (P3).** При длине, равной минимуму, ключи C27 совпадают по времени, и AE заменяет ключ. Поэтому в AE остаётся хотя бы один кадр удержания.
+- **Помощник общего кода хоста.** `CRBK.isArray` → `CRBK.isList`: линтер ES3 принимает `.isArray(` за ES5-функцию. Общее состояние между вызовами хранится в `CRBK.state.<host>`.
+- **Тестовые проекты E2E** (`tools/panel/fixtures.mjs`):
+  - `C:/CRBK/work/panel/CRT_panel_ae.aep` — 6 композиций: форматы пакета 1, QHD без варианта и 1080p 30 fps;
+  - `C:/CRBK/work/pr/CRT_panel_pr.prproj` — 5 секвенций.

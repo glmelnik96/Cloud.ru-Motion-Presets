@@ -71,19 +71,19 @@
       ],
       "fields": [
         {
-          "key": "layout", "label_ru": "Раскладка", "type": "dropdown", "egpName": "Раскладка", "default": 1,
+          "key": "layout", "label_ru": "Раскладка", "type": "dropdown", "egpName": "Раскладка", "egpIndex": 0, "default": 1,
           "options": [
             { "index": 1, "label_ru": "С визуалом" },
             { "index": 2, "label_ru": "Со спикером" }
           ]
         },
-        { "key": "timer", "label_ru": "Таймер", "type": "checkbox", "egpName": "Таймер", "default": false },
-        { "key": "minutes", "label_ru": "Минуты до начала", "type": "slider", "egpName": "Минуты", "min": 1, "max": 15, "default": 5, "drivesDuration": true, "unitSec": 60, "enabledBy": "timer" },
-        { "key": "title", "label_ru": "Заголовок", "type": "text", "egpName": "Заголовок", "maxLen": 80, "default": "Название вебинара" },
-        { "key": "speaker", "label_ru": "Спикер", "type": "text", "egpName": "Спикер", "maxLen": 60, "default": "Имя Фамилия" },
-        { "key": "visual", "label_ru": "Визуал", "type": "media", "egpName": "Визуал", "accepts": ["photo", "video"], "hosts": ["ae"] },
-        { "key": "qr", "label_ru": "QR-код", "type": "media", "egpName": "QR", "accepts": ["qr"], "hosts": ["ae"] },
-        { "key": "duration", "label_ru": "Длительность", "type": "slider", "egpName": "Длительность (служебное, не менять)", "min": 1, "max": 1000, "service": true, "editable": false }
+        { "key": "timer", "label_ru": "Таймер", "type": "checkbox", "egpName": "Таймер", "egpIndex": 1, "default": false },
+        { "key": "minutes", "label_ru": "Минуты до начала", "type": "slider", "egpName": "Минуты", "egpIndex": 2, "min": 1, "max": 15, "default": 5, "drivesDuration": true, "unitSec": 60, "enabledBy": "timer" },
+        { "key": "title", "label_ru": "Заголовок", "type": "text", "egpName": "Заголовок", "egpIndex": 3, "maxLen": 80, "default": "Название вебинара" },
+        { "key": "speaker", "label_ru": "Спикер", "type": "text", "egpName": "Спикер", "egpIndex": 4, "maxLen": 60, "default": "Имя Фамилия" },
+        { "key": "visual", "label_ru": "Визуал", "type": "media", "egpName": "Визуал", "egpIndex": 5, "accepts": ["photo", "video"], "hosts": ["ae"] },
+        { "key": "qr", "label_ru": "QR-код", "type": "media", "egpName": "QR", "egpIndex": 6, "accepts": ["qr"], "hosts": ["ae"] },
+        { "key": "duration", "label_ru": "Длительность", "type": "slider", "egpName": "Длительность (служебное, не менять)", "egpIndex": 7, "min": 1, "max": 1000, "service": true, "editable": false }
       ],
       "variants": [
         { "key": "16x9", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25, "aeComp": "CR_WEB_Screen_16x9", "minHostVersion": { "ae": "26.0", "pr": "26.0" } },

@@ -8,6 +8,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'vite';
+import { OUT as VALIDATOR, refresh as refreshValidator } from '../library/gen-standalone.mjs';
 import { buildHost, HOSTS, REPO } from './build-host.mjs';
 
 export const PANEL = path.join(REPO, 'panel');
@@ -35,6 +36,9 @@ if (isMain) {
   checkVersions(readFileSync(path.join(PANEL, 'public', 'CSXS', 'manifest.xml'), 'utf8'), version);
   const host = buildHost();
   process.env.CRBK_BUILD = host.build;
+  // Plan P8: the schemas are compiled into the panel's validator at panel build. A stale committed copy is
+  // rewritten before vite bundles it, so the bundle never checks libraries against old schemas.
+  if (refreshValidator()) console.log(`wrote ${path.relative(REPO, VALIDATOR).replace(/\\/g, '/')}: it was stale, commit it`);
   await build({ configFile: path.join(PANEL, 'vite.config.mjs'), mode: dev ? 'development' : 'production', logLevel: 'warn' });
   mkdirSync(path.join(DIST, 'host'), { recursive: true });
   for (const h of HOSTS) writeFileSync(path.join(DIST, 'host', h + '.jsx'), host[h], 'utf8');
