@@ -3,6 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { renderFile, sceneGraph } from '../../tools/masters/review.mjs';
+import { workPath } from '../../tools/lib/work.mjs';
 import { renders, scenes } from '../../masters/review/pack1.mjs';
 
 describe('review scenes', () => {
@@ -16,7 +17,7 @@ describe('review scenes', () => {
       ],
     };
     const { inputs, graph } = sceneGraph(scene, dir);
-    expect(inputs).toEqual(['-ss', '0', '-t', '3', '-i', 'C:/CRBK/work/golden/logo/x/preview_half.mp4',
+    expect(inputs).toEqual(['-ss', '0', '-t', '3', '-i', workPath('golden/logo/x/preview_half.mp4'),
       '-ss', '1.5', '-t', '3', '-i', renderFile('ls_x')]);
     expect(graph).toContain('[0:v]fps=25,setpts=PTS-STARTPTS,scale=1920:1080,crop=1920:280:0:400,scale=1920:280:flags=lanczos');
     expect(graph).toContain('[b0][p0]overlay=0:190');
