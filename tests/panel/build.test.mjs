@@ -47,8 +47,8 @@ describe('panel build', () => {
 
   it('opens DevTools of the dev install on ports of its own', () => {
     expect(debugXml()).toContain('<Extension Id="ru.cloud.brandkit.panel">');
-    expect(debugXml()).toContain('<Host Name="AEFT" Port="8095"/>');
-    expect(debugXml()).toContain('<Host Name="PPRO" Port="8097"/>');
+    expect(debugXml()).toContain('<Host Name="AEFT" Port="8101"/>');
+    expect(debugXml()).toContain('<Host Name="PPRO" Port="8102"/>');
   });
 
   it('signs with a DigiCert time stamp and keeps the password out of the repo', () => {

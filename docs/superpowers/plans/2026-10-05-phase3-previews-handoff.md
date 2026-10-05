@@ -30,3 +30,16 @@
 ## Вернуть
 
 Закоммитьте `docs/research/panel-live/*-ui-report.json`, `*-ui-1-catalog.png`, `*-ui-1b-preview.png` и три постера, скопированные в `docs/research/previews/<id>-poster.jpg` (MP4 в репозиторий не кладите), и запушьте в ту же ветку. В ответе — что видно на постерах и в роликах, проблемы. Код не чинить — описать.
+
+## Повторная проверка панели 0.1.4
+
+Исправлено по отчёту `ee3c5c9`: постер поверх видео, порты DevTools 8101 (AE) и 8102 (Premiere) вместо занятых dev-панелью 8095/8097, копирование без `fs.cpSync`.
+
+1. `git pull`, `npm ci`, `npm test`.
+2. Верните установленную dev-панель BrandKit Dev к портам из репозитория (`dev/harness/.debug`: 8094–8097), если они менялись.
+3. `node tools/panel/install-dev.mjs` — без `robocopy`; ждём строку `panel 0.1.4 -> … (DevTools: AE http://localhost:8101, Premiere http://localhost:8102)` и `library … -> C:/ProgramData/CloudRuBrandKit/library`.
+4. Перезапустите AE и Premiere, откройте обе панели, `node tools/panel/ui-check.mjs --host ae` и `--host pr` — без перестановки портов.
+5. Наведите курсор на «Логошот с подписью» и уведите: после ухода курсора снова виден постер, а не пустой кадр. Скриншот каталога после наведения.
+6. Если снова появится диалог «Сохранить как» в AE — запишите, после какой команды и какой проект был открыт.
+
+Вернуть: `docs/research/panel-live/*-ui-report.json`, скриншоты, `docs/research/previews/recheck.json` (вывод `install-dev`, наблюдения по пунктам 5–6), коммит и push в ту же ветку.

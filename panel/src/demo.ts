@@ -51,6 +51,12 @@ export function startDemo(el: HTMLElement, version: string): void {
   const host = q.get('host') === 'ae' ? 'ae' : 'pr';
   const [w, hh] = (q.get('frame') ?? '1920x1080').split('x').map(Number);
   const items = [...(src.items as unknown[]), ...(example.items as unknown[]).filter((i) => (i as Item).tier === 'T1' && (i as Item).id !== 'TTL_LowerThird')].map(toItem);
+  // ?media=<url folder>: the first card gets preview.webm and poster.jpg from there (tests/panel/ui-dom.test.mjs).
+  const media = q.get('media');
+  if (media) {
+    items[0].preview = { file: 'preview.webm', sha256: '0'.repeat(64), bytes: 0 };
+    items[0].poster = { file: 'poster.jpg', sha256: '0'.repeat(64), bytes: 0 };
+  }
   const catalog: Catalog = { schemaVersion: 1, libraryVersion: '2026.10.05', minPluginVersion: '0.1.0', items };
   const store = new Map<string, string>();
   const app = new PanelApp({
@@ -63,7 +69,7 @@ export function startDemo(el: HTMLElement, version: string): void {
     store: { get: (k) => store.get(k) ?? null, set: (k, v) => void store.set(k, v) },
     fonts: async (names) => Object.fromEntries(names.map((n) => [n, { found: true, version: 'Version 1.002' }])),
   });
-  render(h(App, { app, ui: { fileUrl: (f: string) => f, copy: (t: string) => console.log(t), pickFile: host === 'ae' ? async () => 'C:/Media/visual.mp4' : undefined } }), el);
+  render(h(App, { app, ui: { fileUrl: (f: string) => (media ? media + f : f), copy: (t: string) => console.log(t), pickFile: host === 'ae' ? async () => 'C:/Media/visual.mp4' : undefined } }), el);
   void app.init().then(() => {
     const open = q.get('open');
     if (open) app.open(open);

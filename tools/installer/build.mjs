@@ -10,7 +10,7 @@
 //     payload/library/           the library root with library.json, checked against its sha256
 //     payload/mogrt.txt          MOGRTs the installers copy flat into Local Templates
 // The installers need no Node: they read only VERSION and mogrt.txt.
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync, chmodSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync, chmodSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import AdmZip from 'adm-zip';
@@ -19,6 +19,7 @@ import { zxpInfo } from '../panel/zxp-info.mjs';
 import { sha256File } from '../library/build-catalog.mjs';
 import { validateLibrary } from '../library/validate.mjs';
 import { workPath } from '../lib/work.mjs';
+import { copyTree } from '../lib/copy-tree.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(here, '../..');
@@ -86,10 +87,10 @@ export async function buildPackage({ zxp = null, unsigned = false, dist = path.j
   mkdirSync(payload, { recursive: true });
   const ext = path.join(payload, 'extension');
   if (zxp) new AdmZip(zxp).extractAllTo(ext, true);
-  else cpSync(dist, ext, { recursive: true });
+  else copyTree(dist, ext);
   const extCheck = checkDist(ext, { version });
   if (!extCheck.ok) return { ok: false, problems: extCheck.problems.map((p) => 'extension: ' + p) };
-  cpSync(library, path.join(payload, 'library'), { recursive: true, filter: (src) => !JUNK.test(src.replace(/\\/g, '/')) });
+  copyTree(library, path.join(payload, 'library'), { filter: (src) => !JUNK.test(src.replace(/\\/g, '/')) });
   writeFileSync(path.join(payload, 'VERSION'), `plugin=${version}\nlibrary=${lib.catalog.libraryVersion}\nsigned=${zxp ? 1 : 0}\n`, 'utf8');
   writeFileSync(path.join(payload, 'mogrt.txt'), lib.mogrts.map((m) => m + '\n').join(''), 'utf8');
 

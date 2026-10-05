@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // End-to-end check of the real panel (spec 8.3 «живые прогоны панели»): the dev install of
-// tools/panel/install-dev.mjs opens DevTools of the panel on 8095 (AE) and 8097 (Premiere); this script
+// tools/panel/install-dev.mjs opens DevTools of the panel on 8101 (AE) and 8102 (Premiere); this script
 // drives its page like a user — opens «Подпись спикера», types a name, picks a style, clicks «Вставить на
 // плейхед» — and checks in the host, through the BrandKit Dev panel (8094/8096), that the insert is there.
 //   node tools/panel/ui-check.mjs --host ae|pr
@@ -15,7 +15,7 @@ import { composeProbe } from '../spike/runner.mjs';
 import { presetSources, stagePreset } from '../pr/env.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-export const PANEL_PORTS = { ae: 8095, pr: 8097 };
+export const PANEL_PORTS = { ae: 8101, pr: 8102 };
 
 // A DevTools session on one page: send(method, params) -> result.
 export function cdpSession(wsUrl) {

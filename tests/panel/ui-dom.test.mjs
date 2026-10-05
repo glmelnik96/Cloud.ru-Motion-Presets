@@ -1,7 +1,7 @@
 // The panel UI in a headless Chromium on the demo host (panel/src/demo.ts), driven by the same page
 // expressions tools/panel/ui-check.mjs uses on the real panel in AE and Premiere. Runs where a Chromium is
 // installed (BRANDKIT_CHROMIUM, or the Playwright browsers of the cloud sessions); skipped elsewhere.
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { existsSync, mkdtempSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -12,6 +12,7 @@ import { cdpSession, evaluate, page, waitFor } from '../../tools/panel/ui-check.
 const REPO = path.resolve(import.meta.dirname, '../..');
 const CHROME = [process.env.BRANDKIT_CHROMIUM, '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell'].find((p) => p && existsSync(p));
 const PORT = 9333;
+const HAS_FFMPEG = spawnSync('ffmpeg', ['-version']).status === 0;
 
 async function pageTarget() {
   for (let i = 0; i < 50; i += 1) {
@@ -32,9 +33,17 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
   let chrome;
   let s;
   let base;
+  let media;
 
   beforeAll(async () => {
-    server = await createServer({ configFile: path.join(REPO, 'panel', 'vite.config.mjs'), server: { port: 5299, strictPort: false }, logLevel: 'silent' });
+    media = mkdtempSync(path.join(os.tmpdir(), 'bk-media-'));
+    if (HAS_FFMPEG) {
+      // A moving green square: VP9, which a Chromium without H.264 plays as well; the poster is a still.
+      const src = ['-f', 'lavfi', '-i', 'color=c=0x222222:s=480x270:r=12.5:d=2', '-vf', 'drawbox=x=t*100:y=100:w=60:h=60:color=0x26D07C:t=fill'];
+      spawnSync('ffmpeg', ['-y', '-loglevel', 'error', ...src, '-c:v', 'libvpx-vp9', '-b:v', '200k', path.join(media, 'preview.webm')]);
+      spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', 'color=c=0xF2F2F2:s=480x270', '-frames:v', '1', path.join(media, 'poster.jpg')]);
+    }
+    server = await createServer({ configFile: path.join(REPO, 'panel', 'vite.config.mjs'), server: { port: 5299, strictPort: false, fs: { allow: [REPO, media] } }, logLevel: 'silent' });
     await server.listen();
     base = server.resolvedUrls.local[0];
     chrome = spawn(CHROME, ['--no-sandbox', '--headless', `--remote-debugging-port=${PORT}`, `--user-data-dir=${mkdtempSync(path.join(os.tmpdir(), 'bk-chrome-'))}`, '--window-size=360,900', 'about:blank'], { stdio: 'ignore' });
@@ -65,6 +74,20 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     expect(await evaluate(s, `document.querySelector('.seg button.on').textContent`)).toBe('Подкаст');
     expect(await evaluate(s, page.insert)).toBe(true);
     expect(await waitFor(s, page.outcome)).toBe('done: Вставлено: клип выделен на таймлайне.');
+  }, 60000);
+
+  it.skipIf(!HAS_FFMPEG)('shows the poster, plays the preview only under the cursor, and brings the poster back', async () => {
+    await go(`?host=pr&media=${encodeURIComponent('/@fs/' + media.replace(/\\/g, '/').replace(/^\//, '') + '/')}`);
+    const state = `(() => { const c = document.querySelector('.card'); const v = c.querySelector('video'); const p = c.querySelector('.poster');
+      return { poster: !!p && !p.classList.contains('off') && p.naturalWidth > 0, playing: !!v && !v.paused && v.currentTime > 0, time: v ? v.currentTime : -1 }; })()`;
+    await waitFor(s, `(${state}).poster`);
+    expect(await evaluate(s, state)).toMatchObject({ poster: true, playing: false });
+    await evaluate(s, `document.querySelector('.card').dispatchEvent(new MouseEvent('mouseenter'))`);
+    await waitFor(s, `(() => { const r = ${state}; return r.playing && !r.poster; })()`, { timeoutMs: 10000 });
+    await evaluate(s, `document.querySelector('.card').dispatchEvent(new MouseEvent('mouseleave'))`);
+    await waitFor(s, `(() => { const r = ${state}; return r.poster && !r.playing && r.time === 0; })()`, { timeoutMs: 5000 });
+    // the other cards have no preview and keep their placeholders
+    expect(await evaluate(s, `document.querySelectorAll('.card video').length`)).toBe(1);
   }, 60000);
 
   it('refuses a name that is too long before the host is called', async () => {

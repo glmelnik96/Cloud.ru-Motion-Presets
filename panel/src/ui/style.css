@@ -148,11 +148,25 @@ select {
   overflow: hidden;
 }
 
+.thumb {
+  position: relative;
+}
+
 .thumb img,
 .thumb video {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.thumb video,
+.thumb .poster {
+  position: absolute;
+  inset: 0;
+}
+
+.thumb .poster.off {
+  visibility: hidden;
 }
 
 .thumb .mark {

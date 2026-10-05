@@ -67,13 +67,19 @@ function Catalog({ app, ui }: { app: PanelApp; ui: UiServices }) {
   );
 }
 
+// The poster is a picture of its own on top of the video and comes back as soon as the cursor leaves: a
+// rewound <video> shows its first frame instead of the poster, which for a logo is an almost empty dark
+// frame (preview check 2026-10-05).
 function Preview({ item, ui, playing }: { item: Item; ui: UiServices; playing: boolean }) {
   const video = useRef<HTMLVideoElement>(null);
+  const [shown, setShown] = useState(false);
   useEffect(() => {
     const v = video.current;
     if (!v) return;
-    if (playing) void v.play().catch(() => undefined);
-    else {
+    if (playing) {
+      void v.play().then(() => setShown(true)).catch(() => undefined);
+    } else {
+      setShown(false);
       v.pause();
       v.currentTime = 0;
     }
@@ -81,13 +87,8 @@ function Preview({ item, ui, playing }: { item: Item; ui: UiServices; playing: b
   const poster = item.poster ? ui.fileUrl(item.poster.file) : undefined;
   return (
     <div class="thumb">
-      {item.preview ? (
-        <video ref={video} src={ui.fileUrl(item.preview.file)} poster={poster} muted loop playsInline preload="none" />
-      ) : poster ? (
-        <img src={poster} alt="" />
-      ) : (
-        <div class="mark" />
-      )}
+      {item.preview && <video ref={video} src={ui.fileUrl(item.preview.file)} muted loop playsInline preload="none" />}
+      {poster ? <img class={'poster' + (item.preview && shown ? ' off' : '')} src={poster} alt="" /> : !item.preview && <div class="mark" />}
     </div>
   );
 }

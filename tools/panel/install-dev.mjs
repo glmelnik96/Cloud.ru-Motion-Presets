@@ -3,13 +3,13 @@
 //   node tools/panel/install-dev.mjs [--no-build] [--library <root>] [--no-library]
 // 1. builds panel/dist (npm run panel:build) unless --no-build;
 // 2. copies it into the per-user CEP extensions folder as ru.cloud.brandkit, with a .debug file that opens
-//    DevTools of the panel on 8095 (AE) and 8097 (Premiere): ports of our own, beside 8094/8096 of the dev
-//    harness, away from 8088, 8092, 8098-8100 (spec 8.3);
+//    DevTools of the panel on 8101 (AE) and 8102 (Premiere): the dev harness holds 8094/8096 (background)
+//    and 8095/8097 (its visible panel), and 8088, 8092, 8098-8100 are taken (spec 8.3);
 // 3. copies a library root (default <work>/panel-live/library from the live checks) to the shared library
 //    folder the panel reads (C:\ProgramData\CloudRuBrandKit\library, /Users/Shared/CloudRuBrandKit/library);
 // 4. reports PlayerDebugMode (CSXS.11 and .12): an unsigned panel loads only with it.
 // AE and Premiere must be closed or restarted afterwards: CEP reads extensions at start.
-import { cpSync, existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { execFileSync, spawnSync } from 'node:child_process';
 import os from 'node:os';
 import path from 'node:path';
@@ -17,11 +17,12 @@ import { fileURLToPath } from 'node:url';
 import { readManifest } from './manifest-info.mjs';
 import { checkDist } from './dist-check.mjs';
 import { workPath } from '../lib/work.mjs';
+import { copyTree } from '../lib/copy-tree.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const DIST = path.join(REPO, 'panel', 'dist');
 const BUNDLE_ID = 'ru.cloud.brandkit';
-export const DEBUG_PORTS = { AEFT: 8095, PPRO: 8097 };
+export const DEBUG_PORTS = { AEFT: 8101, PPRO: 8102 };
 
 export function cepExtensionsDir(platform = process.platform, env = process.env) {
   if (platform === 'win32') return path.join(env.APPDATA || path.join(os.homedir(), 'AppData', 'Roaming'), 'Adobe', 'CEP', 'extensions');
@@ -76,7 +77,7 @@ if (isMain) {
     }
     rmSync(dst, { recursive: true, force: true });
   }
-  cpSync(DIST, dst, { recursive: true });
+  copyTree(DIST, dst);
   writeFileSync(path.join(dst, '.debug'), debugXml(), 'utf8');
   console.log(`panel ${version} -> ${dst} (DevTools: AE http://localhost:${DEBUG_PORTS.AEFT}, Premiere http://localhost:${DEBUG_PORTS.PPRO})`);
 
@@ -88,7 +89,7 @@ if (isMain) {
     } else {
       const lib = sharedLibraryDir();
       rmSync(lib, { recursive: true, force: true });
-      cpSync(src, lib, { recursive: true });
+      copyTree(src, lib);
       console.log(`library ${src} -> ${lib}`);
     }
   }
