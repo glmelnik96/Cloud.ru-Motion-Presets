@@ -78,6 +78,41 @@ export function findColorCentroid(src, hex, tolerance = 0, { minAlpha = 128, reg
   };
 }
 
+// A size x size square ({x, y, w, h}) whose every pixel is within `tolerance` of `hex`, the one whose centre
+// lies nearest the centroid of the colour; null if the colour has no such square. A colour measurement
+// belongs inside the colour: the centroid of a hollow shape (the logo cube with its gaps) or an edge in
+// motion measures anti-aliasing instead.
+export function findSolidPatch(src, hex, tolerance, size, { minAlpha = 128 } = {}) {
+  const img = load(src);
+  const c = findColorCentroid(img, hex, tolerance, { minAlpha });
+  if (!c.count || c.box.w < size || c.box.h < size) return null;
+  const t = hexToRgb(hex);
+  const d = img.data;
+  const { x0, y0, w, h } = c.box;
+  // summed-area table of matching pixels over the box: any square is counted in O(1)
+  const sat = new Int32Array((w + 1) * (h + 1));
+  for (let y = 0; y < h; y += 1) {
+    let row = 0;
+    for (let x = 0; x < w; x += 1) {
+      const i = ((y0 + y) * img.width + x0 + x) * 4;
+      const hit = d[i + 3] >= minAlpha
+        && Math.max(Math.abs(d[i] - t.r), Math.abs(d[i + 1] - t.g), Math.abs(d[i + 2] - t.b)) <= tolerance;
+      row += hit ? 1 : 0;
+      sat[(y + 1) * (w + 1) + x + 1] = sat[y * (w + 1) + x + 1] + row;
+    }
+  }
+  const at = (x, y) => sat[y * (w + 1) + x];
+  let best = null, bestD = Infinity;
+  for (let y = 0; y + size <= h; y += 1) {
+    for (let x = 0; x + size <= w; x += 1) {
+      if (at(x + size, y + size) - at(x, y + size) - at(x + size, y) + at(x, y) !== size * size) continue;
+      const dist = Math.hypot(x0 + x + size / 2 - c.x, y0 + y + size / 2 - c.y);
+      if (dist < bestD) { bestD = dist; best = { x: x0 + x, y: y0 + y, w: size, h: size }; }
+    }
+  }
+  return best;
+}
+
 const SIGNATURE = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
 // Zero-length IEND chunk: length 0, type "IEND", CRC AE 42 60 82.
 const IEND = Buffer.from([0, 0, 0, 0, 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60, 0x82]);

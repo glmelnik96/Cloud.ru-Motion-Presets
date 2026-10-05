@@ -45,19 +45,23 @@
     }
   ],
   "premiere": {
-    "_note": "MOGRT in Premiere against the same variant rendered in AE (spec §4.4 step 7). ctrl is 1-based as in AE and the library; the check writes it 0-based. B is inserted 8 s long: its intro, hold and outro must play at master speed (responsive time). master = the AE time that shows the same picture.",
+    "_note": "MOGRT in Premiere against the same variant rendered in AE (spec §4.4 step 7). ctrl is 1-based as in AE and the library; the check writes it 0-based. B is inserted 8 s long: its intro, hold and outro must play at master speed (responsive time); C is 8 s long at Speed 2× (C44). master = the AE time that shows the same picture.",
     "variant": "16x9",
     "sequencePreset": "HD 1080p 25 fps",
     "clips": [
       { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Caption": 3, "Theme": 1, "Background": 1 } },
-      { "key": "B", "atSec": 10, "lenSec": 8, "ctrl": { "Caption": 1, "Theme": 2, "Background": 2 } }
+      { "key": "B", "atSec": 10, "lenSec": 8, "ctrl": { "Caption": 1, "Theme": 2, "Background": 2 } },
+      { "key": "C", "atSec": 20, "lenSec": 8, "ctrl": { "Caption": 2, "Theme": 1, "Background": 1, "Speed": 5 } }
     ],
     "frames": [
       { "key": "A_hold", "clip": "A", "sec": 3.0, "master": 3.0 },
       { "key": "A_flip", "clip": "A", "sec": 0.6, "master": 0.6 },
       { "key": "B_intro", "clip": "B", "sec": 1.0, "master": 1.0 },
       { "key": "B_hold", "clip": "B", "sec": 5.0, "master": 3.0 },
-      { "key": "B_outro", "clip": "B", "sec": 7.48, "master": 4.48 }
+      { "key": "B_outro", "clip": "B", "sec": 7.48, "master": 4.48 },
+      { "key": "C_intro", "clip": "C", "sec": 0.6, "master": 0.6 },
+      { "key": "C_hold", "clip": "C", "sec": 4.0, "master": 3.0 },
+      { "key": "C_outro", "clip": "C", "sec": 7.8, "master": 4.8 }
     ]
   },
   "premiere9x16": {

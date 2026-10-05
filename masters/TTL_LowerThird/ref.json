@@ -172,7 +172,7 @@
     }
   ],
   "premiere": {
-    "_note": "The 16x9 MOGRT in Premiere against the same variant rendered in AE, one clip per style. B is 10 s long: its intro and exit must keep master speed (exit = the last 1.48 s).",
+    "_note": "The 16x9 MOGRT in Premiere against the same variant rendered in AE, one clip per style. B is 10 s long: its intro and exit must keep master speed (exit = the last 1.48 s). D, E and F add the Speed (C44) and text Size (C36) controls: the podcast guest with a long name at 1,5× and 140 %, the titles at 2× and 120 %, the webinar on the right at 160 %.",
     "variant": "16x9",
     "clips": [
       {
@@ -216,6 +216,53 @@
           "TXT_ROLE1": "Технический эксперт",
           "TXT_ROLE2": "по облачным технологиям"
         }
+      },
+      {
+        "key": "D",
+        "atSec": 40,
+        "lenSec": 8,
+        "ctrl": {
+          "Style": 2,
+          "Side": 1,
+          "Speed": 4,
+          "Size": 4
+        },
+        "text": {
+          "TXT_NAME": "Константин Константинопольский",
+          "TXT_ROLE1": "Руководитель направления облачных сервисов",
+          "TXT_ROLE2": "Cloud.ru"
+        }
+      },
+      {
+        "key": "E",
+        "atSec": 50,
+        "lenSec": null,
+        "ctrl": {
+          "Style": 1,
+          "Side": 1,
+          "Speed": 5,
+          "Size": 3
+        },
+        "text": {
+          "TXT_NAME": "Александр Стародубцев",
+          "TXT_ROLE1": "Технический лидер",
+          "TXT_ROLE2": "Cloud.ru"
+        }
+      },
+      {
+        "key": "F",
+        "atSec": 60,
+        "lenSec": null,
+        "ctrl": {
+          "Style": 3,
+          "Side": 2,
+          "Size": 5
+        },
+        "text": {
+          "TXT_NAME": "Александр Константинов",
+          "TXT_ROLE1": "Технический эксперт",
+          "TXT_ROLE2": "по облачным технологиям"
+        }
       }
     ],
     "frames": [
@@ -252,6 +299,48 @@
       {
         "key": "C_hold",
         "clip": "C",
+        "sec": 3.0,
+        "master": 3.0
+      },
+      {
+        "key": "D_intro",
+        "clip": "D",
+        "sec": 0.52,
+        "master": 0.52
+      },
+      {
+        "key": "D_hold",
+        "clip": "D",
+        "sec": 4.0,
+        "master": 3.0
+      },
+      {
+        "key": "D_exit",
+        "clip": "D",
+        "sec": 7.6,
+        "master": 5.6
+      },
+      {
+        "key": "E_intro",
+        "clip": "E",
+        "sec": 0.4,
+        "master": 0.4
+      },
+      {
+        "key": "E_hold",
+        "clip": "E",
+        "sec": 3.0,
+        "master": 3.0
+      },
+      {
+        "key": "E_exit",
+        "clip": "E",
+        "sec": 5.6,
+        "master": 5.6
+      },
+      {
+        "key": "F_hold",
+        "clip": "F",
         "sec": 3.0,
         "master": 3.0
       }

@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { PNG } from 'pngjs';
 import {
-  readPng, pixelAt, meanColor, findColorCentroid, isCompletePng, waitForPng,
+  readPng, pixelAt, meanColor, findColorCentroid, findSolidPatch, isCompletePng, waitForPng,
 } from '../../tools/png/read-png.mjs';
 
 const dir = mkdtempSync(path.join(os.tmpdir(), 'bk-png-'));
@@ -98,6 +98,29 @@ describe('findColorCentroid', () => {
     expect(left.count).toBe(800);
     expect(left.box).toEqual({ x0: 130, y0: 80, x1: 149, y1: 119, w: 20, h: 40 });
     expect(() => findColorCentroid(frame, '#FF00FF', 0, { region: { x: 390, y: 0, w: 20, h: 10 } })).toThrow(RangeError);
+  });
+});
+
+describe('findSolidPatch', () => {
+  it('takes the square at the centroid of a solid shape', () => {
+    expect(findSolidPatch(frame, '#FF00FF', 0, 12)).toEqual({ x: 144, y: 94, w: 12, h: 12 });
+  });
+  it('returns null when no square of that size fits inside the colour', () => {
+    expect(findSolidPatch(frame, '#26D07C', 0, 12)).toBeNull();
+    expect(findSolidPatch(frame, '#26D07C', 0, 10)).toEqual({ x: 305, y: 20, w: 10, h: 10 });
+    expect(findSolidPatch(frame, '#0063FF', 3, 12)).toBeNull();
+  });
+  it('steps off the hole of a hollow shape, whose centroid is in the hole', () => {
+    // 100x100 black, a 60x60 magenta square at 20..79 with a 20x20 black hole at 40..59
+    const ring = makePng(path.join(dir, 'ring.png'), 100, 100, (x, y) => {
+      const inSquare = x >= 20 && x < 80 && y >= 20 && y < 80;
+      const inHole = x >= 40 && x < 60 && y >= 40 && y < 60;
+      return inSquare && !inHole ? [255, 0, 255, 255] : [0, 0, 0, 255];
+    });
+    expect(findColorCentroid(ring, '#FF00FF', 0)).toMatchObject({ x: 50, y: 50 });
+    const p = findSolidPatch(ring, '#FF00FF', 0, 12);
+    expect(meanColor(ring, p)).toMatchObject({ r: 255, g: 0, b: 255 });
+    expect(Math.hypot(p.x + 6 - 50, p.y + 6 - 50)).toBe(16);
   });
 });
 

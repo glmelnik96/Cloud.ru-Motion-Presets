@@ -13,7 +13,7 @@ import { composeProbe, REPO } from '../spike/runner.mjs';
 import { waitForStableFiles } from '../golden/png.mjs';
 import { workPath } from '../lib/work.mjs';
 import { prBaseParams, presetSources, stagePreset, TPF_25 } from '../pr/env.mjs';
-import { readPng, findColorCentroid, meanColor } from '../png/read-png.mjs';
+import { readPng, findSolidPatch, meanColor } from '../png/read-png.mjs';
 import { deltaE2000, rgbToXyz, xyzToLab } from '../color/deltae.mjs';
 import { compareFrames } from '../qa/ssim.mjs';
 import { sideBySide } from '../qa/side-by-side.mjs';
@@ -63,12 +63,11 @@ async function aeClose(params) {
   return run('ae', body, { timeoutMs: 120000 });
 }
 
-// Brand colour areas: the green of the logo cube, found in the AE frame and measured in both.
+// Brand colour areas: the green of the logo cube, found in the AE frame and measured in both, on a solid
+// 12 x 12 patch (the centroid of the cube falls on its gaps, and a moving edge measures anti-aliasing).
 function colourChecks(ae, pr, hex, maxDE) {
-  const c = findColorCentroid(ae, hex, 12);
-  if (!c || !c.count) return { found: false };
-  const s = 6;
-  const rect = { x: Math.round(c.x) - s, y: Math.round(c.y) - s, w: 2 * s, h: 2 * s };
+  const rect = findSolidPatch(ae, hex, 12, 12);
+  if (!rect) return { found: false };
   const a = meanColor(ae, rect);
   const b = meanColor(pr, rect);
   const lab = (c) => xyzToLab(rgbToXyz({ r: c.r, g: c.g, b: c.b }));
@@ -133,7 +132,7 @@ if (isMain) {
       if (!pass) failed += 1;
       report.frames.push({ ...f, ssim: cmp.ssim, rect: cmp.rect, colour: col, pass });
       console.log(`${pass ? 'ok  ' : 'FAIL'} ${f.key}: Premiere vs AE ssim ${cmp.ssim.toFixed(4)}` +
-        (col.found ? `, cube dE ${col.deltaE.toFixed(2)}` : ', no cube in frame'));
+        (col.found ? `, cube dE ${col.deltaE.toFixed(2)}` : ', no solid cube area in frame'));
     }
   } catch (e) {
     console.error('ERROR: ' + e.message);
