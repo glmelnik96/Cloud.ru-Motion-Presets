@@ -8,7 +8,7 @@ import { error, hasErrors, messages, warning, type Problem } from './problems';
 import { BIN_NAME, libraryFile, libraryKey, projectAssetDir, projectPathProblem, type Platform } from './paths';
 import { planLength, type Key } from './timing';
 import type { FieldValue, FontStatus, Host, HostContext, Item, Values } from './types';
-import { pickVariant, type VariantPick } from './variant';
+import { pickVariant, variantLabel, type VariantPick } from './variant';
 import { atLeast, shortVersion } from './version';
 
 export interface InsertRequest {
@@ -91,7 +91,7 @@ export function planInsert({ item, ctx, values, fonts, options = {}, env }: Inse
     return done(pick);
   }
   if (pick.needsConsent) {
-    const p = messages.nearest(target.w, target.h, v.key);
+    const p = messages.nearest(target.w, target.h, variantLabel(v));
     problems.push(options.acceptNearest ? warning('NEAREST_VARIANT', p, { key: v.key, scale: pick.scale }) : error('NO_VARIANT', p, { key: v.key, scale: pick.scale }));
   }
   const need = v.minHostVersion[host];

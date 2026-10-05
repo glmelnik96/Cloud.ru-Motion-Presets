@@ -3,8 +3,13 @@
     "target": "es2021",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "lib": ["es2021", "dom"],
-    "types": [],
+    "lib": [
+      "es2021",
+      "dom"
+    ],
+    "types": [
+      "vite/client"
+    ],
     "strict": true,
     "noEmit": true,
     "noUnusedLocals": true,
@@ -16,5 +21,8 @@
     "resolveJsonModule": true,
     "verbatimModuleSyntax": true
   },
-  "include": ["src", "../tests/panel/**/*.ts"]
+  "include": [
+    "src",
+    "../tests/panel/**/*.ts"
+  ]
 }

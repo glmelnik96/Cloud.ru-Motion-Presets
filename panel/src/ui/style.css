@@ -1,0 +1,406 @@
+/* Cloud.ru BrandKit panel. Brand colours come from brand/tokens.json (theme.ts) as --cr-*; the panel chrome
+   follows the dark UI of After Effects and Premiere. */
+:root {
+  --bg: #232323;
+  --bg-raised: #2c2c2c;
+  --bg-input: #1b1b1b;
+  --line: #3a3a3a;
+  --text: #e3e3e3;
+  --text-dim: #9a9a9a;
+  --accent: var(--cr-green, #26d07c);
+  --accent-text: var(--cr-black, #222222);
+  --warn: var(--cr-yellow, #cff500);
+  --err: var(--cr-carrot, #ff4517);
+  --radius: 0;
+  font-family: 'SB Sans Text', 'SBSansText-Regular', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  overflow: hidden;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.brand b {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.chip-format {
+  margin-left: auto;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  padding: 3px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+  color: var(--text-dim);
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.search {
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  background: var(--bg-input);
+  outline: none;
+}
+
+.search:focus,
+.field input:focus,
+.field select:focus {
+  border-color: var(--accent);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 10px;
+}
+
+.chip {
+  border: 1px solid var(--line);
+  background: transparent;
+  padding: 3px 9px;
+  cursor: pointer;
+}
+
+.chip.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.card {
+  position: relative;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+}
+
+.card:hover,
+.card:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.thumb {
+  aspect-ratio: 16 / 9;
+  background: #151515;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.thumb img,
+.thumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.thumb .mark {
+  width: 34%;
+  aspect-ratio: 1;
+  border: 2px solid var(--accent);
+  opacity: 0.6;
+}
+
+.card .title {
+  padding: 6px 8px 7px;
+  line-height: 1.25;
+}
+
+.card .meta {
+  padding: 0 8px 7px;
+  color: var(--text-dim);
+  font-size: 11px;
+}
+
+.star {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.45);
+  color: var(--text-dim);
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  line-height: 22px;
+  padding: 0;
+}
+
+.star.on {
+  color: var(--warn);
+}
+
+.empty {
+  color: var(--text-dim);
+  padding: 20px 0;
+  text-align: center;
+}
+
+.form-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.back {
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+  padding: 3px 8px;
+}
+
+.form-head h2 {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
+}
+
+.hero {
+  margin-bottom: 10px;
+  border: 1px solid var(--line);
+}
+
+.field {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 9px;
+}
+
+.field label {
+  color: var(--text-dim);
+}
+
+.field input[type='text'],
+.field input[type='number'],
+.field select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  background: var(--bg-input);
+  outline: none;
+}
+
+.field.off {
+  opacity: 0.5;
+}
+
+.hint {
+  color: var(--text-dim);
+  font-size: 11px;
+}
+
+.count {
+  color: var(--text-dim);
+  font-size: 11px;
+  text-align: right;
+}
+
+.seg {
+  display: flex;
+  border: 1px solid var(--line);
+}
+
+.seg button {
+  flex: 1;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: var(--bg-input);
+  padding: 5px 4px;
+  cursor: pointer;
+}
+
+.seg button:last-child {
+  border-right: 0;
+}
+
+.seg button.on {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.check input {
+  accent-color: var(--accent);
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.row > * {
+  flex: 1;
+}
+
+.media {
+  display: flex;
+  gap: 6px;
+}
+
+.media input {
+  flex: 1;
+}
+
+.media button {
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.problems {
+  list-style: none;
+  margin: 8px 0;
+  padding: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.problems li {
+  border-left: 3px solid var(--warn);
+  padding: 4px 8px;
+  background: var(--bg-raised);
+  line-height: 1.35;
+}
+
+.problems li.error {
+  border-left-color: var(--err);
+}
+
+.consent {
+  border: 1px solid var(--warn);
+  padding: 8px;
+  margin: 8px 0;
+  line-height: 1.35;
+}
+
+.consent button {
+  margin-top: 6px;
+}
+
+.insert {
+  width: 100%;
+  padding: 9px;
+  border: 0;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.insert:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.secondary {
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+  padding: 5px 9px;
+}
+
+.done {
+  margin-top: 8px;
+  color: var(--accent);
+}
+
+.status {
+  border-top: 1px solid var(--line);
+  padding: 6px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: center;
+  color: var(--text-dim);
+  font-size: 11px;
+}
+
+.status .bad {
+  color: var(--err);
+}
+
+.status button {
+  margin-left: auto;
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+  padding: 2px 7px;
+  font-size: 11px;
+}
+
+.fatal {
+  padding: 16px 10px;
+  line-height: 1.45;
+}
