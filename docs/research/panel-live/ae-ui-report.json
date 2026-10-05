@@ -1,0 +1,83 @@
+{
+  "host": "ae",
+  "startedAt": "2026-10-05T07:27:28.455Z",
+  "checks": [
+    {
+      "name": "scratch comp or sequence UI_check 1920x1080 created",
+      "pass": true,
+      "detail": [
+        {
+          "name": "scratch project created and saved in the work folder",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "comps": 1,
+            "path": "C:\\CRBK\\work\\panel-live\\ae\\panel_ui.aep"
+          }
+        }
+      ]
+    },
+    {
+      "name": "UI_check active, playhead at 4 s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "panel opens and shows the catalog (N3/N4 of panel-framework.md)",
+      "pass": true,
+      "detail": "catalog"
+    },
+    {
+      "name": "status line shows the host, the panel and the library",
+      "pass": true,
+      "detail": "Шрифты SB Sans на местеAE 26.5 · панель 0.1.0 · библиотека 2026.10.05Скопировать диагностику"
+    },
+    {
+      "name": "card «Подпись спикера» opens the form",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "format chip follows UI_check 1920x1080",
+      "pass": true,
+      "detail": "Авто 16:9 · 1920×1080 · 25p"
+    },
+    {
+      "name": "name typed",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "style «Подкаст» picked",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "«Вставить на плейхед» clicked",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "insert reported as done in the panel",
+      "pass": true,
+      "detail": {
+        "outcome": "done: Вставлено: слой выделен в композиции.",
+        "problems": []
+      }
+    },
+    {
+      "name": "AE: one layer in UI_check",
+      "pass": true,
+      "detail": {
+        "op": "count",
+        "count": {
+          "layers": 1,
+          "templates": 1
+        },
+        "hostVersion": "26.5x89"
+      }
+    }
+  ],
+  "finishedAt": "2026-10-05T07:27:29.989Z",
+  "failed": []
+}

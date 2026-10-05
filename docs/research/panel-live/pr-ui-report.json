@@ -1,0 +1,94 @@
+{
+  "host": "pr",
+  "startedAt": "2026-10-05T07:39:12.437Z",
+  "checks": [
+    {
+      "name": "scratch comp or sequence UI_check 1920x1080 created",
+      "pass": true,
+      "detail": [
+        {
+          "name": "scratch project C:/CRBK/work/panel-live/pr/panel_live.prproj is the active project",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "how": "active",
+            "path": "C:\\CRBK\\work\\panel-live\\pr\\panel_live.prproj",
+            "ok": true
+          }
+        },
+        {
+          "name": "sequences created: 1",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "ui": "a6fd7045-8f57-465b-a079-e0dcaa36d32a"
+          }
+        }
+      ]
+    },
+    {
+      "name": "UI_check active, playhead at 4 s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "panel opens and shows the catalog (N3/N4 of panel-framework.md)",
+      "pass": true,
+      "detail": "catalog"
+    },
+    {
+      "name": "status line shows the host, the panel and the library",
+      "pass": true,
+      "detail": "Шрифты SB Sans на местеPr 26.5.2 · панель 0.1.0 · библиотека 2026.10.05Скопировать диагностику"
+    },
+    {
+      "name": "card «Подпись спикера» opens the form",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "format chip follows UI_check 1920x1080",
+      "pass": true,
+      "detail": "Авто 16:9 · 1920×1080 · 25p"
+    },
+    {
+      "name": "name typed",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "style «Подкаст» picked",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "«Вставить на плейхед» clicked",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "insert reported as done in the panel",
+      "pass": true,
+      "detail": {
+        "outcome": "done: Вставлено: клип выделен на таймлайне.",
+        "problems": []
+      }
+    },
+    {
+      "name": "Premiere: the clip is on the timeline at 4 s, selected",
+      "pass": true,
+      "detail": [
+        {
+          "track": 2,
+          "name": "TTL_LowerThird_16x9_v1",
+          "startSec": 4,
+          "endSec": 10,
+          "scale": 100,
+          "selected": true
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-10-05T07:39:13.920Z",
+  "failed": []
+}
