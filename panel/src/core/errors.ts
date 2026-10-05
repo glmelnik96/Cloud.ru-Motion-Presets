@@ -53,6 +53,7 @@ export const MESSAGES: Readonly<Record<string, string>> = {
   SELECTION_MISMATCH: 'Вставленный слой не удалось выделить.',
   SELECTION_FAILED: 'Вставленный слой не удалось выделить.',
   LENGTH_MISMATCH: 'Длина клипа отличается от заданной. Проверьте его на таймлайне.',
+  CLIPS_OVERWRITTEN: 'Шаблон оказался длиннее, чем в библиотеке, и перекрыл клипы на своей дорожке. Проверьте таймлайн.',
   FONTS_UNAVAILABLE: 'Не удалось проверить шрифты шаблона в After Effects.',
   // bridge and library
   TIMEOUT: 'Приложение не ответило вовремя. Проверьте таймлайн, прежде чем вставлять снова.',
@@ -108,6 +109,7 @@ export const PARAMS: Readonly<Record<string, readonly string[]>> = {
   SELECTION_MISMATCH: [],
   SELECTION_FAILED: [],
   LENGTH_MISMATCH: [],
+  CLIPS_OVERWRITTEN: ['detail'],
   FONTS_UNAVAILABLE: [],
   TIMEOUT: ['detail'],
   ADAPTER_LOAD: [],

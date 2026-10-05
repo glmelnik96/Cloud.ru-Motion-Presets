@@ -134,7 +134,8 @@ export function sameValue(host: HostKey, type: Field['type'], written: FieldValu
   if (type === 'dropdown' || type === 'slider') {
     const x = toNumber(written);
     const y = toNumber(back);
-    return Number.isFinite(x) && Number.isFinite(y) && Math.abs(x - y) <= (type === 'slider' ? 1e-6 : 0);
+    // slider slack as in S5 and the Premiere adapter (a host may keep a slider as float32); a dropdown is exact
+    return Number.isFinite(x) && Number.isFinite(y) && Math.abs(x - y) <= (type === 'slider' ? 1e-3 : 0);
   }
   return String(back) === String(written);
 }

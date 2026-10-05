@@ -194,9 +194,11 @@ describe('sameValue', () => {
     expect(sameValue('ae', 'slider', 15, 15.0000001)).toBe(true);
     expect(sameValue('ae', 'slider', 15, '16')).toBe(false);
   });
-  it('allows a microunit of slack on a slider, none on a dropdown', () => {
-    expect(sameValue('ae', 'slider', 15, 15.0000005)).toBe(true);
-    expect(sameValue('ae', 'slider', 15, 15.000005)).toBe(false);
+  // one rule with the Premiere adapter: the slack S5 measured on 26.5.2 (a host may store a slider as float32)
+  it('allows a thousandth of slack on a slider, none on a dropdown', () => {
+    expect(sameValue('ae', 'slider', 15, 15.0005)).toBe(true);
+    expect(sameValue('pr', 'slider', 523.17, 523.1700134)).toBe(true);
+    expect(sameValue('ae', 'slider', 15, 15.002)).toBe(false);
     expect(sameValue('pr', 'dropdown', 2, 2.0000005)).toBe(false);
   });
   it('is not fooled by the words "null" and "undefined" as the text of a missing read-back', () => {
