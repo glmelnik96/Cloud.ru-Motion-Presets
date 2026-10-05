@@ -1,10 +1,10 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-05T15:56:11.884Z",
-  "finishedAt": "2026-10-05T15:56:15.694Z",
+  "startedAt": "2026-10-05T16:13:03.561Z",
+  "finishedAt": "2026-10-05T16:13:08.633Z",
   "summary": {
-    "checks": 102,
-    "passed": 102,
+    "checks": 142,
+    "passed": 142,
     "failed": 0
   },
   "failed": [],
@@ -30,7 +30,7 @@
         "data": {
           "app": "ae",
           "version": "26.5x89",
-          "bk": "0.1.7"
+          "bk": "0.1.8"
         }
       }
     },
@@ -2266,6 +2266,427 @@
     },
     {
       "name": "save: scratch project saved",
+      "pass": true,
+      "required": false,
+      "detail": ""
+    },
+    {
+      "name": "effects: stand-in presets found in the AE presets folder",
+      "pass": true,
+      "required": true,
+      "detail": "set BRANDKIT_AE_PRESETS to the Presets folder of AE"
+    },
+    {
+      "name": "effects: setup: scratch project created and saved in the work folder",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "comps": 1,
+        "path": "C:\\CRBK\\work\\panel-live\\ae\\effects_live.aep"
+      }
+    },
+    {
+      "name": "effects: layers: a text layer and a solid in comp 1",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "effects: read before: effects of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "effects text: FX_TextRise is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "FX_TextRise"
+    },
+    {
+      "name": "effects text: select: comp 1: selected BK Имя",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "effects text: getContext counts 1 selected layers",
+      "pass": true,
+      "required": true,
+      "detail": 1
+    },
+    {
+      "name": "effects text: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "effects text: applied to BK Имя",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "BK Имя",
+              "layerId": 13,
+              "changed": true,
+              "firstKeySec": 2
+            }
+          ],
+          "newLayers": []
+        }
+      }
+    },
+    {
+      "name": "effects text: warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "effects text: read: effects of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "effects text: BK Имя got an effect or text animator",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": {
+          "name": "BK Имя",
+          "effects": 0,
+          "animators": 0,
+          "firstKey": null
+        },
+        "after": {
+          "name": "BK Имя",
+          "effects": 0,
+          "animators": 1,
+          "firstKey": 2
+        }
+      }
+    },
+    {
+      "name": "effects text: BK Имя keys start at the current time, 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "reply": {
+          "name": "BK Имя",
+          "layerId": 13,
+          "changed": true,
+          "firstKeySec": 2
+        },
+        "read": {
+          "name": "BK Имя",
+          "effects": 0,
+          "animators": 1,
+          "firstKey": 2
+        }
+      }
+    },
+    {
+      "name": "effects text: no new layer",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "effects plate: FX_PlateGrow is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "FX_PlateGrow"
+    },
+    {
+      "name": "effects plate: select: comp 1: selected BK Плашка",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "effects plate: getContext counts 1 selected layers",
+      "pass": true,
+      "required": true,
+      "detail": 1
+    },
+    {
+      "name": "effects plate: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "effects plate: applied to BK Плашка",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "BK Плашка",
+              "layerId": 16,
+              "changed": true,
+              "firstKeySec": 4
+            }
+          ],
+          "newLayers": []
+        }
+      }
+    },
+    {
+      "name": "effects plate: warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "effects plate: read: effects of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "effects plate: BK Плашка got an effect or text animator",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": {
+          "name": "BK Плашка",
+          "effects": 0,
+          "animators": 0,
+          "firstKey": null
+        },
+        "after": {
+          "name": "BK Плашка",
+          "effects": 1,
+          "animators": 0,
+          "firstKey": 4
+        }
+      }
+    },
+    {
+      "name": "effects plate: BK Плашка keys start at the current time, 4 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "reply": {
+          "name": "BK Плашка",
+          "layerId": 16,
+          "changed": true,
+          "firstKeySec": 4
+        },
+        "read": {
+          "name": "BK Плашка",
+          "effects": 1,
+          "animators": 0,
+          "firstKey": 4
+        }
+      }
+    },
+    {
+      "name": "effects plate: no new layer",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "effects mixed: FX_TextRise is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "FX_TextRise"
+    },
+    {
+      "name": "effects mixed: select: comp 1: selected BK Имя, BK Плашка",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "effects mixed: getContext counts 2 selected layers",
+      "pass": true,
+      "required": true,
+      "detail": 2
+    },
+    {
+      "name": "effects mixed: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "effects mixed: applied to BK Имя",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [
+          {
+            "code": "PRESET_PARTIAL",
+            "severity": "warning",
+            "message": "К слоям BK Плашка пресет не применился: возможно, он для другого типа слоя.",
+            "detail": {
+              "layers": [
+                {
+                  "name": "BK Плашка",
+                  "layerId": 16,
+                  "changed": false,
+                  "firstKeySec": 4
+                },
+                {
+                  "name": "BK Имя",
+                  "layerId": 13,
+                  "changed": true,
+                  "firstKeySec": 2
+                }
+              ],
+              "newLayers": []
+            }
+          }
+        ],
+        "reply": {
+          "layers": [
+            {
+              "name": "BK Плашка",
+              "layerId": 16,
+              "changed": false,
+              "firstKeySec": 4
+            },
+            {
+              "name": "BK Имя",
+              "layerId": 13,
+              "changed": true,
+              "firstKeySec": 2
+            }
+          ],
+          "newLayers": []
+        }
+      }
+    },
+    {
+      "name": "effects mixed: warnings PRESET_PARTIAL",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "code": "PRESET_PARTIAL",
+          "severity": "warning",
+          "message": "К слоям BK Плашка пресет не применился: возможно, он для другого типа слоя.",
+          "detail": {
+            "layers": [
+              {
+                "name": "BK Плашка",
+                "layerId": 16,
+                "changed": false,
+                "firstKeySec": 4
+              },
+              {
+                "name": "BK Имя",
+                "layerId": 13,
+                "changed": true,
+                "firstKeySec": 2
+              }
+            ],
+            "newLayers": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "effects mixed: read: effects of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "effects mixed: BK Имя got an effect or text animator",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": {
+          "name": "BK Имя",
+          "effects": 0,
+          "animators": 1,
+          "firstKey": 2
+        },
+        "after": {
+          "name": "BK Имя",
+          "effects": 0,
+          "animators": 2,
+          "firstKey": 2
+        }
+      }
+    },
+    {
+      "name": "effects mixed: no new layer",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "effects none: FX_PlateGrow is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "FX_PlateGrow"
+    },
+    {
+      "name": "effects none: select: comp 1: selected nothing",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "effects none: getContext counts 0 selected layers",
+      "pass": true,
+      "required": true,
+      "detail": 0
+    },
+    {
+      "name": "effects none: refused before the host (NO_SELECTION)",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "code": "NO_SELECTION",
+          "severity": "error",
+          "message": "Выделите в композиции слои, к которым применить эффект: без выделения After Effects создаёт новый слой."
+        }
+      ]
+    },
+    {
+      "name": "effects none: read: effects of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "effects none: the adapter refuses too and adds no layer",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "direct": {
+          "ok": false,
+          "error": {
+            "code": "NO_SELECTION",
+            "message": "no layer selected",
+            "detail": null
+          }
+        },
+        "layers": [
+          "BK Плашка",
+          "BK Имя"
+        ]
+      }
+    },
+    {
+      "name": "effects: save: scratch project saved",
       "pass": true,
       "required": false,
       "detail": ""
