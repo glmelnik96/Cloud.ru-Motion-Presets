@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "description": "Task 29 trial: a CEP panel built by plain Vite (the repo vite) with Preact 10 and signed by ZXPSignCmd 4.1.3",
+  "description": "Task 29 trial: a CEP panel built by plain Vite (vite 8 from the repo root, then a vitest peer) with Preact 10 and signed by ZXPSignCmd 4.1.3",
   "scripts": {
     "build": "vite build"
   },
