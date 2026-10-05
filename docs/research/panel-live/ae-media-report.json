@@ -1,0 +1,2265 @@
+{
+  "host": "ae",
+  "startedAt": "2026-10-05T13:41:13.650Z",
+  "finishedAt": "2026-10-05T13:41:16.980Z",
+  "summary": {
+    "checks": 101,
+    "passed": 101,
+    "failed": 0
+  },
+  "failed": [],
+  "checks": [
+    {
+      "name": "synthetic pack built: 11 files made, catalog in C:\\CRBK\\work\\panel-live\\media\\library",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "catalog read by the panel core",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "bridge: the host bundle answers",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "data": {
+          "app": "ae",
+          "version": "26.5x89",
+          "bk": "0.1.5"
+        }
+      }
+    },
+    {
+      "name": "setup: scratch project created and saved in the work folder",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "comps": 5,
+        "path": "C:\\CRBK\\work\\panel-live\\ae\\media_live.aep"
+      }
+    },
+    {
+      "name": "loop: BG_Arrows is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "BG_Arrows"
+    },
+    {
+      "name": "loop: range: work area of comp 1 ends at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "loop: activate: comp 1 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "BK media loop"
+      }
+    },
+    {
+      "name": "loop: getContext reports the end of the range, 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "kind": "comp",
+        "id": "1",
+        "name": "BK media loop",
+        "w": 1920,
+        "h": 1080,
+        "fps": 25,
+        "timeSec": 2,
+        "durationSec": 60,
+        "rangeEndSec": 20
+      }
+    },
+    {
+      "name": "loop: planned without errors",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "loop: files copied next to the project (3 copied, 0 reused, 0 written)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "copied": [
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
+        ],
+        "reused": [],
+        "written": []
+      }
+    },
+    {
+      "name": "loop: inserted, every piece where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "startSec": 2,
+          "lengthSec": 18,
+          "placed": [
+            {
+              "role": "intro",
+              "name": "BG_Arrows_16x9_intro_v1.mov",
+              "layerId": 63,
+              "startSec": 2,
+              "lengthSec": 1
+            },
+            {
+              "role": "loop",
+              "name": "BG_Arrows_16x9_loop_v1.mov",
+              "layerId": 65,
+              "startSec": 3,
+              "lengthSec": 16
+            },
+            {
+              "role": "outro",
+              "name": "BG_Arrows_16x9_outro_v1.mov",
+              "layerId": 67,
+              "startSec": 19,
+              "lengthSec": 1
+            },
+            {
+              "role": "backdrop",
+              "name": "BrandKit #222222",
+              "layerId": 70,
+              "startSec": 2,
+              "lengthSec": 18
+            }
+          ],
+          "imported": 3,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "loop: timeline: layers of comp 1 listed",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "loop: intro on the timeline as reported (2 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "intro",
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "layerId": 63,
+          "startSec": 2,
+          "lengthSec": 1
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 2,
+            "endSec": 3,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          },
+          {
+            "index": 2,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 3,
+            "endSec": 19,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 3,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 19,
+            "endSec": 20,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 4,
+            "name": "BrandKit #222222",
+            "startSec": 2,
+            "endSec": 20,
+            "file": null,
+            "loop": null,
+            "solid": [
+              34,
+              34,
+              34
+            ],
+            "audioOnly": false,
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "loop: intro ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 1,
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "startSec": 2,
+          "endSec": 3,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": false,
+          "selected": true
+        },
+        "p": {
+          "role": "intro",
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "layerId": 63,
+          "startSec": 2,
+          "lengthSec": 1
+        }
+      }
+    },
+    {
+      "name": "loop: intro plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov"
+    },
+    {
+      "name": "loop: loop on the timeline as reported (3 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "loop",
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "layerId": 65,
+          "startSec": 3,
+          "lengthSec": 16
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 2,
+            "endSec": 3,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          },
+          {
+            "index": 2,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 3,
+            "endSec": 19,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 3,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 19,
+            "endSec": 20,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 4,
+            "name": "BrandKit #222222",
+            "startSec": 2,
+            "endSec": 20,
+            "file": null,
+            "loop": null,
+            "solid": [
+              34,
+              34,
+              34
+            ],
+            "audioOnly": false,
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "loop: loop ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 2,
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "startSec": 3,
+          "endSec": 19,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "loop": 2,
+          "solid": null,
+          "audioOnly": false,
+          "selected": false
+        },
+        "p": {
+          "role": "loop",
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "layerId": 65,
+          "startSec": 3,
+          "lengthSec": 16
+        }
+      }
+    },
+    {
+      "name": "loop: loop plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov"
+    },
+    {
+      "name": "loop: outro on the timeline as reported (19 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "outro",
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "layerId": 67,
+          "startSec": 19,
+          "lengthSec": 1
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 2,
+            "endSec": 3,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          },
+          {
+            "index": 2,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 3,
+            "endSec": 19,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 3,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 19,
+            "endSec": 20,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 4,
+            "name": "BrandKit #222222",
+            "startSec": 2,
+            "endSec": 20,
+            "file": null,
+            "loop": null,
+            "solid": [
+              34,
+              34,
+              34
+            ],
+            "audioOnly": false,
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "loop: outro ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 3,
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "startSec": 19,
+          "endSec": 20,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": false,
+          "selected": false
+        },
+        "p": {
+          "role": "outro",
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "layerId": 67,
+          "startSec": 19,
+          "lengthSec": 1
+        }
+      }
+    },
+    {
+      "name": "loop: outro plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
+    },
+    {
+      "name": "loop: backdrop on the timeline as reported (2 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "backdrop",
+          "name": "BrandKit #222222",
+          "layerId": 70,
+          "startSec": 2,
+          "lengthSec": 18
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 2,
+            "endSec": 3,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          },
+          {
+            "index": 2,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 3,
+            "endSec": 19,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 3,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 19,
+            "endSec": 20,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 4,
+            "name": "BrandKit #222222",
+            "startSec": 2,
+            "endSec": 20,
+            "file": null,
+            "loop": null,
+            "solid": [
+              34,
+              34,
+              34
+            ],
+            "audioOnly": false,
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "loop: length 18 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BG_Arrows_16x9_intro_v1.mov",
+        "startSec": 2,
+        "lengthSec": 18,
+        "placed": [
+          {
+            "role": "intro",
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "layerId": 63,
+            "startSec": 2,
+            "lengthSec": 1
+          },
+          {
+            "role": "loop",
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "layerId": 65,
+            "startSec": 3,
+            "lengthSec": 16
+          },
+          {
+            "role": "outro",
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "layerId": 67,
+            "startSec": 19,
+            "lengthSec": 1
+          },
+          {
+            "role": "backdrop",
+            "name": "BrandKit #222222",
+            "layerId": 70,
+            "startSec": 2,
+            "lengthSec": 18
+          }
+        ],
+        "imported": 3,
+        "notes": []
+      }
+    },
+    {
+      "name": "loop: backdrop #222222 under the loop",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "role": "intro",
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "layerId": 63,
+          "startSec": 2,
+          "lengthSec": 1
+        },
+        {
+          "role": "loop",
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "layerId": 65,
+          "startSec": 3,
+          "lengthSec": 16
+        },
+        {
+          "role": "outro",
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "layerId": 67,
+          "startSec": 19,
+          "lengthSec": 1
+        },
+        {
+          "role": "backdrop",
+          "name": "BrandKit #222222",
+          "layerId": 70,
+          "startSec": 2,
+          "lengthSec": 18
+        }
+      ]
+    },
+    {
+      "name": "loop: the solid is #222222 and lies under the loop layers",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "solid": {
+          "index": 4,
+          "name": "BrandKit #222222",
+          "startSec": 2,
+          "endSec": 20,
+          "file": null,
+          "loop": null,
+          "solid": [
+            34,
+            34,
+            34
+          ],
+          "audioOnly": false,
+          "selected": false
+        },
+        "loopRow": {
+          "index": 1,
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "startSec": 2,
+          "endSec": 3,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": false,
+          "selected": true
+        }
+      }
+    },
+    {
+      "name": "loop: Interpret Footage > Loop 2×",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "index": 2,
+        "name": "BG_Arrows_16x9_loop_v1.mov",
+        "startSec": 3,
+        "endSec": 19,
+        "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+        "loop": 2,
+        "solid": null,
+        "audioOnly": false,
+        "selected": false
+      }
+    },
+    {
+      "name": "loop: probeInsert finds the file after the fact (what a timeout would read)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "data": {
+          "found": true,
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "layerId": 63
+        }
+      }
+    },
+    {
+      "name": "reuse: BG_Arrows is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "BG_Arrows"
+    },
+    {
+      "name": "reuse: activate: comp 1 active at 30 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "BK media loop"
+      }
+    },
+    {
+      "name": "reuse: planned without errors",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "reuse: files copied next to the project (0 copied, 3 reused, 0 written)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "copied": [],
+        "reused": [
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
+        ],
+        "written": []
+      }
+    },
+    {
+      "name": "reuse: inserted, every piece where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "startSec": 30,
+          "lengthSec": 12,
+          "placed": [
+            {
+              "role": "intro",
+              "name": "BG_Arrows_16x9_intro_v1.mov",
+              "layerId": 71,
+              "startSec": 30,
+              "lengthSec": 1
+            },
+            {
+              "role": "loop",
+              "name": "BG_Arrows_16x9_loop_v1.mov",
+              "layerId": 72,
+              "startSec": 31,
+              "lengthSec": 10
+            },
+            {
+              "role": "outro",
+              "name": "BG_Arrows_16x9_outro_v1.mov",
+              "layerId": 73,
+              "startSec": 41,
+              "lengthSec": 1
+            }
+          ],
+          "imported": 0,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "reuse: timeline: layers of comp 1 listed",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "reuse: intro on the timeline as reported (30 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "intro",
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "layerId": 71,
+          "startSec": 30,
+          "lengthSec": 1
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 30,
+            "endSec": 31,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          },
+          {
+            "index": 2,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 31,
+            "endSec": 41,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 3,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 41,
+            "endSec": 42,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 4,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 2,
+            "endSec": 3,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 5,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 3,
+            "endSec": 19,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 6,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 19,
+            "endSec": 20,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 7,
+            "name": "BrandKit #222222",
+            "startSec": 2,
+            "endSec": 20,
+            "file": null,
+            "loop": null,
+            "solid": [
+              34,
+              34,
+              34
+            ],
+            "audioOnly": false,
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "reuse: intro ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 1,
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "startSec": 30,
+          "endSec": 31,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": false,
+          "selected": true
+        },
+        "p": {
+          "role": "intro",
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "layerId": 71,
+          "startSec": 30,
+          "lengthSec": 1
+        }
+      }
+    },
+    {
+      "name": "reuse: intro plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov"
+    },
+    {
+      "name": "reuse: loop on the timeline as reported (31 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "loop",
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "layerId": 72,
+          "startSec": 31,
+          "lengthSec": 10
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 30,
+            "endSec": 31,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          },
+          {
+            "index": 2,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 31,
+            "endSec": 41,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 3,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 41,
+            "endSec": 42,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 4,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 2,
+            "endSec": 3,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 5,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 3,
+            "endSec": 19,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 6,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 19,
+            "endSec": 20,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 7,
+            "name": "BrandKit #222222",
+            "startSec": 2,
+            "endSec": 20,
+            "file": null,
+            "loop": null,
+            "solid": [
+              34,
+              34,
+              34
+            ],
+            "audioOnly": false,
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "reuse: loop ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 2,
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "startSec": 31,
+          "endSec": 41,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "loop": 2,
+          "solid": null,
+          "audioOnly": false,
+          "selected": false
+        },
+        "p": {
+          "role": "loop",
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "layerId": 72,
+          "startSec": 31,
+          "lengthSec": 10
+        }
+      }
+    },
+    {
+      "name": "reuse: loop plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov"
+    },
+    {
+      "name": "reuse: outro on the timeline as reported (41 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "outro",
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "layerId": 73,
+          "startSec": 41,
+          "lengthSec": 1
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 30,
+            "endSec": 31,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          },
+          {
+            "index": 2,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 31,
+            "endSec": 41,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 3,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 41,
+            "endSec": 42,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 4,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 2,
+            "endSec": 3,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 5,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 3,
+            "endSec": 19,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 6,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 19,
+            "endSec": 20,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 7,
+            "name": "BrandKit #222222",
+            "startSec": 2,
+            "endSec": 20,
+            "file": null,
+            "loop": null,
+            "solid": [
+              34,
+              34,
+              34
+            ],
+            "audioOnly": false,
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "reuse: outro ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 3,
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "startSec": 41,
+          "endSec": 42,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": false,
+          "selected": false
+        },
+        "p": {
+          "role": "outro",
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "layerId": 73,
+          "startSec": 41,
+          "lengthSec": 1
+        }
+      }
+    },
+    {
+      "name": "reuse: outro plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
+    },
+    {
+      "name": "reuse: length 12 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BG_Arrows_16x9_intro_v1.mov",
+        "startSec": 30,
+        "lengthSec": 12,
+        "placed": [
+          {
+            "role": "intro",
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "layerId": 71,
+            "startSec": 30,
+            "lengthSec": 1
+          },
+          {
+            "role": "loop",
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "layerId": 72,
+            "startSec": 31,
+            "lengthSec": 10
+          },
+          {
+            "role": "outro",
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "layerId": 73,
+            "startSec": 41,
+            "lengthSec": 1
+          }
+        ],
+        "imported": 0,
+        "notes": []
+      }
+    },
+    {
+      "name": "reuse: backdrop #222222 left out",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "role": "intro",
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "layerId": 71,
+          "startSec": 30,
+          "lengthSec": 1
+        },
+        {
+          "role": "loop",
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "layerId": 72,
+          "startSec": 31,
+          "lengthSec": 10
+        },
+        {
+          "role": "outro",
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "layerId": 73,
+          "startSec": 41,
+          "lengthSec": 1
+        }
+      ]
+    },
+    {
+      "name": "reuse: nothing imported twice into «Cloud.ru BrandKit»",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "imported": 0,
+        "bin": 3
+      }
+    },
+    {
+      "name": "reuse: probeInsert finds the file after the fact (what a timeout would read)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "data": {
+          "found": true,
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "layerId": 71
+        }
+      }
+    },
+    {
+      "name": "transition: TRN_StepWipe is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "TRN_StepWipe"
+    },
+    {
+      "name": "transition: activate: comp 13 active at 12 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "BK media transition"
+      }
+    },
+    {
+      "name": "transition: planned without errors",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "transition: files copied next to the project (1 copied, 0 reused, 0 written)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "copied": [
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_v1.mov"
+        ],
+        "reused": [],
+        "written": []
+      }
+    },
+    {
+      "name": "transition: inserted, every piece where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "TRN_StepWipe_16x9_v1.mov",
+          "startSec": 11.52,
+          "lengthSec": 1,
+          "placed": [
+            {
+              "role": "transition",
+              "name": "TRN_StepWipe_16x9_v1.mov",
+              "layerId": 75,
+              "startSec": 11.52,
+              "lengthSec": 1
+            }
+          ],
+          "imported": 1,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "transition: timeline: layers of comp 13 listed",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "transition: transition on the timeline as reported (11.52 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "transition",
+          "name": "TRN_StepWipe_16x9_v1.mov",
+          "layerId": 75,
+          "startSec": 11.52,
+          "lengthSec": 1
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "TRN_StepWipe_16x9_v1.mov",
+            "startSec": 11.52,
+            "endSec": 12.52,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "transition: transition ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 1,
+          "name": "TRN_StepWipe_16x9_v1.mov",
+          "startSec": 11.52,
+          "endSec": 12.52,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_v1.mov",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": false,
+          "selected": true
+        },
+        "p": {
+          "role": "transition",
+          "name": "TRN_StepWipe_16x9_v1.mov",
+          "layerId": 75,
+          "startSec": 11.52,
+          "lengthSec": 1
+        }
+      }
+    },
+    {
+      "name": "transition: transition plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_v1.mov"
+    },
+    {
+      "name": "transition: the marker of full cover (frame 12) on the current time: starts at 11.52 s",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "role": "transition",
+          "name": "TRN_StepWipe_16x9_v1.mov",
+          "layerId": 75,
+          "startSec": 11.52,
+          "lengthSec": 1
+        }
+      ]
+    },
+    {
+      "name": "transition: probeInsert finds the file after the fact (what a timeout would read)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "data": {
+          "found": true,
+          "name": "TRN_StepWipe_16x9_v1.mov",
+          "layerId": 75
+        }
+      }
+    },
+    {
+      "name": "still: BG_DotGrid is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "BG_DotGrid"
+    },
+    {
+      "name": "still: activate: comp 25 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "BK media still"
+      }
+    },
+    {
+      "name": "still: planned without errors",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "still: files copied next to the project (1 copied, 0 reused, 0 written)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "copied": [
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png"
+        ],
+        "reused": [],
+        "written": []
+      }
+    },
+    {
+      "name": "still: inserted, every piece where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "BG_DotGrid_16x9_v1.png",
+          "startSec": 2,
+          "lengthSec": 8,
+          "placed": [
+            {
+              "role": "still",
+              "name": "BG_DotGrid_16x9_v1.png",
+              "layerId": 77,
+              "startSec": 2,
+              "lengthSec": 8
+            }
+          ],
+          "imported": 1,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "still: timeline: layers of comp 25 listed",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "still: still on the timeline as reported (2 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "still",
+          "name": "BG_DotGrid_16x9_v1.png",
+          "layerId": 77,
+          "startSec": 2,
+          "lengthSec": 8
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "BG_DotGrid_16x9_v1.png",
+            "startSec": 2,
+            "endSec": 10,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png",
+            "loop": null,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "still: still ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 1,
+          "name": "BG_DotGrid_16x9_v1.png",
+          "startSec": 2,
+          "endSec": 10,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png",
+          "loop": null,
+          "solid": null,
+          "audioOnly": false,
+          "selected": true
+        },
+        "p": {
+          "role": "still",
+          "name": "BG_DotGrid_16x9_v1.png",
+          "layerId": 77,
+          "startSec": 2,
+          "lengthSec": 8
+        }
+      }
+    },
+    {
+      "name": "still: still plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png"
+    },
+    {
+      "name": "still: length 8 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BG_DotGrid_16x9_v1.png",
+        "startSec": 2,
+        "lengthSec": 8,
+        "placed": [
+          {
+            "role": "still",
+            "name": "BG_DotGrid_16x9_v1.png",
+            "layerId": 77,
+            "startSec": 2,
+            "lengthSec": 8
+          }
+        ],
+        "imported": 1,
+        "notes": []
+      }
+    },
+    {
+      "name": "still: probeInsert finds the file after the fact (what a timeout would read)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "data": {
+          "found": true,
+          "name": "BG_DotGrid_16x9_v1.png",
+          "layerId": 77
+        }
+      }
+    },
+    {
+      "name": "sound: SFX_WhooshIn is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "SFX_WhooshIn"
+    },
+    {
+      "name": "sound: activate: comp 37 active at 5 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "BK media sound"
+      }
+    },
+    {
+      "name": "sound: planned without errors",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "sound: files copied next to the project (1 copied, 0 reused, 0 written)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "copied": [
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
+        ],
+        "reused": [],
+        "written": []
+      }
+    },
+    {
+      "name": "sound: inserted, every piece where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "SFX_WhooshIn_wav_v1.wav",
+          "startSec": 5,
+          "lengthSec": 0.8,
+          "placed": [
+            {
+              "role": "sound",
+              "name": "SFX_WhooshIn_wav_v1.wav",
+              "layerId": 79,
+              "startSec": 5,
+              "lengthSec": 0.8
+            }
+          ],
+          "imported": 1,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "sound: timeline: layers of comp 37 listed",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "sound: sound on the timeline as reported (5 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "sound",
+          "name": "SFX_WhooshIn_wav_v1.wav",
+          "layerId": 79,
+          "startSec": 5,
+          "lengthSec": 0.8
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "SFX_WhooshIn_wav_v1.wav",
+            "startSec": 5,
+            "endSec": 5.8,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": true,
+            "selected": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "sound: sound ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 1,
+          "name": "SFX_WhooshIn_wav_v1.wav",
+          "startSec": 5,
+          "endSec": 5.8,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": true,
+          "selected": true
+        },
+        "p": {
+          "role": "sound",
+          "name": "SFX_WhooshIn_wav_v1.wav",
+          "layerId": 79,
+          "startSec": 5,
+          "lengthSec": 0.8
+        }
+      }
+    },
+    {
+      "name": "sound: sound plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
+    },
+    {
+      "name": "sound: length 0.8 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "SFX_WhooshIn_wav_v1.wav",
+        "startSec": 5,
+        "lengthSec": 0.8,
+        "placed": [
+          {
+            "role": "sound",
+            "name": "SFX_WhooshIn_wav_v1.wav",
+            "layerId": 79,
+            "startSec": 5,
+            "lengthSec": 0.8
+          }
+        ],
+        "imported": 1,
+        "notes": []
+      }
+    },
+    {
+      "name": "sound: probeInsert finds the file after the fact (what a timeout would read)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "data": {
+          "found": true,
+          "name": "SFX_WhooshIn_wav_v1.wav",
+          "layerId": 79
+        }
+      }
+    },
+    {
+      "name": "companions: TTL_LowerThird is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "TTL_LowerThird"
+    },
+    {
+      "name": "companions: activate: comp 49 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "BK media companions"
+      }
+    },
+    {
+      "name": "companions: planned without errors",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "companions: files copied next to the project (0 copied, 4 reused, 0 written)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "copied": [],
+        "reused": [
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
+        ],
+        "written": []
+      }
+    },
+    {
+      "name": "companions: inserted, every piece where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_LowerThird_16x9_v1",
+          "layerId": 229,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 6,
+          "readback": {
+            "Имя": "Имя Фамилия",
+            "Должность": "Должность",
+            "Должность, 2-я строка": "",
+            "Стиль": 1,
+            "Сторона": 1,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": true,
+          "notes": [
+            "footage: 0"
+          ],
+          "companions": [
+            {
+              "role": "intro",
+              "name": "BG_Arrows_16x9_intro_v1.mov",
+              "layerId": 230,
+              "startSec": 2,
+              "lengthSec": 1
+            },
+            {
+              "role": "loop",
+              "name": "BG_Arrows_16x9_loop_v1.mov",
+              "layerId": 231,
+              "startSec": 3,
+              "lengthSec": 4
+            },
+            {
+              "role": "outro",
+              "name": "BG_Arrows_16x9_outro_v1.mov",
+              "layerId": 232,
+              "startSec": 7,
+              "lengthSec": 1
+            },
+            {
+              "role": "sound",
+              "name": "SFX_WhooshIn_wav_v1.wav",
+              "layerId": 233,
+              "startSec": 7.2,
+              "lengthSec": 0.8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "companions: timeline: layers of comp 49 listed",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "companions: intro on the timeline as reported (2 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "intro",
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "layerId": 230,
+          "startSec": 2,
+          "lengthSec": 1
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "CR_TTL_LowerThird_16x9_v1",
+            "startSec": 2,
+            "endSec": 8,
+            "file": null,
+            "loop": null,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          },
+          {
+            "index": 2,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 2,
+            "endSec": 3,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 3,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 3,
+            "endSec": 7,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 4,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 7,
+            "endSec": 8,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 5,
+            "name": "SFX_WhooshIn_wav_v1.wav",
+            "startSec": 7.2,
+            "endSec": 8,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": true,
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "companions: intro ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 2,
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "startSec": 2,
+          "endSec": 3,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": false,
+          "selected": false
+        },
+        "p": {
+          "role": "intro",
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "layerId": 230,
+          "startSec": 2,
+          "lengthSec": 1
+        }
+      }
+    },
+    {
+      "name": "companions: intro plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov"
+    },
+    {
+      "name": "companions: loop on the timeline as reported (3 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "loop",
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "layerId": 231,
+          "startSec": 3,
+          "lengthSec": 4
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "CR_TTL_LowerThird_16x9_v1",
+            "startSec": 2,
+            "endSec": 8,
+            "file": null,
+            "loop": null,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          },
+          {
+            "index": 2,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 2,
+            "endSec": 3,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 3,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 3,
+            "endSec": 7,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 4,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 7,
+            "endSec": 8,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 5,
+            "name": "SFX_WhooshIn_wav_v1.wav",
+            "startSec": 7.2,
+            "endSec": 8,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": true,
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "companions: loop ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 3,
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "startSec": 3,
+          "endSec": 7,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "loop": 2,
+          "solid": null,
+          "audioOnly": false,
+          "selected": false
+        },
+        "p": {
+          "role": "loop",
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "layerId": 231,
+          "startSec": 3,
+          "lengthSec": 4
+        }
+      }
+    },
+    {
+      "name": "companions: loop plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov"
+    },
+    {
+      "name": "companions: outro on the timeline as reported (7 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "outro",
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "layerId": 232,
+          "startSec": 7,
+          "lengthSec": 1
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "CR_TTL_LowerThird_16x9_v1",
+            "startSec": 2,
+            "endSec": 8,
+            "file": null,
+            "loop": null,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          },
+          {
+            "index": 2,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 2,
+            "endSec": 3,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 3,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 3,
+            "endSec": 7,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 4,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 7,
+            "endSec": 8,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 5,
+            "name": "SFX_WhooshIn_wav_v1.wav",
+            "startSec": 7.2,
+            "endSec": 8,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": true,
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "companions: outro ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 4,
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "startSec": 7,
+          "endSec": 8,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": false,
+          "selected": false
+        },
+        "p": {
+          "role": "outro",
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "layerId": 232,
+          "startSec": 7,
+          "lengthSec": 1
+        }
+      }
+    },
+    {
+      "name": "companions: outro plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
+    },
+    {
+      "name": "companions: sound on the timeline as reported (7.2 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "sound",
+          "name": "SFX_WhooshIn_wav_v1.wav",
+          "layerId": 233,
+          "startSec": 7.2,
+          "lengthSec": 0.8
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "CR_TTL_LowerThird_16x9_v1",
+            "startSec": 2,
+            "endSec": 8,
+            "file": null,
+            "loop": null,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          },
+          {
+            "index": 2,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 2,
+            "endSec": 3,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 3,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 3,
+            "endSec": 7,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 4,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 7,
+            "endSec": 8,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 5,
+            "name": "SFX_WhooshIn_wav_v1.wav",
+            "startSec": 7.2,
+            "endSec": 8,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": true,
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "companions: sound ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 5,
+          "name": "SFX_WhooshIn_wav_v1.wav",
+          "startSec": 7.2,
+          "endSec": 8,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": true,
+          "selected": false
+        },
+        "p": {
+          "role": "sound",
+          "name": "SFX_WhooshIn_wav_v1.wav",
+          "layerId": 233,
+          "startSec": 7.2,
+          "lengthSec": 0.8
+        }
+      }
+    },
+    {
+      "name": "companions: sound plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
+    },
+    {
+      "name": "companions: companions placed: intro, loop, outro, sound",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "role": "intro",
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "layerId": 230,
+          "startSec": 2,
+          "lengthSec": 1
+        },
+        {
+          "role": "loop",
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "layerId": 231,
+          "startSec": 3,
+          "lengthSec": 4
+        },
+        {
+          "role": "outro",
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "layerId": 232,
+          "startSec": 7,
+          "lengthSec": 1
+        },
+        {
+          "role": "sound",
+          "name": "SFX_WhooshIn_wav_v1.wav",
+          "layerId": 233,
+          "startSec": 7.2,
+          "lengthSec": 0.8
+        }
+      ]
+    },
+    {
+      "name": "companions: the whoosh ends with the template (placement out): starts at 7.2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "role": "sound",
+        "name": "SFX_WhooshIn_wav_v1.wav",
+        "layerId": 233,
+        "startSec": 7.2,
+        "lengthSec": 0.8
+      }
+    },
+    {
+      "name": "companions: the background layers lie right under the template layer",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "tpl": {
+          "index": 1,
+          "name": "CR_TTL_LowerThird_16x9_v1",
+          "startSec": 2,
+          "endSec": 8,
+          "file": null,
+          "loop": null,
+          "solid": null,
+          "audioOnly": false,
+          "selected": true
+        },
+        "under": [
+          {
+            "index": 2,
+            "name": "BG_Arrows_16x9_intro_v1.mov",
+            "startSec": 2,
+            "endSec": 3,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 3,
+            "name": "BG_Arrows_16x9_loop_v1.mov",
+            "startSec": 3,
+            "endSec": 7,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "loop": 2,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          },
+          {
+            "index": 4,
+            "name": "BG_Arrows_16x9_outro_v1.mov",
+            "startSec": 7,
+            "endSec": 8,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "save: scratch project saved",
+      "pass": true,
+      "required": false,
+      "detail": ""
+    }
+  ],
+  "hostVersion": "26.5x89",
+  "outDir": "C:/CRBK/work/panel-live/ae"
+}
