@@ -9,6 +9,7 @@
 // - media footage (__ae.media): Interpret Footage > Loop multiplies the duration of the item, a still has
 //   none and its layer lasts as long as it is told; a new layer goes on top, moveAfter puts it under another.
 var PropertyType = { PROPERTY: 6212, INDEXED_GROUP: 6213, NAMED_GROUP: 6214 };
+var PropertyValueType = { NO_VALUE: 6412, ThreeD_SPATIAL: 6413, OneD: 6417, COLOR: 6418 };
 var KeyframeInterpolationType = { LINEAR: 6612, BEZIER: 6613, HOLD: 6614 };
 var ImportAsType = { COMP_CROPPED_LAYERS: 3812, FOOTAGE: 3813, COMP: 3814, PROJECT: 3815 };
 var BridgeTalk = { appName: 'aftereffects' };
@@ -257,7 +258,17 @@ function __keyed(name, t) {
   return { name: name, matchName: name, propertyType: PropertyType.NAMED_GROUP, numProperties: 1, property: function (i) { return i === 1 ? p : null; } };
 }
 function __list(name, items) {
-  return { name: name, matchName: name, propertyType: PropertyType.INDEXED_GROUP, numProperties: items.length, property: function (i) { return typeof i === 'number' ? items[i - 1] : null; } };
+  return { name: name, matchName: name, propertyType: PropertyType.INDEXED_GROUP, numProperties: items.length,
+    property: function (i) { return typeof i === 'number' ? items[i - 1] : items.filter(function (x) { return x.matchName === i; })[0] || null; } };
+}
+// The Fill effect: Fill Mask, All Masks, Color, Invert, feathers, Opacity — Color is the one colour property.
+function __fillEffect() {
+  var color = __colorProp('Color', 'ADBE Fill-0002', [1, 0, 0, 1]);
+  color.propertyValueType = PropertyValueType.COLOR;
+  var g = __list('ADBE Fill', [{ name: 'Fill Mask', matchName: 'ADBE Fill-0001', propertyType: PropertyType.PROPERTY, propertyValueType: PropertyValueType.OneD }, color]);
+  g.name = 'Fill';
+  g._color = color;
+  return g;
 }
 // applyPreset (S4, AE 26.5): every selected layer of the comp; a text preset changes text layers only; with
 // nothing selected a new solid gets the preset. __ae.presets[path] = { text: bool }.
@@ -287,7 +298,13 @@ AVLayer.prototype.property = function (name) {
   var self = this;
   if (name === 'ADBE Transform Group') return { property: function (n) { return n === 'ADBE Scale' ? self._scale : null; } };
   if (name === 'ADBE Layer Overrides') return this._epGroup;
-  if (name === 'ADBE Effect Parade') return __list('ADBE Effect Parade', this._fx);
+  if (name === 'ADBE Effect Parade') {
+    if (this._noEffects) return null;
+    var fxList = __list('ADBE Effect Parade', this._fx);
+    fxList.canAddProperty = function (m) { return m === 'ADBE Fill'; };
+    fxList.addProperty = function (m) { var e = __fillEffect(); self._fx.push(e); __ae.calls.push('add effect ' + m); return e; };
+    return fxList;
+  }
   if (name === 'ADBE Text Properties') {
     if (!this._text) return null;
     var anims = __list('ADBE Text Animators', this._animators);

@@ -619,6 +619,36 @@
     return !!ms && typeof SolidSource !== 'undefined' && ms instanceof SolidSource;
   }
 
+  // The Fill effect (ADBE Fill) of the layer, added when there is none, gets the colour: what the old
+  // brandcolors panel did on any layer that takes effects (D23, docs/research/colors/brandcolors.md).
+  function paintFillEffect(layer, req, t, rec) {
+    var fx = sub(layer, 'ADBE Effect Parade');
+    var eff = null;
+    var i, p;
+    if (!fx) {
+      return;
+    }
+    try { eff = fx.property('ADBE Fill'); } catch (e) { eff = null; }
+    if (!eff) {
+      if (!fx.canAddProperty('ADBE Fill')) {
+        return;
+      }
+      eff = fx.addProperty('ADBE Fill');
+      rec.addedFill = true;
+    }
+    for (i = 1; i <= eff.numProperties; i++) {
+      p = eff.property(i);
+      if (p.propertyValueType === PropertyValueType.COLOR) {
+        if (driven(p)) {
+          rec.expressions.push(String(eff.name) + ' / ' + p.name);
+        } else {
+          setNow(p, withAlpha(p, req.rgb, t), t, rec);
+        }
+        return;
+      }
+    }
+  }
+
   function colorLayer(layer, req, t) {
     var rec = { name: String(layer.name), set: 0, keyed: 0, expressions: [] };
     var match, list, i, src, doc, text;
@@ -638,6 +668,8 @@
         rec.set += 1;
         rec.solid = true;
       }
+    } else if (req.target === 'effect') {
+      paintFillEffect(layer, req, t, rec);
     } else {
       text = sub(layer, 'ADBE Text Properties');
       src = text ? sub(text, 'ADBE Text Document') : null;

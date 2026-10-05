@@ -37,7 +37,7 @@ export function App({ app, ui }: { app: PanelApp; ui: UiServices }) {
       <main class="main">
         {s.phase === 'loading' && <div class="empty">Загрузка библиотеки…</div>}
         {s.phase === 'error' && <Fatal problems={s.libraryProblems} />}
-        {s.phase === 'ready' && s.tab === 'colors' && <Colors app={app} />}
+        {s.phase === 'ready' && s.tab === 'colors' && <Colors app={app} ui={ui} />}
         {s.phase === 'ready' && s.tab === 'catalog' && (s.view === 'catalog' ? <Catalog app={app} ui={ui} /> : <Form app={app} ui={ui} />)}
       </main>
       <Status app={app} ui={ui} />
@@ -45,21 +45,25 @@ export function App({ app, ui }: { app: PanelApp; ui: UiServices }) {
   );
 }
 
-// «Цвета» (AE): what to repaint, then a swatch of the base palette repaints the selected layers.
-function Colors({ app }: { app: PanelApp }) {
+// «Цвета» (AE): what to repaint, then a swatch of the base palette repaints the selected layers; its HEX
+// copies (as in the old brandcolors panel, D23).
+function Colors({ app, ui }: { app: PanelApp; ui: UiServices }) {
   const s = app.state;
+  const [copied, setCopied] = useState<string | null>(null);
   return (
     <div class="colors">
-      <p class="hint">Выделите слои в композиции, выберите, что перекрасить, и нажмите цвет.</p>
+      <p class="hint">Выделите слои в композиции, выберите, что перекрасить, и нажмите цвет. «Эффект Fill» — как в старой панели Brand Colors: на любой слой.</p>
       <div class="seg" role="group" aria-label="Что перекрасить">
         {TARGETS.map((t) => <button key={t.key} class={s.colorTarget === t.key ? 'on' : ''} onClick={() => app.setColorTarget(t.key)}>{t.label_ru}</button>)}
       </div>
       <div class="swatches">
         {palette().map((c) => (
-          <button key={c.key} class="swatch" disabled={s.busy} title={c.role} onClick={() => void app.paint(c.key)}>
-            <span class="swatch-color" style={{ background: c.hex }} />
-            <span class="swatch-hex">{c.hex}</span>
-          </button>
+          <div key={c.key} class="swatch">
+            <button class="swatch-apply" disabled={s.busy} title={`${c.role} — перекрасить`} style={{ background: c.hex }} onClick={() => void app.paint(c.key)} />
+            <button class="swatch-hex" title="Скопировать HEX" onClick={() => { ui.copy?.(c.hex); setCopied(c.key); setTimeout(() => setCopied(null), 1200); }}>
+              {copied === c.key ? 'Скопировано' : c.hex}
+            </button>
+          </div>
         ))}
       </div>
       <div class="actions">

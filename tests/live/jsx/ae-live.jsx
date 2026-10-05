@@ -266,6 +266,27 @@ function lvRound(v) {
   return out;
 }
 
+// Fill effects of a layer: how many, and the colour of the last one.
+function lvFillEffects(l, rec) {
+  var fx = null;
+  var i, j, e, p;
+  rec.fillEffects = 0;
+  rec.fillEffect = null;
+  try { fx = l.property('ADBE Effect Parade'); } catch (e0) { fx = null; }
+  for (i = 1; fx && i <= fx.numProperties; i++) {
+    e = fx.property(i);
+    if (e.matchName === 'ADBE Fill') {
+      rec.fillEffects += 1;
+      for (j = 1; j <= e.numProperties; j++) {
+        p = e.property(j);
+        if (p.propertyValueType === PropertyValueType.COLOR) {
+          rec.fillEffect = lvRound(p.value);
+        }
+      }
+    }
+  }
+}
+
 function lvColorRead() {
   check('colours of comp ' + PARAMS.id + ' read', function () {
     var c = lvComp(PARAMS.id);
@@ -290,6 +311,7 @@ function lvColorRead() {
         ms = l.source.mainSource;
         rec.solid = ms instanceof SolidSource ? lvRound(ms.color) : null;
       } catch (e3) { rec.solid = null; }
+      lvFillEffects(l, rec);
       out[String(l.name)] = rec;
     }
     DATA.colors = out;

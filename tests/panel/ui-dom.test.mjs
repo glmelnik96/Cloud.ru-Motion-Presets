@@ -187,9 +187,13 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     expect(await evaluate(s, `[...document.querySelectorAll('.swatch-hex')].map((e) => e.textContent)`)).toEqual(['#26D07C', '#222222', '#FFFFFF', '#F2F2F2', '#CFF500', '#A068FF', '#C0E0FC']);
     await evaluate(s, `[...document.querySelectorAll('.colors .seg button')].find((b) => b.textContent === 'Обводка').click()`);
     expect(await evaluate(s, `document.querySelector('.colors .seg button.on').textContent`)).toBe('Обводка');
-    await evaluate(s, `document.querySelector('.swatch').click()`);
+    expect(await evaluate(s, `[...document.querySelectorAll('.colors .seg button')].map((b) => b.textContent)`)).toEqual(['Заливка', 'Обводка', 'Текст', 'Эффект Fill']);
+    await evaluate(s, `document.querySelector('.swatch-apply').click()`);
     await waitFor(s, `!!document.querySelector('.colors .done')`, { timeoutMs: 10000 });
     expect(await evaluate(s, `document.querySelector('.colors .done').textContent`)).toBe('Перекрашено: Плашка.');
+    // the HEX copies, as in the old brandcolors panel
+    await evaluate(s, `document.querySelectorAll('.swatch-hex')[1].click()`);
+    expect(await evaluate(s, `document.querySelectorAll('.swatch-hex')[1].textContent`)).toBe('Скопировано');
     await go('?host=pr');
     expect(await evaluate(s, `document.querySelectorAll('.tab').length`)).toBe(0);
   }, 60000);

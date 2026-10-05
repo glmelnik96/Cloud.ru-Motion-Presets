@@ -4,14 +4,16 @@
 // (tokens: color.extended._note).
 //   fill   — Fill of shape layers (every Fill in their contents) and the colour of solids;
 //   stroke — Stroke of shape layers;
-//   text   — the fill colour of text layers.
+//   text   — the fill colour of text layers;
+//   effect — the Fill effect on any layer that takes effects (added, or the one already there): how the old
+//            brandcolors panel paints, kept by D23 (docs/research/colors/brandcolors.md).
 // A property with keys gets a key at the current time; one driven by an expression is left alone and named.
 import { color } from '../../../brand/tokens.json';
 import type { HostCaller } from './host';
 import { error, messages, warning, type Problem } from './problems';
 import type { HostContext } from './types';
 
-export type ColorTarget = 'fill' | 'stroke' | 'text';
+export type ColorTarget = 'fill' | 'stroke' | 'text' | 'effect';
 
 export interface Swatch {
   key: string;
@@ -23,6 +25,7 @@ export const TARGETS: Array<{ key: ColorTarget; label_ru: string }> = [
   { key: 'fill', label_ru: 'Заливка' },
   { key: 'stroke', label_ru: 'Обводка' },
   { key: 'text', label_ru: 'Текст' },
+  { key: 'effect', label_ru: 'Эффект Fill' },
 ];
 
 export function palette(): Swatch[] {
@@ -65,7 +68,7 @@ export function planColor(ctx: HostContext, token: string, target: ColorTarget):
 // What applyColor of the AE adapter answers, per selected layer: properties set, how many of them got a key,
 // and the ones an expression drives (not touched).
 export interface ColorReply {
-  layers: Array<{ name: string; set: number; keyed: number; expressions: string[]; solid?: boolean }>;
+  layers: Array<{ name: string; set: number; keyed: number; expressions: string[]; solid?: boolean; addedFill?: boolean }>;
 }
 
 export async function runColor(caller: HostCaller, request: ColorRequest, timeoutMs = 30000): Promise<{ ok: boolean; problems: Problem[]; reply: ColorReply | null }> {

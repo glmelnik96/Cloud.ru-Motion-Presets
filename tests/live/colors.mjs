@@ -12,6 +12,9 @@ export const COLOR_CASES = [
   { key: 'keyed', select: ['BK Keyed'], time: 5, token: 'purple', target: 'fill', expect: { set: { 'BK Keyed': 1 }, keyed: 1, warn: [] } },
   { key: 'expression', select: ['BK Expr'], token: 'green', target: 'fill', expect: { refused: 'COLOR_NO_TARGET' } },
   { key: 'solid', select: ['BK Solid'], token: 'gray', target: 'fill', expect: { set: { 'BK Solid': 1 }, warn: ['COLOR_SOLID'] } },
+  // The Fill effect, as the old brandcolors panel (D23): added on a text layer and a solid, then reused.
+  { key: 'effect', select: ['BK Text', 'BK Solid'], token: 'green', target: 'effect', expect: { set: { 'BK Text': 1, 'BK Solid': 1 }, warn: [] } },
+  { key: 'effectAgain', select: ['BK Text', 'BK Solid'], token: 'purple', target: 'effect', expect: { set: { 'BK Text': 1, 'BK Solid': 1 }, warn: [] } },
   { key: 'none', select: [], token: 'green', target: 'fill', expect: { refused: 'NO_SELECTION' } },
 ];
 
@@ -43,8 +46,10 @@ export async function runColorsLive(o) {
       R.check(`colors ${c.key}: nothing changed`, JSON.stringify(after['BK Expr']) === JSON.stringify(before['BK Expr']), { before: before['BK Expr'], after: after['BK Expr'] });
       continue;
     }
+    // compared by layer name: the reply follows the order of layers in the comp
+    const sorted = (o) => JSON.stringify(Object.entries(o).sort(([a], [b]) => a.localeCompare(b)));
     const set = Object.fromEntries((out.reply?.layers ?? []).filter((l) => l.set > 0).map((l) => [l.name, l.set]));
-    R.check(`colors ${c.key}: properties set ${JSON.stringify(c.expect.set)}`, out.ok && JSON.stringify(set) === JSON.stringify(c.expect.set), out);
+    R.check(`colors ${c.key}: properties set ${JSON.stringify(c.expect.set)}`, out.ok && sorted(set) === sorted(c.expect.set), out);
     R.check(`colors ${c.key}: warnings ${c.expect.warn.join(', ') || 'none'}`, out.problems.map((p) => p.code).join() === c.expect.warn.join(), out.problems);
     if (c.key === 'fill') {
       const a = after['BK Shape'];
@@ -57,6 +62,11 @@ export async function runColorsLive(o) {
       R.check('colors keyed: a third key at 5 s, the colour there is #A068FF', k && k.fillKeys === 3 && close(k.fills[0], [...rgb, 1]) && out.reply.layers[0].keyed === 1, k);
     }
     if (c.key === 'solid') R.check('colors solid: the solid is #F2F2F2', close(after['BK Solid']?.solid, rgb), after['BK Solid']);
+    if (c.key === 'effect' || c.key === 'effectAgain') {
+      const ok = ['BK Text', 'BK Solid'].every((n) => after[n]?.fillEffects === 1 && close(after[n]?.fillEffect, [...rgb, 1]));
+      R.check(`colors ${c.key}: one Fill effect on each layer, ${plan.request.hex}`, ok, { text: after['BK Text'], solid: after['BK Solid'] });
+      R.check(`colors ${c.key}: the effect ${c.key === 'effect' ? 'added' : 'reused'}`, out.reply.layers.every((l) => Boolean(l.addedFill) === (c.key === 'effect')), out.reply.layers);
+    }
   }
   R.fromHost('colors: save', await hostRun('save', {}));
 }

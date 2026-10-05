@@ -50,6 +50,9 @@ describe('live colour checks, dry', () => {
             }
             if (l._sourceText) rec.text = l._sourceText.value.fillColor;
             if (l.source.mainSource instanceof SolidSource) rec.solid = l.source.mainSource.color;
+            var fills = l._fx.filter(function (e) { return e.matchName === 'ADBE Fill'; });
+            rec.fillEffects = fills.length;
+            rec.fillEffect = fills.length ? fills[fills.length - 1]._color.value : null;
             out[l.name] = rec;
           });
           return out; })()`) });
@@ -61,7 +64,7 @@ describe('live colour checks, dry', () => {
     await runColorsLive({ bridge, hostRun, project: 'C:/CRBK/work/panel-live/ae/colors_live.aep', R });
     expect(R.failed()).toEqual([]);
     const names = R.checks.map((c) => c.name);
-    for (const n of ['colors fill: both rectangles green, alpha kept, strokes untouched', 'colors keyed: a third key at 5 s, the colour there is #A068FF', 'colors expression: nothing changed', 'colors none: the adapter refuses too', 'colors solid: the solid is #F2F2F2']) {
+    for (const n of ['colors fill: both rectangles green, alpha kept, strokes untouched', 'colors keyed: a third key at 5 s, the colour there is #A068FF', 'colors expression: nothing changed', 'colors none: the adapter refuses too', 'colors solid: the solid is #F2F2F2', 'colors effect: the effect added', 'colors effectAgain: one Fill effect on each layer, #A068FF']) {
       expect(names).toContain(n);
     }
   });

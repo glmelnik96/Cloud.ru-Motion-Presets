@@ -35,6 +35,8 @@ const layer = (h, name) => `app.project.activeItem._layers.filter(function (l) {
 describe('palette', () => {
   it('is the base palette of the brand tokens, in 0..1 for AE', () => {
     expect(palette().map((s) => s.key)).toEqual(['green', 'black', 'white', 'gray', 'yellow', 'purple', 'blue']);
+    // the same seven HEX as the old brandcolors panel (docs/research/colors/brandcolors.md)
+    expect(palette().map((s) => s.hex)).toEqual(['#26D07C', '#222222', '#FFFFFF', '#F2F2F2', '#CFF500', '#A068FF', '#C0E0FC']);
     expect(hexToRgb01('#26D07C')).toEqual(GREEN);
     expect(hexToRgb01('#222222')).toEqual([0.133333, 0.133333, 0.133333]);
   });
@@ -88,6 +90,26 @@ describe('applyColor', () => {
     expect(out.reply.layers).toEqual([{ name: 'Фон', set: 1, keyed: 0, expressions: [], solid: true }]);
     expect(out.problems.map((p) => p.code)).toEqual(['COLOR_SOLID']);
     expect(h.run(`${layer(h, 'Фон')}.source.mainSource.color`)).toEqual(hexToRgb01('#F2F2F2'));
+  });
+
+  it('the Fill effect, as the old brandcolors panel: added on any layer, reused the next time', async () => {
+    // D23: brandcolors painted through ADBE Fill on every selected layer (docs/research/colors/brandcolors.md)
+    const h = ae(['Плашка', 'Имя']);
+    const first = await paint(h, 'green', 'effect');
+    expect(first).toMatchObject({ ok: true, problems: [] });
+    expect(first.reply.layers.map((l) => [l.name, l.set, l.addedFill])).toEqual([['Имя', 1, true], ['Плашка', 1, true]]);
+    const again = await paint(h, 'purple', 'effect');
+    expect(again.reply.layers.map((l) => [l.name, l.set, l.addedFill ?? false])).toEqual([['Имя', 1, false], ['Плашка', 1, false]]);
+    expect(h.run(`${layer(h, 'Имя')}._fx.length`)).toBe(1);
+    expect(h.run(`${layer(h, 'Имя')}._fx[0]._color.value`)).toEqual([...hexToRgb01('#A068FF'), 1]);
+    expect(h.run('__ae.calls').filter((c) => c.startsWith('add effect'))).toEqual(['add effect ADBE Fill', 'add effect ADBE Fill']);
+  });
+
+  it('names the layers that take no effects', async () => {
+    const h = ae(['Плашка', 'Имя']);
+    h.run(`${layer(h, 'Имя')}._noEffects = true`);
+    const out = await paint(h, 'green', 'effect');
+    expect(out.problems.map((p) => p.message)).toEqual(['Слои Имя не принимают эффекты — они не изменились.']);
   });
 
   it('refuses without a selection in the host too', async () => {

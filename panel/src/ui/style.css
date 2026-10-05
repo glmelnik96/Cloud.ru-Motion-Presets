@@ -476,16 +476,20 @@ select {
   border: 1px solid var(--line);
   background: var(--bg-raised);
   padding: 4px;
+}
+
+.swatch-apply {
+  height: 32px;
+  border: 1px solid var(--line);
   cursor: pointer;
 }
 
-.swatch-color {
-  height: 32px;
-  border: 1px solid var(--line);
-}
-
 .swatch-hex {
+  border: 0;
+  background: transparent;
   font-variant-numeric: tabular-nums;
   text-align: center;
+  cursor: copy;
+  padding: 0;
 }
 
