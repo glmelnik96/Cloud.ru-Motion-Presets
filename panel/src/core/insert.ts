@@ -30,19 +30,26 @@ export type InsertOutcome = { ok: true; result: InsertResult; issues: Issue[] } 
 
 export const LABEL_PREFIX = 'Cloud.ru BrandKit: ';
 
-// InsertResult.warnings of the adapters, 'CODE' or 'CODE: detail' (panel/host/*.jsx), as warning issues; the detail of
-// a FIELD_* code is the field's Essential Graphics name.
+// InsertResult.warnings of the adapters, 'CODE' or 'CODE: detail' (panel/host/*.jsx), as warning issues. A FIELD_* code
+// reads 'FIELD_*: <Essential Graphics name>[: <reason>]'.
 export function adapterWarnings(list: unknown): Issue[] {
   const out: Issue[] = [];
   for (const w of Array.isArray(list) ? list : []) {
     const text = typeof w === 'string' ? w.trim() : '';
     if (!text) continue;
-    const at = text.indexOf(':');
-    const code = (at < 0 ? text : text.slice(0, at)).trim();
-    const detail = at < 0 ? '' : text.slice(at + 1).trim();
-    // FIELD_* name an Essential Graphics field the user knows; other details are technical (log only in the text)
-    const params: Record<string, string> = code.startsWith('FIELD_') ? { field: detail } : { detail };
-    out.push(detail ? { code, level: 'warning', params } : { code, level: 'warning' });
+    const parts = text.split(': ');
+    const code = parts[0]!.trim();
+    const rest = parts.slice(1).join(': ').trim();
+    const params: Record<string, string> = {};
+    if (code.startsWith('FIELD_') && rest) {
+      // 'FIELD_*: <name>[: <why>]': the field's Essential Graphics name for the user, the reason for the log
+      params.field = parts[1]!.trim();
+      const why = parts.slice(2).join(': ').trim();
+      if (why) params.detail = why;
+    } else if (rest) {
+      params.detail = rest;
+    }
+    out.push(Object.keys(params).length ? { code, level: 'warning', params } : { code, level: 'warning' });
   }
   return out;
 }

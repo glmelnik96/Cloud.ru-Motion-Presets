@@ -327,15 +327,17 @@ describe('runInsert', () => {
   it('turns the adapter warnings into warning issues after the outcome and before the plan warnings', async () => {
     const ctx = aeCtx({ fps: 30 });
     const p = plan('TTL_LowerThird', ctx, { lenSec: 8 });
-    const result = { ...echo(p, LAYER), warnings: ['REMAP_KEYS_MISMATCH', 'FIELD_NOT_FOUND: Должность, 2-я строка', '  '] };
+    const result = { ...echo(p, LAYER), warnings: ['REMAP_KEYS_MISMATCH', 'FIELD_NOT_FOUND: Должность, 2-я строка', '  ', 'FIELD_WRITE_FAILED: Имя: Error: read-only'] };
     const { host } = fakeHost({ ok: true, data: result });
     const r = await runInsert(host, p, ctx, buildArgs(p, ctx, ROOT), logger().log);
     expect(r.ok).toBe(true);
-    expect(r.issues.slice(0, 2)).toEqual([
+    expect(r.issues.slice(0, 3)).toEqual([
       { code: 'REMAP_KEYS_MISMATCH', level: 'warning' },
       { code: 'FIELD_NOT_FOUND', level: 'warning', params: { field: 'Должность, 2-я строка' } },
+      // AE's 'FIELD_*: <name>: <why>': the name for the user, the reason for the log
+      { code: 'FIELD_WRITE_FAILED', level: 'warning', params: { field: 'Имя', detail: 'Error: read-only' } },
     ]);
-    expect(r.issues.slice(2)).toEqual(p.issues.filter((i) => i.level !== 'error'));
+    expect(r.issues.slice(3)).toEqual(p.issues.filter((i) => i.level !== 'error'));
   });
   it('keeps the plan warnings after a successful insert', async () => {
     const ctx = aeCtx({ fps: 30 });
