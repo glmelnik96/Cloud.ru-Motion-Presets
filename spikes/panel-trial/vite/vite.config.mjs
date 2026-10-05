@@ -1,4 +1,4 @@
-// Own-Vite trial of task 29: a Preact panel for CEP 12 (Chromium 99) with relative paths.
+// Own-Vite trial of task 29: a Preact 10 panel for CEP 12 (Chromium 99) with relative paths.
 // public/CSXS/manifest.xml is copied to dist/CSXS/manifest.xml as is, so dist/ is the extension root.
 // CEP opens the panel from file://, where module scripts need CORS; the bundle is therefore an IIFE
 // loaded by a classic deferred script.
@@ -19,6 +19,7 @@ const classicScripts = {
 export default defineConfig({
   base: './',
   plugins: [classicScripts],
+  esbuild: { jsx: 'automatic', jsxImportSource: 'preact' },
   build: {
     target: 'chrome99',
     outDir: 'dist',
