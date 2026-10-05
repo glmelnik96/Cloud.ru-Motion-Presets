@@ -2,7 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { buildArgs, planInsert, runInsert } from '../../panel/src/core/insert.ts';
 import { chooseVariant } from '../../panel/src/core/variant.ts';
-import { defaults, toWrites } from '../../panel/src/core/fields.ts';
+import { message } from '../../panel/src/core/errors.ts';
+import { defaults, sameValue, toWrites } from '../../panel/src/core/fields.ts';
 import { fontsFor, item } from '../panel/core/fixture.ts';
 import { assembleAdapter, callSource, loadAdapter } from './vm-host.mjs';
 import { TPF_25, TPF_2997, TPS, TTL_PARAMS, createPremiere, textJson } from './pr-mock.mjs';
@@ -58,6 +59,8 @@ const writes = (host) => host.ops.filter((o) => o[0] === 'setValue');
 const mine = (seq, v = 0) => seq.video[v].clips.find((c) => c.name === NAME);
 // A clip on a track before the panel came, over [from, to) frames.
 const busy = (from, to, name = 'bars') => ({ name, startF: from, endF: to });
+// What the last insert kept for diag: the things its answer leaves out.
+const notesOf = (h) => ok(h.call('diag')).last.notes.join(' | ');
 
 describe('pr adapter: getContext', () => {
   it('describes the active sequence: size, fps, playhead in ticks and seconds', () => {
@@ -79,6 +82,19 @@ describe('pr adapter: getContext', () => {
     expect(target.fps).toBe(29.97);
     expect(target.ticks).toBe(T(30, TPF_2997));
     expect(target.timeSec).toBeCloseTo((30 * 1001) / 30000, 9);
+  });
+
+  // The core compares fps to 3 decimals (checks.ts): two decimals would make 23.976 into 23.98, four would make 59.94
+  // into 59.9401. 25 and 29.97 alone cannot tell either of those from the right rule.
+  it.each([
+    ['24000/1001', 10594584000, 23.976],
+    ['60000/1001', 4237833600, 59.94],
+    ['24', 10584000000, 24],
+    ['50', 5080320000, 50],
+    ['25', TPF_25, 25],
+  ])('reports %s fps (%i ticks per frame) as %s', (_label, tpf, fps) => {
+    const { h } = rig({ seq: { tpf } });
+    expect(ok(h.call('getContext')).target.fps).toBe(fps);
   });
 
   it('reports the playhead of the active sequence, not of another one', () => {
@@ -276,6 +292,28 @@ describe('pr adapter: insertItem, the video track (P10; step 2)', () => {
       expect(seq.video).toHaveLength(2);
     });
 
+    // QE's addTracks signature was never verified on 26.5.2. The one thing the adapter cannot check is where the track
+    // lands, so it must not use a track that is not above the busy ones: it refuses, and imports nothing.
+    it('refuses safely when QE puts the new track under the others: NO_FREE_TRACK, nothing imported or overwritten', () => {
+      const { host, seq, h } = rig({ seq: FULL, host: { qeAt: 'bottom' } });
+      const error = refused(h.call('insertItem', insertArgs()), 'NO_FREE_TRACK');
+      expect(error.message).toContain('not above');
+      expect(host.qeCalls).toEqual([[1, 2, 0]]);
+      expect(host.imports).toEqual([]);
+      expect(host.overwrites).toEqual([]);
+      expect(host.ops).toEqual([]);
+      expect(seq.video).toHaveLength(3);
+      expect(seq.video[0].clips).toEqual([]); // the track QE added
+      expect(frames(seq.video[1].clips[0])).toEqual([50, 300]); // the busy ones kept every clip
+      expect(frames(seq.video[2].clips[0])).toEqual([120, 200]);
+    });
+
+    it('uses the track QE added on top of the others (the stand-in\'s default, qeAt top)', () => {
+      const { seq, h } = rig({ seq: FULL, host: { qeAt: 'top' } });
+      expect(ok(h.call('insertItem', insertArgs()))).toMatchObject({ tracksAdded: 1, placed: { track: 2 } });
+      expect(seq.video).toHaveLength(3);
+    });
+
     it('adds a track above the locked ones', () => {
       const { host, h } = rig({ seq: { video: [{ clips: [busy(50, 300)] }, { locked: true }, { locked: true }] } });
       expect(ok(h.call('insertItem', insertArgs()))).toMatchObject({ tracksAdded: 1, placed: { track: 3 } });
@@ -344,6 +382,28 @@ describe('pr adapter: insertItem, the import (step 3)', () => {
     expect(host.imports).toHaveLength(2);
   });
 
+  // The no-resend guarantee: a call that reports an error may have started the import all the same, so the clip is
+  // waited for before any second call. The plan 'throw' never lands a clip, so the test above cannot tell a retry that
+  // skips the wait from one that does not.
+  it('waits for the clip after an importMGT that throws, and does not import again when it lands late', () => {
+    const { host, seq, h } = rig({ host: { importPlan: [{ throw: true, after: 3 }] } });
+    const data = ok(h.call('insertItem', insertArgs()));
+    expect(host.imports).toHaveLength(1);
+    expect(host.sleeps).toBe(3);
+    expect(seq.video[0].clips.filter((c) => c.name === NAME)).toHaveLength(1);
+    expect(host.overwrites).toEqual([]);
+    expect(data.placed).toMatchObject({ name: NAME, track: 0, startSec: 4, endSec: 10 });
+    expect(ok(h.call('diag')).last).toMatchObject({ attempts: 1 });
+  });
+
+  it('finds the clip at once when an importMGT that throws had placed it already', () => {
+    const { host, seq, h } = rig({ host: { importPlan: [{ throw: true }] } });
+    ok(h.call('insertItem', insertArgs()));
+    expect(host.imports).toHaveLength(1);
+    expect(host.sleeps).toBe(0);
+    expect(seq.video[0].clips).toHaveLength(1);
+  });
+
   it('does not import a third time: INSERT_FAILED after two calls that left nothing', () => {
     const { host, seq, h } = rig({ host: { importPlan: ['never'] } });
     refused(h.call('insertItem', insertArgs()), 'INSERT_FAILED');
@@ -376,6 +436,80 @@ describe('pr adapter: insertItem, the import (step 3)', () => {
   it('has no warnings for a template as it should be', () => {
     const { h } = rig();
     expect(ok(h.call('insertItem', insertArgs())).warnings).toEqual([]);
+  });
+});
+
+// The free-interval check trusts defaultLenFrames, the library's word for the template's length. importMGT lays down the
+// real one: a template longer than that overwrites whatever starts in the extra frames, and only the clip itself says so.
+describe('pr adapter: insertItem, a template longer than the library says (step 3)', () => {
+  // the library says 150 frames (100..250 looked free), the template is 160 long (100..260)
+  const LONGER = { template: { lenF: 160 } };
+  const user = (from, to, name = 'user') => busy(from, to, name);
+  const cutOf = (seq, name) => frames(seq.video[0].clips.find((c) => c.name === name));
+
+  it('warns CLIPS_OVERWRITTEN with the name of a clip that only touched the end of the interval', () => {
+    const { host, seq, h } = rig({ ...LONGER, seq: { video: [{ clips: [user(250, 300)] }, {}] } });
+    const data = ok(h.call('insertItem', insertArgs()));
+    expect(data.placed).toMatchObject({ name: NAME, track: 0, startSec: 4, endSec: 10.4 });
+    expect(data.warnings).toEqual(['CLIPS_OVERWRITTEN: user']);
+    expect(host.overwrites).toEqual([{ track: 0, name: 'user', how: 'tail kept' }]);
+    expect(cutOf(seq, 'user')).toEqual([260, 300]);
+  });
+
+  it('names every clip that was cut or removed, in timeline order, and none that was not touched', () => {
+    const clips = [user(250, 255, 'inside'), user(255, 300, 'edge'), user(400, 450, 'far')];
+    const { host, h } = rig({ ...LONGER, seq: { video: [{ clips }, {}] } });
+    expect(ok(h.call('insertItem', insertArgs())).warnings).toEqual(['CLIPS_OVERWRITTEN: inside, edge']);
+    expect(host.overwrites.map((o) => o.how)).toEqual(['removed', 'tail kept']);
+  });
+
+  it('says nothing when the longer template cut nothing, and keeps a note for diag', () => {
+    const { host, h } = rig({ ...LONGER, seq: { video: [{ clips: [user(300, 400)] }, {}] } });
+    expect(ok(h.call('insertItem', insertArgs())).warnings).toEqual([]);
+    expect(host.overwrites).toEqual([]);
+    expect(notesOf(h)).toContain('the clip is 160 frames long, the library says 150');
+  });
+
+  it('keeps a note when the template is shorter than the library says, and warns of nothing', () => {
+    const { host, h } = rig({ template: { lenF: 140 }, seq: { video: [{ clips: [user(250, 300)] }, {}] } });
+    expect(ok(h.call('insertItem', insertArgs())).warnings).toEqual([]);
+    expect(host.overwrites).toEqual([]);
+    expect(notesOf(h)).toContain('the clip is 140 frames long, the library says 150');
+  });
+
+  it('warns when the clip is trimmed afterwards as well: the trim does not give the cut clip back', () => {
+    const { host, seq, h } = rig({ ...LONGER, seq: { video: [{ clips: [user(250, 300)] }, {}] } });
+    const data = ok(h.call('insertItem', insertArgs({ lenFrames: 100 })));
+    expect(data.warnings).toEqual(['CLIPS_OVERWRITTEN: user']);
+    expect(data.placed.endSec).toBe(8);
+    expect(trims(host)).toHaveLength(2);
+    expect(cutOf(seq, 'user')).toEqual([260, 300]);
+  });
+
+  it('puts the warning about the clips it cut before the one about the name', () => {
+    const { h } = rig({ template: { name: 'TTL_LowerThird_16x9_v2', lenF: 160 }, seq: { video: [{ clips: [user(250, 300)] }, {}] } });
+    expect(ok(h.call('insertItem', insertArgs())).warnings).toEqual(['CLIPS_OVERWRITTEN: user', 'NAME_MISMATCH']);
+  });
+
+  it('still reports the cut when the end of the new clip cannot be read', () => {
+    const { h } = rig({ template: { lenF: 160, faults: { end: true } }, seq: { video: [{ clips: [user(250, 300)] }, {}] } });
+    const data = ok(h.call('insertItem', insertArgs()));
+    expect(data.warnings).toEqual(['CLIPS_OVERWRITTEN: user']);
+    expect(data.placed).toMatchObject({ track: 0, startSec: 4 });
+    // the new clip itself could not be listed: one note, not one per failed read
+    expect(notesOf(h)).toContain('1 clip(s) of the track could not be read: Error: Object is invalid');
+  });
+
+  it('keeps the other tracks out of it: a clip over the extra frames on another track is no concern', () => {
+    const { host, h } = rig({ ...LONGER, seq: { video: [{}, { clips: [user(250, 300)] }] } });
+    expect(ok(h.call('insertItem', insertArgs())).warnings).toEqual([]);
+    expect(host.overwrites).toEqual([]);
+  });
+
+  it('has nothing to compare for a template as long as the library says: no warning, no note', () => {
+    const { h } = rig({ seq: { video: [{ clips: [user(250, 300)] }, {}] } });
+    expect(ok(h.call('insertItem', insertArgs())).warnings).toEqual([]);
+    expect(notesOf(h)).toBe('');
   });
 });
 
@@ -526,7 +660,23 @@ describe('pr adapter: insertItem, the fields (step 5)', () => {
     expect(ok(near.h.call('insertItem', insertArgs({ fields: [num('Длительность', 'slider', 6.0005)] }))).fields[0].ok).toBe(true);
   });
 
-  it('gives a field whose parameter is missing back null and ok false, and goes on', () => {
+  // One rule for a slider read back: the adapter's verdict is final for the core (it re-checks only the fields the
+  // adapter marked not ok), so a looser adapter would pass what the core's own sameValue (fields.ts) would reject.
+  it('judges a slider exactly as the core does (fields.ts sameValue), at the edge of the slack too', () => {
+    const base = 6;
+    const offsets = [0, 0.0004, 0.0005, 0.00099, 0.001, 0.0011, 0.002, 0.5, -0.0005, -0.001, -0.0011, -0.5];
+    for (const d of offsets) {
+      const written = base + d;
+      const { h } = rig({ template: { params: [{ name: 'Длительность', kind: 'slider', value: base, readOnly: true }] } });
+      const f = ok(h.call('insertItem', insertArgs({ fields: [num('Длительность', 'slider', written)] }))).fields[0];
+      expect(f.back, `offset ${d}`).toBe(base); // the host kept its own value
+      expect(f.ok, `offset ${d}`).toBe(sameValue('pr', 'slider', written, base));
+    }
+    expect(sameValue('pr', 'slider', 6.0005, 6)).toBe(true);
+    expect(sameValue('pr', 'slider', 6.002, 6)).toBe(false);
+  });
+
+  it('gives a field whose parameter is missing back null and ok false, warns FIELD_NOT_FOUND, and goes on', () => {
     const { host, h } = rig();
     const fields = [text('Имя', 'А'), text('Нет такого', 'x'), num('Стиль', 'dropdown', 1)];
     const data = ok(h.call('insertItem', insertArgs({ fields })));
@@ -535,6 +685,7 @@ describe('pr adapter: insertItem, the fields (step 5)', () => {
       { egpName: 'Нет такого', written: 'x', back: null, ok: false },
       { egpName: 'Стиль', written: 1, back: 1, ok: true },
     ]);
+    expect(data.warnings).toEqual(['FIELD_NOT_FOUND: Нет такого']);
     expect(writes(host)).toHaveLength(2);
   });
 
@@ -556,7 +707,7 @@ describe('pr adapter: insertItem, the fields (step 5)', () => {
     ]);
   });
 
-  it('catches a write that throws, and goes on with the other fields', () => {
+  it('catches a write that throws, warns FIELD_WRITE_FAILED with the host\'s words, and goes on with the other fields', () => {
     const params = [{ name: 'Имя', kind: 'text', value: 'Старое', throwsOnSet: true }, { name: 'Стиль', kind: 'dropdown', value: 0 }];
     const { seq, h } = rig({ template: { params } });
     const data = ok(h.call('insertItem', insertArgs({ fields: [text('Имя', 'Новое'), num('Стиль', 'dropdown', 2)] })));
@@ -564,21 +715,74 @@ describe('pr adapter: insertItem, the fields (step 5)', () => {
       { egpName: 'Имя', written: 'Новое', back: 'Старое', ok: false },
       { egpName: 'Стиль', written: 2, back: 2, ok: true },
     ]);
+    expect(data.warnings).toEqual(['FIELD_WRITE_FAILED: Имя: Error: setValue failed']);
     expect(mine(seq)).toBeDefined();
   });
 
-  it('does not write text into a parameter that is not an AE text', () => {
+  it('does not write text into a parameter that is not an AE text: FIELD_VALUE_INVALID', () => {
     const { host, h } = rig();
     const data = ok(h.call('insertItem', insertArgs({ fields: [text('Стиль', 'Подкаст')] })));
     expect(data.fields).toEqual([{ egpName: 'Стиль', written: 'Подкаст', back: null, ok: false }]);
+    expect(data.warnings).toEqual(['FIELD_VALUE_INVALID: Стиль']);
     expect(writes(host)).toEqual([]);
   });
 
-  it('does not write a field of a type it cannot write', () => {
+  it('does not write a field of a type it cannot write: FIELD_TYPE_UNSUPPORTED', () => {
     const { host, h } = rig();
-    const data = ok(h.call('insertItem', insertArgs({ fields: [{ egpName: 'Имя', type: 'media', value: 'a.png' }] })));
-    expect(data.fields).toEqual([{ egpName: 'Имя', written: 'a.png', back: null, ok: false }]);
+    const fields = [{ egpName: 'Имя', type: 'media', value: 'a.png' }, { egpName: 'Стиль', type: 'color', value: 'red' }];
+    const data = ok(h.call('insertItem', insertArgs({ fields })));
+    expect(data.fields).toEqual([
+      { egpName: 'Имя', written: 'a.png', back: null, ok: false },
+      { egpName: 'Стиль', written: 'red', back: null, ok: false },
+    ]);
+    expect(data.warnings).toEqual(['FIELD_TYPE_UNSUPPORTED: Имя', 'FIELD_TYPE_UNSUPPORTED: Стиль']);
     expect(writes(host)).toEqual([]);
+  });
+
+  it('does not write a dropdown or a slider whose value is not a number: FIELD_VALUE_INVALID', () => {
+    const params = [{ name: 'Стиль', kind: 'dropdown', value: 1 }, { name: 'Длительность', kind: 'slider', value: 6 }];
+    const { host, h } = rig({ template: { params } });
+    const data = ok(h.call('insertItem', insertArgs({ fields: [num('Стиль', 'dropdown', 'abc'), num('Длительность', 'slider', 'x')] })));
+    expect(data.warnings).toEqual(['FIELD_VALUE_INVALID: Стиль', 'FIELD_VALUE_INVALID: Длительность']);
+    expect(data.fields.map((f) => [f.back, f.ok])).toEqual([[1, false], [6, false]]); // what the host holds
+    expect(writes(host)).toEqual([]);
+  });
+
+  it('warns FIELD_READ_FAILED when the read-back throws, for a number and for a text, and keeps the field not ok', () => {
+    const params = [
+      { name: 'Стиль', kind: 'dropdown', value: 0, throwsOnGet: true },
+      { name: 'Имя', kind: 'text', value: 'Старое', throwsOnGetAfterSet: true },
+      { name: 'Должность', kind: 'text', value: 'Должность' },
+    ];
+    const { h } = rig({ template: { params } });
+    const fields = [num('Стиль', 'dropdown', 2), text('Имя', 'Новое'), text('Должность', 'Директор')];
+    const data = ok(h.call('insertItem', insertArgs({ fields })));
+    expect(data.fields).toEqual([
+      { egpName: 'Стиль', written: 2, back: null, ok: false },
+      { egpName: 'Имя', written: 'Новое', back: null, ok: false },
+      { egpName: 'Должность', written: 'Директор', back: 'Директор', ok: true },
+    ]);
+    expect(data.warnings).toEqual(['FIELD_READ_FAILED: Стиль: Error: getValue failed', 'FIELD_READ_FAILED: Имя: Error: getValue failed']);
+  });
+
+  it('warns about each failing field once, in the order of the fields, whatever else is fine', () => {
+    const { h } = rig();
+    const fields = [text('Нет такого', 'x'), text('Имя', 'А'), { egpName: 'Должность', type: 'media', value: 'p.png' }, text('Стиль', 'Подкаст')];
+    const data = ok(h.call('insertItem', insertArgs({ fields })));
+    expect(data.warnings).toEqual(['FIELD_NOT_FOUND: Нет такого', 'FIELD_TYPE_UNSUPPORTED: Должность', 'FIELD_VALUE_INVALID: Стиль']);
+    expect(data.fields.map((f) => f.ok)).toEqual([false, true, false, false]);
+  });
+
+  it('keeps what went wrong with each field in the notes for diag', () => {
+    const { h } = rig();
+    ok(h.call('insertItem', insertArgs({ fields: [text('Нет такого', 'x'), text('Стиль', 'Подкаст')] })));
+    expect(notesOf(h)).toContain('Нет такого: no such parameter');
+    expect(notesOf(h)).toMatch(/Стиль: .*BK_NOT_AE_TEXT/);
+  });
+
+  it('has no warning for a field that was written and read back', () => {
+    const { h } = rig();
+    expect(ok(h.call('insertItem', insertArgs({ fields: GOOD }))).warnings).toEqual([]);
   });
 
   it('reads back through a fresh look-up of the clip, not through the parameter it wrote', () => {
@@ -646,11 +850,96 @@ describe('pr adapter: insertItem, the selection (step 6)', () => {
     expect(host.ops[host.ops.length - 1]).toEqual(['select', NAME, true, 1]);
   });
 
-  it('still selects the new clip when the selection of another clip cannot be read', () => {
-    const { seq, h } = rig({ host: { selectionThrows: true }, seq: { video: [{ clips: [busy(0, 90)] }, {}] } });
-    ok(h.call('insertItem', insertArgs()));
+  it('still selects the new clip when the selection of another clip cannot be read, and warns SELECTION_FAILED once', () => {
+    const clips = [busy(0, 40), busy(40, 80, 'b-roll')];
+    const { seq, h } = rig({ host: { selectionThrows: true }, seq: { video: [{ clips }, {}] } });
+    const data = ok(h.call('insertItem', insertArgs()));
     expect(mine(seq)._selected).toBe(true);
+    expect(data.warnings).toEqual([expect.stringMatching(/^SELECTION_FAILED: deselect: /)]); // one for both clips
+    expect(notesOf(h)).toContain('deselect:');
   });
+
+  it('warns SELECTION_FAILED when the new clip cannot be selected', () => {
+    const { seq, h } = rig({ template: { faults: { selectThrows: true } } });
+    const data = ok(h.call('insertItem', insertArgs()));
+    expect(data.warnings).toEqual(['SELECTION_FAILED: select: Error: setSelected failed']);
+    expect(mine(seq)).toBeDefined();
+    expect(notesOf(h)).toContain('select: Error: setSelected failed');
+  });
+
+  it('says SELECTION_FAILED only once when both the deselect and the select fail', () => {
+    const { h } = rig({ host: { selectionThrows: true }, template: { faults: { selectThrows: true } }, seq: { video: [{ clips: [busy(0, 40)] }, {}] } });
+    const data = ok(h.call('insertItem', insertArgs()));
+    expect(data.warnings).toEqual([expect.stringMatching(/^SELECTION_FAILED: deselect: /)]);
+    expect(notesOf(h)).toContain('select: Error: setSelected failed');
+  });
+
+  it('has no warning when the selection worked', () => {
+    const { h } = rig({ seq: { video: [{ clips: [{ ...busy(0, 90), selected: true }] }, {}] } });
+    expect(ok(h.call('insertItem', insertArgs())).warnings).toEqual([]);
+  });
+});
+
+// A host read that fails after importMGT found the clip must not turn a landed insert into a refusal: the core takes
+// INSERT_FAILED as settled (nothing on the timeline) and HOST_EXCEPTION as a reason to probe, and the user would insert
+// a second clip above the first. The adapter answers ok with what it knows, a note for diag, and a warning when a
+// check could not be made.
+describe('pr adapter: insertItem, once the clip is on the timeline (nothing throws any more)', () => {
+  const nameField = { egpName: 'Имя', type: 'text', value: 'А' };
+
+  it('answers ok when the name of the new clip cannot be read: the plan stands in for it, with a note', () => {
+    const { seq, h } = rig({ template: { faults: { name: true } } });
+    const data = ok(h.call('insertItem', insertArgs({ fields: [nameField] })));
+    expect(seq.video[0].clips).toHaveLength(1);
+    expect(data.placed).toEqual({ kind: 'clip', id: NAME + '@' + T(100), name: NAME, track: 0, startSec: 4, endSec: 10 });
+    expect(data.warnings).toEqual([]); // the name could not be compared, so nothing is said of it
+    expect(data.fields).toEqual([{ egpName: 'Имя', written: 'А', back: 'А', ok: true }]); // the fields are written all the same
+    expect(notesOf(h)).toContain('placed: Error: Object is invalid');
+    expect(ok(h.call('diag')).last.placed).toEqual(data.placed);
+  });
+
+  it('answers ok with the clip as it was read last when its end cannot be read after the trim: LENGTH_MISMATCH, as the length is unverified', () => {
+    const { host, seq, h } = rig({ template: { faults: { endAfterTrim: true } } });
+    const data = ok(h.call('insertItem', insertArgs({ lenFrames: 200, fields: [nameField] })));
+    expect(trims(host)).toHaveLength(2);
+    expect(data.warnings).toEqual(['LENGTH_MISMATCH']);
+    expect(data.placed).toMatchObject({ name: NAME, track: 0, startSec: 4, endSec: 10 }); // read before the trim
+    expect(data.fields).toEqual([{ egpName: 'Имя', written: 'А', back: 'А', ok: true }]);
+    expect(mine(seq)._selected).toBe(true);
+    expect(notesOf(h)).toContain('trim: Error: Object is invalid');
+  });
+
+  it('does not refuse when the clip is not at its start frame after the trim: LENGTH_MISMATCH, and the fields are left alone', () => {
+    const { host, seq, h } = rig({ template: { faults: { movesOnTrim: 3 * TPF_25 } } });
+    const data = ok(h.call('insertItem', insertArgs({ lenFrames: 200, fields: [nameField] })));
+    expect(data.warnings).toEqual(['LENGTH_MISMATCH']);
+    expect(data.fields).toEqual([{ egpName: 'Имя', written: 'А', back: null, ok: false }]);
+    expect(writes(host)).toEqual([]);
+    expect(frames(mine(seq))).toEqual([103, 303]); // where the host put it
+    expect(data.placed).toMatchObject({ name: NAME, track: 0 });
+    expect(notesOf(h)).toContain('not at its start frame');
+  });
+
+  it('answers ok when every look-up of the track fails after the trim: warnings for what could not be checked', () => {
+    const { host, seq, h } = rig({ template: { faults: { lookupsFailAfterTrim: true } } });
+    const data = ok(h.call('insertItem', insertArgs({ lenFrames: 200, fields: [nameField] })));
+    expect(data.warnings).toEqual(['LENGTH_MISMATCH', expect.stringMatching(/^SELECTION_FAILED: /)]);
+    expect(data.fields).toEqual([{ egpName: 'Имя', written: 'А', back: null, ok: false }]);
+    expect(data.placed).toMatchObject({ name: NAME, track: 0, startSec: 4 });
+    expect(writes(host)).toEqual([]);
+    host.opts.lookupThrows = false;
+    expect(seq.video[0].clips).toHaveLength(1);
+    expect(notesOf(h)).toContain('trim: Error: Object is invalid');
+    expect(notesOf(h)).toContain('fields: Error: Object is invalid');
+  });
+
+  it('still refuses with INSERT_FAILED when no clip is there at all: nothing landed', () => {
+    const { host, seq, h } = rig({ host: { importPlan: ['never'] } });
+    refused(h.call('insertItem', insertArgs({ lenFrames: 200 })), 'INSERT_FAILED');
+    expect(seq.video[0].clips).toEqual([]);
+    expect(host.ops).toEqual([]);
+  });
+
 });
 
 describe('pr adapter: insertItem, the answer (step 7)', () => {
@@ -731,19 +1020,25 @@ describe('pr adapter: insertItem with the core (planInsert, buildArgs, runInsert
 
   // The panel's path: the context from the adapter, the plan and the arguments from the core, the call through the
   // adapter. The host calls answer at once, as the bridge would after the evalScript round trip.
-  function run(it, ctxOver, over, mogrt) {
-    const rigged = rig({ template: { name: mogrt.name, lenF: mogrt.lenF, params: mogrt.params }, ...ctxOver });
+  // mogrt: the template the library file turns out to be (name, lenF, params, faults of the clip it places).
+  // lost: the adapter does its insert, but the panel never gets the answer (the call timed out): it asks findPlaced.
+  function run(it, ctxOver, over, mogrt, lost = null) {
+    const rigged = rig({ template: { ...mogrt }, ...ctxOver });
     const ctx = ok(rigged.h.call('getContext'));
     const choice = chooseVariant(it, ctx.target);
     const plan = planInsert({ item: it, choice, values: over.values, lenSec: over.lenSec, ctx, fonts: fontsFor(it), pluginVersion: '0.1.0' });
     const args = buildArgs(plan, ctx, ROOT);
     rigged.host.templates.clear();
-    rigged.host.addTemplate(args.mogrtPath, { name: mogrt.name, lenF: mogrt.lenF, params: mogrt.params });
+    rigged.host.addTemplate(args.mogrtPath, { ...mogrt });
+    const probes = [];
     const api = {
-      insertItem: async (a) => rigged.h.call('insertItem', a),
-      findPlaced: async (p) => rigged.h.call('findPlaced', p),
+      insertItem: async (a) => {
+        const reply = rigged.h.call('insertItem', a);
+        return lost ? { ok: false, error: lost } : reply;
+      },
+      findPlaced: async (p) => (probes.push(p), rigged.h.call('findPlaced', p)),
     };
-    return { ...rigged, ctx, plan, args, outcome: () => runInsert(api, plan, ctx, args, log) };
+    return { ...rigged, ctx, plan, args, probes, outcome: () => runInsert(api, plan, ctx, args, log) };
   }
 
   it('inserts TTL_LowerThird at the playhead with changed values: all fields read back', async () => {
@@ -800,6 +1095,53 @@ describe('pr adapter: insertItem with the core (planInsert, buildArgs, runInsert
     ok(r.h.call('insertItem', r.args));
     const probe = { kind: 'clip', targetId: r.ctx.target.id, startSec: r.ctx.target.timeSec, name: r.args.expectName };
     expect(ok(r.h.call('findPlaced', probe))).toMatchObject({ kind: 'clip', name: NAME, track: 1, startSec: 4, endSec: 10 });
+  });
+
+  const TTL = () => item('TTL_LowerThird');
+  const TTL_MOGRT = (over = {}) => ({ name: NAME, lenF: 150, params: TTL_PARAMS(), ...over });
+  const values = () => ({ values: defaults(TTL()), lenSec: 6 });
+  const codes = (out) => out.issues.map((i) => i.code);
+
+  it('tells the user a clip of another name that landed under a lost answer landed: TIMEOUT_LANDED, not INSERT_FAILED', async () => {
+    const r = run(TTL(), {}, values(), TTL_MOGRT({ name: 'TTL_LowerThird_16x9_v2' }), { code: 'TIMEOUT' });
+    const out = await r.outcome();
+    expect(out).toMatchObject({ ok: true, result: { placed: { name: 'TTL_LowerThird_16x9_v2', track: 0 } } });
+    expect(codes(out)).toEqual(['TIMEOUT_LANDED']);
+  });
+
+  it('does not take an older clip of the same name for an insert that failed before it placed anything', async () => {
+    const old = { ...busy(100, 250, NAME), nodeId: 'OLD' };
+    const r = run(TTL(), { seq: { video: [{ clips: [old] }, {}] } }, values(), TTL_MOGRT());
+    r.host.opts.fileThrows = true; // the adapter fails at new File(...), before any import
+    const out = await r.outcome();
+    expect(out).toMatchObject({ ok: false });
+    expect(codes(out)).toEqual(['HOST_EXCEPTION']); // the adapter's own answer, not TIMEOUT_LANDED for the old clip
+    expect(r.host.imports).toEqual([]);
+    expect(r.probes).toHaveLength(1); // the core did ask
+  });
+
+  it('does not turn a clip that landed but moved on the trim into a refusal: warnings, no probe, no second click', async () => {
+    const r = run(TTL(), {}, { values: defaults(TTL()), lenSec: 8 }, TTL_MOGRT({ faults: { movesOnTrim: 3 * TPF_25 } }));
+    const out = await r.outcome();
+    expect(out).toMatchObject({ ok: true });
+    expect(codes(out)).toEqual(['READBACK_MISMATCH', 'LENGTH_MISMATCH']);
+    expect(r.probes).toEqual([]);
+    expect(r.host.imports).toHaveLength(1);
+  });
+
+  it('shows the user what the adapter warns of: a template that covered a clip, and a field it does not have', async () => {
+    const params = TTL_PARAMS().filter((p) => p.name !== 'Должность, 2-я строка');
+    const seq = { video: [{ clips: [busy(250, 300, 'user')] }, {}] };
+    const r = run(TTL(), { seq }, values(), TTL_MOGRT({ lenF: 160, params }));
+    const out = await r.outcome();
+    expect(out).toMatchObject({ ok: true });
+    expect(out.issues).toEqual([
+      { code: 'READBACK_MISMATCH', level: 'warning', params: { fields: 'Должность, 2-я строка' } },
+      { code: 'CLIPS_OVERWRITTEN', level: 'warning', params: { detail: 'user' } },
+      { code: 'FIELD_NOT_FOUND', level: 'warning', params: { field: 'Должность, 2-я строка' } },
+    ]);
+    expect(message(out.issues[1])).toContain('перекрыл клипы');
+    expect(message(out.issues[2])).toContain('Должность, 2-я строка');
   });
 });
 
@@ -881,6 +1223,112 @@ describe('pr adapter: findPlaced', () => {
       refused(h.call('findPlaced', probe(over)), 'BAD_ARGS');
     }
     refused(h.call('findPlaced', {}), 'BAD_ARGS');
+  });
+});
+
+// The panel probes after an insert it got no answer to. By name and frame alone the answer is not tied to that insert:
+// an older clip of the same name is found for an insert that failed, and a clip the insert itself placed under another
+// name (NAME_MISMATCH keeps it) is missed. The adapter keeps a record of the insert in flight, CRBK.state.pr.inflight,
+// and answers a probe about that insert from it.
+describe('pr adapter: findPlaced after an insert (its record)', () => {
+  const probe = (over = {}) => ({ kind: 'clip', targetId: 'SEQ-A', startSec: 4, name: NAME, ...over });
+  const V2_NAME = 'TTL_LowerThird_16x9_v2';
+  const OLD = { ...busy(100, 250, NAME), nodeId: 'OLD' };
+  const inflight = (h) => ok(h.call('diag')).inflight;
+
+  it('does not take an older clip of the same name for an insert that failed before it placed anything', () => {
+    const { host, h } = rig({ seq: { video: [{ clips: [OLD] }, {}] }, host: { fileThrows: true } });
+    refused(h.call('insertItem', insertArgs()), 'HOST_EXCEPTION');
+    expect(host.imports).toEqual([]);
+    expect(inflight(h)).toMatchObject({ phase: 'checking', seqId: 'SEQ-A', frame: START_F, name: NAME });
+    expect(ok(h.call('findPlaced', probe()))).toBeNull();
+  });
+
+  it('finds that older clip by its name and frame when no insert has been made (the rule for a probe without a record)', () => {
+    const { h } = rig({ seq: { video: [{ clips: [OLD] }, {}] } });
+    expect(ok(h.call('findPlaced', probe()))).toMatchObject({ id: 'OLD', track: 0 });
+  });
+
+  it('finds the clip of its own insert under any name: NAME_MISMATCH keeps the clip, and so does the probe', () => {
+    const { h } = rig({ template: { name: V2_NAME } });
+    expect(ok(h.call('insertItem', insertArgs())).warnings).toEqual(['NAME_MISMATCH']);
+    expect(ok(h.call('findPlaced', probe()))).toMatchObject({ kind: 'clip', name: V2_NAME, track: 0, startSec: 4, endSec: 10 });
+    expect(inflight(h)).toMatchObject({ phase: 'placed', track: 0, placed: { name: V2_NAME } });
+  });
+
+  it('finds a clip an import left even when the insert failed before it saw the clip, again under any name', () => {
+    const { host, h } = rig({ template: { name: V2_NAME } });
+    const real = host.nodes[0].importMGT;
+    host.nodes[0].importMGT = function (...args) {
+      const clip = real.apply(this, args);
+      host.opts.lookupThrows = true; // from now on the adapter cannot see the track
+      return clip;
+    };
+    refused(h.call('insertItem', insertArgs()), 'HOST_EXCEPTION');
+    host.opts.lookupThrows = false;
+    expect(inflight(h)).toMatchObject({ phase: 'importing', track: 0, before: [] });
+    expect(ok(h.call('findPlaced', probe()))).toMatchObject({ name: V2_NAME, track: 0, startSec: 4 });
+  });
+
+  it('answers null when the import left nothing: INSERT_FAILED, and a probe agrees', () => {
+    const { h } = rig({ host: { importPlan: ['never'] } });
+    refused(h.call('insertItem', insertArgs()), 'INSERT_FAILED');
+    expect(inflight(h)).toMatchObject({ phase: 'importing' });
+    expect(ok(h.call('findPlaced', probe()))).toBeNull();
+  });
+
+  // The record names the clips that were at that frame on the track before the import: none of them is this
+  // insert's. Written by hand, because a clip cannot be there through the adapter (the interval check refuses the track).
+  it('does not take a clip that was at the frame before the import for its own', () => {
+    const { h } = rig({ seq: { video: [{ clips: [{ ...busy(100, 250, NAME), nodeId: 'BEFORE' }] }, {}] } });
+    h.run('CRBK.state.pr = { inflight: { seqId: "SEQ-A", frame: 100, name: "' + NAME + '", phase: "importing", track: 0, before: ["BEFORE"], placed: null } }');
+    expect(ok(h.call('findPlaced', probe()))).toBeNull();
+    h.run('CRBK.state.pr.inflight.before = ["SOMETHING-ELSE"]');
+    expect(ok(h.call('findPlaced', probe()))).toMatchObject({ id: 'BEFORE', track: 0 });
+  });
+
+  it('looks only at the track the insert went to', () => {
+    const { h } = rig({ seq: { video: [{ clips: [{ ...busy(100, 250, NAME), nodeId: 'ON-V1' }] }, { clips: [{ ...busy(100, 250, NAME), nodeId: 'ON-V2' }] }, {}] } });
+    h.run('CRBK.state.pr = { inflight: { seqId: "SEQ-A", frame: 100, name: "' + NAME + '", phase: "placed", track: 1, before: [], placed: null } }');
+    expect(ok(h.call('findPlaced', probe()))).toMatchObject({ id: 'ON-V2', track: 1 });
+  });
+
+  it('answers a probe about another place by the name and the frame, record or not', () => {
+    const { host, h } = rig();
+    const b = host.addSequence({ id: 'SEQ-B', name: 'Вторая', video: [{}, {}] });
+    b.video[1].addClip({ name: NAME, startF: 100, endF: 250, nodeId: '0000beef' });
+    ok(h.call('insertItem', insertArgs())); // the record is about SEQ-A
+    expect(ok(h.call('findPlaced', probe({ targetId: 'SEQ-B' })))).toMatchObject({ id: '0000beef', track: 1 });
+    expect(ok(h.call('findPlaced', probe({ name: 'another clip' })))).toBeNull(); // not the record's name: the stateless rule
+    expect(ok(h.call('findPlaced', probe({ startSec: 12 })))).toBeNull(); // not the record's frame
+  });
+
+  it('is about the latest insert only: the next insert replaces the record', () => {
+    const { h } = rig();
+    ok(h.call('insertItem', insertArgs()));
+    expect(inflight(h)).toMatchObject({ phase: 'placed', frame: 100 });
+    ok(h.call('insertItem', insertArgs({ startTicks: T(400), lenFrames: 50 })));
+    // the record ends up holding the clip as the answer describes it, after the trim (400..450), not as it was imported
+    expect(inflight(h)).toMatchObject({ phase: 'placed', frame: 400, track: 0, placed: { startSec: 16, endSec: 18 } });
+    expect(ok(h.call('findPlaced', probe({ startSec: 16 })))).toMatchObject({ name: NAME, startSec: 16 });
+  });
+
+  it('keeps the record across a reload of the same build, as it keeps the last insert', () => {
+    const { h } = rig({ template: { name: V2_NAME } });
+    ok(h.call('insertItem', insertArgs()));
+    h.load();
+    expect(ok(h.call('findPlaced', probe()))).toMatchObject({ name: V2_NAME });
+  });
+
+  it('only reads: it changes neither the record nor the timeline', () => {
+    const { host, h } = rig();
+    ok(h.call('insertItem', insertArgs()));
+    const before = JSON.stringify(inflight(h));
+    const ops = host.ops.length;
+    h.call('findPlaced', probe());
+    h.call('findPlaced', probe({ startSec: 99 }));
+    expect(JSON.stringify(inflight(h))).toBe(before);
+    expect(host.ops).toHaveLength(ops);
   });
 });
 
@@ -1032,6 +1480,47 @@ describe('pr adapter: the ported helpers (CRBK.pr)', () => {
     host.bind(loaded.context);
     expect(loaded.run('CRBK.pr.findSequenceById("B").name')).toBe('Вторая');
     expect(loaded.run('CRBK.pr.findSequenceById("C")')).toBeNull();
+  });
+});
+
+// The stand-in's own fidelity, so that a test which relies on it sees what Premiere does. S5 (spikes/results/S5.data.json):
+// importMGT of 250 frames at 300 onto V2, where bars2 ran 250..500, left bars2 as 250..300 (outPoint 0..50) and the
+// template as 300..550. Nothing shifted, nothing was added: importMGT only overwrites.
+describe('pr adapter: the Premiere stand-in cuts like importMGT (S5)', () => {
+  const importAt = (clips, startF, lenF) => {
+    const host = createPremiere();
+    const seq = host.addSequence({ id: 'S', video: [{ clips }] });
+    host.addTemplate(MOGRT, { name: NAME, lenF });
+    seq.node.importMGT(MOGRT, T(startF), 0, 0);
+    return { host, track: seq.video[0] };
+  };
+  const spans = (track) => track.clips.map((c) => [c.name, ...frames(c)]);
+  const ins = (c) => [Math.round(c._in / TPF_25), Math.round(c._out / TPF_25)];
+
+  it('keeps the head of a clip that runs under the start of the new one (S5: bars2 250..500, template at 300)', () => {
+    const { host, track } = importAt([busy(250, 500, 'bars2')], 300, 250);
+    expect(spans(track)).toEqual([['bars2', 250, 300], [NAME, 300, 550]]);
+    expect(ins(track.clips[0])).toEqual([0, 50]);
+    expect(host.overwrites).toEqual([{ track: 0, name: 'bars2', how: 'head kept' }]);
+  });
+
+  it('keeps the tail of a clip that runs past the end of the new one, its in point moved on by the cut', () => {
+    const { host, track } = importAt([{ ...busy(300, 400, 'tail'), inF: 10 }], 100, 250);
+    expect(spans(track)).toEqual([[NAME, 100, 350], ['tail', 350, 400]]);
+    expect(ins(track.clips[1])).toEqual([10 + 50, 10 + 100]);
+    expect(host.overwrites).toEqual([{ track: 0, name: 'tail', how: 'tail kept' }]);
+  });
+
+  it('removes a clip the new one covers, and splits one that surrounds it', () => {
+    const { host, track } = importAt([busy(120, 200, 'inside'), busy(50, 500, 'around')], 100, 250);
+    expect(spans(track)).toEqual([['around', 50, 100], [NAME, 100, 350], ['around', 350, 500]]);
+    expect(host.overwrites).toEqual([{ track: 0, name: 'around', how: 'split' }, { track: 0, name: 'inside', how: 'removed' }]);
+  });
+
+  it('leaves a clip that only touches the new one alone', () => {
+    const { host, track } = importAt([busy(50, 100, 'before'), busy(350, 400, 'after')], 100, 250);
+    expect(spans(track)).toEqual([['before', 50, 100], [NAME, 100, 350], ['after', 350, 400]]);
+    expect(host.overwrites).toEqual([]);
   });
 });
 

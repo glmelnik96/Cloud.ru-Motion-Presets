@@ -4,6 +4,7 @@ import { c27Keys, defaultLen, minLen } from '../../panel/src/core/duration';
 import { defaults, toWrites } from '../../panel/src/core/fields';
 import { buildArgs, planInsert, runInsert } from '../../panel/src/core/insert';
 import { chooseVariant } from '../../panel/src/core/variant';
+import { readParts } from '../../tools/panel/build-host.mjs';
 import { fontsFor, item as catalogItem } from '../panel/core/fixture';
 import { createAe, markAep, MARK_EPS, TTL_EPS, ttlAep } from './ae-mock.mjs';
 import { assembleAdapter, callSource, loadAdapter } from './vm-host.mjs';
@@ -76,6 +77,25 @@ function expectBalanced(ae) {
 }
 
 const layerOps = (ae) => ae.ops().filter((o) => /^(layer\.timeRemapEnabled|layer\.outPoint|remap\.)/.test(o));
+
+// AE throws inside the time remap of the next insert that remaps: the adapter has added its layer by then.
+function breakRemap(ae) {
+  ae.cfg.ownRemapKeys = () => {
+    throw new Error('boom inside AE');
+  };
+}
+
+// Every layer added to the comp from now on cannot be removed again.
+function stickyLayers(comp) {
+  const add = comp.layers.add;
+  comp.layers.add = (item) => {
+    const layer = add(item);
+    layer.remove = () => {
+      throw new Error('Unable to remove the layer');
+    };
+    return layer;
+  };
+}
 
 describe('ae adapter: getContext', () => {
   it('reports the host, the project, the active comp as the target and the colour settings', () => {
@@ -327,6 +347,78 @@ describe('ae adapter: insertItem refuses before it touches the project', () => {
     expectUntouched(ae);
   });
 
+  // The bin is found at the root only, but a template comp stays a template wherever the user filed its folder.
+  describe('TARGET_IS_TEMPLATE, the bin or a template folder moved away from where the panel made it', () => {
+    // An insert made, then `move(bin, folder)` run; the template comp (two folders down) is active and refused.
+    function movedAndRefused(move) {
+      const { ae, h, user } = setup({ aep: ttlAep({ nested: true }) });
+      expect(insert(h, user).ok).toBe(true);
+      const bin = ae.bin();
+      const folder = bin.item(1);
+      const tpl = folder._children.find((c) => c.name === 'Variants')._children.find((c) => c.name === TTL_COMP);
+      move({ ae, bin, folder });
+      ae.activate(tpl);
+      const before = [ae.ops().length, ae.groups.length, ae.imports.length, user.numLayers, tpl.numLayers];
+      refused(h.call('insertItem', insertArgs(tpl)), 'TARGET_IS_TEMPLATE');
+      expect([ae.ops().length, ae.groups.length, ae.imports.length, user.numLayers, tpl.numLayers]).toEqual(before);
+      return { ae, h, user, tpl };
+    }
+
+    it('when the bin is in a folder of the project root: no second copy of the template, no instance in a template', () => {
+      const { ae } = movedAndRefused(({ ae, bin }) => {
+        bin.parentFolder = ae.addFolder('Archive');
+      });
+      expect(ae.bin()).toBeNull(); // not at the root any more: this is why the check cannot look there only
+    });
+
+    it('when the bin is deeper still', () => {
+      movedAndRefused(({ ae, bin }) => {
+        bin.parentFolder = ae.addFolder('Deeper', ae.addFolder('Archive', ae.addFolder('Old')));
+      });
+    });
+
+    it('when the template folder was taken out of the bin: its item label tells', () => {
+      const { ae } = movedAndRefused(({ ae, folder }) => {
+        folder.parentFolder = ae.addFolder('Titles'); // out of the bin, into a folder of the user
+      });
+      expect(ae.bin()._children).toEqual([]);
+    });
+
+    it('when the template folder lies at the root', () => {
+      movedAndRefused(({ ae, folder }) => {
+        folder.parentFolder = ae.root;
+      });
+    });
+
+    // The other half of the rule, apart from the item label: a comp anywhere under a folder named like the bin.
+    it('when the comp sits in a folder named like the bin at any depth, with no item label on the way', () => {
+      const { ae, h } = setup();
+      const bin = ae.addFolder('Cloud.ru BrandKit', ae.addFolder('Deeper', ae.addFolder('Archive')));
+      const comp = ae.addComp('Kept in the bin', { duration: 10 }, ae.addFolder('Plain', bin));
+      ae.activate(comp);
+      const before = [ae.ops().length, ae.groups.length, ae.imports.length, comp.numLayers];
+      refused(h.call('insertItem', insertArgs(comp)), 'TARGET_IS_TEMPLATE');
+      expect([ae.ops().length, ae.groups.length, ae.imports.length, comp.numLayers]).toEqual(before);
+    });
+
+    it('and still inserts into a comp of the user that sits in folders of its own, whatever they are called', () => {
+      const { ae, h, user } = setup();
+      // none of these is the bin, and none carries an item label ('<ITEM_ID>@<version>')
+      const comments = ['', 'Archive', 'me@2', 'TTL_LowerThird@', 'TTL_LowerThird@1x', 'ttl_lowerThird@1', 'a b@1', 'TTL@1@2'];
+      let parent = ae.root;
+      for (const [i, comment] of comments.entries()) {
+        parent = ae.addFolder(i % 2 ? `Cloud.ru BrandKit ${i}` : `Folder ${i}`, parent);
+        parent.comment = comment;
+      }
+      const mine = ae.addComp('Mine', { w: 1920, h: 1080, fps: 25, duration: 30 }, parent);
+      ae.activate(mine);
+      const r = h.call('insertItem', insertArgs(mine));
+      expect(r.ok, JSON.stringify(r)).toBe(true);
+      expect(mine.numLayers).toBe(1);
+      expect(user.numLayers).toBe(0);
+    });
+  });
+
   it('LENGTH_TOO_SHORT below intro + outro, and where no hold is left (the key times would coincide)', () => {
     const { ae, h, user } = setup();
     refused(insert(h, user, { lenSec: 4 }), 'LENGTH_TOO_SHORT');
@@ -343,14 +435,69 @@ describe('ae adapter: insertItem refuses before it touches the project', () => {
     expectUntouched(ae);
   });
 
-  it('INSERT_FAILED when the file cannot be imported as a project, or the import throws', () => {
-    for (const mock of [{ canImportAsProject: false }, { importThrows: true }]) {
+  it('INSERT_FAILED, before anything is touched, when the file cannot be imported as a project: no bin, no undo group', () => {
+    const { ae, h, user } = setup({ mock: { canImportAsProject: false } });
+    refused(insert(h, user), 'INSERT_FAILED');
+    expectUntouched(ae);
+    expect(ae.bin()).toBeNull();
+    expect(user.numLayers).toBe(0);
+  });
+
+  it('INSERT_FAILED, and nothing left behind, when the import throws: no bin, and no folder it made before it threw', () => {
+    for (const mock of [{ importThrows: true }, { importThrowsLate: true }]) {
       const { ae, h, user } = setup({ mock });
-      const r = insert(h, user);
-      refused(r, 'INSERT_FAILED');
+      refused(insert(h, user), 'INSERT_FAILED');
+      expect(ae.imports).toHaveLength(1);
+      expect(ae.root._children.map((c) => c.name)).toEqual(['USER_Comp']);
+      expect(ae.bin()).toBeNull();
+      expect(ae.ops('items.addFolder')).toEqual([]);
       expect(user.numLayers).toBe(0);
       expectBalanced(ae);
     }
+  });
+
+  it('leaves the bin that was there, and what it holds, alone when the import fails', () => {
+    const { ae, h, user } = setup({ mock: { importThrowsLate: true } });
+    const kept = seedTemplate(ae, { key: 'LOGO_Mark@1' });
+    refused(insert(h, user), 'INSERT_FAILED');
+    expect(ae.root._children.map((c) => c.name)).toEqual(['USER_Comp', BIN]);
+    expect(ae.bin()._children).toEqual([kept]);
+    expect(kept.numItems).toBe(1);
+    expect(ae.ops('item.remove')).toEqual(['item.remove TTL_LowerThird_v1.aep']); // only the folder the import made
+  });
+
+  it('INSERT_FAILED, and no stray, when the import answers with something that is not a folder (26.5 does not, 26.0 may)', () => {
+    // The import made its folder and its comps all the same; the answer is a comp in it.
+    const { ae, h, user } = setup({ mock: { importReturnsComp: true } });
+    for (let tries = 1; tries <= 2; tries++) {
+      refused(h.call('insertItem', insertArgs(user)), 'INSERT_FAILED');
+      expect(ae.root._children.map((c) => c.name)).toEqual(['USER_Comp']); // no folder, no bin
+      expect(ae.imports).toHaveLength(tries); // nothing was filed, so the next try imports again, and takes it out again
+      expect(ae.ops('item.remove')).toEqual(Array(tries).fill('item.remove TTL_LowerThird_v1.aep'));
+      expect(user.numLayers).toBe(0);
+      expectBalanced(ae);
+    }
+  });
+
+  it('takes out only what the import made: the folder AE imported into, and what is in it, stay', () => {
+    const { ae, h, user } = setup({ mock: { importReturnsComp: true } });
+    const selected = ae.addFolder('Selected in the Project panel');
+    const mine = ae.addComp('My comp', { duration: 5 }, selected);
+    ae.cfg.importParent = selected; // AE files an import in the folder selected in the Project panel
+    refused(insert(h, user), 'INSERT_FAILED');
+    expect(ae.root._children.map((c) => c.name)).toEqual(['USER_Comp', 'Selected in the Project panel']);
+    expect(selected._children).toEqual([mine]);
+  });
+
+  it('takes nothing out when it cannot tell what is new: an item whose id cannot be read', () => {
+    const { ae, h, user } = setup({ mock: { importReturnsComp: true } });
+    const clip = ae.addFootage('clip.mov');
+    Object.defineProperty(clip, 'id', { get() { throw new Error('Object is invalid'); } });
+    refused(insert(h, user), 'INSERT_FAILED');
+    // the stray stays: a stray is a small harm, deleting what the user had is not
+    expect(ae.root._children.map((c) => c.name)).toEqual(['USER_Comp', 'clip.mov', 'TTL_LowerThird_v1.aep']);
+    expect(ae.ops('item.remove')).toEqual([]);
+    expectBalanced(ae);
   });
 
   it('INSERT_FAILED, and no layer, when layers.add throws', () => {
@@ -363,10 +510,32 @@ describe('ae adapter: insertItem refuses before it touches the project', () => {
   it('takes the imported folder out again when it cannot be filed in the bin: it would be imported again and again', () => {
     const { ae, h, user } = setup({ mock: { moveThrows: true } });
     refused(insert(h, user), 'INSERT_FAILED');
-    expect(ae.root._children.map((c) => c.name)).toEqual(['USER_Comp', BIN]); // no stray TTL_LowerThird_v1.aep
-    expect(ae.ops('item.remove')).toEqual(['item.remove TTL_LowerThird_v1.aep']);
+    // no stray TTL_LowerThird_v1.aep, and no bin either: this call made it, and the folder was to go in it
+    expect(ae.root._children.map((c) => c.name)).toEqual(['USER_Comp']);
+    expect(ae.ops('item.remove')).toEqual(['item.remove TTL_LowerThird_v1.aep', `item.remove ${BIN}`]);
     expect(user.numLayers).toBe(0);
     expectBalanced(ae);
+  });
+
+  it('says why the folder could not be filed, and takes the folder and the bin out when the bin landed elsewhere and cannot move', () => {
+    const { ae, h, user } = setup({ mock: { moveThrows: true } });
+    const selected = ae.addFolder('Selected in the Project panel');
+    ae.cfg.addFolderParent = selected; // items.addFolder files the new bin in the selected folder, off the root
+    const r = insert(h, user);
+    refused(r, 'INSERT_FAILED');
+    expect(r.error.message).toMatch(/^the imported folder could not be filed in the bin: .*Unable to move the item/);
+    expect(ae.root._children.map((c) => c.name)).toEqual(['USER_Comp', 'Selected in the Project panel']);
+    expect(selected._children).toEqual([]); // the bin that was made there is out again; the folder itself is the user's
+    expectBalanced(ae);
+  });
+
+  it('leaves the bin that was there when the imported folder cannot be filed in it', () => {
+    const { ae, h, user } = setup({ mock: { moveThrows: true } });
+    const kept = seedTemplate(ae, { key: 'LOGO_Mark@1' });
+    refused(insert(h, user), 'INSERT_FAILED');
+    expect(ae.root._children.map((c) => c.name)).toEqual(['USER_Comp', BIN]);
+    expect(ae.bin()._children).toEqual([kept]);
+    expect(ae.ops('item.remove')).toEqual(['item.remove TTL_LowerThird_v1.aep']);
   });
 });
 
@@ -874,14 +1043,23 @@ describe('ae adapter: insertItem when something fails after the layer is added',
 describe('ae adapter: findPlaced', () => {
   const probe = (user, over = {}) => ({ kind: 'layer', targetId: String(user.id), startSec: 2, name: TTL_COMP, ...over });
 
-  it('finds the layer by comp, source name and start time', () => {
+  it('finds the layer of the last insert by comp, source name and start time', () => {
+    const { h, user } = setup();
+    const first = insert(h, user, { timeSec: 2 });
+    const found = h.call('findPlaced', probe(user));
+    expect(found.ok).toBe(true);
+    expect(found.data).toEqual({ kind: 'layer', id: String(user.layer(1).id), name: TTL_COMP, startSec: 2, endSec: 8 });
+    expect(found.data).toEqual(first.data.placed);
+    const second = insert(h, user, { timeSec: 5, lenSec: 9 });
+    expect(h.call('findPlaced', probe(user, { startSec: 5 })).data).toEqual(second.data.placed);
+  });
+
+  it('answers from the layers alone only when there is no record (a reload by another build)', () => {
     const { h, user } = setup();
     insert(h, user, { timeSec: 2 });
-    const second = insert(h, user, { timeSec: 5, lenSec: 9 });
-    const first = h.call('findPlaced', probe(user));
-    expect(first.ok).toBe(true);
-    expect(first.data).toEqual({ kind: 'layer', id: String(user.layer(2).id), name: TTL_COMP, startSec: 2, endSec: 8 });
-    expect(h.call('findPlaced', probe(user, { startSec: 5 })).data).toEqual(second.data.placed);
+    insert(h, user, { timeSec: 5, lenSec: 9 });
+    h.run('CRBK.state.ae = {};');
+    expect(h.call('findPlaced', probe(user)).data).toEqual({ kind: 'layer', id: String(user.layer(2).id), name: TTL_COMP, startSec: 2, endSec: 8 });
   });
 
   it('matches the start within half a frame, and not beyond', () => {
@@ -941,6 +1119,243 @@ describe('ae adapter: findPlaced', () => {
     const before = ae.ops().length;
     h.call('findPlaced', probe(user));
     expect(ae.ops().length).toBe(before);
+  });
+
+  // An insert the adapter rolled back looks like nothing at all from outside, but an older layer of the same template
+  // at the same start looks exactly like the layer the lost insert would have made: only what the adapter saw in the
+  // comp before it added its layer tells them apart.
+  describe('after an insert that did not land', () => {
+    it('is null for an insert rolled back, while the older layer of the same template at that start stays', () => {
+      const { ae, h, user } = setup();
+      const first = insert(h, user, { timeSec: 2 });
+      breakRemap(ae);
+      const second = insert(h, user, { timeSec: 2, lenSec: 9 }); // the layer is added, the remap throws, the layer goes
+      expect(second).toMatchObject({ ok: false, error: { code: 'HOST_EXCEPTION', message: expect.stringContaining('boom inside AE') } });
+      expect(user.numLayers).toBe(1);
+      expect(String(user.layer(1).id)).toBe(first.data.placed.id);
+      expect([user.layer(1).inPoint, user.layer(1).outPoint]).toEqual([2, 8]);
+      expect(h.call('findPlaced', probe(user))).toEqual({ ok: true, data: null });
+    });
+
+    it('is null for every layer that was there, however many of the template sit at that start', () => {
+      const { ae, h, user } = setup();
+      insert(h, user, { timeSec: 2 });
+      insert(h, user, { timeSec: 2, lenSec: 9 });
+      breakRemap(ae);
+      insert(h, user, { timeSec: 2, lenSec: 7 });
+      expect(user.numLayers).toBe(2);
+      expect(h.call('findPlaced', probe(user)).data).toBeNull();
+    });
+
+    it('is the new layer, not an older one, for an insert that landed and whose reply was lost', () => {
+      const { h, user } = setup();
+      const first = insert(h, user, { timeSec: 2 });
+      const second = insert(h, user, { timeSec: 2, lenSec: 9 });
+      const found = h.call('findPlaced', probe(user));
+      expect(found.data).toEqual(second.data.placed);
+      expect(found.data.id).not.toBe(first.data.placed.id);
+    });
+
+    it('is a layer that could not be taken out again: it is new, so it is reported', () => {
+      const { ae, h, user } = setup();
+      insert(h, user, { timeSec: 2 });
+      breakRemap(ae);
+      stickyLayers(user);
+      refused(insert(h, user, { timeSec: 2, lenSec: 9 }), 'HOST_EXCEPTION');
+      expect(user.numLayers).toBe(2);
+      expect(h.call('findPlaced', probe(user)).data).toMatchObject({ id: String(user.layer(1).id) });
+    });
+
+    it('is null for an insert that left no layer also where AE gives layers no id: the record says so', () => {
+      const { ae, h, user } = setup();
+      const add = user.layers.add;
+      user.layers.add = (item) => {
+        const layer = add(item);
+        delete layer.id; // no ids: the layers that were there cannot be told from the new one
+        return layer;
+      };
+      insert(h, user, { timeSec: 2 });
+      breakRemap(ae);
+      refused(insert(h, user, { timeSec: 2, lenSec: 9 }), 'HOST_EXCEPTION'); // its layer went out again
+      expect(user.numLayers).toBe(1);
+      expect(h.call('findPlaced', probe(user)).data).toBeNull();
+      ae.cfg.layersAddThrows = true;
+      refused(insert(h, user, { timeSec: 2 }), 'INSERT_FAILED'); // no layer was added
+      expect(h.call('findPlaced', probe(user)).data).toBeNull();
+      ae.cfg.layersAddThrows = false;
+      const third = insert(h, user, { timeSec: 2 }); // and an insert that did land is found: the top layer
+      expect(h.call('findPlaced', probe(user)).data).toEqual(third.data.placed);
+    });
+
+    it('is null when layers.add threw, an older layer of the template sitting at that start', () => {
+      const { ae, h, user } = setup();
+      insert(h, user, { timeSec: 2 });
+      ae.cfg.layersAddThrows = true;
+      refused(insert(h, user, { timeSec: 2 }), 'INSERT_FAILED');
+      expect(user.numLayers).toBe(1);
+      expect(h.call('findPlaced', probe(user)).data).toBeNull();
+    });
+
+    it('is null when something threw after the insert was recorded and before its layer was added', () => {
+      const { ae, h, user } = setup();
+      insert(h, user, { timeSec: 2 });
+      ae.app.beginUndoGroup = () => {
+        throw new Error('Unable to open an undo group');
+      };
+      expect(insert(h, user, { timeSec: 2 })).toMatchObject({ ok: false, error: { code: 'HOST_EXCEPTION' } });
+      expect(user.numLayers).toBe(1);
+      expect(h.call('findPlaced', probe(user)).data).toBeNull();
+    });
+
+    // One insert at a time: a probe the last record is not about is an insert that never reached the adapter. The old
+    // fallback reported an older layer of the template at that start as landed (Opus verification, wave B).
+    it('is null for a probe that the record is not about: that insert never reached the adapter', () => {
+      const { ae, h, user } = setup();
+      insert(h, user, { timeSec: 2 });
+      insert(h, user, { timeSec: 8 }); // the record now says: start 8
+      expect(h.call('findPlaced', probe(user, { startSec: 2 })).data).toBeNull();
+      expect(h.call('findPlaced', probe(user, { startSec: 8 })).data).toMatchObject({ startSec: 8 });
+      const other = ae.addComp('Other comp', { duration: 10 });
+      expect(h.call('findPlaced', probe(other)).data).toBeNull();
+    });
+
+    it('skips a layer that was in the comp before the insert even when it sits above the new one', () => {
+      const { h, user } = setup();
+      const first = insert(h, user, { timeSec: 2 });
+      const second = insert(h, user, { timeSec: 2, lenSec: 9 });
+      // the user moves the older layer to the top: index order no longer says which one is new
+      user._layers.unshift(user._layers.splice(1, 1)[0]); // what Layer.moveToBeginning does
+      expect(String(user.layer(1).id)).toBe(first.data.placed.id);
+      expect(h.call('findPlaced', probe(user)).data).toEqual(second.data.placed);
+    });
+
+    it('takes the comp id as a number or a string, and the start within half a frame', () => {
+      const { ae, h, user } = setup();
+      insert(h, user, { timeSec: 2 });
+      breakRemap(ae);
+      insert(h, user, { timeSec: 2, lenSec: 9 });
+      for (const over of [{ targetId: user.id }, { startSec: 2.015 }, { startSec: 1.985 }]) {
+        expect(h.call('findPlaced', probe(user, over)).data, JSON.stringify(over)).toBeNull();
+      }
+    });
+  });
+});
+
+// The adapter's memory of the insert it was last asked for: CRBK.state.ae.inflight (common.jsx keeps CRBK.state across
+// a reload of the same build and drops it with any other).
+describe('ae adapter: the record of the last insert', () => {
+  const inflight = (h) => JSON.parse(h.run('JSON.stringify((CRBK.state.ae && CRBK.state.ae.inflight) || null)'));
+  const probe = (user, over = {}) => ({ kind: 'layer', targetId: String(user.id), startSec: 2, name: TTL_COMP, ...over });
+  const idsOf = (comp) => Array.from({ length: comp.numLayers }, (_, i) => String(comp.layer(i + 1).id));
+
+  it('is none before the first insert, and getContext, checkFonts and diag do not make one', () => {
+    const { h } = setup();
+    h.call('getContext');
+    h.call('checkFonts', []);
+    h.call('diag');
+    expect(inflight(h)).toBeNull();
+  });
+
+  it('is written before the layer is added, with the comp, the start, the source name and the layers that were there', () => {
+    const { ae, h, user } = setup();
+    const other = ae.addComp('Other', { duration: 10 });
+    user.layers.add(other);
+    user.layers.add(other);
+    const there = idsOf(user);
+    expect(there).toHaveLength(2);
+    let seen = 'layers.add was not called';
+    const add = user.layers.add;
+    user.layers.add = (item) => {
+      seen = inflight(h);
+      return add(item);
+    };
+    const r = insert(h, user, { timeSec: 3 });
+    expect(r.ok).toBe(true);
+    expect(seen).toEqual({ compId: String(user.id), startSec: 3, name: TTL_COMP, before: there, phase: 'adding' });
+    expect(inflight(h)).toEqual({ ...seen, phase: 'done' });
+    expect(inflight(h).before).not.toContain(r.data.placed.id);
+  });
+
+  it('says what became of the layer: done, or discarded when it was taken out again', () => {
+    const { ae, h, user } = setup();
+    insert(h, user, { timeSec: 2 });
+    expect(inflight(h).phase).toBe('done');
+    breakRemap(ae);
+    insert(h, user, { timeSec: 2, lenSec: 9 });
+    expect(inflight(h)).toMatchObject({ phase: 'discarded', before: idsOf(user) });
+  });
+
+  it('says added while a layer is in the comp that the adapter could not take out', () => {
+    const { ae, h, user } = setup();
+    breakRemap(ae);
+    stickyLayers(user);
+    refused(insert(h, user, { lenSec: 9 }), 'HOST_EXCEPTION');
+    expect(user.numLayers).toBe(1);
+    expect(inflight(h)).toMatchObject({ phase: 'added', before: [] });
+  });
+
+  it('is written by an insert that gets past every refusal; one that is refused before that leaves it as it was', () => {
+    const { ae, h, user } = setup();
+    insert(h, user, { timeSec: 2 });
+    const kept = inflight(h);
+    refused(insert(h, user, { timeSec: 9, lenSec: 4 }), 'LENGTH_TOO_SHORT');
+    refused(insert(h, user, { timeSec: 9, aeComp: '' }), 'BAD_ARGS');
+    refused(insert(h, user, { timeSec: 9, compId: '9999' }), 'TARGET_CHANGED');
+    refused(insert(h, user, { timeSec: 9, aeComp: 'CR_TTL_LowerThird_5x4_v1' }), 'TEMPLATE_NOT_FOUND'); // the folder is in the project
+    refused(insert(h, user, { timeSec: 9, itemKey: 'LOGO_Mark@1', aepPath: 'C:/CRBK/none.aep' }), 'FILE_MISSING');
+    ae.activate(ae.addFolder('Folder'));
+    refused(insert(h, user, { timeSec: 9 }), 'TARGET_CHANGED');
+    expect(inflight(h)).toEqual(kept);
+    // this one imports first, and only then finds that the file has no such comp
+    ae.activate(user);
+    ae.defineAep(MARK_PATH, markAep());
+    const args = { timeSec: 9, aepPath: MARK_PATH, itemKey: 'LOGO_Mark@1', aeComp: 'CR_LOGO_Mark_5x4_v1' };
+    refused(insert(h, user, args), 'TEMPLATE_NOT_FOUND');
+    expect(inflight(h)).toEqual({ compId: String(user.id), startSec: 9, name: 'CR_LOGO_Mark_5x4_v1', before: idsOf(user), phase: 'adding' });
+  });
+
+  it('is for the last insert only: the probe of an earlier one is null (it is not the insert being asked about)', () => {
+    const { h, user } = setup();
+    insert(h, user, { timeSec: 2 });
+    insert(h, user, { timeSec: 8 });
+    expect(inflight(h)).toMatchObject({ startSec: 8 });
+    expect(h.call('findPlaced', probe(user)).data).toBeNull();
+  });
+
+  it('stays across a reload of the same build: an insert rolled back is still not the older layer', () => {
+    const { ae, h, user } = setup();
+    insert(h, user, { timeSec: 2 });
+    breakRemap(ae);
+    insert(h, user, { timeSec: 2, lenSec: 9 });
+    const kept = inflight(h);
+    h.load();
+    expect(inflight(h)).toEqual(kept);
+    expect(h.call('findPlaced', probe(user)).data).toBeNull();
+  });
+
+  it('is gone after another build is loaded: findPlaced then looks at the layers alone', () => {
+    const { h, user } = setup();
+    const first = insert(h, user, { timeSec: 2 });
+    const next = assembleAdapter('ae', { ae: readParts().ae + '\n// next build\n' });
+    expect(next.build).not.toBe(h.build);
+    h.load(next.source);
+    expect(inflight(h)).toBeNull();
+    expect(h.call('findPlaced', probe(user)).data).toEqual(first.data.placed);
+    expect(h.call('findPlaced', probe(user, { startSec: 9 })).data).toBeNull();
+  });
+
+  it('works with the operator members of AE 26.5 on every object; a state that is no object holds no record', () => {
+    const { ae, h, user } = setup({ mock: { operators: true } });
+    const first = insert(h, user, { timeSec: 2 });
+    expect(h.run("typeof CRBK.state.ae['+']")).toBe('function'); // the state is such an object too
+    breakRemap(ae);
+    insert(h, user, { timeSec: 2, lenSec: 9 });
+    expect(h.call('findPlaced', probe(user)).data).toBeNull(); // the record decides, through its own keys
+    h.run('CRBK.state.ae = 7;');
+    expect(h.call('findPlaced', probe(user)).data).toEqual(first.data.placed); // no record: the layers alone
+    ae.cfg.ownRemapKeys = null;
+    expect(insert(h, user, { timeSec: 5 }).ok).toBe(true); // the next insert makes a state of its own
+    expect(inflight(h)).toMatchObject({ startSec: 5, phase: 'done' });
   });
 });
 
@@ -1013,7 +1428,7 @@ describe('ae adapter: checkFonts', () => {
 });
 
 describe('ae adapter: diag', () => {
-  it('reports the app, the build, the language, the project, the colour, the engine and the bin', () => {
+  it('reports the app, the build, the language, the project, the colour, the engine, the bin and the last insert', () => {
     const { ae, h, user } = setup();
     insert(h, user);
     seedTemplate(ae, { key: 'LOGO_Mark@1' });
@@ -1033,8 +1448,23 @@ describe('ae adapter: diag', () => {
           { name: 'TTL_LowerThird_v1.aep', comment: TTL_KEY },
           { name: 'TTL_LowerThird_v1.aep', comment: 'LOGO_Mark@1' },
         ],
+        inflight: { compId: String(user.id), startSec: 2, name: TTL_COMP, before: [], phase: 'done' },
       },
     });
+  });
+
+  it('says how far the last insert got, also when it did not finish; none before the first', () => {
+    const { ae, h, user } = setup();
+    expect(h.call('diag').data.inflight).toBeNull();
+    insert(h, user, { timeSec: 2 });
+    const there = [String(user.layer(1).id)];
+    expect(h.call('diag').data.inflight).toMatchObject({ phase: 'done', before: [] });
+    breakRemap(ae);
+    refused(insert(h, user, { timeSec: 5, lenSec: 9 }), 'HOST_EXCEPTION');
+    expect(h.call('diag').data.inflight).toEqual({ compId: String(user.id), startSec: 5, name: TTL_COMP, before: there, phase: 'discarded' });
+    ae.cfg.layersAddThrows = true;
+    refused(insert(h, user, { timeSec: 7 }), 'INSERT_FAILED');
+    expect(h.call('diag').data.inflight).toMatchObject({ startSec: 7, phase: 'adding' });
   });
 
   it('works with no bin and an untitled project, and does not fail on duplicate bins', () => {
@@ -1141,12 +1571,26 @@ describe('ae adapter: the engine of After Effects 26.5', () => {
     expect(ae.forbidden).toEqual([]);
   });
 
-  it('keeps nothing between calls: a reload of the same build changes no result', () => {
+  // The one thing an insert leaves in CRBK.state (the record findPlaced reads, see 'the record of the last insert') is
+  // about the next probe only: it never changes what an insert does.
+  it('a reload of the same build, with the record of the last insert kept, changes no result of an insert', () => {
     const { h, user } = setup();
     const first = insert(h, user, { fields: TTL_FIELDS });
     h.load();
     const second = insert(h, user, { fields: TTL_FIELDS, timeSec: 3 });
     expect(second.data.fields).toEqual(first.data.fields);
+    expect(second.data.warnings).toEqual(first.data.warnings);
+  });
+
+  it('an insert gives the same result with the record of an earlier one in place or gone', () => {
+    const { h, user } = setup();
+    const next = assembleAdapter('ae', { ae: readParts().ae + '\n// next build\n' });
+    insert(h, user, { timeSec: 2, fields: TTL_FIELDS });
+    const withRecord = insert(h, user, { timeSec: 4, lenSec: 9, fields: TTL_FIELDS }).data;
+    h.load(next.source); // another build: CRBK.state starts empty
+    const without = insert(h, user, { timeSec: 14, lenSec: 9, fields: TTL_FIELDS }).data;
+    expect({ ...without, placed: undefined }).toEqual({ ...withRecord, placed: undefined });
+    expect([without.placed.endSec - without.placed.startSec, withRecord.placed.endSec - withRecord.placed.startSec]).toEqual([9, 9]);
   });
 });
 
@@ -1247,6 +1691,87 @@ describe('ae adapter: with the core and the library of pack 1', () => {
     const out = await runInsert(hostApi(h), plan, ctx, buildArgs(plan, ctx, ROOT), silent);
     expect(out.ok).toBe(true);
     expect(user.layer(1).epValue('Подложка')).toBe(0);
+  });
+
+  // What the core gets of a reply that never arrived whole: the adapter ran all the same, and the core asks findPlaced.
+  const LOST = [
+    ['a timeout', { ok: false, error: { code: 'TIMEOUT', message: 'insertItem: no reply in 120000 ms' } }],
+    ['a reply that does not parse', { ok: false, error: { code: 'HOST_BAD_REPLY', message: 'not json' } }],
+  ];
+
+  // Two inserts of one template at one time (the CTI did not move); the second at 1.5 times the length, so it remaps,
+  // and `boom` makes AE throw inside the remap: the adapter takes its new layer out again. `lose` (one of LOST) is what
+  // the core is given instead of the second reply.
+  async function twoInserts({ boom = false, lose = null } = {}) {
+    const it = catalogItem('TTL_LowerThird');
+    const { ae, h, user } = project(it);
+    const ctx = h.call('getContext').data;
+    const run = async (factor, api) => {
+      const plan = planInsert({
+        item: it, choice: chooseVariant(it, ctx.target), values: defaults(it), lenSec: defaultLen(it) * factor, ctx, fonts: fontsFor(it), pluginVersion: '0.1.0',
+      });
+      const entries = [];
+      const log = createLogger((e) => entries.push(e), () => new Date('2026-10-05T12:00:00Z'));
+      const out = await runInsert(api, plan, ctx, buildArgs(plan, ctx, ROOT), log);
+      return { out, plan, codes: entries.map((e) => e.code), entries };
+    };
+    const first = await run(1, hostApi(h));
+    if (boom) breakRemap(ae);
+    const api = hostApi(h);
+    if (lose) {
+      api.insertItem = async (a) => {
+        h.call('insertItem', a);
+        return lose;
+      };
+    }
+    const second = await run(1.5, api);
+    return { ae, h, user, first, second };
+  }
+
+  it('surfaces the adapter exception of a second insert at the same time, and not TIMEOUT_LANDED for the first layer', async () => {
+    const { ae, user, first, second } = await twoInserts({ boom: true });
+    expect(first.out).toMatchObject({ ok: true, issues: [] });
+    expect(second.out).toMatchObject({
+      ok: false,
+      issues: [{ code: 'HOST_EXCEPTION', level: 'error', params: { detail: expect.stringContaining('boom inside AE') } }],
+    });
+    expect(second.codes).toEqual(['INSERT_START', 'HOST_EXCEPTION']);
+    expect(user.numLayers).toBe(1); // the first layer, and nothing of the second
+    expect(String(user.layer(1).id)).toBe(first.out.result.placed.id);
+    expectBalanced(ae);
+  });
+
+  it.each(LOST)('after %s the second insert is INSERT_FAILED when the adapter rolled it back, not landed as the first layer', async (_, lose) => {
+    const { user, first, second } = await twoInserts({ boom: true, lose });
+    expect(second.out).toEqual({ ok: false, issues: [{ code: 'INSERT_FAILED', level: 'error' }] });
+    expect(second.codes).toEqual(['INSERT_START', 'INSERT_FAILED']);
+    expect(user.numLayers).toBe(1);
+    expect(String(user.layer(1).id)).toBe(first.out.result.placed.id);
+  });
+
+  it.each(LOST)('after %s the second insert is TIMEOUT_LANDED with its own layer when it did land', async (_, lose) => {
+    const { user, first, second } = await twoInserts({ lose });
+    expect(second.out).toMatchObject({ ok: true, issues: [{ code: 'TIMEOUT_LANDED', level: 'warning' }] });
+    expect(user.numLayers).toBe(2);
+    const placed = second.out.result.placed;
+    expect(placed.id).toBe(String(user.layer(1).id)); // the new one, on top
+    expect(placed.id).not.toBe(first.out.result.placed.id);
+    expect(placed.endSec - placed.startSec).toBeCloseTo(second.plan.lenSec, 6); // the 1.5 times longer one, remapped
+  });
+
+  it.each(LOST)('after %s the first insert of a template, which imports the .aep, is TIMEOUT_LANDED with its layer, sent once', async (_, lose) => {
+    const item = catalogItem('TTL_LowerThird');
+    const { ae, h, user } = project(item);
+    const ctx = h.call('getContext').data;
+    const plan = planInsert({ item, choice: chooseVariant(item, ctx.target), values: defaults(item), lenSec: defaultLen(item), ctx, fonts: fontsFor(item), pluginVersion: '0.1.0' });
+    const sent = [];
+    const api = { ...hostApi(h), insertItem: async (a) => (sent.push(a), h.call('insertItem', a), lose) };
+    const out = await runInsert(api, plan, ctx, buildArgs(plan, ctx, ROOT), silent);
+    expect(out).toMatchObject({ ok: true, issues: [{ code: 'TIMEOUT_LANDED', level: 'warning' }] });
+    expect(out.result.placed).toMatchObject({ kind: 'layer', id: String(user.layer(1).id), startSec: 12 });
+    expect(sent).toHaveLength(1);
+    expect(ae.imports).toHaveLength(1);
+    expect(user.numLayers).toBe(1);
   });
 
   // The lengths the core sends keep a whole frame of hold, so AE rounding key times to the frame grid cannot bring the

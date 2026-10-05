@@ -47,7 +47,9 @@ const DEFAULTS = {
   addFolderParent: null, // a FolderItem: where items.addFolder files a new folder (default: the root)
   importParent: null, // a FolderItem: where importFile files the imported folder (default: the root)
   layersAddThrows: false,
-  importThrows: false,
+  importThrows: false, // importFile throws before it makes anything
+  importThrowsLate: false, // importFile makes its folder and then throws
+  importReturnsComp: false, // importFile makes its folder and answers with a comp in it (AE 26.5 answers with the folder)
   moveThrows: false, // setting item.parentFolder throws
   remapIgnored: false, // timeRemapEnabled = true is accepted and does nothing
 };
@@ -63,7 +65,7 @@ export function createAe(options = {}) {
   const suppress = { depth: 0, begins: 0, ends: [] };
   const imports = []; // { path, suppressed }
   const forbidden = [];
-  let seq = 0;
+  let seq = 0; // one counter for the ids of items and layers; it only grows: an item made later has the greater id
   let active = null;
 
   const record = (op) => {
@@ -513,6 +515,13 @@ export function createAe(options = {}) {
           parent = subs.get(c.folder);
         }
         attach(new CompItem(c.name, c), parent);
+      }
+      if (cfg.importThrowsLate) throw new Error('After Effects error: the import did not finish');
+      if (cfg.importReturnsComp) {
+        const comps = [];
+        const walk = (f) => f._children.forEach((c) => (c instanceof FolderItem ? walk(c) : comps.push(c)));
+        walk(folder);
+        return comps[0];
       }
       return folder;
     }

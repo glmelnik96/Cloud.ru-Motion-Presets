@@ -4,15 +4,18 @@
 //   insertItem(AeInsertArgs) one call, one undo step: the template imported once per id@version into the bin, a
 //                            layer of the variant comp at the time, the fields written and read back, the length
 //                            fitted by time remap (contract C27), the new layer selected
-//   findPlaced(probe)        the layer a lost insertItem reply may have left: comp, source name, start time
+//   findPlaced(probe)        the layer a lost insertItem reply may have left: comp, source name, start time, and not
+//                            a layer that was in the comp before that insert (CRBK.state.ae.inflight, see track)
 //   checkFonts(psNames)      found, build and substitute per PostScript name, from app.fonts
-//   diag()                   app, build, language, project, colour, expression engine and the bin
+//   diag()                   app, build, language, project, colour, expression engine, the bin and the last insert
 // Rules (spec 6.1 and 8.2):
 // - The panel never opens, saves or closes a project, never makes a comp of its own and never acts on the first of
 //   several matches: an item is found exactly once, or the call is refused with a code.
-// - Nothing in the project changes before every check that can be made without changing it has passed. After that,
-//   an exception takes the new layer out again (the bin and the imported folder stay: they are reused by the next
-//   insert) and the undo group is closed anyway.
+// - Nothing in the project changes before every check that can be made without changing it has passed: the file, that
+//   it can be imported as a project, the length. After that, in one undo group that is closed whatever happens, the
+//   template is imported, then the bin is found or made, then the imported folder is filed in it under its label. A
+//   failure of those takes out everything this call made (a failed import leaves nothing); a template filed in the
+//   bin stays, the next insert reuses it. An exception after the layer was added takes the layer out again.
 // - Refusals are CRBK.error(code) with the codes of panel/src/core/errors.ts; there is no Russian text here. A warning
 //   is a short code in result.warnings: NO_ESSENTIAL_PROPERTIES, FIELD_NOT_FOUND, FIELD_AMBIGUOUS,
 //   FIELD_TYPE_UNSUPPORTED, FIELD_VALUE_INVALID, FIELD_WRITE_FAILED, FIELD_READ_FAILED (each with ': <name>'),
@@ -25,6 +28,8 @@
   CRBK.host = 'ae';
 
   var BIN = 'Cloud.ru BrandKit'; // the bin of imported templates, at the root of the project (spec 6.1, AE step 3)
+  // The label of a template folder: library item id, '@', version (tools/library/schema/library.src.schema.json).
+  var LABEL = /^[A-Z]+_[A-Za-z0-9_]+@\d+$/;
   var T_EPS = 1e-6; // two times are one when they differ by less than a microsecond
   var V_EPS = 1e-3; // a time remap value is checked to a millisecond
   var WALK_LIMIT = 1000; // cap of a walk up parentFolder
@@ -100,11 +105,14 @@
     return x !== undefined && x === rd(b, 'id');
   }
 
-  // True when `folder` is one of the parent folders of `item`, any number of levels up.
-  function inside(item, folder) {
-    var f = rd(item, 'parentFolder'), n = 0;
+  // True when the comp sits anywhere inside a folder of the panel's own: one named BIN at any depth (the user may move
+  // the bin into another folder; lookups and imports still use the bin at the root only) or one that carries an item
+  // label (the user may take a template folder out of the bin). An instance nested into a template comp would change
+  // the template for every later insert.
+  function inTemplate(comp) {
+    var f = rd(comp, 'parentFolder'), n = 0;
     while (f && n < WALK_LIMIT) {
-      if (sameItem(f, folder)) {
+      if (rd(f, 'name') === BIN || LABEL.test(str(rd(f, 'comment')))) {
         return true;
       }
       f = rd(f, 'parentFolder');
@@ -204,39 +212,95 @@
     return exactlyOne(list, 'comps named ' + name);
   }
 
-  // Imports the template .aep as a project (S3: one FolderItem named after the file on AE 26.5) and files it in the
-  // bin under its id@version label. Dialogs are suppressed for the import only.
-  function importTemplate(file, bin, key) {
-    var io = new ImportOptions(file), item = null, filed = false;
+  // The options to import the template .aep as a project, checked without touching the project: the file is there and
+  // AE can take it as a project.
+  function importOptions(path) {
+    var file, io;
+    if (path === '') {
+      throw bad('aepPath');
+    }
+    file = new File(path);
+    if (!file.exists) {
+      throw CRBK.error('FILE_MISSING', path);
+    }
+    io = new ImportOptions(file);
     if (!io.canImportAs(ImportAsType.PROJECT)) {
       throw CRBK.error('INSERT_FAILED', 'the template cannot be imported as a project');
     }
     io.importAs = ImportAsType.PROJECT;
+    return io;
+  }
+
+  // The greatest item id of the project; Infinity when an id cannot be read. An item with a greater id did not exist
+  // when this was taken, which is all dropNewer needs to know, so it never takes out anything the user had.
+  function newestItemId() {
+    var proj = app.project, top = 0, id, i;
+    for (i = 1; i <= proj.numItems; i++) {
+      id = rd(proj.item(i), 'id');
+      if (!isNum(id)) {
+        return Infinity;
+      }
+      if (id > top) {
+        top = id;
+      }
+    }
+    return top;
+  }
+
+  // Takes out what was made since newestItemId() gave `top`: every item with a greater id whose folder is not newer
+  // too (a folder takes its items with it). Wherever AE filed what the import made, that goes (a folder selected in the
+  // Project panel is the user's and stays), and so does a bin made by this call.
+  function dropNewer(top) {
+    var proj = app.project, root = proj.rootFolder, list = [], it, p, i;
+    for (i = 1; i <= proj.numItems; i++) {
+      it = proj.item(i);
+      p = rd(it, 'parentFolder');
+      if (num(rd(it, 'id')) > top && !(p && !sameItem(p, root) && num(rd(p, 'id')) > top)) {
+        list.push(it);
+      }
+    }
+    for (i = 0; i < list.length; i++) {
+      try {
+        list[i].remove();
+      } catch (e) {
+        // a stray item stays
+      }
+    }
+  }
+
+  // Inside the undo group, in S3's order: imports the template as a project (S3: one FolderItem named after the file
+  // on AE 26.5), then finds or makes the bin, then files the folder in it under its id@version label. A failure at any
+  // of these takes out what this call made, so the next insert starts as this one did and a failed import leaves no
+  // empty bin, stray folder or item. Dialogs are suppressed for the import only.
+  function importTemplate(io, bin, key) {
+    var top = newestItemId(), item = null, filed = false, why = '';
     try {
       item = quiet(function () {
         return app.project.importFile(io);
       });
     } catch (e) {
+      dropNewer(top);
       throw CRBK.error('INSERT_FAILED', 'import: ' + str(e));
     }
     if (!(item instanceof FolderItem)) {
+      dropNewer(top);
       throw CRBK.error('INSERT_FAILED', 'the import gave no folder');
     }
     try {
+      if (!bin) {
+        bin = makeBin();
+      }
       item.parentFolder = bin;
       item.comment = key;
       filed = item.comment === key && sameItem(item.parentFolder, bin);
     } catch (e2) {
       filed = false;
+      why = ': ' + (e2 && e2.code ? str(e2.message) : str(e2)); // our own refusal (the bin) says it in its message
     }
     if (!filed) {
       // A folder that is not in the bin under its label would be imported again by the next insert: take it out.
-      try {
-        item.remove();
-      } catch (e3) {
-        // the stray folder stays
-      }
-      throw CRBK.error('INSERT_FAILED', 'the imported folder could not be filed in the bin');
+      dropNewer(top);
+      throw CRBK.error('INSERT_FAILED', 'the imported folder could not be filed in the bin' + why);
     }
     return item;
   }
@@ -511,6 +575,61 @@
     return str(id !== undefined && id !== null ? id : rd(layer, 'index'));
   }
 
+  // The id AE gives the layer, or '' when it gives none: an index is no id, a layer added on top moves every other.
+  function realId(layer) {
+    var id = rd(layer, 'id');
+    return id === undefined || id === null ? '' : str(id);
+  }
+
+  function inList(list, v) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+      if (list[i] === v) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // The insert about to change the project, kept in CRBK.state.ae.inflight (a reload of the same build keeps it, any
+  // other build starts with none): the comp, the start time and the source name it was asked for, and the ids of the
+  // comp's layers before. A layer of the same template at the same start looks like the one a lost or rolled-back insert
+  // would have made, and the core asks findPlaced after a timeout, a reply that does not parse and an adapter exception:
+  // only the record tells them apart. A list compared in a loop, not a table keyed by id (AE objects inherit operator
+  // members). phase: adding (no layer yet; a refusal after this leaves it so), added (the layer is in the comp), done
+  // (the reply carries it), discarded (taken out again). A call refused before this point leaves the last record alone.
+  function track(a, comp) {
+    var before = [], rec, id, i;
+    for (i = 1; i <= comp.numLayers; i++) {
+      id = realId(comp.layer(i));
+      if (id !== '') {
+        before.push(id);
+      }
+    }
+    rec = { compId: a.compId, startSec: a.timeSec, name: a.aeComp, before: before, phase: 'adding' };
+    if (!CRBK.state.ae || typeof CRBK.state.ae !== 'object') {
+      CRBK.state.ae = {};
+    }
+    CRBK.state.ae.inflight = rec;
+    return rec;
+  }
+
+  // CRBK.state.ae.inflight, or null when there is none (or the state is not ours).
+  function lastRecord() {
+    var st = CRBK.state.ae, rec = st && typeof st === 'object' ? st.inflight : null;
+    return rec && typeof rec === 'object' && CRBK.isList(rec.before) ? rec : null;
+  }
+
+  // The record when it is about this probe (same comp, source and start), else null: the lookup then has the layers alone.
+  function recordFor(probe, half) {
+    var rec = lastRecord();
+    if (rec && rec.compId === String(probe.targetId) && rec.name === probe.name && isNum(rec.startSec) &&
+        Math.abs(rec.startSec - probe.startSec) <= half) {
+      return rec;
+    }
+    return null;
+  }
+
   function placedOf(layer) {
     return {
       kind: 'layer',
@@ -538,18 +657,20 @@
     }
   }
 
-  // The layer goes out again when a step after layers.add throws; a layer AE will not remove is left, and the
+  // The layer goes out again when a step after layers.add throws; a layer AE will not remove is left (false), and the
   // original error is the one that is reported.
   function discard(layer) {
     try {
       layer.remove();
+      return true;
     } catch (e) {
-      // nothing more can be done
+      return false;
     }
   }
 
-  // Inside the undo group: the layer, its start time, the fields, the length, the selection.
-  function addInstance(a, comp, tpl, keys, half) {
+  // Inside the undo group: the layer, its start time, the fields, the length, the selection. rec is the record of this
+  // insert (track); its phase follows the layer.
+  function addInstance(a, comp, tpl, keys, half, rec) {
     var layer = null, warnings = [], recs = [], result, group, rows = null, start, i;
     try {
       try {
@@ -557,6 +678,7 @@
       } catch (e) {
         throw CRBK.error('INSERT_FAILED', 'layers.add: ' + str(e));
       }
+      rec.phase = 'added';
       // layers.add follows the "create layers at composition start time" preference: the time is set explicitly.
       layer.startTime = a.timeSec;
       start = layer.startTime;
@@ -594,10 +716,11 @@
       if (rows) {
         result.remapKeys = rows;
       }
+      rec.phase = 'done';
       return result;
     } catch (err) {
-      if (layer) {
-        discard(layer);
+      if (layer && discard(layer)) {
+        rec.phase = 'discarded';
       }
       throw err;
     }
@@ -655,53 +778,43 @@
   };
 
   CRBK.fns.insertItem = function (args) {
-    var a = insertArgs(args), comp = activeComp(), half, bins, bin, folder = null, tpl = null, file = null, keys, i;
+    var a = insertArgs(args), comp = activeComp(), half, bin, folder = null, tpl = null, io = null, keys, rec;
     if (!comp || str(rd(comp, 'id')) !== a.compId) {
       throw CRBK.error('TARGET_CHANGED', 'comp ' + a.compId + ' is not the active item');
     }
     half = frameSec(comp) / 2;
     // Every check that does not change the project comes first; a refusal then leaves it as it was.
-    bins = findBins();
-    for (i = 0; i < bins.length; i++) {
+    if (inTemplate(comp)) {
       // Inserting into a template comp, or into one that holds the template, would nest a comp into itself.
-      if (sameItem(comp, bins[i]) || inside(comp, bins[i])) {
-        throw CRBK.error('TARGET_IS_TEMPLATE', str(rd(comp, 'name')));
-      }
+      throw CRBK.error('TARGET_IS_TEMPLATE', str(rd(comp, 'name')));
     }
-    bin = exactlyOne(bins, 'folders named ' + BIN);
+    bin = exactlyOne(findBins(), 'folders named ' + BIN);
     if (bin) {
       folder = exactlyOne(collect(bin, isLabelled(a.itemKey)), 'folders labelled ' + a.itemKey);
     }
     if (folder) {
       tpl = templateComp(folder, a.aeComp);
     } else {
-      if (a.aepPath === '') {
-        throw bad('aepPath');
-      }
-      file = new File(a.aepPath);
-      if (!file.exists) {
-        throw CRBK.error('FILE_MISSING', a.aepPath);
-      }
+      io = importOptions(a.aepPath);
     }
     keys = fitKeys(a, half);
-    // One undo step for the whole insert: the bin, the import, the layer, the fields and the length.
+    // The last point before the project changes: findPlaced is told what this insert found in the comp.
+    rec = track(a, comp);
+    // One undo step for the whole insert: the import, the bin, the layer, the fields and the length.
     app.beginUndoGroup(a.label);
     try {
-      if (!bin) {
-        bin = makeBin();
-      }
       if (!folder) {
-        folder = importTemplate(file, bin, a.itemKey);
+        folder = importTemplate(io, bin, a.itemKey);
         tpl = templateComp(folder, a.aeComp);
       }
-      return CRBK.ok(addInstance(a, comp, tpl, keys, half));
+      return CRBK.ok(addInstance(a, comp, tpl, keys, half, rec));
     } finally {
       endGroup();
     }
   };
 
   CRBK.fns.findPlaced = function (probe) {
-    var comp, layer, src, half, i;
+    var comp, layer, src, half, rec, i;
     if (!probe || typeof probe !== 'object' || CRBK.isList(probe)) {
       throw bad('probe');
     }
@@ -718,11 +831,25 @@
       return CRBK.ok(null);
     }
     half = frameSec(comp) / 2;
+    // The last insert's record, when it is about this probe: an insert that added no layer or took it out again left
+    // none, and a layer that was in the comp before it is not its work, whatever it looks like (an older layer of the
+    // template at the same start). Only with no record at all (a reload by another build) the layers alone answer.
+    rec = recordFor(probe, half);
+    // The panel sends one insert at a time and asks findPlaced right after its own insertItem: a record about another
+    // insert means the probed one never reached the adapter, so it added nothing.
+    if (!rec && lastRecord()) {
+      return CRBK.ok(null);
+    }
+    if (rec && (rec.phase === 'adding' || rec.phase === 'discarded')) {
+      return CRBK.ok(null);
+    }
     // The lowest index is the newest layer: layers.add puts a layer on top.
     for (i = 1; i <= comp.numLayers; i++) {
       layer = comp.layer(i);
       src = rd(layer, 'source');
-      if (src && rd(src, 'name') === probe.name && Math.abs(num(rd(layer, 'startTime')) - probe.startSec) <= half) {
+      // the record is asked about the few layers that fit, not about every layer of a big comp
+      if (src && rd(src, 'name') === probe.name && Math.abs(num(rd(layer, 'startTime')) - probe.startSec) <= half &&
+          !(rec && inList(rec.before, realId(layer)))) {
         return CRBK.ok(placedOf(layer));
       }
     }
@@ -809,7 +936,9 @@
       dirty: rd(proj, 'dirty') === true,
       json: typeof JSON !== 'undefined' && /\[native code\]/.test(str(JSON.stringify)) ? 'native' : 'polyfill',
       bins: bins.length,
-      bin: entries
+      bin: entries,
+      // how far the last insert got, also when it did not finish
+      inflight: lastRecord()
     };
     colour = colourOf(proj);
     if (colour) {

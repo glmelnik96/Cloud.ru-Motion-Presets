@@ -6,7 +6,9 @@
 // - collections (sequences, tracks, clips, parameters) have a count and an index and nothing else: no length, no array
 //   methods; seq.videoTracks is a snapshot, so an adapter must fetch it again after adding a track;
 // - importMGT only overwrites, places the clip at once, after some $.sleep polls or never (host.importPlan, one entry
-//   per call), and a MOGRT clip's inPoint is not 0 (one hour in, as seen live);
+//   per call), and a MOGRT clip's inPoint is not 0 (one hour in, as seen live). What the new clip covers is cut the way
+//   S5 measured it: a clip that runs under the new start keeps its head (bars2 250..500 under a template at 300 became
+//   250..300), one that runs past the end keeps its tail, one inside is gone, one around it is split;
 // - a text parameter is a JSON string (textEditValue + fontTextRunLength), a dropdown counts from 0, a checkbox reads
 //   back as a boolean, setValue answers true even when the value is not taken (readOnly);
 // - app.enableQE() makes the global qe appear; the QE sequence adds tracks to the DOM sequence.
@@ -75,13 +77,21 @@ function whole(v) {
 }
 
 // opts: version, projectPath ('' for a project with no file), noProject (app.project is null), importPlan (per call:
-// 'now' | n polls | 'never' | 'throw'; the last entry repeats), staleParams (a parameter keeps the value it had when its
+// 'now' | n polls | 'never' | 'throw' | { throw: true, after: n } (it throws, and the clip still lands after n polls);
+// the last entry repeats), staleParams (a parameter keeps the value it had when its
 // component was fetched), endIgnored (clip.end = ... changes nothing), getParam ('native' | 'absent' | 'null' |
 // 'throws': what properties.getParamForDisplayName does), qe ('ok' | 'noop' | 'throws' | 'enableThrows' |
-// 'unavailable'), qeDelay (polls before QE tracks appear), qeStale (QE answers with another sequence this many times),
-// selectionThrows (clip.isSelected() throws), openSequence ('noop' | 'throws': it does not make the sequence active).
+// 'unavailable'), qeAt ('top' | 'bottom': where QE puts the track it adds; the real placement was never verified
+// live), qeDelay (polls before QE tracks appear), qeStale (QE answers with another sequence this many times),
+// selectionThrows (clip.isSelected() throws), openSequence ('noop' | 'throws': it does not make the sequence active),
+// fileThrows (new File(...) throws), lookupThrows (a track's clips cannot be fetched; a test may switch it on and off
+// at any moment).
 // A template parameter spec: { name, kind: 'text' | 'dropdown' | 'checkbox' |
-// 'slider', value, runs (text), readOnly, throwsOnSet, float32 (a slider keeps single precision) }.
+// 'slider', value, runs (text), readOnly, throwsOnSet, throwsOnGet, throwsOnGetAfterSet, float32 (a slider keeps single
+// precision) }. A template spec may carry faults for the clip it places: { name (the name getter throws), end (the end
+// getter throws), endAfterTrim (it throws once end was assigned), movesOnTrim (ticks the clip is shifted by when its
+// end is assigned), lookupsFailAfterTrim (track look-ups throw once end was assigned), selectThrows (setSelected
+// throws on this clip) }.
 export function createPremiere(opts = {}) {
   const host = {
     opts: { qe: 'ok', getParam: 'native', ...opts },
@@ -92,7 +102,7 @@ export function createPremiere(opts = {}) {
     imports: [], // every importMGT call: { path, ticks, vIdx, aIdx, n }
     ops: [], // the writes in order: ['outPoint', ticks], ['end', ticks], ['setValue', name, value, ui], ['select', clip, state, ui]
     events: [], // 'lookup' (a track's clips fetched), 'read' (getValue), 'write' (setValue), 'trim' (end set), 'readEnd'
-    overwrites: [], // clips an importMGT cut
+    overwrites: [], // clips an importMGT cut: { track, name, how }
     qeCalls: [], // addTracks arguments
     forbidden: [],
     opened: [], // openSequence ids
@@ -115,6 +125,7 @@ export function createPremiere(opts = {}) {
   const keyOf = (p) => String(p).replace(/\//g, '\\').toLowerCase();
 
   function File(p) {
+    if (host.opts.fileThrows) throw new Error('File: Object is invalid');
     this.path = String(p);
     this.fsName = this.path.replace(/\//g, '\\');
     this.exists = host.templates.has(keyOf(p));
@@ -135,12 +146,14 @@ export function createPremiere(opts = {}) {
       displayName: p.name,
       getValue: () => {
         host.events.push('read');
+        if (p.throwsOnGet || (p.throwsOnGetAfterSet && p.wrote)) throw new Error('getValue failed');
         return snapshot ? frozen : p.raw;
       },
       setValue(v, ui) {
         host.ops.push(['setValue', p.name, v, ui]);
         host.events.push('write');
         if (p.throwsOnSet) throw new Error('setValue failed');
+        p.wrote = true;
         if (p.readOnly) return true;
         if (p.kind === 'text') {
           if (typeof v !== 'string') throw new Error('a string is expected');
@@ -155,8 +168,10 @@ export function createPremiere(opts = {}) {
     };
   }
 
-  // spec: name, startT, endT, inT (ticks), selected, nodeId (absent: the clip has none), params (a MOGRT instance).
+  // spec: name, startT, endT, inT (ticks), selected, nodeId (absent: the clip has none), params (a MOGRT instance),
+  // faults (see the header: a clip that a read or a write on fails, as a stale host object does).
   function createClip(spec) {
+    const faults = spec.faults ?? {};
     const clip = {
       name: spec.name,
       _start: spec.startT,
@@ -165,16 +180,24 @@ export function createPremiere(opts = {}) {
       _out: (spec.inT ?? 0) + (spec.endT - spec.startT),
       _selected: !!spec.selected,
       _params: spec.params ?? null,
+      _trimmed: false,
       get start() { return timeOf(this._start); },
       get end() {
         host.events.push('readEnd');
+        if (faults.end || (faults.endAfterTrim && this._trimmed)) throw new Error('Object is invalid');
         return timeOf(this._end);
       },
       set end(v) {
         whole(v);
         host.ops.push(['end', Number(v.ticks)]);
         host.events.push('trim');
+        this._trimmed = true;
+        if (faults.lookupsFailAfterTrim) host.opts.lookupThrows = true;
         if (!host.opts.endIgnored) this._end = Number(v.ticks);
+        if (faults.movesOnTrim) {
+          this._start += faults.movesOnTrim;
+          this._end += faults.movesOnTrim;
+        }
       },
       get inPoint() { return timeOf(this._in); },
       get outPoint() { return timeOf(this._out); },
@@ -188,7 +211,9 @@ export function createPremiere(opts = {}) {
         return this._selected;
       },
       setSelected(state, ui) {
-        host.ops.push(['select', this.name, !!state, ui]);
+        // spec.name, not this.name: a clip whose name getter fails must not make the bookkeeping fail
+        host.ops.push(['select', spec.name, !!state, ui]);
+        if (faults.selectThrows && state) throw new Error('setSelected failed');
         this._selected = !!state;
         return true;
       },
@@ -207,6 +232,9 @@ export function createPremiere(opts = {}) {
       },
     };
     if (spec.nodeId !== undefined) clip.nodeId = spec.nodeId;
+    if (faults.name) {
+      Object.defineProperty(clip, 'name', { get() { throw new Error('Object is invalid'); }, enumerable: true, configurable: true });
+    }
     return clip;
   }
 
@@ -240,6 +268,7 @@ export function createPremiere(opts = {}) {
     Object.defineProperty(track.node, 'clips', {
       get: () => {
         host.events.push('lookup');
+        if (host.opts.lookupThrows) throw new Error('Object is invalid');
         return collection(clips, 'numItems');
       },
       enumerable: true,
@@ -249,13 +278,29 @@ export function createPremiere(opts = {}) {
     return track;
   }
 
-  // A template placed on a video track at startT; whatever it covers there is cut (importMGT only overwrites).
+  // A template placed on a video track at startT. importMGT only overwrites: what the new clip covers is cut the way S5
+  // measured it (see the header), and host.overwrites says what became of each clip it touched:
+  // 'head kept' | 'tail kept' | 'split' | 'removed'.
   function place(handle, vIdx, template, startT) {
     const track = handle.video[vIdx];
     const endT = startT + template.lenF * handle.tpf;
     for (const c of [...track.clips]) {
-      if (c._start < endT && c._end > startT) {
-        host.overwrites.push({ track: vIdx, name: c.name });
+      if (!(c._start < endT && c._end > startT)) continue;
+      const head = c._start < startT; // a part before the new clip stays
+      const tail = c._end > endT; // a part after it stays
+      const { _start: start0, _end: end0, _in: in0 } = c;
+      host.overwrites.push({ track: vIdx, name: c.name, how: head && tail ? 'split' : head ? 'head kept' : tail ? 'tail kept' : 'removed' });
+      if (head) {
+        c._end = startT;
+        c._out = in0 + (startT - start0);
+      }
+      if (tail && head) {
+        // a new clip of the same name holds the tail; its in point has moved on by what was cut away
+        track.clips.push(createClip({ name: c.name, startT: endT, endT: end0, inT: in0 + (endT - start0) }));
+      } else if (tail) {
+        c._start = endT;
+        c._in = in0 + (endT - start0);
+      } else if (!head) {
         track.clips.splice(track.clips.indexOf(c), 1);
       }
     }
@@ -266,6 +311,7 @@ export function createPremiere(opts = {}) {
       inT: (template.inF ?? HOUR_FRAMES) * handle.tpf,
       nodeId: template.nodeId === undefined ? '000' + (host.imports.length + 1000).toString(16) : template.nodeId ?? undefined,
       params: instanceParams(template),
+      faults: template.faults,
     });
     track.clips.push(clip);
     track.clips.sort((a, b) => a._start - b._start);
@@ -285,7 +331,12 @@ export function createPremiere(opts = {}) {
       video,
       audio,
       playheadF: spec.playheadF ?? 0,
-      addVideoTrack: (s = {}) => video[video.push(makeTrack(s, tpf)) - 1],
+      // at: the index the track takes (default: on top, as the Timeline shows a new track)
+      addVideoTrack: (s = {}, at = video.length) => {
+        const track = makeTrack(s, tpf);
+        video.splice(at, 0, track);
+        return track;
+      },
       addAudioTrack: (s = {}) => audio[audio.push(makeTrack(s, tpf)) - 1],
     };
     const seq = {
@@ -306,6 +357,12 @@ export function createPremiere(opts = {}) {
         if (!video[vIdx]) throw new Error('no video track ' + vIdx);
         if (plan === 'never') return null;
         const land = () => place(handle, vIdx, template, Number(ticks));
+        if (typeof plan === 'object') {
+          // { throw: true, after: n }: the call reports an error, yet the clip lands (after n polls, or at once)
+          if (plan.after > 0) host.pending.push({ at: host.sleeps + plan.after, run: land });
+          else land();
+          throw new Error('importMGT threw after it had started');
+        }
         if (plan === 'now' || plan === 0) return land();
         host.pending.push({ at: host.sleeps + plan, run: land });
         return null;
@@ -331,7 +388,8 @@ export function createPremiere(opts = {}) {
     host.templates.set(keyOf(path), { lenF: 150, params: [], ...spec });
   };
 
-  // The QE sequence of a DOM sequence: addTracks adds video tracks to it, at once or after qeDelay polls.
+  // The QE sequence of a DOM sequence: addTracks adds video tracks to it, at once or after qeDelay polls, on top of the
+  // others or (qeAt: 'bottom') under them.
   const qeSequence = (handle) => ({
     name: handle.node.name,
     addTracks(...args) {
@@ -339,7 +397,7 @@ export function createPremiere(opts = {}) {
       if (host.opts.qe === 'throws') throw new Error('addTracks failed');
       if (host.opts.qe === 'noop') return;
       const add = () => {
-        for (let i = 0; i < Number(args[0]); i++) handle.addVideoTrack();
+        for (let i = 0; i < Number(args[0]); i++) handle.addVideoTrack({}, host.opts.qeAt === 'bottom' ? 0 : undefined);
       };
       if (host.opts.qeDelay) host.pending.push({ at: host.sleeps + host.opts.qeDelay, run: add });
       else add();
