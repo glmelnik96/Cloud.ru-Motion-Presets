@@ -1,6 +1,6 @@
 {
   "name": "cloudru-brandkit-panel",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "description": "Cloud.ru BrandKit CEP panel (ru.cloud.brandkit). Built from the repo root: npm run panel:build. The version here is the plugin version (semver, spec 8.1): manifest, host bundle and panel take it from this file."
 }

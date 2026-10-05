@@ -245,8 +245,9 @@ function Status({ app, ui }: { app: PanelApp; ui: UiServices }) {
   const [copied, setCopied] = useState(false);
   return (
     <footer class="status">
-      <span class={fonts.ok ? '' : 'bad'}>{fonts.text}</span>
-      <span>{app.versions()}</span>
+      {/* One line of text with its own separator: the gap of the flex row is not in the text itself, and the
+          live checks read «на местеAE 26.5» (recheck 2026-10-05). */}
+      <span class="facts"><span class={fonts.ok ? '' : 'bad'}>{fonts.text}</span>{' · '}{app.versions()}</span>
       {ui.copy && (
         <button onClick={async () => { ui.copy!(await app.diagnostics()); setCopied(true); setTimeout(() => setCopied(false), 1500); }}>
           {copied ? 'Скопировано' : 'Скопировать диагностику'}
