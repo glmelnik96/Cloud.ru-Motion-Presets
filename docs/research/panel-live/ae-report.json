@@ -1,0 +1,3123 @@
+{
+  "host": "ae",
+  "startedAt": "2026-10-05T06:50:33.287Z",
+  "finishedAt": "2026-10-05T06:55:03.590Z",
+  "summary": {
+    "checks": 182,
+    "passed": 181,
+    "failed": 0
+  },
+  "failed": [],
+  "checks": [
+    {
+      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, TTL_LowerThird",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "catalog read by the panel core",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "cold start: the bridge loads the host bundle with $.evalFile and pings",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "data": {
+          "app": "ae",
+          "version": "26.5x89",
+          "bk": "0.1.0"
+        }
+      }
+    },
+    {
+      "name": "setup: scratch project created and saved in the work folder",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "comps": 14,
+        "path": "C:\\CRBK\\work\\panel-live\\ae\\panel_live.aep"
+      }
+    },
+    {
+      "name": "fonts: every brand font is installed",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "SBSansDisplay-Semibold": {
+          "found": true,
+          "version": "1.002",
+          "substitute": false,
+          "location": "C:/Windows/Fonts/SBSansDisplay-SemiBold.otf"
+        },
+        "SBSansText-Regular": {
+          "found": true,
+          "version": "1.003",
+          "substitute": false,
+          "location": "C:/Windows/Fonts/SBSansText-Regular.otf"
+        },
+        "SBSansDisplay-Bold": {
+          "found": true,
+          "version": "1.002",
+          "substitute": false,
+          "location": "C:/Windows/Fonts/SBSansDisplay-Bold.otf"
+        },
+        "SBSansDisplay-Regular": {
+          "found": true,
+          "version": "1.002",
+          "substitute": false,
+          "location": "C:/Windows/Fonts/SBSansDisplay-Regular.otf"
+        }
+      }
+    },
+    {
+      "name": "activate LOGO_Shot_16x9 at 2 s: comp 1 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Shot_16x9"
+      }
+    },
+    {
+      "name": "activate LOGO_Shot_16x9 at 20 s: comp 1 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Shot_16x9"
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9: A inserted at 2 s, 5 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Shot_16x9_v1",
+          "layerId": 241,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 5,
+          "readback": {
+            "Подпись": 3,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "imported": true,
+          "notes": [
+            "footage: 0"
+          ]
+        }
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9: B inserted at 20 s, 9 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Shot_16x9_v1",
+          "layerId": 242,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 9,
+          "readback": {
+            "Подпись": 3,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9: variant 16x9 chosen for 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Shot_16x9_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/LOGO_Shot/LOGO_Shot_16x9_v1.mogrt",
+          "sha256": "9ca46a4095d406d9434d067707beefe1c7b306207b99f1db320874ceec311fec",
+          "bytes": 129230
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Подпись": 3,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "startSec": 2,
+          "lengthSec": 5,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Подпись": 3,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "startSec": 20,
+          "lengthSec": 9,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_LOGO_Shot_16x9_v1",
+        "layerId": 242
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9: layer A: layer 241 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Shot_16x9: layer B: layer 242 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Shot_16x9: A plays as is (no time remap, 5 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_LOGO_Shot_16x9_v1",
+        "inPoint": 2,
+        "outPoint": 7,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_LOGO_Shot_16x9"
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.84,
+            2.84,
+            true
+          ],
+          [
+            7.6,
+            3.6,
+            true
+          ],
+          [
+            9,
+            5,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            2.84,
+            2.84
+          ],
+          [
+            7.6,
+            3.6
+          ],
+          [
+            9,
+            5
+          ]
+        ]
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_LOGO_Shot_16x9_v1",
+        "inPoint": 20,
+        "outPoint": 29,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.84,
+            2.84,
+            true
+          ],
+          [
+            7.6,
+            3.6,
+            true
+          ],
+          [
+            9,
+            5,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_LOGO_Shot_16x9"
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Shot_16x9: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_b_intro.png"
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_b_outro.png"
+      }
+    },
+    {
+      "name": "activate LOGO_Shot_16x9_4K at 2 s: comp 13 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Shot_16x9_4K"
+      }
+    },
+    {
+      "name": "activate LOGO_Shot_16x9_4K at 20 s: comp 13 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Shot_16x9_4K"
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: A inserted at 2 s, 5 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Shot_16x9_4K_v1",
+          "layerId": 243,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 5,
+          "readback": {
+            "Подпись": 3,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "imported": false,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: B inserted at 20 s, 9 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Shot_16x9_4K_v1",
+          "layerId": 244,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 9,
+          "readback": {
+            "Подпись": 3,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: variant 16x9_4K chosen for 3840x2160",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Shot_16x9_4K_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/LOGO_Shot/LOGO_Shot_16x9_4K_v1.mogrt",
+          "sha256": "e3cae66484db64fd74d35cca06247dcc445824f5bed39c7a9f8c3ff79be41cec",
+          "bytes": 129362
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Подпись": 3,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "startSec": 2,
+          "lengthSec": 5,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Подпись": 3,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "startSec": 20,
+          "lengthSec": 9,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_LOGO_Shot_16x9_4K_v1",
+        "layerId": 244
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: layer A: layer 243 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: layer B: layer 244 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: A plays as is (no time remap, 5 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_LOGO_Shot_16x9_4K_v1",
+        "inPoint": 2,
+        "outPoint": 7,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_LOGO_Shot_16x9_4K"
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.84,
+            2.84,
+            true
+          ],
+          [
+            7.6,
+            3.6,
+            true
+          ],
+          [
+            9,
+            5,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            2.84,
+            2.84
+          ],
+          [
+            7.6,
+            3.6
+          ],
+          [
+            9,
+            5
+          ]
+        ]
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_LOGO_Shot_16x9_4K_v1",
+        "inPoint": 20,
+        "outPoint": 29,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.84,
+            2.84,
+            true
+          ],
+          [
+            7.6,
+            3.6,
+            true
+          ],
+          [
+            9,
+            5,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_LOGO_Shot_16x9_4K"
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_4K_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_4K_b_intro.png"
+      }
+    },
+    {
+      "name": "LOGO_Shot_16x9_4K: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_4K_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_4K_b_outro.png"
+      }
+    },
+    {
+      "name": "activate LOGO_Shot_9x16 at 2 s: comp 25 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Shot_9x16"
+      }
+    },
+    {
+      "name": "activate LOGO_Shot_9x16 at 20 s: comp 25 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Shot_9x16"
+      }
+    },
+    {
+      "name": "LOGO_Shot_9x16: A inserted at 2 s, 5 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Shot_9x16_v1",
+          "layerId": 245,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 5,
+          "readback": {
+            "Подпись": 3,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "imported": false,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "LOGO_Shot_9x16: B inserted at 20 s, 9 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Shot_9x16_v1",
+          "layerId": 246,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 9,
+          "readback": {
+            "Подпись": 3,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "LOGO_Shot_9x16: variant 9x16 chosen for 1080x1920",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Shot_9x16_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/LOGO_Shot/LOGO_Shot_9x16_v1.mogrt",
+          "sha256": "1e651bad03217f4646b18e6d5a38c316b727a9385f12872e6cb0dbba382bec55",
+          "bytes": 82982
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "LOGO_Shot_9x16: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Подпись": 3,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "startSec": 2,
+          "lengthSec": 5,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "LOGO_Shot_9x16: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Подпись": 3,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "startSec": 20,
+          "lengthSec": 9,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "LOGO_Shot_9x16: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_LOGO_Shot_9x16_v1",
+        "layerId": 246
+      }
+    },
+    {
+      "name": "LOGO_Shot_9x16: layer A: layer 245 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Shot_9x16: layer B: layer 246 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Shot_9x16: A plays as is (no time remap, 5 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_LOGO_Shot_9x16_v1",
+        "inPoint": 2,
+        "outPoint": 7,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_LOGO_Shot_9x16"
+      }
+    },
+    {
+      "name": "LOGO_Shot_9x16: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.84,
+            2.84,
+            true
+          ],
+          [
+            7.6,
+            3.6,
+            true
+          ],
+          [
+            9,
+            5,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            2.84,
+            2.84
+          ],
+          [
+            7.6,
+            3.6
+          ],
+          [
+            9,
+            5
+          ]
+        ]
+      }
+    },
+    {
+      "name": "LOGO_Shot_9x16: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_LOGO_Shot_9x16_v1",
+        "inPoint": 20,
+        "outPoint": 29,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.84,
+            2.84,
+            true
+          ],
+          [
+            7.6,
+            3.6,
+            true
+          ],
+          [
+            9,
+            5,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_LOGO_Shot_9x16"
+      }
+    },
+    {
+      "name": "LOGO_Shot_9x16: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Shot_9x16: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_9x16_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_9x16_b_intro.png"
+      }
+    },
+    {
+      "name": "LOGO_Shot_9x16: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_9x16_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_9x16_b_outro.png"
+      }
+    },
+    {
+      "name": "activate LOGO_Mark_16x9 at 2 s: comp 37 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Mark_16x9"
+      }
+    },
+    {
+      "name": "activate LOGO_Mark_16x9 at 20 s: comp 37 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Mark_16x9"
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9: A inserted at 2 s, 4 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Mark_16x9_v1",
+          "layerId": 311,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 4,
+          "readback": {
+            "Подложка": 0,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "imported": true,
+          "notes": [
+            "footage: 0"
+          ]
+        }
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9: B inserted at 20 s, 8 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Mark_16x9_v1",
+          "layerId": 312,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 8,
+          "readback": {
+            "Подложка": 0,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9: variant 16x9 chosen for 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Mark_16x9_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/LOGO_Mark/LOGO_Mark_16x9_v1.mogrt",
+          "sha256": "c9a7eef27e01801327d146723f61abcd66a7a2e013e3aef6fcdb5a1e85748d08",
+          "bytes": 91014
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Подложка": 0,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "startSec": 2,
+          "lengthSec": 4,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Подложка": 0,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "startSec": 20,
+          "lengthSec": 8,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_LOGO_Mark_16x9_v1",
+        "layerId": 312
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9: layer A: layer 311 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Mark_16x9: layer B: layer 312 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Mark_16x9: A plays as is (no time remap, 4 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_LOGO_Mark_16x9_v1",
+        "inPoint": 2,
+        "outPoint": 6,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_LOGO_Mark_16x9"
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.96,
+            2.96,
+            true
+          ],
+          [
+            7.2,
+            3.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            2.96,
+            2.96
+          ],
+          [
+            7.2,
+            3.2
+          ],
+          [
+            8,
+            4
+          ]
+        ]
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_LOGO_Mark_16x9_v1",
+        "inPoint": 20,
+        "outPoint": 28,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.96,
+            2.96,
+            true
+          ],
+          [
+            7.2,
+            3.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_LOGO_Mark_16x9"
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Mark_16x9: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_b_intro.png"
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_b_outro.png"
+      }
+    },
+    {
+      "name": "activate LOGO_Mark_16x9_4K at 2 s: comp 49 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Mark_16x9_4K"
+      }
+    },
+    {
+      "name": "activate LOGO_Mark_16x9_4K at 20 s: comp 49 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Mark_16x9_4K"
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: A inserted at 2 s, 4 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Mark_16x9_4K_v1",
+          "layerId": 313,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 4,
+          "readback": {
+            "Подложка": 0,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "imported": false,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: B inserted at 20 s, 8 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Mark_16x9_4K_v1",
+          "layerId": 314,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 8,
+          "readback": {
+            "Подложка": 0,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: variant 16x9_4K chosen for 3840x2160",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Mark_16x9_4K_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/LOGO_Mark/LOGO_Mark_16x9_4K_v1.mogrt",
+          "sha256": "1a45a23247c0a8d82d23036be058e505a20d5747e56779e6d3830cbf4957907f",
+          "bytes": 89971
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Подложка": 0,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "startSec": 2,
+          "lengthSec": 4,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Подложка": 0,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "startSec": 20,
+          "lengthSec": 8,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_LOGO_Mark_16x9_4K_v1",
+        "layerId": 314
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: layer A: layer 313 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: layer B: layer 314 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: A plays as is (no time remap, 4 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_LOGO_Mark_16x9_4K_v1",
+        "inPoint": 2,
+        "outPoint": 6,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_LOGO_Mark_16x9_4K"
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.96,
+            2.96,
+            true
+          ],
+          [
+            7.2,
+            3.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            2.96,
+            2.96
+          ],
+          [
+            7.2,
+            3.2
+          ],
+          [
+            8,
+            4
+          ]
+        ]
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_LOGO_Mark_16x9_4K_v1",
+        "inPoint": 20,
+        "outPoint": 28,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.96,
+            2.96,
+            true
+          ],
+          [
+            7.2,
+            3.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_LOGO_Mark_16x9_4K"
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_4K_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_4K_b_intro.png"
+      }
+    },
+    {
+      "name": "LOGO_Mark_16x9_4K: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_4K_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_4K_b_outro.png"
+      }
+    },
+    {
+      "name": "activate LOGO_Mark_9x16 at 2 s: comp 61 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Mark_9x16"
+      }
+    },
+    {
+      "name": "activate LOGO_Mark_9x16 at 20 s: comp 61 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Mark_9x16"
+      }
+    },
+    {
+      "name": "LOGO_Mark_9x16: A inserted at 2 s, 4 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Mark_9x16_v1",
+          "layerId": 315,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 4,
+          "readback": {
+            "Подложка": 0,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "imported": false,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "LOGO_Mark_9x16: B inserted at 20 s, 8 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Mark_9x16_v1",
+          "layerId": 316,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 8,
+          "readback": {
+            "Подложка": 0,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "LOGO_Mark_9x16: variant 9x16 chosen for 1080x1920",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Mark_9x16_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/LOGO_Mark/LOGO_Mark_9x16_v1.mogrt",
+          "sha256": "9e1a909ae884499198d4fa9a3560db5f279c59831935e99ad61314bdae7fd345",
+          "bytes": 73710
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "LOGO_Mark_9x16: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Подложка": 0,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "startSec": 2,
+          "lengthSec": 4,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "LOGO_Mark_9x16: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Подложка": 0,
+            "Тема": 2,
+            "Фон": 3,
+            "Скорость": 2
+          },
+          "startSec": 20,
+          "lengthSec": 8,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "LOGO_Mark_9x16: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_LOGO_Mark_9x16_v1",
+        "layerId": 316
+      }
+    },
+    {
+      "name": "LOGO_Mark_9x16: layer A: layer 315 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Mark_9x16: layer B: layer 316 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Mark_9x16: A plays as is (no time remap, 4 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_LOGO_Mark_9x16_v1",
+        "inPoint": 2,
+        "outPoint": 6,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_LOGO_Mark_9x16"
+      }
+    },
+    {
+      "name": "LOGO_Mark_9x16: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.96,
+            2.96,
+            true
+          ],
+          [
+            7.2,
+            3.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            2.96,
+            2.96
+          ],
+          [
+            7.2,
+            3.2
+          ],
+          [
+            8,
+            4
+          ]
+        ]
+      }
+    },
+    {
+      "name": "LOGO_Mark_9x16: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_LOGO_Mark_9x16_v1",
+        "inPoint": 20,
+        "outPoint": 28,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.96,
+            2.96,
+            true
+          ],
+          [
+            7.2,
+            3.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_LOGO_Mark_9x16"
+      }
+    },
+    {
+      "name": "LOGO_Mark_9x16: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Mark_9x16: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_9x16_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_9x16_b_intro.png"
+      }
+    },
+    {
+      "name": "LOGO_Mark_9x16: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_9x16_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_9x16_b_outro.png"
+      }
+    },
+    {
+      "name": "activate TTL_LowerThird_16x9 at 2 s: comp 73 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_LowerThird_16x9"
+      }
+    },
+    {
+      "name": "activate TTL_LowerThird_16x9 at 20 s: comp 73 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_LowerThird_16x9"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9: A inserted at 2 s, 6 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_LowerThird_16x9_v1",
+          "layerId": 465,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 6,
+          "readback": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": true,
+          "notes": [
+            "footage: 0"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9: B inserted at 20 s, 10 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_LowerThird_16x9_v1",
+          "layerId": 466,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 10,
+          "readback": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9: variant 16x9 chosen for 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_TTL_LowerThird_16x9_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/TTL_LowerThird/TTL_LowerThird_16x9_v1.mogrt",
+          "sha256": "cdaa9e13fc8129d6844f7f744105af93614a26e99aa9e5ad5b9d3a4fc6410504",
+          "bytes": 58324
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 2,
+          "lengthSec": 6,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 20,
+          "lengthSec": 10,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_TTL_LowerThird_16x9_v1",
+        "layerId": 466
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9: layer A: layer 465 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_LowerThird_16x9: layer B: layer 466 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_LowerThird_16x9: A plays as is (no time remap, 6 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_TTL_LowerThird_16x9_v1",
+        "inPoint": 2,
+        "outPoint": 8,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_TTL_LowerThird_16x9"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.2,
+            2.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ],
+          [
+            10,
+            6,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            2.2,
+            2.2
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            10,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_TTL_LowerThird_16x9_v1",
+        "inPoint": 20,
+        "outPoint": 30,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.2,
+            2.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ],
+          [
+            10,
+            6,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_TTL_LowerThird_16x9"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_LowerThird_16x9: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_b_intro.png"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_b_outro.png"
+      }
+    },
+    {
+      "name": "activate TTL_LowerThird_16x9_4K at 2 s: comp 85 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_LowerThird_16x9_4K"
+      }
+    },
+    {
+      "name": "activate TTL_LowerThird_16x9_4K at 20 s: comp 85 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_LowerThird_16x9_4K"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: A inserted at 2 s, 6 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_LowerThird_16x9_4K_v1",
+          "layerId": 467,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 6,
+          "readback": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: B inserted at 20 s, 10 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_LowerThird_16x9_4K_v1",
+          "layerId": 468,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 10,
+          "readback": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: variant 16x9_4K chosen for 3840x2160",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_TTL_LowerThird_16x9_4K_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/TTL_LowerThird/TTL_LowerThird_16x9_4K_v1.mogrt",
+          "sha256": "f45c51123f68f50c8b8e50591c8b8f69be19deab5f3da98fce0b17d2892056f3",
+          "bytes": 58091
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 2,
+          "lengthSec": 6,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 20,
+          "lengthSec": 10,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_TTL_LowerThird_16x9_4K_v1",
+        "layerId": 468
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: layer A: layer 467 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: layer B: layer 468 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: A plays as is (no time remap, 6 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_TTL_LowerThird_16x9_4K_v1",
+        "inPoint": 2,
+        "outPoint": 8,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_TTL_LowerThird_16x9_4K"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.2,
+            2.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ],
+          [
+            10,
+            6,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            2.2,
+            2.2
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            10,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_TTL_LowerThird_16x9_4K_v1",
+        "inPoint": 20,
+        "outPoint": 30,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.2,
+            2.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ],
+          [
+            10,
+            6,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_TTL_LowerThird_16x9_4K"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_4K_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_4K_b_intro.png"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_16x9_4K: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_4K_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_4K_b_outro.png"
+      }
+    },
+    {
+      "name": "activate TTL_LowerThird_9x16 at 2 s: comp 97 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_LowerThird_9x16"
+      }
+    },
+    {
+      "name": "activate TTL_LowerThird_9x16 at 20 s: comp 97 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_LowerThird_9x16"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_9x16: A inserted at 2 s, 6 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_LowerThird_9x16_v1",
+          "layerId": 469,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 6,
+          "readback": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_9x16: B inserted at 20 s, 10 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_LowerThird_9x16_v1",
+          "layerId": 470,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 10,
+          "readback": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_9x16: variant 9x16 chosen for 1080x1920",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "aeComp": "CR_TTL_LowerThird_9x16_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/TTL_LowerThird/TTL_LowerThird_9x16_v1.mogrt",
+          "sha256": "6ddfb5f40f69b652028a6540fcff91d700aa5b8e83baf2519484c9944eca0521",
+          "bytes": 46692
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "TTL_LowerThird_9x16: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 2,
+          "lengthSec": 6,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_9x16: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 20,
+          "lengthSec": 10,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_9x16: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_TTL_LowerThird_9x16_v1",
+        "layerId": 470
+      }
+    },
+    {
+      "name": "TTL_LowerThird_9x16: layer A: layer 469 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_LowerThird_9x16: layer B: layer 470 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_LowerThird_9x16: A plays as is (no time remap, 6 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_TTL_LowerThird_9x16_v1",
+        "inPoint": 2,
+        "outPoint": 8,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_TTL_LowerThird_9x16"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_9x16: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.2,
+            2.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ],
+          [
+            10,
+            6,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            2.2,
+            2.2
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            10,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "name": "TTL_LowerThird_9x16: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_TTL_LowerThird_9x16_v1",
+        "inPoint": 20,
+        "outPoint": 30,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.2,
+            2.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ],
+          [
+            10,
+            6,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_TTL_LowerThird_9x16"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_9x16: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_LowerThird_9x16: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_9x16_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_9x16_b_intro.png"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_9x16: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_9x16_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_9x16_b_outro.png"
+      }
+    },
+    {
+      "name": "activate TTL_LowerThird_1x1 at 2 s: comp 109 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_LowerThird_1x1"
+      }
+    },
+    {
+      "name": "activate TTL_LowerThird_1x1 at 20 s: comp 109 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_LowerThird_1x1"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_1x1: A inserted at 2 s, 6 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_LowerThird_1x1_v1",
+          "layerId": 471,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 6,
+          "readback": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_1x1: B inserted at 20 s, 10 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_LowerThird_1x1_v1",
+          "layerId": 472,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 10,
+          "readback": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_1x1: variant 1x1 chosen for 1080x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "1x1",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_TTL_LowerThird_1x1_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/TTL_LowerThird/TTL_LowerThird_1x1_v1.mogrt",
+          "sha256": "5caf7ef988e6f507b95a55c7319f1223b7364cd50971d437bc92d5af7c16afbf",
+          "bytes": 57747
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "TTL_LowerThird_1x1: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 2,
+          "lengthSec": 6,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_1x1: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Имя": "Анна-Мария Ёлкина",
+            "Должность": "Руководитель облачной платформы",
+            "Должность, 2-я строка": "Cloud.ru Evolution",
+            "Стиль": 3,
+            "Сторона": 2,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 20,
+          "lengthSec": 10,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "TTL_LowerThird_1x1: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_TTL_LowerThird_1x1_v1",
+        "layerId": 472
+      }
+    },
+    {
+      "name": "TTL_LowerThird_1x1: layer A: layer 471 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_LowerThird_1x1: layer B: layer 472 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_LowerThird_1x1: A plays as is (no time remap, 6 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_TTL_LowerThird_1x1_v1",
+        "inPoint": 2,
+        "outPoint": 8,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_TTL_LowerThird_1x1"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_1x1: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.2,
+            2.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ],
+          [
+            10,
+            6,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            2.2,
+            2.2
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            10,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "name": "TTL_LowerThird_1x1: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_TTL_LowerThird_1x1_v1",
+        "inPoint": 20,
+        "outPoint": 30,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            2.2,
+            2.2,
+            true
+          ],
+          [
+            8,
+            4,
+            true
+          ],
+          [
+            10,
+            6,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_TTL_LowerThird_1x1"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_1x1: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_LowerThird_1x1: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_1x1_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_1x1_b_intro.png"
+      }
+    },
+    {
+      "name": "TTL_LowerThird_1x1: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_1x1_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_1x1_b_outro.png"
+      }
+    },
+    {
+      "name": "activate nearest at 2 s: comp 121 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_nearest_2560x1440"
+      }
+    },
+    {
+      "name": "nearest: 2560x1440 without consent is refused before the host is called",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "code": "NO_VARIANT",
+          "severity": "error",
+          "message": "Нет варианта под кадр 2560×1440. Ближайший — 16x9_4K, он будет вписан в кадр.",
+          "detail": {
+            "key": "16x9_4K",
+            "scale": 0.6666666666666666
+          }
+        }
+      ]
+    },
+    {
+      "name": "activate nearest at 2 s: comp 121 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_nearest_2560x1440"
+      }
+    },
+    {
+      "name": "nearest: with consent the 4K variant goes in",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Shot_16x9_4K_v1",
+          "layerId": 473,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 5,
+          "readback": {
+            "Подпись": 1,
+            "Тема": 1,
+            "Фон": 1,
+            "Скорость": 2
+          },
+          "imported": false,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "nearest: layer: layer 473 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "nearest: layer scaled to 66.667 %",
+      "pass": true,
+      "required": true,
+      "detail": [
+        66.6667022705078,
+        66.6667022705078,
+        100
+      ]
+    },
+    {
+      "name": "activate other at 2 s: comp 157 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_other"
+      }
+    },
+    {
+      "name": "activate undo at 2 s: comp 145 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_undo"
+      }
+    },
+    {
+      "name": "count: layers of comp 145 counted",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "count: layers of comp 145 counted",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "target: an insert planned for another comp or sequence is refused, nothing added",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "problems": [
+          {
+            "code": "NO_TARGET",
+            "severity": "error",
+            "message": "Нет активной композиции. Откройте композицию на таймлайне и повторите."
+          }
+        ],
+        "before": 0,
+        "after": 0
+      }
+    },
+    {
+      "name": "activate undo at 2 s: comp 145 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_undo"
+      }
+    },
+    {
+      "name": "count: layers of comp 145 counted",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "undo: Edit > Undo once (executeCommand 16)",
+      "pass": true,
+      "required": false,
+      "detail": ""
+    },
+    {
+      "name": "count: layers of comp 145 counted",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "undo: one undo step removes the insert with its field writes",
+      "pass": false,
+      "required": false,
+      "detail": {
+        "before": 0,
+        "mid": 1,
+        "end": 1
+      }
+    },
+    {
+      "name": "save: scratch project saved",
+      "pass": true,
+      "required": false,
+      "detail": ""
+    }
+  ],
+  "hostVersion": "26.5x89",
+  "frames": true,
+  "outDir": "C:/CRBK/work/panel-live/ae"
+}
