@@ -71,6 +71,8 @@ export const page = {
   insert: `(() => { const b = document.querySelector('.insert'); if (!b || b.disabled) return false; b.click(); return true; })()`,
   outcome: `(() => { const d = document.querySelector('.done'); const e = [...document.querySelectorAll('.problems li.error')].map((x) => x.textContent); const busy = (document.querySelector('.insert') || {}).textContent === 'Вставка…'; return busy ? '' : (d ? 'done: ' + d.textContent : (e.length ? 'error: ' + e.join(' | ') : '')); })()`,
   problems: `[...document.querySelectorAll('.problems li')].map((x) => x.className + ': ' + x.textContent)`,
+  cardMedia: `(() => { const v = document.querySelectorAll('.card video'); const i = [...document.querySelectorAll('.card img')]; return { videos: v.length, posters: i.length, postersLoaded: i.filter((x) => x.naturalWidth > 0).length, h264: document.createElement('video').canPlayType('video/mp4; codecs="avc1.640028"') }; })()`,
+  cardPlaying: `(() => { const v = document.querySelector('.card video'); return !!v && v.readyState >= 2 && !v.paused && v.currentTime > 0; })()`,
 };
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
@@ -119,6 +121,20 @@ if (isMain) {
     const ready = await waitFor(s, page.ready);
     check('panel opens and shows the catalog (N3/N4 of panel-framework.md)', ready === 'catalog', ready);
     check('status line shows the host, the panel and the library', /панель \d+\.\d+\.\d+ · библиотека \d{4}\.\d{2}\.\d{2}/.test(await evaluate(s, page.text('.status'))), await evaluate(s, page.text('.status')));
+    // Card previews (tools/masters/preview.mjs): the poster shows, and the 480 px H.264 plays under the cursor
+    // in the Chromium of CEP (a CEF build may lack the codec). Only when the library carries previews.
+    const media = await evaluate(s, page.cardMedia);
+    if (media.videos) {
+      check('card previews: H.264 is playable in the panel', /probably|maybe/.test(media.h264), media);
+      await evaluate(s, `(() => { const c = document.querySelector('.card'); c.dispatchEvent(new MouseEvent('mouseenter')); return true; })()`);
+      const playing = await waitFor(s, page.cardPlaying, { timeoutMs: 8000 }).catch(() => false);
+      check('card previews: the preview under the cursor plays', playing, await evaluate(s, page.cardMedia));
+      await new Promise((r) => setTimeout(r, 1200));
+      await shot('1b-preview');
+      await evaluate(s, `(() => { const c = document.querySelector('.card'); c.dispatchEvent(new MouseEvent('mouseleave')); return true; })()`);
+    } else {
+      check('card previews: none in this library yet (posters and placeholders only)', true, media);
+    }
     await shot('1-catalog');
     check('card «Подпись спикера» opens the form', await evaluate(s, page.openCard('Подпись спикера')));
     await waitFor(s, `!!document.getElementById('f-name')`);

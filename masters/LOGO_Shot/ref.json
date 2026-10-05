@@ -76,5 +76,6 @@
       { "key": "V_hold", "clip": "V", "sec": 4.0, "master": 3.0 },
       { "key": "V_close", "clip": "V", "sec": 6.76, "master": 4.76 }
     ]
-  }
+  },
+  "preview": {"_note": "Card preview (tools/masters/preview.mjs): «облачные и ИИ-сервисы» on the dark background of the template itself.", "variant": "16x9", "ctrl": {"Caption": 1, "Theme": 1, "Background": 2}, "backdrop": "#222222", "fps": 12.5}
 }

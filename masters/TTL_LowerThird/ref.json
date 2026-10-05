@@ -345,5 +345,6 @@
         "master": 3.0
       }
     ]
-  }
+  },
+  "preview": {"_note": "Card preview: style «Титры» on a neutral grey, so the plate reads on the dark card.", "variant": "16x9", "ctrl": {"Style": 1, "Side": 1}, "text": {"TXT_NAME": "Анна Иванова", "TXT_ROLE1": "Руководитель направления", "TXT_ROLE2": "Cloud.ru"}, "backdrop": "#5A5A5A", "fps": 12.5}
 }
