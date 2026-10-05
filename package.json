@@ -13,7 +13,8 @@
     "spike:report": "node tools/spike/report.mjs",
     "library:validate": "node tools/library/validate.mjs library/library.src.json",
     "library:build": "node tools/library/build-catalog.mjs",
-    "typecheck": "tsc -p panel/tsconfig.json"
+    "typecheck": "tsc -p panel/tsconfig.json",
+    "panel:live": "node tools/panel/live.mjs"
   },
   "devDependencies": {
     "adm-zip": "^0.6.1",
