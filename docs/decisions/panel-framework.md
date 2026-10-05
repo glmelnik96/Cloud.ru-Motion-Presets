@@ -13,7 +13,7 @@
 | # | Что | Bolt CEP | Свой Vite | Как проверено |
 |---|---|---|---|---|
 | K1 | Один манифест, панель в AEFT и PPRO | нет: не проверялся — npm-пакеты пробы (create-bolt-cep) не скачивались | да: `covers AEFT+PPRO: true` | `node tools/panel/inspect.mjs <CSXS/manifest.xml>` → `covers AEFT+PPRO: true` |
-| K2 | Подписанный ZXP с меткой времени, `-verify` проходит | нет: не проверялся — npm-пакеты пробы не скачивались | да: подпись с меткой времени DigiCert, `Signature verified successfully`, `signed true` | `ZXPSignCmd -verify <zxp> -certinfo`; `node tools/panel/inspect.mjs <zxp>` → `signed true` |
+| K2 | Подписанный ZXP с меткой времени, `-verify` проходит | нет: не проверялся — npm-пакеты пробы не скачивались | да: подпись с меткой времени DigiCert, `Signature verified successfully`, `signed true`; на настоящей панели 0.1.0 — тоже (41 972 байта, `.debug` нет, `docs/research/panel-live/zxp-sign.json`, 2026-10-05) | `ZXPSignCmd -verify <zxp> -certinfo`; `node tools/panel/inspect.mjs <zxp>` → `signed true` |
 | N1 | Сборка под Chromium 99 (CEP 12) без ошибок | не проверялось | да: `vite build`, цель `chrome99`, 22 мс | `npm run build`, цель сборки `chrome99` |
 | N2 | Preact | не проверялось | да: настоящая панель на Preact 11 без `compat`, IIFE под `chrome99`, 59 КБ (2026-10-05, `npm run panel:build`); в Chromium — `tests/panel/ui-dom.test.mjs` | Bolt: шаблон React и алиас `react` → `preact/compat`; свой Vite: Preact напрямую |
 | N3 | Панель открывается в AE 26.5 | не проверялось | да: настоящая панель 0.1.0, вставка из интерфейса, 11/11 (`docs/research/panel-live/ae-ui-report.json`, 2026-10-05) | Window → Extensions, вручную |
