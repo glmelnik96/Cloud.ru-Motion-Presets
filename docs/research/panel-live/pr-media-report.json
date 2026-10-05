@@ -1,10 +1,10 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-05T13:51:06.840Z",
-  "finishedAt": "2026-10-05T13:51:13.204Z",
+  "startedAt": "2026-10-05T14:50:58.474Z",
+  "finishedAt": "2026-10-05T14:51:07.464Z",
   "summary": {
-    "checks": 92,
-    "passed": 92,
+    "checks": 93,
+    "passed": 93,
     "failed": 0
   },
   "failed": [],
@@ -30,7 +30,7 @@
         "data": {
           "app": "pr",
           "version": "26.5.2",
-          "bk": "0.1.5"
+          "bk": "0.1.6"
         }
       }
     },
@@ -39,7 +39,7 @@
       "pass": true,
       "required": true,
       "detail": {
-        "how": "opened",
+        "how": "active",
         "path": "C:\\CRBK\\work\\panel-live\\pr\\media_live.prproj",
         "ok": true
       }
@@ -49,11 +49,11 @@
       "pass": true,
       "required": true,
       "detail": {
-        "loop": "77d98efe-ce22-44b4-b765-bd0f87a4e414",
-        "transition": "17835778-ee52-421c-a89c-20da4d2a0af8",
-        "still": "8184dbcc-d8cd-4610-a1db-d37cd4931ba5",
-        "sound": "aaa47c03-0ff0-4e77-847f-68808bc8b8eb",
-        "companions": "f643c774-39ee-4c1d-a9d3-f879b30a909b"
+        "loop": "6b1d6182-80bc-417d-8db0-24e34ca901f0",
+        "transition": "b2691877-9f20-4458-9017-41ee7c844010",
+        "still": "c79872a7-9ae1-4d17-8792-b797946feb48",
+        "sound": "9be36f2f-a408-47e7-a6ce-19d9e73bed4b",
+        "companions": "ee869cf5-214d-4bfd-9257-c790c2dadb6a"
       }
     },
     {
@@ -63,7 +63,7 @@
       "detail": "BG_Arrows"
     },
     {
-      "name": "loop: range: out point of sequence 77d98efe-ce22-44b4-b765-bd0f87a4e414 at 20 s",
+      "name": "loop: range: out point of sequence 6b1d6182-80bc-417d-8db0-24e34ca901f0 at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -72,11 +72,11 @@
       }
     },
     {
-      "name": "loop: activate: sequence 77d98efe-ce22-44b4-b765-bd0f87a4e414 active, playhead at 2 s",
+      "name": "loop: activate: sequence 6b1d6182-80bc-417d-8db0-24e34ca901f0 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media loop_2",
+        "name": "BK media loop_4",
         "player": 2
       }
     },
@@ -86,8 +86,8 @@
       "required": true,
       "detail": {
         "kind": "sequence",
-        "id": "77d98efe-ce22-44b4-b765-bd0f87a4e414",
-        "name": "BK media loop_2",
+        "id": "6b1d6182-80bc-417d-8db0-24e34ca901f0",
+        "name": "BK media loop_4",
         "w": 1920,
         "h": 1080,
         "fps": 25,
@@ -166,14 +166,14 @@
               "lengthSec": 18
             }
           ],
-          "imported": 4,
+          "imported": 0,
           "addedTracks": 0,
           "notes": []
         }
       }
     },
     {
-      "name": "loop: timeline: clips of sequence 77d98efe-ce22-44b4-b765-bd0f87a4e414 listed with their files",
+      "name": "loop: timeline: clips of sequence 6b1d6182-80bc-417d-8db0-24e34ca901f0 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -500,7 +500,7 @@
             "lengthSec": 18
           }
         ],
-        "imported": 4,
+        "imported": 0,
         "addedTracks": 0,
         "notes": []
       }
@@ -592,6 +592,17 @@
       ]
     },
     {
+      "name": "loop: the rendered backdrop is #222222 (34, 34, 34 ± 2) where nothing covers it",
+      "pass": true,
+      "required": true,
+      "detail": [
+        34,
+        34,
+        34,
+        255
+      ]
+    },
+    {
       "name": "loop: the loop repeats as 2 clips end to end",
       "pass": true,
       "required": true,
@@ -674,11 +685,11 @@
       "detail": "BG_Arrows"
     },
     {
-      "name": "reuse: activate: sequence 77d98efe-ce22-44b4-b765-bd0f87a4e414 active, playhead at 30 s",
+      "name": "reuse: activate: sequence 6b1d6182-80bc-417d-8db0-24e34ca901f0 active, playhead at 30 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media loop_2",
+        "name": "BK media loop_4",
         "player": 30
       }
     },
@@ -749,7 +760,7 @@
       }
     },
     {
-      "name": "reuse: timeline: clips of sequence 77d98efe-ce22-44b4-b765-bd0f87a4e414 listed with their files",
+      "name": "reuse: timeline: clips of sequence 6b1d6182-80bc-417d-8db0-24e34ca901f0 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1124,7 +1135,7 @@
       "required": true,
       "detail": {
         "imported": 0,
-        "bin": 4
+        "bin": 7
       }
     },
     {
@@ -1147,7 +1158,7 @@
       "detail": "TRN_StepWipe"
     },
     {
-      "name": "transition: cuts on V1: clips on V1 of sequence 17835778-ee52-421c-a89c-20da4d2a0af8 cut at 0, 10, 20 s",
+      "name": "transition: cuts on V1: clips on V1 of sequence b2691877-9f20-4458-9017-41ee7c844010 cut at 0, 10, 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -1155,11 +1166,11 @@
       }
     },
     {
-      "name": "transition: activate: sequence 17835778-ee52-421c-a89c-20da4d2a0af8 active, playhead at 12 s",
+      "name": "transition: activate: sequence b2691877-9f20-4458-9017-41ee7c844010 active, playhead at 12 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media transition_2",
+        "name": "BK media transition_4",
         "player": 12
       }
     },
@@ -1216,14 +1227,14 @@
               "lengthSec": 1
             }
           ],
-          "imported": 1,
+          "imported": 0,
           "addedTracks": 0,
           "notes": []
         }
       }
     },
     {
-      "name": "transition: timeline: clips of sequence 17835778-ee52-421c-a89c-20da4d2a0af8 listed with their files",
+      "name": "transition: timeline: clips of sequence b2691877-9f20-4458-9017-41ee7c844010 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1246,19 +1257,19 @@
           {
             "track": 1,
             "audio": false,
-            "name": "BG_DotGrid_16x9_v1.png",
+            "name": "cut-clip.png",
             "startSec": 0,
             "endSec": 10,
-            "file": "C:/CRBK/work/panel-live/media/library/items/BG_DotGrid/BG_DotGrid_16x9_v1.png",
+            "file": "C:/CRBK/work/panel-live/pr/cut-clip.png",
             "selected": false
           },
           {
             "track": 1,
             "audio": false,
-            "name": "BG_DotGrid_16x9_v1.png",
+            "name": "cut-clip.png",
             "startSec": 10,
             "endSec": 20,
-            "file": "C:/CRBK/work/panel-live/media/library/items/BG_DotGrid/BG_DotGrid_16x9_v1.png",
+            "file": "C:/CRBK/work/panel-live/pr/cut-clip.png",
             "selected": false
           },
           {
@@ -1315,11 +1326,11 @@
       "detail": "BG_DotGrid"
     },
     {
-      "name": "still: activate: sequence 8184dbcc-d8cd-4610-a1db-d37cd4931ba5 active, playhead at 2 s",
+      "name": "still: activate: sequence c79872a7-9ae1-4d17-8792-b797946feb48 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media still_2",
+        "name": "BK media still_4",
         "player": 2
       }
     },
@@ -1363,14 +1374,14 @@
               "lengthSec": 8
             }
           ],
-          "imported": 1,
+          "imported": 0,
           "addedTracks": 0,
           "notes": []
         }
       }
     },
     {
-      "name": "still: timeline: clips of sequence 8184dbcc-d8cd-4610-a1db-d37cd4931ba5 listed with their files",
+      "name": "still: timeline: clips of sequence c79872a7-9ae1-4d17-8792-b797946feb48 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1427,7 +1438,7 @@
             "lengthSec": 8
           }
         ],
-        "imported": 1,
+        "imported": 0,
         "addedTracks": 0,
         "notes": []
       }
@@ -1452,11 +1463,11 @@
       "detail": "SFX_WhooshIn"
     },
     {
-      "name": "sound: activate: sequence aaa47c03-0ff0-4e77-847f-68808bc8b8eb active, playhead at 5 s",
+      "name": "sound: activate: sequence 9be36f2f-a408-47e7-a6ce-19d9e73bed4b active, playhead at 5 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media sound_2",
+        "name": "BK media sound_4",
         "player": 5
       }
     },
@@ -1500,14 +1511,14 @@
               "lengthSec": 0.8
             }
           ],
-          "imported": 1,
+          "imported": 0,
           "addedTracks": 0,
           "notes": []
         }
       }
     },
     {
-      "name": "sound: timeline: clips of sequence aaa47c03-0ff0-4e77-847f-68808bc8b8eb listed with their files",
+      "name": "sound: timeline: clips of sequence 9be36f2f-a408-47e7-a6ce-19d9e73bed4b listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1564,7 +1575,7 @@
             "lengthSec": 0.8
           }
         ],
-        "imported": 1,
+        "imported": 0,
         "addedTracks": 0,
         "notes": []
       }
@@ -1589,11 +1600,11 @@
       "detail": "TTL_LowerThird"
     },
     {
-      "name": "companions: activate: sequence f643c774-39ee-4c1d-a9d3-f879b30a909b active, playhead at 2 s",
+      "name": "companions: activate: sequence ee869cf5-214d-4bfd-9257-c790c2dadb6a active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media companions_2",
+        "name": "BK media companions_4",
         "player": 2
       }
     },
@@ -1684,7 +1695,7 @@
       }
     },
     {
-      "name": "companions: timeline: clips of sequence f643c774-39ee-4c1d-a9d3-f879b30a909b listed with their files",
+      "name": "companions: timeline: clips of sequence ee869cf5-214d-4bfd-9257-c790c2dadb6a listed with their files",
       "pass": true,
       "required": true,
       "detail": ""

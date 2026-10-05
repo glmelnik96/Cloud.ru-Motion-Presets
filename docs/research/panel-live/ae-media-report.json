@@ -1,16 +1,16 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-05T13:41:13.650Z",
-  "finishedAt": "2026-10-05T13:41:16.980Z",
+  "startedAt": "2026-10-05T14:50:47.433Z",
+  "finishedAt": "2026-10-05T14:50:53.456Z",
   "summary": {
-    "checks": 101,
-    "passed": 101,
+    "checks": 102,
+    "passed": 102,
     "failed": 0
   },
   "failed": [],
   "checks": [
     {
-      "name": "synthetic pack built: 11 files made, catalog in C:\\CRBK\\work\\panel-live\\media\\library",
+      "name": "synthetic pack built: 0 files made, catalog in C:\\CRBK\\work\\panel-live\\media\\library",
       "pass": true,
       "required": true,
       "detail": []
@@ -30,7 +30,7 @@
         "data": {
           "app": "ae",
           "version": "26.5x89",
-          "bk": "0.1.5"
+          "bk": "0.1.6"
         }
       }
     },
@@ -86,16 +86,16 @@
       "detail": []
     },
     {
-      "name": "loop: files copied next to the project (3 copied, 0 reused, 0 written)",
+      "name": "loop: files copied next to the project (0 copied, 3 reused, 0 written)",
       "pass": true,
       "required": true,
       "detail": {
-        "copied": [
+        "copied": [],
+        "reused": [
           "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
           "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
           "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
         ],
-        "reused": [],
         "written": []
       }
     },
@@ -609,6 +609,17 @@
           "selected": true
         }
       }
+    },
+    {
+      "name": "loop: the rendered backdrop is #222222 (34, 34, 34 ± 2) where nothing covers it",
+      "pass": true,
+      "required": true,
+      "detail": [
+        34,
+        34,
+        34,
+        255
+      ]
     },
     {
       "name": "loop: Interpret Footage > Loop 2×",
@@ -1208,14 +1219,14 @@
       "detail": []
     },
     {
-      "name": "transition: files copied next to the project (1 copied, 0 reused, 0 written)",
+      "name": "transition: files copied next to the project (0 copied, 1 reused, 0 written)",
       "pass": true,
       "required": true,
       "detail": {
-        "copied": [
+        "copied": [],
+        "reused": [
           "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_v1.mov"
         ],
-        "reused": [],
         "written": []
       }
     },
@@ -1356,14 +1367,14 @@
       "detail": []
     },
     {
-      "name": "still: files copied next to the project (1 copied, 0 reused, 0 written)",
+      "name": "still: files copied next to the project (0 copied, 1 reused, 0 written)",
       "pass": true,
       "required": true,
       "detail": {
-        "copied": [
+        "copied": [],
+        "reused": [
           "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png"
         ],
-        "reused": [],
         "written": []
       }
     },
@@ -1511,14 +1522,14 @@
       "detail": []
     },
     {
-      "name": "sound: files copied next to the project (1 copied, 0 reused, 0 written)",
+      "name": "sound: files copied next to the project (0 copied, 1 reused, 0 written)",
       "pass": true,
       "required": true,
       "detail": {
-        "copied": [
+        "copied": [],
+        "reused": [
           "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
         ],
-        "reused": [],
         "written": []
       }
     },
