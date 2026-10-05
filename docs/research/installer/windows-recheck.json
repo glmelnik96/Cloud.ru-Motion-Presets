@@ -1,0 +1,80 @@
+{
+  "when": "2026-10-05",
+  "os": "Windows",
+  "branch": "claude/determined-cannon-eum3ei",
+  "panel": "0.1.1",
+  "library": "2026.10.05",
+  "hosts": { "afterEffects": "26.5", "premiere": "26.5.2" },
+  "steps": [
+    {
+      "name": "git pull",
+      "exit": 0,
+      "output": "Fast-forward 870a7d8..600f72b. HEAD fix(panel): own JSON in the host bundle; installer grants the library folder every time (0.1.1)"
+    },
+    {
+      "name": "npm ci",
+      "exit": 0,
+      "output": "added 45 packages, audited 46 packages, found 0 vulnerabilities"
+    },
+    {
+      "name": "npm test",
+      "exit": 0,
+      "output": "Test Files 78 passed | 1 skipped (79). Tests 584 passed | 7 skipped (591). The install.command suite is skipped on Windows (no bash). The install.command mode assertion does not run on win32."
+    },
+    {
+      "name": "package-zxp",
+      "exit": 0,
+      "output": "Signed successfully. Signature verified successfully. zxp: 42080 bytes, 6 entries, signed true, .debug false, manifest ru.cloud.brandkit 0.1.1. OK C:/CRBK/work/panel/CloudRuBrandKit-0.1.1.zxp"
+    },
+    {
+      "name": "build.mjs",
+      "exit": 0,
+      "output": "OK C:\\CRBK\\work\\release\\CloudRuBrandKit-0.1.1-2026.10.05.zip: 10 MOGRT, signed, 1.0 MB"
+    },
+    {
+      "name": "install.cmd",
+      "exit": 0,
+      "output": "Cloud.ru BrandKit: панель 0.1.1, библиотека 2026.10.05\nПанель: C:\\Users\\Глеб\\AppData\\Roaming\\Adobe\\CEP\\extensions\\ru.cloud.brandkit\nБиблиотека: C:\\ProgramData\\CloudRuBrandKit\\library\nШаблоны MOGRT: 10 в C:\\Users\\Глеб\\AppData\\Roaming\\Adobe\\Common\\Motion Graphics Templates, убрано прежних: 0\nГотово. Запустите After Effects или Premiere: Window > Extensions > Cloud.ru BrandKit."
+    }
+  ],
+  "icacls": {
+    "path": "C:\\ProgramData\\CloudRuBrandKit",
+    "exit": 0,
+    "output": "C:\\ProgramData\\CloudRuBrandKit BUILTIN\\Пользователи:(OI)(CI)(M)\n                               NT AUTHORITY\\СИСТЕМА:(I)(OI)(CI)(F)\n                               BUILTIN\\Администраторы:(I)(OI)(CI)(F)\n                               СОЗДАТЕЛЬ-ВЛАДЕЛЕЦ:(I)(OI)(CI)(IO)(F)\n                               BUILTIN\\Пользователи:(I)(OI)(CI)(RX)\n                               BUILTIN\\Пользователи:(I)(CI)(WD,AD,WEA,WA)\n\nУспешно обработано 1 файлов; не удалось обработать 0 файлов",
+    "usersModify": true
+  },
+  "afterEffects": {
+    "project": "C:/CRBK/work/panel-live/ae/panel_ui.aep",
+    "activeComp": "UI_check",
+    "jsonOverride": false,
+    "chip": "Нет композиции",
+    "status": "Шрифты SB Sans на местеAE — · панель 0.1.1 · библиотека 2026.10.05",
+    "insert": {
+      "card": "Подпись спикера",
+      "name": "Анна Проверкина",
+      "style": "Подкаст",
+      "outcome": "error: Нет активной композиции. Откройте композицию на таймлайне и повторите."
+    },
+    "hostReply": "BK.call('getContext') -> {\"ok\":false,\"error\":{\"code\":\"HOST_EXCEPTION\",\"message\":\"Object of type Function found where a Number, Array, or Property is needed (line 60)\",\"detail\":null}}",
+    "note": "The active item is the comp UI_check and the project file is saved. BK.json.stringify(\"-\") aborts inside quote at brandkit.jsx line 60 (out += e). The project path contains panel-live, so the context reply never reaches the panel. Global JSON.stringify was not replaced."
+  },
+  "premiere": {
+    "project": "C:/CRBK/work/panel-live/pr/panel_live.prproj",
+    "sequence": "UI_check",
+    "jsonOverride": false,
+    "chip": "Авто 1920×1080 · 25p",
+    "status": "Шрифты SB Sans на местеPr 26.5.2 · панель 0.1.1 · библиотека 2026.10.05",
+    "insert": {
+      "card": "Подпись спикера",
+      "name": "Анна Проверкина",
+      "style": "Подкаст",
+      "outcome": "done: Вставлено: клип выделен на таймлайне.",
+      "clip": "TTL_LowerThird_16x9_v1 on video track 3"
+    },
+    "note": "Before the UI_check sequence was activated the open sequence was 1920×1080 30p. After activation the chip is 25p and the insert landed on that sequence."
+  },
+  "bugs": [
+    "After Effects 26.5: BK.json.stringify still throws on a hyphen. quote() does esc[c] and, for '-', e is a function, so 'out += e' raises 'Object of type Function found where a Number, Array, or Property is needed' at line 60. getContext of a path that contains '-' fails, the chip stays «Нет композиции», the status host version stays «AE —», and the insert reports that there is no active composition even though UI_check is the active item.",
+    "The status line still concatenates the font sentence directly onto the host version."
+  ]
+}
