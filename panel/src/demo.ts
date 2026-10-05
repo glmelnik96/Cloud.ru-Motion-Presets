@@ -32,7 +32,8 @@ function toItem(raw: unknown, keepCompanions: boolean): Item {
 
 class DemoHost implements HostCaller {
   ctx: HostContext;
-  constructor(host: 'ae' | 'pr', w: number, h: number) {
+  // ?instant=1: replies without delay, so the whole start-up can finish before the UI subscribes.
+  constructor(host: 'ae' | 'pr', w: number, h: number, private readonly instant = false) {
     this.ctx = {
       host,
       version: host === 'ae' ? '26.5x89' : '26.5.2',
@@ -42,7 +43,7 @@ class DemoHost implements HostCaller {
     };
   }
   async call<T>(fn: string, args?: unknown, _opts?: CallOptions): Promise<HostReply<T>> {
-    await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' || fn === 'applyPreset' ? 500 : 30));
+    if (!this.instant) await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' || fn === 'applyPreset' ? 500 : 30));
     if (fn === 'getContext') return { ok: true, data: this.ctx as T };
     if (fn === 'diag') return { ok: true, data: { app: 'demo' } as T };
     if (fn === 'insertItem') {
@@ -80,7 +81,7 @@ export function startDemo(el: HTMLElement, version: string): void {
   const catalog: Catalog = { schemaVersion: 1, libraryVersion: '2026.10.05', minPluginVersion: '0.1.0', items };
   const store = new Map<string, string>();
   const app = new PanelApp({
-    host: new DemoHost(host, w, hh),
+    host: new DemoHost(host, w, hh, q.get('instant') === '1'),
     hostKey: host,
     pluginVersion: version,
     platform: 'win',

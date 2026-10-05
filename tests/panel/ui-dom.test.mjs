@@ -63,6 +63,13 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     await waitFor(s, page.ready, { timeoutMs: 30000 });
   };
 
+  it('leaves «Загрузка библиотеки…» even when the start-up ends before the UI subscribes', async () => {
+    // Premiere 2026-10-05: the panel stayed on the loading line until the pointer entered it. The start-up
+    // finished before useEffect subscribed the UI, so its state changes were lost.
+    await go('?host=pr&instant=1');
+    expect(await evaluate(s, `document.querySelectorAll('.card').length > 0 && !document.querySelector('.empty')`)).toBe(true);
+  }, 60000);
+
   it('opens a card, takes a name and a style, inserts on the playhead', async () => {
     await go('?host=pr');
     expect(await evaluate(s, page.text('.status'))).toMatch(/^Шрифты SB Sans на месте · Pr 26\.5\.2 · панель \d+\.\d+\.\d+ · библиотека 2026\.10\.05/);

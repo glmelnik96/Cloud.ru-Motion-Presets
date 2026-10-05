@@ -93,7 +93,7 @@ describe('host bundle', () => {
     expect(h.call('_private').error.code).toBe('NO_FUNCTION');
     const raw = h.run('BK.call("ping", "{broken")');
     expect(JSON.parse(raw).error.code).toBe('BAD_ARGS');
-    expect(h.call('ping')).toEqual({ ok: true, data: { app: 'ae', version: '26.5x89', bk: '0.1.8' } });
+    expect(h.call('ping')).toEqual({ ok: true, data: { app: 'ae', version: '26.5x89', bk: '0.1.9' } });
   });
 });
 

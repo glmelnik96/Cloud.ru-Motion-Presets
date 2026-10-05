@@ -49,7 +49,10 @@ describe.skipIf(!HAS_FFMPEG)('synthetic media pack', () => {
   it('builds a valid catalog with the lower third and its companions', async () => {
     const root = mkdtempSync(path.join(os.tmpdir(), 'bk-media-'));
     fakeLowerThird(path.join(root, 'build'));
-    const r = await buildMediaFixtures({ realBuild: path.join(root, 'build'), out: path.join(root, 'media') });
+    // No AE presets here, whatever the machine has (the build PC finds them in Program Files).
+    const presets = path.join(root, 'no-presets');
+    const r = await buildMediaFixtures({ realBuild: path.join(root, 'build'), out: path.join(root, 'media'), presets });
+    expect(r.fx).toBe(false);
     expect(r.problems).toEqual([]);
     expect(r.ok).toBe(true);
     const lib = JSON.parse(readFileSync(path.join(r.libraryRoot, 'library.json'), 'utf8'));
@@ -71,7 +74,7 @@ describe.skipIf(!HAS_FFMPEG)('synthetic media pack', () => {
     expect(alpha(path.join(r.libraryRoot, 'items/BG_DotGrid/BG_DotGrid_16x9_v1.png'), 0, 1, 540)).toBe(255);
     expect(existsSync(path.join(r.libraryRoot, 'items/SFX_WhooshIn/SFX_WhooshIn_wav_v1.wav'))).toBe(true);
     // a second run makes nothing again
-    const again = await buildMediaFixtures({ realBuild: path.join(root, 'build'), out: path.join(root, 'media') });
+    const again = await buildMediaFixtures({ realBuild: path.join(root, 'build'), out: path.join(root, 'media'), presets });
     expect(again.made).toEqual([]);
   }, 120000);
 
