@@ -75,8 +75,19 @@ function checkItem(item, byId, kind, err) {
     }
   };
 
-  // Fields.
+  // Duration of a trim template: the comp is as long as the longest insert (spec 4.2 "Время", 6.1 step 3).
   const driving = fields.filter((f) => f.drivesDuration);
+  if (item.fit === 'trim' && item.duration) {
+    const d = item.duration;
+    const longest = Math.max(d.introSec + d.holdSec + d.outroSec,
+      ...driving.filter((f) => f.type === 'slider').map((f) => f.max * f.unitSec + d.outroSec));
+    if (d.maxSec === undefined) err('trim-length', 'a trim template needs duration.maxSec (the length of its comp)');
+    else if (d.maxSec + 1e-6 < longest) err('trim-length', `duration.maxSec ${d.maxSec} is shorter than the longest insert ${longest}`);
+  } else if (item.duration && item.duration.maxSec !== undefined) {
+    err('trim-length', 'duration.maxSec is for fit "trim" only');
+  }
+
+  // Fields.
   if (driving.length > 1) err('drives-duration', `${driving.length} fields drive the duration; at most one may`);
   const egpNames = new Set();
   for (const f of fields) {

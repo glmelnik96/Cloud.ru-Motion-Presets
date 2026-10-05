@@ -10,12 +10,18 @@
   "scripts": {
     "test": "vitest run",
     "lint:jsx": "node tools/jsx/lint-jsx.cjs",
-    "spike:report": "node tools/spike/report.mjs"
+    "spike:report": "node tools/spike/report.mjs",
+    "library:validate": "node tools/library/validate.mjs library/library.src.json",
+    "library:build": "node tools/library/build-catalog.mjs"
   },
   "devDependencies": {
     "adm-zip": "^0.6.1",
     "ajv": "^8.20.0",
     "pngjs": "^7.0.0",
+    "typescript": "^7.0.2",
     "vitest": "^5.0.3"
+  },
+  "dependencies": {
+    "preact": "^11.0.0"
   }
 }

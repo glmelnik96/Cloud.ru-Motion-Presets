@@ -53,7 +53,8 @@
       "properties": {
         "introSec": { "type": "number", "minimum": 0 },
         "holdSec": { "type": "number", "minimum": 0 },
-        "outroSec": { "type": "number", "minimum": 0 }
+        "outroSec": { "type": "number", "minimum": 0 },
+        "maxSec": { "description": "fit trim: length of the template comp (the longest insert). Premiere places the MOGRT at this length before the panel cuts it, so the track must be free over it (spec 6.1 step 3).", "type": "number", "exclusiveMinimum": 0 }
       }
     },
     "option": {

@@ -64,7 +64,7 @@
       "hosts": ["ae", "pr"],
       "version": 1,
       "fit": "trim",
-      "duration": { "introSec": 0, "holdSec": 30, "outroSec": 5 },
+      "duration": { "introSec": 0, "holdSec": 30, "outroSec": 5, "maxSec": 905 },
       "requiredFonts": [
         { "postScriptName": "SBSansDisplay-Regular" },
         { "postScriptName": "SBSansDisplay-Semibold" }

@@ -56,6 +56,17 @@ describe('library source', () => {
     web.fields.push({ ...field(web, 'minutes'), key: 'minutes2', egpName: 'Минуты 2' });
     expect(errorsOf(doc)).toMatch(/WEB_Screen: drives-duration: 2 fields/);
   });
+  it('needs the comp length of a trim template, long enough for the longest insert', () => {
+    const doc = example();
+    const web = item(doc, 'WEB_Screen');
+    delete web.duration.maxSec;
+    expect(errorsOf(doc)).toMatch(/WEB_Screen: trim-length: a trim template needs duration\.maxSec/);
+    web.duration.maxSec = 900; // 15 min of the timer + 5 s of the outro = 905
+    expect(errorsOf(doc)).toMatch(/WEB_Screen: trim-length: duration\.maxSec 900 is shorter than the longest insert 905/);
+    web.duration.maxSec = 905;
+    item(doc, 'TTL_LowerThird').duration.maxSec = 6;
+    expect(errorsOf(doc)).toMatch(/TTL_LowerThird: trim-length: duration\.maxSec is for fit "trim" only/);
+  });
   it('rejects an AE-capable variant without aeComp', () => {
     const doc = example();
     delete item(doc, 'TTL_LowerThird').variants[2].aeComp;
