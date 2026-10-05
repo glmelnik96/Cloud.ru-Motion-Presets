@@ -92,7 +92,9 @@ export const PARAMS: Readonly<Record<string, readonly string[]>> = {
   FILE_MISSING: ['file'],
 };
 
-const FALLBACK = 'Непредвиденная ошибка {code}. Скопируйте диагностику и передайте разработчикам.';
+const FALLBACK = 'Непредвиденная ошибка[ {code}]. Скопируйте диагностику и передайте разработчикам.';
+
+const own = (o: object, key: string) => Object.prototype.hasOwnProperty.call(o, key);
 
 function show(v: string | number): string {
   if (typeof v !== 'number') return String(v);
@@ -102,7 +104,7 @@ function show(v: string | number): string {
 function fill(text: string, params: Params): string {
   // '' for a param that is missing, undefined or null: the Issue type does not stop a JS producer from setting them.
   const value = (name: string): string => {
-    const v: unknown = Object.prototype.hasOwnProperty.call(params, name) ? params[name] : undefined;
+    const v: unknown = own(params, name) ? params[name] : undefined;
     return v === undefined || v === null ? '' : show(v as string | number);
   };
   const kept = text.replace(/\[([^\]]*)\]/g, (_, part: string) => {
@@ -115,7 +117,9 @@ function fill(text: string, params: Params): string {
   return kept.replace(/\{(\w+)\}/g, (_, name: string) => value(name));
 }
 
+// A code comes from a producer outside the core (an adapter may say anything), so it is looked up as an own key:
+// 'constructor' or 'toString' must get the fallback, not a function off Object.prototype.
 export function message(issue: Issue): string {
-  const text = MESSAGES[issue.code];
+  const text = own(MESSAGES, issue.code) ? MESSAGES[issue.code] : undefined;
   return text === undefined ? fill(FALLBACK, { code: issue.code }) : fill(text, issue.params ?? {});
 }

@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { message, MESSAGES, PARAMS } from '../../../panel/src/core/errors';
+import type { Issue } from '../../../panel/src/core/types';
+import { BRIDGE_CODES } from '../../../panel/src/bridge/host';
 
 // Plan 2026-10-05, "Коды ошибок", plus the codes the core, the bridge and the adapters add.
 const PLAN_CODES = [
@@ -38,6 +40,10 @@ describe('error texts', () => {
       expect(PARAMS[code], code).toBeDefined();
     }
     expect(Object.keys(PARAMS).sort()).toEqual(Object.keys(MESSAGES).sort());
+  });
+  it('has a text for every code the bridge makes itself (panel/src/bridge/host.ts lists them)', () => {
+    expect(BRIDGE_CODES.length).toBeGreaterThan(0);
+    for (const code of BRIDGE_CODES) expect(MESSAGES[code], code).toMatch(/[А-Яа-яЁё]/);
   });
   it('uses only documented params, and fills every one of them', () => {
     for (const code of Object.keys(MESSAGES)) {
@@ -119,5 +125,17 @@ describe('error texts', () => {
     const text = message({ code: 'WEIRD_THING', level: 'error' });
     expect(text).toContain('WEIRD_THING');
     expect(text).toMatch(/[А-Яа-я]/);
+    whole(text);
+  });
+  it('takes a code as an own key: names off Object.prototype are unknown codes, not functions', () => {
+    for (const code of ['constructor', 'toString', 'hasOwnProperty', '__proto__', 'valueOf']) {
+      expect(message({ code, level: 'error' }), code)
+        .toBe(`Непредвиденная ошибка ${code}. Скопируйте диагностику и передайте разработчикам.`);
+    }
+  });
+  it('leaves no hole in the sentence for a missing or empty code', () => {
+    const none = 'Непредвиденная ошибка. Скопируйте диагностику и передайте разработчикам.';
+    expect(message({ code: '', level: 'error' })).toBe(none);
+    expect(message({ level: 'error' } as Issue)).toBe(none); // a JS producer that forgot the code
   });
 });

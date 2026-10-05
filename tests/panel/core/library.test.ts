@@ -22,7 +22,7 @@ describe('parseLibrary', () => {
     if (r.ok) expect(r.library.items.map((i) => i.title_ru)).toEqual(['Логошот с подписью', 'Логотип без подписи', 'Подпись спикера']);
   });
   it('reads a file that starts with a BOM (PowerShell 5.1)', () => {
-    const text = '﻿' + JSON.stringify(catalog());
+    const text = '\uFEFF' + JSON.stringify(catalog());
     expect(() => JSON.parse(text)).toThrow(SyntaxError);
     expect(parseLibrary(text, accept, '0.1.0')).toEqual({ ok: true, library: catalog(), issues: [] });
   });
@@ -41,6 +41,13 @@ describe('parseLibrary', () => {
     });
     const many = parseLibrary(JSON.stringify(catalog()), reject('e1', 'e2', 'e3', 'e4', 'e5'), '0.1.0');
     expect(many.issues[0]?.params).toEqual({ details: 'e1; e2; e3 (+2)', count: 5 });
+    // three is the most shown: no "(+0)", and "(+1)" from the fourth on
+    expect(parseLibrary(JSON.stringify(catalog()), reject('e1', 'e2', 'e3'), '0.1.0').issues[0]?.params)
+      .toEqual({ details: 'e1; e2; e3', count: 3 });
+    expect(parseLibrary(JSON.stringify(catalog()), reject('e1', 'e2', 'e3', 'e4'), '0.1.0').issues[0]?.params)
+      .toEqual({ details: 'e1; e2; e3 (+1)', count: 4 });
+    // a validator that refuses without saying why
+    expect(parseLibrary(JSON.stringify(catalog()), reject(), '0.1.0').issues[0]?.params).toEqual({ details: 'rejected', count: 0 });
   });
   it('turns a validator that throws into LIBRARY_INVALID', () => {
     const r = parseLibrary(JSON.stringify(catalog()), () => {

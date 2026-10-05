@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
-  defaults, merge, validateValues, toWrites, sameValue, filledByPanel,
+  defaults, defaultOf, merge, validateValues, toWrites, sameValue, filledByPanel, isEditable,
 } from '../../../panel/src/core/fields';
 import type { Field, Item } from '../../../panel/src/core/types';
 import { item } from './fixture';
@@ -32,6 +32,20 @@ describe('defaults', () => {
   it('falls back by type when a field has no default; media stays empty', () => {
     expect(defaults(odd())).toEqual({ title: '', on: false, pick: 1, amount: 10, duration: 12, ae_only: false, local: true });
   });
+  it('starts a dropdown at 1 and a slider at 0 when the library gives no options and no minimum', () => {
+    expect(defaultOf({ key: 'd', label_ru: 'Д', type: 'dropdown' })).toBe(1);
+    expect(defaultOf({ key: 's', label_ru: 'С', type: 'slider' })).toBe(0);
+  });
+});
+
+describe('isEditable', () => {
+  const field = (over: Partial<Field>): Field => ({ key: 'k', label_ru: 'К', type: 'text', ...over });
+  it('is true unless the field is a service field or is marked not editable', () => {
+    for (const over of [{}, { editable: true }, { service: false }]) expect(isEditable(field(over)), JSON.stringify(over)).toBe(true);
+    for (const over of [{ service: true }, { editable: false }, { service: true, editable: false }]) {
+      expect(isEditable(field(over)), JSON.stringify(over)).toBe(false);
+    }
+  });
 });
 
 describe('merge', () => {
@@ -46,6 +60,10 @@ describe('merge', () => {
   it('keeps a checkbox only as a boolean', () => {
     expect(merge({ plate: false }, item('LOGO_Mark')).plate).toBe(false);
     expect(merge({ plate: 0 }, item('LOGO_Mark')).plate).toBe(true);
+  });
+  it('keeps a remembered media path as text only', () => {
+    expect(merge({ photo: 'C:/Media/a.png' }, odd()).photo).toBe('C:/Media/a.png');
+    expect(merge({ photo: 5 }, odd())).not.toHaveProperty('photo');
   });
   it('never takes a remembered value for a service field, and checks slider ranges', () => {
     expect(merge({ duration: 30, amount: 50 }, odd())).toMatchObject({ duration: 12, amount: 50 });
@@ -86,6 +104,16 @@ describe('validateValues', () => {
     expect(validateValues(item('TTL_LowerThird'), {})).toEqual([]);
     expect(validateValues(odd(), { duration: 999, photo: 5 })).toEqual([]);
   });
+  it('holds a slider to its range, ends included, and refuses a number that is not finite', () => {
+    const it2 = odd(); // amount: 10..90
+    const codes = (amount: number) => validateValues(it2, { ...defaults(it2), amount }).map((i) => i.code);
+    for (const ok of [10, 50, 90]) expect(codes(ok), String(ok)).toEqual([]);
+    for (const bad of [9.99, 90.01, Number.NaN, Number.POSITIVE_INFINITY]) expect(codes(bad), String(bad)).toEqual(['FIELD_INVALID']);
+  });
+  it('refuses a dropdown value when the field lists no options', () => {
+    const noOptions: Item = { ...item('LOGO_Mark'), fields: [{ key: 'pick', label_ru: 'Вариант', type: 'dropdown', egpName: 'Вариант', egpIndex: 0 }] };
+    expect(validateValues(noOptions, { pick: 1 }).map((i) => i.code)).toEqual(['FIELD_INVALID']);
+  });
 });
 
 describe('toWrites', () => {
@@ -118,6 +146,13 @@ describe('toWrites', () => {
     const reversed: Item = { ...shot, fields: [...(shot.fields ?? [])].reverse() };
     expect(toWrites(reversed, defaults(reversed), 'pr').map((w) => w.egpName)).toEqual(['Подпись', 'Тема', 'Фон', 'Скорость']);
   });
+  it('keeps the library order of fields that have no egpIndex, after those that have one', () => {
+    const named = (n: string, egpIndex?: number): Field => (
+      egpIndex === undefined ? { key: n, label_ru: n, type: 'text', egpName: n } : { key: n, label_ru: n, type: 'text', egpName: n, egpIndex }
+    );
+    const loose: Item = { ...item('LOGO_Mark'), fields: [named('c'), named('a'), named('d', 0), named('b')] };
+    expect(toWrites(loose, {}, 'pr').map((w) => w.egpName)).toEqual(['d', 'c', 'a', 'b']);
+  });
   it('skips fields the panel does not fill: other host, service, not editable, media, no egpName', () => {
     const it2 = odd();
     expect(toWrites(it2, { ...defaults(it2), title: 'Заголовок А', on: true, pick: 2, amount: 55 }, 'pr')).toEqual([
@@ -143,6 +178,13 @@ describe('sameValue', () => {
     expect(sameValue('ae', 'checkbox', 0, '0')).toBe(true);
     expect(sameValue('ae', 'checkbox', 0, 1)).toBe(false);
     expect(sameValue('ae', 'checkbox', 1, 'yes')).toBe(false);
+    expect(sameValue('ae', 'checkbox', 0, 'yes')).toBe(false); // an unreadable value is no "off" either
+  });
+  it('reads a checkbox that comes back as a string', () => {
+    expect(sameValue('ae', 'checkbox', 1, '1')).toBe(true);
+    expect(sameValue('pr', 'checkbox', 1, 'true')).toBe(true);
+    expect(sameValue('pr', 'checkbox', 0, 'false')).toBe(true);
+    expect(sameValue('pr', 'checkbox', 1, 'false')).toBe(false);
   });
   it('compares numbers that come back as strings', () => {
     expect(sameValue('pr', 'dropdown', 2, '2')).toBe(true);
@@ -151,6 +193,15 @@ describe('sameValue', () => {
     expect(sameValue('pr', 'dropdown', 0, '')).toBe(false);
     expect(sameValue('ae', 'slider', 15, 15.0000001)).toBe(true);
     expect(sameValue('ae', 'slider', 15, '16')).toBe(false);
+  });
+  it('allows a microunit of slack on a slider, none on a dropdown', () => {
+    expect(sameValue('ae', 'slider', 15, 15.0000005)).toBe(true);
+    expect(sameValue('ae', 'slider', 15, 15.000005)).toBe(false);
+    expect(sameValue('pr', 'dropdown', 2, 2.0000005)).toBe(false);
+  });
+  it('is not fooled by the words "null" and "undefined" as the text of a missing read-back', () => {
+    expect(sameValue('pr', 'text', 'null', null)).toBe(false);
+    expect(sameValue('pr', 'text', 'undefined', undefined as unknown as null)).toBe(false);
   });
   it('compares text exactly, Cyrillic included', () => {
     expect(sameValue('pr', 'text', 'Анна-Мария Ёлкина', 'Анна-Мария Ёлкина')).toBe(true);

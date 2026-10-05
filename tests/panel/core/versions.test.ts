@@ -23,6 +23,9 @@ describe('host versions', () => {
     expect(compareVersions([26, 0, 0], [26, 0, 0])).toBe(0);
     expect(compareVersions([25, 9, 9], [26, 0, 0])).toBe(-1);
     expect(compareVersions([26, 5], [26, 5, 0])).toBe(0);
+    expect(compareVersions([26, 5, 0], [26, 5])).toBe(0);
+    expect(compareVersions([26, 5, 1], [26, 5])).toBe(1);
+    expect(compareVersions([26, 5], [26, 5, 1])).toBe(-1);
     expect(compareVersions([26, 5, 10], [26, 5, 9])).toBe(1);
   });
   it('checks a host against minHostVersion and fails safe on garbage', () => {
@@ -47,6 +50,10 @@ describe('plugin versions (semver)', () => {
     expect(parseSemver('1.0')).toBeNull();
     expect(parseSemver('v1.0.0')).toBeNull();
     expect(parseSemver('dev')).toBeNull();
+    // zeros are fine in every part of the pre-release and in the build
+    expect(parseSemver('1.0.0-0.3.7')).toEqual({ core: [1, 0, 0], pre: [0, 3, 7] });
+    expect(parseSemver('1.0.0-rc.10.x0+build.0')).toEqual({ core: [1, 0, 0], pre: ['rc', 10, 'x0'] });
+    expect(parseSemver('1.0.0+20130313144700')).toEqual({ core: [1, 0, 0], pre: [] });
   });
   it('orders releases and pre-releases the semver way', () => {
     const order = ['0.0.0-test', '0.1.0-alpha', '0.1.0-alpha.1', '0.1.0-alpha.beta', '0.1.0-beta.2', '0.1.0-beta.11',
@@ -56,10 +63,13 @@ describe('plugin versions (semver)', () => {
       expect(compareSemver(order[i]!, order[i - 1]!)).toBe(1);
     }
     expect(compareSemver('1.0.0+a', '1.0.0+b')).toBe(0);
+    expect(compareSemver('1.0.0-rc.1', '1.0.0-rc.1')).toBe(0);
+    expect(compareSemver('1.0.0-alpha', '1.0.0-alpha')).toBe(0);
   });
   it('sorts an unreadable version below every readable one', () => {
     expect(compareSemver('dev', '0.0.0')).toBe(-1);
     expect(compareSemver('0.0.0', 'dev')).toBe(1);
+    expect(compareSemver('dev', 'nightly')).toBe(0);
   });
   it('tells whether the panel is new enough, failing safe on garbage', () => {
     expect(pluginAtLeast('0.1.0', '0.1.0')).toBe(true);
@@ -78,5 +88,7 @@ describe('library versions (calver)', () => {
     expect(compareCalver('2026.11.01', '2026.10.31')).toBe(1);
     expect(compareCalver('2026.10.05', '2026.10.05')).toBe(0);
     expect(compareCalver('junk', '2026.10.05')).toBe(-1);
+    expect(compareCalver('2026.10.05', 'junk')).toBe(1);
+    expect(compareCalver('junk', 'nope')).toBe(0);
   });
 });

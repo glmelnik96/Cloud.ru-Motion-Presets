@@ -28,19 +28,21 @@ export function framesToSec(frames: number, fps: number): number {
   return round6(frames / fps);
 }
 
-// The fewest frames of an insert that passed the minimum: intro + outro rounded up to a frame. AE gets one frame of
-// hold on top for its C27 remap. At L == minLen keys 2 and 3 share a time, and Property.setValueAtTime on an existing
-// key time replaces that key: the intro and the hold would then play squeezed into the intro's time (TTL: 4 s in
-// 2.2 s). planInsert sends a length on the template length's own frame unremapped, before this applies. Premiere's
-// RDT plays a clip of exactly intro + outro as made.
+// The fewest frames of an insert that passed the minimum: intro + outro rounded up to a frame. AE gets a whole frame
+// of hold on top for its C27 remap. At L == minLen keys 2 and 3 share a time, and Property.setValueAtTime on an
+// existing key time replaces that key: the intro and the hold would then play squeezed into the intro's time (TTL:
+// 4 s in 2.2 s). A hold of less than a frame is no safer: both keys can fall between the same two frames, so the hold
+// is never drawn, and AE may round key times to the frame grid. At 30 fps LOGO_Shot (127.2 frames) gets 129, not 128.
+// planInsert sends a length on the template length's own frame unremapped, before this applies. Premiere's RDT plays
+// a clip of exactly intro + outro as made.
 export function minFrames(item: Item, fps: number, host: HostKey): number {
-  const min = round6(minLen(item) * fps);
-  return host === 'ae' && item.duration ? Math.floor(min) + 1 : Math.ceil(min);
+  const min = Math.ceil(round6(minLen(item) * fps));
+  return host === 'ae' && item.duration ? min + 1 : min;
 }
 
 // Frames of an insert lenSec long at fps. Rounding may not take a length that passed the minimum below minFrames:
-// 4.24 s at 30 fps is 127.2 frames, and 127 would clip the outro, so it becomes 128. A length under the minimum
-// keeps its plain rounding: preflight refuses it with LENGTH_TOO_SHORT. 0 when lenSec or fps is not usable.
+// 4.24 s at 30 fps is 127.2 frames, and 127 would clip the outro, so it becomes 128 (129 in AE). A length under the
+// minimum keeps its plain rounding: preflight refuses it with LENGTH_TOO_SHORT. 0 when lenSec or fps is not usable.
 export function insertFrames(item: Item, lenSec: number, fps: number, host: HostKey): number {
   if (!Number.isFinite(lenSec) || !(fps > 0)) return 0;
   const frames = toFrames(lenSec, fps);

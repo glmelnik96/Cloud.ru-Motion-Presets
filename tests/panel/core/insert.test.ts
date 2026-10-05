@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { planInsert, buildArgs, runInsert } from '../../../panel/src/core/insert';
 import { chooseVariant } from '../../../panel/src/core/variant';
 import { defaults, toWrites, type Values } from '../../../panel/src/core/fields';
-import { c27Keys, defaultLen, minLen, round6, secToTicks } from '../../../panel/src/core/duration';
+import { c27Keys, defaultLen, minFrames, minLen, round6, secToTicks } from '../../../panel/src/core/duration';
 import { createLogger, type LogEntry } from '../../../panel/src/core/log';
 import type {
   AeInsertArgs, HostApi, HostContext, HostReply, InsertPlan, InsertResult, Item, Placed, PlacedProbe, PrInsertArgs,
@@ -10,6 +10,9 @@ import type {
 import { aeCtx, fontsFor, item, prCtx, variant } from './fixture';
 
 const ROOT = 'C:\\ProgramData\\CloudRuBrandKit\\library\\';
+const PACK1 = ['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird'];
+// Frame rates of a target: whole, NTSC (as the double the host reports and as a rounded decimal) and high.
+const FPS = [23.976, 24000 / 1001, 24, 25, 29.97, 30000 / 1001, 30, 50, 59.94, 60000 / 1001, 60];
 
 function plan(id: string | Item, ctx: HostContext, over: { lenSec?: number; values?: Values; manual?: string } = {}): InsertPlan {
   const it = typeof id === 'string' ? item(id) : id;
@@ -98,6 +101,36 @@ describe('planInsert', () => {
     const mark = item('LOGO_Mark'); // no required fonts: nothing to check
     expect(planInsert({ ...input, item: mark, choice: chooseVariant(mark, prCtx().target), values: defaults(mark), lenSec: 4, fonts: null, pluginVersion: '0.1.0' }).issues).toEqual([]);
   });
+  it('stands in the first variant when there is neither a choice nor a nearest one, an empty variant when there is none', () => {
+    expect(plan('LOGO_Shot', prCtx(null)).variant.key).toBe('16x9');
+    const bare: Item = { ...item('LOGO_Shot'), variants: [] };
+    expect(plan(bare, prCtx()).variant).toEqual({ key: '', minHostVersion: {} });
+  });
+  it('keeps the plain rounding of a length that is refused, so the count stays honest', () => {
+    const refused = { issues: [{ code: 'LENGTH_TOO_SHORT', level: 'error' }] };
+    expect(plan('LOGO_Shot', prCtx(), { lenSec: 3 })).toMatchObject({ lenSec: 3, lenFrames: 75, ...refused });
+    expect(plan('LOGO_Shot', prCtx(), { lenSec: 0.05 })).toMatchObject({ lenSec: 0.04, lenFrames: 1, ...refused });
+    expect(plan('LOGO_Shot', prCtx(), { lenSec: 0.01 })).toMatchObject({ lenSec: 0.01, lenFrames: 0, ...refused }); // under a frame
+    expect(plan('LOGO_Shot', prCtx(), { lenSec: Number.NaN })).toMatchObject({ lenFrames: 0, ...refused });
+  });
+  it('never plans fewer frames than the minimum for a length that preflight lets through', () => {
+    // preflight lets 1 us below the minimum through (checks.ts) and the frame count has to agree (duration.ts)
+    const bad: string[] = [];
+    for (const host of ['ae', 'pr'] as const) {
+      for (const id of PACK1) {
+        const it = item(id);
+        for (const fps of FPS) {
+          const ctx = host === 'ae' ? aeCtx({ fps }) : prCtx({ fps });
+          for (const under of [2e-6, 1.5e-6, 1e-6, 5e-7, 0, -1e-7, -0.01]) {
+            const p = plan(it, ctx, { lenSec: minLen(it) - under });
+            const refused = p.issues.some((i) => i.code === 'LENGTH_TOO_SHORT');
+            if (!refused && p.lenFrames < minFrames(it, fps, host)) bad.push(`${host} ${id} ${fps} -${under}: ${p.lenFrames}`);
+          }
+        }
+      }
+    }
+    expect(bad).toEqual([]);
+  });
   it('counts frames on the variant fps when the target has none, else on 25', () => {
     expect(plan('LOGO_Shot', aeCtx({ fps: 0 }), { lenSec: 8 }).lenFrames).toBe(200);
     const at30 = item('LOGO_Shot');
@@ -108,39 +141,48 @@ describe('planInsert', () => {
     const bare = item('LOGO_Shot');
     for (const v of bare.variants) delete v.fps;
     expect(plan(bare, aeCtx({ fps: 0 }), { lenSec: 8 }).lenFrames).toBe(200);
+    const zero = item('LOGO_Shot');
+    for (const v of zero.variants) v.fps = 0;
+    expect(plan(zero, aeCtx({ fps: 0 }), { lenSec: 8 }).lenFrames).toBe(200); // a frame rate of 0 is none
     expect(plan(bare, aeCtx({ fps: 0 }), { lenSec: 4.24 }).lenFrames).toBe(107); // 25 fps, plus the AE frame of hold
   });
 });
 
 describe('planInsert: AE length (P3, C27)', () => {
-  const FPS = [23.976, 24000 / 1001, 24, 25, 29.97, 30000 / 1001, 30, 50, 59.94, 60000 / 1001, 60];
   const timesOf = (keys: [number, number][]) => keys.map((k) => k[0]);
   const increasing = (xs: number[]) => xs.every((x, i) => i === 0 || x > xs[i - 1]!);
 
-  it('keeps the C27 key times strictly increasing for every pack-1 item, fps and length from the minimum up', () => {
+  it('keeps the C27 key times strictly increasing and a whole frame apart, for every pack-1 item, fps and length from the minimum up', () => {
     const bad: string[] = [];
-    for (const id of ['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird']) {
+    for (const id of PACK1) {
       const it = item(id);
       for (const fps of FPS) {
         const ctx = aeCtx({ fps });
-        const lengths = [...Array.from({ length: 401 }, (_, k) => round6(minLen(it) + k * 0.001)), defaultLen(it), 8, 60];
+        // from just under the minimum (preflight lets half a microsecond below it through) to well past the frames it
+        // can matter in
+        const lengths = [
+          minLen(it) - 5e-7, ...Array.from({ length: 401 }, (_, k) => round6(minLen(it) + k * 0.001)), defaultLen(it), 8, 60,
+        ];
         for (const lenSec of lengths) {
           const p = plan(it, ctx, { lenSec });
           const args = buildArgs(p, ctx, ROOT) as AeInsertArgs;
           const times = timesOf(c27Keys(args.durSec, args.inSec, args.outSec, args.lenSec));
           const refused = p.issues.some((i) => i.level === 'error');
-          if (refused || !increasing(times) || !(args.lenSec > minLen(it))) bad.push(`${id} ${fps} ${lenSec}: ${times}`);
+          // 1e-3 frame of slack: the keys and the length are rounded to 1 us
+          const holdFrames = (times[2]! - times[1]!) * fps;
+          if (refused || !increasing(times) || !(args.lenSec > minLen(it)) || holdFrames < 1 - 1e-3) bad.push(`${id} ${fps} ${lenSec}: ${times}`);
         }
       }
     }
     expect(bad).toEqual([]);
   });
-  it('keeps one frame of hold at the minimum; Premiere keeps the minimum itself', () => {
+  it('keeps a whole frame of hold at the minimum; Premiere keeps the minimum itself', () => {
     expect(plan('TTL_LowerThird', aeCtx(), { lenSec: 4.2 })).toMatchObject({ lenSec: 4.24, lenFrames: 106 });
     expect(plan('TTL_LowerThird', prCtx(), { lenSec: 4.2 })).toMatchObject({ lenSec: 4.2, lenFrames: 105 });
     expect(plan('LOGO_Shot', aeCtx(), { lenSec: 4.25 })).toMatchObject({ lenSec: 4.28, lenFrames: 107 });
-    // 127.2 frames at 30 fps: rounding up already leaves 0.8 frame of hold
-    expect(plan('LOGO_Shot', aeCtx({ fps: 30 }), { lenSec: 4.24 })).toMatchObject({ lenSec: 4.266667, lenFrames: 128 });
+    // 127.2 frames at 30 fps: 128 would leave 0.8 frame of hold, so AE takes 129 and Premiere 128
+    expect(plan('LOGO_Shot', aeCtx({ fps: 30 }), { lenSec: 4.24 })).toMatchObject({ lenSec: 4.3, lenFrames: 129 });
+    expect(plan('LOGO_Shot', prCtx({ fps: 30 }), { lenSec: 4.24 })).toMatchObject({ lenSec: 4.266667, lenFrames: 128 });
     expect(buildArgs(plan('TTL_LowerThird', aeCtx(), { lenSec: 4.2 }), aeCtx(), ROOT)).toMatchObject({ lenSec: 4.24, durSec: 6 });
   });
   it('sends the template length itself when the length lands on its frame, so the adapter does not remap', () => {
@@ -221,6 +263,17 @@ describe('buildArgs', () => {
     expect(() => buildArgs(plan('TTL_LowerThird', ctx), ctx, ROOT)).not.toThrow();
     const ae = aeCtx(null);
     expect(() => buildArgs(plan('TTL_LowerThird', ae), ae, ROOT)).not.toThrow();
+    // with empty ids and the start of the timeline
+    expect(buildArgs(plan('TTL_LowerThird', ctx), ctx, ROOT)).toMatchObject({ seqId: '', startTicks: '0' });
+    expect(buildArgs(plan('TTL_LowerThird', ae), ae, ROOT)).toMatchObject({ compId: '', timeSec: 0 });
+  });
+  it('gives an AE item without a duration no C27 split: its length, no intro and no outro', () => {
+    const loose: Item = { ...item('LOGO_Mark'), tier: 'T3' };
+    delete loose.duration;
+    const ctx = aeCtx();
+    expect(buildArgs(plan(loose, ctx, { lenSec: 3 }), ctx, ROOT)).toMatchObject({ lenSec: 3, durSec: 0, inSec: 0, outSec: 0 });
+    // there is no template length to land on, not even 0
+    expect(plan(loose, ctx, { lenSec: 0.01 })).toMatchObject({ lenSec: 0.01, lenFrames: 0 });
   });
 });
 
@@ -361,14 +414,29 @@ describe('runInsert', () => {
     expect(await run({ code: 'NO_FREE_TRACK', message: 'V1..V3 busy' })).toEqual({
       ok: false, issues: [{ code: 'NO_FREE_TRACK', level: 'error', params: { detail: 'V1..V3 busy' } }],
     });
-    expect(await run({ code: 'HOST_EXCEPTION', message: 'undefined is not an object', line: 212 })).toEqual({
-      ok: false, issues: [{ code: 'HOST_EXCEPTION', level: 'error', params: { detail: 'undefined is not an object', line: 212 } }],
-    });
     expect(await run({ code: 'WEIRD_THING' })).toEqual({ ok: false, issues: [{ code: 'WEIRD_THING', level: 'error' }] });
     expect(await run({ code: 'HOST_BRIDGE_ERROR', message: 'insertItem: evalScript threw' })).toMatchObject({
       ok: false, issues: [{ code: 'HOST_BRIDGE_ERROR' }],
     });
     expect(probes).toEqual([]);
+  });
+  // common.jsx answers HOST_EXCEPTION for a reply it cannot serialise, and that happens after insertItem has placed
+  // the clip or layer; any other adapter exception may also come after the placing. So the probe decides, read-only.
+  it('probes after an adapter HOST_EXCEPTION and never re-sends', async () => {
+    const ctx = prCtx();
+    const p = plan('TTL_LowerThird', ctx);
+    const args = buildArgs(p, ctx, ROOT);
+    const unserialisable = { code: 'HOST_EXCEPTION', message: 'reply of insertItem is not serializable: TypeError: Converting circular structure to JSON' };
+    const landed = fakeHost({ ok: false, error: unserialisable }, { ok: true, data: CLIP });
+    const r = await runInsert(landed.host, p, ctx, args, logger().log);
+    expect(r).toMatchObject({ ok: true, result: { placed: CLIP, fields: [] }, issues: [{ code: 'TIMEOUT_LANDED', level: 'warning' }] });
+    expect([landed.calls.insertItem.length, landed.calls.findPlaced.length]).toEqual([1, 1]);
+    // nothing landed: the user reads the adapter's own exception, not a generic failure
+    const missed = fakeHost({ ok: false, error: { code: 'HOST_EXCEPTION', message: 'undefined is not an object', line: 212 } }, { ok: true, data: null });
+    expect(await runInsert(missed.host, p, ctx, args, logger().log)).toEqual({
+      ok: false, issues: [{ code: 'HOST_EXCEPTION', level: 'error', params: { detail: 'undefined is not an object', line: 212 } }],
+    });
+    expect([missed.calls.insertItem.length, missed.calls.findPlaced.length]).toEqual([1, 1]);
   });
   it('puts the outcome before the plan warnings', async () => {
     const ctx = prCtx({ fps: 30 });
@@ -384,15 +452,20 @@ describe('runInsert: an unsettled insert is probed, never re-sent', () => {
   const MARK: Placed = { ...LAYER, name: 'CR_LOGO_Mark_16x9_v1', endSec: 6 };
   const LANDED = { ok: true, data: MARK };
   const ABSENT = { ok: true, data: null };
-  const unsettled: [string, unknown][] = [
-    ['an unparsable reply', { ok: false, error: { code: 'HOST_BAD_REPLY', message: 'not json' } }],
-    ['a rejected bridge call', new Error('bridge down')],
-    ['a failure without a code', { ok: false, error: { code: '' } }],
-    ['no reply object', undefined],
-    ['a success without a placed layer', { ok: true, data: { fields: [] } }],
+  // [what came back, the reply, the cause the log keeps: the user only ever hears TIMEOUT_LANDED or INSERT_FAILED]
+  const unsettled: [string, unknown, Record<string, unknown>][] = [
+    ['a timeout', { ok: false, error: { code: 'TIMEOUT', message: 'insertItem: no reply in 120000 ms' } },
+      { code: 'TIMEOUT', message: 'insertItem: no reply in 120000 ms' }],
+    ['an unparsable reply', { ok: false, error: { code: 'HOST_BAD_REPLY', message: 'not json' } },
+      { code: 'HOST_BAD_REPLY', message: 'not json' }],
+    ['a rejected bridge call', new Error('bridge down'), { code: 'HOST_EXCEPTION', message: 'bridge down', thrown: true }],
+    ['a failure without a code', { ok: false, error: { code: '' } }, { code: 'HOST_BAD_REPLY' }],
+    ['no reply object', undefined, { code: 'HOST_BAD_REPLY', message: 'not a HostReply' }],
+    ['a success without a placed layer', { ok: true, data: { fields: [] } },
+      { code: 'HOST_BAD_REPLY', message: 'no placed clip or layer' }],
   ];
 
-  it.each(unsettled)('after %s: landed is TIMEOUT_LANDED, the cause stays in the log', async (_, reply) => {
+  it.each(unsettled)('after %s: landed is TIMEOUT_LANDED, the cause stays in the log', async (_, reply, cause) => {
     const { entries, log } = logger();
     const ctx = aeCtx();
     const p = plan('LOGO_Mark', ctx);
@@ -404,19 +477,19 @@ describe('runInsert: an unsettled insert is probed, never re-sent', () => {
     });
     expect(calls.insertItem).toHaveLength(1);
     expect(calls.findPlaced).toEqual([{ kind: 'layer', targetId: '17', startSec: 2, name: 'CR_LOGO_Mark_16x9_v1' }]);
-    const last = entries[entries.length - 1];
-    expect(last).toMatchObject({ level: 'warn', code: 'TIMEOUT_LANDED' });
-    expect((last?.data as { cause: { code: string } }).cause.code).toMatch(/^(HOST_BAD_REPLY|HOST_EXCEPTION)$/);
+    expect(entries[entries.length - 1]).toMatchObject({ level: 'warn', code: 'TIMEOUT_LANDED', data: { placed: MARK, cause } });
   });
-  it.each(unsettled)('after %s: nothing placed is INSERT_FAILED', async (_, reply) => {
+  it.each(unsettled)('after %s: nothing placed is INSERT_FAILED, the cause stays in the log', async (_, reply, cause) => {
+    const { entries, log } = logger();
     const ctx = prCtx();
     const p = plan('TTL_LowerThird', ctx);
     const { host, calls } = fakeHost(reply, ABSENT);
-    expect(await runInsert(host, p, ctx, buildArgs(p, ctx, ROOT), logger().log)).toEqual({
+    expect(await runInsert(host, p, ctx, buildArgs(p, ctx, ROOT), log)).toEqual({
       ok: false,
       issues: [{ code: 'INSERT_FAILED', level: 'error' }],
     });
     expect([calls.insertItem.length, calls.findPlaced.length]).toEqual([1, 1]);
+    expect(entries[entries.length - 1]).toMatchObject({ level: 'error', code: 'INSERT_FAILED', data: { data: { cause } } });
   });
   it('says so when the probe cannot settle it either: INSERT_UNCONFIRMED with both causes', async () => {
     const ctx = prCtx();

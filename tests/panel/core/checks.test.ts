@@ -87,6 +87,16 @@ describe('preflight: refusals', () => {
     for (const bad of [0, -1, Number.NaN]) expect(codes(check({ lenSec: bad }))).toEqual(['LENGTH_TOO_SHORT']);
     expect(check({ lenSec: 600 })).toEqual([]);
   });
+  it('LENGTH_TOO_SHORT: a microsecond under the minimum is rounding noise, a little more is not', () => {
+    expect(check({ lenSec: 4.2 - 5e-7 })).toEqual([]);
+    expect(check({ lenSec: 4.2 - 2e-6 })).toEqual([{ code: 'LENGTH_TOO_SHORT', level: 'error', params: { min: 4.2 } }]);
+  });
+  it('LENGTH_TOO_SHORT for no length at all, even where the item has no minimum', () => {
+    const loose: Item = { ...item('LOGO_Mark'), tier: 'T3' };
+    delete loose.duration;
+    expect(codes(check({ item: loose, lenSec: 0 }))).toEqual(['LENGTH_TOO_SHORT']);
+    expect(check({ item: loose, lenSec: 0.5 })).toEqual([]);
+  });
   it('PROJECT_NOT_SAVED: always in Premiere, in AE only when the item needs a folder next to the project', () => {
     const unsaved = { path: null, saved: false };
     expect(check({ ctx: prCtx({}, unsaved) })).toEqual([{ code: 'PROJECT_NOT_SAVED', level: 'error' }]);
@@ -102,6 +112,8 @@ describe('preflight: refusals', () => {
     expect(needsProjectFolder({ ...item('LOGO_Mark'), tier: 'T3' })).toBe(true);
     const withCompanion = { ...item('LOGO_Mark'), companions: [{ ref: 'SFX_WhooshIn', kind: 'sfx', placement: 'in', default: true }] };
     expect(needsProjectFolder(withCompanion)).toBe(true);
+    const withNone = { ...item('LOGO_Mark'), companions: [] };
+    expect(needsProjectFolder(withNone)).toBe(false); // none is none
   });
   it('measures the path where Premiere unpacks a MOGRT', () => {
     // <dir>\Motion Graphics Template Media\<36-char capsule GUID>\<template>.aegraphic
@@ -142,6 +154,10 @@ describe('preflight: warnings', () => {
   it('FPS_MISMATCH when the target fps differs at 3 decimals (P2)', () => {
     expect(check({ ctx: prCtx({ fps: 30 }) })).toEqual([{ code: 'FPS_MISMATCH', level: 'warning', params: { template: 25, target: 30 } }]);
     expect(check({ ctx: aeCtx({ fps: 25.0004 }) })).toEqual([]);
+    expect(check({ ctx: aeCtx({ fps: 25.004 }) })).toEqual([{ code: 'FPS_MISMATCH', level: 'warning', params: { template: 25, target: 25.004 } }]);
+    const thirty = item('TTL_LowerThird');
+    for (const v of thirty.variants) v.fps = 30;
+    expect(check({ item: thirty, ctx: prCtx({ fps: 29.9996 }) })).toEqual([]); // rounded to 30.000, not cut to 29.999
     const ntsc = item('TTL_LowerThird');
     for (const v of ntsc.variants) v.fps = 29.97;
     expect(check({ item: ntsc, ctx: prCtx({ fps: 254016000000 / 8475667200 }) })).toEqual([]); // 29.97003 from the timebase

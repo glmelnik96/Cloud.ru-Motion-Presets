@@ -24,6 +24,15 @@ describe('chooseVariant: an exact frame is automatic (P1)', () => {
     expect(chooseVariant(mark, frame(1920, 1080, 30)).variant?.key).toBe('16x9_30');
     expect(chooseVariant(mark, frame(1920, 1080, 25)).variant?.key).toBe('16x9');
   });
+  it('compares the fps of two variants of one frame at 3 decimals, rounded and not cut', () => {
+    const mark = item('LOGO_Mark');
+    mark.variants.push({ ...variant(mark, '16x9'), key: '16x9_30', fps: 30, aeComp: 'CR_LOGO_Mark_16x9_30_v1' });
+    expect(chooseVariant(mark, frame(1920, 1080, 29.9996)).variant?.key).toBe('16x9_30');
+    const odd = item('LOGO_Mark');
+    odd.variants.push({ ...variant(odd, '16x9'), key: '16x9_30', fps: 29.9996, aeComp: 'CR_LOGO_Mark_16x9_30_v1' });
+    expect(chooseVariant(odd, frame(1920, 1080, 30)).variant?.key).toBe('16x9_30');
+    expect(chooseVariant(odd, frame(1920, 1080, 29.97)).variant?.key).toBe('16x9'); // no variant at that fps: the first
+  });
 });
 
 describe('chooseVariant: no exact frame means a refusal with the nearest (P1)', () => {
@@ -55,11 +64,29 @@ describe('chooseVariant: no exact frame means a refusal with the nearest (P1)', 
     expect(nearestKey(item('TTL_LowerThird'), 1080, 1350)).toBe('1x1');
     expect(nearestKey(item('LOGO_Shot'), 1920, 1100)).toBe('16x9'); // 1.8 % off 16:9: FHD and 4K tie, FHD is closer in area
   });
+  it('keeps the library order on a tie', () => {
+    const twin = (key: string): Variant => ({ key, w: 1920, h: 1080, minHostVersion: {} });
+    expect(nearestVariant([twin('a'), twin('b')], { w: 2560, h: 1440 })?.key).toBe('a'); // same aspect, same area gap
+    expect(nearestVariant([twin('a'), twin('b')], { w: 1000, h: 1000 })?.key).toBe('a'); // same aspect gap, same area gap
+  });
   it('has nothing to offer without a target or a sized variant', () => {
     expect(chooseVariant(item('LOGO_Shot'), null)).toEqual({ variant: null, match: 'none' });
     expect(chooseVariant(item('LOGO_Shot'), frame(0, 1080))).toEqual({ variant: null, match: 'none' });
+    expect(chooseVariant(item('LOGO_Shot'), frame(1920, 0))).toEqual({ variant: null, match: 'none' });
+    expect(chooseVariant(item('LOGO_Shot'), frame(-1920, 1080))).toEqual({ variant: null, match: 'none' });
     const bare: Item = { ...item('LOGO_Shot'), variants: [{ key: 'any', minHostVersion: {} }] };
     expect(chooseVariant(bare, frame(1920, 1080))).toEqual({ variant: null, match: 'none' });
+    // a size needs both sides above 0
+    const half: Item = {
+      ...item('LOGO_Shot'),
+      variants: [
+        { key: 'w-only', w: 1920, minHostVersion: {} },
+        { key: 'h-only', h: 1080, minHostVersion: {} },
+        { key: 'no-width', w: 0, h: 1080, minHostVersion: {} },
+        { key: 'no-height', w: 1920, h: 0, minHostVersion: {} },
+      ],
+    };
+    expect(chooseVariant(half, frame(1920, 1080))).toEqual({ variant: null, match: 'none' });
   });
 });
 

@@ -177,8 +177,12 @@ export async function runInsert(
   // A success that names nothing placed is as unreadable as a reply that does not parse.
   const error: HostError = reply.ok ? { code: 'HOST_BAD_REPLY', message: 'no placed clip or layer' } : reply.error;
   const thrown = !reply.ok && reply.thrown === true;
-  // The adapter's own refusals (TARGET_CHANGED, NO_FREE_TRACK, its HOST_EXCEPTION...) are settled answers.
-  if (!thrown && error.code !== 'TIMEOUT' && error.code !== 'HOST_BAD_REPLY') return failed(hostIssue(error), error);
+  // The adapter's own refusals (TARGET_CHANGED, NO_FREE_TRACK...) are settled answers. Its HOST_EXCEPTION is not:
+  // common.jsx answers HOST_EXCEPTION for a reply it cannot serialise, after insertItem has placed the clip or layer.
+  const adapterException = !thrown && error.code === 'HOST_EXCEPTION';
+  if (!thrown && !adapterException && error.code !== 'TIMEOUT' && error.code !== 'HOST_BAD_REPLY') {
+    return failed(hostIssue(error), error);
+  }
 
   // Unsettled: ask whether it landed, never re-send. The cause stays in the log; the user gets the probe's verdict.
   const cause = thrown ? { ...error, thrown } : error;
@@ -190,6 +194,8 @@ export async function runInsert(
   };
   const found = await ask<Placed | null>(() => host.findPlaced(probe));
   if (found.ok && (found.data === null || found.data === undefined)) {
+    // Nothing landed: the adapter's exception is the user's answer; a lost or broken reply is a failed insert.
+    if (adapterException) return failed(hostIssue(error), { probe, cause });
     return failed({ code: 'INSERT_FAILED', level: 'error' }, { probe, cause });
   }
   if (!found.ok || !isRecord(found.data)) {

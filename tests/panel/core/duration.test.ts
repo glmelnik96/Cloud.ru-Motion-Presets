@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
-  TICKS_PER_SECOND, defaultLen, minLen, toFrames, framesToSec, minFrames, insertFrames, secToTicks, c27Keys,
+  TICKS_PER_SECOND, defaultLen, minLen, round6, toFrames, framesToSec, minFrames, insertFrames, secToTicks, c27Keys,
 } from '../../../panel/src/core/duration';
 import type { Item } from '../../../panel/src/core/types';
 import { item } from './fixture';
@@ -49,13 +49,20 @@ describe('frames', () => {
     expect(insertFrames(shot, 4, 25, 'pr')).toBe(100); // too short: preflight refuses it, the count stays honest
     expect(insertFrames(shot, Number.NaN, 25, 'pr')).toBe(0);
     expect(insertFrames(shot, 8, 0, 'pr')).toBe(0);
+    expect(insertFrames(shot, 8, 0, 'ae')).toBe(0); // no frame rate: not the one frame AE keeps for its hold
+    expect(insertFrames(shot, 8, -25, 'ae')).toBe(0);
+    // preflight refuses anything but a microsecond under the minimum, so the count is the plain rounding there
+    expect(insertFrames(shot, 4.24 - 5e-7, 30, 'pr')).toBe(128);
+    expect(insertFrames(shot, 4.24 - 5e-6, 30, 'pr')).toBe(127);
   });
-  it('keeps one frame of hold in AE, where the minimum itself would collide two C27 keys', () => {
+  it('keeps a whole frame of hold in AE, where the minimum itself would collide two C27 keys', () => {
     const shot = item('LOGO_Shot');
     const ttl = item('TTL_LowerThird');
     expect([minFrames(shot, 25, 'pr'), minFrames(shot, 25, 'ae')]).toEqual([106, 107]);
     expect([minFrames(ttl, 25, 'pr'), minFrames(ttl, 25, 'ae')]).toEqual([105, 106]); // 105.00000000000001 is 105
-    expect([minFrames(shot, 30, 'pr'), minFrames(shot, 30, 'ae')]).toEqual([128, 128]); // 127.2: 0.8 frame of hold
+    // 127.2 frames: Premiere rounds up to 128, AE needs 128.2 for a whole frame of hold (128 would leave 0.8 of it)
+    expect([minFrames(shot, 30, 'pr'), minFrames(shot, 30, 'ae')]).toEqual([128, 129]);
+    expect([minFrames(shot, 23.976, 'pr'), minFrames(shot, 23.976, 'ae')]).toEqual([102, 103]); // 101.66 frames
     expect(insertFrames(shot, 4.24, 25, 'ae')).toBe(107);
     expect(insertFrames(shot, 4.259, 25, 'ae')).toBe(107);
     expect(insertFrames(shot, 8, 25, 'ae')).toBe(200);
@@ -63,6 +70,16 @@ describe('frames', () => {
     const loose: Item = { ...shot, tier: 'T3' };
     delete loose.duration; // no C27 split: nothing to keep
     expect(minFrames(loose, 25, 'ae')).toBe(0);
+  });
+  it('puts C27 keys 2 and 3 at least a frame apart at the AE minimum, at any frame rate', () => {
+    for (const id of ['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird']) {
+      const it = item(id);
+      const { introSec, outroSec } = it.duration!;
+      for (const fps of [23.976, 24, 25, 29.97, 30, 48, 50, 59.94, 60]) {
+        const keys = c27Keys(defaultLen(it), introSec, round6(defaultLen(it) - outroSec), framesToSec(minFrames(it, fps, 'ae'), fps));
+        expect((keys[2]![0] - keys[1]![0]) * fps, `${id} ${fps}`).toBeGreaterThanOrEqual(1 - 1e-3); // 1e-3 frame: keys round to 1 us
+      }
+    }
   });
 });
 
