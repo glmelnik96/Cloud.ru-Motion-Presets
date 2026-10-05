@@ -51,3 +51,55 @@ export function cdpEval(wsUrl, expression, { timeoutMs = 120000 } = {}) {
     };
   });
 }
+
+// Several protocol methods in order on one socket, each with its own id: [[method, params?], ...] -> their results.
+// Stops at the first protocol error. The dev tools use it to hard-reload a panel: CEF serves a rebuilt panel's old
+// index.html from its cache, so Network.clearBrowserCache comes before Page.reload with ignoreCache.
+export function cdpCall(wsUrl, calls, { timeoutMs = 30000 } = {}) {
+  return new Promise((resolve, reject) => {
+    const ws = new WebSocket(wsUrl);
+    const results = [];
+    let next = 0;
+    let outcome = null;
+    const finish = (err, value) => {
+      if (outcome) return;
+      outcome = { err, value };
+      clearTimeout(timer);
+      try { ws.close(); } catch { /* the outcome stands */ }
+      if (err) reject(err); else resolve(value);
+    };
+    const timer = setTimeout(() => finish(new Error(`CDP_TIMEOUT: ${timeoutMs} ms waiting for ${calls[next] ? calls[next][0] : 'the page'}`)), timeoutMs);
+    const send = () => {
+      if (next >= calls.length) { finish(null, results); return; }
+      const [method, params = {}] = calls[next];
+      ws.send(JSON.stringify({ id: next + 1, method, params }));
+    };
+    ws.onopen = send;
+    ws.onerror = (e) => finish(new Error('CDP_WS_ERROR: ' + ((e && e.message) || e)));
+    ws.onclose = () => finish(new Error('CDP_CLOSED: socket closed before the replies'));
+    ws.onmessage = (msg) => {
+      let data;
+      try { data = JSON.parse(msg.data); } catch { return; }
+      if (data.id !== next + 1) return;
+      if (data.error) { finish(new Error(`CDP_ERROR: ${calls[next][0]} ${JSON.stringify(data.error)}`)); return; }
+      results.push(data.result);
+      next += 1;
+      send();
+    };
+  });
+}
+
+// Reloads the page on `port` with the cache cleared, then waits until `ready` (an expression) is true in it.
+export async function hardReload(port, { ready = 'document.readyState === "complete"', timeoutMs = 30000 } = {}) {
+  const page = await getPageTarget(port);
+  await cdpCall(page.webSocketDebuggerUrl, [['Network.enable'], ['Network.clearBrowserCache'], ['Page.reload', { ignoreCache: true }]]);
+  const deadline = Date.now() + timeoutMs;
+  for (;;) {
+    await new Promise((r) => setTimeout(r, 300));
+    try {
+      const p = await getPageTarget(port);
+      if (await cdpEval(p.webSocketDebuggerUrl, `Boolean(${ready})`, { timeoutMs: 5000 })) return p;
+    } catch { /* the page is still loading */ }
+    if (Date.now() > deadline) throw new Error(`CDP_TIMEOUT: the page on ${port} was not ready ${timeoutMs} ms after the reload`);
+  }
+}
