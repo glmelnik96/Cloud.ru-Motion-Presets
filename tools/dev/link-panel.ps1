@@ -1,6 +1,8 @@
 # Links panel\dist into the per-user CEP extensions folder as ru.cloud.brandkit (a junction: no admin rights)
 # and points the panel at a library root through %LOCALAPPDATA%\CloudRuBrandKit\settings.json (plan 2026-10-05 P6).
 # Build first: node tools/panel/build.mjs --dev. The host sees a new extension only after a restart.
+# Run it from an ordinary terminal: a PowerShell started by a packaged app (the Claude desktop app) gets AppData
+# virtualization, and the hosts never see the settings.json it writes; then use tools/dev/panel-settings.mjs.
 param([string]$LibraryRoot = 'C:/CRBK/work/library')
 $ErrorActionPreference = 'Stop'
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..\..')

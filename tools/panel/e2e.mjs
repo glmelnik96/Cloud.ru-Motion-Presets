@@ -45,9 +45,11 @@ export function expected(host, field, value) {
 }
 
 export function same(field, want, got) {
+  if (got === null || got === undefined) return false;
   if (field.type === 'checkbox') return (got === true || got === 1 || got === '1' || got === 'true' ? 1 : 0) === want;
   if (field.type === 'text') return String(got) === want;
-  return Number(got) === want;
+  // null is no value: Number(null) would pass for a 0-based first item
+  return got !== null && got !== undefined && got !== '' && Number(got) === want;
 }
 
 async function observe(host, params) {

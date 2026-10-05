@@ -64,12 +64,11 @@ if (ready && P.stage === 'read') {
     data.selected = truthy(c.isSelected());
     data.values = [];
     for (var i = 0; i < P.names.length; i++) {
-      var p = mgtParam(c, P.names[i]), v = null;
+      var p = mgtParam(c, P.names[i]), v = null, t;
       if (p) {
-        v = readMgtText(p);
-        if (v === null) {
-          v = describeValue(p.getValue()).value;
-        }
+        // readMgtText gives undefined, not null, for a number: only a string is a Source Text value
+        t = readMgtText(p);
+        v = typeof t === 'string' ? t : describeValue(p.getValue()).value;
       }
       data.values.push([P.names[i], v]);
     }
