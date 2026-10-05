@@ -25,6 +25,10 @@ export type ProblemCode =
   | 'NO_CUT'
   | 'COMPANION'
   | 'FILES'
+  | 'NO_SELECTION'
+  | 'PRESET_NO_EFFECT'
+  | 'PRESET_PARTIAL'
+  | 'PRESET_NEW_LAYER'
   | 'INSERT_FAILED'
   | 'READBACK'
   | 'TIMEOUT'
@@ -82,6 +86,10 @@ export const messages = {
   noCut: (windowSec: number) => `Склеек ближе ${sec(windowSec)} с к плейхеду нет: маркер перехода поставлен на плейхед.`,
   companion: (title: string) => `«${title}» не вставлен: нет подходящего файла в библиотеке.`,
   files: (detail: string) => `Не удалось скопировать файлы рядом с проектом: ${detail}.`,
+  noSelection: () => 'Выделите в композиции слои, к которым применить эффект: без выделения After Effects создаёт новый слой.',
+  presetNoEffect: (names: string[]) => `Пресет ничего не изменил у слоёв ${names.join(', ')}. Возможно, он для другого типа слоя (например, только для текста).`,
+  presetPartial: (names: string[]) => `К слоям ${names.join(', ')} пресет не применился: возможно, он для другого типа слоя.`,
+  presetNewLayer: (names: string[]) => `Пресет добавил слои: ${names.join(', ')}.`,
   placement: (what: string[]) => `Файлы встали не так, как задумано (${what.join('; ')}). Отмените вставку и повторите.`,
   insertFailed: (detail: string) => `Вставка не выполнена: ${detail}.`,
   readback: (labels: string[]) =>

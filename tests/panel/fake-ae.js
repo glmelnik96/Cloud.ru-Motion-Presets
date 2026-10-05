@@ -14,7 +14,7 @@ var ImportAsType = { COMP_CROPPED_LAYERS: 3812, FOOTAGE: 3813, COMP: 3814, PROJE
 var BridgeTalk = { appName: 'aftereffects' };
 var $ = { os: 'Windows/64 10.0', sleep: function () {} };
 
-var __ae = { files: {}, folders: {}, aeps: {}, media: {}, calls: [], nextId: 100, undo: [], suppress: 0, imports: 0, fonts: {} };
+var __ae = { files: {}, folders: {}, aeps: {}, media: {}, presets: {}, calls: [], nextId: 100, undo: [], suppress: 0, imports: 0, fonts: {} };
 
 function __norm(p) { return String(p).split('\\').join('/'); }
 
@@ -168,6 +168,9 @@ function AVLayer(comp, src) {
   this._keys = [];
   this.canSetTimeRemapEnabled = true;
   this._scale = __prop('ADBE Scale', [100, 100]);
+  this._fx = [];
+  this._text = false;
+  this._animators = [];
   this._makeEp();
 }
 AVLayer.prototype._makeEp = function () {
@@ -220,6 +223,33 @@ Object.defineProperty(AVLayer.prototype, 'timeRemapEnabled', {
     this._remap = !!on;
   },
 });
+// An effect or a text animator a preset adds: a group with one property keyed at t and t + 0.5 s.
+function __keyed(name, t) {
+  var p = { name: 'value', propertyType: PropertyType.PROPERTY, numKeys: 2, keyTime: function (k) { return t + (k - 1) * 0.5; } };
+  return { name: name, matchName: name, propertyType: PropertyType.NAMED_GROUP, numProperties: 1, property: function (i) { return i === 1 ? p : null; } };
+}
+function __list(name, items) {
+  return { name: name, matchName: name, propertyType: PropertyType.INDEXED_GROUP, numProperties: items.length, property: function (i) { return typeof i === 'number' ? items[i - 1] : null; } };
+}
+// applyPreset (S4, AE 26.5): every selected layer of the comp; a text preset changes text layers only; with
+// nothing selected a new solid gets the preset. __ae.presets[path] = { text: bool }.
+AVLayer.prototype.applyPreset = function (file) {
+  var preset = __ae.presets[file._path];
+  var comp = this._comp;
+  var t = comp.time;
+  var sel = comp.selectedLayers;
+  if (!preset) throw new Error('After Effects error: preset not found');
+  __ae.undo.push('applyPreset ' + file.name + ' suppress=' + __ae.suppress);
+  if (!sel.length) {
+    var solid = comp.layers.addSolid([1, 1, 1], 'White Solid 1', comp.width, comp.height, 1, comp.duration);
+    solid._fx.push(__keyed('preset', t));
+    return;
+  }
+  sel.forEach(function (l) {
+    if (preset.text && !l._text) return;
+    (preset.text ? l._animators : l._fx).push(__keyed(file.name, t));
+  });
+};
 AVLayer.prototype.moveAfter = function (other) {
   var list = this._comp._layers;
   list.splice(list.indexOf(this), 1);
@@ -229,6 +259,12 @@ AVLayer.prototype.property = function (name) {
   var self = this;
   if (name === 'ADBE Transform Group') return { property: function (n) { return n === 'ADBE Scale' ? self._scale : null; } };
   if (name === 'ADBE Layer Overrides') return this._epGroup;
+  if (name === 'ADBE Effect Parade') return __list('ADBE Effect Parade', this._fx);
+  if (name === 'ADBE Text Properties') {
+    if (!this._text) return null;
+    var anims = __list('ADBE Text Animators', this._animators);
+    return { name: 'Text', property: function (n) { return n === 'ADBE Text Animators' ? anims : null; } };
+  }
   if (name === 'ADBE Time Remapping') {
     var sorted = function () { self._keys.sort(function (a, b) { return a.t - b.t; }); };
     return {
@@ -331,6 +367,13 @@ __ae.userComp = function (w, h, fps, time) {
   __move(c, __root);
   app.project.activeItem = c;
   return c;
+};
+// A plain layer in a comp for the effects checks: kind 'text' or 'solid'.
+__ae.addLayer = function (comp, name, kind) {
+  var src = { name: name, duration: comp.duration, _ep: [], mainSource: { isStill: true } };
+  var l = comp.layers.add(src);
+  l._text = kind === 'text';
+  return l;
 };
 __ae.addMedia = function (path, sec, still) {
   __ae.files[__norm(path)] = 'media';

@@ -16,13 +16,17 @@ const plan = (item: Item, ctx: HostContext, options = {}) => planItem({ item, ct
 
 describe('what the panel places', () => {
   it('tells the kind of each example item and hides what it cannot place', () => {
-    const kinds = Object.fromEntries(exampleCatalog().items.filter((i) => i.tier !== 'T1').map((i) => [i.id, mediaKind(i, pickMediaVariant(i, { w: 1920, h: 1080 }).variant!)]));
+    const kinds = Object.fromEntries(exampleCatalog().items.filter((i) => i.tier !== 'T1' && i.category !== 'effects').map((i) => [i.id, mediaKind(i, pickMediaVariant(i, { w: 1920, h: 1080 }).variant!)]));
     expect(kinds).toEqual({ SFX_WhooshIn: 'sound', BG_WebinarPortal: 'loop', TRN_StepWipe: 'transition', BG_Arrows: 'loop', BG_DotGrid: 'still', SFX_WebinarBed: 'sound' });
-    const ffx: Item = { ...exampleItem('BG_DotGrid'), id: 'FX_Pop', variants: [{ key: 'ffx', file: 'items/FX_Pop/FX_Pop_ffx_v1.ffx', minHostVersion: {} }] };
-    expect(insertable(ffx, 'ae')).toBe(false);
+    // .ffx: After Effects only (effects.ts); export presets wait for the «Экспорт» tab
+    const ffx: Item = { ...exampleItem('BG_DotGrid'), id: 'FX_Pop', hosts: ['ae', 'pr'], variants: [{ key: 'ffx', file: 'items/FX_Pop/FX_Pop_ffx_v1.ffx', minHostVersion: {} }] };
+    expect([insertable(ffx, 'ae'), insertable(ffx, 'pr')]).toEqual([true, false]);
+    const epr: Item = { ...ffx, id: 'AME_Web', variants: [{ key: 'epr', file: 'items/AME_Web/AME_Web_epr_v1.epr', minHostVersion: {} }] };
     const cat = exampleCatalog();
-    cat.items.push(ffx);
-    expect(itemsForHost(cat, 'ae').map((i) => i.id)).not.toContain('FX_Pop');
+    cat.items.push(ffx, epr);
+    expect(itemsForHost(cat, 'ae').map((i) => i.id)).toContain('FX_Pop');
+    expect(itemsForHost(cat, 'pr').map((i) => i.id)).not.toContain('FX_Pop');
+    expect(itemsForHost(cat, 'ae').map((i) => i.id)).not.toContain('AME_Web');
   });
 
   it('picks the PNG of a still, not its SVG twin', () => {

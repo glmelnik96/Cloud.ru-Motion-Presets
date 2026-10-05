@@ -156,6 +156,24 @@
       "hosts": ["ae", "pr"],
       "version": 1,
       "variants": [{ "key": "wav" }]
+    },
+    {
+      "id": "FX_TextRise",
+      "title_ru": "Подъём текста по словам",
+      "category": "effects",
+      "tier": "T3",
+      "hosts": ["ae"],
+      "version": 1,
+      "variants": [{ "key": "ffx" }]
+    },
+    {
+      "id": "FX_PlateGrow",
+      "title_ru": "Рост плашки по X",
+      "category": "effects",
+      "tier": "T3",
+      "hosts": ["ae"],
+      "version": 1,
+      "variants": [{ "key": "ffx" }]
     }
   ]
 }

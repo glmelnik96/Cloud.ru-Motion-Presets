@@ -16,6 +16,7 @@ const BUILDS: Record<string, string> = {
 function mediaExt(it: Item, key: string): string {
   if (it.category === 'sounds') return 'wav';
   if (key === 'svg') return 'svg';
+  if (key === 'ffx') return 'ffx';
   return it.tier === 'T3' ? 'png' : 'mov';
 }
 

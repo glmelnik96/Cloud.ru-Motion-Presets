@@ -101,6 +101,8 @@ export function mediaKind(item: Item, v: Variant): MediaKind | null {
 export function insertable(item: Item, host: Host): boolean {
   if (!item.hosts.includes(host)) return false;
   if (item.tier === 'T1') return true;
+  // .ffx: applied to selected layers, After Effects only (effects.ts)
+  if (host === 'ae' && item.variants.some((v) => /\.ffx$/i.test(v.file ?? ''))) return true;
   return item.variants.some(placeable);
 }
 

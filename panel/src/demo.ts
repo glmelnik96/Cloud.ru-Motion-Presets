@@ -22,7 +22,7 @@ function toItem(raw: unknown, keepCompanions: boolean): Item {
     else if (v.parts) {
       const src = v.parts as unknown as Record<string, [number, number]>;
       out.parts = Object.fromEntries(Object.entries(src).map(([p, r]) => [p, { file: `${base}_${p}_v${it.version}.mov`, sha256: SHA, bytes: 0, frames: r[1] - r[0] }]));
-    } else out.file = `${base}_v${it.version}.${it.category === 'sounds' ? 'wav' : v.key === 'svg' ? 'svg' : it.tier === 'T3' ? 'png' : 'mov'}`;
+    } else out.file = `${base}_v${it.version}.${it.category === 'sounds' ? 'wav' : v.key === 'svg' || v.key === 'ffx' ? v.key : it.tier === 'T3' ? 'png' : 'mov'}`;
     return out;
   });
   if (it.tier === 'T1') it.aep = { file: `${dir}/${it.id}_v${it.version}.aep`, sha256: SHA, bytes: 0 };

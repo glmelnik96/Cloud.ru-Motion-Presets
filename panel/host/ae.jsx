@@ -466,6 +466,105 @@
     return { placed: out, first: first };
   }
 
+  // ---- Effects: a brand .ffx on the selected layers (spec 6.1 step 7; S4 on AE 26.5) ----
+
+  function sub(layer, name) {
+    var g = null;
+    try { g = layer.property(name); } catch (e) { g = null; }
+    return g;
+  }
+
+  // Keys under a property group, and the earliest of them (layer time), a few levels deep.
+  function keysUnder(group, depth, acc) {
+    var i, p;
+    if (!group || depth > 6) {
+      return acc;
+    }
+    for (i = 1; i <= group.numProperties; i++) {
+      p = null;
+      try { p = group.property(i); } catch (e) { p = null; }
+      if (!p) {
+        continue;
+      }
+      if (p.propertyType === PropertyType.PROPERTY) {
+        if (p.numKeys > 0) {
+          acc.keys += p.numKeys;
+          if (acc.first === null || p.keyTime(1) < acc.first) {
+            acc.first = p.keyTime(1);
+          }
+        }
+      } else {
+        keysUnder(p, depth + 1, acc);
+      }
+    }
+    return acc;
+  }
+
+  // What a preset may change on a layer: effects, text animators, their keys and the transform keys.
+  function presetMark(layer) {
+    var fx = sub(layer, 'ADBE Effect Parade');
+    var text = sub(layer, 'ADBE Text Properties');
+    var anim = text ? sub(text, 'ADBE Text Animators') : null;
+    var acc = { keys: 0, first: null };
+    keysUnder(fx, 0, acc);
+    keysUnder(anim, 0, acc);
+    keysUnder(sub(layer, 'ADBE Transform Group'), 0, acc);
+    return { effects: fx ? fx.numProperties : 0, animators: anim ? anim.numProperties : 0, keys: acc.keys, first: acc.first };
+  }
+
+  // applyPreset acts on every selected layer of the comp, so it is called once; with nothing selected AE
+  // would make a new solid, so a call without a selection is refused. One undo group; script dialogs are
+  // suppressed around it, not inside it.
+  A.applyPreset = function (req) {
+    var comp = targetComp(req.targetId);
+    var sel = comp.selectedLayers;
+    var f = new File(req.file);
+    var known = {};
+    var before = [];
+    var out = { layers: [], newLayers: [] };
+    var i, l, m, b;
+    if (!sel.length) {
+      throw fail('NO_SELECTION', 'no layer selected');
+    }
+    if (!f.exists) {
+      throw fail('NO_FILE', 'нет файла пресета ' + req.file);
+    }
+    for (i = 1; i <= comp.numLayers; i++) {
+      known['id' + comp.layer(i).id] = true;
+    }
+    for (i = 0; i < sel.length; i++) {
+      before.push({ layer: sel[i], mark: presetMark(sel[i]) });
+    }
+    app.beginSuppressDialogs();
+    try {
+      app.beginUndoGroup(req.undoLabel || 'BrandKit');
+      try {
+        sel[0].applyPreset(f);
+      } finally {
+        app.endUndoGroup();
+      }
+    } finally {
+      app.endSuppressDialogs(false);
+    }
+    for (i = 0; i < before.length; i++) {
+      l = before[i].layer;
+      b = before[i].mark;
+      m = presetMark(l);
+      out.layers.push({
+        name: String(l.name),
+        layerId: l.id,
+        changed: m.effects !== b.effects || m.animators !== b.animators || m.keys !== b.keys,
+        firstKeySec: m.first === null ? null : BK.round(m.first)
+      });
+    }
+    for (i = 1; i <= comp.numLayers; i++) {
+      if (known['id' + comp.layer(i).id] !== true) {
+        out.newLayers.push(String(comp.layer(i).name));
+      }
+    }
+    return out;
+  };
+
   // A T2/T3 file on its own, in one undo group.
   A.insertMedia = function (req) {
     var comp = targetComp(req.targetId);

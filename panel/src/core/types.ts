@@ -148,5 +148,7 @@ export interface HostContext {
   version: string;
   project: { saved: boolean; path: string | null };
   target: HostTarget | null;
+  // AE: layers selected in the active comp (effects need them).
+  selection?: number;
   color?: AeColor;
 }
