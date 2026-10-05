@@ -323,6 +323,20 @@ describe('runInsert', () => {
     expect(calls).toEqual({ insertItem: [args], findPlaced: [] });
     expect(entries.map((e) => [e.level, e.code])).toEqual([['info', 'INSERT_START'], ['info', 'INSERT_OK']]);
   });
+  // The adapters report what they could not do as warning codes, 'CODE' or 'CODE: detail' (panel/host/*.jsx).
+  it('turns the adapter warnings into warning issues after the outcome and before the plan warnings', async () => {
+    const ctx = aeCtx({ fps: 30 });
+    const p = plan('TTL_LowerThird', ctx, { lenSec: 8 });
+    const result = { ...echo(p, LAYER), warnings: ['REMAP_KEYS_MISMATCH', 'FIELD_NOT_FOUND: Должность, 2-я строка', '  '] };
+    const { host } = fakeHost({ ok: true, data: result });
+    const r = await runInsert(host, p, ctx, buildArgs(p, ctx, ROOT), logger().log);
+    expect(r.ok).toBe(true);
+    expect(r.issues.slice(0, 2)).toEqual([
+      { code: 'REMAP_KEYS_MISMATCH', level: 'warning' },
+      { code: 'FIELD_NOT_FOUND', level: 'warning', params: { field: 'Должность, 2-я строка' } },
+    ]);
+    expect(r.issues.slice(2)).toEqual(p.issues.filter((i) => i.level !== 'error'));
+  });
   it('keeps the plan warnings after a successful insert', async () => {
     const ctx = aeCtx({ fps: 30 });
     const p = plan('LOGO_Shot', ctx);

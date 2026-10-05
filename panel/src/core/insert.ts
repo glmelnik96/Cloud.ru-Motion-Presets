@@ -29,6 +29,23 @@ export interface PlanInput {
 export type InsertOutcome = { ok: true; result: InsertResult; issues: Issue[] } | { ok: false; issues: Issue[] };
 
 export const LABEL_PREFIX = 'Cloud.ru BrandKit: ';
+
+// InsertResult.warnings of the adapters, 'CODE' or 'CODE: detail' (panel/host/*.jsx), as warning issues; the detail of
+// a FIELD_* code is the field's Essential Graphics name.
+export function adapterWarnings(list: unknown): Issue[] {
+  const out: Issue[] = [];
+  for (const w of Array.isArray(list) ? list : []) {
+    const text = typeof w === 'string' ? w.trim() : '';
+    if (!text) continue;
+    const at = text.indexOf(':');
+    const code = (at < 0 ? text : text.slice(0, at)).trim();
+    const detail = at < 0 ? '' : text.slice(at + 1).trim();
+    // FIELD_* name an Essential Graphics field the user knows; other details are technical (log only in the text)
+    const params: Record<string, string> = code.startsWith('FIELD_') ? { field: detail } : { detail };
+    out.push(detail ? { code, level: 'warning', params } : { code, level: 'warning' });
+  }
+  return out;
+}
 const FALLBACK_FPS = 25; // pack-1 templates; used only to count frames when neither target nor variant has fps
 
 const gridFps = (ctx: HostContext, variant: Variant) => {
@@ -160,6 +177,8 @@ export async function runInsert(
 
   if (reply.ok && isRecord(reply.data) && isRecord(reply.data.placed)) {
     const result = reply.data;
+    // The adapter's own warnings ('CODE' or 'CODE: detail') come after the outcome, before the plan's.
+    warnings.unshift(...adapterWarnings(result.warnings));
     const typeOf = (egpName: string) => plan.fieldWrites.find((w) => w.egpName === egpName)?.type ?? 'text';
     // The adapter's verdict, backed by the core's normalised comparison (boolean vs 1/0, '2' vs 2).
     const bad = (Array.isArray(result.fields) ? result.fields : [])

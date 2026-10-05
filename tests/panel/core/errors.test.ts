@@ -15,6 +15,10 @@ const EXTRA_CODES = [
   'HOST_EMPTY', 'HOST_EVAL_ERROR', 'HOST_BAD_REPLY', 'HOST_BRIDGE_ERROR', 'UNKNOWN_FN', 'BAD_ARGS',
   // the adapters: AE refuses a target inside the BrandKit bin, Premiere warns about a clip named unlike its template
   'TARGET_IS_TEMPLATE', 'NAME_MISMATCH',
+  // warnings the adapters put in InsertResult.warnings (panel/host/ae.jsx, pr.jsx) and AE's checkFonts refusal
+  'NO_ESSENTIAL_PROPERTIES', 'FIELD_NOT_FOUND', 'FIELD_AMBIGUOUS', 'FIELD_TYPE_UNSUPPORTED', 'FIELD_VALUE_INVALID',
+  'FIELD_WRITE_FAILED', 'FIELD_READ_FAILED', 'LAYER_START_MISMATCH', 'TEMPLATE_DURATION_MISMATCH', 'REMAP_KEYS_MISMATCH',
+  'LENGTH_NOT_APPLIED', 'SELECTION_MISMATCH', 'SELECTION_FAILED', 'LENGTH_MISMATCH', 'FONTS_UNAVAILABLE',
 ];
 
 const SAMPLE: Record<string, string | number> = {
