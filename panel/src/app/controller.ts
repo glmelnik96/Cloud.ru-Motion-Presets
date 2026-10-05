@@ -2,14 +2,15 @@
 // actions; it never talks to CSInterface or Node itself (spec 6: «Интерфейс знает только API ядра»).
 import { formFields } from '../core/fields';
 import type { HostCaller } from '../core/host';
-import { planInsert, runInsert, type InsertPlan } from '../core/insert';
+import { planItem, runInsert, runMedia, type InsertOptions, type InsertPlan } from '../core/insert';
 import { filterItems, itemsForHost, parseCatalog, usedCategories, CATEGORIES } from '../core/library';
 import type { Logger } from '../core/log';
+import { backdropDefault, CUT_WINDOW_SEC, defaultMediaLengthSec, mediaKind, pickMediaVariant, placeable, type Prepare } from '../core/media';
 import { FieldMemory, type KeyValueStore } from '../core/memory';
 import type { Platform } from '../core/paths';
 import { error, messages, type Problem } from '../core/problems';
 import { defaultLengthSec } from '../core/timing';
-import type { Catalog, Category, FieldValue, FontStatus, Host, HostContext, Item, Values } from '../core/types';
+import type { Catalog, Category, FieldValue, FontStatus, Host, HostContext, Item, Values, Variant } from '../core/types';
 import { pickVariant, variantLabel, type VariantPick } from '../core/variant';
 import { shortVersion } from '../core/version';
 
@@ -24,6 +25,8 @@ export interface Services {
   logger?: Logger | null;
   // AE asks the host (FontObject); Premiere scans the font folders with Node.
   fonts?(names: string[]): Promise<Record<string, FontStatus>>;
+  // Copies library files next to the project and writes the backdrop still before the host call (P11).
+  prepareFiles?(prepare: Prepare): Promise<{ copied: string[]; reused: string[]; written: string[] }>;
 }
 
 export type View = 'catalog' | 'form';
@@ -50,6 +53,8 @@ export interface AppState {
   lengthSec: number | null;
   manualVariant: string | null;
   sound: { music: boolean; sfx: boolean };
+  // The #222222 backdrop under an alpha loop or still; null: the default of the item.
+  backdrop: boolean | null;
   fonts: Record<string, FontStatus> | null;
   plan: InsertPlan | null;
   busy: boolean;
@@ -83,6 +88,7 @@ export class PanelApp {
       lengthSec: null,
       manualVariant: null,
       sound: this.memory.sound(),
+      backdrop: null,
       fonts: null,
       plan: null,
       busy: false,
@@ -178,7 +184,7 @@ export class PanelApp {
   open(id: string): void {
     const item = this.state.items.find((i) => i.id === id);
     if (!item) return;
-    this.set({ view: 'form', selectedId: id, values: this.memory.load(item), lengthSec: null, manualVariant: null, outcome: null, consent: null });
+    this.set({ view: 'form', selectedId: id, values: this.memory.load(item), lengthSec: null, manualVariant: null, backdrop: null, outcome: null, consent: null });
     this.replan();
   }
 
@@ -204,18 +210,55 @@ export class PanelApp {
   setSound(sound: { music: boolean; sfx: boolean }): void {
     this.memory.setSound(sound);
     this.set({ sound });
+    this.replan();
+  }
+
+  setBackdrop(on: boolean): void {
+    this.set({ backdrop: on });
+    this.replan();
   }
 
   // The length shown in the form: what the user typed, else the one the item proposes.
   lengthFor(item: Item): number {
-    return this.state.lengthSec ?? defaultLengthSec(item, this.state.values);
+    if (this.state.lengthSec !== null) return this.state.lengthSec;
+    if (item.tier === 'T1') return defaultLengthSec(item, this.state.values);
+    return defaultMediaLengthSec(item, this.pick(item)?.variant ?? null, this.state.context?.target ?? null) ?? 0;
+  }
+
+  // Templates, loops and stills take a length; a transition, a clip or a sound keeps its own.
+  lengthEditable(item: Item): boolean {
+    if (item.tier === 'T1') return true;
+    const v = this.pick(item)?.variant;
+    const kind = v ? mediaKind(item, v) : null;
+    return kind === 'loop' || kind === 'still';
+  }
+
+  // The #222222 backdrop checkbox: alpha loops and stills.
+  backdropOffered(item: Item): boolean {
+    return item.alpha === true && this.lengthEditable(item) && item.tier !== 'T1';
+  }
+
+  backdropOn(item: Item): boolean {
+    return this.state.backdrop ?? backdropDefault(item);
+  }
+
+  // Variants of the format switch: for files only the ones the panel places (a .png, not its .svg twin).
+  formatVariants(item: Item): Variant[] {
+    return item.tier === 'T1' ? item.variants : item.variants.filter(placeable);
   }
 
   // The variant for the format chip: manual or by the frame of the active comp or sequence.
   pick(item: Item | null = this.selected()): VariantPick | null {
     const t = this.state.context?.target;
     if (!item || !t) return null;
+    if (item.tier !== 'T1') return pickMediaVariant(item, t, this.state.manualVariant);
     return pickVariant(item, t, this.state.values, this.state.manualVariant);
+  }
+
+  private lookup = (id: string): Item | undefined => this.state.catalog?.items.find((i) => i.id === id);
+
+  private options(acceptNearest: boolean, cuts: number[] | null = null): InsertOptions {
+    return { lengthSec: this.state.lengthSec, variantKey: this.state.manualVariant, acceptNearest, sound: this.state.sound, backdrop: this.state.backdrop, cuts };
   }
 
   formatChip(): string {
@@ -240,13 +283,14 @@ export class PanelApp {
       this.set({ plan: null });
       return;
     }
-    const plan = planInsert({
+    const plan = planItem({
       item,
       ctx,
       values: this.state.values,
       fonts: this.state.fonts,
-      options: { lengthSec: this.state.lengthSec, variantKey: this.state.manualVariant, acceptNearest: true },
+      options: this.options(true),
       env: { platform: this.svc.platform, libraryRoot: this.svc.libraryRoot },
+      lookup: this.lookup,
     });
     this.state = { ...this.state, plan };
     for (const fn of this.listeners) fn(this.state);
@@ -262,15 +306,17 @@ export class PanelApp {
       // The playhead and the active comp or sequence of this very moment.
       const ctx = await this.refreshContext();
       if (!ctx) return this.finish({ ok: false, problems: [error('NO_TARGET', messages.noTarget(this.state.host))], at: Date.now() });
-      const plan = planInsert({
+      const cuts = await this.cutsFor(item, ctx);
+      const plan = planItem({
         item,
         ctx,
         values: this.state.values,
         fonts: this.state.fonts,
-        options: { lengthSec: this.state.lengthSec, variantKey: this.state.manualVariant, acceptNearest },
+        options: this.options(acceptNearest, cuts),
         env: { platform: this.svc.platform, libraryRoot: this.svc.libraryRoot },
+        lookup: this.lookup,
       });
-      if (!plan.ok || !plan.request) {
+      if (!plan.ok || (!plan.request && !plan.media)) {
         const nearest = plan.problems.find((p) => p.code === 'NO_VARIANT' && (p.detail as { key?: string } | undefined)?.key);
         const key = nearest ? (nearest.detail as { key: string }).key : null;
         const v = key ? item.variants.find((x) => x.key === key) : null;
@@ -278,21 +324,59 @@ export class PanelApp {
         this.log('warn', 'insert.refused', { id: item.id, problems: plan.problems.map((p) => p.code) });
         return this.finish({ ok: false, problems: plan.problems, at: Date.now() });
       }
+      const prepare = plan.media ? plan.media.prepare : plan.request!.prepare;
+      const files = await this.prepareFiles(prepare);
+      if (files) return this.finish({ ok: false, problems: [...plan.problems, files], at: Date.now() });
+      if (plan.media) {
+        const m = await runMedia(this.svc.host, this.state.host, plan.media);
+        const problems = [...plan.problems, ...m.problems];
+        this.log(m.ok ? 'info' : 'error', m.ok ? 'insert.done' : 'insert.failed', {
+          id: item.id,
+          variant: plan.media.variant.key,
+          kind: plan.media.kind,
+          lengthSec: plan.media.lengthSec,
+          problems: problems.map((p) => p.code),
+          reply: m.reply ? { placed: m.reply.placed, imported: m.reply.imported, addedTracks: m.reply.addedTracks } : null,
+        });
+        return this.finish({ ok: m.ok, problems, at: Date.now() });
+      }
+      const request = plan.request!;
       const labels = Object.fromEntries((item.fields ?? []).map((f) => [f.key, f.label_ru]));
-      const out = await runInsert(this.svc.host, this.state.host, plan.request, labels);
+      const out = await runInsert(this.svc.host, this.state.host, request, labels);
       const problems = [...plan.problems, ...out.problems];
       if (out.ok) this.memory.save(item, this.state.values);
       this.log(out.ok ? 'info' : 'error', out.ok ? 'insert.done' : 'insert.failed', {
         id: item.id,
-        variant: plan.request.variant.key,
-        lengthSec: plan.request.lengthSec,
+        variant: request.variant.key,
+        lengthSec: request.lengthSec,
         problems: problems.map((p) => p.code),
-        reply: out.reply ? { name: out.reply.name, track: out.reply.track, retried: out.reply.retried, notes: out.reply.notes } : null,
+        reply: out.reply ? { name: out.reply.name, track: out.reply.track, retried: out.reply.retried, notes: out.reply.notes, companions: out.reply.companions } : null,
       });
       return this.finish({ ok: out.ok, problems, at: Date.now() });
     } catch (e) {
       this.log('error', 'insert.exception', { error: String(e) });
       return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
+    }
+  }
+
+  // Premiere: the edges of the clips around the playhead, for a transition (decision P13).
+  private async cutsFor(item: Item, ctx: HostContext): Promise<number[] | null> {
+    if (ctx.host !== 'pr' || item.cutFrame === undefined || !ctx.target) return null;
+    const r = await this.svc.host.call<{ cuts: number[] }>('getCuts', { targetId: ctx.target.id, aroundSec: ctx.target.timeSec, windowSec: CUT_WINDOW_SEC });
+    return r.ok && r.data ? r.data.cuts : [];
+  }
+
+  // The copies and the backdrop still; a problem when they could not be made (nothing in the host changed).
+  private async prepareFiles(prepare: Prepare): Promise<Problem | null> {
+    if (!prepare.copies.length && !prepare.solids.length) return null;
+    if (!this.svc.prepareFiles) return error('FILES', messages.files('нет доступа к файлам'));
+    try {
+      const r = await this.svc.prepareFiles(prepare);
+      this.log('info', 'files.prepared', { copied: r.copied.length, reused: r.reused.length, written: r.written.length });
+      return null;
+    } catch (e) {
+      this.log('error', 'files.failed', { error: String(e) });
+      return error('FILES', messages.files(String((e as Error)?.message ?? e)));
     }
   }
 

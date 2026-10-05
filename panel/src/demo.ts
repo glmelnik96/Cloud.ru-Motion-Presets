@@ -5,22 +5,28 @@ import src from '../../library/library.src.json';
 import example from '../../docs/library/example.src.json';
 import { PanelApp } from './app/controller';
 import type { CallOptions, HostCaller, HostReply } from './core/host';
-import type { InsertRequest } from './core/insert';
+import type { InsertRequest, MediaRequest } from './core/insert';
 import type { Catalog, HostContext, Item } from './core/types';
 import { App } from './ui/App';
 
-function toItem(raw: unknown): Item {
+const SHA = '0'.repeat(64);
+
+// A source item as the catalog builder lays it out: MOGRTs and the .aep for T1, media files for T2/T3.
+function toItem(raw: unknown, keepCompanions: boolean): Item {
   const it = structuredClone(raw) as Item;
-  it.variants = it.variants.map((v) => ({
-    ...v,
-    aeComp: v.aeComp ? `${v.aeComp}_v${it.version}` : undefined,
-    file: `items/${it.id}/${it.id}_${v.key}_v${it.version}.mogrt`,
-    sha256: '0'.repeat(64),
-    bytes: 0,
-    minHostVersion: v.minHostVersion ?? { ae: '26.0', pr: '26.0' },
-  }));
-  it.aep = { file: `items/${it.id}/${it.id}_v${it.version}.aep`, sha256: '0'.repeat(64), bytes: 0 };
-  delete it.companions;
+  const dir = `items/${it.id}`;
+  it.variants = it.variants.map((v) => {
+    const out = { ...v, aeComp: v.aeComp ? `${v.aeComp}_v${it.version}` : undefined, sha256: SHA, bytes: 0, minHostVersion: v.minHostVersion ?? { ae: '26.0', pr: '26.0' } } as Item['variants'][number];
+    const base = `${dir}/${it.id}_${v.key}`;
+    if (it.tier === 'T1') out.file = `${base}_v${it.version}.mogrt`;
+    else if (v.parts) {
+      const src = v.parts as unknown as Record<string, [number, number]>;
+      out.parts = Object.fromEntries(Object.entries(src).map(([p, r]) => [p, { file: `${base}_${p}_v${it.version}.mov`, sha256: SHA, bytes: 0, frames: r[1] - r[0] }]));
+    } else out.file = `${base}_v${it.version}.${it.category === 'sounds' ? 'wav' : v.key === 'svg' ? 'svg' : it.tier === 'T3' ? 'png' : 'mov'}`;
+    return out;
+  });
+  if (it.tier === 'T1') it.aep = { file: `${dir}/${it.id}_v${it.version}.aep`, sha256: SHA, bytes: 0 };
+  if (!keepCompanions) delete it.companions;
   return it;
 }
 
@@ -35,13 +41,22 @@ class DemoHost implements HostCaller {
     };
   }
   async call<T>(fn: string, args?: unknown, _opts?: CallOptions): Promise<HostReply<T>> {
-    await new Promise((r) => setTimeout(r, fn === 'insertItem' ? 500 : 30));
+    await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' ? 500 : 30));
     if (fn === 'getContext') return { ok: true, data: this.ctx as T };
     if (fn === 'diag') return { ok: true, data: { app: 'demo' } as T };
     if (fn === 'insertItem') {
       const r = args as InsertRequest;
-      return { ok: true, data: { name: r.id, startSec: r.startSec, lengthSec: r.lengthSec, readback: Object.fromEntries(r.writes.map((w) => [w.egpName, w.value])) } as T };
+      const companions = r.companions ? [...r.companions.video, ...r.companions.audio].map((p) => ({ role: p.role, name: p.file, startSec: p.startSec ?? r.startSec, lengthSec: p.lengthSec ?? p.maxSec ?? 1 })) : [];
+      return { ok: true, data: { name: r.id, startSec: r.startSec, lengthSec: r.lengthSec, readback: Object.fromEntries(r.writes.map((w) => [w.egpName, w.value])), companions } as T };
     }
+    if (fn === 'insertMedia') {
+      const r = args as MediaRequest;
+      const l = r.layout;
+      const pieces = [...l.video, ...(l.backdrop ? [{ role: 'backdrop', file: 'backdrop', startSec: l.backdrop.startSec, lengthSec: l.backdrop.lengthSec }] : []), ...l.audio];
+      const placed = pieces.map((p) => ({ role: p.role, name: p.file, startSec: p.startSec ?? r.startSec, lengthSec: p.lengthSec ?? 1 }));
+      return { ok: true, data: { name: r.id, startSec: r.startSec, lengthSec: r.lengthSec ?? 1, placed, imported: placed.length } as T };
+    }
+    if (fn === 'getCuts') return { ok: true, data: { cuts: [this.ctx.target!.timeSec - 0.4] } as T };
     return { ok: false, error: { code: 'NO_FUNCTION', message: fn } };
   }
 }
@@ -50,7 +65,10 @@ export function startDemo(el: HTMLElement, version: string): void {
   const q = new URLSearchParams(location.search);
   const host = q.get('host') === 'ae' ? 'ae' : 'pr';
   const [w, hh] = (q.get('frame') ?? '1920x1080').split('x').map(Number);
-  const items = [...(src.items as unknown[]), ...(example.items as unknown[]).filter((i) => (i as Item).tier === 'T1' && (i as Item).id !== 'TTL_LowerThird')].map(toItem);
+  const items = [
+    ...(src.items as unknown[]).map((i) => toItem(i, false)),
+    ...(example.items as unknown[]).filter((i) => (i as Item).id !== 'TTL_LowerThird').map((i) => toItem(i, true)),
+  ];
   // ?media=<url folder>: the first card gets preview.webm and poster.jpg from there (tests/panel/ui-dom.test.mjs).
   const media = q.get('media');
   if (media) {
@@ -68,6 +86,7 @@ export function startDemo(el: HTMLElement, version: string): void {
     readLibrary: async () => JSON.stringify(catalog),
     store: { get: (k) => store.get(k) ?? null, set: (k, v) => void store.set(k, v) },
     fonts: async (names) => Object.fromEntries(names.map((n) => [n, { found: true, version: 'Version 1.002' }])),
+    prepareFiles: async (p) => ({ copied: p.copies.map((c) => c.to), reused: [], written: p.solids.map((x) => x.path) }),
   });
   render(h(App, { app, ui: { fileUrl: (f: string) => (media ? media + f : f), copy: (t: string) => console.log(t), pickFile: host === 'ae' ? async () => 'C:/Media/visual.mp4' : undefined } }), el);
   void app.init().then(() => {

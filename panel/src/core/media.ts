@@ -248,9 +248,10 @@ export function planMediaLayout(input: MediaPlanInput): MediaLayoutPlan {
     else video.push({ role: 'still', ...at(v.file as string), startSec, lengthSec });
   } else if (kind === 'transition') {
     // The marker of full cover meets the cut: the nearest one in Premiere, the current time in AE.
+    // Without a list of cuts (the form before the click) the marker is shown on the playhead, silently.
     let cut = startSec;
-    if (host === 'pr') {
-      const near = nearestCut(input.cuts ?? [], target.timeSec);
+    if (host === 'pr' && input.cuts) {
+      const near = nearestCut(input.cuts, target.timeSec);
       if (near === null) problems.push(warning('NO_CUT', messages.noCut(CUT_WINDOW_SEC)));
       else cut = near;
     }

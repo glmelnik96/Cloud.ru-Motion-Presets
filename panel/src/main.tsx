@@ -80,6 +80,7 @@ async function start(el: HTMLElement): Promise<void> {
     },
     logger,
     fonts: rt.fonts,
+    prepareFiles: rt.prepareFiles,
   });
   const ui: UiServices = {
     fileUrl: (file) => fileUrl(rt.libraryRoot, rt.platform, file),

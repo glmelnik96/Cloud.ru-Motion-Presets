@@ -5,7 +5,10 @@ import { Bridge, evalFileScript, type EvalScript } from '../bridge/bridge';
 import type { LogFs } from '../core/log';
 import { joinPath, libraryRoot, logDir, type Platform } from '../core/paths';
 import type { FontStatus, Host } from '../core/types';
+import type { Prepare } from '../core/media';
+import { prepareFiles, type PrepFs, type PrepResult } from './files';
 import { fontDirs, scanFontFolders, type FontFs } from './fonts';
+import type { Deflate } from './png';
 
 interface AdobeCep {
   evalScript(script: string, callback: (result: string) => void): void;
@@ -59,10 +62,13 @@ export interface NodeServices {
   readText(path: string): string | null;
   logFs: LogFs;
   fontFs: FontFs;
+  prepFs: PrepFs;
+  deflate: Deflate;
 }
 
 export function nodeServices(req: NodeRequire): NodeServices {
   const fs = req('fs');
+  const zlib = req('zlib');
   const proc = req('process');
   const platform: Platform = proc.platform === 'win32' ? 'win' : 'mac';
   return {
@@ -81,6 +87,22 @@ export function nodeServices(req: NodeRequire): NodeServices {
       list: (dir) => fs.readdirSync(dir).map((name: string) => ({ name, bytes: fs.statSync(joinPath(dir, name)).size })),
       remove: (file) => fs.unlinkSync(file),
     },
+    prepFs: {
+      size: (p) => {
+        try {
+          const st = fs.statSync(p);
+          return st.isFile() ? st.size : null;
+        } catch {
+          return null;
+        }
+      },
+      mkdirp: (dir) => fs.mkdirSync(dir, { recursive: true }),
+      copy: (from, to) => fs.promises.copyFile(from, to),
+      rename: (from, to) => fs.renameSync(from, to),
+      remove: (p) => fs.unlinkSync(p),
+      write: (p, bytes) => fs.writeFileSync(p, bytes),
+    },
+    deflate: (raw) => new Uint8Array(zlib.deflateSync(raw)),
     fontFs: {
       // By hand, two levels deep: the Node of CEP 12 may predate readdirSync({ recursive }); Adobe's font
       // folder keeps faces in subfolders, the system folders are flat.
@@ -116,6 +138,7 @@ export interface CepRuntime {
   libraryRoot: string;
   logDir: string;
   fonts(names: string[]): Promise<Record<string, FontStatus>>;
+  prepareFiles(prepare: Prepare): Promise<PrepResult>;
 }
 
 // Everything the panel needs from CEP, or null outside a host (a browser preview of the UI).
@@ -143,5 +166,6 @@ export function cepRuntime(): CepRuntime | null {
       }
       return scanFontFolders(node.fontFs, fontDirs(node.platform, node.env), names);
     },
+    prepareFiles: (prepare) => prepareFiles(node.prepFs, prepare, node.deflate),
   };
 }

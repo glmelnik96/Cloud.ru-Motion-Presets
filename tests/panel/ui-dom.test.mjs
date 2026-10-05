@@ -117,4 +117,25 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     expect(await evaluate(s, `[...document.querySelectorAll('.media button')].length`)).toBe(2);
     expect(await evaluate(s, `document.getElementById('f-length').placeholder`)).toBe('305');
   }, 60000);
+
+  it('a background loop offers the length and the #222222 backdrop and goes in; a sound has no length', async () => {
+    await go('?host=pr&open=BG_Arrows');
+    await waitFor(s, `!!document.getElementById('f-length')`);
+    const backdrop = `[...document.querySelectorAll('.check')].find((e) => e.textContent === 'Подложка #222222')`;
+    expect(await evaluate(s, `${backdrop}.querySelector('input').checked`)).toBe(true);
+    expect(await evaluate(s, `document.getElementById('f-length').placeholder`)).toBe('12');
+    expect(await evaluate(s, `[...document.getElementById('f-format').options].map((o) => o.value)`)).toEqual(['', '16x9', '9x16']);
+    expect(await evaluate(s, page.insert)).toBe(true);
+    expect(await waitFor(s, page.outcome)).toBe('done: Вставлено: клип выделен на таймлайне.');
+    await go('?host=pr&open=SFX_WhooshIn');
+    await waitFor(s, `!!document.querySelector('.insert')`);
+    expect(await evaluate(s, `document.getElementById('f-length') === null && document.querySelectorAll('.check').length === 0`)).toBe(true);
+  }, 60000);
+
+  it('the webinar screen shows the music checkbox, off by default', async () => {
+    await go('?host=pr&open=WEB_Screen');
+    await waitFor(s, `!!document.getElementById('f-title')`);
+    const music = `[...document.querySelectorAll('.check')].find((e) => e.textContent === 'Музыка')`;
+    expect(await evaluate(s, `${music}.querySelector('input').checked`)).toBe(false);
+  }, 60000);
 });

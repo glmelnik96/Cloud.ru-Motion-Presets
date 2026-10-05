@@ -201,10 +201,10 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
           <label for="f-format">Формат</label>
           <select id="f-format" value={s.manualVariant ?? ''} onChange={(e) => app.setVariant((e.target as HTMLSelectElement).value || null)}>
             <option value="">Авто{pick?.variant && !s.manualVariant ? ` (${pick.variant.aspect?.replace('x', ':') ?? pick.variant.key})` : ''}</option>
-            {item.variants.map((v) => <option key={v.key} value={v.key}>{variantLabel(v)}</option>)}
+            {app.formatVariants(item).map((v) => <option key={v.key} value={v.key}>{variantLabel(v)}</option>)}
           </select>
         </div>
-        {item.duration && (
+        {app.lengthEditable(item) && (
           <div class="field">
             <label for="f-length">Длительность, с</label>
             <input id="f-length" type="number" min="0" step="0.04" value={s.lengthSec ?? ''} placeholder={sec(app.lengthFor(item))}
@@ -214,6 +214,12 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
       </div>
 
       {app.fields(item).map(({ field, mode }) => <FieldInput key={field.key} app={app} ui={ui} field={field} mode={mode} />)}
+
+      {app.backdropOffered(item) && (
+        <div class="field">
+          <label class="check"><input type="checkbox" checked={app.backdropOn(item)} onChange={(e) => app.setBackdrop((e.target as HTMLInputElement).checked)} />Подложка #222222</label>
+        </div>
+      )}
 
       {(hasMusic || hasSfx) && (
         <div class="field">

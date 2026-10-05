@@ -6,7 +6,7 @@
 // a JSON string {ok, data, error{code, message, detail}}, with non-ASCII characters as \uXXXX so the reply
 // survives evalScript on any Windows code page. Adapters raise refusals with BK.fail(code, message).
 var BK = (typeof BK !== 'undefined' && BK) ? BK : {};
-BK.version = '0.1.4';
+BK.version = '0.1.5';
 BK.adapters = BK.adapters || {};
 
 BK.fail = function (code, message, detail) {
