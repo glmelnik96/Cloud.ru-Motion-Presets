@@ -29,6 +29,10 @@ export type ProblemCode =
   | 'PRESET_NO_EFFECT'
   | 'PRESET_PARTIAL'
   | 'PRESET_NEW_LAYER'
+  | 'COLOR_NO_TARGET'
+  | 'COLOR_PARTIAL'
+  | 'COLOR_EXPRESSION'
+  | 'COLOR_SOLID'
   | 'INSERT_FAILED'
   | 'READBACK'
   | 'TIMEOUT'
@@ -87,6 +91,11 @@ export const messages = {
   companion: (title: string) => `«${title}» не вставлен: нет подходящего файла в библиотеке.`,
   files: (detail: string) => `Не удалось скопировать файлы рядом с проектом: ${detail}.`,
   noSelection: () => 'Выделите в композиции слои, к которым применить эффект: без выделения After Effects создаёт новый слой.',
+  noSelectionColor: () => 'Выделите в композиции слои, которые перекрасить.',
+  colorNothing: (target: string) => `У выделенных слоёв нет ${target === 'fill' ? 'заливки (шейпа или солида)' : target === 'stroke' ? 'обводки шейпа' : 'текста'}: перекрашивать нечего.`,
+  colorPartial: (names: string[], target: string) => `У слоёв ${names.join(', ')} нет ${target === 'fill' ? 'заливки' : target === 'stroke' ? 'обводки' : 'текста'} — они не изменились.`,
+  colorExpression: (props: string[]) => `Цвет задан выражением, не изменён: ${props.join('; ')}.`,
+  colorSolid: () => 'Цвет солида меняется в его настройках: так же перекрасятся все слои с этим солидом.',
   presetNoEffect: (names: string[]) => `Пресет ничего не изменил у слоёв ${names.join(', ')}. Возможно, он для другого типа слоя (например, только для текста).`,
   presetPartial: (names: string[]) => `К слоям ${names.join(', ')} пресет не применился: возможно, он для другого типа слоя.`,
   presetNewLayer: (names: string[]) => `Пресет добавил слои: ${names.join(', ')}.`,

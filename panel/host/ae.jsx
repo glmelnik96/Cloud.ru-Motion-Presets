@@ -565,6 +565,113 @@
     return out;
   };
 
+  // ---- Colours: a brand token onto the fill, the stroke or the text of the selected layers (spec 7, D23) ----
+
+  // Leaf properties with this match name under a group, with the names of the groups above them.
+  function propsByMatch(group, matchName, path, out, depth) {
+    var i, p;
+    if (!group || depth > 12) {
+      return out;
+    }
+    for (i = 1; i <= group.numProperties; i++) {
+      p = null;
+      try { p = group.property(i); } catch (e) { p = null; }
+      if (!p) {
+        continue;
+      }
+      if (p.propertyType === PropertyType.PROPERTY) {
+        if (p.matchName === matchName) {
+          out.push({ prop: p, path: path });
+        }
+      } else {
+        propsByMatch(p, matchName, path ? path + ' / ' + p.name : String(p.name), out, depth + 1);
+      }
+    }
+    return out;
+  }
+
+  function driven(p) {
+    var on = false;
+    try { on = p.expressionEnabled === true && String(p.expression) !== ''; } catch (e) { on = false; }
+    return on;
+  }
+
+  // A value now, or a key at the current time when the property is animated.
+  function setNow(p, value, t, rec) {
+    if (p.numKeys > 0) {
+      p.setValueAtTime(t, value);
+      rec.keyed += 1;
+    } else {
+      p.setValue(value);
+    }
+    rec.set += 1;
+  }
+
+  function isSolid(layer) {
+    var ms = null;
+    try { ms = layer.source ? layer.source.mainSource : null; } catch (e) { ms = null; }
+    return !!ms && typeof SolidSource !== 'undefined' && ms instanceof SolidSource;
+  }
+
+  function colorLayer(layer, req, t) {
+    var rec = { name: String(layer.name), set: 0, keyed: 0, expressions: [] };
+    var match, list, i, src, doc, text;
+    if (req.target === 'fill' || req.target === 'stroke') {
+      match = req.target === 'fill' ? 'ADBE Vector Fill Color' : 'ADBE Vector Stroke Color';
+      list = propsByMatch(sub(layer, 'ADBE Root Vectors Group'), match, '', [], 0);
+      for (i = 0; i < list.length; i++) {
+        if (driven(list[i].prop)) {
+          rec.expressions.push(list[i].path + ' / ' + list[i].prop.name);
+        } else {
+          setNow(list[i].prop, req.rgb, t, rec);
+        }
+      }
+      // A solid's colour lives in its source, as in Solid Settings.
+      if (req.target === 'fill' && isSolid(layer)) {
+        layer.source.mainSource.color = req.rgb;
+        rec.set += 1;
+        rec.solid = true;
+      }
+    } else {
+      text = sub(layer, 'ADBE Text Properties');
+      src = text ? sub(text, 'ADBE Text Document') : null;
+      if (src && driven(src)) {
+        rec.expressions.push(String(src.name));
+      } else if (src) {
+        doc = src.numKeys > 0 ? src.valueAtTime(t, false) : src.value;
+        doc.applyFill = true;
+        doc.fillColor = req.rgb;
+        setNow(src, doc, t, rec);
+      }
+    }
+    return rec;
+  }
+
+  // One undo group for all selected layers; script dialogs suppressed around it.
+  A.applyColor = function (req) {
+    var comp = targetComp(req.targetId);
+    var sel = comp.selectedLayers;
+    var out = { layers: [] };
+    var i;
+    if (!sel.length) {
+      throw fail('NO_SELECTION', 'no layer selected');
+    }
+    app.beginSuppressDialogs();
+    try {
+      app.beginUndoGroup(req.undoLabel || 'BrandKit');
+      try {
+        for (i = 0; i < sel.length; i++) {
+          out.layers.push(colorLayer(sel[i], req, comp.time));
+        }
+      } finally {
+        app.endUndoGroup();
+      }
+    } finally {
+      app.endSuppressDialogs(false);
+    }
+    return out;
+  };
+
   // A T2/T3 file on its own, in one undo group.
   A.insertMedia = function (req) {
     var comp = targetComp(req.targetId);

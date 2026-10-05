@@ -47,7 +47,25 @@ File.prototype.copy = function (dst) {
   return true;
 };
 
-function TextDocument(text) { this.text = text; }
+function TextDocument(text) { this.text = text; this.fillColor = [1, 1, 1]; this.applyFill = true; }
+function SolidSource(color) { this.color = color; this.isStill = true; }
+
+// A colour property of the fake: value, keys at times, an expression.
+function __colorProp(name, matchName, value, opts) {
+  opts = opts || {};
+  var p = { name: name, matchName: matchName, propertyType: PropertyType.PROPERTY, _value: value, _keys: (opts.keys || []).map(function (t) { return { t: t, v: value }; }),
+    expression: opts.expression || '', expressionEnabled: !!opts.expression };
+  Object.defineProperty(p, 'numKeys', { get: function () { return p._keys.length; } });
+  Object.defineProperty(p, 'value', { get: function () { return p._value; } });
+  p.setValue = function (v) { if (p._keys.length) throw new Error('setValue on an animated property'); p._value = v; __ae.calls.push('set ' + matchName); };
+  p.setValueAtTime = function (t, v) {
+    var hit = p._keys.filter(function (k) { return Math.abs(k.t - t) < 1e-6; })[0];
+    if (hit) hit.v = v; else p._keys.push({ t: t, v: v });
+    __ae.calls.push('key ' + matchName + ' @' + t);
+  };
+  p.valueAtTime = function () { return p._value; };
+  return p;
+}
 
 function Item() {}
 function FolderItem(name) {
@@ -119,7 +137,7 @@ function CompItem(name, w, h, duration, fps, ep) {
       return l;
     },
     addSolid: function (color, name, w, h, pa, dur) {
-      var src = { name: name, duration: dur, width: w, height: h, _ep: [], _solid: color, mainSource: { isStill: true } };
+      var src = { name: name, duration: dur, width: w, height: h, _ep: [], _solid: color, mainSource: new SolidSource(color) };
       var l = new AVLayer(self, src);
       self._layers.unshift(l);
       __ae.calls.push('solid ' + name + ' ' + color.map(function (c) { return Math.round(c * 255); }).join(','));
@@ -263,8 +281,10 @@ AVLayer.prototype.property = function (name) {
   if (name === 'ADBE Text Properties') {
     if (!this._text) return null;
     var anims = __list('ADBE Text Animators', this._animators);
-    return { name: 'Text', property: function (n) { return n === 'ADBE Text Animators' ? anims : null; } };
+    var doc = this._sourceText;
+    return { name: 'Text', property: function (n) { return n === 'ADBE Text Animators' ? anims : n === 'ADBE Text Document' ? doc : null; } };
   }
+  if (name === 'ADBE Root Vectors Group') return this._contents || null;
   if (name === 'ADBE Time Remapping') {
     var sorted = function () { self._keys.sort(function (a, b) { return a.t - b.t; }); };
     return {
@@ -369,10 +389,33 @@ __ae.userComp = function (w, h, fps, time) {
   return c;
 };
 // A plain layer in a comp for the effects checks: kind 'text' or 'solid'.
-__ae.addLayer = function (comp, name, kind) {
+__ae.addLayer = function (comp, name, kind, opts) {
   var src = { name: name, duration: comp.duration, _ep: [], mainSource: { isStill: true } };
   var l = comp.layers.add(src);
+  opts = opts || {};
   l._text = kind === 'text';
+  if (l._text) {
+    var st = __colorProp('Source Text', 'ADBE Text Document', new TextDocument(name), opts.text);
+    st.valueAtTime = function () { var d = new TextDocument(st._value.text); d.fillColor = st._value.fillColor; return d; };
+    l._sourceText = st;
+  }
+  // A shape layer: groups with a Fill and a Stroke each; opts.fill / opts.stroke: { keys, expression }.
+  if (kind === 'shape') {
+    var groups = [];
+    for (var g = 0; g < (opts.groups || 1); g++) {
+      var fill = __list('ADBE Vector Graphic - Fill', [__colorProp('Color', 'ADBE Vector Fill Color', [1, 0, 0], opts.fill)]);
+      fill.name = 'Fill 1';
+      var stroke = __list('ADBE Vector Graphic - Stroke', [__colorProp('Color', 'ADBE Vector Stroke Color', [0, 0, 1], opts.stroke)]);
+      stroke.name = 'Stroke 1';
+      var inner = __list('ADBE Vectors Group', [fill, stroke]);
+      inner.name = 'Contents';
+      var grp = __list('ADBE Vector Group', [inner]);
+      grp.name = 'Rectangle ' + (g + 1);
+      grp.propertyType = PropertyType.NAMED_GROUP;
+      groups.push(grp);
+    }
+    l._contents = __list('ADBE Root Vectors Group', groups);
+  }
   return l;
 };
 __ae.addMedia = function (path, sec, still) {
