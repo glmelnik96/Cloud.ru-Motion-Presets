@@ -13,8 +13,9 @@
 | Адаптеры хоста (ES3) | `panel/host/common.jsx`, `ae.jsx`, `pr.jsx` | `getContext`, `checkFonts`, `insertItem`, `probeInsert`, `readFields`, `diag` — по приёмам, проверенным в S3 и S5 |
 | Каталог | `tools/library/build-catalog.mjs` | `library.src.json` + выходы конвейера → корень библиотеки с `library.json` |
 | Живые проверки | `tools/panel/live.mjs`, `tests/live/` | всё перечисленное в настоящем хосте через dev-панель (CDP 8094/8096), отчёт JSON |
+| Интерфейс панели (Preact) | `panel/src/ui/`, `panel/src/app/`, `npm run panel:build` | каталог, форма, вставка; сборка CEP в `panel/dist`; dev-установка, подпись ZXP, сквозная проверка через DevTools панели |
 
-## Шаги
+## Часть А: ядро, мост и адаптеры в живом хосте
 
 1. Получить ветку и зависимости:
    ```bash
@@ -50,6 +51,27 @@
 - Не трогайте проекты пользователя и `C:/CRBK/work/build`. Не удаляйте выходы прошлых прогонов вручную: прогон перезаписывает их сам.
 - Проверка «undo» помечена как информационная: номер команды `16` в AE и `qe.project.undo()` в Premiere не из документации. Её провал не блокирует, но сообщите, что произошло.
 
-## Что ещё не проверяется
+## Часть Б: настоящая панель в AE и Premiere
 
-Интерфейс панели (Preact, сборка CEP, подписанный ZXP) облачная сессия делает сейчас. Его открытие в AE и Premiere (строки N2–N4 в `docs/decisions/panel-framework.md`) — следующим заданием.
+Делается после части А (ей нужна библиотека `C:/CRBK/work/panel-live/library`, которую собирает прогон части А). Если часть А уже сдана, начните с `git pull origin claude/determined-cannon-eum3ei` и `npm ci`.
+
+1. Установка dev-версии панели:
+   ```bash
+   node tools/panel/install-dev.mjs
+   ```
+   Скрипт собирает `panel/dist`, кладёт панель в пользовательскую папку CEP как `ru.cloud.brandkit` с файлом `.debug` (DevTools панели: AE — порт 8095, Premiere — 8097), копирует библиотеку из `C:/CRBK/work/panel-live/library` в `C:/ProgramData/CloudRuBrandKit/library` и печатает `PlayerDebugMode`. Если `PlayerDebugMode` не стоит — выполните команду, которую он напечатал (так же, как для dev-панели). Перезапустите AE и Premiere.
+2. Откройте панель в обоих приложениях: Window → Extensions → **Cloud.ru BrandKit**. Dev-панель BrandKit Dev тоже должна быть открыта (через неё проверка готовит черновую композицию или секвенцию). В AE открытый проект должен быть сохранён.
+3. Сквозная проверка интерфейса:
+   ```bash
+   node tools/panel/ui-check.mjs --host ae
+   node tools/panel/ui-check.mjs --host pr
+   ```
+   Скрипт через DevTools панели открывает «Подпись спикера», вводит имя, выбирает стиль «Подкаст», жмёт «Вставить на плейхед» и проверяет в хосте, что слой или клип появился. Скриншоты панели и отчёт — `docs/research/panel-live/<host>-ui-*.png` и `<host>-ui-report.json`.
+4. Посмотрите на панель глазами в обоих приложениях: каталог, форма, строка состояния, «Скопировать диагностику» (вставьте результат в ответ). Отметьте, что неудобно или выглядит не так.
+5. Подписанный ZXP (критерий K2 решения A5 на настоящей панели): сертификат, его пароль и `ZXPSignCmd` 4.1.3 пробы лежат в `C:/CRBK/work/panel-trial/` (`docs/decisions/panel-framework.md`). Пароль передайте через переменную окружения: не в командной строке, не в выводе, не в файлах репозитория. Если пароля там нет — спросите пользователя.
+   ```bash
+   # PowerShell: $env:BRANDKIT_CERT_PASSWORD = '<пароль>'
+   node tools/panel/package-zxp.mjs --zxpsign <путь к ZXPSignCmd.exe> --cert <путь к .p12>
+   ```
+   Нужна строка `OK C:/CRBK/work/panel/CloudRuBrandKit-0.1.0.zxp`. Сам ZXP в репозиторий не кладите.
+6. Верните результаты так же, как в части А: закоммитьте `docs/research/panel-live/*-ui-report.json` и `*-ui-*.png`, `git push origin claude/determined-cannon-eum3ei`; в ответе — итоги, скриншоты, диагностика, вывод `package-zxp`.

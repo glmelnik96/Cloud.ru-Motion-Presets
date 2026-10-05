@@ -15,7 +15,7 @@
 | K1 | Один манифест, панель в AEFT и PPRO | нет: не проверялся — npm-пакеты пробы (create-bolt-cep) не скачивались | да: `covers AEFT+PPRO: true` | `node tools/panel/inspect.mjs <CSXS/manifest.xml>` → `covers AEFT+PPRO: true` |
 | K2 | Подписанный ZXP с меткой времени, `-verify` проходит | нет: не проверялся — npm-пакеты пробы не скачивались | да: подпись с меткой времени DigiCert, `Signature verified successfully`, `signed true` | `ZXPSignCmd -verify <zxp> -certinfo`; `node tools/panel/inspect.mjs <zxp>` → `signed true` |
 | N1 | Сборка под Chromium 99 (CEP 12) без ошибок | не проверялось | да: `vite build`, цель `chrome99`, 22 мс | `npm run build`, цель сборки `chrome99` |
-| N2 | Preact | не проверялось | не проверялось: preact не скачивали, проба на чистом DOM | Bolt: шаблон React и алиас `react` → `preact/compat`; свой Vite: Preact напрямую |
+| N2 | Preact | не проверялось | да: настоящая панель на Preact 11 без `compat`, IIFE под `chrome99`, 59 КБ (2026-10-05, `npm run panel:build`); в Chromium — `tests/panel/ui-dom.test.mjs` | Bolt: шаблон React и алиас `react` → `preact/compat`; свой Vite: Preact напрямую |
 | N3 | Панель открывается в AE 26.5 | не проверялось | не проверялось (необязательно, вручную) | Window → Extensions, вручную |
 | N4 | Панель открывается в Premiere 26.5.2 | не проверялось | не проверялось (необязательно, вручную) | Window → Extensions, вручную |
 | N5 | Размер ZXP, байт | не проверялось | 9839 | `node tools/panel/inspect.mjs <zxp>` |
