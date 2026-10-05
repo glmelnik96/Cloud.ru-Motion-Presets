@@ -33,3 +33,10 @@ export function describeIssue(issue: Issue): IssueText {
   const detail = !own(MESSAGES, issue.code) && params.detail !== undefined && params.detail !== '' ? String(params.detail) : undefined;
   return detail === undefined ? { ...base, text } : { ...base, text, detail };
 }
+
+// What the banner says while the catalog still shows: the adapter's failure at start, which a context that came
+// since has put out of date (the adapter works now), and the failure to reach the host. One line per code.
+export function bannerIssues(input: { adapterIssue: Issue | null; hostIssue: Issue | null; hostOk: boolean }): Issue[] {
+  const all = [...(input.adapterIssue && !input.hostOk ? [input.adapterIssue] : []), ...(input.hostIssue ? [input.hostIssue] : [])];
+  return all.filter((issue, i) => all.findIndex((o) => o.code === issue.code) === i);
+}

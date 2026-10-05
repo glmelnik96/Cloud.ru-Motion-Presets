@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { aspectLabel, fpsLabel, formatChip, variantAspect, variantLabel } from '../../../panel/src/ui/format';
+import { aspectLabel, fpsLabel, formatChip, hasExactVariant, variantAspect, variantLabel } from '../../../panel/src/ui/format';
 import type { HostContext, Item } from '../../../panel/src/core/types';
-import { aeCtx, item, prCtx } from '../core/fixture';
+import { aeCtx, catalog, item, prCtx } from '../core/fixture';
 
 type Target = NonNullable<HostContext['target']>;
 const targetOf = (over: Partial<Target> = {}): Target => prCtx(over).target!;
@@ -95,6 +95,16 @@ describe('formatChip: no item open', () => {
     expect(formatChip({ host: 'ae', reachable: true, target: aeCtx({ w: 1080, h: 1920, fps: 30 }).target }).text).toBe('Авто 9:16 · 30p');
   });
 
+  it('says no template has a variant for the frame, when none has', () => {
+    const chip = formatChip({ host: 'pr', reachable: true, target: targetOf({ w: 2560, h: 1440 }), anyExact: false });
+    expect(chip.text).toBe('Нет вариантов под 2560×1440');
+    expect(chip.tone).toBe('warn');
+    expect(chip.options).toBeNull();
+    // unknown, or true: the frame is fine as far as anyone knows
+    expect(formatChip({ host: 'pr', reachable: true, target: targetOf({ w: 2560, h: 1440 }) }).text).toBe('Авто 16:9 · 25p');
+    expect(formatChip({ host: 'pr', reachable: true, target: targetOf(), anyExact: true }).text).toBe('Авто 16:9 · 25p');
+  });
+
   it('says there is no target, in the words of the host', () => {
     expect(formatChip({ host: 'pr', reachable: true, target: null }).text).toBe('Нет активной секвенции');
     expect(formatChip({ host: 'ae', reachable: true, target: null }).text).toBe('Нет активной композиции');
@@ -181,5 +191,18 @@ describe('formatChip: an item is open', () => {
   it('shows a frame rate that is not the template\'s as the target\'s', () => {
     const chip = formatChip({ host: 'ae', reachable: true, target: aeCtx({ fps: 29.97 }).target, item: TTL() });
     expect(chip.text).toBe('Авто 16:9 · 29,97p');
+  });
+});
+
+describe('hasExactVariant', () => {
+  it('is true when some item has a variant of exactly the frame of the target', () => {
+    expect(hasExactVariant(catalog().items, targetOf())).toBe(true); // 1920x1080
+    expect(hasExactVariant(catalog().items, targetOf({ w: 1080, h: 1080 }))).toBe(true); // only TTL has 1x1
+  });
+
+  it('is false when none has: the same aspect is not the same frame', () => {
+    expect(hasExactVariant(catalog().items, targetOf({ w: 2560, h: 1440 }))).toBe(false);
+    expect(hasExactVariant(catalog().items, targetOf({ w: 1080, h: 1350 }))).toBe(false);
+    expect(hasExactVariant([], targetOf())).toBe(false);
   });
 });

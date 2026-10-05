@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { APP_MESSAGES, describeIssue } from '../../../panel/src/ui/issues';
+import { APP_MESSAGES, bannerIssues, describeIssue } from '../../../panel/src/ui/issues';
 import { message, MESSAGES } from '../../../panel/src/core/errors';
 import type { Issue } from '../../../panel/src/core/types';
 
@@ -60,5 +60,29 @@ describe('the codes of the app itself', () => {
     expect(describeIssue(error('ITEM_NOT_FOUND', { id: 'TTL_Gone' })).text).toBe('Шаблон не найден в библиотеке: TTL_Gone.');
     expect(describeIssue(error('INSERT_BUSY')).text).toBe('Предыдущая вставка ещё выполняется. Дождитесь результата и повторите.');
     expect(describeIssue(error('PANEL_ERROR', { detail: 'boom' })).text).toContain('boom');
+  });
+});
+
+describe('bannerIssues', () => {
+  const adapter = error('ADAPTER_LOAD');
+  const empty = error('HOST_EMPTY', { detail: 'cold' });
+
+  it('shows the failure of the adapter at start while the host has not answered since', () => {
+    expect(bannerIssues({ adapterIssue: adapter, hostIssue: null, hostOk: false })).toEqual([adapter]);
+  });
+
+  it('drops that failure once a context came: the adapter works now', () => {
+    expect(bannerIssues({ adapterIssue: adapter, hostIssue: null, hostOk: true })).toEqual([]);
+  });
+
+  it('adds the failure to reach the host now, one line per code', () => {
+    expect(bannerIssues({ adapterIssue: null, hostIssue: empty, hostOk: false })).toEqual([empty]);
+    expect(bannerIssues({ adapterIssue: adapter, hostIssue: empty, hostOk: false })).toEqual([adapter, empty]);
+    expect(bannerIssues({ adapterIssue: empty, hostIssue: error('HOST_EMPTY'), hostOk: false })).toEqual([empty]);
+  });
+
+  it('is silent when all is well', () => {
+    expect(bannerIssues({ adapterIssue: null, hostIssue: null, hostOk: true })).toEqual([]);
+    expect(bannerIssues({ adapterIssue: null, hostIssue: null, hostOk: false })).toEqual([]);
   });
 });

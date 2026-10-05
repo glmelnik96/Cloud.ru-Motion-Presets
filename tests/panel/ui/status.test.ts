@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { hostLabel, statusBar, summarizeFonts } from '../../../panel/src/ui/status';
+import { hostLabel, requiredFonts, statusBar, summarizeFonts } from '../../../panel/src/ui/status';
 import type { FontStatus } from '../../../panel/src/core/types';
-import { fontsFor, item } from '../core/fixture';
+import { catalog, fontsFor, item } from '../core/fixture';
 
 const TTL = item('TTL_LowerThird');
 const MARK = item('LOGO_Mark');
@@ -100,8 +100,28 @@ describe('statusBar', () => {
     expect(statusBar({ host: 'ae', hostVersion: '26.5x89', plugin: '0.1.0', library: undefined, fonts }).library).toBe('Библиотека не загружена');
   });
 
+  it('has no fonts line when there is no library to need any', () => {
+    expect(statusBar({ host: 'pr', hostVersion: '26.5.2', plugin: '0.1.0', library: null, fonts: null }).fonts).toBeNull();
+  });
+
   it('carries the missing fonts through', () => {
     const bad = summarizeFonts(REQUIRED, []);
-    expect(statusBar({ host: 'ae', hostVersion: null, plugin: '0.1.0', library: '2026.10.05.1', fonts: bad }).fonts.tone).toBe('error');
+    expect(statusBar({ host: 'ae', hostVersion: null, plugin: '0.1.0', library: '2026.10.05.1', fonts: bad }).fonts?.tone).toBe('error');
+  });
+});
+
+describe('requiredFonts', () => {
+  it('lists the fonts the items need, each once, in the order the items meet them', () => {
+    expect(requiredFonts(catalog().items)).toEqual([
+      { postScriptName: 'SBSansDisplay-Semibold', build: '1.002' },
+      { postScriptName: 'SBSansText-Regular', build: '1.003' },
+      { postScriptName: 'SBSansDisplay-Bold', build: '1.002' },
+      { postScriptName: 'SBSansDisplay-Regular', build: '1.002' },
+    ]);
+  });
+
+  it('is empty for items that need no font, and for none', () => {
+    expect(requiredFonts([MARK])).toEqual([]);
+    expect(requiredFonts([])).toEqual([]);
   });
 });

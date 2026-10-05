@@ -25,6 +25,9 @@ export interface ChipInput {
   target: Target | null | undefined; // undefined: not asked yet; null: the host has no active comp or sequence
   item?: Item | null;
   manualKey?: string | null;
+  // With no item open: whether any item of the catalog has a variant for the exact frame of the target. False turns
+  // «Авто» into the warning that nothing will be chosen by itself; unknown (absent) says nothing against it.
+  anyExact?: boolean;
 }
 
 // The aspects of the library (tools/library/schema), matched within the library's own 1 %.
@@ -82,17 +85,30 @@ function options(item: Item, target: Target, manualKey: string | null | undefine
   return list;
 }
 
+// Whether some item has a variant of exactly the frame of the target (a variant of the same aspect is not enough).
+export function hasExactVariant(items: readonly Item[], target: Target): boolean {
+  return items.some((item) => chooseVariant(item, target).match === 'exact');
+}
+
 export function formatChip(input: ChipInput): FormatChip {
   const { host, target, item } = input;
   if (!input.reachable) return { tone: 'error', text: 'Нет связи с приложением', title: '', options: null };
   if (target === undefined) return { tone: 'muted', text: 'Определяю формат…', title: '', options: null };
   if (target === null) {
-    const noun = host === 'ae' ? 'композиции' : 'секвенции';
-    return { tone: 'warn', text: 'Нет активной ' + noun, title: 'Откройте ' + (host === 'ae' ? 'композицию' : 'секвенцию') + ', куда вставлять шаблон.', options: null };
+    const [of, open] = host === 'ae' ? ['композиции', 'композицию'] : ['секвенции', 'секвенцию'];
+    return { tone: 'warn', text: 'Нет активной ' + of, title: 'Откройте ' + open + ', куда вставлять шаблон.', options: null };
   }
   const fps = fpsLabel(target.fps);
   const frame = frameLabel(target.w, target.h);
   if (!item) {
+    if (input.anyExact === false) {
+      return {
+        tone: 'warn',
+        text: 'Нет вариантов под ' + frame,
+        title: 'Ни у одного шаблона нет варианта под этот кадр. Откройте шаблон: ближайший вариант можно выбрать вручную.',
+        options: null,
+      };
+    }
     return { tone: 'ok', text: 'Авто ' + joinDot(aspectLabel(target.w, target.h), fps), title: frame, options: null };
   }
 

@@ -14,14 +14,14 @@ export interface StatusInput {
   hostVersion: string | null | undefined;
   plugin: string;
   library: string | null | undefined;
-  fonts: FontsSummary;
+  fonts: FontsSummary | null; // null: there is no library, so no font to ask about
 }
 
 export interface StatusModel {
   host: string;
   panel: string;
   library: string;
-  fonts: FontsSummary;
+  fonts: FontsSummary | null;
 }
 
 const HOST_NAMES: Readonly<Record<HostKey, string>> = { ae: 'After Effects', pr: 'Premiere Pro' };
@@ -59,6 +59,13 @@ export function summarizeFonts(
   if (missing.length) return { tone: 'error', text: 'Нет шрифтов: ' + missing.join(', '), missing };
   if (other.length) return { tone: 'warn', text: 'Шрифты: другая сборка у ' + other.join(', '), missing: [] };
   return { tone: 'ok', text: 'Шрифты: в порядке', missing: [] };
+}
+
+// The fonts the items need, each once, in the order the items meet them (the first build named wins).
+export function requiredFonts(items: readonly { requiredFonts?: { postScriptName: string; build: string }[] }[]): { postScriptName: string; build: string }[] {
+  const out = new Map<string, { postScriptName: string; build: string }>();
+  for (const item of items) for (const f of item.requiredFonts ?? []) if (!out.has(f.postScriptName)) out.set(f.postScriptName, f);
+  return [...out.values()];
 }
 
 export function statusBar(input: StatusInput): StatusModel {
