@@ -56,7 +56,7 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
 
   it('opens a card, takes a name and a style, inserts on the playhead', async () => {
     await go('?host=pr');
-    expect(await evaluate(s, page.text('.status'))).toMatch(/Pr 26\.5\.2 · панель 0\.1\.0 · библиотека 2026\.10\.05/);
+    expect(await evaluate(s, page.text('.status'))).toMatch(/Pr 26\.5\.2 · панель \d+\.\d+\.\d+ · библиотека 2026\.10\.05/);
     expect(await evaluate(s, page.openCard('Подпись спикера'))).toBe(true);
     await waitFor(s, `!!document.getElementById('f-name')`);
     expect(await evaluate(s, page.text('.chip-format'))).toBe('Авто 16:9 · 1920×1080 · 25p');

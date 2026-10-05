@@ -74,13 +74,14 @@ try {
   Copy-Item -LiteralPath (Join-Path $Payload 'extension') -Destination $CepDir -Recurse
   Say "Панель: $CepDir"
 
-  # 4. Library in the shared folder; on its first creation the folder is opened for writing to every user
-  #    of the machine (Users group by SID, the same in any Windows language).
-  $firstTime = -not (Test-Path -LiteralPath $SharedRoot)
+  # 4. Library in the shared folder, opened for writing to every user of the machine (Users group by SID,
+  #    the same in any Windows language). On every install, not only when the folder is new: a folder left by
+  #    an earlier install or a dev copy keeps the inherited ProgramData rights, read only (installer check
+  #    2026-10-05). Only the owner of the folder can grant; for anyone else it is a warning, not a stop.
   New-Item -ItemType Directory -Force -Path $SharedRoot | Out-Null
-  if ($firstTime -and -not $Sandbox) {
+  if (-not $Sandbox) {
     & icacls "$SharedRoot" /grant "*S-1-5-32-545:(OI)(CI)M" | Out-Null
-    if ($LASTEXITCODE -ne 0) { Say "Внимание: icacls не открыл $SharedRoot на запись всем пользователям (код $LASTEXITCODE)" }
+    if ($LASTEXITCODE -ne 0) { Say "Внимание: icacls не открыл $SharedRoot на запись всем пользователям (код $LASTEXITCODE). Попросите владельца папки или IT выполнить: icacls `"$SharedRoot`" /grant `"*S-1-5-32-545:(OI)(CI)M`"" }
   }
   $libraryNew = "$LibraryDir.new"
   if (Test-Path -LiteralPath $libraryNew) { Remove-Item -LiteralPath $libraryNew -Recurse -Force }

@@ -1,12 +1,12 @@
-// BrandKit host bundle, common part (ExtendScript, ES3). panel/host/compose.mjs joins it after the JSON
-// polyfill (tools/jsx/prelude-json.jsx) and before ae.jsx and pr.jsx into dist/host/brandkit.jsx.
+// BrandKit host bundle, common part (ExtendScript, ES3). panel/host/compose.mjs joins it before ae.jsx and
+// pr.jsx into dist/host/brandkit.jsx. It brings its own JSON (BK.json) and does not touch the global one.
 // Everything lives under BK: CEP panels share the ExtendScript engine of the host, so no other globals.
 //
 // Contract (spec 6 «Адаптеры»): the panel evaluates BK.call("<fn>", "<arguments as JSON>") and gets back
 // a JSON string {ok, data, error{code, message, detail}}, with non-ASCII characters as \uXXXX so the reply
 // survives evalScript on any Windows code page. Adapters raise refusals with BK.fail(code, message).
 var BK = (typeof BK !== 'undefined' && BK) ? BK : {};
-BK.version = '0.1.0';
+BK.version = '0.1.1';
 BK.adapters = BK.adapters || {};
 
 BK.fail = function (code, message, detail) {
@@ -43,8 +43,81 @@ BK.ascii = function (s) {
   });
 };
 
+// JSON of our own, never the engine's: on After Effects 26.5 the JSON object the panel finds can be one that
+// another script installed, and its stringify threw on a string with a hyphen, so a project path such as
+// C:/work/panel-live/x.aep left the panel with «Нет композиции» (installer check 2026-10-05). The global
+// JSON is left alone: it belongs to whoever set it. parse uses eval: the input is JSON our panel wrote.
+BK.json = (function () {
+  var esc = { '\b': '\\b', '\t': '\\t', '\n': '\\n', '\f': '\\f', '\r': '\\r', '"': '\\"', '\\': '\\\\' };
+  function quote(s) {
+    var out = '';
+    var i, c, e, h;
+    for (i = 0; i < s.length; i++) {
+      c = s.charAt(i);
+      e = esc[c];
+      if (e) {
+        out += e;
+      } else if (c.charCodeAt(0) < 32) {
+        h = c.charCodeAt(0).toString(16);
+        while (h.length < 4) {
+          h = '0' + h;
+        }
+        out += '\\u' + h;
+      } else {
+        out += c;
+      }
+    }
+    return '"' + out + '"';
+  }
+  function str(v) {
+    var i, k, part, parts;
+    if (v === null || v === undefined) {
+      return v === null ? 'null' : undefined;
+    }
+    if (typeof v === 'string') {
+      return quote(v);
+    }
+    if (typeof v === 'number') {
+      return isFinite(v) ? String(v) : 'null';
+    }
+    if (typeof v === 'boolean') {
+      return String(v);
+    }
+    if (typeof v === 'object') {
+      parts = [];
+      if (v instanceof Array) {
+        for (i = 0; i < v.length; i++) {
+          part = str(v[i]);
+          parts.push(part === undefined ? 'null' : part);
+        }
+        return '[' + parts.join(',') + ']';
+      }
+      for (k in v) {
+        if (v.hasOwnProperty(k)) {
+          part = str(v[k]);
+          if (part !== undefined) {
+            parts.push(quote(k) + ':' + part);
+          }
+        }
+      }
+      return '{' + parts.join(',') + '}';
+    }
+    return undefined;
+  }
+  function parse(t) {
+    var s = String(t).replace(/^\s+|\s+$/g, '');
+    var first = s.charAt(0);
+    if (first !== '{' && first !== '[' && first !== '"' && first !== '-' && (first < '0' || first > '9') &&
+        s !== 'true' && s !== 'false' && s !== 'null') {
+      throw new Error('not JSON');
+    }
+    return eval('(' + s + ')');
+  }
+  return { stringify: str, parse: parse };
+}());
+
 BK.reply = function (obj) {
-  return BK.ascii(JSON.stringify(obj));
+  return BK.ascii(BK.json.stringify(obj));
 };
 
 BK.errorReply = function (e) {
@@ -67,7 +140,7 @@ BK.call = function (fn, argJson) {
       throw BK.fail('NO_FUNCTION', 'no host function ' + fn);
     }
     try {
-      args = (argJson === undefined || argJson === null || argJson === '') ? null : JSON.parse(argJson);
+      args = (argJson === undefined || argJson === null || argJson === '') ? null : BK.json.parse(argJson);
     } catch (pe) {
       throw BK.fail('BAD_ARGS', 'arguments are not JSON');
     }

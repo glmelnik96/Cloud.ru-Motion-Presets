@@ -14,6 +14,9 @@ const REPO = path.resolve(import.meta.dirname, '../..');
 const SRC = JSON.parse(readFileSync(path.join(REPO, 'library', 'library.src.json'), 'utf8'));
 const TOKENS = JSON.parse(readFileSync(path.join(REPO, 'brand', 'tokens.json'), 'utf8'));
 const tmp = (p) => mkdtempSync(path.join(os.tmpdir(), p));
+// install.command runs where bash does (macOS, Linux, the cloud sessions); a Windows PC has no bash, and its
+// files carry no unix mode (installer check 2026-10-05). install.ps1 is checked on the PC by hand.
+const HAS_BASH = process.platform !== 'win32' && spawnSync('bash', ['-c', 'exit 0']).status === 0;
 
 // A library root built the way the pipeline does it, from fake masters of the given items and version.
 async function library({ ids, version = 1, libraryVersion = '2026.10.05', extra = {} }) {
@@ -89,7 +92,7 @@ describe('release package', () => {
     expect(ps1).toContain('\r\n');
     expect(ps1).toContain('Закройте');
     expect(readFileSync(p('install.cmd'), 'utf8')).toMatch(/install\.ps1" %\*\r\n/);
-    expect(statSync(p('install.command')).mode & 0o777).toBe(0o755);
+    if (process.platform !== 'win32') expect(statSync(p('install.command')).mode & 0o777).toBe(0o755);
     expect(readFileSync(p('install.command'), 'utf8')).not.toContain('\r');
     const entry = new AdmZip(r.zip).getEntries().find((e) => e.entryName.endsWith('/install.command'));
     expect((entry.attr >>> 16) & 0o777).toBe(0o755);
@@ -110,7 +113,7 @@ describe('release package', () => {
   }, 60000);
 });
 
-describe('install.command', () => {
+describe.skipIf(!HAS_BASH)('install.command', () => {
   it('installs the panel, the library and flat MOGRTs, cleans the CEP cache, records what it put', async () => {
     const lib = await library({ ids: ['LOGO_Shot', 'TTL_LowerThird'], extra: { 'ame/CloudRu_FullHD_25.epr': '<preset/>' } });
     const pkg = (await buildPackage({ zxp, library: lib, out: tmp('bk-inst-out-') })).dir;
@@ -127,7 +130,7 @@ describe('install.command', () => {
     expect(readdirSync(w.templates).sort()).toEqual(readFileSync(path.join(pkg, 'payload', 'mogrt.txt'), 'utf8').trim().split('\n').map((m) => m.split('/').pop()).sort());
     expect(readdirSync(w.cache)).toEqual(['AEFT_26.5_com.other.panel']);
     expect(existsSync(path.join(w.ame, '26.0', 'Presets', 'CloudRu_FullHD_25.epr'))).toBe(true);
-    expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(/^plugin=0\.1\.0\nlibrary=2026\.10\.05\ninstalled=/);
+    expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(new RegExp(`^plugin=${pluginVersion().replace(/\./g, '\\.')}\\nlibrary=2026\\.10\\.05\\ninstalled=`));
     expect(r.stdout).not.toMatch(/без подписи/);
   }, 60000);
 

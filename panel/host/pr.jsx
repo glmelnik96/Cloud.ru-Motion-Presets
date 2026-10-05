@@ -180,13 +180,13 @@
 
   // Source Text of an AE-made MOGRT reads as JSON with textEditValue; one style run per field (contract).
   function setText(p, text) {
-    var obj = JSON.parse(String(p.getValue()));
+    var obj = BK.json.parse(String(p.getValue()));
     if (!obj || typeof obj !== 'object' || obj.textEditValue === undefined) {
       return false;
     }
     obj.textEditValue = text;
     obj.fontTextRunLength = [text.length];
-    p.setValue(JSON.stringify(obj), 1);
+    p.setValue(BK.json.stringify(obj), 1);
     return true;
   }
 
@@ -197,7 +197,7 @@
     }
     v = p.getValue();
     if (type === 'text') {
-      try { return JSON.parse(String(v)).textEditValue; } catch (e) { return String(v); }
+      try { return BK.json.parse(String(v)).textEditValue; } catch (e) { return String(v); }
     }
     if (type === 'checkbox') {
       return v === true || v === 1 || v === 'true';

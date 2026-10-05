@@ -87,7 +87,7 @@ describe.skipIf(HOST !== 'ae' && HOST !== 'pr')('panel live', () => {
         catalog: loaded.catalog,
         libraryRoot,
         platform: process.platform === 'win32' ? 'win' : 'mac',
-        bkVersion: '0.1.0',
+        bkVersion: JSON.parse(readFileSync(path.join(REPO, 'panel', 'package.json'), 'utf8')).version,
         fonts,
         frames: FRAMES,
         framesDir,

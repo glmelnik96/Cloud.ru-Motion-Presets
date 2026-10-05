@@ -53,13 +53,28 @@ describe('host bundle', () => {
     expect(/^[\x00-\x7f]*$/.test(BUNDLE)).toBe(true);
   });
 
+  it('does not rely on the JSON of the engine: a stringify that throws on a hyphen changes nothing', () => {
+    // After Effects 26.5 on the build PC (installer check 2026-10-05): the JSON the panel found threw on «-».
+    const h = host(FAKE_AE);
+    h.run(`var __broken = { stringify: function (v) { if (/-/.test(String(v))) { throw new Error('broken'); } return '{}'; },
+      parse: function () { throw new Error('broken'); } };
+      JSON = __broken;
+      app.project.file = new File('C:/CRBK/work/panel-live/ae/panel_ui.aep');
+      __ae.userComp(1920, 1080, 25, 2);`);
+    const r = h.call('getContext');
+    expect(r.ok).toBe(true);
+    expect(r.data.project.path).toBe('C:/CRBK/work/panel-live/ae/panel_ui.aep');
+    expect(h.run('JSON === __broken')).toBe(true);
+    expect(h.call('ping', { note: 'a-b', nested: [1, null, 'x\ny', { q: '"' }] }).ok).toBe(true);
+  });
+
   it('answers unknown functions, private names and bad arguments with a code', () => {
     const h = host(FAKE_AE);
     expect(h.call('nope').error.code).toBe('NO_FUNCTION');
     expect(h.call('_private').error.code).toBe('NO_FUNCTION');
     const raw = h.run('BK.call("ping", "{broken")');
     expect(JSON.parse(raw).error.code).toBe('BAD_ARGS');
-    expect(h.call('ping')).toEqual({ ok: true, data: { app: 'ae', version: '26.5x89', bk: '0.1.0' } });
+    expect(h.call('ping')).toEqual({ ok: true, data: { app: 'ae', version: '26.5x89', bk: '0.1.1' } });
   });
 });
 
