@@ -42,6 +42,11 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
       const src = ['-f', 'lavfi', '-i', 'color=c=0x222222:s=480x270:r=12.5:d=2', '-vf', 'drawbox=x=t*100:y=100:w=60:h=60:color=0x26D07C:t=fill'];
       spawnSync('ffmpeg', ['-y', '-loglevel', 'error', ...src, '-c:v', 'libvpx-vp9', '-b:v', '200k', path.join(media, 'preview.webm')]);
       spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', 'color=c=0xF2F2F2:s=480x270', '-frames:v', '1', path.join(media, 'poster.jpg')]);
+      // previews of the lower third per format and style
+      for (const [stem, size] of [['16x9_style-1', '480x270'], ['16x9_style-2', '480x270'], ['9x16_style-1', '270x480']]) {
+        spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', `color=c=0x5A5A5A:s=${size}:r=12.5:d=1`, '-c:v', 'libvpx-vp9', path.join(media, `preview_${stem}.webm`)]);
+        spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', `color=c=0x5A5A5A:s=${size}`, '-frames:v', '1', path.join(media, `poster_${stem}.jpg`)]);
+      }
     }
     server = await createServer({ configFile: path.join(REPO, 'panel', 'vite.config.mjs'), server: { port: 5299, strictPort: false, fs: { allow: [REPO, media] } }, logLevel: 'silent' });
     await server.listen();
@@ -156,4 +161,22 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     await go('?host=pr');
     expect(await evaluate(s, `[...document.querySelectorAll('.card')].some((c) => c.textContent.includes('Подъём текста по словам'))`)).toBe(false);
   }, 60000);
+
+  it.skipIf(!HAS_FFMPEG)('the preview of the form follows the style and the format', async () => {
+    // user 2026-10-05: «Превью должно отображать все варианты»
+    const mediaUrl = encodeURIComponent('/@fs/' + media.replace(/\\/g, '/').replace(/^\//, '') + '/');
+    await go(`?host=pr&open=TTL_LowerThird&media=${mediaUrl}`);
+    const hero = `(() => { const p = document.querySelector('.hero .poster'); const v = document.querySelector('.hero video'); return (p ? p.getAttribute('src').split('/').pop() : '-') + ' ' + (v ? v.getAttribute('src').split('/').pop() : '-'); })()`;
+    await waitFor(s, `!!document.querySelector('.hero .poster')`);
+    expect(await evaluate(s, hero)).toBe('poster_16x9_style-1.jpg preview_16x9_style-1.webm');
+    expect(await evaluate(s, page.pressSeg('Подкаст'))).toBe(true);
+    await waitFor(s, `${hero}.startsWith('poster_16x9_style-2')`);
+    expect(await evaluate(s, page.pressSeg('Титры'))).toBe(true);
+    await evaluate(s, `(() => { const f = document.getElementById('f-format'); f.value = '9x16'; f.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+    await waitFor(s, `${hero} === 'poster_9x16_style-1.jpg preview_9x16_style-1.webm'`);
+    // no preview of 9:16 in «Подкаст»: the card preview, not the wrong format
+    expect(await evaluate(s, page.pressSeg('Подкаст'))).toBe(true);
+    await waitFor(s, `${hero} === '- -'`);
+  }, 60000);
 });
+

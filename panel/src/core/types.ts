@@ -105,6 +105,15 @@ export interface Item {
   aep?: Stored;
   preview?: Stored;
   poster?: Stored;
+  // Previews per format and look (tools/masters/preview.mjs): the form shows the one that matches.
+  previews?: PreviewEntry[];
+}
+
+export interface PreviewEntry {
+  variant: string;
+  when?: Record<string, number | boolean>;
+  video: Stored;
+  poster: Stored;
 }
 
 export interface Catalog {

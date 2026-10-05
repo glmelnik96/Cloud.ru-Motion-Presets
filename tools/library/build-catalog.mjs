@@ -5,12 +5,14 @@
 //   <out>/items/<id>/<id>_<key>_v<N>.mogrt   T1 for Premiere: one MOGRT per variant
 //   <out>/items/<id>/<id>_<key>_v<N>.<ext>   T2/T3: the variant file (.mov, .wav, .png, .svg, .ffx, .epr, .aom)
 //   <out>/items/<id>/<id>_<key>_<part>_v<N>.mov   T2 with parts (intro, loop, outro)
-//   <out>/items/<id>/preview.mp4, poster.jpg  when the build has them
+//   <out>/items/<id>/preview.mp4, poster.jpg  the card, when the build has them
+//   <out>/items/<id>/preview_<variant>[_<field>-<value>…].mp4, poster_<the same>.jpg   previews per format and
+//                                             look (tools/masters/preview.mjs); in the catalog as previews[]
 // Inputs come from <build>/<id>/ under the same names; MOGRTs from <build>/<id>/mogrt/ (tools/masters/package.mjs).
 //   node tools/library/build-catalog.mjs [--src library/library.src.json] [--build <work>/build] [--out <work>/library]
 //        [--version 2026.10.05] [--min-plugin 0.1.0] [--only LOGO_Shot,TTL_LowerThird]
 // Nothing is written unless every selected item has its files and the catalog passes validate.mjs.
-import { copyFileSync, createReadStream, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { copyFileSync, createReadStream, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -18,6 +20,7 @@ import { validateLibrary } from './validate.mjs';
 import { readMogrt } from '../spike/mogrt.mjs';
 import { checkMogrt } from '../masters/package.mjs';
 import { workPath } from '../lib/work.mjs';
+import { parsePreviewName } from './preview-names.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const stripBom = (t) => (t.charCodeAt(0) === 0xfeff ? t.slice(1) : t);
@@ -74,6 +77,30 @@ export function itemFiles(item) {
   return files;
 }
 
+// Previews per format and look found in <build>/<id>/: a video and its poster each; a name that fits no
+// variant or field, or a video without a poster, is a problem.
+export function previewSetFiles(item, buildDir, problems) {
+  const dir = path.join(buildDir, item.id);
+  if (!existsSync(dir)) return [];
+  const names = readdirSync(dir);
+  const out = [];
+  for (const n of names.filter((x) => /^preview_.+\.mp4$/.test(x)).sort()) {
+    const stem = n.slice('preview_'.length, -'.mp4'.length);
+    if (!parsePreviewName(stem, item)) {
+      problems.push(`${item.id}: ${n} names no variant or field of the item`);
+      continue;
+    }
+    if (!names.includes(`poster_${stem}.jpg`)) {
+      problems.push(`${item.id}: ${n} has no poster_${stem}.jpg`);
+      continue;
+    }
+    for (const [role, file] of [['previewVideo', n], ['previewPoster', `poster_${stem}.jpg`]]) {
+      out.push({ role, key: stem, from: `${item.id}/${file}`, to: `items/${item.id}/${file}` });
+    }
+  }
+  return out;
+}
+
 // The file a build entry points at: its own name, or for anyExt the first extension that exists.
 export function resolveSource(buildDir, f) {
   if (!f.anyExt) {
@@ -114,6 +141,18 @@ export function catalogItem(item, stored, builds) {
     const s = pick(role);
     if (s) out[role] = { file: s.file, sha256: s.sha256, bytes: s.bytes };
   }
+  const set = stored.filter((x) => x.role === 'previewVideo');
+  if (set.length) {
+    out.previews = set.map((v) => {
+      const p = stored.find((x) => x.role === 'previewPoster' && x.key === v.key);
+      const { variant, when } = parsePreviewName(v.key, item);
+      const entry = { variant };
+      if (Object.keys(when).length) entry.when = when;
+      entry.video = { file: v.file, sha256: v.sha256, bytes: v.bytes };
+      entry.poster = { file: p.file, sha256: p.sha256, bytes: p.bytes };
+      return entry;
+    });
+  }
   return out;
 }
 
@@ -134,7 +173,7 @@ export async function buildCatalog({ src, buildDir, outDir, libraryVersion = cal
   for (const item of src.items) {
     if (only && !only.includes(item.id)) continue;
     const stored = [];
-    for (const f of itemFiles(item)) {
+    for (const f of [...itemFiles(item), ...previewSetFiles(item, buildDir, problems)]) {
       const found = resolveSource(buildDir, f);
       if (!found) {
         if (!f.optional) problems.push(`${item.id}: missing ${f.from}${f.anyExt ? '.{' + f.anyExt.join(',') + '}' : ''}`);

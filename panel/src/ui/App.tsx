@@ -5,6 +5,7 @@ import type { PanelApp } from '../app/controller';
 import { isActive } from '../core/fields';
 import type { Problem } from '../core/problems';
 import { sec } from '../core/problems';
+import type { PreviewMedia } from '../core/previews';
 import type { Field, FieldValue, Item } from '../core/types';
 import { variantLabel } from '../core/variant';
 import { useAppState } from './hooks';
@@ -70,7 +71,7 @@ function Catalog({ app, ui }: { app: PanelApp; ui: UiServices }) {
 // The poster is a picture of its own on top of the video and comes back as soon as the cursor leaves: a
 // rewound <video> shows its first frame instead of the poster, which for a logo is an almost empty dark
 // frame (preview check 2026-10-05).
-function Preview({ item, ui, playing }: { item: Item; ui: UiServices; playing: boolean }) {
+function Preview({ item, ui, playing, media }: { item: Item; ui: UiServices; playing: boolean; media?: PreviewMedia }) {
   const video = useRef<HTMLVideoElement>(null);
   const [shown, setShown] = useState(false);
   useEffect(() => {
@@ -84,11 +85,13 @@ function Preview({ item, ui, playing }: { item: Item; ui: UiServices; playing: b
       v.currentTime = 0;
     }
   }, [playing]);
-  const poster = item.poster ? ui.fileUrl(item.poster.file) : undefined;
+  const clip = media ? media.video : item.preview;
+  const still = media ? media.poster : item.poster;
+  const poster = still ? ui.fileUrl(still.file) : undefined;
   return (
     <div class="thumb">
-      {item.preview && <video ref={video} src={ui.fileUrl(item.preview.file)} muted loop playsInline preload="none" />}
-      {poster ? <img class={'poster' + (item.preview && shown ? ' off' : '')} src={poster} alt="" /> : !item.preview && <div class="mark" />}
+      {clip && <video ref={video} src={ui.fileUrl(clip.file)} muted loop playsInline preload="none" />}
+      {poster ? <img class={'poster' + (clip && shown ? ' off' : '')} src={poster} alt="" /> : !clip && <div class="mark" />}
     </div>
   );
 }
@@ -195,7 +198,8 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
         <h2>{item.title_ru}</h2>
         <button class={'star' + (fav ? ' on' : '')} style={{ position: 'static' }} onClick={() => app.toggleFavorite(item.id)}>★</button>
       </div>
-      <div class="hero"><Preview item={item} ui={ui} playing /></div>
+      {/* keyed by the file: another format or style loads its own preview (user 2026-10-05) */}
+      <div class="hero">{(() => { const m = app.previewMedia(item); return <Preview key={m.video?.file ?? m.poster?.file ?? item.id} item={item} ui={ui} media={m} playing />; })()}</div>
 
       {preset && <p class="hint">Выделите в композиции слои: эффект ляжет на каждый из них, ключи — на текущее время.</p>}
 

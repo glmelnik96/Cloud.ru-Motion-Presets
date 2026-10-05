@@ -190,10 +190,17 @@ function checkItem(item, byId, kind, err) {
     if (c.kind === 'video' && (ref.tier === 'T1' || c.placement !== 'under')) err('companion-kind', `companion "${c.ref}": a video companion is T2/T3 and goes under`);
   }
 
+  // Previews per format and look.
+  for (const p of item.previews || []) {
+    if (!variantByKey.has(p.variant)) err('previews', `preview ${p.video.file}: no variant "${p.variant}"`);
+    checkSwitches(`preview ${p.video.file} when`, p.when);
+  }
+
   // Catalog files.
   if (kind === 'catalog') {
     const stored = [];
     for (const k of ['aep', 'preview', 'poster']) if (item[k]) stored.push(item[k].file);
+    for (const p of item.previews || []) stored.push(p.video.file, p.poster.file);
     for (const v of variants) {
       if (v.file) stored.push(v.file);
       for (const p of Object.values(v.parts || {})) stored.push(p.file);

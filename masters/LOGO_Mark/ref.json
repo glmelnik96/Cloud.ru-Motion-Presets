@@ -42,5 +42,6 @@
       { "key": "C_close", "clip": "C", "sec": 5.6, "master": 3.6 }
     ]
   },
-  "preview": {"_note": "Card preview: the mark with its plate on the dark background of the template.", "variant": "16x9", "ctrl": {"Plate": 1, "Theme": 2, "Background": 2}, "backdrop": "#222222", "fps": 12.5}
+  "preview": {"_note": "Card preview: the mark with its plate on the dark background of the template.", "variant": "16x9", "ctrl": {"Plate": 1, "Theme": 2, "Background": 2}, "backdrop": "#222222", "fps": 12.5,
+    "axes": {"plate": "Plate", "theme": "Theme"}}
 }

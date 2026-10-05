@@ -97,6 +97,38 @@ describe('build-catalog', () => {
     expect(readFileSync(aep, 'utf8')).toBe('aep of LOGO_Mark, v2');
   });
 
+  it('adds the previews per format and look, with their conditions', async () => {
+    const { build, out } = fakeBuild(['TTL_LowerThird']);
+    const dir = path.join(build, 'TTL_LowerThird');
+    for (const stem of ['16x9_style-1', '9x16_style-2', '1x1_style-3']) {
+      writeFileSync(path.join(dir, `preview_${stem}.mp4`), 'mp4 ' + stem);
+      writeFileSync(path.join(dir, `poster_${stem}.jpg`), 'jpg ' + stem);
+    }
+    const r = await buildCatalog({ src: SRC, buildDir: build, outDir: out, only: ['TTL_LowerThird'], tokens: TOKENS });
+    expect(r.problems).toEqual([]);
+    const ttl = JSON.parse(readFileSync(path.join(out, 'library.json'), 'utf8')).items[0];
+    expect(ttl.previews.map((p) => [p.variant, p.when, p.video.file, p.poster.file])).toEqual([
+      ['16x9', { style: 1 }, 'items/TTL_LowerThird/preview_16x9_style-1.mp4', 'items/TTL_LowerThird/poster_16x9_style-1.jpg'],
+      ['1x1', { style: 3 }, 'items/TTL_LowerThird/preview_1x1_style-3.mp4', 'items/TTL_LowerThird/poster_1x1_style-3.jpg'],
+      ['9x16', { style: 2 }, 'items/TTL_LowerThird/preview_9x16_style-2.mp4', 'items/TTL_LowerThird/poster_9x16_style-2.jpg'],
+    ]);
+    expect(ttl.previews[2].video.sha256).toBe(sha(Buffer.from('mp4 9x16_style-2')));
+    expect(existsSync(path.join(out, 'items/TTL_LowerThird/poster_1x1_style-3.jpg'))).toBe(true);
+  });
+
+  it('refuses a preview that names no field, or has no poster', async () => {
+    const { build, out } = fakeBuild(['TTL_LowerThird']);
+    const dir = path.join(build, 'TTL_LowerThird');
+    writeFileSync(path.join(dir, 'preview_16x9_colour-2.mp4'), 'x');
+    writeFileSync(path.join(dir, 'poster_16x9_colour-2.jpg'), 'x');
+    writeFileSync(path.join(dir, 'preview_9x16_style-1.mp4'), 'x');
+    const r = await buildCatalog({ src: SRC, buildDir: build, outDir: out, only: ['TTL_LowerThird'], tokens: TOKENS });
+    expect(r.problems).toEqual([
+      'TTL_LowerThird: preview_16x9_colour-2.mp4 names no variant or field of the item',
+      'TTL_LowerThird: preview_9x16_style-1.mp4 has no poster_9x16_style-1.jpg',
+    ]);
+  });
+
   it('writes nothing when a file is missing', async () => {
     const { build, out } = fakeBuild(['LOGO_Mark']);
     const r = await buildCatalog({ src: SRC, buildDir: build, outDir: out, only: ['LOGO_Mark', 'TTL_LowerThird'], tokens: TOKENS });

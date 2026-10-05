@@ -2,6 +2,7 @@
 // actions; it never talks to CSInterface or Node itself (spec 6: «Интерфейс знает только API ядра»).
 import { isPreset, planPreset, runPreset } from '../core/effects';
 import { formFields } from '../core/fields';
+import { previewFor, type PreviewMedia } from '../core/previews';
 import type { HostCaller } from '../core/host';
 import { planItem, runInsert, runMedia, type InsertOptions, type InsertPlan } from '../core/insert';
 import { filterItems, itemsForHost, parseCatalog, usedCategories, CATEGORIES } from '../core/library';
@@ -268,6 +269,11 @@ export class PanelApp {
 
   private options(acceptNearest: boolean, cuts: number[] | null = null): InsertOptions {
     return { lengthSec: this.state.lengthSec, variantKey: this.state.manualVariant, acceptNearest, sound: this.state.sound, backdrop: this.state.backdrop, cuts };
+  }
+
+  // The preview of the form: the format in use and the values of the form.
+  previewMedia(item: Item): PreviewMedia {
+    return previewFor(item, this.pick(item)?.variant?.key ?? null, this.state.values);
   }
 
   formatChip(): string {

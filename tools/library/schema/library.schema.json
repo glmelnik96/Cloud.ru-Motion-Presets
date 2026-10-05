@@ -85,14 +85,29 @@
       "type": "object",
       "$ref": "library.src.schema.json#/$defs/itemCommon",
       "propertyNames": {
-        "enum": ["id", "title_ru", "category", "tier", "hosts", "version", "fit", "cutFrame", "windows", "duration", "loop", "alpha", "fields", "companions", "requiredFonts", "variants", "aep", "preview", "poster"]
+        "enum": ["id", "title_ru", "category", "tier", "hosts", "version", "fit", "cutFrame", "windows", "duration", "loop", "alpha", "fields", "companions", "requiredFonts", "variants", "aep", "preview", "poster", "previews"]
       },
       "properties": {
         "requiredFonts": { "type": "array", "items": { "$ref": "#/$defs/fontPinned" } },
         "variants": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/variant" } },
         "aep": { "$ref": "#/$defs/stored" },
         "preview": { "$ref": "#/$defs/stored" },
-        "poster": { "$ref": "#/$defs/stored" }
+        "poster": { "$ref": "#/$defs/stored" },
+        "previews": {
+          "description": "Previews per format and look (tools/masters/preview.mjs); the panel shows the one that matches.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["variant", "video", "poster"],
+            "additionalProperties": false,
+            "properties": {
+              "variant": { "$ref": "library.src.schema.json#/$defs/variantKey" },
+              "when": { "$ref": "library.src.schema.json#/$defs/options" },
+              "video": { "$ref": "#/$defs/stored" },
+              "poster": { "$ref": "#/$defs/stored" }
+            }
+          }
+        }
       }
     }
   }

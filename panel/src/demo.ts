@@ -77,6 +77,14 @@ export function startDemo(el: HTMLElement, version: string): void {
   if (media) {
     items[0].preview = { file: 'preview.webm', sha256: '0'.repeat(64), bytes: 0 };
     items[0].poster = { file: 'poster.jpg', sha256: '0'.repeat(64), bytes: 0 };
+    // The lower third gets previews per format and style (the form switches between them).
+    const ttl = items.find((i) => i.id === 'TTL_LowerThird');
+    if (ttl) {
+      ttl.previews = ['16x9_style-1', '16x9_style-2', '9x16_style-1'].map((stem) => {
+        const [variant, style] = stem.split('_style-');
+        return { variant, when: { style: Number(style) }, video: { file: `preview_${stem}.webm`, sha256: SHA, bytes: 0 }, poster: { file: `poster_${stem}.jpg`, sha256: SHA, bytes: 0 } };
+      });
+    }
   }
   const catalog: Catalog = { schemaVersion: 1, libraryVersion: '2026.10.05', minPluginVersion: '0.1.0', items };
   const store = new Map<string, string>();
