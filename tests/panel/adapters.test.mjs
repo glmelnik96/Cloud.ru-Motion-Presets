@@ -53,6 +53,25 @@ describe('host bundle', () => {
     expect(/^[\x00-\x7f]*$/.test(BUNDLE)).toBe(true);
   });
 
+  it('escapes strings without looking characters up in an object: ExtendScript operators are inherited members', () => {
+    // After Effects 26.5 on the build PC (recheck 2026-10-05): a plain object answered esc['-'] with a function
+    // (operator overloading), so a hyphen in the project path broke every reply of getContext.
+    const h = host(FAKE_AE);
+    h.run(`(function () {
+      var ops = ['+', '-', '*', '/', '<', '==', '~'];
+      for (var i = 0; i < ops.length; i++) {
+        Object.defineProperty(Object.prototype, ops[i], { value: function () { return 1; }, enumerable: false, configurable: true });
+      }
+    })();
+      app.project.file = new File('C:/CRBK/work/panel-live/ae/panel_ui.aep');
+      __ae.userComp(1920, 1080, 25, 2);`);
+    const r = h.call('getContext');
+    expect(r.ok).toBe(true);
+    expect(r.data.project.path).toBe('C:/CRBK/work/panel-live/ae/panel_ui.aep');
+    expect(h.call('ping', { s: 'a-b+c*d/e<f~g', q: '"\\', n: 'x\ny\tz' }).ok).toBe(true);
+    for (const op of ['-', '+', '==']) expect(h.call(op).error.code).toBe('NO_FUNCTION');
+  });
+
   it('does not rely on the JSON of the engine: a stringify that throws on a hyphen changes nothing', () => {
     // After Effects 26.5 on the build PC (installer check 2026-10-05): the JSON the panel found threw on «-».
     const h = host(FAKE_AE);
@@ -74,7 +93,7 @@ describe('host bundle', () => {
     expect(h.call('_private').error.code).toBe('NO_FUNCTION');
     const raw = h.run('BK.call("ping", "{broken")');
     expect(JSON.parse(raw).error.code).toBe('BAD_ARGS');
-    expect(h.call('ping')).toEqual({ ok: true, data: { app: 'ae', version: '26.5x89', bk: '0.1.1' } });
+    expect(h.call('ping')).toEqual({ ok: true, data: { app: 'ae', version: '26.5x89', bk: '0.1.2' } });
   });
 });
 

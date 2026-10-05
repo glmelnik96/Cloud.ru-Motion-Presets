@@ -5,25 +5,25 @@ if (typeof JSON === 'undefined' || JSON === undefined || JSON === null) {
   JSON = {};
 }
 (function () {
-  var esc = {};
-  esc['\b'] = '\\b';
-  esc['\t'] = '\\t';
-  esc['\n'] = '\\n';
-  esc['\f'] = '\\f';
-  esc['\r'] = '\\r';
-  esc['"'] = '\\"';
-  esc['\\'] = '\\\\';
+  // By character code, never esc[c]: ExtendScript objects inherit operator members such as '-' (panel/host/common.jsx).
   function quote(s) {
-    var out = '', i, c, e;
+    var out = '', i, code;
     for (i = 0; i < s.length; i++) {
-      c = s.charAt(i);
-      e = esc[c];
-      if (e) {
-        out += e;
-      } else if (c.charCodeAt(0) < 32) {
-        out += '\\u' + ('0000' + c.charCodeAt(0).toString(16)).slice(-4);
+      code = s.charCodeAt(i);
+      if (code === 34) {
+        out += '\\"';
+      } else if (code === 92) {
+        out += '\\\\';
+      } else if (code === 10) {
+        out += '\\n';
+      } else if (code === 13) {
+        out += '\\r';
+      } else if (code === 9) {
+        out += '\\t';
+      } else if (code < 32) {
+        out += '\\u' + ('0000' + code.toString(16)).slice(-4);
       } else {
-        out += c;
+        out += s.charAt(i);
       }
     }
     return '"' + out + '"';

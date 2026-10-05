@@ -6,7 +6,7 @@
 // a JSON string {ok, data, error{code, message, detail}}, with non-ASCII characters as \uXXXX so the reply
 // survives evalScript on any Windows code page. Adapters raise refusals with BK.fail(code, message).
 var BK = (typeof BK !== 'undefined' && BK) ? BK : {};
-BK.version = '0.1.1';
+BK.version = '0.1.2';
 BK.adapters = BK.adapters || {};
 
 BK.fail = function (code, message, detail) {
@@ -43,28 +43,36 @@ BK.ascii = function (s) {
   });
 };
 
-// JSON of our own, never the engine's: on After Effects 26.5 the JSON object the panel finds can be one that
-// another script installed, and its stringify threw on a string with a hyphen, so a project path such as
-// C:/work/panel-live/x.aep left the panel with «Нет композиции» (installer check 2026-10-05). The global
-// JSON is left alone: it belongs to whoever set it. parse uses eval: the input is JSON our panel wrote.
+// JSON of our own, never the engine's, and with no lookups of characters in an object. ExtendScript
+// overloads operators through members named after them ('+', '-', '<' ...): on After Effects 26.5 a plain
+// object answered esc['-'] with a function, so a hyphen in a string broke stringify, and a project path such
+// as C:/work/panel-live/x.aep left the panel with «Нет композиции» (installer checks 2026-10-05; the engine's
+// own JSON failed the same way). Characters are escaped by their codes instead. The global JSON is left alone.
+// parse uses eval: the input is JSON our panel wrote.
 BK.json = (function () {
-  var esc = { '\b': '\\b', '\t': '\\t', '\n': '\\n', '\f': '\\f', '\r': '\\r', '"': '\\"', '\\': '\\\\' };
   function quote(s) {
     var out = '';
-    var i, c, e, h;
+    var i, code, h;
     for (i = 0; i < s.length; i++) {
-      c = s.charAt(i);
-      e = esc[c];
-      if (e) {
-        out += e;
-      } else if (c.charCodeAt(0) < 32) {
-        h = c.charCodeAt(0).toString(16);
+      code = s.charCodeAt(i);
+      if (code === 34) {
+        out += '\\"';
+      } else if (code === 92) {
+        out += '\\\\';
+      } else if (code === 10) {
+        out += '\\n';
+      } else if (code === 13) {
+        out += '\\r';
+      } else if (code === 9) {
+        out += '\\t';
+      } else if (code < 32) {
+        h = code.toString(16);
         while (h.length < 4) {
           h = '0' + h;
         }
         out += '\\u' + h;
       } else {
-        out += c;
+        out += s.charAt(i);
       }
     }
     return '"' + out + '"';
@@ -132,11 +140,12 @@ BK.errorReply = function (e) {
 BK.call = function (fn, argJson) {
   var adapter, args, data;
   try {
-    adapter = BK.adapters[BK.appKey()];
+    adapter = BK.adapters.hasOwnProperty(BK.appKey()) ? BK.adapters[BK.appKey()] : null;
     if (!adapter) {
       throw BK.fail('NO_FUNCTION', 'no BrandKit adapter for ' + BK.appKey());
     }
-    if (typeof fn !== 'string' || fn.charAt(0) === '_' || typeof adapter[fn] !== 'function') {
+    // Own members with plain names only: inherited members include ExtendScript operators such as '-'.
+    if (typeof fn !== 'string' || !/^[A-Za-z][A-Za-z0-9]*$/.test(fn) || !adapter.hasOwnProperty(fn) || typeof adapter[fn] !== 'function') {
       throw BK.fail('NO_FUNCTION', 'no host function ' + fn);
     }
     try {
