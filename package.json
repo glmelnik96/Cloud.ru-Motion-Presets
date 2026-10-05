@@ -12,7 +12,8 @@
     "lint:jsx": "node tools/jsx/lint-jsx.cjs",
     "spike:report": "node tools/spike/report.mjs",
     "library:validate": "node tools/library/validate.mjs library/library.src.json",
-    "library:build": "node tools/library/build-catalog.mjs"
+    "library:build": "node tools/library/build-catalog.mjs",
+    "typecheck": "tsc -p panel/tsconfig.json"
   },
   "devDependencies": {
     "adm-zip": "^0.6.1",
