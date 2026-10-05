@@ -1,6 +1,6 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-05T19:43:23.413Z",
+  "startedAt": "2026-10-05T20:49:42.946Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -11,7 +11,7 @@
           "pass": true,
           "required": true,
           "detail": {
-            "how": "opened",
+            "how": "active",
             "path": "C:\\CRBK\\work\\panel-live\\pr\\panel_live.prproj",
             "ok": true
           }
@@ -21,7 +21,7 @@
           "pass": true,
           "required": true,
           "detail": {
-            "ui": "3089891c-1050-4745-8251-5073f25f058d"
+            "ui": "1df5b8e4-9993-4078-b534-e41507c5e597"
           }
         }
       ]
@@ -39,7 +39,7 @@
     {
       "name": "status line shows the host, the panel and the library",
       "pass": true,
-      "detail": "Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.9 · библиотека 2026.10.05Скопировать диагностику"
+      "detail": "Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.11 · библиотека 2026.10.05Скопировать диагностику"
     },
     {
       "name": "card previews: H.264 is playable in the panel",
@@ -82,6 +82,14 @@
       "detail": null
     },
     {
+      "name": "form preview: «Подкаст» shows its own preview",
+      "pass": true,
+      "detail": {
+        "before": "file:///C:/ProgramData/CloudRuBrandKit/library/items/TTL_LowerThird/poster_16x9_style-1.jpg",
+        "after": "file:///C:/ProgramData/CloudRuBrandKit/library/items/TTL_LowerThird/poster_16x9_style-2.jpg"
+      }
+    },
+    {
       "name": "«Вставить на плейхед» clicked",
       "pass": true,
       "detail": null
@@ -109,6 +117,6 @@
       ]
     }
   ],
-  "finishedAt": "2026-10-05T19:43:28.535Z",
+  "finishedAt": "2026-10-05T20:49:45.919Z",
   "failed": []
 }
