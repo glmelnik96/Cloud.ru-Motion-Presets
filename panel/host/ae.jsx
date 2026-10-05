@@ -69,7 +69,8 @@
         h: c.height,
         fps: BK.round(c.frameRate),
         timeSec: BK.round(c.time),
-        durationSec: BK.round(c.duration)
+        durationSec: BK.round(c.duration),
+        rangeEndSec: BK.round(c.workAreaStart + c.workAreaDuration)
       } : null,
       selection: c ? c.selectedLayers.length : 0,
       color: colorSettings()
@@ -349,11 +350,143 @@
     layer.selected = true;
   }
 
+  // ---- Media: T2/T3 files and the companions of a template (spec 6.1, panel/src/core/media.ts) ----
+
+  // A footage item of the file in the BrandKit folder, imported once: the same file is reused.
+  function mediaFootage(bin, path, stats) {
+    var i, it, f, item;
+    for (i = 1; i <= bin.numItems; i++) {
+      it = bin.item(i);
+      if (it instanceof FootageItem && it.file && BK.samePath(it.file.fsName, path)) {
+        return it;
+      }
+    }
+    f = new File(path);
+    if (!f.exists) {
+      throw fail('NO_FILE', 'нет файла ' + path);
+    }
+    item = app.project.importFile(new ImportOptions(f));
+    item.parentFolder = bin;
+    stats.imported += 1;
+    return item;
+  }
+
+  function isStill(footage) {
+    try { return footage.mainSource.isStill === true; } catch (e) { return false; }
+  }
+
+  // Length of one pass of the file: Interpret Footage > Loop multiplies the duration of the item.
+  function naturalSec(footage) {
+    var loops = 1;
+    if (isStill(footage)) {
+      return null;
+    }
+    try { loops = Math.max(1, Number(footage.mainSource.loop) || 1); } catch (e) { loops = 1; }
+    return footage.duration / loops;
+  }
+
+  // A loop: Interpret Footage > Loop up to the length (spec 6.1 «Петли T2»); never fewer loops than the item
+  // already has, another insert may use them.
+  function loopFootage(footage, natural, len) {
+    var need = Math.ceil(len / natural - 0.000001);
+    if (need > 1 && Number(footage.mainSource.loop) < need) {
+      footage.mainSource.loop = need;
+    }
+  }
+
+  function placed(role, layer) {
+    return { role: role, name: String(layer.name), layerId: layer.id, startSec: BK.round(layer.inPoint), lengthSec: BK.round(layer.outPoint - layer.inPoint) };
+  }
+
+  // Layers of a layout: the video pieces, the backdrop solid under them, the sounds. Each new layer goes right
+  // under `anchor` (the template layer for companions); without one the first layer stays on top.
+  function placeLayout(comp, bin, layout, anchor, stats) {
+    var out = [];
+    var i, p, footage, natural, at, layer, b, first;
+    first = null;
+    function stack(l) {
+      if (anchor) {
+        l.moveAfter(anchor);
+      }
+      anchor = l;
+      if (!first) {
+        first = l;
+      }
+    }
+    for (i = 0; i < layout.video.length; i++) {
+      p = layout.video[i];
+      footage = mediaFootage(bin, p.file, stats);
+      natural = naturalSec(footage);
+      at = BK.resolvePiece(p, natural);
+      if (p.periodSec && natural) {
+        loopFootage(footage, natural, at.len);
+      }
+      layer = comp.layers.add(footage);
+      layer.startTime = at.start;
+      layer.outPoint = at.start + at.len;
+      if (layout.scale && !near(layout.scale, 1, 0.000001)) {
+        scaleLayer(layer, layout.scale);
+      }
+      stack(layer);
+      out.push(placed(p.role, layer));
+    }
+    if (layout.backdrop) {
+      b = layout.backdrop;
+      layer = comp.layers.addSolid([b.color[0] / 255, b.color[1] / 255, b.color[2] / 255], 'BrandKit #222222', comp.width, comp.height, comp.pixelAspect, b.lengthSec);
+      layer.startTime = b.startSec;
+      layer.outPoint = b.startSec + b.lengthSec;
+      stack(layer);
+      out.push(placed('backdrop', layer));
+    }
+    for (i = 0; i < layout.audio.length; i++) {
+      p = layout.audio[i];
+      footage = mediaFootage(bin, p.file, stats);
+      at = BK.resolvePiece(p, naturalSec(footage));
+      layer = comp.layers.add(footage);
+      layer.startTime = at.start;
+      layer.outPoint = at.start + at.len;
+      stack(layer);
+      out.push(placed(p.role, layer));
+    }
+    return { placed: out, first: first };
+  }
+
+  // A T2/T3 file on its own, in one undo group.
+  A.insertMedia = function (req) {
+    var comp = targetComp(req.targetId);
+    var stats = { imported: 0 };
+    var r, last;
+    if (!app.project.file) {
+      throw fail('NOT_SAVED', 'project is not saved');
+    }
+    app.beginUndoGroup(req.undoLabel || 'BrandKit');
+    try {
+      r = placeLayout(comp, ensureBin(req.bin), req.layout, null, stats);
+      if (r.first) {
+        selectOnly(comp, r.first);
+      }
+    } finally {
+      app.endUndoGroup();
+    }
+    if (!r.placed.length) {
+      throw fail('INSERT_FAILED', 'нечего вставлять');
+    }
+    last = r.placed[r.placed.length - 1];
+    return {
+      name: r.placed[0].name,
+      startSec: r.placed[0].startSec,
+      lengthSec: BK.round(last.startSec + last.lengthSec - r.placed[0].startSec),
+      placed: r.placed,
+      imported: stats.imported,
+      notes: []
+    };
+  };
+
   // The whole insert in one undo group (spec 6.1 «After Effects», steps 3-6).
   A.insertItem = function (req) {
     var comp = targetComp(req.targetId);
     var notes = [];
-    var bin, folder, comps, src, layer, group, i, w, readback, imported, keys;
+    var bin, folder, comps, src, layer, group, i, w, readback, imported, keys, companions;
     if (!app.project.file) {
       throw fail('NOT_SAVED', 'project is not saved');
     }
@@ -399,6 +532,11 @@
         layer.outPoint = layer.startTime + req.lengthSec;
       }
 
+      if (req.companions) {
+        // Companions under the template layer (spec 6.1 «After Effects» step 6).
+        companions = placeLayout(comp, bin, req.companions, layer, { imported: 0 }).placed;
+      }
+
       group = epGroup(layer);
       readback = {};
       for (i = 0; i < req.writes.length; i++) {
@@ -420,20 +558,23 @@
       lengthSec: BK.round(layer.outPoint - layer.inPoint),
       readback: readback,
       imported: imported,
-      notes: notes
+      notes: notes,
+      companions: companions || []
     };
   };
 
-  // After a timeout: is there an instance of the variant comp starting at that time? (read only)
+  // After a timeout: is there an instance of the variant comp, or a layer of the media file, starting at that
+  // time? (read only)
   A.probeInsert = function (args) {
     var comp = app.project.itemByID(Number(args.targetId));
-    var i, l;
+    var i, l, hit;
     if (!(comp instanceof CompItem)) {
       return { found: false };
     }
     for (i = 1; i <= comp.numLayers; i++) {
       l = comp.layer(i);
-      if (l.source && l.source.name === args.aeComp && near(l.inPoint, args.startSec, 0.02)) {
+      hit = l.source && (args.aeComp ? l.source.name === args.aeComp : (args.file && l.source.file && BK.samePath(l.source.file.fsName, args.file)));
+      if (hit && near(l.inPoint, args.startSec, 0.02)) {
         return { found: true, name: String(l.name), layerId: l.id };
       }
     }

@@ -195,3 +195,35 @@ BK.mkdirs = function (path) {
   }
   return f.create();
 };
+
+// Where and how long a media piece goes (panel/src/core/media.ts MediaPiece), once the adapter knows the
+// natural length of its file (null for a still, which lasts as long as it is told). Seconds.
+BK.resolvePiece = function (p, natural) {
+  var len, start;
+  if (typeof p.lengthSec === 'number') {
+    len = p.lengthSec;
+  } else if (natural === null || natural === undefined) {
+    len = typeof p.maxSec === 'number' ? p.maxSec : 5;
+  } else {
+    len = natural;
+  }
+  if (typeof p.maxSec === 'number' && len > p.maxSec) {
+    len = p.maxSec;
+  }
+  if (typeof p.startSec === 'number') {
+    start = p.startSec;
+  } else {
+    start = p.endSec - len;
+    if (typeof p.floorSec === 'number' && start < p.floorSec) {
+      start = p.floorSec;
+      len = p.endSec - start;
+    }
+  }
+  return { start: BK.round(start), len: BK.round(len) };
+};
+
+// File name with its extension: "C:/x/BG_Arrows_16x9_loop_v1.mov" -> "BG_Arrows_16x9_loop_v1.mov".
+BK.leafName = function (p) {
+  var parts = String(BK.slash(p)).split('/');
+  return parts[parts.length - 1];
+};

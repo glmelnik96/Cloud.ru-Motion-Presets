@@ -55,6 +55,17 @@
     return { app: 'pr', version: String(app.version), bk: BK.version };
   };
 
+  // End of the in/out range in seconds, or null (getOutPointAsTime 13.1+; getOutPoint gives seconds as text).
+  function rangeEnd(seq) {
+    var t = null;
+    try { t = seq.getOutPointAsTime(); } catch (e) { t = null; }
+    if (t && t.ticks !== undefined) {
+      return BK.round(Number(t.ticks) / TPS);
+    }
+    try { t = Number(seq.getOutPoint()); } catch (e2) { t = NaN; }
+    return isFinite(t) && t > 0 ? BK.round(t) : null;
+  }
+
   A.getContext = function () {
     var seq = app.project.activeSequence;
     var path = projectPath();
@@ -74,7 +85,8 @@
         h: Number(seq.frameSizeVertical),
         fps: seqFps(seq),
         timeSec: pos ? BK.round(Number(pos.ticks) / TPS) : 0,
-        durationSec: BK.round(Number(seq.end) / TPS)
+        durationSec: BK.round(Number(seq.end) / TPS),
+        rangeEndSec: rangeEnd(seq)
       } : null
     };
   };
@@ -92,11 +104,12 @@
     return true;
   }
 
-  // The lowest free video track from V2 up over [start, end): V1 stays for the footage (spec 6.1 step 3).
-  function freeTrack(seq, startTicks, endTicks) {
+  // The lowest free track from `from` up over [start, end); V2 and A2 by default: V1 and A1 stay for the
+  // footage (spec 6.1 step 3, decision P2).
+  function freeTrack(tracks, startTicks, endTicks, from) {
     var i;
-    for (i = 1; i < seq.videoTracks.numTracks; i++) {
-      if (trackFree(seq.videoTracks[i], startTicks, endTicks)) {
+    for (i = from === undefined ? 1 : from; i < tracks.numTracks; i++) {
+      if (trackFree(tracks[i], startTicks, endTicks)) {
         return i;
       }
     }
@@ -115,6 +128,43 @@
       return { ok: false, error: String(e) };
     }
     return { ok: seq.videoTracks.numTracks === before + 1, error: null };
+  }
+
+  // One more stereo audio track at the bottom of the audio tracks (QE, as above).
+  function addAudioTrack(seq) {
+    var before = seq.audioTracks.numTracks;
+    var qs = null;
+    try {
+      app.enableQE();
+      qs = qe.project.getActiveSequence();
+      qs.addTracks(0, seq.videoTracks.numTracks, 1, 1, before);
+    } catch (e) {
+      return { ok: false, error: String(e) };
+    }
+    return { ok: seq.audioTracks.numTracks === before + 1, error: null };
+  }
+
+  // n video tracks free over [start, end), each above the one before (companion or backdrop under the main
+  // clip: spec 6.1 step 3); a track is added on top when none is free.
+  function stackTracks(seq, startTicks, endTicks, n) {
+    var out = [];
+    var added = 0;
+    var from = 1;
+    var i, r;
+    while (out.length < n) {
+      i = freeTrack(seq.videoTracks, startTicks, endTicks, from);
+      if (i < 0) {
+        r = addVideoTrack(seq);
+        if (!r.ok) {
+          throw fail('INSERT_FAILED', 'нет свободной дорожки, новая не добавилась', r.error);
+        }
+        added += 1;
+        i = seq.videoTracks.numTracks - 1;
+      }
+      out.push(i);
+      from = i + 1;
+    }
+    return { tracks: out, added: added };
   }
 
   function clipStartingAt(track, frame, tpf) {
@@ -248,34 +298,246 @@
     clip.setSelected(true, true);
   }
 
+  // ---- Media: T2/T3 files and the companions of a template (spec 6.1, panel/src/core/media.ts) ----
+
+  function findBin(name) {
+    var root = app.project.rootItem;
+    var i, c;
+    for (i = 0; i < root.children.numItems; i++) {
+      c = root.children[i];
+      if (c.type === ProjectItemType.BIN && String(c.name) === name) {
+        return c;
+      }
+    }
+    return root.createBin(name);
+  }
+
+  function itemFor(bin, path) {
+    var i, c;
+    for (i = 0; i < bin.children.numItems; i++) {
+      c = bin.children[i];
+      if (c.type === ProjectItemType.CLIP && BK.samePath(c.getMediaPath(), path)) {
+        return c;
+      }
+    }
+    return null;
+  }
+
+  // The file in the BrandKit bin, imported once (spec 6.1 «Импорт ... без дублей»).
+  function mediaItem(bin, path, stats) {
+    var item = itemFor(bin, path);
+    if (item) {
+      return item;
+    }
+    if (!new File(path).exists) {
+      throw fail('NO_FILE', 'нет файла ' + path);
+    }
+    app.project.importFiles([new File(path).fsName], true, bin, false);
+    item = itemFor(bin, path);
+    if (!item) {
+      throw fail('INSERT_FAILED', 'файл не импортировался: ' + BK.leafName(path));
+    }
+    stats.imported += 1;
+    return item;
+  }
+
+  function naturalFrames(item, tpf) {
+    var a = item.getInPoint();
+    var b = item.getOutPoint();
+    return ticksToFrames(Number(b.ticks) - Number(a.ticks), tpf);
+  }
+
+  // Imports the files of a layout and fixes every piece in frames of the sequence.
+  function prepareLayout(seq, layout, binName, stats) {
+    var tpf = Number(seq.timebase);
+    var bin = findBin(binName);
+    var out = { video: [], backdrop: null, audio: [], scale: layout.scale };
+    function fix(p) {
+      var item = mediaItem(bin, p.file, stats);
+      var nat = naturalFrames(item, tpf);
+      var at = BK.resolvePiece(p, p.role === 'still' ? null : nat * Number(tpf) / TPS);
+      return { role: p.role, item: item, startF: secToFrames(at.start, tpf), lenF: Math.max(1, secToFrames(at.len, tpf)), periodF: p.periodSec ? Math.max(1, secToFrames(p.periodSec, tpf)) : 0 };
+    }
+    var i, b;
+    for (i = 0; i < layout.video.length; i++) {
+      out.video.push(fix(layout.video[i]));
+    }
+    if (layout.backdrop) {
+      b = layout.backdrop;
+      out.backdrop = fix({ role: 'backdrop', file: b.file, startSec: b.startSec, lengthSec: b.lengthSec });
+    }
+    for (i = 0; i < layout.audio.length; i++) {
+      out.audio.push(fix(layout.audio[i]));
+    }
+    return out;
+  }
+
+  // Interval in ticks the pieces cover.
+  function span(pieces, tpf) {
+    var s = Infinity;
+    var e = -Infinity;
+    var i;
+    for (i = 0; i < pieces.length; i++) {
+      s = Math.min(s, pieces[i].startF);
+      e = Math.max(e, pieces[i].startF + pieces[i].lenF);
+    }
+    return { s: framesToTicks(s, tpf), e: framesToTicks(e, tpf) };
+  }
+
+  // One clip of the item at startF for lenF frames: overwriteClip, the clip looked up on its track, cut.
+  function placeClip(seq, track, item, startF, lenF, label) {
+    var tpf = Number(seq.timebase);
+    var clip;
+    track.overwriteClip(item, framesToTicks(startF, tpf) / TPS);
+    clip = clipStartingAt(track, startF, tpf);
+    if (!clip) {
+      throw fail('INSERT_FAILED', label + ' не появился на дорожке ' + track.name);
+    }
+    if (ticksToFrames(clip.end.ticks, tpf) - startF !== lenF) {
+      trimClip(clip, lenF, tpf);
+      clip = clipStartingAt(track, startF, tpf) || clip;
+    }
+    return clip;
+  }
+
+  function placedRec(role, clip, track, audio, startF, lenF, clips, tpf) {
+    return { role: role, name: String(clip.name), track: track + 1, audio: audio, clips: clips, startSec: BK.round(framesToTicks(startF, tpf) / TPS), lengthSec: BK.round(framesToTicks(lenF, tpf) / TPS) };
+  }
+
+  // Places prepared pieces. `tracks`: the video track for the pieces, or [backdrop track, video track]; when
+  // empty they are chosen here. A loop repeats end to end, the last pass cut (spec 6.1 «Петли»).
+  function placeLayout(seq, m, tracks, stats) {
+    var tpf = Number(seq.timebase);
+    var out = [];
+    var first = null;
+    var i, k, p, sp, st, vIdx, bIdx, aIdx, clip, n, len, r, ra;
+    if (m.video.length && !tracks.length) {
+      sp = span(m.backdrop ? m.video.concat([m.backdrop]) : m.video, tpf);
+      st = stackTracks(seq, sp.s, sp.e, m.backdrop ? 2 : 1);
+      stats.added += st.added;
+      tracks = st.tracks;
+    }
+    vIdx = tracks[tracks.length - 1];
+    bIdx = tracks.length > 1 ? tracks[0] : -1;
+    for (i = 0; i < m.video.length; i++) {
+      p = m.video[i];
+      n = p.periodF ? Math.ceil(p.lenF / p.periodF) : 1;
+      for (k = 0; k < n; k++) {
+        len = p.periodF ? Math.min(p.periodF, p.lenF - k * p.periodF) : p.lenF;
+        clip = placeClip(seq, seq.videoTracks[vIdx], p.item, p.startF + k * (p.periodF || 0), len, p.role);
+        if (k === 0) {
+          r = clip;
+        }
+        if (m.scale && Math.abs(m.scale - 1) > 0.000001) {
+          scaleClip(clip, m.scale);
+        }
+      }
+      if (!first) {
+        first = r;
+      }
+      out.push(placedRec(p.role, r, vIdx, false, p.startF, p.lenF, n, tpf));
+    }
+    if (m.backdrop) {
+      p = m.backdrop;
+      clip = placeClip(seq, seq.videoTracks[bIdx], p.item, p.startF, p.lenF, 'подложка');
+      out.push(placedRec('backdrop', clip, bIdx, false, p.startF, p.lenF, 1, tpf));
+    }
+    for (i = 0; i < m.audio.length; i++) {
+      p = m.audio[i];
+      sp = span([p], tpf);
+      aIdx = freeTrack(seq.audioTracks, sp.s, sp.e, 1);
+      if (aIdx < 0) {
+        ra = addAudioTrack(seq);
+        if (!ra.ok) {
+          throw fail('INSERT_FAILED', 'нет свободной аудиодорожки, новая не добавилась', ra.error);
+        }
+        stats.added += 1;
+        aIdx = seq.audioTracks.numTracks - 1;
+      }
+      clip = placeClip(seq, seq.audioTracks[aIdx], p.item, p.startF, p.lenF, 'звук');
+      if (!first) {
+        first = clip;
+      }
+      out.push(placedRec(p.role, clip, aIdx, true, p.startF, p.lenF, 1, tpf));
+    }
+    return { placed: out, first: first };
+  }
+
+  // A T2/T3 file on its own (spec 6.1 «Premiere, элементы T2/T3»).
+  A.insertMedia = function (req) {
+    var seq = targetSeq(req.targetId);
+    var stats = { imported: 0, added: 0 };
+    var r, last;
+    if (!/\.prproj$/i.test(projectPath())) {
+      throw fail('NOT_SAVED', 'project is not saved');
+    }
+    r = placeLayout(seq, prepareLayout(seq, req.layout, req.bin, stats), [], stats);
+    if (!r.placed.length) {
+      throw fail('INSERT_FAILED', 'нечего вставлять');
+    }
+    selectOnly(seq, r.first);
+    last = r.placed[r.placed.length - 1];
+    return {
+      name: r.placed[0].name,
+      startSec: r.placed[0].startSec,
+      lengthSec: BK.round(last.startSec + last.lengthSec - r.placed[0].startSec),
+      placed: r.placed,
+      imported: stats.imported,
+      addedTracks: stats.added,
+      notes: []
+    };
+  };
+
+  // Edges of the clips on the video tracks within windowSec of aroundSec, for transitions (read only).
+  A.getCuts = function (args) {
+    var seq = targetSeq(args.targetId);
+    var lo = (Number(args.aroundSec) - Number(args.windowSec)) * TPS;
+    var hi = (Number(args.aroundSec) + Number(args.windowSec)) * TPS;
+    var seen = {};
+    var out = [];
+    var t, i, c, e, k, v;
+    for (t = 0; t < seq.videoTracks.numTracks; t++) {
+      for (i = 0; i < seq.videoTracks[t].clips.numItems; i++) {
+        c = seq.videoTracks[t].clips[i];
+        e = [Number(c.start.ticks), Number(c.end.ticks)];
+        for (k = 0; k < 2; k++) {
+          v = BK.round(e[k] / TPS);
+          if (e[k] >= lo && e[k] <= hi && seen['t' + v] !== true) {
+            seen['t' + v] = true;
+            out.push(v);
+          }
+        }
+      }
+    }
+    out.sort(function (a, b) { return a - b; });
+    return { cuts: out };
+  };
+
   // The whole insert (spec 6.1 «Premiere, элемент T1», steps 3-8 and 10). Premiere ExtendScript has no undo
   // groups; one insert with its writes undoes in one step (S5).
   A.insertItem = function (req) {
     var seq = targetSeq(req.targetId);
     var tpf = Number(seq.timebase);
     var notes = [];
-    var startF, lenF, startTicks, endTicks, vIdx, added, r, clip, retried, i, w, readback, scaled;
+    var startF, lenF, startTicks, endTicks, vIdx, added, r, clip, retried, i, w, readback, scaled, media, stats, companions, tracks;
     if (!/\.prproj$/i.test(projectPath())) {
       throw fail('NOT_SAVED', 'project is not saved');
     }
     if (!req.variant.file || !new File(req.variant.file).exists) {
       throw fail('NO_FILE', 'нет файла библиотеки ' + req.variant.file);
     }
+    stats = { imported: 0, added: 0 };
     startF = secToFrames(req.startSec, tpf);
     lenF = Math.max(1, secToFrames(req.lengthSec, tpf));
     startTicks = framesToTicks(startF, tpf);
     endTicks = startTicks + Math.max(framesToTicks(lenF, tpf), Math.round(Number(req.placeSec) * TPS));
 
-    vIdx = freeTrack(seq, startTicks, endTicks);
-    added = 0;
-    if (vIdx < 0) {
-      r = addVideoTrack(seq);
-      if (!r.ok) {
-        throw fail('INSERT_FAILED', 'нет свободной дорожки, новая не добавилась', r.error);
-      }
-      added = 1;
-      vIdx = seq.videoTracks.numTracks - 1;
-    }
+    // With a video companion: its track first, the MOGRT on a free track above it.
+    media = req.companions ? prepareLayout(seq, req.companions, req.bin, stats) : null;
+    r = stackTracks(seq, startTicks, endTicks, media && media.video.length ? 2 : 1);
+    added = r.added;
+    tracks = r.tracks;
+    vIdx = tracks[tracks.length - 1];
 
     r = importMogrt(seq, req.variant.file, startF, vIdx, req.waitMs || 3000);
     retried = false;
@@ -314,25 +576,30 @@
     if (req.serviceDuration) {
       readback[req.serviceDuration.egpName] = readParam(mgtParam(clip, req.serviceDuration.egpName), 'slider');
     }
+    if (media) {
+      companions = placeLayout(seq, media, tracks.length > 1 ? [tracks[0]] : [], stats).placed;
+    }
     selectOnly(seq, clip);
     return {
       name: String(clip.name),
       track: vIdx + 1,
+      companions: companions || [],
       startSec: BK.round(Number(clip.start.ticks) / TPS),
       lengthSec: BK.round((Number(clip.end.ticks) - Number(clip.start.ticks)) / TPS),
       readback: readback,
       retried: retried,
-      addedTracks: added,
+      addedTracks: added + stats.added,
       notes: notes
     };
   };
 
-  function findClip(seq, startSec, name) {
+  function findClip(seq, startSec, name, audio) {
     var tpf = Number(seq.timebase);
     var f = secToFrames(startSec, tpf);
+    var tracks = audio ? seq.audioTracks : seq.videoTracks;
     var t, c;
-    for (t = 0; t < seq.videoTracks.numTracks; t++) {
-      c = clipStartingAt(seq.videoTracks[t], f, tpf);
+    for (t = 0; t < tracks.numTracks; t++) {
+      c = clipStartingAt(tracks[t], f, tpf);
       if (c && (!name || String(c.name) === name)) {
         return { clip: c, track: t };
       }
@@ -340,10 +607,18 @@
     return null;
   }
 
-  // After a timeout: is there a clip of this MOGRT starting at that time? (read only)
+  // After a timeout: is there a clip of this MOGRT (named without .mogrt) or media file (named with its
+  // extension) starting at that time? (read only)
   A.probeInsert = function (args) {
     var seq = targetSeq(args.targetId);
-    var hit = findClip(seq, args.startSec, args.file ? BK.baseName(args.file) : null);
+    var hit = null;
+    if (!args.file) {
+      hit = findClip(seq, args.startSec, null, false);
+    } else if (/\.mogrt$/i.test(args.file)) {
+      hit = findClip(seq, args.startSec, BK.baseName(args.file), false);
+    } else {
+      hit = findClip(seq, args.startSec, BK.leafName(args.file), false) || findClip(seq, args.startSec, BK.leafName(args.file), true);
+    }
     return hit ? { found: true, name: String(hit.clip.name), track: hit.track + 1 } : { found: false };
   };
 

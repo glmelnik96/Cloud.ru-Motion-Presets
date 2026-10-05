@@ -5,14 +5,16 @@
 //   clamped to the end of the source;
 // - switching time remap on adds two keys (in -> 0, out -> duration) and invalidates property objects taken
 //   before (the Essential Properties group is looked up again);
-// - Essential Property values: text as a TextDocument, checkbox/dropdown/slider as numbers.
+// - Essential Property values: text as a TextDocument, checkbox/dropdown/slider as numbers;
+// - media footage (__ae.media): Interpret Footage > Loop multiplies the duration of the item, a still has
+//   none and its layer lasts as long as it is told; a new layer goes on top, moveAfter puts it under another.
 var PropertyType = { PROPERTY: 6212, INDEXED_GROUP: 6213, NAMED_GROUP: 6214 };
 var KeyframeInterpolationType = { LINEAR: 6612, BEZIER: 6613, HOLD: 6614 };
 var ImportAsType = { COMP_CROPPED_LAYERS: 3812, FOOTAGE: 3813, COMP: 3814, PROJECT: 3815 };
 var BridgeTalk = { appName: 'aftereffects' };
 var $ = { os: 'Windows/64 10.0', sleep: function () {} };
 
-var __ae = { files: {}, folders: {}, aeps: {}, calls: [], nextId: 100, undo: [], suppress: 0, imports: 0, fonts: {} };
+var __ae = { files: {}, folders: {}, aeps: {}, media: {}, calls: [], nextId: 100, undo: [], suppress: 0, imports: 0, fonts: {} };
 
 function __norm(p) { return String(p).split('\\').join('/'); }
 
@@ -74,14 +76,19 @@ Object.defineProperty(Item.prototype, 'parentFolder', {
 });
 
 function FootageItem(path) {
+  var m = __ae.media[__norm(path)] || { sec: 0, still: true };
   this.id = __ae.nextId++;
   this.file = new File(path);
   this.name = this.file.name;
   this.comment = '';
   this._parent = null;
+  this._sec = m.still ? 0 : m.sec;
+  this.mainSource = { isStill: !!m.still, loop: 1 };
 }
 FootageItem.prototype = new Item();
 FootageItem.prototype.constructor = FootageItem;
+FootageItem.prototype._ep = [];
+Object.defineProperty(FootageItem.prototype, 'duration', { get: function () { return this._sec * this.mainSource.loop; } });
 FootageItem.prototype.replace = function (file) {
   this.file = new File(file._path);
   __ae.calls.push('replace ' + this.name + ' -> ' + file._path);
@@ -102,10 +109,20 @@ function CompItem(name, w, h, duration, fps, ep) {
   this._layers = [];
   this._ep = ep || [];
   var self = this;
+  this.pixelAspect = 1;
+  this.workAreaStart = 0;
+  this.workAreaDuration = duration;
   this.layers = {
     add: function (src) {
       var l = new AVLayer(self, src);
       self._layers.unshift(l);
+      return l;
+    },
+    addSolid: function (color, name, w, h, pa, dur) {
+      var src = { name: name, duration: dur, width: w, height: h, _ep: [], _solid: color, mainSource: { isStill: true } };
+      var l = new AVLayer(self, src);
+      self._layers.unshift(l);
+      __ae.calls.push('solid ' + name + ' ' + color.map(function (c) { return Math.round(c * 255); }).join(','));
       return l;
     },
   };
@@ -145,7 +162,8 @@ function AVLayer(comp, src) {
   this.selected = false;
   this._start = 0;
   this.inPoint = 0;
-  this._out = src.duration;
+  this._still = !!(src.mainSource && src.mainSource.isStill);
+  this._out = this._still ? comp.duration : src.duration;
   this._remap = false;
   this._keys = [];
   this.canSetTimeRemapEnabled = true;
@@ -188,7 +206,7 @@ Object.defineProperty(AVLayer.prototype, 'outPoint', {
   get: function () { return this._out; },
   set: function (t) {
     var end = this._start + this.source.duration;
-    this._out = this._remap ? t : Math.min(t, end);
+    this._out = this._remap || this._still ? t : Math.min(t, end);
   },
 });
 Object.defineProperty(AVLayer.prototype, 'timeRemapEnabled', {
@@ -202,6 +220,11 @@ Object.defineProperty(AVLayer.prototype, 'timeRemapEnabled', {
     this._remap = !!on;
   },
 });
+AVLayer.prototype.moveAfter = function (other) {
+  var list = this._comp._layers;
+  list.splice(list.indexOf(this), 1);
+  list.splice(list.indexOf(other) + 1, 0, this);
+};
 AVLayer.prototype.property = function (name) {
   var self = this;
   if (name === 'ADBE Transform Group') return { property: function (n) { return n === 'ADBE Scale' ? self._scale : null; } };
@@ -306,6 +329,10 @@ __ae.userComp = function (w, h, fps, time) {
   __move(c, __root);
   app.project.activeItem = c;
   return c;
+};
+__ae.addMedia = function (path, sec, still) {
+  __ae.files[__norm(path)] = 'media';
+  __ae.media[__norm(path)] = { sec: sec, still: !!still };
 };
 __ae.template = function (aepPath, comps, footage) {
   __ae.files[aepPath] = 'aep';

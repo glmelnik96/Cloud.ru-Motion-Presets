@@ -3,12 +3,15 @@
 // - importMGT overwrites the clips it covers on its track and places the MOGRT at its default length;
 //   now and then a call places nothing (the fake drops the calls listed in __pr.drop);
 // - trimming: outPoint first, then end;
-// - MOGRT parameters by display name; Source Text reads as JSON with textEditValue; dropdowns from 0.
+// - MOGRT parameters by display name; Source Text reads as JSON with textEditValue; dropdowns from 0;
+// - media (__pr.media): importFiles into a bin, overwriteClip at seconds snapped to the frame, a still lasts
+//   5 s until it is cut; QE addTracks adds video or audio tracks.
 var BridgeTalk = { appName: 'premierepro' };
 var $ = { os: 'Windows/64 10.0', sleep: function () {} };
 var TPS = 254016000000;
 
-var __pr = { files: {}, mogrts: {}, calls: [], drop: [], imports: 0, qe: true };
+var __pr = { files: {}, mogrts: {}, media: {}, calls: [], drop: [], imports: 0, qe: true };
+var ProjectItemType = { CLIP: 1, BIN: 2, ROOT: 3, FILE: 4 };
 
 function __norm(p) { return String(p).split('\\').join('/'); }
 
@@ -78,10 +81,43 @@ TrackItem.prototype.getMGTComponent = function () { return this._mgt; };
 TrackItem.prototype.setSelected = function (on) { this._selected = !!on; };
 TrackItem.prototype.isSelected = function () { return this._selected; };
 
-function Track(name) {
+function Track(name, seq) {
   this.name = name;
   this._clips = [];
+  this._seq = seq;
 }
+Track.prototype.overwriteClip = function (item, sec) {
+  var tpf = Number(this._seq.timebase);
+  var start = Math.round(Number(sec) * TPS / tpf) * tpf;
+  var m = __pr.media[item._path];
+  var len = Math.round((m.still ? 5 : m.sec) * TPS);
+  __pr.calls.push('overwrite ' + item.name + ' ' + this.name + ' @' + Math.round(start / tpf));
+  this._clips = this._clips.filter(function (c) { return !(c._start < start + len && c._end > start); });
+  var clip = new TrackItem(item.name, start, len, { params: [] });
+  clip.projectItem = item;
+  this._clips.push(clip);
+  return true;
+};
+
+function ProjectItem(name, type, path) {
+  this.name = name;
+  this.type = type;
+  this._path = path || null;
+  this._children = [];
+}
+Object.defineProperty(ProjectItem.prototype, 'children', { get: function () { return __collection(this._children); } });
+ProjectItem.prototype.createBin = function (name) {
+  var b = new ProjectItem(name, ProjectItemType.BIN);
+  this._children.push(b);
+  __pr.calls.push('createBin ' + name);
+  return b;
+};
+ProjectItem.prototype.getMediaPath = function () { return this._path; };
+ProjectItem.prototype.getInPoint = function () { return __time(0); };
+ProjectItem.prototype.getOutPoint = function () {
+  var m = __pr.media[this._path];
+  return __time(Math.round((m.still ? 5 : m.sec) * TPS));
+};
 Object.defineProperty(Track.prototype, 'clips', {
   get: function () {
     this._clips.sort(function (a, b) { return a._start - b._start; });
@@ -97,9 +133,22 @@ function Sequence(name, w, h, fps, tracks) {
   this.timebase = String(Math.round(TPS / fps));
   this.end = String(TPS * 600);
   this._player = 0;
+  this._outTicks = null;
   this._tracks = [];
-  for (var i = 0; i < tracks; i++) this._tracks.push(new Track('V' + (i + 1)));
+  this._atracks = [];
+  for (var i = 0; i < tracks; i++) {
+    this._tracks.push(new Track('V' + (i + 1), this));
+    this._atracks.push(new Track('A' + (i + 1), this));
+  }
 }
+Object.defineProperty(Sequence.prototype, 'audioTracks', {
+  get: function () {
+    var c = __collection(this._atracks);
+    c.numTracks = this._atracks.length;
+    return c;
+  },
+});
+Sequence.prototype.getOutPointAsTime = function () { return __time(this._outTicks === null ? this.end : this._outTicks); };
 Object.defineProperty(Sequence.prototype, 'videoTracks', {
   get: function () {
     var c = __collection(this._tracks);
@@ -133,10 +182,12 @@ Sequence.prototype.importMGT = function (path, ticks, vIdx) {
 };
 
 var __qeSeq = {
-  addTracks: function (n, after, audio) {
+  addTracks: function (n, after, audio, audioType, audioAfter) {
     if (!__pr.qe) throw new Error('QE disabled');
-    __pr.calls.push('qe.addTracks ' + n + ',' + after + ',' + audio);
-    for (var i = 0; i < n; i++) app.project.activeSequence._tracks.push(new Track('V' + (app.project.activeSequence._tracks.length + 1)));
+    var s = app.project.activeSequence;
+    __pr.calls.push('qe.addTracks ' + Array.prototype.slice.call(arguments).join(','));
+    for (var i = 0; i < n; i++) s._tracks.push(new Track('V' + (s._tracks.length + 1), s));
+    for (var j = 0; j < (audio || 0); j++) s._atracks.push(new Track('A' + (s._atracks.length + 1), s));
   },
 };
 var qe = { project: { getActiveSequence: function () { return __qeSeq; } } };
@@ -145,7 +196,21 @@ var app = {
   version: '26.5.2',
   build: '2',
   enableQE: function () {},
-  project: { path: 'C:\\CRBK\\work\\pr\\edit.prproj', activeSequence: null },
+  project: {
+    path: 'C:\\CRBK\\work\\pr\\edit.prproj',
+    activeSequence: null,
+    rootItem: new ProjectItem('root', ProjectItemType.ROOT),
+    importFiles: function (paths, suppress, bin) {
+      for (var i = 0; i < paths.length; i++) {
+        var p = __norm(paths[i]);
+        if (!__pr.media[p]) return false;
+        __pr.imports += 1;
+        __pr.calls.push('import ' + p.slice(p.lastIndexOf('/') + 1) + ' -> ' + bin.name);
+        bin._children.push(new ProjectItem(p.slice(p.lastIndexOf('/') + 1), ProjectItemType.CLIP, p));
+      }
+      return true;
+    },
+  },
 };
 
 // Test setup helpers (not part of the Premiere model).
@@ -160,9 +225,13 @@ __pr.mogrt = function (path, lenSec, params) {
   var p = __norm(path);
   __pr.mogrts[p.slice(p.lastIndexOf('/') + 1).replace(/\.mogrt$/, '')] = { lenSec: lenSec, params: params };
 };
-__pr.occupy = function (trackIdx, fromSec, toSec, name) {
+__pr.occupy = function (trackIdx, fromSec, toSec, name, audio) {
   var s = app.project.activeSequence;
   var c = new TrackItem(name || 'footage', Math.round(fromSec * TPS), Math.round((toSec - fromSec) * TPS), { params: [] });
-  s._tracks[trackIdx]._clips.push(c);
+  (audio ? s._atracks : s._tracks)[trackIdx]._clips.push(c);
   return c;
+};
+__pr.addMedia = function (path, sec, still) {
+  __pr.files[__norm(path)] = 'media';
+  __pr.media[__norm(path)] = { sec: sec, still: !!still };
 };
