@@ -1,5 +1,6 @@
 // Reading library.json in the panel (spec 4.4, 6): the pipeline has validated the catalog against its schema,
 // so the panel checks only what it relies on and drops a broken item instead of refusing the whole library.
+import { insertable } from './media';
 import { error, messages, warning, type Problem } from './problems';
 import type { Catalog, Category, Host, Item } from './types';
 import { atLeast } from './version';
@@ -79,9 +80,10 @@ export function parseCatalog(input: string | unknown, pluginVersion: string): Lo
   return { catalog: { ...(doc as unknown as Catalog), items }, problems };
 }
 
-// Items a host can insert; the rest are hidden, not greyed out (spec 7).
+// Items a host can insert; the rest are hidden, not greyed out (spec 7). A T2/T3 item needs a file the panel
+// places (.mov, .png, .wav); presets and export files wait for their tabs.
 export function itemsForHost(catalog: Catalog, host: Host): Item[] {
-  return catalog.items.filter((it) => it.hosts.includes(host));
+  return catalog.items.filter((it) => insertable(it, host));
 }
 
 // Case- and ё-insensitive search over the Russian title and the id; words may come in any order.

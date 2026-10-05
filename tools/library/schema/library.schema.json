@@ -85,7 +85,7 @@
       "type": "object",
       "$ref": "library.src.schema.json#/$defs/itemCommon",
       "propertyNames": {
-        "enum": ["id", "title_ru", "category", "tier", "hosts", "version", "fit", "cutFrame", "windows", "duration", "loop", "fields", "companions", "requiredFonts", "variants", "aep", "preview", "poster"]
+        "enum": ["id", "title_ru", "category", "tier", "hosts", "version", "fit", "cutFrame", "windows", "duration", "loop", "alpha", "fields", "companions", "requiredFonts", "variants", "aep", "preview", "poster"]
       },
       "properties": {
         "requiredFonts": { "type": "array", "items": { "$ref": "#/$defs/fontPinned" } },

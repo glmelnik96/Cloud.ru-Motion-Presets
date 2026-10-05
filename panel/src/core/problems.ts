@@ -21,6 +21,10 @@ export type ProblemCode =
   | 'BAD_VALUE'
   | 'TOO_SHORT'
   | 'TOO_LONG'
+  | 'TOO_EARLY'
+  | 'NO_CUT'
+  | 'COMPANION'
+  | 'FILES'
   | 'INSERT_FAILED'
   | 'READBACK'
   | 'TIMEOUT'
@@ -74,6 +78,11 @@ export const messages = {
   color: (what: string) => `Настройки цвета проекта отличаются от эталона (${what}). Цвета шаблона могут измениться.`,
   tooShort: (len: number, min: number) => `Длина ${sec(len)} с меньше минимальной ${sec(min)} с: не помещаются вход и уход.`,
   tooLong: (len: number, max: number) => `Длина ${sec(len)} с больше длины шаблона ${sec(max)} с.`,
+  tooEarly: (cutSec: number) => `Переход не помещается: до склейки нужно не меньше ${sec(cutSec)} с от начала секвенции.`,
+  noCut: (windowSec: number) => `Склеек ближе ${sec(windowSec)} с к плейхеду нет: маркер перехода поставлен на плейхед.`,
+  companion: (title: string) => `«${title}» не вставлен: нет подходящего файла в библиотеке.`,
+  files: (detail: string) => `Не удалось скопировать файлы рядом с проектом: ${detail}.`,
+  placement: (what: string[]) => `Файлы встали не так, как задумано (${what.join('; ')}). Отмените вставку и повторите.`,
   insertFailed: (detail: string) => `Вставка не выполнена: ${detail}.`,
   readback: (labels: string[]) =>
     `Не записались поля: ${labels.join(', ')}. Клип оставлен выделенным: отмените вставку или заполните поля в Properties.`,

@@ -96,6 +96,8 @@ export interface Item {
   windows?: Array<{ key: string; label_ru: string; rects: Rect[] }>;
   duration?: Duration;
   loop?: { periodFrames: number };
+  // T2/T3 video on a transparent background: the panel offers the #222222 backdrop under it (spec 4.4).
+  alpha?: boolean;
   fields?: Field[];
   companions?: Companion[];
   requiredFonts?: Array<{ postScriptName: string; build?: string }>;
@@ -123,6 +125,8 @@ export interface HostTarget {
   fps: number;
   timeSec: number;
   durationSec: number;
+  // End of the work area (AE) or of the sequence in/out range (Premiere): loops run up to it (spec 6.1).
+  rangeEndSec?: number | null;
 }
 
 export interface AeColor {

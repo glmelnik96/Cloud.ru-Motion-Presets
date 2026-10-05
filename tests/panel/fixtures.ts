@@ -12,20 +12,35 @@ const BUILDS: Record<string, string> = {
   'SBSansText-Regular': '1.003',
 };
 
-export function toCatalogItem(raw: unknown): Item {
+// The file a variant gets in the catalog, by tier and kind the way build-catalog.mjs names them.
+function mediaExt(it: Item, key: string): string {
+  if (it.category === 'sounds') return 'wav';
+  if (key === 'svg') return 'svg';
+  return it.tier === 'T3' ? 'png' : 'mov';
+}
+
+export function toCatalogItem(raw: unknown, keepCompanions = false): Item {
   const it = structuredClone(raw) as Item;
   const dir = `items/${it.id}`;
   if (it.requiredFonts) it.requiredFonts = it.requiredFonts.map((f) => ({ postScriptName: f.postScriptName, build: BUILDS[f.postScriptName] }));
-  it.variants = it.variants.map((v) => ({
-    ...v,
-    aeComp: v.aeComp ? `${v.aeComp}_v${it.version}` : undefined,
-    file: `${dir}/${it.id}_${v.key}_v${it.version}.mogrt`,
-    sha256: SHA,
-    bytes: 1000,
-    minHostVersion: v.minHostVersion ?? { ae: '26.0', pr: '26.0' },
-  }));
-  it.aep = { file: `${dir}/${it.id}_v${it.version}.aep`, sha256: SHA, bytes: 2000 };
-  delete it.companions;
+  it.variants = it.variants.map((v) => {
+    const base = `${dir}/${it.id}_${v.key}`;
+    const out = {
+      ...v,
+      aeComp: v.aeComp ? `${v.aeComp}_v${it.version}` : undefined,
+      sha256: SHA,
+      bytes: 1000,
+      minHostVersion: v.minHostVersion ?? { ae: '26.0', pr: '26.0' },
+    } as Item['variants'][number];
+    if (it.tier === 'T1') out.file = `${base}_v${it.version}.mogrt`;
+    else if (v.parts) {
+      const src = v.parts as unknown as Record<string, [number, number]>;
+      out.parts = Object.fromEntries(Object.entries(src).map(([p, r]) => [p, { file: `${base}_${p}_v${it.version}.mov`, sha256: SHA, bytes: 1000, frames: r[1] - r[0] }]));
+    } else out.file = `${base}_v${it.version}.${mediaExt(it, v.key)}`;
+    return out;
+  });
+  if (it.tier === 'T1') it.aep = { file: `${dir}/${it.id}_v${it.version}.aep`, sha256: SHA, bytes: 2000 };
+  if (!keepCompanions) delete it.companions;
   return it;
 }
 
@@ -34,7 +49,7 @@ export function catalog(): Catalog {
     schemaVersion: 1,
     libraryVersion: '2026.10.05',
     minPluginVersion: '0.1.0',
-    items: (src.items as unknown[]).map(toCatalogItem),
+    items: (src.items as unknown[]).map((i) => toCatalogItem(i)),
   };
 }
 
@@ -45,6 +60,19 @@ export const item = (id: string): Item => {
 };
 
 export const webScreen = (): Item => toCatalogItem((example.items as unknown[]).find((i) => (i as Item).id === 'WEB_Screen'));
+
+// Every item of the example source with its companions: T1 templates, loops, a transition, a still, sounds.
+export function exampleCatalog(): Catalog {
+  return { schemaVersion: 1, libraryVersion: '2026.10.05', minPluginVersion: '0.1.0', items: (example.items as unknown[]).map((i) => toCatalogItem(i, true)) };
+}
+
+export const exampleItem = (id: string): Item => {
+  const found = exampleCatalog().items.find((i) => i.id === id);
+  if (!found) throw new Error('no example item ' + id);
+  return found;
+};
+
+export const lookupExample = (id: string): Item | undefined => exampleCatalog().items.find((i) => i.id === id);
 
 export function aeContext(over: Partial<HostContext> = {}): HostContext {
   return {

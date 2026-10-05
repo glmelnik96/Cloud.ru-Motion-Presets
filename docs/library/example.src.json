@@ -90,7 +90,8 @@
         { "key": "16x9_4K", "aspect": "16x9", "w": 3840, "h": 2160, "fps": 25, "aeComp": "CR_WEB_Screen_16x9_4K", "minHostVersion": { "ae": "26.0", "pr": "26.0" } }
       ],
       "companions": [
-        { "ref": "BG_WebinarPortal", "kind": "video", "placement": "under", "default": true }
+        { "ref": "BG_WebinarPortal", "kind": "video", "placement": "under", "default": true },
+        { "ref": "SFX_WebinarBed", "kind": "music", "placement": "under", "default": false }
       ]
     },
     {
@@ -105,6 +106,56 @@
         { "key": "16x9", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25, "parts": { "loop": [0, 750] } },
         { "key": "16x9_4K", "aspect": "16x9", "w": 3840, "h": 2160, "fps": 25, "parts": { "loop": [0, 750] } }
       ]
+    },
+    {
+      "id": "TRN_StepWipe",
+      "title_ru": "Ступенчатая шторка",
+      "category": "transitions",
+      "tier": "T2",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "cutFrame": 12,
+      "alpha": true,
+      "variants": [
+        { "key": "16x9", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25 },
+        { "key": "9x16", "aspect": "9x16", "w": 1080, "h": 1920, "fps": 25 }
+      ]
+    },
+    {
+      "id": "BG_Arrows",
+      "title_ru": "Фон со стрелками, петля 10 с",
+      "category": "backgrounds",
+      "tier": "T2",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "loop": { "periodFrames": 250 },
+      "alpha": true,
+      "variants": [
+        { "key": "16x9", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25, "parts": { "intro": [0, 25], "loop": [25, 275], "outro": [275, 300] } },
+        { "key": "9x16", "aspect": "9x16", "w": 1080, "h": 1920, "fps": 25, "parts": { "intro": [0, 25], "loop": [25, 275], "outro": [275, 300] } }
+      ]
+    },
+    {
+      "id": "BG_DotGrid",
+      "title_ru": "Сетка точек",
+      "category": "backgrounds",
+      "tier": "T3",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "alpha": true,
+      "variants": [
+        { "key": "16x9", "aspect": "16x9", "w": 1920, "h": 1080 },
+        { "key": "svg" }
+      ]
+    },
+    {
+      "id": "SFX_WebinarBed",
+      "title_ru": "Подложка вебинара",
+      "category": "sounds",
+      "tier": "T3",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "variants": [{ "key": "wav" }]
     }
   ]
 }

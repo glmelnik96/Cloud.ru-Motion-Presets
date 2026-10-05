@@ -165,6 +165,7 @@ function checkItem(item, byId, kind, err) {
       }
     }
   }
+  if (item.alpha !== undefined && item.tier === 'T1') err('alpha', 'alpha is for T2/T3 media; a T1 template brings its own background');
   if (item.loop && new Set(variants.map((v) => v.fps)).size > 1) {
     err('loop', 'a looped item needs one fps across its variants');
   }
