@@ -221,17 +221,21 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
         </div>
       )}
 
-      <Problems list={shown} />
-      {s.consent && (
-        <div class="consent">
-          Нет варианта под этот кадр. Вставить ближайший — {s.consent.label}? Он будет вписан в кадр.
-          <div><button class="secondary" onClick={() => void app.insert(true)}>Вставить ближайший</button></div>
-        </div>
-      )}
-      <button class="insert" disabled={s.busy || (blocking && !s.outcome)} onClick={() => void app.insert(false)}>
-        {s.busy ? 'Вставка…' : 'Вставить на плейхед'}
-      </button>
-      {s.outcome?.ok && <div class="done">Вставлено{s.host === 'pr' ? ': клип выделен на таймлайне' : ': слой выделен в композиции'}.</div>}
+      {/* Problems, consent, the button and the result stay in sight at the bottom of the panel (live UI check
+          2026-10-05: «Вставлено» was below the fold). */}
+      <div class="actions">
+        <Problems list={shown} />
+        {s.consent && (
+          <div class="consent">
+            Нет варианта под этот кадр. Вставить ближайший — {s.consent.label}? Он будет вписан в кадр.
+            <div><button class="secondary" onClick={() => void app.insert(true)}>Вставить ближайший</button></div>
+          </div>
+        )}
+        <button class="insert" disabled={s.busy || (blocking && !s.outcome)} onClick={() => void app.insert(false)}>
+          {s.busy ? 'Вставка…' : 'Вставить на плейхед'}
+        </button>
+        {s.outcome?.ok && <div class="done">Вставлено{s.host === 'pr' ? ': клип выделен на таймлайне' : ': слой выделен в композиции'}.</div>}
+      </div>
     </>
   );
 }

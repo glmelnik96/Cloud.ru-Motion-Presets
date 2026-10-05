@@ -156,7 +156,7 @@ select {
 }
 
 .thumb .mark {
-  width: 34%;
+  height: 56%;
   aspect-ratio: 1;
   border: 2px solid var(--accent);
   opacity: 0.6;
@@ -221,6 +221,26 @@ select {
 .hero {
   margin-bottom: 10px;
   border: 1px solid var(--line);
+}
+
+/* A wide panel must not turn the preview into half a screen. */
+.hero .thumb {
+  max-height: 220px;
+  aspect-ratio: auto;
+  height: min(220px, calc((100vw - 22px) * 9 / 16));
+}
+
+.actions {
+  position: sticky;
+  bottom: -10px;
+  margin: 0 -10px -10px;
+  padding: 8px 10px 10px;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+}
+
+.actions .problems {
+  margin-top: 0;
 }
 
 .field {

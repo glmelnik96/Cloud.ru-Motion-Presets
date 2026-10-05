@@ -16,8 +16,8 @@
 | K2 | Подписанный ZXP с меткой времени, `-verify` проходит | нет: не проверялся — npm-пакеты пробы не скачивались | да: подпись с меткой времени DigiCert, `Signature verified successfully`, `signed true` | `ZXPSignCmd -verify <zxp> -certinfo`; `node tools/panel/inspect.mjs <zxp>` → `signed true` |
 | N1 | Сборка под Chromium 99 (CEP 12) без ошибок | не проверялось | да: `vite build`, цель `chrome99`, 22 мс | `npm run build`, цель сборки `chrome99` |
 | N2 | Preact | не проверялось | да: настоящая панель на Preact 11 без `compat`, IIFE под `chrome99`, 59 КБ (2026-10-05, `npm run panel:build`); в Chromium — `tests/panel/ui-dom.test.mjs` | Bolt: шаблон React и алиас `react` → `preact/compat`; свой Vite: Preact напрямую |
-| N3 | Панель открывается в AE 26.5 | не проверялось | не проверялось (необязательно, вручную) | Window → Extensions, вручную |
-| N4 | Панель открывается в Premiere 26.5.2 | не проверялось | не проверялось (необязательно, вручную) | Window → Extensions, вручную |
+| N3 | Панель открывается в AE 26.5 | не проверялось | да: настоящая панель 0.1.0, вставка из интерфейса, 11/11 (`docs/research/panel-live/ae-ui-report.json`, 2026-10-05) | Window → Extensions, вручную |
+| N4 | Панель открывается в Premiere 26.5.2 | не проверялось | да: настоящая панель 0.1.0, вставка из интерфейса, 11/11 (`docs/research/panel-live/pr-ui-report.json`, 2026-10-05) | Window → Extensions, вручную |
 | N5 | Размер ZXP, байт | не проверялось | 9839 | `node tools/panel/inspect.mjs <zxp>` |
 | N6 | Пакетов в `node_modules` | не проверялось | 0 своих: vite из `node_modules` репозитория (зависимость vitest) | `npm ls --all --parseable \| wc -l` |
 | N7 | Какой ZXPSignCmd подписывает | не проверялось | 4.1.3 из CEP-Resources, sha256 ffc22231…6c98 | Bolt: встроенный в `vite-cep-plugin`, sha256 против 4.1.3; свой Vite: 4.1.3 из CEP-Resources |
