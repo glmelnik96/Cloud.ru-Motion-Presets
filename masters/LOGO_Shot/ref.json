@@ -77,6 +77,7 @@
       { "key": "V_close", "clip": "V", "sec": 6.76, "master": 4.76 }
     ]
   },
-  "preview": {"_note": "Card preview (tools/masters/preview.mjs): «облачные и ИИ-сервисы» on the dark background of the template itself.", "variant": "16x9", "ctrl": {"Caption": 1, "Theme": 1, "Background": 2}, "backdrop": "#222222", "fps": 12.5,
-    "axes": {"caption": "Caption", "theme": "Theme"}}
+  "preview": {"_note": "Card: caption 1, light theme, the template's dark background. The form also switches transparent and light backgrounds (grey backdrop, so a transparent plate is not the dark fill). A dark theme on the dark background is the same light plate, so that file is a copy. Speed stays at 1×.", "variant": "16x9", "ctrl": {"Caption": 1, "Theme": 1, "Background": 2}, "backdrop": "#5A5A5A", "fps": 12.5,
+    "axes": {"caption": "Caption", "theme": "Theme", "background": "Background"},
+    "same": [{ "ctrl": {"Background": 2, "Theme": 2}, "as": {"Theme": 1} }]}
 }

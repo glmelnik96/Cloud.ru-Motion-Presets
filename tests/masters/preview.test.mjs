@@ -6,7 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { PNG } from 'pngjs';
 import { describe, expect, it } from 'vitest';
-import { defaultCombo, encodePreview, parsePreviewName, posterArgs, previewCombos, previewFrames, previewName, previewSpec, videoArgs } from '../../tools/masters/preview.mjs';
+import { defaultCombo, encodePreview, parsePreviewName, posterArgs, previewCombos, previewFrames, previewName, previewSpec, sameAs, videoArgs } from '../../tools/masters/preview.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '../..');
 const SRC = JSON.parse(readFileSync(path.join(REPO, 'library', 'library.src.json'), 'utf8'));
@@ -39,11 +39,22 @@ describe('card previews', () => {
     expect(ttl.combos.map((c) => c.name)).toEqual(['16x9_style-1', '16x9_style-2', '16x9_style-3', '9x16_style-1', '9x16_style-2', '9x16_style-3', '1x1_style-1', '1x1_style-2', '1x1_style-3']);
     expect(ttl.combos[4]).toMatchObject({ variant: { key: '9x16' }, when: { style: 2 }, ctrl: { Style: 2, Side: 1 } });
     expect(ttl.def.name).toBe('16x9_style-1');
-    expect(plan('LOGO_Shot').combos).toHaveLength(12);
+    // Background is an axis (theme is invisible on a locked dark fill). Side, size and speed are not:
+    // crossing them as well is one file per combination, and the hold frame does not show speed.
+    const shot = plan('LOGO_Shot');
+    expect(shot.combos).toHaveLength(36);
+    expect(shot.def.name).toBe('16x9_caption-1_theme-1_background-2');
+    const shotSpec = previewSpec(item('LOGO_Shot'), ref('LOGO_Shot'));
+    const shotDark = shot.combos.find((c) => c.name === '16x9_caption-1_theme-2_background-2');
+    expect(sameAs(shotDark, shot.combos, shotSpec).name).toBe('16x9_caption-1_theme-1_background-2');
+    expect(sameAs(shot.combos.find((c) => c.name === '16x9_caption-1_theme-2_background-1'), shot.combos, shotSpec)).toBeNull();
     const mark = plan('LOGO_Mark');
-    expect(mark.combos.map((c) => c.name).slice(0, 4)).toEqual(['16x9_plate-on_theme-1', '16x9_plate-on_theme-2', '16x9_plate-off_theme-1', '16x9_plate-off_theme-2']);
-    expect(mark.combos[2].ctrl).toMatchObject({ Plate: 0, Theme: 1, Background: 2 });
-    expect(mark.def.name).toBe('16x9_plate-on_theme-2');
+    expect(mark.combos).toHaveLength(24);
+    expect(mark.combos[0].name).toBe('16x9_plate-on_theme-1_background-1');
+    expect(mark.combos.find((c) => c.name === '16x9_plate-off_theme-1_background-1').ctrl).toMatchObject({ Plate: 0, Theme: 1, Background: 1 });
+    expect(mark.def.name).toBe('16x9_plate-on_theme-2_background-2');
+    const markSpec = previewSpec(item('LOGO_Mark'), ref('LOGO_Mark'));
+    expect(sameAs(mark.combos.find((c) => c.name === mark.def.name), mark.combos, markSpec).name).toBe('16x9_plate-on_theme-1_background-2');
   });
 
   it('names preview files and reads the names back with the types of the fields', () => {

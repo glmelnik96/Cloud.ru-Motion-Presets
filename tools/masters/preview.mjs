@@ -6,6 +6,11 @@
 //   poster_<variant>[_<field>-<value>…].jpg   the look (the form shows the one that matches, user 2026-10-05:
 //                                             «Превью должно отображать все варианты»)
 //   preview.mp4, poster.jpg                   the card in the catalog: a copy of the default one
+// Axes are the switches whose picture cannot be derived from another: format, and for each item the ones
+// in ref.preview.axes. «Сторона», «Размер текста» and «Скорость» stay at the defaults in ctrl — crossing
+// them with the rest is a separate file per combination, and the hold frame does not show speed.
+// ref.preview.same copies a combination that the template draws identically (a dark theme on the dark
+// background is the light plate) instead of rendering it again.
 // within a 480 px box, H.264, no sound, the whole template once; tools/library/build-catalog.mjs picks them up.
 //   node tools/masters/preview.mjs --item TTL_LowerThird [--no-render] [--only-default]
 // What each item shows comes from "preview" in masters/<id>/ref.json:
@@ -53,6 +58,20 @@ export function previewCombos(item, spec, variants) {
     }
   }
   return out;
+}
+
+// A combination the template draws the same as another (ref.preview.same). Null when this one is rendered.
+// { "ctrl": { "Background": 2, "Theme": 2 }, "as": { "Theme": 1 } } — same variant, those controls rewritten.
+export function sameAs(combo, combos, spec) {
+  for (const rule of spec.same || []) {
+    if (!Object.entries(rule.ctrl || {}).every(([k, v]) => combo.ctrl[k] === v)) continue;
+    const want = { ...combo.ctrl, ...(rule.as || {}) };
+    const src = combos.find((c) => c.variant.key === combo.variant.key && c.name !== combo.name
+      && Object.keys(want).every((k) => c.ctrl[k] === want[k])
+      && Object.keys(c.ctrl).every((k) => want[k] === c.ctrl[k]));
+    if (src) return src;
+  }
+  return null;
 }
 
 // The combination the card shows: the default variant with the default values of ref.preview.ctrl.
@@ -138,7 +157,10 @@ if (isMain) {
   const dir = path.posix.join(outDir, 'preview-frames');
   const frames = previewFrames(spec, dir);
   try {
+    const copies = [];
     for (const c of combos) {
+      const src = sameAs(c, combos, spec);
+      if (src) { copies.push([c, src]); continue; }
       if (!argv.includes('--no-render')) {
         rmSync(dir, { recursive: true, force: true });
         mkdirSync(dir, { recursive: true });
@@ -151,6 +173,13 @@ if (isMain) {
       }
       const r = encodePreview({ dir, spec, w: c.variant.w, h: c.variant.h, outDir, name: c.name });
       console.log(`OK ${r.video} (${r.frames} frames at ${spec.fps} fps), ${r.poster} at ${r.posterSec} s`);
+    }
+    for (const [c, src] of copies) {
+      const video = path.posix.join(outDir, `preview_${c.name}.mp4`);
+      const poster = path.posix.join(outDir, `poster_${c.name}.jpg`);
+      copyFileSync(path.posix.join(outDir, `preview_${src.name}.mp4`), video);
+      copyFileSync(path.posix.join(outDir, `poster_${src.name}.jpg`), poster);
+      console.log(`OK ${video} = copy of ${src.name}`);
     }
     // The card: a copy of the default combination.
     const def = combos[0].name === null ? null : defaultCombo(combos, spec);
