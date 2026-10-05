@@ -1,6 +1,6 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-05T10:14:41.613Z",
+  "startedAt": "2026-10-05T19:43:23.413Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -11,7 +11,7 @@
           "pass": true,
           "required": true,
           "detail": {
-            "how": "active",
+            "how": "opened",
             "path": "C:\\CRBK\\work\\panel-live\\pr\\panel_live.prproj",
             "ok": true
           }
@@ -21,7 +21,7 @@
           "pass": true,
           "required": true,
           "detail": {
-            "ui": "4f78d341-ea5f-4a65-8717-c58deecc8dcd"
+            "ui": "3089891c-1050-4745-8251-5073f25f058d"
           }
         }
       ]
@@ -39,7 +39,7 @@
     {
       "name": "status line shows the host, the panel and the library",
       "pass": true,
-      "detail": "Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.4 · библиотека 2026.10.05Скопировать диагностику"
+      "detail": "Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.9 · библиотека 2026.10.05Скопировать диагностику"
     },
     {
       "name": "card previews: H.264 is playable in the panel",
@@ -109,6 +109,6 @@
       ]
     }
   ],
-  "finishedAt": "2026-10-05T10:14:44.615Z",
+  "finishedAt": "2026-10-05T19:43:28.535Z",
   "failed": []
 }

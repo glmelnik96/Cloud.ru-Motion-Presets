@@ -1,6 +1,6 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-05T10:14:34.427Z",
+  "startedAt": "2026-10-05T19:43:43.300Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -30,7 +30,7 @@
     {
       "name": "status line shows the host, the panel and the library",
       "pass": true,
-      "detail": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.4 · библиотека 2026.10.05Скопировать диагностику"
+      "detail": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.9 · библиотека 2026.10.05Скопировать диагностику"
     },
     {
       "name": "card previews: H.264 is playable in the panel",
@@ -98,6 +98,6 @@
       }
     }
   ],
-  "finishedAt": "2026-10-05T10:14:37.653Z",
+  "finishedAt": "2026-10-05T19:43:46.433Z",
   "failed": []
 }
