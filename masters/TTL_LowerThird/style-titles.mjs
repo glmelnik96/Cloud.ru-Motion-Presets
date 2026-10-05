@@ -107,17 +107,32 @@ export function plateExpr(pre, x, w, h, y, inn, out) {
 }
 
 // Size control (user, 2026-10-05: text size anchored to its position): f scales the block; the block keeps
-// its corner (margins stay x k), text layers are scaled by f (their ink is read back x f).
+// its corner (margins stay x k), text layers are scaled by f (their ink is read back x f). The chosen size
+// is an upper bound: the style's Fit slider on RIG holds the f in use, the largest up to the chosen size at
+// which the block stays inside the frame margins (Premiere check 2026-10-05: a 30-letter guest name at
+// 140 % ran off the frame).
 export const SIZES = [0.8, 1, 1.2, 1.4, 1.6];
 export const SIZE_CTRL = { label: 'Размер текста', items: ['80 %', '100 %', '120 %', '140 %', '160 %'], value: 2 };
-export const SIZE_JS = `var f = [${SIZES.join(', ')}][thisComp.layer("CTRL").effect("Size")(1).value - 1] || 1;`;
+export const FIT = { titles: 'FitTitles', podcast: 'FitPodcast', webinar: 'FitWebinar' };
+export const sizeJs = (fit) => `var f = thisComp.layer("RIG").effect("${fit}")(1).value;`;
+export const SIZE_AT_1 = 'var f = 1;';
+
+// The Fit slider: pre1 is the style's geometry at f = 1, wb its block width there, avail the room between
+// the margins. Plates are rounded to whole pixels, so a capped block stops one pixel short of the margin.
+export function fitExpr(pre1, wb, avail) {
+  return pre1 + [
+    `var fu = [${SIZES.join(', ')}][thisComp.layer("CTRL").effect("Size")(1).value - 1] || 1;`,
+    `var Wb = ${wb}, A = ${avail};`,
+    'Wb * fu <= A ? fu : Math.max(0.2, (A - k) / Wb)',
+  ].join('\n');
+}
 
 // Shared head of the plate expressions: k, f, margins, side, the speed map T and sliders read through it.
-export function platePre(timeMap) {
+export function platePre(timeMap, size) {
   return [
     'var C = thisComp.layer("CTRL"), R = thisComp.layer("RIG");',
     'var k = Math.min(thisComp.width, thisComp.height) / 1080;',
-    SIZE_JS,
+    size,
     'var kt = k * f;',
     'var W = thisComp.width, H = thisComp.height, M = ' + MARGIN + ' * k;',
     'var right = C.effect("Side")(1).value == 2;',
@@ -131,11 +146,11 @@ export function platePre(timeMap) {
 }
 
 export const visible = (style) => `thisComp.layer("CTRL").effect("Style")(1).value == ${style} ? 100 : 0`;
-export const scaleExpr = SIZE_JS + '\n[100 * f, 100 * f]';
+export const scaleExpr = (fit) => sizeJs(fit) + '\n[100 * f, 100 * f]';
 
 // Adds the style's layers (bottom first), keys and expressions to the spec.
 export function addTitles(spec, { layout: L, rig, nameStart, text: T, hex, timeMap }) {
-  const pre = platePre(timeMap) + [
+  const titlesPre = (size) => platePre(timeMap, size) + [
     // «Титры» stand on the left only (user, 2026-10-05: no right side)
     'right = false;',
     'var n = ink("TXT_NAME"), r1 = ink("TXT_ROLE1"), r2 = ink("TXT_ROLE2");',
@@ -148,6 +163,8 @@ export function addTitles(spec, { layout: L, rig, nameStart, text: T, hex, timeM
     'var y0 = H - M - (Hn + G + Hr2);',
     'var xn = right ? W - M - Wn : M, xr = right ? W - M - Wr : M, yr = y0 + Hn + G;',
   ].join('\n') + '\n';
+  const pre = titlesPre(sizeJs(FIT.titles));
+  spec.expr('RIG', P.slider(FIT.titles), fitExpr(titlesPre(SIZE_AT_1), 'Math.max(Wn, Wr)', 'W - 2 * M'));
   const k = 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n';
   spec.add(
     shape('PL_ROLE', [rectGroup('Plate', hex.black)]),
@@ -179,7 +196,7 @@ export function addTitles(spec, { layout: L, rig, nameStart, text: T, hex, timeM
   spec.expr('TXT_NAME', P.rise(), k + `[0, ${L.nameRise} * k, 0]`);
   spec.expr('TXT_ROLE1', P.rise(), k + `[0, ${L.roleRise} * k, 0]`);
   spec.expr('TXT_ROLE2', P.rise(), k + `[0, ${L.roleRise} * k, 0]`);
-  for (const layer of ['TXT_NAME', 'TXT_ROLE1', 'TXT_ROLE2']) spec.expr(layer, P.scale, scaleExpr);
+  for (const layer of ['TXT_NAME', 'TXT_ROLE1', 'TXT_ROLE2']) spec.expr(layer, P.scale, scaleExpr(FIT.titles));
   // the pack's role selector ran over three lines (an empty first one): line 2 moved while Start passed
   // 33.3-66.7 %, line 3 while it passed 66.7-100 %. Each role layer gets its own window of that Start.
   const roleS = timeMap + 'var S = thisComp.layer("RIG").effect("RoleStart")(1).valueAtTime(T(time));\n';

@@ -5,7 +5,7 @@
 import { dumpLayer } from '../../tools/masters/dump-keys.mjs';
 import { shapeBoxAt, textBaselineAt } from '../../tools/masters/dump-geometry.mjs';
 import { P, rectGroup, shape, text } from '../../tools/masters/spec.mjs';
-import { platePre, scaleExpr, visible } from './style-titles.mjs';
+import { FIT, fitExpr, platePre, scaleExpr, SIZE_AT_1, sizeJs, visible } from './style-titles.mjs';
 
 const REST = 5.0;
 export const WEB = { plates: ['Layer 5 Outlines 2', 'Layer 4 Outlines 3', 'Layer 4 Outlines 4'], textIndex: 1 };
@@ -27,7 +27,7 @@ export function webinarLayout(web) {
 }
 
 export function addWebinar(spec, { layout: L, hex, pads, timeMap }) {
-  const pre = platePre(timeMap) + [
+  const webPre = (size) => platePre(timeMap, size) + [
     'function txt(n) { return String(thisComp.layer(n).text.sourceText); }',
     'var has = [txt("TXT_NAME").length > 0, txt("TXT_ROLE1").length > 0, txt("TXT_ROLE2").length > 0];',
     'var slot = [0, has[0] ? 1 : 0, (has[0] ? 1 : 0) + (has[1] ? 1 : 0)];',
@@ -38,6 +38,8 @@ export function addWebinar(spec, { layout: L, hex, pads, timeMap }) {
     'function xl(i) { return right ? W - M - w[i] : M; }',
     'function yt(i) { return y0 + slot[i] * STEP; }',
   ].join('\n') + '\n';
+  const pre = webPre(sizeJs(FIT.webinar));
+  spec.expr('RIG', P.slider(FIT.webinar), fitExpr(webPre(SIZE_AT_1), 'Math.max(w[0], w[1], w[2])', 'W - 2 * M'));
   spec.add(
     shape('PL_WEB3', [rectGroup('Plate', hex.black)]),
     shape('PL_WEB2', [rectGroup('Plate', hex.black)]),
@@ -54,7 +56,7 @@ export function addWebinar(spec, { layout: L, hex, pads, timeMap }) {
     spec.expr('PL_WEB' + i, P.rectSize('Plate'), pre + `[w[${j}], w[${j}] > 0 ? H1 : 0]`);
     spec.expr('PL_WEB' + i, P.rectPos('Plate'), pre + `[xl(${j}) + w[${j}] / 2, yt(${j}) + H1 / 2]`);
     spec.expr('WEB_L' + i, P.pos, pre + `[xl(${j}) + TX, yt(${j}) + ${L.baseline} * kt]`);
-    spec.expr('WEB_L' + i, P.scale, scaleExpr);
+    spec.expr('WEB_L' + i, P.scale, scaleExpr(FIT.webinar));
   }
   for (const layer of ['PL_WEB3', 'PL_WEB2', 'PL_WEB1', 'WEB_L3', 'WEB_L2', 'WEB_L1']) spec.expr(layer, P.opacity, visible(3));
 }

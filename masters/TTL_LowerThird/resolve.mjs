@@ -14,7 +14,7 @@ import { workDir, workPath } from '../../tools/lib/work.mjs';
 import { dumpKeys, toBuilderKeys } from '../../tools/masters/dump-keys.mjs';
 import { nul, P, rectGroup, shape, Spec } from '../../tools/masters/spec.mjs';
 import { regions, SPEED_CTRL, timeMapJs } from '../../tools/masters/speed.mjs';
-import { addTitles, checkRise, layoutFrom, NAME, rigKeys, SIZE_CTRL, START } from './style-titles.mjs';
+import { addTitles, checkRise, FIT, layoutFrom, NAME, rigKeys, SIZE_CTRL, START } from './style-titles.mjs';
 import { addPodcast, arrowShapes, podcastLayout, podcastRig } from './style-podcast.mjs';
 import { addWebinar, webinarLayout } from './style-webinar.mjs';
 
@@ -88,7 +88,11 @@ export function resolveLowerThird(sources = loadSources()) {
   spec.expr('QA_PATCH', P.rectSize('Patch'), k + '[100 * k, 100 * k]');
   spec.expr('QA_PATCH', P.rectPos('Patch'), k + '[thisComp.width - 100 * k, 100 * k]');
   spec.expr('QA_PATCH', P.opacity, 'thisComp.layer("CTRL").effect("QA")(1).value * 100');
-  spec.add(nul('RIG', Object.keys(rig).map((name) => ({ kind: 'slider', name })), { shy: true }));
+  // keyed sliders of the styles, then the Fit sliders (expressions only: the text size in use, see style-titles.mjs)
+  spec.add(nul('RIG', [
+    ...Object.keys(rig).map((name) => ({ kind: 'slider', name })),
+    ...Object.values(FIT).map((name) => ({ kind: 'slider', name, value: 1 })),
+  ], { shy: true }));
   for (const [name, keys] of Object.entries(rig)) spec.key('RIG', P.slider(name), keys);
   spec.add(nul('CTRL', [
     { kind: 'dropdown', name: 'Style', items: ctrl.Style.items, value: ctrl.Style.value },

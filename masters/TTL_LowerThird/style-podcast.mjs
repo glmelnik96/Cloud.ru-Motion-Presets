@@ -7,7 +7,7 @@ import { layerToCompAt, restValueAt, shapeBoxAt } from '../../tools/masters/dump
 import { applyPoint } from '../../tools/dump/geometry.mjs';
 import { layerProp } from '../../tools/dump/model.mjs';
 import { P, pathGroup, rectGroup, shape, text } from '../../tools/masters/spec.mjs';
-import { scaleExpr, SIZE_JS, START, visible } from './style-titles.mjs';
+import { FIT, fitExpr, scaleExpr, SIZE_AT_1, sizeJs, START, visible } from './style-titles.mjs';
 
 const S = 0.5;                 // 4K pack -> FHD
 const REST = 3.0;
@@ -112,10 +112,10 @@ export function podcastRig(pod) {
 // double arrow (zone Z1 = the arrow and a gap). Text layers are left-justified and placed by their ink.
 export function addPodcast(spec, { layout: L, arrows, keys, hex, pads, timeMap }) {
   const k = 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n';
-  const pre = [
+  const podPre = (size) => [
     'var C = thisComp.layer("CTRL"), R = thisComp.layer("RIG");',
     'var k = Math.min(thisComp.width, thisComp.height) / 1080;',
-    SIZE_JS,
+    size,
     'var kt = k * f;',
     'var W = thisComp.width, H = thisComp.height;',
     'var right = C.effect("Side")(1).value == 2;',
@@ -142,6 +142,9 @@ export function addPodcast(spec, { layout: L, arrows, keys, hex, pads, timeMap }
     // role lines: after the indent from the far edge (host) or before it from the far edge (guest)
     'function roleX(r) { return right ? x0 + IND : x1 - IND - (r.l + r.w); }',
   ].join('\n') + '\n';
+  const pre = podPre(sizeJs(FIT.podcast));
+  // the arrows are matted to the plate, so the plate is the whole block
+  spec.expr('RIG', P.slider(FIT.podcast), fitExpr(podPre(SIZE_AT_1), 'Wp', `W - ${r6(L.corner.left + L.corner.right)} * k`));
   const a1 = L.arrow1;
   const a2 = L.arrow2;
   const role = (value) => ({ font: L.role.font, size: L.role.size, fill: hex.black, tracking: L.role.tracking, justify: 'LEFT', allCaps: true, value });
@@ -184,7 +187,7 @@ export function addPodcast(spec, { layout: L, arrows, keys, hex, pads, timeMap }
   spec.expr('POD_ROLE2', P.pos, pre + '[roleX(r2), b2]');
   spec.expr('POD_NAME', P.rise(), k + `[0, ${L.name.rise} * k, 0]`);
   for (const layer of ['POD_ROLE1', 'POD_ROLE2']) spec.expr(layer, P.rise(), k + `[0, ${pads.roleRise || L.role.rise} * k, 0]`);
-  for (const layer of ['POD_NAME', 'POD_ROLE1', 'POD_ROLE2']) spec.expr(layer, P.scale, scaleExpr);
+  for (const layer of ['POD_NAME', 'POD_ROLE1', 'POD_ROLE2']) spec.expr(layer, P.scale, scaleExpr(FIT.podcast));
   // arrows: the host's arrows point left and come in from the right; «Слева» mirrors them
   spec.expr('ARROW_1', P.pos, pre + 'var a = sv("PodArrow1");\n' +
     `var rest = right ? x0 + ${a1.restFromLeft} * kt : x1 - ${a1.restFromLeft} * kt, from = right ? x1 + ${a1.startFromRight} * kt : x0 - ${a1.startFromRight} * kt;\n` +
