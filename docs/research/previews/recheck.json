@@ -1,0 +1,72 @@
+{
+  "when": "2026-10-05",
+  "os": "Windows",
+  "branch": "claude/determined-cannon-eum3ei",
+  "head": "414502b",
+  "panel": "0.1.4",
+  "library": "2026.10.05",
+  "hosts": { "afterEffects": "26.5", "premiere": "26.5.2" },
+  "steps": [
+    {
+      "name": "git pull",
+      "exit": 0,
+      "output": "Fast-forward ee3c5c9..414502b. fix(panel): poster over the preview, DevTools ports 8101/8102, copy without cpSync (0.1.4)."
+    },
+    {
+      "name": "npm ci",
+      "exit": 0,
+      "output": "added 45 packages, audited 46 packages, found 0 vulnerabilities"
+    },
+    {
+      "name": "npm test",
+      "exit": 0,
+      "output": "Test Files 79 passed | 1 skipped (80). Tests 589 passed | 8 skipped (597)."
+    },
+    {
+      "name": "dev panel ports",
+      "exit": 0,
+      "output": "Installed ru.cloud.brandkit.dev/.debug already matched dev/harness/.debug: background 8094/8096, visible panel 8095/8097. Ports were not moved for this check."
+    },
+    {
+      "name": "install-dev",
+      "exit": 0,
+      "output": "panel 0.1.4 -> C:\\Users\\Глеб\\AppData\\Roaming\\Adobe\\CEP\\extensions\\ru.cloud.brandkit (DevTools: AE http://localhost:8101, Premiere http://localhost:8102)\nlibrary C:/CRBK/work/panel-live/library -> C:/ProgramData/CloudRuBrandKit/library\nCSXS.11 PlayerDebugMode=1\nCSXS.12 PlayerDebugMode=1\nNo robocopy. copyTree finished; the Node 24 cpSync crash did not recur."
+    },
+    {
+      "name": "ui-check ae",
+      "exit": 0,
+      "output": "13/13 passed on port 8101. h264 probably. posters 3, postersLoaded 3. Status: Шрифты SB Sans на месте · AE 26.5 · панель 0.1.4 · библиотека 2026.10.05. Insert: Вставлено: слой выделен в композиции. One layer in UI_check."
+    },
+    {
+      "name": "ui-check pr",
+      "exit": 0,
+      "output": "13/13 passed on port 8102. h264 probably. posters 3, postersLoaded 3. Status: Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.4 · библиотека 2026.10.05. Insert: Вставлено: клип выделен на таймлайне. Clip TTL_LowerThird_16x9_v1 at 4 s, selected, track 2."
+    }
+  ],
+  "portsAfterRestart": {
+    "8094": "BrandKit Dev",
+    "8095": "BrandKit Dev",
+    "8096": "BrandKit Dev",
+    "8097": "down",
+    "8101": "Cloud.ru BrandKit",
+    "8102": "Cloud.ru BrandKit"
+  },
+  "posterAfterHover": {
+    "card": "Логошот с подписью",
+    "ae": {
+      "before": { "posterOff": false, "posterVisibility": "visible", "posterWidth": 480, "paused": true, "t": 0 },
+      "playing": { "posterOff": true, "posterVisibility": "hidden", "paused": false, "t": 0.202, "ready": 4 },
+      "after": { "posterOff": false, "posterVisibility": "visible", "posterWidth": 480, "paused": true, "t": 0, "ready": 4 }
+    },
+    "pr": {
+      "before": { "posterOff": false, "posterVisibility": "visible", "posterWidth": 480, "paused": true, "t": 0 },
+      "playing": { "posterOff": true, "posterVisibility": "hidden", "paused": false, "t": 0.206, "ready": 4 },
+      "after": { "posterOff": false, "posterVisibility": "visible", "posterWidth": 480, "paused": true, "t": 0, "ready": 4 }
+    },
+    "seen": "After the cursor leaves, the card shows the poster again: white plate, green cloud.ru mark, and the caption «облачные и ИИ-сервисы» on the dark field. The same on both hosts. During the hover the poster hides and the intro frame of the video is visible. Screenshots: ae-ui-1-catalog.png, pr-ui-1-catalog.png (ui-check, after mouseleave) and ae-ui-1c-after-hover.png, pr-ui-1c-after-hover.png."
+  },
+  "saveAs": {
+    "appeared": false,
+    "quit": "app.quit() while AE had C:\\CRBK\\work\\panel-live\\ae\\panel_ui.aep and Premiere had C:\\CRBK\\work\\panel-live\\pr\\panel_live.prproj. Both hosts returned q and exited. No Save As dialog. On the next launch AE showed Untitled Project.aep until panel_ui.aep was opened by association."
+  }
+}

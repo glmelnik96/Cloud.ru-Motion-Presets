@@ -1,6 +1,6 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-05T09:58:39.476Z",
+  "startedAt": "2026-10-05T10:14:41.613Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -21,7 +21,7 @@
           "pass": true,
           "required": true,
           "detail": {
-            "ui": "828f855f-bab6-408d-88d2-8054a05fb4ac"
+            "ui": "4f78d341-ea5f-4a65-8717-c58deecc8dcd"
           }
         }
       ]
@@ -39,15 +39,15 @@
     {
       "name": "status line shows the host, the panel and the library",
       "pass": true,
-      "detail": "Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.3 · библиотека 2026.10.05Скопировать диагностику"
+      "detail": "Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.4 · библиотека 2026.10.05Скопировать диагностику"
     },
     {
       "name": "card previews: H.264 is playable in the panel",
       "pass": true,
       "detail": {
         "videos": 3,
-        "posters": 0,
-        "postersLoaded": 0,
+        "posters": 3,
+        "postersLoaded": 3,
         "h264": "probably"
       }
     },
@@ -56,8 +56,8 @@
       "pass": true,
       "detail": {
         "videos": 3,
-        "posters": 0,
-        "postersLoaded": 0,
+        "posters": 3,
+        "postersLoaded": 3,
         "h264": "probably"
       }
     },
@@ -109,6 +109,6 @@
       ]
     }
   ],
-  "finishedAt": "2026-10-05T09:58:42.555Z",
+  "finishedAt": "2026-10-05T10:14:44.615Z",
   "failed": []
 }
