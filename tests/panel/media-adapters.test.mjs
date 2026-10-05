@@ -77,7 +77,8 @@ describe('After Effects: media', () => {
       { name: 'BrandKit #222222', start: 2, end: 60, loop: undefined, selected: false },
     ]);
     expect(out.reply).toMatchObject({ imported: 3, startSec: 2, lengthSec: 58 });
-    expect(h.run('__ae.undo')).toEqual(['begin BrandKit: Фон со стрелками, петля 10 с', 'end']);
+    // imports before the undo group: inside it AE 26.5 reported «Undo group mismatch» (build PC, 2026-10-05)
+    expect(h.run('__ae.undo')).toEqual(['import BG_Arrows_16x9_intro_v1.mov', 'import BG_Arrows_16x9_loop_v1.mov', 'import BG_Arrows_16x9_outro_v1.mov', 'begin BrandKit: Фон со стрелками, петля 10 с', 'end']);
     expect(h.run('__ae.calls').filter((c) => c.startsWith('solid'))).toEqual(['solid BrandKit #222222 34,34,34']);
     // the files sit in the BrandKit folder, and a second insert reuses them
     expect(h.run(`(function () { var b = app.project.rootFolder.items.filter(function (i) { return i.name === 'Cloud.ru BrandKit'; })[0]; return b.items.length; })()`)).toBe(3);
@@ -104,12 +105,13 @@ describe('After Effects: media', () => {
     expect(h.call('probeInsert', { targetId: h.call('getContext').data.target.id, startSec: 2, aeComp: null, file: sfx.media.layout.audio[0].file }).data.found).toBe(true);
   });
 
-  it('refuses a missing file, changes nothing outside its undo group', () => {
+  it('refuses a missing file before the undo group opens', () => {
     const h = ae();
     const p = plan(h, exampleItem('BG_Arrows'));
     const r = h.call('insertMedia', p.media);
     expect(r.error.code).toBe('NO_FILE');
-    expect(h.run('__ae.undo')).toEqual(['begin BrandKit: Фон со стрелками, петля 10 с', 'end']);
+    expect(h.run('__ae.undo')).toEqual([]);
+    expect(h.run('app.project.activeItem.numLayers')).toBe(0);
   });
 });
 
@@ -137,7 +139,7 @@ describe('After Effects: companions of a template', () => {
       ['SFX_WebinarBed_wav_v1.wav', 2, 37, 1],
     ]);
     expect(out.reply.companions.map((c) => c.role)).toEqual(['loop', 'sound']);
-    expect(h.run('__ae.undo')).toEqual(['begin BrandKit: Экран вебинара', 'end']);
+    expect(h.run('__ae.undo')).toEqual(['import WEB_Screen_v1.aep', 'import BG_WebinarPortal_16x9_loop_v1.mov', 'import SFX_WebinarBed_wav_v1.wav', 'begin BrandKit: Экран вебинара', 'end']);
   });
 
   it('a sound placed out ends with the template', () => {

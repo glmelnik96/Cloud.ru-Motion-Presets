@@ -292,11 +292,13 @@ var app = {
       if (io.importAs === ImportAsType.PROJECT) {
         __ae.imports += 1;
         var folder = __ae.aeps[path]();
+        __ae.undo.push('import ' + path.slice(path.lastIndexOf('/') + 1));
         __move(folder, __root);
         return folder;
       }
       var f = new FootageItem(path);
       __move(f, __root);
+      __ae.undo.push('import ' + f.name);
       return f;
     },
     itemByID: function (id) {

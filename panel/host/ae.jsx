@@ -394,6 +394,21 @@
     }
   }
 
+  // Imports every file of a layout before the undo group opens. A footage import inside beginUndoGroup /
+  // endUndoGroup left After Effects 26.5 with «Undo group mismatch, will attempt to fix» on Ctrl+Z, and the
+  // undo took back only the last move (build PC, 2026-10-05: the lower third with companions, imported for
+  // the first time); the same insert with the files already in the bin undid cleanly. Imports stay in the
+  // project like Premiere's; the undo group holds the layers only.
+  function importLayout(bin, layout, stats) {
+    var i;
+    for (i = 0; i < layout.video.length; i++) {
+      mediaFootage(bin, layout.video[i].file, stats);
+    }
+    for (i = 0; i < layout.audio.length; i++) {
+      mediaFootage(bin, layout.audio[i].file, stats);
+    }
+  }
+
   function placed(role, layer) {
     return { role: role, name: String(layer.name), layerId: layer.id, startSec: BK.round(layer.inPoint), lengthSec: BK.round(layer.outPoint - layer.inPoint) };
   }
@@ -456,12 +471,15 @@
     var comp = targetComp(req.targetId);
     var stats = { imported: 0 };
     var r, last;
+    var bin;
     if (!app.project.file) {
       throw fail('NOT_SAVED', 'project is not saved');
     }
+    bin = ensureBin(req.bin);
+    importLayout(bin, req.layout, stats);
     app.beginUndoGroup(req.undoLabel || 'BrandKit');
     try {
-      r = placeLayout(comp, ensureBin(req.bin), req.layout, null, stats);
+      r = placeLayout(comp, bin, req.layout, null, stats);
       if (r.first) {
         selectOnly(comp, r.first);
       }
@@ -482,27 +500,37 @@
     };
   };
 
-  // The whole insert in one undo group (spec 6.1 «After Effects», steps 3-6).
+  // The whole insert (spec 6.1 «After Effects», steps 3-6): the imports first (the template once per
+  // id@version, files of media slots, files of companions; see importLayout), then the layers in one undo group.
   A.insertItem = function (req) {
     var comp = targetComp(req.targetId);
     var notes = [];
+    var stats = { imported: 0 };
     var bin, folder, comps, src, layer, group, i, w, readback, imported, keys, companions;
     if (!app.project.file) {
       throw fail('NOT_SAVED', 'project is not saved');
     }
+    bin = ensureBin(req.bin);
+    folder = findImported(bin, req.libraryKey);
+    imported = !folder;
+    if (!folder) {
+      folder = importAep(req.aep);
+      folder.parentFolder = bin;
+      folder.comment = tagOf(req.libraryKey);
+      if (req.assetDir) {
+        notes.push('footage: ' + localizeFootage(folder, req.libraryRoot, req.assetDir).length);
+      }
+    }
+    for (i = 0; i < req.writes.length; i++) {
+      if (req.writes[i].type === 'media' && req.writes[i].value) {
+        footageFor(String(req.writes[i].value));
+      }
+    }
+    if (req.companions) {
+      importLayout(bin, req.companions, stats);
+    }
     app.beginUndoGroup(req.undoLabel || 'BrandKit');
     try {
-      bin = ensureBin(req.bin);
-      folder = findImported(bin, req.libraryKey);
-      imported = !folder;
-      if (!folder) {
-        folder = importAep(req.aep);
-        folder.parentFolder = bin;
-        folder.comment = tagOf(req.libraryKey);
-        if (req.assetDir) {
-          notes.push('footage: ' + localizeFootage(folder, req.libraryRoot, req.assetDir).length);
-        }
-      }
       comps = compsNamed(folder, req.variant.aeComp);
       if (comps.length !== 1) {
         throw fail('TEMPLATE_BROKEN', 'в шаблоне ' + comps.length + ' композиций ' + req.variant.aeComp);
@@ -534,7 +562,7 @@
 
       if (req.companions) {
         // Companions under the template layer (spec 6.1 «After Effects» step 6).
-        companions = placeLayout(comp, bin, req.companions, layer, { imported: 0 }).placed;
+        companions = placeLayout(comp, bin, req.companions, layer, stats).placed;
       }
 
       group = epGroup(layer);

@@ -93,7 +93,7 @@ describe('host bundle', () => {
     expect(h.call('_private').error.code).toBe('NO_FUNCTION');
     const raw = h.run('BK.call("ping", "{broken")');
     expect(JSON.parse(raw).error.code).toBe('BAD_ARGS');
-    expect(h.call('ping')).toEqual({ ok: true, data: { app: 'ae', version: '26.5x89', bk: '0.1.6' } });
+    expect(h.call('ping')).toEqual({ ok: true, data: { app: 'ae', version: '26.5x89', bk: '0.1.7' } });
   });
 });
 
@@ -126,7 +126,7 @@ describe('After Effects adapter', () => {
     expect(layer.timeRemapEnabled).toBe(true);
     expect(layer._keys.map((k) => [Math.round((k.t - 2) * 1000) / 1000, k.v, k.i])).toEqual([[0, 0, 'linear'], [2.2, 2.2, 'linear'], [8, 4, 'linear'], [10, 6, 'linear']]);
     expect(layer.selected).toBe(true);
-    expect(h.run('__ae.undo')).toEqual(['begin BrandKit: Подпись спикера', 'end']);
+    expect(h.run('__ae.undo')).toEqual(['import TTL_LowerThird_v1.aep', 'begin BrandKit: Подпись спикера', 'end']);
     const bin = h.run('app.project.rootFolder.items.filter(function (f) { return f.name === "Cloud.ru BrandKit"; })[0]');
     expect(bin.items.map((f) => f.comment)).toEqual(['BrandKit TTL_LowerThird@1']);
 
@@ -164,7 +164,7 @@ describe('After Effects adapter', () => {
     const plan = planInsert({ item: ttl, ctx: aeCtx(h), values: initialValues(ttl), fonts: ALL_FONTS, env: { platform: 'win', libraryRoot: LIB } });
     const r = h.call('insertItem', { ...plan.request, variant: { ...plan.request.variant, aeComp: 'CR_TTL_LowerThird_5x5_v1' } });
     expect(r.error).toMatchObject({ code: 'TEMPLATE_BROKEN' });
-    expect(h.run('__ae.undo')).toEqual(['begin BrandKit: Подпись спикера', 'end']);
+    expect(h.run('__ae.undo')).toEqual(['import TTL_LowerThird_v1.aep', 'begin BrandKit: Подпись спикера', 'end']);
   });
 
   it('scales the nearest variant into the frame', () => {
@@ -186,6 +186,8 @@ describe('After Effects adapter', () => {
     expect(r.ok).toBe(true);
     expect(r.data).toMatchObject({ lengthSec: 125, readback: { 'Длительность (служебное, не менять)': 125, 'Визуал': 'Визуал_visual.mp4', 'Минуты': 2 } });
     expect(h.run('app.project.activeItem.layer(1).timeRemapEnabled')).toBe(false);
+    // the file of the slot is imported before the undo group, like every import (see importLayout in ae.jsx)
+    expect(h.run('__ae.undo')).toEqual(['import WEB_Screen_v1.aep', 'import visual.mp4', 'begin BrandKit: Экран вебинара', 'end']);
     expect(h.run('__ae.calls').filter((c) => /^(copy|replace)/.test(c))).toEqual([
       `copy ${LIB}/items/WEB_Screen/qr_telegram.png -> C:/CRBK/work/user/Cloud.ru BrandKit/WEB_Screen@1/qr_telegram.png`,
       'replace qr_telegram.png -> C:/CRBK/work/user/Cloud.ru BrandKit/WEB_Screen@1/qr_telegram.png',
