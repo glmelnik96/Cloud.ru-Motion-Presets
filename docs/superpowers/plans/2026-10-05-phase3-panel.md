@@ -54,5 +54,5 @@
 2. T2 и T3: петли с повтором до длины, переходы по маркеру склейки, стиллы, звуки по `placement` и галочкам D14, компаньоны (фон экрана вебинара, размытие подкаста).
 3. Вкладки «Эффекты» (`.ffx`, «Фирменные кривые»), «Цвета» (D23, `brandcolors`), «Звуки», «Экспорт» (AE — Render Queue с шаблоном Output Module по S10, Premiere — `.epr`).
 4. Превью карточек: `preview.mp4` и `poster.jpg` в конвейере (spec §4.4 шаг 5), сборщик каталога их уже подхватывает.
-5. Установщик `install.cmd` / `install.ps1` / `install.command` (spec §8.1): расширение, библиотека, плоские копии MOGRT в Local Templates, права на папку, карантин на Mac.
+5. Установщик (spec §8.1) — сделан: `tools/installer/` (`npm run installer:build`), macOS-версия проверена тестами в «песочнице» (`tests/installer/`), Windows-версия — заданием `2026-10-05-phase3-installer-handoff.md`.
 6. Проверка на Mac (Safari/WKWebView для будущего UXP, `install.command`, перенос проекта между ОС).
