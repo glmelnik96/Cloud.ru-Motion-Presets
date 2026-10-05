@@ -187,6 +187,7 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
   const hasMusic = companions.some((c) => c.kind === 'music');
   const hasSfx = companions.some((c) => c.kind === 'sfx');
   const shown = s.outcome ? s.outcome.problems : planProblems;
+  const preset = app.isPreset(item);
   return (
     <>
       <div class="form-head">
@@ -196,7 +197,9 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
       </div>
       <div class="hero"><Preview item={item} ui={ui} playing /></div>
 
-      <div class="row">
+      {preset && <p class="hint">Выделите в композиции слои: эффект ляжет на каждый из них, ключи — на текущее время.</p>}
+
+      {!preset && <div class="row">
         <div class="field">
           <label for="f-format">Формат</label>
           <select id="f-format" value={s.manualVariant ?? ''} onChange={(e) => app.setVariant((e.target as HTMLSelectElement).value || null)}>
@@ -211,7 +214,7 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
               onInput={(e) => { const t = (e.target as HTMLInputElement).value; app.setLength(t === '' ? null : Number(t.replace(',', '.'))); }} />
           </div>
         )}
-      </div>
+      </div>}
 
       {app.fields(item).map(({ field, mode }) => <FieldInput key={field.key} app={app} ui={ui} field={field} mode={mode} />)}
 
@@ -239,9 +242,9 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
           </div>
         )}
         <button class="insert" disabled={s.busy || (blocking && !s.outcome)} onClick={() => void app.insert(false)}>
-          {s.busy ? 'Вставка…' : 'Вставить на плейхед'}
+          {s.busy ? (preset ? 'Применение…' : 'Вставка…') : preset ? 'Применить к выделенным' : 'Вставить на плейхед'}
         </button>
-        {s.outcome?.ok && <div class="done">Вставлено{s.host === 'pr' ? ': клип выделен на таймлайне' : ': слой выделен в композиции'}.</div>}
+        {s.outcome?.ok && <div class="done">{s.outcome.note ?? `Вставлено${s.host === 'pr' ? ': клип выделен на таймлайне' : ': слой выделен в композиции'}.`}</div>}
       </div>
     </>
   );

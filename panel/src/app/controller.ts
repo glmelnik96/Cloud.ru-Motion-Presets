@@ -1,5 +1,6 @@
 // State and actions of the panel (spec 7) on top of the core. The UI renders this state and calls these
 // actions; it never talks to CSInterface or Node itself (spec 6: «Интерфейс знает только API ядра»).
+import { isPreset, planPreset, runPreset } from '../core/effects';
 import { formFields } from '../core/fields';
 import type { HostCaller } from '../core/host';
 import { planItem, runInsert, runMedia, type InsertOptions, type InsertPlan } from '../core/insert';
@@ -35,6 +36,8 @@ export interface Outcome {
   ok: boolean;
   problems: Problem[];
   at: number;
+  // What the result line says instead of «Вставлено…» (effects: the layers the preset went on).
+  note?: string;
 }
 
 export interface AppState {
@@ -225,8 +228,14 @@ export class PanelApp {
     return defaultMediaLengthSec(item, this.pick(item)?.variant ?? null, this.state.context?.target ?? null) ?? 0;
   }
 
+  // A brand .ffx for the selected layers (AE): no format, length or fields, the button applies it.
+  isPreset(item: Item): boolean {
+    return isPreset(item);
+  }
+
   // Templates, loops and stills take a length; a transition, a clip or a sound keeps its own.
   lengthEditable(item: Item): boolean {
+    if (isPreset(item)) return false;
     if (item.tier === 'T1') return true;
     const v = this.pick(item)?.variant;
     const kind = v ? mediaKind(item, v) : null;
@@ -283,6 +292,13 @@ export class PanelApp {
       this.set({ plan: null });
       return;
     }
+    if (isPreset(item)) {
+      // The selection is checked at the click: AE does not tell the panel when it changes.
+      const p = planPreset(item, { ...ctx, selection: Math.max(1, ctx.selection ?? 0) }, this.svc.libraryRoot);
+      this.state = { ...this.state, plan: { ok: p.ok, problems: p.problems, pick: null, request: null } };
+      for (const fn of this.listeners) fn(this.state);
+      return;
+    }
     const plan = planItem({
       item,
       ctx,
@@ -306,6 +322,7 @@ export class PanelApp {
       // The playhead and the active comp or sequence of this very moment.
       const ctx = await this.refreshContext();
       if (!ctx) return this.finish({ ok: false, problems: [error('NO_TARGET', messages.noTarget(this.state.host))], at: Date.now() });
+      if (isPreset(item)) return this.finish(await this.applyPreset(item, ctx));
       const cuts = await this.cutsFor(item, ctx);
       const plan = planItem({
         item,
@@ -357,6 +374,18 @@ export class PanelApp {
       this.log('error', 'insert.exception', { error: String(e) });
       return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
     }
+  }
+
+  private async applyPreset(item: Item, ctx: HostContext): Promise<Outcome> {
+    const plan = planPreset(item, ctx, this.svc.libraryRoot);
+    if (!plan.ok || !plan.request) {
+      this.log('warn', 'preset.refused', { id: item.id, problems: plan.problems.map((p) => p.code) });
+      return { ok: false, problems: plan.problems, at: Date.now() };
+    }
+    const out = await runPreset(this.svc.host, plan.request);
+    this.log(out.ok ? 'info' : 'error', out.ok ? 'preset.done' : 'preset.failed', { id: item.id, problems: out.problems.map((p) => p.code), reply: out.reply });
+    const on = out.reply?.layers.filter((l) => l.changed).map((l) => l.name) ?? [];
+    return { ok: out.ok, problems: out.problems, at: Date.now(), note: out.ok ? `Применено к слоям: ${on.join(', ')}.` : undefined };
   }
 
   // Premiere: the edges of the clips around the playhead, for a transition (decision P13).

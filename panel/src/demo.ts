@@ -38,10 +38,11 @@ class DemoHost implements HostCaller {
       version: host === 'ae' ? '26.5x89' : '26.5.2',
       project: { saved: true, path: host === 'ae' ? 'C:/Projects/demo.aep' : 'C:/Projects/demo.prproj' },
       target: { kind: host === 'ae' ? 'comp' : 'sequence', id: '1', name: 'Монтаж', w, h, fps: 25, timeSec: 12.4, durationSec: 120 },
+      selection: host === 'ae' ? 1 : 0,
     };
   }
   async call<T>(fn: string, args?: unknown, _opts?: CallOptions): Promise<HostReply<T>> {
-    await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' ? 500 : 30));
+    await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' || fn === 'applyPreset' ? 500 : 30));
     if (fn === 'getContext') return { ok: true, data: this.ctx as T };
     if (fn === 'diag') return { ok: true, data: { app: 'demo' } as T };
     if (fn === 'insertItem') {
@@ -56,6 +57,7 @@ class DemoHost implements HostCaller {
       const placed = pieces.map((p) => ({ role: p.role, name: p.file, startSec: p.startSec ?? r.startSec, lengthSec: p.lengthSec ?? 1 }));
       return { ok: true, data: { name: r.id, startSec: r.startSec, lengthSec: r.lengthSec ?? 1, placed, imported: placed.length } as T };
     }
+    if (fn === 'applyPreset') return { ok: true, data: { layers: [{ name: 'Имя', layerId: 7, changed: true, firstKeySec: this.ctx.target!.timeSec }], newLayers: [] } as T };
     if (fn === 'getCuts') return { ok: true, data: { cuts: [this.ctx.target!.timeSec - 0.4] } as T };
     return { ok: false, error: { code: 'NO_FUNCTION', message: fn } };
   }

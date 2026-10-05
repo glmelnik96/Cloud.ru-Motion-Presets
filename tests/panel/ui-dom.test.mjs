@@ -138,4 +138,15 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     const music = `[...document.querySelectorAll('.check')].find((e) => e.textContent === 'Музыка')`;
     expect(await evaluate(s, `${music}.querySelector('input').checked`)).toBe(false);
   }, 60000);
+
+  it('an AE effect applies to the selected layers, without format or length, and is not in Premiere', async () => {
+    await go('?host=ae&open=FX_TextRise');
+    await waitFor(s, `!!document.querySelector('.insert')`);
+    expect(await evaluate(s, `[document.getElementById('f-format'), document.getElementById('f-length')].every((e) => e === null)`)).toBe(true);
+    expect(await evaluate(s, `document.querySelector('.insert').textContent`)).toBe('Применить к выделенным');
+    expect(await evaluate(s, page.insert)).toBe(true);
+    expect(await waitFor(s, page.outcome)).toBe('done: Применено к слоям: Имя.');
+    await go('?host=pr');
+    expect(await evaluate(s, `[...document.querySelectorAll('.card')].some((c) => c.textContent.includes('Подъём текста по словам'))`)).toBe(false);
+  }, 60000);
 });
