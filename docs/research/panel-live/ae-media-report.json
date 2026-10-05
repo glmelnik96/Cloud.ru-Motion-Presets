@@ -1,10 +1,10 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-05T16:13:03.561Z",
-  "finishedAt": "2026-10-05T16:13:08.633Z",
+  "startedAt": "2026-10-05T20:45:13.016Z",
+  "finishedAt": "2026-10-05T20:45:18.490Z",
   "summary": {
-    "checks": 142,
-    "passed": 142,
+    "checks": 189,
+    "passed": 189,
     "failed": 0
   },
   "failed": [],
@@ -30,7 +30,7 @@
         "data": {
           "app": "ae",
           "version": "26.5x89",
-          "bk": "0.1.8"
+          "bk": "0.1.11"
         }
       }
     },
@@ -2687,6 +2687,624 @@
     },
     {
       "name": "effects: save: scratch project saved",
+      "pass": true,
+      "required": false,
+      "detail": ""
+    },
+    {
+      "name": "colors: setup: scratch project created and saved in the work folder",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "comps": 1,
+        "path": "C:\\CRBK\\work\\panel-live\\ae\\colors_live.aep"
+      }
+    },
+    {
+      "name": "colors: layers: shape, keyed, expression, text and solid layers in comp 1",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors fill: select: comp 1: selected BK Shape",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors fill: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors fill: read before: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors fill: read: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors fill: properties set {\"BK Shape\":2}",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "BK Shape",
+              "set": 2,
+              "keyed": 0,
+              "expressions": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors fill: warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors fill: both rectangles green, alpha kept, strokes untouched",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "fills": [
+          [
+            0.149,
+            0.8157,
+            0.4863,
+            1
+          ],
+          [
+            0.149,
+            0.8157,
+            0.4863,
+            1
+          ]
+        ],
+        "strokes": [
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ]
+        ],
+        "fillKeys": 0,
+        "text": null,
+        "solid": null
+      }
+    },
+    {
+      "name": "colors stroke: select: comp 1: selected BK Shape, BK Text",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors stroke: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors stroke: read before: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors stroke: read: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors stroke: properties set {\"BK Shape\":2}",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [
+          {
+            "code": "COLOR_PARTIAL",
+            "severity": "warning",
+            "message": "У слоёв BK Text нет обводки — они не изменились.",
+            "detail": {
+              "layers": [
+                {
+                  "name": "BK Text",
+                  "set": 0,
+                  "keyed": 0,
+                  "expressions": []
+                },
+                {
+                  "name": "BK Shape",
+                  "set": 2,
+                  "keyed": 0,
+                  "expressions": []
+                }
+              ]
+            }
+          }
+        ],
+        "reply": {
+          "layers": [
+            {
+              "name": "BK Text",
+              "set": 0,
+              "keyed": 0,
+              "expressions": []
+            },
+            {
+              "name": "BK Shape",
+              "set": 2,
+              "keyed": 0,
+              "expressions": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors stroke: warnings COLOR_PARTIAL",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "code": "COLOR_PARTIAL",
+          "severity": "warning",
+          "message": "У слоёв BK Text нет обводки — они не изменились.",
+          "detail": {
+            "layers": [
+              {
+                "name": "BK Text",
+                "set": 0,
+                "keyed": 0,
+                "expressions": []
+              },
+              {
+                "name": "BK Shape",
+                "set": 2,
+                "keyed": 0,
+                "expressions": []
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "colors stroke: both strokes #222222",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "fills": [
+          [
+            0.149,
+            0.8157,
+            0.4863,
+            1
+          ],
+          [
+            0.149,
+            0.8157,
+            0.4863,
+            1
+          ]
+        ],
+        "strokes": [
+          [
+            0.1333,
+            0.1333,
+            0.1333,
+            1
+          ],
+          [
+            0.1333,
+            0.1333,
+            0.1333,
+            1
+          ]
+        ],
+        "fillKeys": 0,
+        "text": null,
+        "solid": null
+      }
+    },
+    {
+      "name": "colors text: select: comp 1: selected BK Text",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors text: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors text: read before: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors text: read: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors text: properties set {\"BK Text\":1}",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "BK Text",
+              "set": 1,
+              "keyed": 0,
+              "expressions": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors text: warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors text: the text is #CFF500",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "fills": [],
+        "strokes": [],
+        "fillKeys": 0,
+        "text": [
+          0.8118,
+          0.9608,
+          0
+        ],
+        "solid": null
+      }
+    },
+    {
+      "name": "colors keyed: select: comp 1: selected BK Keyed",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors keyed: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors keyed: read before: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors keyed: read: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors keyed: properties set {\"BK Keyed\":1}",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "BK Keyed",
+              "set": 1,
+              "keyed": 1,
+              "expressions": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors keyed: warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors keyed: a third key at 5 s, the colour there is #A068FF",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "fills": [
+          [
+            0.6275,
+            0.4078,
+            1,
+            1
+          ]
+        ],
+        "strokes": [
+          [
+            0,
+            0,
+            1,
+            1
+          ]
+        ],
+        "fillKeys": 3,
+        "text": null,
+        "solid": null
+      }
+    },
+    {
+      "name": "colors expression: select: comp 1: selected BK Expr",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors expression: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors expression: read before: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors expression: read: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors expression: refused (COLOR_NO_TARGET), the expression named",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "code": "COLOR_NO_TARGET",
+          "severity": "error",
+          "message": "У выделенных слоёв нет заливки (шейпа или солида): перекрашивать нечего.",
+          "detail": {
+            "layers": [
+              {
+                "name": "BK Expr",
+                "set": 0,
+                "keyed": 0,
+                "expressions": [
+                  "Group 1 / Contents / Fill 1 / Color"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "code": "COLOR_EXPRESSION",
+          "severity": "warning",
+          "message": "Цвет задан выражением, не изменён: BK Expr: Group 1 / Contents / Fill 1 / Color."
+        }
+      ]
+    },
+    {
+      "name": "colors expression: nothing changed",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "before": {
+          "fills": [
+            [
+              1,
+              0,
+              1,
+              1
+            ]
+          ],
+          "strokes": [
+            [
+              0,
+              0,
+              1,
+              1
+            ]
+          ],
+          "fillKeys": 0,
+          "text": null,
+          "solid": null
+        },
+        "after": {
+          "fills": [
+            [
+              1,
+              0,
+              1,
+              1
+            ]
+          ],
+          "strokes": [
+            [
+              0,
+              0,
+              1,
+              1
+            ]
+          ],
+          "fillKeys": 0,
+          "text": null,
+          "solid": null
+        }
+      }
+    },
+    {
+      "name": "colors solid: select: comp 1: selected BK Solid",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors solid: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "colors solid: read before: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors solid: read: colours of comp 1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors solid: properties set {\"BK Solid\":1}",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [
+          {
+            "code": "COLOR_SOLID",
+            "severity": "warning",
+            "message": "Цвет солида меняется в его настройках: так же перекрасятся все слои с этим солидом.",
+            "detail": {
+              "layers": [
+                {
+                  "name": "BK Solid",
+                  "set": 1,
+                  "keyed": 0,
+                  "expressions": [],
+                  "solid": true
+                }
+              ]
+            }
+          }
+        ],
+        "reply": {
+          "layers": [
+            {
+              "name": "BK Solid",
+              "set": 1,
+              "keyed": 0,
+              "expressions": [],
+              "solid": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors solid: warnings COLOR_SOLID",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "code": "COLOR_SOLID",
+          "severity": "warning",
+          "message": "Цвет солида меняется в его настройках: так же перекрасятся все слои с этим солидом.",
+          "detail": {
+            "layers": [
+              {
+                "name": "BK Solid",
+                "set": 1,
+                "keyed": 0,
+                "expressions": [],
+                "solid": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "colors solid: the solid is #F2F2F2",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "fills": [],
+        "strokes": [],
+        "fillKeys": 0,
+        "text": null,
+        "solid": [
+          0.949,
+          0.949,
+          0.949
+        ]
+      }
+    },
+    {
+      "name": "colors none: select: comp 1: selected nothing",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "colors none: refused before the host",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "code": "NO_SELECTION",
+          "severity": "error",
+          "message": "Выделите в композиции слои, которые перекрасить."
+        }
+      ]
+    },
+    {
+      "name": "colors none: the adapter refuses too",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": false,
+        "error": {
+          "code": "NO_SELECTION",
+          "message": "no layer selected",
+          "detail": null
+        }
+      }
+    },
+    {
+      "name": "colors: save: scratch project saved",
       "pass": true,
       "required": false,
       "detail": ""
