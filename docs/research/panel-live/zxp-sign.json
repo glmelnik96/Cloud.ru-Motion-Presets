@@ -1,0 +1,26 @@
+{
+  "when": "2026-10-05",
+  "panel": "0.1.0",
+  "okLinePresent": true,
+  "okLine": "OK C:/CRBK/work/panel/CloudRuBrandKit-0.1.0.zxp",
+  "sign": "Signed successfully",
+  "verify": "Signature verified successfully",
+  "zxp": {
+    "path": "C:/CRBK/work/panel/CloudRuBrandKit-0.1.0.zxp",
+    "bytes": 41972,
+    "entries": 6,
+    "signed": true,
+    "hasDebugFile": false,
+    "manifest": "ru.cloud.brandkit 0.1.0"
+  },
+  "certificate": {
+    "cn": "Cloud.ru BrandKit Trial",
+    "dn": "/C=RU/ST=Moscow/O=Cloud.ru/CN=Cloud.ru BrandKit Trial",
+    "osTrusted": false,
+    "revoked": false,
+    "validFrom": "2026-10-05",
+    "validUntil": "2036-10-02"
+  },
+  "timestamp": "Valid and within certificate validity dates at time of signing",
+  "verifiedAgain": "2026-10-05, ZXPSignCmd -verify -certinfo, same certificate block, Signature verified successfully"
+}

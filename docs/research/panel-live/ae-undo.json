@@ -1,0 +1,29 @@
+{
+  "host": "ae",
+  "hostVersion": "26.5x89",
+  "when": "2026-10-05",
+  "project": "C:/CRBK/work/panel-live/ae/panel_ui.aep",
+  "comp": "UI_check",
+  "oneUndoRemovesTheInsert": false,
+  "warnings": [
+    "After Effects warning: Undo group mismatch, will attempt to fix."
+  ],
+  "history": {
+    "read": false,
+    "stepCount": null,
+    "stepNames": null,
+    "why": "After Effects has no scripting API for Edit → History. findMenuCommandId(\"History\") is 2995; executeCommand(2995) did not show a History panel in the main window. app.activate() did not bring After Effects to the foreground, so the Edit menu (the Undo item shows the next step's name) was not opened. The names and the count of steps were not seen."
+  },
+  "after": {
+    "layers": [
+      "CR_TTL_LowerThird_16x9_v1",
+      "CR_TTL_LowerThird_16x9_v1"
+    ],
+    "templateBin": "Cloud.ru BrandKit",
+    "templates": [
+      "TTL_LowerThird_v1.aep"
+    ],
+    "dirty": true
+  },
+  "whatHappened": "ui-check inserted one layer and then saved the project, which clears the undo stack. Ctrl+Z sent to the After Effects window after that save did not remove the layer; the panel still showed the typed name and the done line. A second insert from the same card added another CR_TTL_LowerThird_16x9_v1 and left the project unsaved. Around that second insert After Effects showed the undo-group warning (OK focused). After the warning was dismissed, both layers and the template project item were still there. One undo did not remove an insert, and there was a warning. Expected: the layer is gone, the template folder may stay or go with it, and there is no warning."
+}
