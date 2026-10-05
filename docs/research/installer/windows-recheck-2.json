@@ -1,0 +1,78 @@
+{
+  "when": "2026-10-05",
+  "os": "Windows",
+  "branch": "claude/determined-cannon-eum3ei",
+  "panel": "0.1.2",
+  "library": "2026.10.05",
+  "hosts": { "afterEffects": "26.5", "premiere": "26.5.2" },
+  "steps": [
+    {
+      "name": "git pull",
+      "exit": 0,
+      "output": "Fast-forward f30be82..8aa27c2. HEAD docs(panel): recheck task names the 0.1.1 report correctly. Includes 77a3f57 fix(panel): escape JSON by character code (0.1.2)."
+    },
+    {
+      "name": "npm ci",
+      "exit": 0,
+      "output": "added 45 packages, audited 46 packages, found 0 vulnerabilities"
+    },
+    {
+      "name": "npm test",
+      "exit": 0,
+      "output": "Test Files 78 passed | 1 skipped (79). Tests 585 passed | 7 skipped (592). The install.command suite stays skipped on Windows."
+    },
+    {
+      "name": "package-zxp",
+      "exit": 0,
+      "output": "Signed successfully. Signature verified successfully. zxp: 42215 bytes, 6 entries, signed true, .debug false, manifest ru.cloud.brandkit 0.1.2. OK C:/CRBK/work/panel/CloudRuBrandKit-0.1.2.zxp"
+    },
+    {
+      "name": "build.mjs",
+      "exit": 0,
+      "output": "OK C:\\CRBK\\work\\release\\CloudRuBrandKit-0.1.2-2026.10.05.zip: 10 MOGRT, signed, 1.0 MB"
+    },
+    {
+      "name": "install.cmd",
+      "exit": 0,
+      "output": "Cloud.ru BrandKit: панель 0.1.2, библиотека 2026.10.05\nПанель: C:\\Users\\Глеб\\AppData\\Roaming\\Adobe\\CEP\\extensions\\ru.cloud.brandkit\nБиблиотека: C:\\ProgramData\\CloudRuBrandKit\\library\nШаблоны MOGRT: 10 в C:\\Users\\Глеб\\AppData\\Roaming\\Adobe\\Common\\Motion Graphics Templates, убрано прежних: 0\nГотово. Запустите After Effects или Premiere: Window > Extensions > Cloud.ru BrandKit."
+    }
+  ],
+  "icacls": {
+    "path": "C:\\ProgramData\\CloudRuBrandKit",
+    "exit": 0,
+    "usersModify": true,
+    "output": "C:\\ProgramData\\CloudRuBrandKit BUILTIN\\Пользователи:(OI)(CI)(M)\n                               NT AUTHORITY\\СИСТЕМА:(I)(OI)(CI)(F)\n                               BUILTIN\\Администраторы:(I)(OI)(CI)(F)\n                               СОЗДАТЕЛЬ-ВЛАДЕЛЕЦ:(I)(OI)(CI)(IO)(F)\n                               BUILTIN\\Пользователи:(I)(OI)(CI)(RX)\n                               BUILTIN\\Пользователи:(I)(CI)(WD,AD,WEA,WA)\n\nУспешно обработано 1 файлов; не удалось обработать 0 файлов"
+  },
+  "afterEffects": {
+    "project": "C:/CRBK/work/panel-live/ae/panel_ui.aep",
+    "activeComp": "UI_check",
+    "jsonOverride": false,
+    "chip": "Авто 1920×1080 · 25p",
+    "status": "Шрифты SB Sans на местеAE 26.5 · панель 0.1.2 · библиотека 2026.10.05",
+    "insert": {
+      "card": "Подпись спикера",
+      "name": "Анна Проверкина",
+      "style": "Подкаст",
+      "outcome": "done: Вставлено: слой выделен в композиции.",
+      "layersAfter": 4,
+      "topLayer": "CR_TTL_LowerThird_16x9_v1"
+    }
+  },
+  "premiere": {
+    "project": "C:/CRBK/work/panel-live/pr/panel_live.prproj",
+    "sequence": "UI_check",
+    "jsonOverride": false,
+    "chip": "Авто 1920×1080 · 25p",
+    "status": "Шрифты SB Sans на местеPr 26.5.2 · панель 0.1.2 · библиотека 2026.10.05",
+    "insert": {
+      "card": "Подпись спикера",
+      "name": "Анна Проверкина",
+      "style": "Подкаст",
+      "outcome": "done: Вставлено: клип выделен на таймлайне.",
+      "clip": "TTL_LowerThird_16x9_v1 on video track 4"
+    }
+  },
+  "bugs": [
+    "The status line still concatenates the font sentence directly onto the host version: «Шрифты SB Sans на местеAE 26.5» and «Шрифты SB Sans на местеPr 26.5.2»."
+  ]
+}
