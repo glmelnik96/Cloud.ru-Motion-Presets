@@ -34,6 +34,8 @@ export interface InsertRequest {
   libraryRoot: string;
   bin: string;
   undoLabel: string;
+  // Premiere: how long to look for the clip after importMGT (3000 ms when absent; S5 saw no clip later).
+  waitMs?: number;
 }
 
 export interface InsertEnv {
