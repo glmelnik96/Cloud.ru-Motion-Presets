@@ -6,7 +6,6 @@
 //   node tools/panel/live.mjs --host pr [--no-frames]
 // Report: docs/research/panel-live/<host>-report.json; frames and the scratch project in <work>/panel-live.
 import { spawnSync } from 'node:child_process';
-import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -17,7 +16,8 @@ if (host !== 'ae' && host !== 'pr') {
   console.error('usage: node tools/panel/live.mjs --host ae|pr [--no-frames]');
   process.exit(2);
 }
-const vitest = createRequire(import.meta.url).resolve('vitest/vitest.mjs');
+// The CLI file itself: vitest's package exports do not list it, so require.resolve fails on Node 24.
+const vitest = path.join(REPO, 'node_modules', 'vitest', 'vitest.mjs');
 const r = spawnSync(process.execPath, [vitest, 'run', '--config', 'vitest.live.config.mjs', '--reporter', 'verbose'], {
   cwd: REPO,
   stdio: 'inherit',

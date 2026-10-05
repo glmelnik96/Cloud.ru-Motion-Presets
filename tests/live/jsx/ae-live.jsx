@@ -100,15 +100,6 @@ function lvCount() {
   });
 }
 
-// Edit > Undo by its command id (16), so the Russian menu name does not matter. Information only: the id
-// is not in the scripting guide.
-function lvUndo() {
-  check('Edit > Undo once (executeCommand 16)', function () {
-    app.executeCommand(16);
-    return true;
-  }, false);
-}
-
 function lvSave() {
   check('scratch project saved', function () {
     bkQuiet(function () {
@@ -128,8 +119,6 @@ if (PARAMS.op === 'setup') {
   lvLayer();
 } else if (PARAMS.op === 'count') {
   lvCount();
-} else if (PARAMS.op === 'undo') {
-  lvUndo();
 } else if (PARAMS.op === 'save') {
   lvSave();
 }

@@ -152,12 +152,16 @@ export async function runLive(o) {
     const after = await o.count({ key: 'undo', id: ids.undo, hostRun, R });
     R.check('target: an insert planned for another comp or sequence is refused, nothing added', wrong && !wrong.ok && wrong.problems[0]?.code === 'NO_TARGET' && after === before, { problems: wrong?.problems, before, after });
 
-    // ---- One undo step per click ----
-    const ins = await insertAt('undo', 2, first, initialValues(first));
-    const mid = await o.count({ key: 'undo', id: ids.undo, hostRun, R });
-    R.fromHost('undo', await hostRun('undo', {}));
-    const end = await o.count({ key: 'undo', id: ids.undo, hostRun, R });
-    R.check('undo: one undo step removes the insert with its field writes', ins.out?.ok && mid === before + 1 && end === before, { before, mid, end }, false);
+    // ---- One undo step per click: Premiere only. In AE a scripted Edit > Undo (executeCommand 16) from inside
+    // a script call undid nothing and raised «Undo group mismatch» (live run 2026-10-05); there Ctrl+Z after
+    // a panel insert is checked by hand (handoff, part B). ----
+    if (host === 'pr') {
+      const ins = await insertAt('undo', 2, first, initialValues(first));
+      const mid = await o.count({ key: 'undo', id: ids.undo, hostRun, R });
+      R.fromHost('undo', await hostRun('undo', {}));
+      const end = await o.count({ key: 'undo', id: ids.undo, hostRun, R });
+      R.check('undo: one undo step removes the insert with its field writes', ins.out?.ok && mid === before + 1 && end === before, { before, mid, end }, false);
+    }
 
     // ---- Premiere: tracks over the placed length, a new track when all are taken ----
     if (host === 'pr') {

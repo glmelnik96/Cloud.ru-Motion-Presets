@@ -136,9 +136,9 @@ describe('live run, dry', () => {
         fonts: allFonts, frames: false, framesDir: 'C:/CRBK/work/panel-live/frames', ssimMin: 0.98, compare: async () => 1, R,
         ...hooks({ wait: noWait }),
       });
-      // the fakes have no undo: only that information check may fail
+      // the fakes have no undo: only that information check may fail, and AE does not run it
       expect(R.failed()).toEqual([]);
-      expect(R.checks.filter((c) => !c.pass).map((c) => c.name)).toEqual(['undo: one undo step removes the insert with its field writes']);
+      expect(R.checks.filter((c) => !c.pass).map((c) => c.name)).toEqual(host === 'pr' ? ['undo: one undo step removes the insert with its field writes'] : []);
       expect(R.checks.length).toBeGreaterThan(80);
       expect(R.toJSON().summary.failed).toBe(0);
     });
