@@ -20,6 +20,8 @@ import { workPath } from '../../tools/lib/work.mjs';
 import { buildMediaFixtures } from '../../tools/panel/media-fixtures.mjs';
 import { composeProbe, REPO } from '../../tools/spike/runner.mjs';
 import { presetSources, stagePreset } from '../../tools/pr/env.mjs';
+import { waitForStableFiles } from '../../tools/golden/png.mjs';
+import { pixelAt } from '../../tools/png/read-png.mjs';
 import { runMediaLive } from './media.mjs';
 import { Report } from './runner.mjs';
 
@@ -61,17 +63,35 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
       writeFileSync(bundleFile, composeHost(), 'ascii');
       const page = await getPageTarget(hostPort(HOST));
       const evalScript = (script) => cdpEval(page.webSocketDebuggerUrl, buildPayload(script, ''), { timeoutMs: 180000 });
-      const bridge = new Bridge({ evalScript, loadHost: async () => { await evalScript(evalFileScript(bundleFile)); }, timeoutMs: 120000 });
+      const bundleVersion = JSON.parse(readFileSync(path.join(REPO, 'panel', 'package.json'), 'utf8')).version;
+      const bridge = new Bridge({ evalScript, bundleVersion, loadHost: async () => { await evalScript(evalFileScript(bundleFile)); }, timeoutMs: 120000 });
       await evalScript('BK = undefined; "cold"');
 
-      const base = { workDir: workPath() };
+      const framesDir = path.posix.join(outDir, 'media-frames');
+      mkdirSync(framesDir, { recursive: true });
+      const base = { workDir: workPath(), framesDir, frameWaitMs: 8000 };
       if (HOST === 'ae') base.project = path.posix.join(outDir, 'media_live.aep');
       if (HOST === 'pr') {
         base.project = path.posix.join(outDir, 'media_live.prproj');
         base.seqPreset = stagePreset(presetSources().seq1080p25, 'HD1080p25.sqpreset');
+        base.pngPreset = stagePreset(presetSources().pngStill, 'PNGStill.epr');
       }
       const libs = HOST === 'ae' ? ['spikes/lib/ae-project.jsx', 'tests/live/jsx/ae-live.jsx'] : ['spikes/lib/pr-helpers.jsx', 'tests/live/jsx/pr-live.jsx'];
       const hostRun = (op, params) => run(HOST, composeProbe(libs, { ...base, ...params, op }), { timeoutMs: 600000 });
+      // A frame rendered by the host (AE saveFrameToPng, Premiere exportFramePNG), read in its top-left corner.
+      const backdropPixel = async ({ id, sec }) => {
+        let file = path.posix.join(framesDir, `backdrop-${HOST}.png`);
+        if (HOST === 'ae') {
+          await hostRun('frames', { frames: [{ compId: id, t: sec, file }] });
+        } else {
+          const r = await hostRun('frames', { id, frames: [{ key: 'backdrop', frame: Math.round(sec * 25) }] });
+          file = r?.data?.frames?.backdrop ?? null;
+        }
+        if (!file) return null;
+        await waitForStableFiles([file], { timeoutMs: 120000 });
+        const p = pixelAt(file, 8, 8);
+        return [p.r, p.g, p.b, p.a];
+      };
 
       await runMediaLive({
         host: HOST,
@@ -83,6 +103,8 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
         bkVersion: JSON.parse(readFileSync(path.join(REPO, 'panel', 'package.json'), 'utf8')).version,
         prepare: (p) => prepareFiles(prepFs, p, (raw) => new Uint8Array(deflateSync(raw))),
         fileExists: (p) => existsSync(p),
+        scratchDir: outDir,
+        backdropPixel,
         R,
       });
     } catch (e) {

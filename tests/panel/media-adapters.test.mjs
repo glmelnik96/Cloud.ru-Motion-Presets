@@ -229,6 +229,36 @@ describe('Premiere: media', () => {
   });
 });
 
+describe('a bundle of another panel in the shared engine', () => {
+  // Premiere 2026-10-05: an open 0.1.4 panel reloaded its bundle over 0.1.5, and insertMedia, getCuts and the
+  // range of getContext were gone (no host function insertMedia). With bundleVersion the bridge loads its own
+  // bundle again and repeats the call; nothing ran before, so an insert is not doubled.
+  const VERSION = JSON.parse(readFileSync(new URL('../../panel/package.json', import.meta.url), 'utf8')).version;
+  const OLD = BUNDLE.replace(`BK.version = '${VERSION}';`, "BK.version = '0.1.4';").replaceAll('A.insertMedia = function', 'A.insertMediaGone = function');
+
+  it('reloads its bundle and runs an insert once', async () => {
+    const h = pr();
+    let loads = 0;
+    const bridge = new Bridge({ evalScript: async (s) => String(h.run(s)), bundleVersion: VERSION, loadHost: async () => { loads += 1; h.run(BUNDLE); }, sleep: async () => undefined });
+    const p = plan(h, exampleItem('SFX_WhooshIn'));
+    prepared(h, p.media.prepare, '__pr.addMedia');
+    h.run(OLD);
+    expect(h.call('insertMedia', p.media).error.code).toBe('NO_FUNCTION');
+    const out = await runMedia(bridge, 'pr', p.media);
+    expect(out).toMatchObject({ ok: true, problems: [] });
+    expect(loads).toBe(1);
+    expect(prClips(h, true)).toEqual([[2, 'SFX_WhooshIn_wav_v1.wav', 40, 0.8]]);
+  });
+
+  it('gives up after its retries when another bundle wins every time', async () => {
+    const h = pr();
+    h.run(OLD);
+    const bridge = new Bridge({ evalScript: async (s) => String(h.run(s)), bundleVersion: VERSION, loadHost: async () => { h.run(OLD); }, sleep: async () => undefined });
+    const r = await bridge.call('ping', null, { mutating: true });
+    expect(r.error).toEqual({ code: 'HOST_NOT_READY', message: 'в хосте другая версия пакета BrandKit: 0.1.4' });
+  });
+});
+
 describe('Premiere: companions of a template', () => {
   function withMogrt(it) {
     const h = pr();

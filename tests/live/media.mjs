@@ -43,8 +43,12 @@ export async function runMediaLive(o) {
     if (!R.check(`${c.key}: ${c.id} is in the catalog`, Boolean(item), c.id)) continue;
     if (c.range) R.fromHost(`${c.key}: range`, await hostRun('range', { id, endSec: c.range }));
     if (c.edges && host === 'pr') {
+      // A copy in the scratch folder, not the library file: Premiere keeps an imported file open, and the
+      // library is rebuilt in place on the next run (EBUSY, 2026-10-05).
       const still = byId.get('BG_DotGrid').variants.find((v) => v.file?.endsWith('.png'));
-      R.fromHost(`${c.key}: cuts on V1`, await hostRun('cuts', { id, edges: c.edges, file: libraryFile(o.libraryRoot, still.file) }));
+      const cutFile = joinPath(o.scratchDir, 'cut-clip.png');
+      await prepare({ copies: [{ from: libraryFile(o.libraryRoot, still.file), to: cutFile }], solids: [] });
+      R.fromHost(`${c.key}: cuts on V1`, await hostRun('cuts', { id, edges: c.edges, file: cutFile }));
     }
     R.fromHost(`${c.key}: activate`, await hostRun('activate', { id, time: c.time }));
     const ctx = (await bridge.call('getContext')).data;
@@ -87,7 +91,7 @@ export async function runMediaLive(o) {
         R.check(`${c.key}: ${p.role} plays the copy in «${BIN_NAME}» next to the project`, hit.file.toLowerCase().startsWith(joinPath(projectDir, BIN_NAME).toLowerCase() + '/'), hit.file);
       }
     }
-    await checkCase(c, { host, plan, out, rows, t, R });
+    await checkCase({ ...c, targetId: id }, { host, plan, out, rows, t, R, o });
     const first = plan.media ? (plan.media.layout.video[0] ?? plan.media.layout.audio[0]) : null;
     if (first) {
       const probe = await bridge.call('probeInsert', { targetId: ctx.target.id, startSec: out.reply.placed[0].startSec, aeComp: null, file: first.file });
@@ -98,7 +102,7 @@ export async function runMediaLive(o) {
 }
 
 // What each case adds to the generic checks.
-async function checkCase(c, { host, plan, out, rows, t, R }) {
+async function checkCase(c, { host, plan, out, rows, t, R, o }) {
   const e = c.expect;
   if (e.lengthSec !== undefined) R.check(`${c.key}: length ${e.lengthSec} s`, near(out.reply.lengthSec, e.lengthSec), out.reply);
   if (e.backdrop !== undefined) {
@@ -113,6 +117,12 @@ async function checkCase(c, { host, plan, out, rows, t, R }) {
       const v = out.reply.placed.find((p) => p.role === 'loop');
       R.check(`${c.key}: the backdrop still is on the track right under the loop`, b.track < v.track, out.reply.placed);
     }
+  }
+  if (e.backdrop && o.backdropPixel) {
+    // The colour of the backdrop as the host renders it, not as a screenshot shows it: a corner of the frame
+    // at 10 s, where only the backdrop is (the box runs through the middle).
+    const px = await o.backdropPixel({ id: c.targetId, sec: 10 });
+    R.check(`${c.key}: the rendered backdrop is #222222 (34, 34, 34 ± 2) where nothing covers it`, px && px.slice(0, 3).every((v) => Math.abs(v - 34) <= 2), px);
   }
   if (e.loops !== undefined) {
     const loop = out.reply.placed.find((p) => p.role === 'loop');

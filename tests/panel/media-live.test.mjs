@@ -113,15 +113,18 @@ describe('live media checks, dry', () => {
       const d = dry(host);
       const R = new Report(host);
       await runMediaLive({
-        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.5', R,
+        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.6', R,
         prepare: async (prep) => {
           for (const c of prep.copies) d.add(c.to);
           for (const s of prep.solids) d.add(s.path);
           return { copied: prep.copies.map((c) => c.to), reused: [], written: prep.solids.map((s) => s.path) };
         },
         fileExists: (p) => d.files.has(p),
+        scratchDir: `C:/CRBK/work/panel-live/${host}`,
+        backdropPixel: async () => [34, 34, 34, 255],
       });
       expect(R.failed()).toEqual([]);
+      expect(R.checks.map((c) => c.name)).toContain('loop: the rendered backdrop is #222222 (34, 34, 34 ± 2) where nothing covers it');
       expect(R.checks.length).toBeGreaterThan(40);
     });
   }

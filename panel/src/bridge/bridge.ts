@@ -3,6 +3,10 @@
 // - Calls run one after another: ExtendScript is single-threaded and a second evalScript only queues up.
 // - Every call has a timeout. A read call that meets a cold host (the host script is not loaded yet) loads
 //   it and tries again; a call that changes the project is never repeated (the core reads the state instead).
+// - With bundleVersion every call first checks BK.version. CEP panels share the ExtendScript engine of the
+//   host, and another BrandKit panel of another version reloads its own bundle over ours (Premiere,
+//   2026-10-05: an open 0.1.4 panel left 0.1.5 without insertMedia). Then nothing runs, the bridge loads its
+//   bundle and repeats the call — a call that changes the project too, as it never started.
 import type { CallOptions, HostCaller, HostReply } from '../core/host';
 
 export type EvalScript = (script: string) => Promise<string>;
@@ -20,6 +24,8 @@ export interface BridgeOptions {
   evalScript: EvalScript;
   // Loads panel/host into the host (BK.call); called on a cold start before a read call is tried again.
   loadHost?: () => Promise<void>;
+  // BK.version the panel ships (panel/package.json); a call meets only its own bundle.
+  bundleVersion?: string;
   timeoutMs?: number;
   coldRetries?: number;
   retryDelayMs?: number;
@@ -38,17 +44,25 @@ export function asciiLiteral(s: string): string {
   return asciiEscape(JSON.stringify(s));
 }
 
-export function hostScript(fn: string, args: unknown): string {
-  return `BK.call(${asciiLiteral(fn)},${asciiLiteral(JSON.stringify(args ?? null))})`;
+export const STALE_MARK = 'BK_STALE';
+
+export function hostScript(fn: string, args: unknown, bundleVersion?: string): string {
+  const call = `BK.call(${asciiLiteral(fn)},${asciiLiteral(JSON.stringify(args ?? null))})`;
+  if (!bundleVersion) return call;
+  // ES3: the call runs only when our bundle is the one loaded; else the reply names what is there.
+  const has = `typeof BK!=='undefined'&&BK&&typeof BK.call==='function'`;
+  return `((${has}&&BK.version===${asciiLiteral(bundleVersion)})?${call}:'${STALE_MARK} '+((${has})?String(BK.version):'none'))`;
 }
 
 export const COLD = Symbol('cold');
+export const STALE = Symbol('stale');
 
 // What evalScript gave back: a reply, or COLD when the script did not run (no BK in the host yet).
-export function parseReply(raw: unknown): HostReply | typeof COLD {
+export function parseReply(raw: unknown): HostReply | typeof COLD | typeof STALE {
   if (raw === undefined || raw === null) return COLD;
   const s = String(raw);
   if (s === '' || s === 'undefined' || s === 'null' || s.indexOf('EvalScript error') === 0) return COLD;
+  if (s.indexOf(STALE_MARK + ' ') === 0) return STALE;
   let v: unknown;
   try {
     v = JSON.parse(s);
@@ -116,7 +130,7 @@ export class Bridge implements HostCaller {
 
   private async exec<T>(fn: string, args: unknown, opts: CallOptions): Promise<HostReply<T>> {
     const mutating = opts.mutating === true;
-    const script = hostScript(fn, args);
+    const script = hostScript(fn, args, this.opts.bundleVersion);
     for (let attempt = 0; ; attempt += 1) {
       const t0 = this.now();
       const raw = await this.evalWithTimeout(script, opts.timeoutMs ?? this.timeoutMs);
@@ -127,6 +141,15 @@ export class Bridge implements HostCaller {
         return reply;
       }
       const r = parseReply(raw);
+      if (r === STALE) {
+        // Nothing ran: another bundle (or none) is in the engine. Load ours and repeat, mutating or not.
+        this.opts.onCall?.({ fn, mutating, attempt, ms, ok: false, code: 'HOST_STALE' });
+        if (!this.opts.loadHost || attempt >= this.coldRetries) {
+          return { ok: false, error: { code: 'HOST_NOT_READY', message: `в хосте другая версия пакета BrandKit: ${String(raw).slice(STALE_MARK.length + 1, 40)}` } };
+        }
+        await this.opts.loadHost();
+        continue;
+      }
       if (r === COLD) {
         this.opts.onCall?.({ fn, mutating, attempt, ms, ok: false, code: 'HOST_NOT_READY' });
         if (mutating || attempt >= this.coldRetries) {

@@ -44,7 +44,7 @@ function copyText(text: string): void {
 
 async function start(el: HTMLElement): Promise<void> {
   applyTheme();
-  const rt = cepRuntime();
+  const rt = cepRuntime(PLUGIN_VERSION);
   if (!rt) {
     if (import.meta.env.DEV) {
       const { startDemo } = await import('./demo');

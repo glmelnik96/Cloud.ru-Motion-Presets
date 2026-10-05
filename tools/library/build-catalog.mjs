@@ -142,7 +142,7 @@ export async function buildCatalog({ src, buildDir, outDir, libraryVersion = cal
       }
       const bytes = statSync(found.src).size;
       stored.push({ role: f.role, key: f.key, part: f.part, frames: f.frames, file: found.to, sha256: await sha256File(found.src), bytes });
-      copies.push({ src: found.src, dst: path.join(outDir, found.to) });
+      copies.push({ src: found.src, dst: path.join(outDir, found.to), sha256: stored[stored.length - 1].sha256, bytes });
       if (found.to.endsWith('.mogrt')) {
         const c = checkMogrt(readMogrt(found.src), mogrtExpectations(item));
         if (!c.ok) problems.push(`${item.id}: ${path.basename(found.to)}: ${c.problems.join('; ')}`);
@@ -166,6 +166,9 @@ export async function buildCatalog({ src, buildDir, outDir, libraryVersion = cal
   }
   if (problems.length || !write) return { ok: !problems.length, problems, catalog, copies };
   for (const c of copies) {
+    // A file already there with the same content stays: a host may hold it open (Premiere kept a library
+    // PNG it had imported, and the next build failed with EBUSY, 2026-10-05).
+    if (existsSync(c.dst) && statSync(c.dst).size === c.bytes && (await sha256File(c.dst)) === c.sha256) continue;
     mkdirSync(path.dirname(c.dst), { recursive: true });
     copyFileSync(c.src, c.dst);
   }

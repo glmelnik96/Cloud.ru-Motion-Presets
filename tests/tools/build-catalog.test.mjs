@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, statSync, utimesSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import AdmZip from 'adm-zip';
@@ -80,6 +80,21 @@ describe('build-catalog', () => {
     expect(ttl.variants[0].sha256).toBe(sha(readFileSync(path.join(out, ttl.variants[0].file))));
     expect(ttl.requiredFonts).toContainEqual({ postScriptName: 'SBSansText-Regular', build: '1.003' });
     expect(existsSync(path.join(out, 'items/LOGO_Mark/LOGO_Mark_9x16_v1.mogrt'))).toBe(true);
+  });
+
+  it('leaves a file of the same content in place on the next build, replaces a changed one', async () => {
+    // A host may hold an imported library file open; rewriting it failed with EBUSY (Premiere, 2026-10-05).
+    const { build, out } = fakeBuild(['LOGO_Mark']);
+    const opts = { src: SRC, buildDir: build, outDir: out, only: ['LOGO_Mark'], tokens: TOKENS };
+    await buildCatalog(opts);
+    const aep = path.join(out, 'items/LOGO_Mark/LOGO_Mark_v1.aep');
+    const old = new Date('2026-01-01T00:00:00Z');
+    utimesSync(aep, old, old);
+    await buildCatalog(opts);
+    expect(statSync(aep).mtimeMs).toBe(old.getTime());
+    writeFileSync(path.join(build, 'LOGO_Mark/LOGO_Mark_v1.aep'), 'aep of LOGO_Mark, v2');
+    await buildCatalog(opts);
+    expect(readFileSync(aep, 'utf8')).toBe('aep of LOGO_Mark, v2');
   });
 
   it('writes nothing when a file is missing', async () => {

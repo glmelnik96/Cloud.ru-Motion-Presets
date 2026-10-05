@@ -54,6 +54,7 @@ describe.skipIf(HOST !== 'ae' && HOST !== 'pr')('panel live', () => {
       const bridge = new Bridge({
         evalScript,
         loadHost: async () => { await evalScript(evalFileScript(bundleFile)); },
+        bundleVersion: JSON.parse(readFileSync(path.join(REPO, 'panel', 'package.json'), 'utf8')).version,
         timeoutMs: 120000,
       });
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { asciiEscape, Bridge, COLD, evalFileScript, hostScript, parseReply, type BridgeEvent } from '../../panel/src/bridge/bridge';
+import { asciiEscape, Bridge, COLD, evalFileScript, hostScript, parseReply, STALE, type BridgeEvent } from '../../panel/src/bridge/bridge';
 
 // A host that evaluates BK.call(fn, json) with a JS handler; `cold` first replies are "EvalScript error.".
 function fakeHost(handlers: Record<string, (args: unknown) => unknown>, { cold = 0, delayMs = 0, hang = new Set<string>() } = {}) {
@@ -45,6 +45,13 @@ describe('bridge', () => {
     expect(hostScript('ping', { a: 'я' })).toBe('BK.call("ping","{\\"a\\":\\"\\u044f\\"}")');
     expect(asciiEscape('\u2028')).toBe('\\u2028');
     expect(evalFileScript('C:\\Users\\Глеб\\host\\brandkit.jsx')).toBe("$.evalFile(\"C:/Users/\\u0413\\u043b\\u0435\\u0431/host/brandkit.jsx\");'loaded'");
+  });
+
+  it('guards a call with the version of the bundle when it has one', () => {
+    expect(hostScript('ping', null, '0.1.6')).toBe(
+      `((typeof BK!=='undefined'&&BK&&typeof BK.call==='function'&&BK.version==="0.1.6")?BK.call("ping","null"):'BK_STALE '+((typeof BK!=='undefined'&&BK&&typeof BK.call==='function')?String(BK.version):'none'))`);
+    expect(parseReply('BK_STALE 0.1.4')).toBe(STALE);
+    expect(parseReply('BK_STALE none')).toBe(STALE);
   });
 
   it('reads replies, cold starts and garbage', () => {

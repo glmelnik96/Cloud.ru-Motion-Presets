@@ -142,7 +142,7 @@ export interface CepRuntime {
 }
 
 // Everything the panel needs from CEP, or null outside a host (a browser preview of the UI).
-export function cepRuntime(): CepRuntime | null {
+export function cepRuntime(bundleVersion?: string): CepRuntime | null {
   const c = cep();
   const host = hostKey();
   const req = nodeRequire();
@@ -150,7 +150,7 @@ export function cepRuntime(): CepRuntime | null {
   const node = nodeServices(req);
   const bundle = joinPath(extensionPath(c, node.platform), 'host', 'brandkit.jsx');
   const evalScript = cepEvalScript(c);
-  const bridge = new Bridge({ evalScript, loadHost: async () => { await evalScript(evalFileScript(bundle)); } });
+  const bridge = new Bridge({ evalScript, bundleVersion, loadHost: async () => { await evalScript(evalFileScript(bundle)); } });
   const root = node.env.BRANDKIT_LIBRARY ? node.env.BRANDKIT_LIBRARY.replace(/\\/g, '/') : libraryRoot(node.platform);
   return {
     host,
