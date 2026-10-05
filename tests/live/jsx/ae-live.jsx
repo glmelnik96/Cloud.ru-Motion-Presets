@@ -100,6 +100,56 @@ function lvCount() {
   });
 }
 
+// The work area ends at PARAMS.endSec: a loop with no length runs up to it (media checks).
+function lvRange() {
+  check('work area of comp ' + PARAMS.id + ' ends at ' + PARAMS.endSec + ' s', function () {
+    var c = lvComp(PARAMS.id);
+    c.workAreaStart = 0;
+    c.workAreaDuration = PARAMS.endSec;
+    return Math.abs(c.workAreaStart + c.workAreaDuration - PARAMS.endSec) < 0.001;
+  });
+}
+
+// Every layer of the comp as the media checks read it: times, file, Interpret Footage loop, solid colour.
+function lvTimeline() {
+  check('layers of comp ' + PARAMS.id + ' listed', function () {
+    var c = lvComp(PARAMS.id);
+    var out = [];
+    var i, l, src, ms, bin, footage;
+    for (i = 1; i <= c.numLayers; i++) {
+      l = c.layer(i);
+      src = l.source;
+      ms = null;
+      try { ms = src ? src.mainSource : null; } catch (e) { ms = null; }
+      out.push({
+        index: i,
+        name: String(l.name),
+        startSec: Math.round(l.inPoint * 1000) / 1000,
+        endSec: Math.round(l.outPoint * 1000) / 1000,
+        file: src && src.file ? String(src.file.fsName).split('\\').join('/') : null,
+        loop: ms && ms.isStill === false && ms.loop !== undefined ? ms.loop : null,
+        solid: ms && typeof SolidSource !== 'undefined' && ms instanceof SolidSource ? [Math.round(ms.color[0] * 255), Math.round(ms.color[1] * 255), Math.round(ms.color[2] * 255)] : null,
+        audioOnly: l.hasAudio === true && l.hasVideo === false,
+        selected: l.selected
+      });
+    }
+    footage = 0;
+    for (i = 1; i <= app.project.rootFolder.numItems; i++) {
+      if (app.project.rootFolder.item(i).name === 'Cloud.ru BrandKit') {
+        bin = app.project.rootFolder.item(i);
+      }
+    }
+    for (i = 1; bin && i <= bin.numItems; i++) {
+      if (bin.item(i) instanceof FootageItem) {
+        footage += 1;
+      }
+    }
+    DATA.layers = out;
+    DATA.binFootage = footage;
+    return true;
+  });
+}
+
 function lvSave() {
   check('scratch project saved', function () {
     bkQuiet(function () {
@@ -119,6 +169,10 @@ if (PARAMS.op === 'setup') {
   lvLayer();
 } else if (PARAMS.op === 'count') {
   lvCount();
+} else if (PARAMS.op === 'range') {
+  lvRange();
+} else if (PARAMS.op === 'timeline') {
+  lvTimeline();
 } else if (PARAMS.op === 'save') {
   lvSave();
 }
