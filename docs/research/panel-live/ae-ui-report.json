@@ -1,6 +1,6 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-05T07:27:28.455Z",
+  "startedAt": "2026-10-05T09:58:29.169Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -30,7 +30,27 @@
     {
       "name": "status line shows the host, the panel and the library",
       "pass": true,
-      "detail": "Шрифты SB Sans на местеAE 26.5 · панель 0.1.0 · библиотека 2026.10.05Скопировать диагностику"
+      "detail": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.3 · библиотека 2026.10.05Скопировать диагностику"
+    },
+    {
+      "name": "card previews: H.264 is playable in the panel",
+      "pass": true,
+      "detail": {
+        "videos": 3,
+        "posters": 0,
+        "postersLoaded": 0,
+        "h264": "probably"
+      }
+    },
+    {
+      "name": "card previews: the preview under the cursor plays",
+      "pass": true,
+      "detail": {
+        "videos": 3,
+        "posters": 0,
+        "postersLoaded": 0,
+        "h264": "probably"
+      }
     },
     {
       "name": "card «Подпись спикера» opens the form",
@@ -78,6 +98,6 @@
       }
     }
   ],
-  "finishedAt": "2026-10-05T07:27:29.989Z",
+  "finishedAt": "2026-10-05T09:58:32.401Z",
   "failed": []
 }
