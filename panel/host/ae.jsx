@@ -607,6 +607,12 @@
     rec.set += 1;
   }
 
+  // Shape colours are [r, g, b, a] in AE; the alpha of the property stays (text and solids take [r, g, b]).
+  function withAlpha(p, rgb, t) {
+    var v = p.numKeys > 0 ? p.valueAtTime(t, false) : p.value;
+    return v && v.length === 4 ? [rgb[0], rgb[1], rgb[2], v[3]] : rgb;
+  }
+
   function isSolid(layer) {
     var ms = null;
     try { ms = layer.source ? layer.source.mainSource : null; } catch (e) { ms = null; }
@@ -623,7 +629,7 @@
         if (driven(list[i].prop)) {
           rec.expressions.push(list[i].path + ' / ' + list[i].prop.name);
         } else {
-          setNow(list[i].prop, req.rgb, t, rec);
+          setNow(list[i].prop, withAlpha(list[i].prop, req.rgb, t), t, rec);
         }
       }
       // A solid's colour lives in its source, as in Solid Settings.

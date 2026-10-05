@@ -54,8 +54,9 @@ describe('applyColor', () => {
     const out = await paint(h, 'green', 'fill');
     expect(out).toMatchObject({ ok: true, problems: [] });
     expect(out.reply.layers).toEqual([{ name: 'Плашка', set: 2, keyed: 0, expressions: [] }]);
-    expect(h.run(`${layer(h, 'Плашка')}._contents.property(1).property(1).property(1).property(1).value`)).toEqual(GREEN);
-    expect(h.run(`${layer(h, 'Плашка')}._contents.property(1).property(1).property(2).property(1).value`)).toEqual([0, 0, 1]);
+    // shape colours are [r, g, b, a]: the alpha stays
+    expect(h.run(`${layer(h, 'Плашка')}._contents.property(1).property(1).property(1).property(1).value`)).toEqual([...GREEN, 1]);
+    expect(h.run(`${layer(h, 'Плашка')}._contents.property(1).property(1).property(2).property(1).value`)).toEqual([0, 0, 1, 1]);
     expect(h.run('__ae.undo')).toEqual(['begin BrandKit: заливка #26D07C', 'end']);
   });
 

@@ -57,13 +57,23 @@ function __colorProp(name, matchName, value, opts) {
     expression: opts.expression || '', expressionEnabled: !!opts.expression };
   Object.defineProperty(p, 'numKeys', { get: function () { return p._keys.length; } });
   Object.defineProperty(p, 'value', { get: function () { return p._value; } });
-  p.setValue = function (v) { if (p._keys.length) throw new Error('setValue on an animated property'); p._value = v; __ae.calls.push('set ' + matchName); };
+  p.setValue = function (v) {
+    if (p._keys.length) throw new Error('setValue on an animated property');
+    // AE: a shape colour takes exactly [r, g, b, a]
+    if (/Vector (Fill|Stroke) Color/.test(matchName) && (!v || v.length !== 4)) throw new Error('After Effects error: Array is wrong length');
+    p._value = v;
+    __ae.calls.push('set ' + matchName);
+  };
   p.setValueAtTime = function (t, v) {
     var hit = p._keys.filter(function (k) { return Math.abs(k.t - t) < 1e-6; })[0];
     if (hit) hit.v = v; else p._keys.push({ t: t, v: v });
     __ae.calls.push('key ' + matchName + ' @' + t);
   };
-  p.valueAtTime = function () { return p._value; };
+  // the value of the last key at or before t (hold), else the static value
+  p.valueAtTime = function (t) {
+    var ks = p._keys.slice().sort(function (a, b) { return a.t - b.t; }).filter(function (k) { return k.t <= t + 1e-6; });
+    return ks.length ? ks[ks.length - 1].v : p._value;
+  };
   return p;
 }
 
@@ -403,9 +413,9 @@ __ae.addLayer = function (comp, name, kind, opts) {
   if (kind === 'shape') {
     var groups = [];
     for (var g = 0; g < (opts.groups || 1); g++) {
-      var fill = __list('ADBE Vector Graphic - Fill', [__colorProp('Color', 'ADBE Vector Fill Color', [1, 0, 0], opts.fill)]);
+      var fill = __list('ADBE Vector Graphic - Fill', [__colorProp('Color', 'ADBE Vector Fill Color', [1, 0, 0, 1], opts.fill)]);
       fill.name = 'Fill 1';
-      var stroke = __list('ADBE Vector Graphic - Stroke', [__colorProp('Color', 'ADBE Vector Stroke Color', [0, 0, 1], opts.stroke)]);
+      var stroke = __list('ADBE Vector Graphic - Stroke', [__colorProp('Color', 'ADBE Vector Stroke Color', [0, 0, 1, 1], opts.stroke)]);
       stroke.name = 'Stroke 1';
       var inner = __list('ADBE Vectors Group', [fill, stroke]);
       inner.name = 'Contents';

@@ -22,6 +22,7 @@ import { composeProbe, REPO } from '../../tools/spike/runner.mjs';
 import { presetSources, stagePreset } from '../../tools/pr/env.mjs';
 import { waitForStableFiles } from '../../tools/golden/png.mjs';
 import { pixelAt } from '../../tools/png/read-png.mjs';
+import { runColorsLive } from './colors.mjs';
 import { runEffectsLive } from './effects.mjs';
 import { runMediaLive } from './media.mjs';
 import { Report } from './runner.mjs';
@@ -114,6 +115,8 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
           await runEffectsLive({ bridge, hostRun, catalog: loaded.catalog, libraryRoot: built.libraryRoot.replace(/\\/g, '/'), project: path.posix.join(outDir, 'effects_live.aep'), R });
         }
       }
+      // The «Цвета» tab: AE only, on its own scratch project.
+      if (HOST === 'ae') await runColorsLive({ bridge, hostRun, project: path.posix.join(outDir, 'colors_live.aep'), R });
     } catch (e) {
       R.check('live run finished without an exception', false, String(e && e.stack ? e.stack : e));
     } finally {

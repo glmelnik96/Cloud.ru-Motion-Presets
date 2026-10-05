@@ -219,6 +219,84 @@ function lvFxRead() {
   });
 }
 
+// Colour checks: shape layers (two rectangles; one with an animated fill; one with a fill driven by an
+// expression), a text layer and a solid.
+function lvShape(c, name, groups) {
+  var l = c.layers.addShape();
+  var i, g, inner, rect;
+  l.name = name;
+  for (i = 0; i < groups; i++) {
+    g = l.property('ADBE Root Vectors Group').addProperty('ADBE Vector Group');
+    inner = g.property('ADBE Vectors Group');
+    rect = inner.addProperty('ADBE Vector Shape - Rect');
+    rect.property('ADBE Vector Rect Size').setValue([300, 80]);
+    inner.addProperty('ADBE Vector Graphic - Fill').property('ADBE Vector Fill Color').setValue([1, 0, 0, 1]);
+    inner.addProperty('ADBE Vector Graphic - Stroke').property('ADBE Vector Stroke Color').setValue([0, 0, 1, 1]);
+  }
+  return l;
+}
+
+function lvFirstFill(l) {
+  return l.property('ADBE Root Vectors Group').property(1).property('ADBE Vectors Group').property('ADBE Vector Graphic - Fill').property('ADBE Vector Fill Color');
+}
+
+function lvColorLayers() {
+  check('shape, keyed, expression, text and solid layers in comp ' + PARAMS.id, function () {
+    var c = lvComp(PARAMS.id);
+    var k, e, t;
+    lvShape(c, 'BK Shape', 2);
+    k = lvShape(c, 'BK Keyed', 1);
+    lvFirstFill(k).setValueAtTime(0, [1, 0, 0, 1]);
+    lvFirstFill(k).setValueAtTime(2, [1, 1, 0, 1]);
+    e = lvShape(c, 'BK Expr', 1);
+    lvFirstFill(e).expression = '[1, 0, 1, 1]';
+    t = c.layers.addText('Анна Проверкина');
+    t.name = 'BK Text';
+    c.layers.addSolid([1, 1, 1], 'BK Solid', 400, 200, 1, c.duration);
+    return true;
+  });
+}
+
+function lvRound(v) {
+  var out = [];
+  var i;
+  for (i = 0; i < v.length; i++) {
+    out.push(Math.round(v[i] * 10000) / 10000);
+  }
+  return out;
+}
+
+function lvColorRead() {
+  check('colours of comp ' + PARAMS.id + ' read', function () {
+    var c = lvComp(PARAMS.id);
+    var out = {};
+    var i, l, root, g, inner, rec, doc, ms;
+    for (i = 1; i <= c.numLayers; i++) {
+      l = c.layer(i);
+      rec = { fills: [], strokes: [], fillKeys: 0 };
+      root = null;
+      try { root = l.property('ADBE Root Vectors Group'); } catch (e1) { root = null; }
+      for (g = 1; root && g <= root.numProperties; g++) {
+        inner = root.property(g).property('ADBE Vectors Group');
+        rec.fills.push(lvRound(inner.property('ADBE Vector Graphic - Fill').property('ADBE Vector Fill Color').valueAtTime(c.time, false)));
+        rec.strokes.push(lvRound(inner.property('ADBE Vector Graphic - Stroke').property('ADBE Vector Stroke Color').valueAtTime(c.time, false)));
+        rec.fillKeys += inner.property('ADBE Vector Graphic - Fill').property('ADBE Vector Fill Color').numKeys;
+      }
+      try {
+        doc = l.property('ADBE Text Properties').property('ADBE Text Document').value;
+        rec.text = lvRound(doc.fillColor);
+      } catch (e2) { rec.text = null; }
+      try {
+        ms = l.source.mainSource;
+        rec.solid = ms instanceof SolidSource ? lvRound(ms.color) : null;
+      } catch (e3) { rec.solid = null; }
+      out[String(l.name)] = rec;
+    }
+    DATA.colors = out;
+    return true;
+  });
+}
+
 function lvSave() {
   check('scratch project saved', function () {
     bkQuiet(function () {
@@ -248,6 +326,10 @@ if (PARAMS.op === 'setup') {
   lvSelect();
 } else if (PARAMS.op === 'fxRead') {
   lvFxRead();
+} else if (PARAMS.op === 'colorLayers') {
+  lvColorLayers();
+} else if (PARAMS.op === 'colorRead') {
+  lvColorRead();
 } else if (PARAMS.op === 'save') {
   lvSave();
 }
