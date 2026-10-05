@@ -1,5 +1,6 @@
 // State and actions of the panel (spec 7) on top of the core. The UI renders this state and calls these
 // actions; it never talks to CSInterface or Node itself (spec 6: «Интерфейс знает только API ядра»).
+import { planColor, runColor, type ColorTarget } from '../core/colors';
 import { isPreset, planPreset, runPreset } from '../core/effects';
 import { formFields } from '../core/fields';
 import { previewFor, type PreviewMedia } from '../core/previews';
@@ -32,6 +33,8 @@ export interface Services {
 }
 
 export type View = 'catalog' | 'form';
+// Tabs of the panel (spec 7): the catalog, and «Цвета» in After Effects.
+export type Tab = 'catalog' | 'colors';
 
 export interface Outcome {
   ok: boolean;
@@ -44,6 +47,8 @@ export interface Outcome {
 export interface AppState {
   phase: 'loading' | 'ready' | 'error';
   view: View;
+  tab: Tab;
+  colorTarget: ColorTarget;
   host: Host;
   context: HostContext | null;
   catalog: Catalog | null;
@@ -79,6 +84,8 @@ export class PanelApp {
     this.state = {
       phase: 'loading',
       view: 'catalog',
+      tab: 'catalog',
+      colorTarget: 'fill',
       host: svc.hostKey,
       context: null,
       catalog: null,
@@ -154,6 +161,39 @@ export class PanelApp {
       this.log('warn', 'fonts.failed', { error: String(e) });
     }
     this.replan();
+  }
+
+  // ---- Tabs and «Цвета» ----
+
+  tabs(): Array<{ key: Tab; label_ru: string }> {
+    return this.state.host === 'ae' ? [{ key: 'catalog', label_ru: 'Каталог' }, { key: 'colors', label_ru: 'Цвета' }] : [];
+  }
+
+  setTab(tab: Tab): void {
+    this.set({ tab, outcome: null, consent: null });
+  }
+
+  setColorTarget(colorTarget: ColorTarget): void {
+    this.set({ colorTarget, outcome: null });
+  }
+
+  // A brand colour onto the selected layers: the selection of this very moment.
+  async paint(token: string): Promise<Outcome> {
+    if (this.state.busy) return { ok: false, problems: [], at: Date.now() };
+    this.set({ busy: true, outcome: null });
+    try {
+      const ctx = await this.refreshContext();
+      if (!ctx) return this.finish({ ok: false, problems: [error('NO_TARGET', messages.noTarget(this.state.host))], at: Date.now() });
+      const plan = planColor(ctx, token, this.state.colorTarget);
+      if (!plan.ok || !plan.request) return this.finish({ ok: false, problems: plan.problems, at: Date.now() });
+      const out = await runColor(this.svc.host, plan.request);
+      this.log(out.ok ? 'info' : 'warn', out.ok ? 'color.done' : 'color.failed', { token, target: plan.request.target, problems: out.problems.map((p) => p.code), reply: out.reply });
+      const on = out.reply?.layers.filter((l) => l.set > 0).map((l) => l.name) ?? [];
+      return this.finish({ ok: out.ok, problems: out.problems, at: Date.now(), note: out.ok ? `Перекрашено: ${on.join(', ')}.` : undefined });
+    } catch (e) {
+      this.log('error', 'color.exception', { error: String(e) });
+      return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
+    }
   }
 
   // ---- Catalog ----

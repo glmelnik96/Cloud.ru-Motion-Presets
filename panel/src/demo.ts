@@ -43,7 +43,7 @@ class DemoHost implements HostCaller {
     };
   }
   async call<T>(fn: string, args?: unknown, _opts?: CallOptions): Promise<HostReply<T>> {
-    if (!this.instant) await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' || fn === 'applyPreset' ? 500 : 30));
+    if (!this.instant) await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' || fn === 'applyPreset' || fn === 'applyColor' ? 500 : 30));
     if (fn === 'getContext') return { ok: true, data: this.ctx as T };
     if (fn === 'diag') return { ok: true, data: { app: 'demo' } as T };
     if (fn === 'insertItem') {
@@ -58,6 +58,7 @@ class DemoHost implements HostCaller {
       const placed = pieces.map((p) => ({ role: p.role, name: p.file, startSec: p.startSec ?? r.startSec, lengthSec: p.lengthSec ?? 1 }));
       return { ok: true, data: { name: r.id, startSec: r.startSec, lengthSec: r.lengthSec ?? 1, placed, imported: placed.length } as T };
     }
+    if (fn === 'applyColor') return { ok: true, data: { layers: [{ name: 'Плашка', set: 2, keyed: 0, expressions: [] }] } as T };
     if (fn === 'applyPreset') return { ok: true, data: { layers: [{ name: 'Имя', layerId: 7, changed: true, firstKeySec: this.ctx.target!.timeSec }], newLayers: [] } as T };
     if (fn === 'getCuts') return { ok: true, data: { cuts: [this.ctx.target!.timeSec - 0.4] } as T };
     return { ok: false, error: { code: 'NO_FUNCTION', message: fn } };

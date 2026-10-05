@@ -438,3 +438,54 @@ select {
   padding: 16px 10px;
   line-height: 1.45;
 }
+
+/* Tabs (spec 7): «Каталог» and, in After Effects, «Цвета». */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+}
+
+.tab {
+  flex: 1;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  padding: 6px 4px;
+  cursor: pointer;
+}
+
+.tab.on {
+  border-bottom-color: var(--accent);
+}
+
+.colors .seg {
+  margin: 8px 0 10px;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+  gap: 6px;
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  padding: 4px;
+  cursor: pointer;
+}
+
+.swatch-color {
+  height: 32px;
+  border: 1px solid var(--line);
+}
+
+.swatch-hex {
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+

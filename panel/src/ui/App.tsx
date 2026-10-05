@@ -2,6 +2,7 @@
 // the form of an item with «Вставить на плейхед», and the status line. It renders PanelApp state only.
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { PanelApp } from '../app/controller';
+import { palette, TARGETS } from '../core/colors';
 import { isActive } from '../core/fields';
 import type { Problem } from '../core/problems';
 import { sec } from '../core/problems';
@@ -28,12 +29,43 @@ export function App({ app, ui }: { app: PanelApp; ui: UiServices }) {
         <span class="brand"><b>Cloud.ru</b> BrandKit</span>
         <span class="chip-format" title="Формат по активной композиции или секвенции">{app.formatChip()}</span>
       </header>
+      {app.tabs().length > 0 && s.phase === 'ready' && (
+        <nav class="tabs">
+          {app.tabs().map((t) => <button key={t.key} class={'tab' + (s.tab === t.key ? ' on' : '')} onClick={() => app.setTab(t.key)}>{t.label_ru}</button>)}
+        </nav>
+      )}
       <main class="main">
         {s.phase === 'loading' && <div class="empty">Загрузка библиотеки…</div>}
         {s.phase === 'error' && <Fatal problems={s.libraryProblems} />}
-        {s.phase === 'ready' && (s.view === 'catalog' ? <Catalog app={app} ui={ui} /> : <Form app={app} ui={ui} />)}
+        {s.phase === 'ready' && s.tab === 'colors' && <Colors app={app} />}
+        {s.phase === 'ready' && s.tab === 'catalog' && (s.view === 'catalog' ? <Catalog app={app} ui={ui} /> : <Form app={app} ui={ui} />)}
       </main>
       <Status app={app} ui={ui} />
+    </div>
+  );
+}
+
+// «Цвета» (AE): what to repaint, then a swatch of the base palette repaints the selected layers.
+function Colors({ app }: { app: PanelApp }) {
+  const s = app.state;
+  return (
+    <div class="colors">
+      <p class="hint">Выделите слои в композиции, выберите, что перекрасить, и нажмите цвет.</p>
+      <div class="seg" role="group" aria-label="Что перекрасить">
+        {TARGETS.map((t) => <button key={t.key} class={s.colorTarget === t.key ? 'on' : ''} onClick={() => app.setColorTarget(t.key)}>{t.label_ru}</button>)}
+      </div>
+      <div class="swatches">
+        {palette().map((c) => (
+          <button key={c.key} class="swatch" disabled={s.busy} title={c.role} onClick={() => void app.paint(c.key)}>
+            <span class="swatch-color" style={{ background: c.hex }} />
+            <span class="swatch-hex">{c.hex}</span>
+          </button>
+        ))}
+      </div>
+      <div class="actions">
+        <Problems list={s.outcome?.problems ?? []} />
+        {s.outcome?.ok && <div class="done">{s.outcome.note}</div>}
+      </div>
     </div>
   );
 }
