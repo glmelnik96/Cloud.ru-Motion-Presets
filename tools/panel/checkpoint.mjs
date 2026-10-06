@@ -2,10 +2,10 @@
 // The checkpoint of phase 3 (spec 3: «Сквозные сценарии зелёные в обоих приложениях на Win и Mac; чистая
 // установка с нуля, на Mac включая файл с карантином; проект со вставками из AE и Premiere открывается на
 // другой ОС без пропавших файлов») on one machine, in one command:
-//   node tools/panel/checkpoint.mjs [--host ae|pr] [--skip-tests] [--only base,media,export]
-// Runs npm test and the live suites through tools/panel/live.mjs — base (every item of the library in every
-// format), media (T2/T3, companions, effects, colours, the move of a project, fit to a window), export — in each
-// host, then writes docs/research/checkpoint/<win|mac>-<date>.json and .md: every criterion with what proves it.
+//   node tools/panel/checkpoint.mjs [--host ae|pr] [--skip-tests] [--only base,media,export,ui]
+// Runs npm test and the live suites — base (every item of the library in every format), media (T2/T3,
+// companions, effects, colours, the move of a project, fit to a window), export (tools/panel/live.mjs) and ui
+// (the real panel, tools/panel/ui-check.mjs) — in each host, then writes docs/research/checkpoint/<win|mac>-<date>.json and .md: every criterion with what proves it.
 // A suite that left no fresh report counts as failed. The clean install and the open on the other OS are
 // checked by hand; the summary names the latest reports of them, it does not judge them.
 import { spawnSync } from 'node:child_process';
@@ -14,10 +14,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+const LIVE = (flag) => (h) => ['tools/panel/live.mjs', '--host', h, ...(flag ? [flag] : [])];
 export const SUITES = [
-  { key: 'base', flag: null, report: (h) => `${h}-report.json`, what: 'каждый элемент библиотеки в каждом формате: вставка, поля, кадры' },
-  { key: 'media', flag: '--media', report: (h) => `${h}-media-report.json`, what: 'T2/T3 и компаньоны; AE: эффекты и цвета; перенос проекта; Premiere: «вписать в окно»' },
-  { key: 'export', flag: '--export', report: (h) => `${h}-export-report.json`, what: '«Экспорт» брендовыми пресетами' },
+  { key: 'base', cmd: LIVE(null), report: (h) => `${h}-report.json`, what: 'каждый элемент библиотеки в каждом формате: вставка, поля, кадры' },
+  { key: 'media', cmd: LIVE('--media'), report: (h) => `${h}-media-report.json`, what: 'T2/T3 и компаньоны; AE: эффекты и цвета; перенос проекта; Premiere: «вписать в окно»' },
+  { key: 'export', cmd: LIVE('--export'), report: (h) => `${h}-export-report.json`, what: '«Экспорт» брендовыми пресетами' },
+  { key: 'ui', cmd: (h) => ['tools/panel/ui-check.mjs', '--host', h], report: (h) => `${h}-ui-report.json`, what: 'настоящая панель: каталог, превью, форма, вставка из интерфейса' },
 ];
 
 const readJson = (p) => JSON.parse(readFileSync(p, 'utf8').replace(/^﻿/, ''));
@@ -26,7 +28,9 @@ const readJson = (p) => JSON.parse(readFileSync(p, 'utf8').replace(/^﻿/, ''));
 export function suiteResult(report, startedAt) {
   if (!report) return { ok: false, reason: 'нет отчёта' };
   const fresh = !startedAt || Date.parse(report.startedAt) >= Date.parse(startedAt);
-  const s = report.summary ?? { checks: 0, passed: 0, failed: 1 };
+  // ui-check writes its checks without a summary: count them
+  const checks = report.checks ?? [];
+  const s = report.summary ?? { checks: checks.length, passed: checks.filter((c) => c.pass).length, failed: checks.filter((c) => c.required !== false && !c.pass).length };
   if (!fresh) return { ok: false, reason: `отчёт старше прогона (${report.startedAt})`, ...s };
   return { ok: s.failed === 0 && s.checks > 0, checks: s.checks, passed: s.passed, failed: report.failed ?? [] };
 }
@@ -104,7 +108,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     suites[h] = {};
     for (const s of SUITES.filter((x) => only.includes(x.key))) {
       console.log(`\n== ${h} ${s.key} ==`);
-      spawnSync(process.execPath, [path.join(REPO, 'tools', 'panel', 'live.mjs'), '--host', h, ...(s.flag ? [s.flag] : [])], { cwd: REPO, stdio: 'inherit' });
+      const [script, ...args] = s.cmd(h);
+      spawnSync(process.execPath, [path.join(REPO, script), ...args], { cwd: REPO, stdio: 'inherit' });
       const file = path.join(REPO, 'docs', 'research', 'panel-live', s.report(h));
       const report = existsSync(file) ? readJson(file) : null;
       suites[h][s.key] = suiteResult(report, startedAt);

@@ -15,6 +15,9 @@ describe('checkpoint summary', () => {
     expect(suiteResult(null, T0)).toEqual({ ok: false, reason: 'нет отчёта' });
     expect(suiteResult(rep({ startedAt: '2026-10-06T20:00:00.000Z' }), T0)).toMatchObject({ ok: false, reason: 'отчёт старше прогона (2026-10-06T20:00:00.000Z)' });
     expect(suiteResult(rep({ summary: { checks: 10, passed: 9, failed: 1 }, failed: ['x'] }), T0)).toMatchObject({ ok: false, failed: ['x'] });
+    // ui-check: checks without a summary
+    expect(suiteResult({ startedAt: '2026-10-07T09:05:00.000Z', checks: [{ name: 'a', pass: true }, { name: 'b', pass: true }], failed: [] }, T0)).toMatchObject({ ok: true, checks: 2 });
+    expect(suiteResult({ startedAt: '2026-10-07T09:05:00.000Z', checks: [{ name: 'a', pass: false }], failed: ['a'] }, T0)).toMatchObject({ ok: false, failed: ['a'] });
   });
 
   it('reads the move of a project from the media report', () => {

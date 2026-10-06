@@ -3,7 +3,7 @@
 // is on window. Calls go straight to window.__adobe_cep__, the object CSInterface.js wraps.
 import { Bridge, evalFileScript, type EvalScript } from '../bridge/bridge';
 import type { LogFs } from '../core/log';
-import { joinPath, libraryRoot, logDir, type Platform } from '../core/paths';
+import { joinPath, libraryRoot, logDir, systemPathToFs, type Platform } from '../core/paths';
 import type { FontStatus, Host } from '../core/types';
 import type { Prepare } from '../core/media';
 import { prepareFiles, type PrepFs, type PrepResult } from './files';
@@ -48,8 +48,19 @@ export function cepEvalScript(c: AdobeCep): EvalScript {
 
 // SystemPath.EXTENSION as CSInterface.getSystemPath returns it: decoded, without the file:// prefix.
 export function extensionPath(c: AdobeCep, platform: Platform): string {
-  const raw = decodeURI(c.getSystemPath('extension'));
-  return platform === 'win' ? raw.replace('file:///', '') : raw.replace('file://', '');
+  return systemPathToFs(c.getSystemPath('extension'), platform);
+}
+
+// Documents of the user: SystemPath.MY_DOCUMENTS follows a folder moved to OneDrive or another disk; the
+// profile folder is the fallback.
+export function documentsPath(get: () => string, platform: Platform, env: Record<string, string | undefined>): string {
+  let p = '';
+  try {
+    p = systemPathToFs(get(), platform);
+  } catch {
+    p = '';
+  }
+  return p || joinPath(env.USERPROFILE || env.HOME || '', 'Documents');
 }
 
 export function nodeRequire(): NodeRequire | null {
@@ -174,14 +185,7 @@ export function cepRuntime(bundleVersion?: string): CepRuntime | null {
     exportFs: {
       size: node.prepFs.size,
       mkdirp: node.prepFs.mkdirp,
-      // SystemPath.MY_DOCUMENTS follows a Documents folder moved to OneDrive or another disk.
-      documents: (() => {
-        try {
-          return decodeURI(c.getSystemPath('myDocuments')).replace(/^file:\/\/\/?/, node.platform === 'win' ? '' : '/').replace(/\\/g, '/');
-        } catch {
-          return joinPath(node.env.USERPROFILE || node.env.HOME || '', 'Documents');
-        }
-      })(),
+      documents: documentsPath(() => c.getSystemPath('myDocuments'), node.platform, node.env),
     },
     aerender: (job) => runAerender(req('child_process').spawn, node.platform, job),
     reveal: (path) => {

@@ -147,3 +147,20 @@ describe('export through the bridge', () => {
     expect(out.problems.map((p) => p.code)).toEqual(['EXPORT_NO_TEMPLATE']);
   });
 });
+
+describe('aerender on macOS', () => {
+  it('is looked up next to the AE bundle, not inside it', () => {
+    const ctx = vm.createContext({});
+    vm.runInContext(readFileSync(new URL('./fake-ae.js', import.meta.url), 'utf8'), ctx);
+    vm.runInContext(composeHost(), ctx);
+    const run = (code) => vm.runInContext(code, ctx);
+    run(`$.os = 'Macintosh OS 15.1'; Folder.appPackage = new Folder('/Applications/Adobe After Effects 2026/Adobe After Effects 2026.app');
+      __ae.files['/Applications/Adobe After Effects 2026/aerender'] = 'exe';
+      __ae.userComp(1920, 1080, 25, 0); __ae.omTemplates.push('CR FullHD');
+      app.project.file = new File('/Users/u/p/user.aep'); __ae.folders['/Users/u'] = true; __ae.folders['/Users/u/p'] = true;`);
+    const id = String(run('app.project.activeItem.id'));
+    const req = { host: 'ae', mode: 'background', targetId: id, targetName: 'Main', presetId: 'AME_FullHD', title: 'Full HD', epr: null, omTemplate: 'CR FullHD', output: '/Users/u/p/Export/Main_FullHD.mp4', resize: null, fps: null };
+    const r = JSON.parse(run(`BK.call('exportComp', ${JSON.stringify(JSON.stringify(req))})`));
+    expect(r.data.aerender).toEqual({ exe: '/Applications/Adobe After Effects 2026/aerender', project: '/Users/u/p/user.aep', rqIndex: 1 });
+  });
+});

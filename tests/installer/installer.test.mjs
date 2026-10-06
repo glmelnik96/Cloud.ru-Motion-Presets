@@ -124,6 +124,8 @@ describe.skipIf(!HAS_BASH)('install.command', () => {
     mkdirSync(path.join(w.cache, 'AEFT_26.5_com.other.panel'), { recursive: true });
     mkdirSync(path.join(w.ame, '26.0'), { recursive: true });
     mkdirSync(path.join(w.ame, 'Adobe Adobe Media Encoder Audio Previews'), { recursive: true });
+    mkdirSync(path.join(w.ame, '26.0', 'Presets'), { recursive: true });
+    writeFileSync(path.join(w.ame, '26.0', 'Presets', 'PresetTree.xml'), '<PresetTree>old</PresetTree>');
     const r = install(pkg, sb, '--with-ame');
     expect(r.status, r.stdout + r.stderr).toBe(0);
     expect(r.stdout).toMatch(/Шаблоны MOGRT: 7 в .*, убрано прежних: 0/);
@@ -132,7 +134,13 @@ describe.skipIf(!HAS_BASH)('install.command', () => {
     expect(readdirSync(w.templates).sort()).toEqual(readFileSync(path.join(pkg, 'payload', 'mogrt.txt'), 'utf8').trim().split('\n').map((m) => m.split('/').pop()).sort());
     expect(readdirSync(w.cache)).toEqual(['AEFT_26.5_com.other.panel']);
     // the brand presets under the names of their AE templates; the .aom: where it is and how to load it
-    expect(readdirSync(path.join(w.ame, '26.0', 'Presets')).sort()).toEqual(['CR FullHD.epr', 'CR Webinar Timer.epr']);
+    // the tree of the Preset Browser set aside, so Media Encoder rebuilds it from the folder (AME research 2026-10-06)
+    const presets = readdirSync(path.join(w.ame, '26.0', 'Presets')).sort();
+    expect(presets.filter((f) => f.endsWith('.epr'))).toEqual(['CR FullHD.epr', 'CR Webinar Timer.epr']);
+    const bak = presets.find((f) => /^PresetTree\.xml\.brandkit-[0-9]{8}-[0-9]{6}\.bak$/.test(f));
+    expect(presets).not.toContain('PresetTree.xml');
+    expect(readFileSync(path.join(w.ame, '26.0', 'Presets', bak), 'utf8')).toBe('<PresetTree>old</PresetTree>');
+    expect(r.stdout).toContain('Список пресетов Media Encoder перестроится при запуске');
     expect(readFileSync(path.join(w.ame, '26.0', 'Presets', 'CR FullHD.epr'), 'utf8')).toBe('epr AME_FullHD');
     expect(r.stdout).toMatch(/Пресеты AME: 2 в .*26\.0\/Presets/);
     // not a version folder of AME (Windows install check 2026-10-06)
@@ -140,6 +148,7 @@ describe.skipIf(!HAS_BASH)('install.command', () => {
     expect(r.stdout).toContain(`Edit > Templates > Output Module > Load... файл ${w.library}/items/AME_Templates/AME_Templates_aom_v1.aom`);
     expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(new RegExp(`^plugin=${pluginVersion().replace(/\./g, '\\.')}\\nlibrary=2026\\.10\\.05\\ninstalled=`));
     expect(r.stdout).not.toMatch(/без подписи/);
+    expect(readFileSync(path.join(pkg, 'guide.md'), 'utf8')).toContain('# Cloud.ru BrandKit: руководство монтажёра');
   }, 60000);
 
   it('updates: removes its own MOGRTs of the previous version, keeps the files of others', async () => {

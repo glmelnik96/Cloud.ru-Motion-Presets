@@ -28,7 +28,7 @@ describe.skipIf(!OPEN || (HOST !== 'ae' && HOST !== 'pr'))('panel live, open a m
       listing = R.fromHost('open', r);
       const v = transferVerdict(listing?.items ?? [], path.posix.dirname(project));
       R.check(`no missing files (${v.count} listed)`, listing && v.count > 0 && v.missing.length === 0, v.missing);
-      R.check('every file found inside the project folder', listing && v.outside.length === 0, v.outside);
+      R.check(`every file the panel put next to the project found inside its folder (${v.ours})`, listing && v.ours > 0 && v.outside.length === 0, v.outside);
     } catch (e) {
       R.check('opened without an exception', false, String(e && e.stack ? e.stack : e));
     } finally {

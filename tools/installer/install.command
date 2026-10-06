@@ -6,7 +6,7 @@
 # --with-ame   also copies the brand .epr presets into the user presets of Adobe Media Encoder
 # --sandbox    installs into <dir>/... instead of the real folders (a dry run for checks); skips the
 #              check for running apps
-# Exit codes: 0 installed, 2 refused (After Effects or Premiere is running), 1 error.
+# Exit codes: 0 installed, 2 refused (After Effects or Premiere is running, or Media Encoder with --with-ame), 1 error.
 set -u
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -57,6 +57,10 @@ if [ -z "$SANDBOX" ]; then
   RUNNING=""
   pgrep -f "Adobe After Effects" >/dev/null 2>&1 && RUNNING="After Effects"
   pgrep -f "Adobe Premiere Pro" >/dev/null 2>&1 && RUNNING="${RUNNING:+$RUNNING и }Premiere"
+  # --with-ame rewrites the preset list of Media Encoder (step 6): only while it is closed
+  if [ "$WITH_AME" = 1 ]; then
+    pgrep -f "Adobe Media Encoder" >/dev/null 2>&1 && RUNNING="${RUNNING:+$RUNNING и }Media Encoder"
+  fi
   if [ -n "$RUNNING" ]; then
     say "Закройте $RUNNING и запустите установщик снова."
     exit 2
@@ -135,6 +139,13 @@ if [ "$WITH_AME" = 1 ]; then
         cp "$LIBRARY_DIR/$rel" "$v/Presets/$name" && n=$((n + 1))
       done < "$AME_LIST"
       say "Пресеты AME: $n в ${v}Presets"
+      # The Preset Browser lists Presets/PresetTree.xml, not the folder: set aside (never deleted), the tree is
+      # rebuilt from the folder at the next start of Media Encoder (docs/research/export/ame-presets.json).
+      if [ -f "${v}Presets/PresetTree.xml" ]; then
+        BAK="${v}Presets/PresetTree.xml.brandkit-$(date +%Y%m%d-%H%M%S).bak"
+        mv "${v}Presets/PresetTree.xml" "$BAK"
+        say "  Список пресетов Media Encoder перестроится при запуске; прежний сохранён: $BAK"
+      fi
     done
   else
     say "Пресеты AME: нечего ставить или нет папки $AME_ROOT"

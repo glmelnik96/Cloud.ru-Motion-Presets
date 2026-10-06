@@ -24,6 +24,20 @@ export function basename(p: string): string {
   return s.slice(s.lastIndexOf('/') + 1);
 }
 
+// A path as CSInterface.getSystemPath gives it — «file:///C:/Users/…» on Windows, «file:///Users/…» on macOS,
+// percent-encoded — as a file path with forward slashes. Empty when there is nothing to decode.
+export function systemPathToFs(raw: string, platform: Platform): string {
+  let p = String(raw ?? '');
+  try {
+    p = decodeURI(p);
+  } catch {
+    // a lone % stays as it is
+  }
+  p = p.replace(/\\/g, '/');
+  if (/^file:\/\//i.test(p)) p = p.replace(/^file:\/\/\/?/i, platform === 'win' ? '' : '/');
+  return p.replace(/\/+$/, '');
+}
+
 export function libraryRoot(platform: Platform): string {
   return platform === 'win' ? 'C:/ProgramData/CloudRuBrandKit/library' : '/Users/Shared/CloudRuBrandKit/library';
 }

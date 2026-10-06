@@ -26,3 +26,4 @@ macOS
 Шрифты SB Sans в комплект не входят: их ставит IT, одна сборка для всех пользователей.
 
 После установки: After Effects или Premiere > Window > Extensions > Cloud.ru BrandKit.
+Руководство монтажёра — guide.md рядом с этим файлом.

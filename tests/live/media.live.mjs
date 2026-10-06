@@ -5,7 +5,7 @@
 // <work>/panel-live/media; the scratch project to <work>/panel-live/<host>/media_live.*.
 // Report: docs/research/panel-live/<host>-media-report.json.
 import { copyFile } from 'node:fs/promises';
-import { copyFileSync, existsSync, mkdirSync, readFileSync, renameSync, rmSync, statSync, unlinkSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, statSync, unlinkSync, writeFileSync } from 'node:fs';
 import { copyTree } from '../../tools/lib/copy-tree.mjs';
 import { runTransferLive } from './transfer.mjs';
 import path from 'node:path';
@@ -124,6 +124,7 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
         libraryRoot: built.libraryRoot.replace(/\\/g, '/'),
         fs: {
           exists: (p) => existsSync(p),
+          files: (d) => readdirSync(d).filter((f) => statSync(path.join(d, f)).isFile()),
           reset: (d) => {
             rmSync(d, { recursive: true, force: true });
             mkdirSync(d, { recursive: true });

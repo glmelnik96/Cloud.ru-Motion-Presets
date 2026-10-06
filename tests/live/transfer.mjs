@@ -13,12 +13,19 @@ const norm = (p) => String(p ?? '').replace(/\\/g, '/').toLowerCase();
 const leaf = (p) => String(p).replace(/\\/g, '/').split('/').pop();
 const dirOf = (p) => String(p).replace(/\\/g, '/').replace(/\/[^/]*$/, '');
 
-// The verdict on the listing of the opened copy: nothing missing, and every file resolved inside the copy.
+// The verdict on the listing of the opened copy: nothing missing, and every file the panel put next to the
+// project (its folders) resolved inside the copy. Files of the test bed itself next to the project (the cut clip
+// of Premiere) are copied too but may resolve at their old place, which is not renamed: they are not the panel's.
 export function transferVerdict(items, movedDir) {
+  const marks = [...new Set(Object.values(TRANSFER_PARTS).flat())].map((p) => `/${p.toLowerCase()}/`);
   const missing = items.filter((i) => i.missing);
-  const outside = items.filter((i) => !i.missing && i.file && !norm(i.file).startsWith(norm(movedDir) + '/'));
-  return { missing, outside, count: items.length };
+  const ours = items.filter((i) => i.file && marks.some((m) => norm(i.file).includes(m)));
+  const outside = ours.filter((i) => !i.missing && !norm(i.file).startsWith(norm(movedDir) + '/'));
+  return { missing, outside, ours: ours.length, count: items.length };
 }
+
+// Media files of the test bed lying next to the project: copied with it, so the copy opens on another machine.
+const LOOSE = /\.(png|jpg|mov|mp4|wav)$/i;
 
 export async function runTransferLive(o) {
   const { host, hostRun, R, fs } = o;
@@ -28,6 +35,7 @@ export async function runTransferLive(o) {
   fs.reset(o.movedDir);
   fs.copy(o.project, moved);
   for (const p of parts) fs.copy(`${dirOf(o.project)}/${p}`, `${o.movedDir}/${p}`);
+  for (const f of fs.files(dirOf(o.project)).filter((x) => LOOSE.test(x))) fs.copy(`${dirOf(o.project)}/${f}`, `${o.movedDir}/${f}`);
   R.check(`transfer: copied the project and ${parts.join(', ') || 'no folder'} to ${o.movedDir}`, parts.includes('Cloud.ru BrandKit'), parts);
   const away = [...parts.map((p) => `${dirOf(o.project)}/${p}`), o.libraryRoot];
   const renamed = [];
@@ -40,7 +48,7 @@ export async function runTransferLive(o) {
     const r = R.fromHost('transfer: open the moved copy', await hostRun('transferOpen', { project: moved }));
     const v = transferVerdict(r?.items ?? [], o.movedDir);
     R.check(`transfer: no missing files after the move (${v.count} listed)`, r && v.count > 0 && v.missing.length === 0, v.missing);
-    R.check('transfer: every file found inside the moved copy', r && v.outside.length === 0, v.outside);
+    R.check(`transfer: every file the panel put next to the project found inside the moved copy (${v.ours})`, r && v.ours > 0 && v.outside.length === 0, v.outside);
   } catch (e) {
     R.check('transfer: finished without an exception', false, String(e && e.message ? e.message : e));
   } finally {

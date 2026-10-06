@@ -4,7 +4,7 @@
 //   node tools/installer/build.mjs --unsigned [--library <root>] [--out <dir>]     (panel/dist, for checks)
 // Layout:
 //   CloudRuBrandKit-<plugin>-<library>/
-//     install.cmd, install.ps1 (Windows), install.command (macOS), README.txt
+//     install.cmd, install.ps1 (Windows), install.command (macOS), README.txt, guide.md (docs/guide/panel.md)
 //     payload/VERSION            plugin=, library=, signed=
 //     payload/extension/         the panel: the signed ZXP unpacked (its signature stays valid unpacked)
 //     payload/library/           the library root with library.json, checked against its sha256
@@ -125,6 +125,8 @@ export async function buildPackage({ zxp = null, unsigned = false, dist = path.j
   writeFileSync(path.join(dir, 'install.cmd'), crlf(read('install.cmd')), 'utf8');
   writeFileSync(path.join(dir, 'README.txt'), '﻿' + crlf(read('README.txt')
     .replace(/\{plugin\}/g, version).replace(/\{library\}/g, lib.catalog.libraryVersion)), 'utf8');
+  // The guide of the editors for the pilot (docs/guide/panel.md), with a BOM for Windows editors.
+  writeFileSync(path.join(dir, 'guide.md'), '\uFEFF' + crlf(readFileSync(path.join(REPO, 'docs', 'guide', 'panel.md'), 'utf8')), 'utf8');
 
   // The zip keeps the folder and the executable bit of install.command (unix mode in the external attributes).
   const zip = new AdmZip();

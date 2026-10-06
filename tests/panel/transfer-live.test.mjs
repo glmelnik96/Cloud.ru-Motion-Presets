@@ -13,6 +13,7 @@ function disk(paths) {
   return {
     set, log,
     exists: (p) => under(p).length > 0,
+    files: (d) => [...set].filter((x) => x.startsWith(d + '/') && !x.slice(d.length + 1).includes('/')).map((x) => x.slice(d.length + 1)),
     reset: (d) => { for (const x of under(d)) set.delete(x); log.push(`reset ${d}`); },
     copy: (from, to) => { for (const x of under(from)) set.add(to + x.slice(from.length)); log.push(`copy ${from} -> ${to}`); },
     rename: (from, to) => {
@@ -27,7 +28,7 @@ function disk(paths) {
 const ok = (data) => ({ checks: [{ name: 'step', pass: true }], data });
 
 describe('transfer check, dry', () => {
-  const files = [`${W}/pr/media_live.prproj`, `${W}/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov`, `${W}/pr/Motion Graphics Template Media/x/TTL.aegraphic`, `${W}/media/library/library.json`];
+  const files = [`${W}/pr/media_live.prproj`, `${W}/pr/cut-clip.png`, `${W}/pr/pr-report.txt`, `${W}/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov`, `${W}/pr/Motion Graphics Template Media/x/TTL.aegraphic`, `${W}/media/library/library.json`];
 
   it('copies the project and its folders, moves the originals and the library away, and puts them back', async () => {
     const fs = disk(files);
@@ -36,7 +37,8 @@ describe('transfer check, dry', () => {
     const hostRun = async (op, p) => {
       if (op === 'transferOpen') {
         seen = [...fs.set].sort();
-        return ok({ path: p.project, items: [{ name: 'loop', file: `${W}/pr-moved/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov`, missing: false }] });
+        // the cut clip of the test bed resolves at its old place, which is allowed
+        return ok({ path: p.project, items: [{ name: 'loop', file: `${W}/pr-moved/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov`, missing: false }, { name: 'cut', file: `${W}/pr/cut-clip.png`, missing: false }] });
       }
       return ok({});
     };
@@ -45,13 +47,16 @@ describe('transfer check, dry', () => {
     // while the copy was open, nothing but the copy could resolve
     expect(seen.filter((p) => p.startsWith(`${W}/pr/Cloud.ru BrandKit/`) || p.startsWith(`${W}/media/library/`))).toEqual([]);
     expect(seen).toContain(`${W}/pr-moved/Motion Graphics Template Media/x/TTL.aegraphic`);
-    expect([...fs.set].sort()).toEqual([...files, `${W}/pr-moved/media_live.prproj`, `${W}/pr-moved/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov`, `${W}/pr-moved/Motion Graphics Template Media/x/TTL.aegraphic`].sort());
+    // the loose media of the test bed travels with the copy, its other files do not
+    expect([...fs.set].sort()).toEqual([...files, `${W}/pr-moved/media_live.prproj`, `${W}/pr-moved/cut-clip.png`, `${W}/pr-moved/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov`, `${W}/pr-moved/Motion Graphics Template Media/x/TTL.aegraphic`].sort());
   });
 
   it('a missing file or one found at its old place fails the check', () => {
     expect(transferVerdict([{ name: 'a', file: 'C:/x/a.mov', missing: true }], 'C:/m').missing).toHaveLength(1);
     expect(transferVerdict([{ name: 'b', file: 'C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/b.mov', missing: false }], 'C:/CRBK/work/panel-live/pr-moved').outside).toHaveLength(1);
-    expect(transferVerdict([{ name: 'c', file: 'C:\\CRBK\\work\\panel-live\\pr-moved\\c.mov', missing: false }], 'C:/CRBK/work/panel-live/pr-moved').outside).toHaveLength(0);
+    expect(transferVerdict([{ name: 'c', file: 'C:\\CRBK\\work\\panel-live\\pr-moved\\Cloud.ru BrandKit\\c.mov', missing: false }], 'C:/CRBK/work/panel-live/pr-moved')).toMatchObject({ outside: [], ours: 1 });
+    // a file of the test bed at its old place is not the panel's
+    expect(transferVerdict([{ name: 'cut', file: 'C:/CRBK/work/panel-live/pr/cut-clip.png', missing: false }], 'C:/CRBK/work/panel-live/pr-moved')).toMatchObject({ outside: [], ours: 0 });
   });
 
   it('a rename that fails is reported and the rest is put back', async () => {

@@ -4,7 +4,7 @@
 # -WithAme   also copies the brand .epr presets into the user presets of Adobe Media Encoder
 # -Sandbox   installs into <dir>\... instead of the real folders (a dry run for checks); skips the check for
 #            running apps and the folder rights
-# Exit codes: 0 installed, 2 refused (After Effects or Premiere is running), 1 error.
+# Exit codes: 0 installed, 2 refused (After Effects or Premiere is running, or Media Encoder with -WithAme), 1 error.
 # The same steps as install.command (macOS); keep the two in step.
 param(
   [switch]$WithAme,
@@ -53,6 +53,8 @@ try {
     $running = @()
     if (Get-Process -Name 'AfterFX' -ErrorAction SilentlyContinue) { $running += 'After Effects' }
     if (Get-Process -Name 'Adobe Premiere Pro' -ErrorAction SilentlyContinue) { $running += 'Premiere' }
+    # -WithAme rewrites the preset list of Media Encoder (step 6): only while it is closed
+    if ($WithAme -and (Get-Process -Name 'Adobe Media Encoder' -ErrorAction SilentlyContinue)) { $running += 'Media Encoder' }
     if ($running.Count) {
       Say "Закройте $($running -join ' и ') и запустите установщик снова."
       exit 2
@@ -134,6 +136,15 @@ try {
           Copy-Item -LiteralPath (Join-Path $LibraryDir ($a[0] -replace '/', '\')) -Destination (Join-Path $presets $a[1]) -Force
         }
         Say "Пресеты AME: $($ameList.Count) в $presets"
+        # The Preset Browser lists Presets\PresetTree.xml, not the folder: a preset already there keeps its old
+        # name, a new one may not show. Set aside (never deleted), the tree is rebuilt from the folder at the next
+        # start of Media Encoder, with every «CR …» (AME research 2026-10-06, docs/research/export/ame-presets.json).
+        $tree = Join-Path $presets 'PresetTree.xml'
+        if (Test-Path -LiteralPath $tree) {
+          $bak = Join-Path $presets ('PresetTree.xml.brandkit-' + (Get-Date).ToString('yyyyMMdd-HHmmss') + '.bak')
+          Move-Item -LiteralPath $tree -Destination $bak
+          Say "  Список пресетов Media Encoder перестроится при запуске; прежний сохранён: $bak"
+        }
       }
     } else {
       Say "Пресеты AME: нечего ставить или нет папки $AmeRoot"

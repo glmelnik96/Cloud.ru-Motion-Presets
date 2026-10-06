@@ -5,7 +5,7 @@
 // плейхед» — and checks in the host, through the BrandKit Dev panel (8094/8096), that the insert is there.
 //   node tools/panel/ui-check.mjs --host ae|pr
 // Screenshots and the report: docs/research/panel-live/<host>-ui-*.png, <host>-ui-report.json.
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { run } from '../host-run.mjs';
@@ -72,6 +72,10 @@ export const page = {
   outcome: `(() => { const d = document.querySelector('.done'); const e = [...document.querySelectorAll('.problems li.error')].map((x) => x.textContent); const busy = ['Вставка…', 'Применение…', 'Экспорт…', 'Рендер…'].includes((document.querySelector('.insert') || {}).textContent); return busy ? '' : (d ? 'done: ' + d.textContent : (e.length ? 'error: ' + e.join(' | ') : '')); })()`,
   problems: `[...document.querySelectorAll('.problems li')].map((x) => x.className + ': ' + x.textContent)`,
   cardMedia: `(() => { const v = document.querySelectorAll('.card video'); const i = [...document.querySelectorAll('.card img')]; return { videos: v.length, posters: i.length, postersLoaded: i.filter((x) => x.naturalWidth > 0).length, h264: document.createElement('video').canPlayType('video/mp4; codecs="avc1.640028"') }; })()`,
+  tabs: `[...document.querySelectorAll('.tab')].map((t) => t.textContent)`,
+  openTab: (label) => `(() => { const t = [...document.querySelectorAll('.tab')].find((e) => e.textContent === ${JSON.stringify(label)}); if (!t) return false; t.click(); return true; })()`,
+  presets: `[...document.querySelectorAll('.preset')].map((b) => b.querySelector('.preset-title').textContent + ' | ' + b.querySelector('.preset-meta').textContent)`,
+  exportDone: `(() => { const d = document.querySelector('.export .done'); const e = [...document.querySelectorAll('.export .problems li.error')].map((x) => x.textContent); const b = (document.querySelector('.export .insert') || {}).textContent; if (b === 'Экспорт…' || b === 'Рендер…') return ''; return d ? 'done: ' + d.textContent : (e.length ? 'error: ' + e.join(' | ') : ''); })()`,
   cardPlaying: `(() => { const v = document.querySelector('.card video'); return !!v && v.readyState >= 2 && !v.paused && v.currentTime > 0; })()`,
 };
 
@@ -167,6 +171,27 @@ if (isMain) {
       check('Premiere: the clip is on the timeline at 4 s, selected', clip && clip.selected, c?.data?.clips);
     }
     await hostRun('save', {});
+
+    // «Экспорт» from the interface (decisions P18–P23): the presets for the 1920x1080 frame, then a file in
+    // Export next to the project — AE through the Render Queue with «CR FullHD», Premiere straight from the .epr.
+    const tabs = await evaluate(s, page.tabs);
+    check(`tabs: ${tabs.join(', ')}`, JSON.stringify(tabs) === JSON.stringify(host === 'ae' ? ['Каталог', 'Цвета', 'Экспорт'] : ['Каталог', 'Экспорт']), tabs);
+    if (await evaluate(s, page.openTab('Экспорт'))) {
+      await waitFor(s, `document.querySelectorAll('.preset').length > 0`, { timeoutMs: 10000 }).catch(() => false);
+      const presets = await evaluate(s, page.presets);
+      check('export: Full HD first among the presets for 1920×1080, 4K marked «увеличение», no vertical', /^Full HD/.test(presets[0] ?? '') && presets.some((x) => /^4K.*увеличение$/.test(x)) && !presets.some((x) => /9:16/.test(x)), presets);
+      if (host === 'pr') check('export: «Сразу, без AME» picked', await evaluate(s, page.pressSeg('Сразу, без AME')));
+      await shot('4-export');
+      check('export: the button clicked', await evaluate(s, `(() => { const b = document.querySelector('.export .insert'); if (!b || b.disabled) return false; b.click(); return true; })()`));
+      const done = await waitFor(s, page.exportDone, { timeoutMs: 600000 });
+      check('export: reported as done in the panel', done.startsWith('done: Готово:'), { done, problems: await evaluate(s, page.problems) });
+      const name = (done.match(/Готово: (.+?\.mp4)/) ?? [])[1];
+      const file = name ? path.posix.join(path.posix.dirname(base.project), 'Export', name) : null;
+      check(`export: the file is in Export next to the project (${file})`, file && existsSync(file) && statSync(file).size > 0, file);
+      await shot('5-exported');
+    } else {
+      check('export: the tab is there', false, tabs);
+    }
   } catch (e) {
     check('ui check finished without an exception', false, String(e && e.stack ? e.stack : e));
   } finally {
