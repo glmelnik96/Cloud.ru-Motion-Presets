@@ -7,6 +7,7 @@ import { joinPath, libraryRoot, logDir, type Platform } from '../core/paths';
 import type { FontStatus, Host } from '../core/types';
 import type { Prepare } from '../core/media';
 import { prepareFiles, type PrepFs, type PrepResult } from './files';
+import { revealCommand, runAerender, type AerenderJob, type AerenderResult } from './export';
 import { fontDirs, scanFontFolders, type FontFs } from './fonts';
 import type { Deflate } from './png';
 
@@ -139,6 +140,9 @@ export interface CepRuntime {
   logDir: string;
   fonts(names: string[]): Promise<Record<string, FontStatus>>;
   prepareFiles(prepare: Prepare): Promise<PrepResult>;
+  exportFs: { size(p: string): number | null; mkdirp(dir: string): void; documents: string };
+  aerender(job: AerenderJob): Promise<AerenderResult>;
+  reveal(path: string): void;
 }
 
 // Everything the panel needs from CEP, or null outside a host (a browser preview of the UI).
@@ -167,5 +171,26 @@ export function cepRuntime(bundleVersion?: string): CepRuntime | null {
       return scanFontFolders(node.fontFs, fontDirs(node.platform, node.env), names);
     },
     prepareFiles: (prepare) => prepareFiles(node.prepFs, prepare, node.deflate),
+    exportFs: {
+      size: node.prepFs.size,
+      mkdirp: node.prepFs.mkdirp,
+      // SystemPath.MY_DOCUMENTS follows a Documents folder moved to OneDrive or another disk.
+      documents: (() => {
+        try {
+          return decodeURI(c.getSystemPath('myDocuments')).replace(/^file:\/\/\/?/, node.platform === 'win' ? '' : '/').replace(/\\/g, '/');
+        } catch {
+          return joinPath(node.env.USERPROFILE || node.env.HOME || '', 'Documents');
+        }
+      })(),
+    },
+    aerender: (job) => runAerender(req('child_process').spawn, node.platform, job),
+    reveal: (path) => {
+      const r = revealCommand(node.platform, path, node.prepFs.size(path) !== null);
+      try {
+        req('child_process').spawn(r.cmd, r.args, { detached: true, stdio: 'ignore' }).unref();
+      } catch {
+        // the panel cannot open the folder; the path stays in the result line
+      }
+    },
   };
 }

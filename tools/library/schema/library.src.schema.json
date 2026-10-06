@@ -191,6 +191,7 @@
           "properties": { "periodFrames": { "type": "integer", "minimum": 1 } }
         },
         "alpha": { "description": "T2/T3 video on a transparent background: the panel offers the #222222 backdrop.", "type": "boolean" },
+        "omTemplate": { "description": "Export presets (AME_*): name of the After Effects Output Module template that repeats the .epr, loaded by hand from the brand .aom (decision P21).", "type": "string", "pattern": "^CR [A-Za-z0-9 ]+$", "maxLength": 48 },
         "fields": { "type": "array", "items": { "$ref": "#/$defs/field" } },
         "companions": { "type": "array", "items": { "$ref": "#/$defs/companion" } }
       },
@@ -207,7 +208,7 @@
       "type": "object",
       "$ref": "#/$defs/itemCommon",
       "propertyNames": {
-        "enum": ["id", "title_ru", "category", "tier", "hosts", "version", "fit", "cutFrame", "windows", "duration", "loop", "alpha", "fields", "companions", "requiredFonts", "variants"]
+        "enum": ["id", "title_ru", "category", "tier", "hosts", "version", "fit", "cutFrame", "windows", "duration", "loop", "alpha", "omTemplate", "fields", "companions", "requiredFonts", "variants"]
       },
       "properties": {
         "requiredFonts": { "type": "array", "items": { "$ref": "#/$defs/font" } },

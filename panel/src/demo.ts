@@ -4,6 +4,7 @@ import { render, h } from 'preact';
 import src from '../../library/library.src.json';
 import example from '../../docs/library/example.src.json';
 import { PanelApp } from './app/controller';
+import type { ExportRequest } from './core/export';
 import type { CallOptions, HostCaller, HostReply } from './core/host';
 import type { InsertRequest, MediaRequest } from './core/insert';
 import type { Catalog, HostContext, Item } from './core/types';
@@ -22,7 +23,7 @@ function toItem(raw: unknown, keepCompanions: boolean): Item {
     else if (v.parts) {
       const src = v.parts as unknown as Record<string, [number, number]>;
       out.parts = Object.fromEntries(Object.entries(src).map(([p, r]) => [p, { file: `${base}_${p}_v${it.version}.mov`, sha256: SHA, bytes: 0, frames: r[1] - r[0] }]));
-    } else out.file = `${base}_v${it.version}.${it.category === 'sounds' ? 'wav' : v.key === 'svg' || v.key === 'ffx' ? v.key : it.tier === 'T3' ? 'png' : 'mov'}`;
+    } else out.file = `${base}_v${it.version}.${it.category === 'sounds' ? 'wav' : v.key === 'svg' || v.key === 'ffx' || v.key === 'epr' || v.key === 'aom' ? v.key : it.tier === 'T3' ? 'png' : 'mov'}`;
     return out;
   });
   if (it.tier === 'T1') it.aep = { file: `${dir}/${it.id}_v${it.version}.aep`, sha256: SHA, bytes: 0 };
@@ -33,7 +34,8 @@ function toItem(raw: unknown, keepCompanions: boolean): Item {
 class DemoHost implements HostCaller {
   ctx: HostContext;
   // ?instant=1: replies without delay, so the whole start-up can finish before the UI subscribes.
-  constructor(host: 'ae' | 'pr', w: number, h: number, private readonly instant = false) {
+  // ?templates=0: AE has not loaded the brand .aom yet (the instruction instead of a render).
+  constructor(host: 'ae' | 'pr', w: number, h: number, private readonly instant = false, private readonly templates = true) {
     this.ctx = {
       host,
       version: host === 'ae' ? '26.5x89' : '26.5.2',
@@ -43,7 +45,7 @@ class DemoHost implements HostCaller {
     };
   }
   async call<T>(fn: string, args?: unknown, _opts?: CallOptions): Promise<HostReply<T>> {
-    if (!this.instant) await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' || fn === 'applyPreset' || fn === 'applyColor' ? 500 : 30));
+    if (!this.instant) await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' || fn === 'applyPreset' || fn === 'applyColor' || fn === 'exportComp' || fn === 'exportSequence' ? 500 : 30));
     if (fn === 'getContext') return { ok: true, data: this.ctx as T };
     if (fn === 'diag') return { ok: true, data: { app: 'demo' } as T };
     if (fn === 'insertItem') {
@@ -60,6 +62,16 @@ class DemoHost implements HostCaller {
     }
     if (fn === 'applyColor') return { ok: true, data: { layers: [{ name: 'Плашка', set: 2, keyed: 0, expressions: [] }] } as T };
     if (fn === 'applyPreset') return { ok: true, data: { layers: [{ name: 'Имя', layerId: 7, changed: true, firstKeySec: this.ctx.target!.timeSec }], newLayers: [] } as T };
+    if (fn === 'exportSequence') {
+      const r = args as ExportRequest;
+      return { ok: true, data: (r.mode === 'queue' ? { file: r.output, queued: true, job: '1', inSec: 0, outSec: 120 } : { file: r.output, bytes: 1000, ms: 500 }) as T };
+    }
+    if (fn === 'exportComp') {
+      const r = args as ExportRequest;
+      if (!this.templates) return { ok: false, error: { code: 'NO_TEMPLATE', message: r.omTemplate ?? '' } };
+      if (r.mode === 'background') return { ok: true, data: { file: r.output, aerender: { exe: 'C:/AE/aerender.exe', project: 'C:/Projects/demo.aep', rqIndex: 1 } } as T };
+      return { ok: true, data: { file: r.output, bytes: 1000, ms: 500 } as T };
+    }
     if (fn === 'getCuts') return { ok: true, data: { cuts: [this.ctx.target!.timeSec - 0.4] } as T };
     return { ok: false, error: { code: 'NO_FUNCTION', message: fn } };
   }
@@ -90,7 +102,7 @@ export function startDemo(el: HTMLElement, version: string): void {
   const catalog: Catalog = { schemaVersion: 1, libraryVersion: '2026.10.05', minPluginVersion: '0.1.0', items };
   const store = new Map<string, string>();
   const app = new PanelApp({
-    host: new DemoHost(host, w, hh, q.get('instant') === '1'),
+    host: new DemoHost(host, w, hh, q.get('instant') === '1', q.get('templates') !== '0'),
     hostKey: host,
     pluginVersion: version,
     platform: 'win',
@@ -99,6 +111,17 @@ export function startDemo(el: HTMLElement, version: string): void {
     store: { get: (k) => store.get(k) ?? null, set: (k, v) => void store.set(k, v) },
     fonts: async (names) => Object.fromEntries(names.map((n) => [n, { found: true, version: 'Version 1.002' }])),
     prepareFiles: async (p) => ({ copied: p.copies.map((c) => c.to), reused: [], written: p.solids.map((x) => x.path) }),
+    // Files of the demo: what was «exported» exists, so the next export of the same preset gets _2.
+    exportFs: { size: (p) => (written.has(p) ? 1000 : null), mkdirp: () => undefined, documents: 'C:/Users/demo/Documents' },
+    aerender: async (job) => {
+      await new Promise((r) => setTimeout(r, 800));
+      return { ok: true, code: 0, tail: [`rendered item ${job.rqIndex}`] };
+    },
+    reveal: (path) => console.log('reveal', path),
+  });
+  const written = new Set<string>();
+  app.subscribe((st) => {
+    if (st.outcome?.file) written.add(st.outcome.file);
   });
   render(h(App, { app, ui: { fileUrl: (f: string) => (media ? media + f : f), copy: (t: string) => console.log(t), pickFile: host === 'ae' ? async () => 'C:/Media/visual.mp4' : undefined } }), el);
   void app.init().then(() => {

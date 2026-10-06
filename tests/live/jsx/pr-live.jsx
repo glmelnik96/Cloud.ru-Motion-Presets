@@ -226,6 +226,45 @@ function lvSave() {
   }, false);
 }
 
+// ---- «Экспорт» (tests/live/export.mjs) ----
+
+// Sequences of the export checks, each with the clip at 0 on V1 (and its sound on A1). In 0 and Out 2 s,
+// except «whole», which keeps no marks: Premiere then exports the whole sequence.
+function lvExportSetup() {
+  lvSetup();
+  if (!DATA.ids) {
+    return;
+  }
+  check('the clip on V1 of every sequence, In/Out set', function () {
+    var imported = importFile(PARAMS.clip, app.project.rootItem, 15000);
+    var out = {};
+    var i, s, seq, tpf;
+    if (!imported.item) {
+      return { pass: false, detail: imported };
+    }
+    for (i = 0; i < PARAMS.targets.length; i++) {
+      s = PARAMS.targets[i];
+      seq = lvSeq(DATA.ids[s.key]);
+      activateSequence(seq);
+      tpf = Number(seq.timebase);
+      placeClip(seq.videoTracks[0], imported.item, 0, tpf);
+      if (s.key !== 'whole') {
+        seq.setInPoint(PARAMS.range.pr.inSec + 0.001);
+        seq.setOutPoint(PARAMS.range.pr.outSec + 0.001);
+      }
+      out[s.key] = {
+        clips: seq.videoTracks[0].clips.numItems,
+        audio: seq.audioTracks[0].clips.numItems,
+        inSec: Number(seq.getInPointAsTime().ticks) / TPS,
+        outSec: Number(seq.getOutPointAsTime().ticks) / TPS
+      };
+    }
+    DATA.placed = out;
+    app.project.save();
+    return { pass: true, detail: out };
+  });
+}
+
 if (PARAMS.op === 'setup') {
   lvSetup();
 } else if (PARAMS.op === 'activate') {
@@ -244,5 +283,7 @@ if (PARAMS.op === 'setup') {
   lvTimeline();
 } else if (PARAMS.op === 'save') {
   lvSave();
+} else if (PARAMS.op === 'exportSetup') {
+  lvExportSetup();
 }
 finish(DATA);

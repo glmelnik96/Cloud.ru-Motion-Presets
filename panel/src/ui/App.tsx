@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { PanelApp } from '../app/controller';
 import { palette, TARGETS } from '../core/colors';
+import { fitLabel, type ExportMode } from '../core/export';
 import { isActive } from '../core/fields';
 import type { Problem } from '../core/problems';
-import { sec } from '../core/problems';
+import { messages, sec } from '../core/problems';
 import type { PreviewMedia } from '../core/previews';
 import type { Field, FieldValue, Item } from '../core/types';
 import { variantLabel } from '../core/variant';
@@ -38,6 +39,7 @@ export function App({ app, ui }: { app: PanelApp; ui: UiServices }) {
         {s.phase === 'loading' && <div class="empty">Загрузка библиотеки…</div>}
         {s.phase === 'error' && <Fatal problems={s.libraryProblems} />}
         {s.phase === 'ready' && s.tab === 'colors' && <Colors app={app} ui={ui} />}
+        {s.phase === 'ready' && s.tab === 'export' && <Export app={app} />}
         {s.phase === 'ready' && s.tab === 'catalog' && (s.view === 'catalog' ? <Catalog app={app} ui={ui} /> : <Form app={app} ui={ui} />)}
       </main>
       <Status app={app} ui={ui} />
@@ -69,6 +71,80 @@ function Colors({ app, ui }: { app: PanelApp; ui: UiServices }) {
       <div class="actions">
         <Problems list={s.outcome?.problems ?? []} />
         {s.outcome?.ok && <div class="done">{s.outcome.note}</div>}
+      </div>
+    </div>
+  );
+}
+
+const MODE_HINT: Record<ExportMode, string> = {
+  queue: 'Premiere сразу свободен: файл закодирует Media Encoder.',
+  direct: 'Быстрее для коротких роликов, но Premiere занят до конца экспорта.',
+  render: 'After Effects занят до конца рендера и показывает его ход.',
+  background: 'Панель сохранит проект и запустит aerender: можно работать дальше. Рендерится сохранённый проект.',
+};
+
+const EXPORT_BUTTON: Record<ExportMode, string> = {
+  queue: 'В очередь Media Encoder',
+  direct: 'Экспортировать',
+  render: 'Рендерить',
+  background: 'Сохранить проект и рендерить в фоне',
+};
+
+// «Экспорт» (decisions P18–P23): the brand presets for the frame of the active comp or sequence, the way to
+// export, the folder; then the result with «Показать в папке» and the renders in the background.
+function Export({ app }: { app: PanelApp }) {
+  const s = app.state;
+  const t = s.context?.target;
+  if (!t) return <div class="empty">{messages.noTarget(s.host)}</div>;
+  const choices = app.exportChoices();
+  const choice = app.exportChoice();
+  const plan = app.exportPlan();
+  const planProblems = plan?.problems ?? [];
+  const blocking = planProblems.some((p) => p.severity === 'error');
+  const shown = s.outcome ? s.outcome.problems : planProblems;
+  const what = s.host === 'ae' ? 'Композиция' : 'Секвенция';
+  const range = s.host === 'ae' ? 'рабочая область' : 'от In до Out, без меток — вся секвенция';
+  return (
+    <div class="export">
+      <p class="hint">{what} «{t.name}», {t.w}×{t.h} · {sec(t.fps)} к/с. Диапазон — {range}.</p>
+      {choices.length ? (
+        <div class="presets" role="listbox" aria-label="Пресет">
+          {choices.map(({ preset, fit }) => (
+            <button key={preset.id} role="option" aria-selected={choice?.id === preset.id} class={'preset' + (choice?.id === preset.id ? ' on' : '')}
+              onClick={() => app.setExportPreset(preset.id)}>
+              <span class="preset-title">{preset.title}</span>
+              <span class="preset-meta">{preset.w}×{preset.h} · {sec(preset.fps)} к/с{fit !== 'same' ? ` · ${fitLabel(fit)}` : ''}</span>
+            </button>
+          ))}
+        </div>
+      ) : <div class="empty">{messages.exportNone(t.w, t.h)}</div>}
+      <div class="seg" role="group" aria-label="Как экспортировать">
+        {app.exportModes().map((m) => <button key={m.key} class={s.exportMode === m.key ? 'on' : ''} onClick={() => app.setExportMode(m.key)}>{m.label_ru}</button>)}
+      </div>
+      <p class="hint">{MODE_HINT[s.exportMode]}</p>
+      <p class="hint path" title="Папка экспорта">{app.exportFolder()}</p>
+      <div class="actions">
+        <Problems list={shown} />
+        <button class="insert" disabled={s.busy || !choice || (blocking && !s.outcome)} onClick={() => void app.exportNow()}>
+          {s.busy ? (s.host === 'ae' ? 'Рендер…' : 'Экспорт…') : EXPORT_BUTTON[s.exportMode]}
+        </button>
+        {s.outcome?.ok && (
+          <div class="done">
+            {s.outcome.note}
+            {s.outcome.file && <button class="link" onClick={() => app.reveal(s.outcome!.file!)}>Показать в папке</button>}
+          </div>
+        )}
+        {s.background.length > 0 && (
+          <ul class="jobs">
+            {s.background.map((b) => (
+              <li key={b.file} class={b.status}>
+                <span>{b.status === 'running' ? 'В фоне' : b.status === 'done' ? 'Готово' : 'Ошибка'}: {b.file.split('/').pop()}</span>
+                {b.status === 'done' && <button class="link" onClick={() => app.reveal(b.file)}>Показать в папке</button>}
+                {b.message && <div class="error">{b.message}</div>}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

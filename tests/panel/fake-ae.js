@@ -15,7 +15,8 @@ var ImportAsType = { COMP_CROPPED_LAYERS: 3812, FOOTAGE: 3813, COMP: 3814, PROJE
 var BridgeTalk = { appName: 'aftereffects' };
 var $ = { os: 'Windows/64 10.0', sleep: function () {} };
 
-var __ae = { files: {}, folders: {}, aeps: {}, media: {}, presets: {}, calls: [], nextId: 100, undo: [], suppress: 0, imports: 0, fonts: {} };
+var __ae = { files: {}, folders: {}, aeps: {}, media: {}, presets: {}, calls: [], nextId: 100, undo: [], suppress: 0, imports: 0, fonts: {},
+  omTemplates: ['Lossless', 'H.264 - Match Render Settings - 15 Mbps'], renders: [], saves: 0 };
 
 function __norm(p) { return String(p).split('\\').join('/'); }
 
@@ -38,7 +39,9 @@ function File(p) {
   this.fsName = this._path;
   this.name = this._path.slice(this._path.lastIndexOf('/') + 1);
   this.exists = __ae.files[this._path] !== undefined;
+  this.length = this.exists ? 1000 : 0;
 }
+Object.defineProperty(File.prototype, 'parent', { get: function () { return new Folder(this._path.slice(0, this._path.lastIndexOf('/'))); } });
 File.prototype.copy = function (dst) {
   var target = dst instanceof File ? dst._path : __norm(dst);
   var dir = target.slice(0, target.lastIndexOf('/'));
@@ -344,6 +347,62 @@ ImportOptions.prototype.canImportAs = function (t) {
 
 var __root = new FolderItem('Root');
 
+// The render queue (export, decisions P20, P21): Output Module templates by name from __ae.omTemplates;
+// 'Resize to' takes "w,h" only (docs/research/export/ae-om.json); render() writes the file of every item
+// marked to render and leaves the item DONE.
+var RQItemStatus = { WILL_CONTINUE: 3012, NEEDS_OUTPUT: 3013, UNQUEUED: 3014, QUEUED: 3015, RENDERING: 3016, USER_STOPPED: 3017, ERR_STOPPED: 3018, DONE: 3019 };
+function OutputModule() { this._settings = { Resize: 'false' }; this._template = null; this.file = null; }
+Object.defineProperty(OutputModule.prototype, 'templates', { get: function () { return __ae.omTemplates.slice(); } });
+OutputModule.prototype.applyTemplate = function (n) {
+  if (__ae.omTemplates.indexOf(n) < 0) throw new Error('After Effects error: no template ' + n);
+  this._template = n;
+};
+OutputModule.prototype.setSettings = function (o) {
+  for (var k in o) {
+    if (k === 'Resize to' && !/^[0-9]+,[0-9]+$/.test(o[k])) throw new Error('After Effects error: Invalid Value for key: <Resize to>. Must have form: "x,y".');
+    this._settings[k] = o[k];
+  }
+};
+function RenderQueueItem(comp) {
+  this.comp = comp;
+  this.render = true;
+  this.status = RQItemStatus.QUEUED;
+  this.timeSpanStart = 0;
+  this.timeSpanDuration = comp.duration;
+  this._settings = {};
+  this._om = new OutputModule();
+}
+RenderQueueItem.prototype.outputModule = function () { return this._om; };
+RenderQueueItem.prototype.setSettings = function (o) {
+  for (var k in o) {
+    if (k === 'Frame Rate') throw new Error('After Effects error: Invalid Value for key: <Frame Rate>');
+    this._settings[k] = o[k];
+  }
+};
+RenderQueueItem.prototype.remove = function () {
+  var q = app.project.renderQueue._items;
+  q.splice(q.indexOf(this), 1);
+};
+var __rq = {
+  rendering: false,
+  _items: [],
+  items: { add: function (comp) { var it = new RenderQueueItem(comp); __rq._items.push(it); return it; } },
+  item: function (i) { return this._items[i - 1]; },
+  render: function () {
+    this._items.forEach(function (it) {
+      if (!it.render || it.status !== RQItemStatus.QUEUED) return;
+      var out = it._om.file ? it._om.file._path : null;
+      if (!out || !__ae.folders[out.slice(0, out.lastIndexOf('/'))]) { it.status = RQItemStatus.ERR_STOPPED; return; }
+      __ae.files[out] = 'mp4';
+      __ae.renders.push({ comp: it.comp.name, template: it._om._template, resize: it._om._settings.Resize === 'true' ? it._om._settings['Resize to'] : null,
+        fps: it._settings['Use this frame rate'] || null, span: [it.timeSpanStart, it.timeSpanDuration], out: out });
+      it.status = RQItemStatus.DONE;
+    });
+  },
+};
+Object.defineProperty(__rq, 'numItems', { get: function () { return this._items.length; } });
+Folder.appPackage = new Folder('C:/Program Files/Adobe/Adobe After Effects 2026/Support Files');
+
 var app = {
   version: '26.5x89',
   buildName: '89',
@@ -358,6 +417,13 @@ var app = {
   project: {
     file: null,
     activeItem: null,
+    renderQueue: __rq,
+    save: function () {
+      if (!this.file) throw new Error('no file');
+      __ae.saves += 1;
+      __ae.savedQueue = __rq._items.map(function (it) { return { comp: it.comp.name, render: it.render, out: it._om.file ? it._om.file._path : null, template: it._om._template,
+        resize: it._om._settings.Resize === 'true' ? it._om._settings['Resize to'] : null, fps: it._settings['Use this frame rate'] || null, span: [it.timeSpanStart, it.timeSpanDuration] }; });
+    },
     rootFolder: __root,
     workingSpace: 'None',
     linearizeWorkingSpace: false,
@@ -444,6 +510,11 @@ __ae.addLayer = function (comp, name, kind, opts) {
     l._contents = __list('ADBE Root Vectors Group', groups);
   }
   return l;
+};
+__ae.aerender = function (on) {
+  var p = 'C:/Program Files/Adobe/Adobe After Effects 2026/Support Files/aerender.exe';
+  if (on) __ae.files[p] = 'exe'; else delete __ae.files[p];
+  return p;
 };
 __ae.addMedia = function (path, sec, still) {
   __ae.files[__norm(path)] = 'media';

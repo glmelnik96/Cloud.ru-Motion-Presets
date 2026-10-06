@@ -17,6 +17,7 @@ function mediaExt(it: Item, key: string): string {
   if (it.category === 'sounds') return 'wav';
   if (key === 'svg') return 'svg';
   if (key === 'ffx') return 'ffx';
+  if (key === 'epr' || key === 'aom') return key;
   return it.tier === 'T3' ? 'png' : 'mov';
 }
 

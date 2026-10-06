@@ -2,6 +2,7 @@
 // actions; it never talks to CSInterface or Node itself (spec 6: «Интерфейс знает только API ядра»).
 import { planColor, runColor, type ColorTarget } from '../core/colors';
 import { isPreset, planPreset, runPreset } from '../core/effects';
+import { aomFile, defaultMode, exportFolder, exportNote, exportPresets, MODES, planExport, presetsForFrame, runExport, type ExportFit, type ExportMode, type ExportPlan, type ExportPreset } from '../core/export';
 import { formFields } from '../core/fields';
 import { previewFor, type PreviewMedia } from '../core/previews';
 import type { HostCaller } from '../core/host';
@@ -10,12 +11,13 @@ import { filterItems, itemsForHost, parseCatalog, usedCategories, CATEGORIES } f
 import type { Logger } from '../core/log';
 import { backdropDefault, CUT_WINDOW_SEC, defaultMediaLengthSec, mediaKind, pickMediaVariant, placeable, type Prepare } from '../core/media';
 import { FieldMemory, type KeyValueStore } from '../core/memory';
-import type { Platform } from '../core/paths';
+import { dirname, type Platform } from '../core/paths';
 import { error, messages, type Problem } from '../core/problems';
 import { defaultLengthSec } from '../core/timing';
 import type { Catalog, Category, FieldValue, FontStatus, Host, HostContext, Item, Values, Variant } from '../core/types';
 import { pickVariant, variantLabel, type VariantPick } from '../core/variant';
 import { shortVersion } from '../core/version';
+import { aerenderProblem, type AerenderJob, type AerenderResult } from '../services/export';
 
 export interface Services {
   host: HostCaller;
@@ -30,11 +32,24 @@ export interface Services {
   fonts?(names: string[]): Promise<Record<string, FontStatus>>;
   // Copies library files next to the project and writes the backdrop still before the host call (P11).
   prepareFiles?(prepare: Prepare): Promise<{ copied: string[]; reused: string[]; written: string[] }>;
+  // «Экспорт»: files next to the project (P23), aerender for AE in the background (P20), the file in Explorer
+  // or Finder.
+  exportFs?: { size(p: string): number | null; mkdirp(dir: string): void; documents: string };
+  aerender?(job: AerenderJob): Promise<AerenderResult>;
+  reveal?(path: string): void;
 }
 
 export type View = 'catalog' | 'form';
-// Tabs of the panel (spec 7): the catalog, and «Цвета» in After Effects.
-export type Tab = 'catalog' | 'colors';
+// Tabs of the panel (spec 7): the catalog, «Цвета» in After Effects, «Экспорт» in both.
+export type Tab = 'catalog' | 'colors' | 'export';
+
+// An AE render in the background (aerender): running, then done or failed.
+export interface BackgroundJob {
+  file: string;
+  title: string;
+  status: 'running' | 'done' | 'failed';
+  message?: string;
+}
 
 export interface Outcome {
   ok: boolean;
@@ -42,6 +57,8 @@ export interface Outcome {
   at: number;
   // What the result line says instead of «Вставлено…» (effects: the layers the preset went on).
   note?: string;
+  // Export: the file written or queued, for «Показать в папке».
+  file?: string;
 }
 
 export interface AppState {
@@ -70,6 +87,10 @@ export interface AppState {
   outcome: Outcome | null;
   // The nearest variant waits for the user's consent (spec 4.3).
   consent: { key: string; label: string } | null;
+  // «Экспорт»: the preset chosen (null: the first offered for the frame), the way, renders in the background.
+  exportPreset: string | null;
+  exportMode: ExportMode;
+  background: BackgroundJob[];
 }
 
 type Listener = (s: AppState) => void;
@@ -105,6 +126,9 @@ export class PanelApp {
       busy: false,
       outcome: null,
       consent: null,
+      exportPreset: null,
+      exportMode: this.memory.exportMode(svc.hostKey, MODES[svc.hostKey].map((m) => m.key)) ?? defaultMode(svc.hostKey),
+      background: [],
     };
   }
 
@@ -166,7 +190,10 @@ export class PanelApp {
   // ---- Tabs and «Цвета» ----
 
   tabs(): Array<{ key: Tab; label_ru: string }> {
-    return this.state.host === 'ae' ? [{ key: 'catalog', label_ru: 'Каталог' }, { key: 'colors', label_ru: 'Цвета' }] : [];
+    const tabs: Array<{ key: Tab; label_ru: string }> = [{ key: 'catalog', label_ru: 'Каталог' }];
+    if (this.state.host === 'ae') tabs.push({ key: 'colors', label_ru: 'Цвета' });
+    if (this.presets().length) tabs.push({ key: 'export', label_ru: 'Экспорт' });
+    return tabs.length > 1 ? tabs : [];
   }
 
   setTab(tab: Tab): void {
@@ -194,6 +221,112 @@ export class PanelApp {
       this.log('error', 'color.exception', { error: String(e) });
       return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
     }
+  }
+
+  // ---- «Экспорт» (decisions P18–P23) ----
+
+  presets(): ExportPreset[] {
+    return this.state.catalog ? exportPresets(this.state.catalog, this.state.host, this.svc.libraryRoot) : [];
+  }
+
+  // The presets offered for the frame of the active comp or sequence (P22).
+  exportChoices(): Array<{ preset: ExportPreset; fit: ExportFit }> {
+    const t = this.state.context?.target;
+    return t ? presetsForFrame(this.presets(), t) : [];
+  }
+
+  exportChoice(): ExportPreset | null {
+    const choices = this.exportChoices();
+    return choices.find((c) => c.preset.id === this.state.exportPreset)?.preset ?? choices[0]?.preset ?? null;
+  }
+
+  exportModes(): Array<{ key: ExportMode; label_ru: string }> {
+    return MODES[this.state.host];
+  }
+
+  setExportPreset(id: string): void {
+    this.set({ exportPreset: id, outcome: null });
+  }
+
+  setExportMode(mode: ExportMode): void {
+    this.memory.setExportMode(this.state.host, mode);
+    this.set({ exportMode: mode, outcome: null });
+  }
+
+  private exportInput(ctx: HostContext, preset: ExportPreset) {
+    const fs = this.svc.exportFs;
+    return { ctx, preset, mode: this.state.exportMode, documents: fs?.documents ?? '', exists: (p: string) => (fs ? fs.size(p) !== null : false) };
+  }
+
+  // The plan for the warnings under the button; the file name is fixed at the click.
+  exportPlan(): ExportPlan | null {
+    const ctx = this.state.context;
+    const preset = this.exportChoice();
+    return ctx && preset ? planExport(this.exportInput(ctx, preset)) : null;
+  }
+
+  exportFolder(): string | null {
+    const ctx = this.state.context;
+    return ctx ? exportFolder(ctx, this.svc.exportFs?.documents ?? '') : null;
+  }
+
+  async exportNow(): Promise<Outcome> {
+    if (this.state.busy) return { ok: false, problems: [], at: Date.now() };
+    this.set({ busy: true, outcome: null });
+    try {
+      const ctx = await this.refreshContext();
+      if (!ctx) return this.finish({ ok: false, problems: [error('NO_TARGET', messages.noTarget(this.state.host))], at: Date.now() });
+      const preset = this.exportChoice();
+      if (!preset) return this.finish({ ok: false, problems: [error('EXPORT_ASPECT', messages.exportNone(ctx.target?.w ?? 0, ctx.target?.h ?? 0))], at: Date.now() });
+      const plan = planExport(this.exportInput(ctx, preset));
+      if (!plan.ok || !plan.request) {
+        this.log('warn', 'export.refused', { id: preset.id, problems: plan.problems.map((p) => p.code) });
+        return this.finish({ ok: false, problems: plan.problems, at: Date.now() });
+      }
+      const req = plan.request;
+      try {
+        this.svc.exportFs?.mkdirp(dirname(req.output));
+      } catch (e) {
+        return this.finish({ ok: false, problems: [error('EXPORT_FAILED', messages.exportFailed(`нет папки ${dirname(req.output)}: ${String((e as Error)?.message ?? e)}`))], at: Date.now() });
+      }
+      const aom = this.state.catalog ? aomFile(this.state.catalog, this.svc.libraryRoot) : null;
+      const out = await runExport(this.svc.host, req, aom);
+      const problems = [...plan.problems, ...out.problems];
+      this.log(out.ok ? 'info' : 'error', out.ok ? 'export.done' : 'export.failed', { id: preset.id, mode: req.mode, output: req.output, problems: problems.map((p) => p.code), reply: out.reply });
+      if (!out.ok || !out.reply) return this.finish({ ok: false, problems, at: Date.now() });
+      if (out.reply.aerender) this.startBackground(out.reply.aerender, req.output, preset.title);
+      return this.finish({ ok: true, problems, at: Date.now(), note: exportNote(req, out.reply), file: out.reply.file || req.output });
+    } catch (e) {
+      this.log('error', 'export.exception', { error: String(e) });
+      return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
+    }
+  }
+
+  // aerender runs on its own: the panel is free, the list of background renders shows how it ends.
+  private startBackground(job: AerenderJob, file: string, title: string): void {
+    const update = (patch: Partial<BackgroundJob>) =>
+      this.set({ background: this.state.background.map((b) => (b.file === file ? { ...b, ...patch } : b)) });
+    this.set({ background: [...this.state.background.filter((b) => b.file !== file), { file, title, status: 'running' }] });
+    if (!this.svc.aerender) {
+      update({ status: 'failed', message: messages.aerender('панель не может запустить aerender') });
+      return;
+    }
+    this.backgroundDone = this.svc.aerender(job).then(
+      (r) => {
+        const size = this.svc.exportFs?.size(file) ?? null;
+        const ok = r.ok && size !== null && size > 0;
+        this.log(ok ? 'info' : 'error', ok ? 'aerender.done' : 'aerender.failed', { file, code: r.code, tail: r.tail });
+        update(ok ? { status: 'done' } : { status: 'failed', message: messages.aerender(size === null && r.ok ? `${file}: файла нет` : aerenderProblem(r, file)) });
+      },
+      (e) => update({ status: 'failed', message: messages.aerender(String((e as Error)?.message ?? e)) }),
+    );
+  }
+
+  // The last background render, for tests.
+  backgroundDone: Promise<void> | null = null;
+
+  reveal(path: string): void {
+    this.svc.reveal?.(path);
   }
 
   // ---- Catalog ----

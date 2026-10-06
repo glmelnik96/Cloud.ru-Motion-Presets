@@ -16,9 +16,9 @@ const plan = (item: Item, ctx: HostContext, options = {}) => planItem({ item, ct
 
 describe('what the panel places', () => {
   it('tells the kind of each example item and hides what it cannot place', () => {
-    const kinds = Object.fromEntries(exampleCatalog().items.filter((i) => i.tier !== 'T1' && i.category !== 'effects').map((i) => [i.id, mediaKind(i, pickMediaVariant(i, { w: 1920, h: 1080 }).variant!)]));
+    const kinds = Object.fromEntries(exampleCatalog().items.filter((i) => i.tier !== 'T1' && i.category !== 'effects' && i.category !== 'export').map((i) => [i.id, mediaKind(i, pickMediaVariant(i, { w: 1920, h: 1080 }).variant!)]));
     expect(kinds).toEqual({ SFX_WhooshIn: 'sound', BG_WebinarPortal: 'loop', TRN_StepWipe: 'transition', BG_Arrows: 'loop', BG_DotGrid: 'still', SFX_WebinarBed: 'sound' });
-    // .ffx: After Effects only (effects.ts); export presets wait for the «Экспорт» tab
+    // .ffx: After Effects only (effects.ts); export presets live in the «Экспорт» tab
     const ffx: Item = { ...exampleItem('BG_DotGrid'), id: 'FX_Pop', hosts: ['ae', 'pr'], variants: [{ key: 'ffx', file: 'items/FX_Pop/FX_Pop_ffx_v1.ffx', minHostVersion: {} }] };
     expect([insertable(ffx, 'ae'), insertable(ffx, 'pr')]).toEqual([true, false]);
     const epr: Item = { ...ffx, id: 'AME_Web', variants: [{ key: 'epr', file: 'items/AME_Web/AME_Web_epr_v1.epr', minHostVersion: {} }] };

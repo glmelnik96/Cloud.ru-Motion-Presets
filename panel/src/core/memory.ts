@@ -60,4 +60,14 @@ export class FieldMemory {
   setSound(v: { music: boolean; sfx: boolean }): void {
     this.store.set(`${PREFIX}sound`, JSON.stringify(v));
   }
+
+  // The way to export last chosen in this host (P19, P20), if it is one of the host's.
+  exportMode<T extends string>(host: string, allowed: readonly T[]): T | null {
+    const v = readJson(this.store, `${PREFIX}exportMode.${host}`);
+    return typeof v === 'string' && (allowed as readonly string[]).includes(v) ? (v as T) : null;
+  }
+
+  setExportMode(host: string, mode: string): void {
+    this.store.set(`${PREFIX}exportMode.${host}`, JSON.stringify(mode));
+  }
 }

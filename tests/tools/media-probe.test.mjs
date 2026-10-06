@@ -14,7 +14,7 @@ describe('media-probe', () => {
         avg_frame_rate: '25/1', pix_fmt: 'yuva444p12le', nb_frames: '125' }],
       format: { format_name: 'mov,mp4,m4a,3gp,3g2,mj2', duration: '5.000000' },
     });
-    expect(s.video).toEqual({ codec: 'prores', profile: '4444', width: 1920, height: 1080, fps: 25,
+    expect(s.video).toEqual({ codec: 'prores', profile: '4444', level: null, width: 1920, height: 1080, fps: 25,
       pixFmt: 'yuva444p12le', frames: 125 });
     expect(s.duration).toBe(5);
     expect(s.audio).toBe(null);

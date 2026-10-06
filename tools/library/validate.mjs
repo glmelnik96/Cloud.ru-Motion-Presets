@@ -166,6 +166,30 @@ function checkItem(item, byId, kind, err) {
     }
   }
   if (item.alpha !== undefined && item.tier === 'T1') err('alpha', 'alpha is for T2/T3 media; a T1 template brings its own background');
+
+  // Export presets (decisions P18, P21): an AME_ item is T3 of the «Экспорт» category; a preset is one .epr
+  // variant with its frame at 25 fps (D2), and in AE the Output Module template of the brand .aom.
+  const isExport = item.category === 'export';
+  if (isExport !== item.id.startsWith('AME_')) err('export', 'AME_ items and the export category go together');
+  if (item.omTemplate !== undefined && !isExport) err('export', 'omTemplate is for export presets');
+  if (isExport) {
+    const epr = variants.find((v) => v.key === 'epr');
+    if (item.tier !== 'T3') err('export', 'an export item is T3');
+    if (epr) {
+      if (variants.length !== 1) err('export', 'a preset has one variant, epr');
+      if (!epr.aspect || !epr.w || !epr.h || !epr.fps) err('export', 'the epr variant needs aspect, w, h and fps');
+      else if (epr.fps !== 25) err('export', `the preset is ${epr.fps} fps; D2 fixes 25`);
+      if (item.hosts.includes('ae') && !item.omTemplate) err('export', 'an AE preset needs omTemplate');
+      if (kind === 'catalog' && epr.file && !epr.file.endsWith('.epr')) err('export', 'the epr variant needs an .epr file');
+    } else if (!variants.some((v) => v.key === 'aom')) err('export', 'an export item has an epr or an aom variant');
+    if (item.omTemplate) {
+      const twin = [...byId.values()].find((o) => o !== item && o.omTemplate === item.omTemplate);
+      if (twin) err('export', `omTemplate "${item.omTemplate}" is also on ${twin.id}`);
+      if (![...byId.values()].some((o) => o.category === 'export' && o.variants.some((v) => v.key === 'aom'))) {
+        err('export', 'an AE preset needs the .aom item with its template');
+      }
+    }
+  }
   if (item.loop && new Set(variants.map((v) => v.fps)).size > 1) {
     err('loop', 'a looped item needs one fps across its variants');
   }

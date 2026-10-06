@@ -98,6 +98,8 @@ export interface Item {
   loop?: { periodFrames: number };
   // T2/T3 video on a transparent background: the panel offers the #222222 backdrop under it (spec 4.4).
   alpha?: boolean;
+  // Export presets: the After Effects Output Module template that repeats the .epr (decision P21).
+  omTemplate?: string;
   fields?: Field[];
   companions?: Companion[];
   requiredFonts?: Array<{ postScriptName: string; build?: string }>;

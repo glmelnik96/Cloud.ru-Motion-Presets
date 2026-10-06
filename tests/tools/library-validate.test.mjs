@@ -151,6 +151,27 @@ describe('library source', () => {
     item(doc, 'WEB_Screen').companions[0].placement = 'in';
     expect(errorsOf(doc)).toMatch(/WEB_Screen: companion-kind: companion "BG_WebinarPortal"/);
   });
+  it('holds export presets to 25 fps, one epr variant and an AE template from the .aom (P18, P21)', () => {
+    let doc = example();
+    item(doc, 'AME_SMM_9x16').variants[0].fps = 30;
+    expect(errorsOf(doc)).toMatch(/AME_SMM_9x16: export: the preset is 30 fps; D2 fixes 25/);
+    doc = example();
+    delete item(doc, 'AME_FullHD').omTemplate;
+    item(doc, 'AME_4K').omTemplate = 'CR SMM 1x1';
+    expect(errorsOf(doc)).toMatch(/AME_FullHD: export: an AE preset needs omTemplate/);
+    expect(errorsOf(doc)).toMatch(/AME_4K: export: omTemplate "CR SMM 1x1" is also on AME_SMM_1x1/);
+    doc = example();
+    doc.items = doc.items.filter((i) => i.id !== 'AME_Templates');
+    expect(errorsOf(doc)).toMatch(/AME_FullHD: export: an AE preset needs the .aom item/);
+    doc = example();
+    item(doc, 'BG_Arrows').omTemplate = 'CR Arrows';
+    item(doc, 'AME_4K').category = 'sounds';
+    expect(errorsOf(doc)).toMatch(/BG_Arrows: export: omTemplate is for export presets/);
+    expect(errorsOf(doc)).toMatch(/AME_4K: export: AME_ items and the export category go together/);
+    doc = example();
+    item(doc, 'AME_4K').omTemplate = 'Lossless';
+    expect(errorsOf(doc)).toMatch(/omTemplate/);
+  });
 });
 
 describe('library catalog', () => {

@@ -642,6 +642,48 @@
     };
   };
 
+  // In and out of the sequence in seconds (Premiere gives 0 and the end when there are no marks).
+  function inOut(seq) {
+    var a = null;
+    var b = null;
+    try { a = BK.round(Number(seq.getInPointAsTime().ticks) / TPS); } catch (e) { a = null; }
+    try { b = BK.round(Number(seq.getOutPointAsTime().ticks) / TPS); } catch (e2) { b = null; }
+    return { inSec: a, outSec: b };
+  }
+
+  // «Экспорт» (decision P19): the brand .epr from In to Out (workArea 1; without marks it is the whole sequence).
+  // queue — into the AME queue and the batch started: returns at once, AME writes the file; direct —
+  // exportAsMediaDirect, Premiere is busy until the file is there. The .epr sets frame and fps itself.
+  A.exportSequence = function (req) {
+    var seq = targetSeq(req.targetId);
+    var out = new File(req.output);
+    var epr = new File(req.epr);
+    var range = inOut(seq);
+    var t0 = new Date().getTime();
+    var rv, job;
+    if (!epr.exists) {
+      throw fail('NO_FILE', 'no preset ' + req.epr);
+    }
+    if (out.parent && !out.parent.exists) {
+      BK.mkdirs(out.parent.fsName);
+    }
+    if (req.mode === 'queue') {
+      try { app.encoder.launchEncoder(); } catch (e0) { rv = null; }
+      job = app.encoder.encodeSequence(seq, out.fsName, epr.fsName, 1, 1);
+      if (!job || String(job) === '0') {
+        throw fail('EXPORT_FAILED', 'Media Encoder не принял задание');
+      }
+      app.encoder.startBatch();
+      return { file: BK.slash(out.fsName), queued: true, job: String(job), inSec: range.inSec, outSec: range.outSec, ms: new Date().getTime() - t0 };
+    }
+    rv = seq.exportAsMediaDirect(out.fsName, epr.fsName, 1);
+    out = new File(req.output);
+    if (!out.exists || out.length <= 0) {
+      throw fail('EXPORT_FAILED', 'файл не появился (' + String(rv) + ')');
+    }
+    return { file: BK.slash(out.fsName), bytes: out.length, inSec: range.inSec, outSec: range.outSec, ms: new Date().getTime() - t0 };
+  };
+
   A.diag = function () {
     var seq = app.project.activeSequence;
     return {

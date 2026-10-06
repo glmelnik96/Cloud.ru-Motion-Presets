@@ -873,6 +873,122 @@
     };
   };
 
+  // ---- «Экспорт» (decisions P20, P21) ----
+
+  function hasTemplate(om, name) {
+    var list = om.templates;
+    var i;
+    for (i = 0; i < list.length; i++) {
+      if (String(list[i]) === name) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // aerender next to AE: Support Files\aerender.exe on Windows, beside the .app on macOS.
+  function aerenderPath() {
+    var pkg = Folder.appPackage;
+    var f = $.os.indexOf('Windows') >= 0 ? new File(pkg.fsName + '/aerender.exe') : new File(pkg.parent.fsName + '/aerender');
+    return f.exists ? BK.slash(f.fsName) : null;
+  }
+
+  // The comp into a render queue item: the brand template by name (loaded by hand from the .aom), Resize to
+  // the preset frame and its frame rate when the comp differs, the work area, the file.
+  function queueExport(comp, req) {
+    var rq = app.project.renderQueue;
+    var item = rq.items.add(comp);
+    var om = item.outputModule(1);
+    var o;
+    if (!hasTemplate(om, req.omTemplate)) {
+      item.remove();
+      throw fail('NO_TEMPLATE', req.omTemplate);
+    }
+    try {
+      om.applyTemplate(req.omTemplate);
+      if (req.resize) {
+        om.setSettings({ Resize: 'true' });
+        o = {};
+        o['Resize to'] = req.resize.w + ',' + req.resize.h;
+        om.setSettings(o);
+      }
+      if (req.fps) {
+        o = {};
+        o['Use this frame rate'] = String(req.fps);
+        item.setSettings(o);
+      }
+      item.timeSpanStart = comp.workAreaStart;
+      item.timeSpanDuration = comp.workAreaDuration;
+      om.file = new File(req.output);
+    } catch (e) {
+      item.remove();
+      throw fail('EXPORT_FAILED', String(e && e.message !== undefined ? e.message : e));
+    }
+    return item;
+  }
+
+  // render — the Render Queue now, only this item (the others keep their state); AE is busy until the end.
+  // background — the item is saved with the project for aerender -rqindex, then taken out of the queue of the
+  // open project (the saved file keeps it); the panel runs aerender.
+  A.exportComp = function (req) {
+    var comp = targetComp(req.targetId);
+    var rq = app.project.renderQueue;
+    var out = new File(req.output);
+    var held = [];
+    var item, i, other, t0, f, exe, index, project, err;
+    if (rq.rendering) {
+      throw fail('RENDERING', 'the render queue is rendering');
+    }
+    if (req.mode === 'background') {
+      if (!app.project.file) {
+        throw fail('NOT_SAVED', 'project is not saved');
+      }
+      exe = aerenderPath();
+      if (!exe) {
+        throw fail('EXPORT_FAILED', 'нет aerender рядом с After Effects');
+      }
+    }
+    if (out.parent && !out.parent.exists) {
+      BK.mkdirs(out.parent.fsName);
+    }
+    item = queueExport(comp, req);
+    if (req.mode === 'background') {
+      index = rq.numItems;
+      app.project.save();
+      project = BK.slash(app.project.file.fsName);
+      item.remove();
+      return { file: BK.slash(out.fsName), aerender: { exe: exe, project: project, rqIndex: index } };
+    }
+    for (i = 1; i <= rq.numItems; i++) {
+      other = rq.item(i);
+      if (other !== item && other.render === true) {
+        // a done or rendering item may refuse the flag: it is not rendered again anyway
+        try {
+          other.render = false;
+          held.push(other);
+        } catch (eH) {
+          other = null;
+        }
+      }
+    }
+    t0 = new Date().getTime();
+    try {
+      rq.render();
+    } catch (eRender) {
+      err = String(eRender && eRender.message !== undefined ? eRender.message : eRender);
+    } finally {
+      for (i = 0; i < held.length; i++) {
+        try { held[i].render = true; } catch (eB) { other = null; }
+      }
+    }
+    try { item.remove(); } catch (eR) { item = null; }
+    f = new File(req.output);
+    if (err || !f.exists || f.length <= 0) {
+      throw fail('EXPORT_FAILED', err || 'файл не появился');
+    }
+    return { file: BK.slash(f.fsName), bytes: f.length, ms: new Date().getTime() - t0 };
+  };
+
   A.diag = function () {
     var proj = app.project;
     return {

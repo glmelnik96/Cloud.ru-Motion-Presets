@@ -33,6 +33,7 @@ export function summarize(j) {
     video: v && {
       codec: v.codec_name,
       profile: v.profile || null,
+      level: num(v.level),
       width: v.width,
       height: v.height,
       fps: frameRate(v.avg_frame_rate) || frameRate(v.r_frame_rate),

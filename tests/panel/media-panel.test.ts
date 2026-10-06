@@ -40,7 +40,7 @@ function app(host: Host, over: Partial<Services> = {}) {
   const svc: Services = {
     host,
     hostKey: host.ctx.host,
-    pluginVersion: '0.1.13',
+    pluginVersion: '0.1.14',
     platform: 'win',
     libraryRoot: 'C:/ProgramData/CloudRuBrandKit/library',
     readLibrary: async () => JSON.stringify(exampleCatalog()),

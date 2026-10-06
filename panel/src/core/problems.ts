@@ -33,6 +33,13 @@ export type ProblemCode =
   | 'COLOR_PARTIAL'
   | 'COLOR_EXPRESSION'
   | 'COLOR_SOLID'
+  | 'EXPORT_ASPECT'
+  | 'EXPORT_UPSCALE'
+  | 'EXPORT_FPS'
+  | 'EXPORT_NO_TEMPLATE'
+  | 'EXPORT_BUSY'
+  | 'EXPORT_FAILED'
+  | 'AERENDER'
   | 'INSERT_FAILED'
   | 'READBACK'
   | 'TIMEOUT'
@@ -103,6 +110,20 @@ export const messages = {
   presetNoEffect: (names: string[]) => `Пресет ничего не изменил у слоёв ${names.join(', ')}. Возможно, он для другого типа слоя (например, только для текста).`,
   presetPartial: (names: string[]) => `К слоям ${names.join(', ')} пресет не применился: возможно, он для другого типа слоя.`,
   presetNewLayer: (names: string[]) => `Пресет добавил слои: ${names.join(', ')}.`,
+  exportAspect: (w: number, h: number, pw: number, ph: number) =>
+    `Пресет ${pw}×${ph} другой пропорции, чем кадр ${w}×${h}: картинка сожмётся или ляжет с полями.`,
+  exportNone: (w: number, h: number) => `Нет брендового пресета под кадр ${w}×${h}: пресеты есть для 16:9, 9:16, 1:1 и 4:3.`,
+  exportUpscale: (w: number, h: number, pw: number, ph: number) =>
+    `Кадр ${w}×${h} меньше пресета ${pw}×${ph}: картинка будет увеличена и потеряет резкость.`,
+  exportFps: (host: Host, have: number, need: number) =>
+    `${host === 'ae' ? 'Композиция' : 'Секвенция'} в ${sec(have)} к/с, пресет выводит ${sec(need)} к/с: движение может идти рывками.`,
+  exportNoTemplate: (name: string, aom: string | null) =>
+    `В After Effects нет шаблона вывода «${name}». Загрузите брендовые шаблоны один раз: Edit → Templates → Output Module → Load…` +
+    (aom ? ` и выберите файл ${aom}.` : '.') + ' Затем повторите экспорт.',
+  exportNotSaved: () => 'Для рендера в фоне проект должен быть сохранён: aerender рендерит файл проекта. Сохраните проект или выберите Render Queue.',
+  exportBusy: () => 'After Effects уже рендерит очередь. Дождитесь конца рендера.',
+  exportFailed: (detail: string) => `Экспорт не выполнен: ${detail}.`,
+  aerender: (detail: string) => `Рендер в фоне не выполнен: ${detail}.`,
   placement: (what: string[]) => `Файлы встали не так, как задумано (${what.join('; ')}). Отмените вставку и повторите.`,
   insertFailed: (detail: string) => `Вставка не выполнена: ${detail}.`,
   readback: (labels: string[]) =>

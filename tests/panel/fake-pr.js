@@ -10,7 +10,7 @@ var BridgeTalk = { appName: 'premierepro' };
 var $ = { os: 'Windows/64 10.0', sleep: function () {} };
 var TPS = 254016000000;
 
-var __pr = { files: {}, mogrts: {}, media: {}, calls: [], drop: [], imports: 0, qe: true };
+var __pr = { files: {}, folders: {}, mogrts: {}, media: {}, calls: [], drop: [], imports: 0, qe: true, exports: [], jobs: 0 };
 var ProjectItemType = { CLIP: 1, BIN: 2, ROOT: 3, FILE: 4 };
 
 function __norm(p) { return String(p).split('\\').join('/'); }
@@ -19,7 +19,19 @@ function File(p) {
   this._path = __norm(p);
   this.fsName = this._path;
   this.exists = __pr.files[this._path] !== undefined;
+  this.length = this.exists ? 1000 : 0;
 }
+Object.defineProperty(File.prototype, 'parent', { get: function () { return new Folder(this._path.slice(0, this._path.lastIndexOf('/'))); } });
+
+// Folders exist once created, or when a file lies in them.
+function Folder(p) {
+  this._path = __norm(p);
+  this.fsName = this._path;
+  var self = this._path;
+  this.exists = __pr.folders[self] === true || Object.keys(__pr.files).some(function (f) { return f.indexOf(self + '/') === 0; });
+}
+Object.defineProperty(Folder.prototype, 'parent', { get: function () { var i = this._path.lastIndexOf('/'); return i > 0 ? new Folder(this._path.slice(0, i)) : null; } });
+Folder.prototype.create = function () { __pr.folders[this._path] = true; this.exists = true; return true; };
 
 function Time() { this.ticks = '0'; }
 Object.defineProperty(Time.prototype, 'seconds', { get: function () { return Number(this.ticks) / TPS; } });
@@ -148,6 +160,15 @@ Object.defineProperty(Sequence.prototype, 'audioTracks', {
     return c;
   },
 });
+Sequence.prototype.getInPointAsTime = function () { return __time(this._inTicks || 0); };
+// Export (decision P19): the .epr must exist and the folder of the file too; the file appears at once.
+Sequence.prototype.exportAsMediaDirect = function (out, epr, workArea) {
+  if (__pr.files[__norm(epr)] === undefined) return 'Error: no preset';
+  if (!new File(out).parent.exists) return 'Error: no folder';
+  __pr.exports.push({ how: 'direct', seq: this.name, out: __norm(out), epr: __norm(epr), workArea: workArea });
+  __pr.files[__norm(out)] = 'mp4';
+  return 'No Error';
+};
 Sequence.prototype.getOutPointAsTime = function () { return __time(this._outTicks === null ? this.end : this._outTicks); };
 Object.defineProperty(Sequence.prototype, 'videoTracks', {
   get: function () {
@@ -194,6 +215,21 @@ var qe = { project: { getActiveSequence: function () { return __qeSeq; } } };
 
 var app = {
   version: '26.5.2',
+  // AME: the job is queued, the file comes after startBatch (written at once here).
+  encoder: {
+    _queue: [],
+    launchEncoder: function () { __pr.calls.push('launchEncoder'); return true; },
+    encodeSequence: function (seq, out, epr, workArea, remove) {
+      if (__pr.files[__norm(epr)] === undefined) return '0';
+      __pr.jobs += 1;
+      this._queue.push({ how: 'queue', seq: seq.name, out: __norm(out), epr: __norm(epr), workArea: workArea, remove: remove, job: String(__pr.jobs) });
+      return String(__pr.jobs);
+    },
+    startBatch: function () {
+      while (this._queue.length) { var j = this._queue.shift(); __pr.exports.push(j); __pr.files[j.out] = 'mp4'; }
+      return true;
+    },
+  },
   build: '2',
   enableQE: function () {},
   project: {

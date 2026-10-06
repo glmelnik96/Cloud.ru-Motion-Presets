@@ -328,6 +328,87 @@ function lvSave() {
   }, false);
 }
 
+// ---- «Экспорт» (tests/live/export.mjs) ----
+
+// A new scratch project with one comp per frame: a solid and the clip with its sound, work area 1-3 s.
+function lvExportSetup() {
+  check('export scratch project created and saved in the work folder', function () {
+    var ids = {};
+    var i, s, c, clip, layer;
+    bkNewProject();
+    clip = app.project.importFile(new ImportOptions(new File(PARAMS.clip)));
+    for (i = 0; i < PARAMS.targets.length; i++) {
+      s = PARAMS.targets[i];
+      c = app.project.items.addComp(s.name, s.w, s.h, 1, s.dur, s.fps);
+      c.layers.addSolid([0.149, 0.816, 0.486], 'BK fill', s.w, s.h, 1, s.dur);
+      layer = c.layers.add(clip);
+      layer.startTime = 0;
+      c.workAreaStart = PARAMS.range.ae.startSec;
+      c.workAreaDuration = PARAMS.range.ae.durSec;
+      ids[s.key] = String(c.id);
+    }
+    DATA.ids = ids;
+    DATA.saved = bkSaveAs(PARAMS.project);
+    return { pass: DATA.saved.bytes > 0, detail: { comps: PARAMS.targets.length, path: DATA.saved.path } };
+  });
+}
+
+// Output Module templates loaded in AE, read through a queue item of the first comp that is taken out again.
+function lvTemplates() {
+  check('output module templates listed', function () {
+    var rq = app.project.renderQueue;
+    var c = null;
+    var i, item, names;
+    for (i = 1; i <= app.project.numItems; i++) {
+      if (app.project.item(i) instanceof CompItem) {
+        c = app.project.item(i);
+        break;
+      }
+    }
+    if (!c) {
+      c = app.project.items.addComp('BK templates', 160, 90, 1, 1, 25);
+    }
+    item = rq.items.add(c);
+    names = [];
+    for (i = 0; i < item.outputModule(1).templates.length; i++) {
+      names.push(String(item.outputModule(1).templates[i]));
+    }
+    item.remove();
+    DATA.names = names;
+    return { pass: names.length > 0, detail: names.length };
+  });
+}
+
+// A queue item of the user's own: it must stay queued and marked through every export of the panel.
+function lvQueueUser() {
+  check('a queue item of the user for comp ' + PARAMS.id, function () {
+    var item = app.project.renderQueue.items.add(lvComp(PARAMS.id));
+    item.outputModule(1).file = new File(app.project.file.parent.fsName + '/user_item.mov');
+    bkQuiet(function () {
+      app.project.save();
+    });
+    return item.render === true;
+  });
+}
+
+// The render queue as the panel leaves it: comp, render flag, status, file.
+function lvRq() {
+  check('render queue read', function () {
+    var rq = app.project.renderQueue;
+    var out = [];
+    var i, it, f;
+    for (i = 1; i <= rq.numItems; i++) {
+      it = rq.item(i);
+      f = null;
+      try { f = it.outputModule(1).file ? String(it.outputModule(1).file.fsName).split('\\').join('/') : null; } catch (e) { f = null; }
+      out.push({ comp: String(it.comp.name), render: it.render === true, status: String(it.status), file: f });
+    }
+    DATA.items = out;
+    DATA.rendering = rq.rendering === true;
+    return true;
+  });
+}
+
 if (PARAMS.op === 'setup') {
   lvSetup();
 } else if (PARAMS.op === 'activate') {
@@ -354,5 +435,13 @@ if (PARAMS.op === 'setup') {
   lvColorRead();
 } else if (PARAMS.op === 'save') {
   lvSave();
+} else if (PARAMS.op === 'exportSetup') {
+  lvExportSetup();
+} else if (PARAMS.op === 'templates') {
+  lvTemplates();
+} else if (PARAMS.op === 'queueUser') {
+  lvQueueUser();
+} else if (PARAMS.op === 'rq') {
+  lvRq();
 }
 finish(DATA);

@@ -186,7 +186,7 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
 
   it('«Цвета» in AE: a target, a swatch, the layers repainted; no such tab in Premiere', async () => {
     await go('?host=ae');
-    expect(await evaluate(s, `[...document.querySelectorAll('.tab')].map((t) => t.textContent)`)).toEqual(['Каталог', 'Цвета']);
+    expect(await evaluate(s, `[...document.querySelectorAll('.tab')].map((t) => t.textContent)`)).toEqual(['Каталог', 'Цвета', 'Экспорт']);
     await evaluate(s, `[...document.querySelectorAll('.tab')].find((t) => t.textContent === 'Цвета').click()`);
     await waitFor(s, `document.querySelectorAll('.swatch').length === 7`);
     expect(await evaluate(s, `[...document.querySelectorAll('.swatch-hex')].map((e) => e.textContent)`)).toEqual(['#26D07C', '#222222', '#FFFFFF', '#F2F2F2', '#CFF500', '#A068FF', '#C0E0FC']);
@@ -200,7 +200,58 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     await evaluate(s, `document.querySelectorAll('.swatch-hex')[1].click()`);
     expect(await evaluate(s, `document.querySelectorAll('.swatch-hex')[1].textContent`)).toBe('Скопировано');
     await go('?host=pr');
-    expect(await evaluate(s, `document.querySelectorAll('.tab').length`)).toBe(0);
+    expect(await evaluate(s, `[...document.querySelectorAll('.tab')].map((t) => t.textContent)`)).toEqual(['Каталог', 'Экспорт']);
+  }, 60000);
+
+  it('«Экспорт» in Premiere: presets for the frame, the AME queue, the next file gets _2 (P19, P22, P23)', async () => {
+    await go('?host=pr');
+    await evaluate(s, `[...document.querySelectorAll('.tab')].find((t) => t.textContent === 'Экспорт').click()`);
+    await waitFor(s, `document.querySelectorAll('.preset').length > 0`);
+    expect(await evaluate(s, `[...document.querySelectorAll('.preset')].map((b) => b.querySelector('.preset-title').textContent + ' | ' + b.querySelector('.preset-meta').textContent)`)).toEqual([
+      'Full HD — основной мастер | 1920×1080 · 25 к/с',
+      'SMM 16:9 | 1920×1080 · 25 к/с',
+      'Вебинар — финальный рендер | 1920×1080 · 25 к/с',
+      'Вебинар — таймер | 1920×1080 · 25 к/с',
+      'Вебинар — заставка | 1920×1080 · 25 к/с',
+      '4K, 3840×2160 | 3840×2160 · 25 к/с · увеличение',
+    ]);
+    expect(await evaluate(s, `[...document.querySelectorAll('.export .seg button')].map((b) => b.textContent + (b.classList.contains('on') ? '*' : ''))`)).toEqual(['В очередь Media Encoder*', 'Сразу, без AME']);
+    expect(await evaluate(s, `document.querySelector('.export .hint.path').textContent`)).toBe('C:/Projects/Export');
+    await evaluate(s, `document.querySelector('.export .insert').click()`);
+    await waitFor(s, `!!document.querySelector('.export .done')`, { timeoutMs: 10000 });
+    expect(await evaluate(s, `document.querySelector('.export .done').textContent`)).toBe('В очереди Media Encoder: Монтаж_FullHD.mp4. Media Encoder закодирует файл сам.Показать в папке');
+    await evaluate(s, `document.querySelector('.export .insert').click()`);
+    await waitFor(s, `/_2\.mp4/.test(document.querySelector('.export .done')?.textContent ?? '')`, { timeoutMs: 10000 });
+    // 4K warns about upscaling before the click
+    await evaluate(s, `[...document.querySelectorAll('.preset')].find((b) => b.textContent.startsWith('4K')).click()`);
+    await waitFor(s, `!!document.querySelector('.export .problems .warning')`);
+    expect(await evaluate(s, `document.querySelector('.export .problems .warning').textContent`)).toBe('Кадр 1920×1080 меньше пресета 3840×2160: картинка будет увеличена и потеряет резкость.');
+    // a vertical sequence: SMM 9:16 only
+    await go('?host=pr&frame=1080x1920');
+    await evaluate(s, `[...document.querySelectorAll('.tab')].find((t) => t.textContent === 'Экспорт').click()`);
+    await waitFor(s, `document.querySelectorAll('.preset').length > 0`);
+    expect(await evaluate(s, `[...document.querySelectorAll('.preset-title')].map((e) => e.textContent)`)).toEqual(['SMM 9:16, вертикаль']);
+  }, 60000);
+
+  it('«Экспорт» in AE: the instruction without the brand template; in the background the job ends «Готово» (P20, P21)', async () => {
+    await go('?host=ae&templates=0');
+    await evaluate(s, `[...document.querySelectorAll('.tab')].find((t) => t.textContent === 'Экспорт').click()`);
+    await waitFor(s, `document.querySelectorAll('.preset').length > 0`);
+    expect(await evaluate(s, `document.querySelector('.export .insert').textContent`)).toBe('Рендерить');
+    await evaluate(s, `document.querySelector('.export .insert').click()`);
+    await waitFor(s, `!!document.querySelector('.export .problems .error')`, { timeoutMs: 10000 });
+    expect(await evaluate(s, `document.querySelector('.export .problems .error').textContent`)).toBe(
+      'В After Effects нет шаблона вывода «CR FullHD». Загрузите брендовые шаблоны один раз: Edit → Templates → Output Module → Load… и выберите файл C:/ProgramData/CloudRuBrandKit/library/items/AME_Templates/AME_Templates_aom_v1.aom. Затем повторите экспорт.');
+    await go('?host=ae');
+    await evaluate(s, `[...document.querySelectorAll('.tab')].find((t) => t.textContent === 'Экспорт').click()`);
+    await waitFor(s, `document.querySelectorAll('.preset').length > 0`);
+    await evaluate(s, `[...document.querySelectorAll('.export .seg button')].find((b) => b.textContent === 'В фоне (aerender)').click()`);
+    expect(await evaluate(s, `document.querySelector('.export .insert').textContent`)).toBe('Сохранить проект и рендерить в фоне');
+    await evaluate(s, `document.querySelector('.export .insert').click()`);
+    await waitFor(s, `!!document.querySelector('.jobs li.running')`, { timeoutMs: 10000 });
+    expect(await evaluate(s, `document.querySelector('.export .done').textContent`)).toBe('Рендер в фоне: Монтаж_FullHD.mp4. Можно работать дальше.Показать в папке');
+    await waitFor(s, `!!document.querySelector('.jobs li.done')`, { timeoutMs: 10000 });
+    expect(await evaluate(s, `document.querySelector('.jobs li.done span').textContent`)).toBe('Готово: Монтаж_FullHD.mp4');
   }, 60000);
 
   it.skipIf(!HAS_FFMPEG)('a sound plays in its card, one at a time, without opening the form', async () => {
