@@ -1,0 +1,35 @@
+{
+  "clip": "10 seconds, 1920x1080, 25 fps, flat #26D07C and a 1 kHz tone. A flat picture underruns VBR, so the times are for this clip, not for a busy master.",
+  "methods": [
+    {
+      "method": "Premiere exportAsMediaDirect + FullHD.epr",
+      "sequence": "CRBK_Export10",
+      "hostMs": 1387,
+      "wallMs": 1588,
+      "bytes": 436783
+    },
+    {
+      "method": "Premiere encodeSequence + startBatch (AME)",
+      "sequence": "CRBK_Export10",
+      "wallMs": 8166,
+      "startBatchMs": 6,
+      "bytes": 436783,
+      "note": "Wall clock includes launching Media Encoder and waiting until the file size stays unchanged for 3 seconds. startBatch itself returned in 6 ms."
+    },
+    {
+      "method": "After Effects render queue + CR FullHD",
+      "comp": "Probe10",
+      "hostMs": 2646,
+      "wallMs": 2960,
+      "bytes": 481808
+    },
+    {
+      "method": "aerender -OMtemplate CR FullHD",
+      "comp": "Probe10",
+      "wallMs": 6822,
+      "reportedElapsed": "3 Seconds",
+      "bytes": 481808,
+      "note": "Wall clock includes launching After Effects. aerender reported Total Time Elapsed of 3 seconds."
+    }
+  ]
+}

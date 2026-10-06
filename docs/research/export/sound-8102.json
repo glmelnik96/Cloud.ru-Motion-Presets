@@ -1,0 +1,44 @@
+{
+  "port": 8102,
+  "title": "Cloud.ru BrandKit",
+  "url": "file:///C:/Users/%D0%93%D0%BB%D0%B5%D0%B1/AppData/Roaming/Adobe/CEP/extensions/ru.cloud.brandkit/index.html",
+  "ready": "catalog",
+  "category": true,
+  "card": {
+    "length": "0,8 с",
+    "glyph": "▶",
+    "src": "file:///C:/ProgramData/CloudRuBrandKit/library/items/SFX_WhooshIn/SFX_WhooshIn_wav_v1.wav"
+  },
+  "buttonBox": {
+    "x": 66.265625,
+    "y": 164.734375,
+    "w": 40,
+    "h": 40
+  },
+  "afterPlay": {
+    "glyph": "■",
+    "paused": false,
+    "time": 0.424188,
+    "error": "",
+    "form": false
+  },
+  "afterStop": {
+    "glyph": "▶",
+    "paused": true,
+    "time": 0,
+    "form": false
+  },
+  "openedForm": true,
+  "form": {
+    "open": true,
+    "glyph": "▶",
+    "length": "0,8 с"
+  },
+  "formAfterPlay": {
+    "glyph": "■",
+    "paused": false,
+    "time": 0.340968,
+    "error": ""
+  },
+  "console": []
+}

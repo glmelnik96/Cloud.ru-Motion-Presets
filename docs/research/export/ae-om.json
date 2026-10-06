@@ -1,0 +1,1273 @@
+{
+  "version": "26.5x89",
+  "project": "C:/CRBK/work/export-research/ae/probe.aep",
+  "comp": {
+    "name": "Probe2s",
+    "w": 1920,
+    "h": 1080,
+    "fps": 25,
+    "dur": 2,
+    "layers": 2
+  },
+  "templateCount": 20,
+  "initialFormat": "H.264",
+  "initialSettable": [
+    "Audio Bit Depth",
+    "Audio Channels",
+    "Audio Sample Rate",
+    "Crop",
+    "Include Project Link",
+    "Include Source XMP Metadata",
+    "Output Audio",
+    "Output File Info",
+    "Post-Render Action",
+    "Resize",
+    "Video Output"
+  ],
+  "rqSettable": [
+    "Color Depth",
+    "Disk Cache",
+    "Effects",
+    "Field Render",
+    "Frame Blending",
+    "Frame Rate",
+    "Guide Layers",
+    "Motion Blur",
+    "Proxy Use",
+    "Quality",
+    "Resolution",
+    "Solo Switches",
+    "Time Span",
+    "Time Span Duration",
+    "Time Span End",
+    "Time Span Start",
+    "Use this frame rate"
+  ],
+  "rqSettings": {
+    "3:2 Pulldown": "Off",
+    "Color Depth": "Current Settings",
+    "Disk Cache": "Read Only",
+    "Effects": "Current Settings",
+    "Field Render": "Off",
+    "Frame Blending": "On for Checked Layers",
+    "Frame Rate": "Use comp's frame rate",
+    "Guide Layers": "All Off",
+    "Motion Blur": "On for Checked Layers",
+    "Proxy Use": "Use No Proxies",
+    "Quality": "Best",
+    "Resolution": "Full",
+    "Skip Existing Files": "false",
+    "Solo Switches": "Current Settings",
+    "Time Span": "Work Area Only",
+    "Time Span Duration": "2.0",
+    "Time Span End": "2.0",
+    "Time Span Start": "0.0",
+    "Use comp's frame rate": "25.0",
+    "Use this frame rate": "30.0"
+  },
+  "templates": [
+    {
+      "name": "AIFF 48kHz",
+      "format": "AIFF"
+    },
+    {
+      "name": "Alpha Only",
+      "format": "AVI"
+    },
+    {
+      "name": "CRBK_ProRes4444_Alpha",
+      "format": "QuickTime"
+    },
+    {
+      "name": "H.264 - Match Render Settings -  5 Mbps",
+      "format": "H.264"
+    },
+    {
+      "name": "H.264 - Match Render Settings - 15 Mbps",
+      "format": "H.264"
+    },
+    {
+      "name": "H.264 - Match Render Settings - 40 Mbps",
+      "format": "H.264"
+    },
+    {
+      "name": "High Quality",
+      "format": "QuickTime"
+    },
+    {
+      "name": "High Quality with Alpha",
+      "format": "QuickTime"
+    },
+    {
+      "name": "Lossless",
+      "format": "AVI"
+    },
+    {
+      "name": "Lossless with Alpha",
+      "format": "AVI"
+    },
+    {
+      "name": "Multi-Machine Sequence",
+      "format": "Photoshop Sequence"
+    },
+    {
+      "name": "Photoshop",
+      "format": "Photoshop Sequence"
+    },
+    {
+      "name": "TIFF Sequence with Alpha",
+      "format": "TIFF Sequence"
+    },
+    {
+      "name": "Untitled 1",
+      "format": "H.264"
+    },
+    {
+      "name": "_HIDDEN X-Factor 16",
+      "format": "PNG Sequence"
+    },
+    {
+      "name": "_HIDDEN X-Factor 16 Premul",
+      "format": "PNG Sequence"
+    },
+    {
+      "name": "_HIDDEN X-Factor 32",
+      "format": "Photoshop Sequence"
+    },
+    {
+      "name": "_HIDDEN X-Factor 32 Premul",
+      "format": "Photoshop Sequence"
+    },
+    {
+      "name": "_HIDDEN X-Factor 8",
+      "format": "PNG Sequence"
+    },
+    {
+      "name": "_HIDDEN X-Factor 8 Premul",
+      "format": "PNG Sequence"
+    }
+  ],
+  "h264": [
+    {
+      "name": "H.264 - Match Render Settings -  5 Mbps",
+      "format": "H.264",
+      "settings": {
+        "Audio Bit Depth": "16 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "48,000 kHz",
+        "Channels": "RGB",
+        "Color": "Premultiplied (Matted)",
+        "Crop": "false",
+        "Crop Bottom": "0",
+        "Crop Left": "0",
+        "Crop Right": "0",
+        "Crop Top": "0",
+        "Depth": "Millions of Colors",
+        "Format": "H.264",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Lock Aspect Ratio": "true",
+        "Output Audio": "Auto",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Resize Quality": "High",
+        "Resize to": "HD  •  1920x1080 • 24 fps",
+        "Starting #": "0",
+        "Use Comp Frame Number": "true",
+        "Use Region of Interest": "false",
+        "Video Output": "true"
+      },
+      "settable": {
+        "Audio Bit Depth": "16 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "48,000 kHz",
+        "Crop": "false",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Output Audio": "Auto",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Video Output": "true"
+      }
+    },
+    {
+      "name": "H.264 - Match Render Settings - 15 Mbps",
+      "format": "H.264",
+      "settings": {
+        "Audio Bit Depth": "16 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "48,000 kHz",
+        "Channels": "RGB",
+        "Color": "Premultiplied (Matted)",
+        "Crop": "false",
+        "Crop Bottom": "0",
+        "Crop Left": "0",
+        "Crop Right": "0",
+        "Crop Top": "0",
+        "Depth": "Millions of Colors",
+        "Format": "H.264",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Lock Aspect Ratio": "true",
+        "Output Audio": "Auto",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Resize Quality": "High",
+        "Resize to": "HD  •  1920x1080 • 24 fps",
+        "Starting #": "0",
+        "Use Comp Frame Number": "true",
+        "Use Region of Interest": "false",
+        "Video Output": "true"
+      },
+      "settable": {
+        "Audio Bit Depth": "16 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "48,000 kHz",
+        "Crop": "false",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Output Audio": "Auto",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Video Output": "true"
+      }
+    },
+    {
+      "name": "H.264 - Match Render Settings - 40 Mbps",
+      "format": "H.264",
+      "settings": {
+        "Audio Bit Depth": "16 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "48,000 kHz",
+        "Channels": "RGB",
+        "Color": "Premultiplied (Matted)",
+        "Crop": "false",
+        "Crop Bottom": "0",
+        "Crop Left": "0",
+        "Crop Right": "0",
+        "Crop Top": "0",
+        "Depth": "Millions of Colors",
+        "Format": "H.264",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Lock Aspect Ratio": "true",
+        "Output Audio": "Auto",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Resize Quality": "High",
+        "Resize to": "HD  •  1920x1080 • 24 fps",
+        "Starting #": "0",
+        "Use Comp Frame Number": "true",
+        "Use Region of Interest": "false",
+        "Video Output": "true"
+      },
+      "settable": {
+        "Audio Bit Depth": "16 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "48,000 kHz",
+        "Crop": "false",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Output Audio": "Auto",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Video Output": "true"
+      }
+    },
+    {
+      "name": "Untitled 1",
+      "format": "H.264",
+      "settings": {
+        "Audio Bit Depth": "32 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "",
+        "Channels": "RGB",
+        "Color": "Premultiplied (Matted)",
+        "Crop": "false",
+        "Crop Bottom": "0",
+        "Crop Left": "0",
+        "Crop Right": "0",
+        "Crop Top": "0",
+        "Depth": "Millions of Colors",
+        "Format": "H.264",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Lock Aspect Ratio": "true",
+        "Output Audio": "Off",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Resize Quality": "High",
+        "Resize to": "HD  •  1920x1080 • 24 fps",
+        "Starting #": "0",
+        "Use Comp Frame Number": "true",
+        "Use Region of Interest": "false",
+        "Video Output": "true"
+      },
+      "settable": {
+        "Crop": "false",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Output Audio": "Off",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Video Output": "true"
+      }
+    }
+  ],
+  "resizeBase": "H.264 - Match Render Settings -  5 Mbps",
+  "resizeTries": [
+    {
+      "key": "Resize",
+      "set": "1080 x 1920",
+      "before": "false",
+      "after": "true",
+      "error": "",
+      "changed": true
+    },
+    {
+      "key": "Resize",
+      "set": "Custom",
+      "before": "true",
+      "after": "false",
+      "error": "",
+      "changed": true
+    },
+    {
+      "key": "Resize",
+      "set": "1920 x 1080",
+      "before": "false",
+      "after": "true",
+      "error": "",
+      "changed": true
+    }
+  ],
+  "fpsTries": [
+    {
+      "key": "Frame Rate",
+      "set": "30",
+      "before": "Use comp's frame rate",
+      "after": "Use comp's frame rate",
+      "error": "Error: After Effects error: Invalid Value: <30> for key: <Frame Rate>",
+      "changed": false
+    },
+    {
+      "key": "Use this frame rate",
+      "set": "30",
+      "before": "25.0",
+      "after": "30.0",
+      "error": "",
+      "changed": true
+    }
+  ],
+  "checks": [
+    {
+      "name": "probe project",
+      "pass": true,
+      "required": true,
+      "detail": "created "
+    },
+    {
+      "name": "comp and tone",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "Probe2s",
+        "w": 1920,
+        "h": 1080,
+        "fps": 25,
+        "dur": 2,
+        "layers": 2
+      }
+    },
+    {
+      "name": "templates and H.264 settings",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "count": 20,
+        "h264": 4
+      }
+    },
+    {
+      "name": "Resize and frame-rate attempts",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "resize": [
+          {
+            "key": "Resize",
+            "set": "1080 x 1920",
+            "before": "false",
+            "after": "true",
+            "error": "",
+            "changed": true
+          },
+          {
+            "key": "Resize",
+            "set": "Custom",
+            "before": "true",
+            "after": "false",
+            "error": "",
+            "changed": true
+          },
+          {
+            "key": "Resize",
+            "set": "1920 x 1080",
+            "before": "false",
+            "after": "true",
+            "error": "",
+            "changed": true
+          }
+        ],
+        "fps": [
+          {
+            "key": "Frame Rate",
+            "set": "30",
+            "before": "Use comp's frame rate",
+            "after": "Use comp's frame rate",
+            "error": "Error: After Effects error: Invalid Value: <30> for key: <Frame Rate>",
+            "changed": false
+          },
+          {
+            "key": "Use this frame rate",
+            "set": "30",
+            "before": "25.0",
+            "after": "30.0",
+            "error": "",
+            "changed": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "project saved",
+      "pass": false,
+      "required": false,
+      "detail": "EXC: Error: BK_SAVE_FAILED: C:/CRBK/work/export-research/ae/probe.aep (line 190)"
+    }
+  ],
+  "approach": {
+    "template": "H.264 - Match Render Settings - 15 Mbps",
+    "tries": [
+      {
+        "key": "Resize to",
+        "set": "1080,1920",
+        "before": "HD  •  1920x1080 • 24 fps",
+        "after": "Social Media Portrait HD  •  1080x1920 • 30 fps",
+        "error": "",
+        "changed": true
+      },
+      {
+        "key": "Resize to",
+        "set": "1080, 1920",
+        "before": "Social Media Portrait HD  •  1080x1920 • 30 fps",
+        "after": "Social Media Portrait HD  •  1080x1920 • 30 fps",
+        "error": "",
+        "changed": false
+      },
+      {
+        "key": "Resize",
+        "set": "true",
+        "before": "true",
+        "after": "true",
+        "error": "",
+        "changed": false
+      },
+      {
+        "key": "Resize to",
+        "set": "1080 x 1920",
+        "before": "Social Media Portrait HD  •  1080x1920 • 30 fps",
+        "after": "Social Media Portrait HD  •  1080x1920 • 30 fps",
+        "error": "Error: After Effects error: Invalid Value for key: <Resize to>.  Missing or incorrect component.  Must have form: \"x,y\".",
+        "changed": false
+      },
+      {
+        "key": "Frame Rate",
+        "set": "Use this frame rate",
+        "before": "Use comp's frame rate",
+        "after": "Use comp's frame rate",
+        "error": "Error: After Effects error: Invalid Value: <Use this frame rate> for key: <Frame Rate>",
+        "changed": false
+      },
+      {
+        "key": "Use this frame rate",
+        "set": "30",
+        "before": "25.0",
+        "after": "30.0",
+        "error": "",
+        "changed": true
+      }
+    ],
+    "omNow": {
+      "Audio Bit Depth": "16 Bit",
+      "Audio Channels": "Stereo",
+      "Audio Sample Rate": "48,000 kHz",
+      "Channels": "RGB",
+      "Color": "Premultiplied (Matted)",
+      "Crop": "false",
+      "Crop Bottom": "0",
+      "Crop Left": "0",
+      "Crop Right": "0",
+      "Crop Top": "0",
+      "Depth": "Millions of Colors",
+      "Format": "H.264",
+      "Include Project Link": "true",
+      "Include Source XMP Metadata": "false",
+      "Lock Aspect Ratio": "true",
+      "Output Audio": "Auto",
+      "Output File Info": "[object Object]",
+      "Post-Render Action": "None",
+      "Resize": "true",
+      "Resize Quality": "High",
+      "Resize to": "Social Media Portrait HD  •  1080x1920 • 30 fps",
+      "Starting #": "0",
+      "Use Comp Frame Number": "true",
+      "Use Region of Interest": "false",
+      "Video Output": "true"
+    },
+    "rqNow": {
+      "3:2 Pulldown": "Off",
+      "Color Depth": "Current Settings",
+      "Disk Cache": "Read Only",
+      "Effects": "Current Settings",
+      "Field Render": "Off",
+      "Frame Blending": "On for Checked Layers",
+      "Frame Rate": "Use this frame rate",
+      "Guide Layers": "All Off",
+      "Motion Blur": "On for Checked Layers",
+      "Proxy Use": "Use No Proxies",
+      "Quality": "Best",
+      "Resolution": "Full",
+      "Skip Existing Files": "false",
+      "Solo Switches": "Current Settings",
+      "Time Span": "Work Area Only",
+      "Time Span Duration": "2.0",
+      "Time Span End": "2.0",
+      "Time Span Start": "0.0",
+      "Use comp's frame rate": "25.0",
+      "Use this frame rate": "30.0"
+    }
+  },
+  "renders": [
+    {
+      "template": "H.264 - Match Render Settings -  5 Mbps",
+      "format": "H.264",
+      "settings": {
+        "Audio Bit Depth": "16 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "48,000 kHz",
+        "Channels": "RGB",
+        "Color": "Premultiplied (Matted)",
+        "Crop": "false",
+        "Crop Bottom": "0",
+        "Crop Left": "0",
+        "Crop Right": "0",
+        "Crop Top": "0",
+        "Depth": "Millions of Colors",
+        "Format": "H.264",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Lock Aspect Ratio": "true",
+        "Output Audio": "Auto",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Resize Quality": "High",
+        "Resize to": "HD  •  1920x1080 • 24 fps",
+        "Starting #": "0",
+        "Use Comp Frame Number": "true",
+        "Use Region of Interest": "false",
+        "Video Output": "true"
+      },
+      "settable": {
+        "Audio Bit Depth": "16 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "48,000 kHz",
+        "Crop": "false",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Output Audio": "Auto",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Video Output": "true"
+      },
+      "out": "C:/CRBK/work/export-research/ae/out/H.264_-_Match_Render_Settings_-_5_Mbps.mp4",
+      "hostMs": 1580,
+      "applied": {
+        "template": "H.264 - Match Render Settings -  5 Mbps",
+        "file": "C:/CRBK/work/export-research/ae/out/H.264_-_Match_Render_Settings_-_5_Mbps.mp4",
+        "ms": 1580,
+        "bytes": 47980,
+        "format": "H.264",
+        "resize": "false",
+        "resizeTo": "HD  •  1920x1080 • 24 fps",
+        "frameRate": "Use comp's frame rate",
+        "useFrameRate": "25.0"
+      },
+      "wallMs": 1696,
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 191920,
+        "bytes": 47980,
+        "video": {
+          "codec": "h264",
+          "profile": "Main",
+          "level": 41,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 18216,
+          "fieldOrder": "progressive",
+          "sar": "1:1"
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 123067,
+          "layout": "stereo"
+        }
+      }
+    },
+    {
+      "template": "H.264 - Match Render Settings - 15 Mbps",
+      "format": "H.264",
+      "settings": {
+        "Audio Bit Depth": "16 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "48,000 kHz",
+        "Channels": "RGB",
+        "Color": "Premultiplied (Matted)",
+        "Crop": "false",
+        "Crop Bottom": "0",
+        "Crop Left": "0",
+        "Crop Right": "0",
+        "Crop Top": "0",
+        "Depth": "Millions of Colors",
+        "Format": "H.264",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Lock Aspect Ratio": "true",
+        "Output Audio": "Auto",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Resize Quality": "High",
+        "Resize to": "HD  •  1920x1080 • 24 fps",
+        "Starting #": "0",
+        "Use Comp Frame Number": "true",
+        "Use Region of Interest": "false",
+        "Video Output": "true"
+      },
+      "settable": {
+        "Audio Bit Depth": "16 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "48,000 kHz",
+        "Crop": "false",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Output Audio": "Auto",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Video Output": "true"
+      },
+      "out": "C:/CRBK/work/export-research/ae/out/H.264_-_Match_Render_Settings_-_15_Mbps.mp4",
+      "hostMs": 960,
+      "applied": {
+        "template": "H.264 - Match Render Settings - 15 Mbps",
+        "file": "C:/CRBK/work/export-research/ae/out/H.264_-_Match_Render_Settings_-_15_Mbps.mp4",
+        "ms": 960,
+        "bytes": 64051,
+        "format": "H.264",
+        "resize": "false",
+        "resizeTo": "HD  •  1920x1080 • 24 fps",
+        "frameRate": "Use comp's frame rate",
+        "useFrameRate": "25.0"
+      },
+      "wallMs": 1028,
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 256204,
+        "bytes": 64051,
+        "video": {
+          "codec": "h264",
+          "profile": "Main",
+          "level": 41,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 18332,
+          "fieldOrder": "progressive",
+          "sar": "1:1"
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 186390,
+          "layout": "stereo"
+        }
+      }
+    },
+    {
+      "template": "H.264 - Match Render Settings - 40 Mbps",
+      "format": "H.264",
+      "settings": {
+        "Audio Bit Depth": "16 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "48,000 kHz",
+        "Channels": "RGB",
+        "Color": "Premultiplied (Matted)",
+        "Crop": "false",
+        "Crop Bottom": "0",
+        "Crop Left": "0",
+        "Crop Right": "0",
+        "Crop Top": "0",
+        "Depth": "Millions of Colors",
+        "Format": "H.264",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Lock Aspect Ratio": "true",
+        "Output Audio": "Auto",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Resize Quality": "High",
+        "Resize to": "HD  •  1920x1080 • 24 fps",
+        "Starting #": "0",
+        "Use Comp Frame Number": "true",
+        "Use Region of Interest": "false",
+        "Video Output": "true"
+      },
+      "settable": {
+        "Audio Bit Depth": "16 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "48,000 kHz",
+        "Crop": "false",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Output Audio": "Auto",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Video Output": "true"
+      },
+      "out": "C:/CRBK/work/export-research/ae/out/H.264_-_Match_Render_Settings_-_40_Mbps.mp4",
+      "hostMs": 977,
+      "applied": {
+        "template": "H.264 - Match Render Settings - 40 Mbps",
+        "file": "C:/CRBK/work/export-research/ae/out/H.264_-_Match_Render_Settings_-_40_Mbps.mp4",
+        "ms": 977,
+        "bytes": 96592,
+        "format": "H.264",
+        "resize": "false",
+        "resizeTo": "HD  •  1920x1080 • 24 fps",
+        "frameRate": "Use comp's frame rate",
+        "useFrameRate": "25.0"
+      },
+      "wallMs": 1046,
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 386368,
+        "bytes": 96592,
+        "video": {
+          "codec": "h264",
+          "profile": "Main",
+          "level": 41,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 18484,
+          "fieldOrder": "progressive",
+          "sar": "1:1"
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      }
+    },
+    {
+      "template": "Untitled 1",
+      "format": "H.264",
+      "settings": {
+        "Audio Bit Depth": "32 Bit",
+        "Audio Channels": "Stereo",
+        "Audio Sample Rate": "",
+        "Channels": "RGB",
+        "Color": "Premultiplied (Matted)",
+        "Crop": "false",
+        "Crop Bottom": "0",
+        "Crop Left": "0",
+        "Crop Right": "0",
+        "Crop Top": "0",
+        "Depth": "Millions of Colors",
+        "Format": "H.264",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Lock Aspect Ratio": "true",
+        "Output Audio": "Off",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Resize Quality": "High",
+        "Resize to": "HD  •  1920x1080 • 24 fps",
+        "Starting #": "0",
+        "Use Comp Frame Number": "true",
+        "Use Region of Interest": "false",
+        "Video Output": "true"
+      },
+      "settable": {
+        "Crop": "false",
+        "Include Project Link": "true",
+        "Include Source XMP Metadata": "false",
+        "Output Audio": "Off",
+        "Output File Info": "[object Object]",
+        "Post-Render Action": "None",
+        "Resize": "false",
+        "Video Output": "true"
+      },
+      "out": "C:/CRBK/work/export-research/ae/out/Untitled_1.mp4",
+      "hostMs": 944,
+      "applied": {
+        "template": "Untitled 1",
+        "file": "C:/CRBK/work/export-research/ae/out/Untitled_1.mp4",
+        "ms": 944,
+        "bytes": 15852,
+        "format": "H.264",
+        "resize": "false",
+        "resizeTo": "HD  •  1920x1080 • 24 fps",
+        "frameRate": "Use comp's frame rate",
+        "useFrameRate": "25.0"
+      },
+      "wallMs": 1007,
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 63408,
+        "bytes": 15852,
+        "video": {
+          "codec": "h264",
+          "profile": "Main",
+          "level": 41,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 18244,
+          "fieldOrder": "progressive",
+          "sar": "1:1"
+        },
+        "audio": null
+      }
+    }
+  ],
+  "experiments": [
+    {
+      "file": "busy-5.mp4",
+      "template": "H.264 - Match Render Settings -  5 Mbps",
+      "comp": "ProbeBusy",
+      "resizeTo": null,
+      "useFrameRate": null,
+      "error": null,
+      "applied": {
+        "template": "H.264 - Match Render Settings -  5 Mbps",
+        "file": "C:/CRBK/work/export-research/ae/out/busy-5.mp4",
+        "ms": 721,
+        "bytes": 1677773,
+        "format": "H.264",
+        "resize": "false",
+        "resizeTo": "HD  •  1920x1080 • 24 fps",
+        "frameRate": "Use comp's frame rate",
+        "useFrameRate": "25.0"
+      },
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 6711092,
+        "bytes": 1677773,
+        "video": {
+          "codec": "h264",
+          "profile": "Main",
+          "level": 41,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 6537192,
+          "fieldOrder": "progressive",
+          "sar": "1:1"
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 123260,
+          "layout": "stereo"
+        }
+      }
+    },
+    {
+      "file": "busy-15.mp4",
+      "template": "H.264 - Match Render Settings - 15 Mbps",
+      "comp": "ProbeBusy",
+      "resizeTo": null,
+      "useFrameRate": null,
+      "error": null,
+      "applied": {
+        "template": "H.264 - Match Render Settings - 15 Mbps",
+        "file": "C:/CRBK/work/export-research/ae/out/busy-15.mp4",
+        "ms": 1004,
+        "bytes": 3707201,
+        "format": "H.264",
+        "resize": "false",
+        "resizeTo": "HD  •  1920x1080 • 24 fps",
+        "frameRate": "Use comp's frame rate",
+        "useFrameRate": "25.0"
+      },
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 14828804,
+        "bytes": 3707201,
+        "video": {
+          "codec": "h264",
+          "profile": "Main",
+          "level": 41,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 14590736,
+          "fieldOrder": "progressive",
+          "sar": "1:1"
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 186584,
+          "layout": "stereo"
+        }
+      }
+    },
+    {
+      "file": "busy-40.mp4",
+      "template": "H.264 - Match Render Settings - 40 Mbps",
+      "comp": "ProbeBusy",
+      "resizeTo": null,
+      "useFrameRate": null,
+      "error": null,
+      "applied": {
+        "template": "H.264 - Match Render Settings - 40 Mbps",
+        "file": "C:/CRBK/work/export-research/ae/out/busy-40.mp4",
+        "ms": 1023,
+        "bytes": 6567116,
+        "format": "H.264",
+        "resize": "false",
+        "resizeTo": "HD  •  1920x1080 • 24 fps",
+        "frameRate": "Use comp's frame rate",
+        "useFrameRate": "25.0"
+      },
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 26268464,
+        "bytes": 6567116,
+        "video": {
+          "codec": "h264",
+          "profile": "Main",
+          "level": 41,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 25900580,
+          "fieldOrder": "progressive",
+          "sar": "1:1"
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      }
+    },
+    {
+      "file": "resize-1920.mp4",
+      "template": "H.264 - Match Render Settings - 15 Mbps",
+      "comp": "Probe2s",
+      "resizeTo": "1920,1080",
+      "useFrameRate": null,
+      "error": null,
+      "applied": {
+        "template": "H.264 - Match Render Settings - 15 Mbps",
+        "file": "C:/CRBK/work/export-research/ae/out/resize-1920.mp4",
+        "ms": 1000,
+        "bytes": 64051,
+        "format": "H.264",
+        "resize": "true",
+        "resizeTo": "HD  •  1920x1080 • 24 fps",
+        "frameRate": "Use comp's frame rate",
+        "useFrameRate": "25.0"
+      },
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 256204,
+        "bytes": 64051,
+        "video": {
+          "codec": "h264",
+          "profile": "Main",
+          "level": 41,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 18332,
+          "fieldOrder": "progressive",
+          "sar": "1:1"
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 186390,
+          "layout": "stereo"
+        }
+      }
+    },
+    {
+      "file": "resize-1080x1920.mp4",
+      "template": "H.264 - Match Render Settings - 15 Mbps",
+      "comp": "Probe2s",
+      "resizeTo": "1080,1920",
+      "useFrameRate": null,
+      "error": null,
+      "applied": {
+        "template": "H.264 - Match Render Settings - 15 Mbps",
+        "file": "C:/CRBK/work/export-research/ae/out/resize-1080x1920.mp4",
+        "ms": 2239,
+        "bytes": 64973,
+        "format": "H.264",
+        "resize": "true",
+        "resizeTo": "Social Media Portrait HD  •  1080x1920 • 30 fps",
+        "frameRate": "Use comp's frame rate",
+        "useFrameRate": "25.0"
+      },
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 259892,
+        "bytes": 64973,
+        "video": {
+          "codec": "h264",
+          "profile": "Main",
+          "level": 41,
+          "width": 1080,
+          "height": 1920,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 22004,
+          "fieldOrder": "progressive",
+          "sar": "3413:1080"
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 186390,
+          "layout": "stereo"
+        }
+      }
+    },
+    {
+      "file": "fps-30.mp4",
+      "template": "H.264 - Match Render Settings - 15 Mbps",
+      "comp": "Probe2s",
+      "resizeTo": null,
+      "useFrameRate": "30",
+      "error": null,
+      "applied": {
+        "template": "H.264 - Match Render Settings - 15 Mbps",
+        "file": "C:/CRBK/work/export-research/ae/out/fps-30.mp4",
+        "ms": 1148,
+        "bytes": 64936,
+        "format": "H.264",
+        "resize": "false",
+        "resizeTo": "HD  •  1920x1080 • 24 fps",
+        "frameRate": "Use this frame rate",
+        "useFrameRate": "30.0"
+      },
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 259744,
+        "bytes": 64936,
+        "video": {
+          "codec": "h264",
+          "profile": "Main",
+          "level": 41,
+          "width": 1920,
+          "height": 1080,
+          "fps": 30,
+          "pixFmt": "yuv420p",
+          "frames": 60,
+          "bitrate": 21544,
+          "fieldOrder": "progressive",
+          "sar": "1:1"
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 186390,
+          "layout": "stereo"
+        }
+      }
+    },
+    {
+      "file": "resize-9x16-30.mp4",
+      "template": "H.264 - Match Render Settings - 15 Mbps",
+      "comp": "Probe2s",
+      "resizeTo": "1080,1920",
+      "useFrameRate": "30",
+      "error": null,
+      "applied": {
+        "template": "H.264 - Match Render Settings - 15 Mbps",
+        "file": "C:/CRBK/work/export-research/ae/out/resize-9x16-30.mp4",
+        "ms": 2781,
+        "bytes": 66850,
+        "format": "H.264",
+        "resize": "true",
+        "resizeTo": "Social Media Portrait HD  •  1080x1920 • 30 fps",
+        "frameRate": "Use this frame rate",
+        "useFrameRate": "30.0"
+      },
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 267400,
+        "bytes": 66850,
+        "video": {
+          "codec": "h264",
+          "profile": "Main",
+          "level": 41,
+          "width": 1080,
+          "height": 1920,
+          "fps": 30,
+          "pixFmt": "yuv420p",
+          "frames": 60,
+          "bitrate": 29184,
+          "fieldOrder": "progressive",
+          "sar": "3413:1080"
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 186390,
+          "layout": "stereo"
+        }
+      }
+    },
+    {
+      "file": "resize-fullhd-25.mp4",
+      "template": "H.264 - Match Render Settings - 40 Mbps",
+      "comp": "Probe2s",
+      "resizeTo": "1920,1080",
+      "useFrameRate": "25",
+      "error": null,
+      "applied": {
+        "template": "H.264 - Match Render Settings - 40 Mbps",
+        "file": "C:/CRBK/work/export-research/ae/out/resize-fullhd-25.mp4",
+        "ms": 999,
+        "bytes": 96592,
+        "format": "H.264",
+        "resize": "true",
+        "resizeTo": "HD  •  1920x1080 • 24 fps",
+        "frameRate": "Use this frame rate",
+        "useFrameRate": "25.0"
+      },
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 386368,
+        "bytes": 96592,
+        "video": {
+          "codec": "h264",
+          "profile": "Main",
+          "level": 41,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 18484,
+          "fieldOrder": "progressive",
+          "sar": "1:1"
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      }
+    }
+  ],
+  "conclusion": {
+    "factoryH264": [
+      "H.264 - Match Render Settings -  5 Mbps",
+      "H.264 - Match Render Settings - 15 Mbps",
+      "H.264 - Match Render Settings - 40 Mbps"
+    ],
+    "scriptCanSet": [
+      "Resize to as \"width,height\" (size only)",
+      "Use this frame rate (fps)"
+    ],
+    "scriptCannotSet": [
+      "profile",
+      "level",
+      "target bitrate",
+      "maximum bitrate"
+    ],
+    "brandFullHd": "High profile, level 4.2, VBR target 10 Mbps max 20 Mbps, AAC 320 kbps, 1920x1080 25 fps",
+    "withoutManualTemplate": "No. The closest factory template is 15 Mbps: on busy footage the video landed near 14.6 Mbps, but the profile was Main, the level was 4.1, and the audio was about 192 kbps. The 40 Mbps template has about 320 kbps audio and a higher video bitrate. A script cannot set the 10/20 pair or High 4.2."
+  }
+}

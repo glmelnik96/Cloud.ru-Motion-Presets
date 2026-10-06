@@ -1,0 +1,613 @@
+{
+  "source": "C:/CRBK/archive/2026-10-02/7_Пресеты_Media_Encoder",
+  "counted": 9,
+  "ticksPerSecond": 254016000000,
+  "notes": [
+    "fps = 254016000000 / ADBEVideoFPS (Adobe ticks).",
+    "Bitrate values are Mbps for video and kbps for audio, matching the exporter sliders.",
+    "Profile code 3 is High: ffprobe of every Premiere export in pr-epr.json says High.",
+    "Bitrate mode code 3 has both a target and a maximum, so it is VBR. The file does not say 1-pass or 2-pass."
+  ],
+  "presets": [
+    {
+      "file": "4K.epr",
+      "sha256": "8371bf50d4649d343a0380f24e634919b223e5af1d3bdab714cf20cc5ae755f6",
+      "presetName": "4K_35-40_25fps",
+      "purpose": "4K, 3840×2160",
+      "format": "H.264",
+      "formatFourcc": "H264",
+      "exporterClassId": 1313424203,
+      "doVideo": true,
+      "doAudio": true,
+      "video": {
+        "codec": "H.264",
+        "codecFourcc": "avc1",
+        "width": 3840,
+        "height": 2160,
+        "fps": 25,
+        "fpsTicks": 10160640000,
+        "bitrateMode": {
+          "code": 3,
+          "scaleMax": 3,
+          "label": "VBR"
+        },
+        "targetBitrateMbps": 35,
+        "maxBitrateMbps": 40,
+        "minBitrateMbps": 2,
+        "profile": {
+          "code": 3,
+          "name": "High"
+        },
+        "level": {
+          "code": 52,
+          "label": "5.2"
+        },
+        "fields": {
+          "value": null,
+          "disabled": true,
+          "label": "progressive (field control disabled, no value)"
+        },
+        "pixelAspect": "1:1",
+        "matchSourceArb": null
+      },
+      "audio": {
+        "codec": "AAC",
+        "codecFourcc": "AAC",
+        "sampleRate": 48000,
+        "bitrateKbps": 320,
+        "channels": 2
+      }
+    },
+    {
+      "file": "FullHD.epr",
+      "sha256": "c6348e10fcdf5b2f169aa51e940e2ec11509521615a931c2132d64a2c264b0d8",
+      "presetName": "FullHD_10-20_25fps",
+      "purpose": "Full HD, 1920×1080, основной мастер",
+      "format": "H.264",
+      "formatFourcc": "H264",
+      "exporterClassId": 1313424203,
+      "doVideo": true,
+      "doAudio": true,
+      "video": {
+        "codec": "H.264",
+        "codecFourcc": "avc1",
+        "width": 1920,
+        "height": 1080,
+        "fps": 25,
+        "fpsTicks": 10160640000,
+        "bitrateMode": {
+          "code": 3,
+          "scaleMax": 3,
+          "label": "VBR"
+        },
+        "targetBitrateMbps": 10,
+        "maxBitrateMbps": 20,
+        "minBitrateMbps": 2,
+        "profile": {
+          "code": 3,
+          "name": "High"
+        },
+        "level": {
+          "code": 42,
+          "label": "4.2"
+        },
+        "fields": {
+          "value": null,
+          "disabled": true,
+          "label": "progressive (field control disabled, no value)"
+        },
+        "pixelAspect": "1:1",
+        "matchSourceArb": null
+      },
+      "audio": {
+        "codec": "AAC",
+        "codecFourcc": "AAC",
+        "sampleRate": 48000,
+        "bitrateKbps": 320,
+        "channels": 2
+      }
+    },
+    {
+      "file": "SMM_1440x1080.epr",
+      "sha256": "786486b74b5ab77223ee51c4f4c1c69154680ea3954c1db9c97e6cee3a077959",
+      "presetName": "SMM_5-12_1440x1080_30fps",
+      "purpose": "соцсети, 1440×1080 (4:3)",
+      "format": "H.264",
+      "formatFourcc": "H264",
+      "exporterClassId": 1313424203,
+      "doVideo": true,
+      "doAudio": true,
+      "video": {
+        "codec": "H.264",
+        "codecFourcc": "avc1",
+        "width": 1440,
+        "height": 1080,
+        "fps": 30,
+        "fpsTicks": 8467200000,
+        "bitrateMode": {
+          "code": 3,
+          "scaleMax": 3,
+          "label": "VBR"
+        },
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 12,
+        "minBitrateMbps": 2,
+        "profile": {
+          "code": 3,
+          "name": "High"
+        },
+        "level": {
+          "code": 42,
+          "label": "4.2"
+        },
+        "fields": {
+          "value": null,
+          "disabled": true,
+          "label": "progressive (field control disabled, no value)"
+        },
+        "pixelAspect": "1:1",
+        "matchSourceArb": null
+      },
+      "audio": {
+        "codec": "AAC",
+        "codecFourcc": "AAC",
+        "sampleRate": 48000,
+        "bitrateKbps": 320,
+        "channels": 2
+      }
+    },
+    {
+      "file": "SMM_16x9.epr",
+      "sha256": "bfcb1e5aeea02adf8593427a84166e1b87b7576929dc365ed12eec7e8db2fd1a",
+      "presetName": "SMM_16x9_5-12_1920x1080_30fps",
+      "purpose": "соцсети, 16:9",
+      "format": "H.264",
+      "formatFourcc": "H264",
+      "exporterClassId": 1313424203,
+      "doVideo": true,
+      "doAudio": true,
+      "video": {
+        "codec": "H.264",
+        "codecFourcc": "avc1",
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "fpsTicks": 8467200000,
+        "bitrateMode": {
+          "code": 3,
+          "scaleMax": 3,
+          "label": "VBR"
+        },
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 12,
+        "minBitrateMbps": 2,
+        "profile": {
+          "code": 3,
+          "name": "High"
+        },
+        "level": {
+          "code": 42,
+          "label": "4.2"
+        },
+        "fields": {
+          "value": null,
+          "disabled": true,
+          "label": "progressive (field control disabled, no value)"
+        },
+        "pixelAspect": "1:1",
+        "matchSourceArb": null
+      },
+      "audio": {
+        "codec": "AAC",
+        "codecFourcc": "AAC",
+        "sampleRate": 48000,
+        "bitrateKbps": 320,
+        "channels": 2
+      }
+    },
+    {
+      "file": "SMM_1x1.epr",
+      "sha256": "dfa9dbaf303aa9e5058945778de1fb15515215633b9dcb6fe05c92b191c8e330",
+      "presetName": "SMM_1x1_5-12_1080x1080_30fps",
+      "purpose": "соцсети, квадрат 1:1",
+      "format": "H.264",
+      "formatFourcc": "H264",
+      "exporterClassId": 1313424203,
+      "doVideo": true,
+      "doAudio": true,
+      "video": {
+        "codec": "H.264",
+        "codecFourcc": "avc1",
+        "width": 1080,
+        "height": 1080,
+        "fps": 30,
+        "fpsTicks": 8467200000,
+        "bitrateMode": {
+          "code": 3,
+          "scaleMax": 3,
+          "label": "VBR"
+        },
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 12,
+        "minBitrateMbps": 2,
+        "profile": {
+          "code": 3,
+          "name": "High"
+        },
+        "level": {
+          "code": 52,
+          "label": "5.2"
+        },
+        "fields": {
+          "value": null,
+          "disabled": true,
+          "label": "progressive (field control disabled, no value)"
+        },
+        "pixelAspect": "1:1",
+        "matchSourceArb": null
+      },
+      "audio": {
+        "codec": "AAC",
+        "codecFourcc": "AAC",
+        "sampleRate": 48000,
+        "bitrateKbps": 320,
+        "channels": 2
+      }
+    },
+    {
+      "file": "SMM_9x16.epr",
+      "sha256": "34eb75aa672e6cc83a2b020a9fe5eb6660904522d775d31bf4ff53bd3f26ed3d",
+      "presetName": "SMM_9x16_5-12_1080x1920_30fps",
+      "purpose": "соцсети, вертикаль 9:16",
+      "format": "H.264",
+      "formatFourcc": "H264",
+      "exporterClassId": 1313424203,
+      "doVideo": true,
+      "doAudio": true,
+      "video": {
+        "codec": "H.264",
+        "codecFourcc": "avc1",
+        "width": 1080,
+        "height": 1920,
+        "fps": 30,
+        "fpsTicks": 8467200000,
+        "bitrateMode": {
+          "code": 3,
+          "scaleMax": 3,
+          "label": "VBR"
+        },
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 12,
+        "minBitrateMbps": 2,
+        "profile": {
+          "code": 3,
+          "name": "High"
+        },
+        "level": {
+          "code": 42,
+          "label": "4.2"
+        },
+        "fields": {
+          "value": null,
+          "disabled": true,
+          "label": "progressive (field control disabled, no value)"
+        },
+        "pixelAspect": "1:1",
+        "matchSourceArb": null
+      },
+      "audio": {
+        "codec": "AAC",
+        "codecFourcc": "AAC",
+        "sampleRate": 48000,
+        "bitrateKbps": 320,
+        "channels": 2
+      }
+    },
+    {
+      "file": "Webinar_Final render.epr",
+      "sha256": "6278b53234191c85e6ad000cd10f009b6bbda25a7f795cf5b2ebf52e0fdd1d26",
+      "presetName": "Webinar_FullHD_5-10_24fps",
+      "purpose": "вебинар, финальный рендер",
+      "format": "H.264",
+      "formatFourcc": "H264",
+      "exporterClassId": 1313424203,
+      "doVideo": true,
+      "doAudio": true,
+      "video": {
+        "codec": "H.264",
+        "codecFourcc": "avc1",
+        "width": 1920,
+        "height": 1080,
+        "fps": 24,
+        "fpsTicks": 10584000000,
+        "bitrateMode": {
+          "code": 3,
+          "scaleMax": 3,
+          "label": "VBR"
+        },
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 10,
+        "minBitrateMbps": 2,
+        "profile": {
+          "code": 3,
+          "name": "High"
+        },
+        "level": {
+          "code": 42,
+          "label": "4.2"
+        },
+        "fields": {
+          "value": null,
+          "disabled": true,
+          "label": "progressive (field control disabled, no value)"
+        },
+        "pixelAspect": "1:1",
+        "matchSourceArb": null
+      },
+      "audio": {
+        "codec": "AAC",
+        "codecFourcc": "AAC",
+        "sampleRate": 48000,
+        "bitrateKbps": 320,
+        "channels": 2
+      }
+    },
+    {
+      "file": "Webinar_Timer.epr",
+      "sha256": "461454ef267370f2003f288e4eb7201dcd7337c1461726a541a9fd40f3220671",
+      "presetName": "Timer_3-5_24fps",
+      "purpose": "вебинар, таймер",
+      "format": "H.264",
+      "formatFourcc": "H264",
+      "exporterClassId": 1313424203,
+      "doVideo": true,
+      "doAudio": true,
+      "video": {
+        "codec": "H.264",
+        "codecFourcc": "avc1",
+        "width": 1920,
+        "height": 1080,
+        "fps": 24,
+        "fpsTicks": 10584000000,
+        "bitrateMode": {
+          "code": 3,
+          "scaleMax": 3,
+          "label": "VBR"
+        },
+        "targetBitrateMbps": 3,
+        "maxBitrateMbps": 5,
+        "minBitrateMbps": 2,
+        "profile": {
+          "code": 3,
+          "name": "High"
+        },
+        "level": {
+          "code": 42,
+          "label": "4.2"
+        },
+        "fields": {
+          "value": null,
+          "disabled": true,
+          "label": "progressive (field control disabled, no value)"
+        },
+        "pixelAspect": "1:1",
+        "matchSourceArb": null
+      },
+      "audio": {
+        "codec": "AAC",
+        "codecFourcc": "AAC",
+        "sampleRate": 48000,
+        "bitrateKbps": 320,
+        "channels": 2
+      }
+    },
+    {
+      "file": "Webinar_Zastavka.epr",
+      "sha256": "c46d04ae13863cf42c091904b1e0bd85be6f90d5bf1d62440ea9f23319aa2b8d",
+      "presetName": "Zastavka_15-20_24fps",
+      "purpose": "вебинар, заставка",
+      "format": "H.264",
+      "formatFourcc": "H264",
+      "exporterClassId": 1313424203,
+      "doVideo": true,
+      "doAudio": true,
+      "video": {
+        "codec": "H.264",
+        "codecFourcc": "avc1",
+        "width": 1920,
+        "height": 1080,
+        "fps": 24,
+        "fpsTicks": 10584000000,
+        "bitrateMode": {
+          "code": 3,
+          "scaleMax": 3,
+          "label": "VBR"
+        },
+        "targetBitrateMbps": 15,
+        "maxBitrateMbps": 20,
+        "minBitrateMbps": 2,
+        "profile": {
+          "code": 3,
+          "name": "High"
+        },
+        "level": {
+          "code": 42,
+          "label": "4.2"
+        },
+        "fields": {
+          "value": null,
+          "disabled": true,
+          "label": "progressive (field control disabled, no value)"
+        },
+        "pixelAspect": "1:1",
+        "matchSourceArb": null
+      },
+      "audio": {
+        "codec": "AAC",
+        "codecFourcc": "AAC",
+        "sampleRate": 48000,
+        "bitrateKbps": 320,
+        "channels": 2
+      }
+    }
+  ],
+  "divergences": {
+    "canon": "D2: every template and export is 25 fps",
+    "not25fps": [
+      {
+        "file": "SMM_1440x1080.epr",
+        "fps": 30,
+        "size": "1440x1080"
+      },
+      {
+        "file": "SMM_16x9.epr",
+        "fps": 30,
+        "size": "1920x1080"
+      },
+      {
+        "file": "SMM_1x1.epr",
+        "fps": 30,
+        "size": "1080x1080"
+      },
+      {
+        "file": "SMM_9x16.epr",
+        "fps": 30,
+        "size": "1080x1920"
+      },
+      {
+        "file": "Webinar_Final render.epr",
+        "fps": 24,
+        "size": "1920x1080"
+      },
+      {
+        "file": "Webinar_Timer.epr",
+        "fps": 24,
+        "size": "1920x1080"
+      },
+      {
+        "file": "Webinar_Zastavka.epr",
+        "fps": 24,
+        "size": "1920x1080"
+      }
+    ],
+    "distinctSettings": [
+      {
+        "width": 3840,
+        "height": 2160,
+        "fps": 25,
+        "profileCode": 3,
+        "levelCode": 52,
+        "targetBitrateMbps": 35,
+        "maxBitrateMbps": 40,
+        "files": [
+          "4K.epr"
+        ]
+      },
+      {
+        "width": 1920,
+        "height": 1080,
+        "fps": 25,
+        "profileCode": 3,
+        "levelCode": 42,
+        "targetBitrateMbps": 10,
+        "maxBitrateMbps": 20,
+        "files": [
+          "FullHD.epr"
+        ]
+      },
+      {
+        "width": 1440,
+        "height": 1080,
+        "fps": 30,
+        "profileCode": 3,
+        "levelCode": 42,
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 12,
+        "files": [
+          "SMM_1440x1080.epr"
+        ]
+      },
+      {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "profileCode": 3,
+        "levelCode": 42,
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 12,
+        "files": [
+          "SMM_16x9.epr"
+        ]
+      },
+      {
+        "width": 1080,
+        "height": 1080,
+        "fps": 30,
+        "profileCode": 3,
+        "levelCode": 52,
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 12,
+        "files": [
+          "SMM_1x1.epr"
+        ]
+      },
+      {
+        "width": 1080,
+        "height": 1920,
+        "fps": 30,
+        "profileCode": 3,
+        "levelCode": 42,
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 12,
+        "files": [
+          "SMM_9x16.epr"
+        ]
+      },
+      {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24,
+        "profileCode": 3,
+        "levelCode": 42,
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 10,
+        "files": [
+          "Webinar_Final render.epr"
+        ]
+      },
+      {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24,
+        "profileCode": 3,
+        "levelCode": 42,
+        "targetBitrateMbps": 3,
+        "maxBitrateMbps": 5,
+        "files": [
+          "Webinar_Timer.epr"
+        ]
+      },
+      {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24,
+        "profileCode": 3,
+        "levelCode": 42,
+        "targetBitrateMbps": 15,
+        "maxBitrateMbps": 20,
+        "files": [
+          "Webinar_Zastavka.epr"
+        ]
+      }
+    ],
+    "comparedKeys": [
+      "width",
+      "height",
+      "fps",
+      "profile",
+      "level",
+      "target",
+      "max"
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "template": "CR FullHD",
+  "aom": "docs/research/export/CR-FullHD.aom",
+  "listed": true,
+  "names": [
+    "AIFF 48kHz",
+    "Alpha Only",
+    "CR FullHD",
+    "CRBK_ProRes4444_Alpha",
+    "H.264 - Match Render Settings -  5 Mbps",
+    "H.264 - Match Render Settings - 15 Mbps",
+    "H.264 - Match Render Settings - 40 Mbps",
+    "High Quality",
+    "High Quality with Alpha",
+    "Lossless",
+    "Lossless with Alpha",
+    "Multi-Machine Sequence",
+    "Photoshop",
+    "TIFF Sequence with Alpha",
+    "Untitled 1",
+    "_HIDDEN X-Factor 16",
+    "_HIDDEN X-Factor 16 Premul",
+    "_HIDDEN X-Factor 32",
+    "_HIDDEN X-Factor 32 Premul",
+    "_HIDDEN X-Factor 8",
+    "_HIDDEN X-Factor 8 Premul"
+  ],
+  "applied": {
+    "template": "CR FullHD",
+    "file": "C:/CRBK/work/export-research/ae/out/cr-fullhd-busy.mp4",
+    "ms": 1187,
+    "bytes": 3185956,
+    "format": "H.264",
+    "resize": "false",
+    "resizeTo": "HD  •  1920x1080 • 24 fps",
+    "frameRate": "Use comp's frame rate",
+    "useFrameRate": "25.0"
+  },
+  "appliedSettings": {
+    "Audio Bit Depth": "16 Bit",
+    "Audio Channels": "Stereo",
+    "Audio Sample Rate": "48,000 kHz",
+    "Channels": "RGB",
+    "Color": "Premultiplied (Matted)",
+    "Crop": "false",
+    "Crop Bottom": "0",
+    "Crop Left": "0",
+    "Crop Right": "0",
+    "Crop Top": "0",
+    "Depth": "Millions of Colors",
+    "Format": "H.264",
+    "Include Project Link": "true",
+    "Include Source XMP Metadata": "false",
+    "Lock Aspect Ratio": "true",
+    "Output Audio": "Auto",
+    "Output File Info": "[object Object]",
+    "Post-Render Action": "None",
+    "Resize": "false",
+    "Resize Quality": "High",
+    "Resize to": "HD  •  1920x1080 • 24 fps",
+    "Starting #": "0",
+    "Use Comp Frame Number": "true",
+    "Use Region of Interest": "false",
+    "Video Output": "true"
+  },
+  "prefs": "saved",
+  "wallMs": 1525,
+  "error": null,
+  "probed": {
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": 2,
+    "formatBitrate": 12743824,
+    "bytes": 3185956,
+    "video": {
+      "codec": "h264",
+      "profile": "High",
+      "level": 42,
+      "width": 1920,
+      "height": 1080,
+      "fps": 25,
+      "pixFmt": "yuv420p",
+      "frames": 50,
+      "bitrate": 12178952,
+      "fieldOrder": "progressive",
+      "sar": null
+    },
+    "audio": {
+      "codec": "aac",
+      "sampleRate": 48000,
+      "channels": 2,
+      "bitrate": 314692,
+      "layout": "stereo"
+    }
+  },
+  "builtByHand": {
+    "base": "H.264 - Match Render Settings - 15 Mbps",
+    "performance": "Software Encoding",
+    "profile": "High",
+    "level": "4.2",
+    "bitrate": "VBR, 1 pass, target 10 Mbps, max 20 Mbps",
+    "audio": "AAC 320 kbps, 48 kHz, stereo",
+    "resize": false,
+    "note": "The H.264 Options summary still said 320x240 30 fps. Resize was left off, so the render is expected to follow the comp (1920x1080 25).",
+    "confirmedByFfprobe": "1920x1080 25 fps High level 4.2, video about 12.2 Mbps on testsrc, AAC about 315 kbps. The 320x240 / 24 fps text in the module is a label; Resize was off and the file followed the comp."
+  },
+  "aomBytes": 590808,
+  "roundTrip": {
+    "savedBy": "Output Module Templates → Save All",
+    "note": "Save All writes every output module template into one .aom. The file contains the ASCII name CR FullHD. After the template was deleted, Load reported that 20 templates were skipped because a template of the same name was already loaded. CR FullHD was the new name and came back in the list.",
+    "scriptListed": true,
+    "scriptRender": {
+      "file": "C:/CRBK/work/export-research/ae/out/cr-fullhd-busy.mp4",
+      "hostMs": 1187,
+      "resizeLabel": "HD  •  1920x1080 • 24 fps",
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 12743824,
+        "bytes": 3185956,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 12178952,
+          "fieldOrder": "progressive",
+          "sar": null
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      }
+    },
+    "aerender": {
+      "command": "aerender -project probe.aep -comp ProbeBusy -OMtemplate \"CR FullHD\"",
+      "aeClosed": true,
+      "wallMs": 5420,
+      "reportedElapsed": "2 Seconds",
+      "outputModule": "CR FullHD",
+      "finalSize": "1920 x 1080",
+      "bytes": 3185956,
+      "sameBytesAsScriptRender": true
+    }
+  }
+}

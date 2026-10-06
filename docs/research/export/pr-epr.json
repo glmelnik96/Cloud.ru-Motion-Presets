@@ -1,0 +1,1060 @@
+{
+  "sequence": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "durationSec": 2,
+    "picture": "flat #26D07C",
+    "audio": "1 kHz sine, AAC 48 kHz stereo in the source clip"
+  },
+  "source": {
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": 2,
+    "formatBitrate": 163712,
+    "bytes": 40928,
+    "video": {
+      "codec": "h264",
+      "profile": "Constrained Baseline",
+      "level": 40,
+      "width": 1920,
+      "height": 1080,
+      "fps": 25,
+      "pixFmt": "yuv420p",
+      "frames": 50,
+      "bitrate": 29444,
+      "fieldOrder": "progressive",
+      "sar": "1:1"
+    },
+    "audio": {
+      "codec": "aac",
+      "sampleRate": 48000,
+      "channels": 1,
+      "bitrate": 122742,
+      "layout": "mono"
+    }
+  },
+  "note": "A flat colour underruns a VBR target, so the file bitrate is not the preset target. Size, fps, profile and audio sample rate are the comparison.",
+  "exports": [
+    {
+      "file": "4K.epr",
+      "preset": {
+        "size": "3840x2160",
+        "fps": 25,
+        "profileCode": 3,
+        "level": "5.2",
+        "targetBitrateMbps": 35,
+        "maxBitrateMbps": 40,
+        "audio": {
+          "codec": "AAC",
+          "codecFourcc": "AAC",
+          "sampleRate": 48000,
+          "bitrateKbps": 320,
+          "channels": 2
+        }
+      },
+      "out": "C:/CRBK/work/export-research/pr/out/4K.mp4",
+      "hostMs": 1392,
+      "wallMs": 1662,
+      "returned": "No Error",
+      "checks": [
+        {
+          "name": "probe project open",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "how": "active",
+            "path": "C:\\CRBK\\work\\export-research\\pr\\probe.prproj",
+            "ok": true
+          }
+        },
+        {
+          "name": "sequence CRBK_ExportProbe",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRBK_ExportProbe",
+            "width": 1920,
+            "height": 1080,
+            "timebase": 10160640000,
+            "fps": 25,
+            "videoClips": 1,
+            "audioClips": 1,
+            "settingsFps": "10160640000"
+          }
+        },
+        {
+          "name": "In/Out refreshed",
+          "pass": true,
+          "required": true,
+          "detail": [
+            0,
+            50
+          ]
+        },
+        {
+          "name": "exportAsMediaDirect 4K.epr",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:\\CRBK\\work\\export-research\\pr\\out\\4K.mp4",
+            "returned": "No Error",
+            "ms": 1392,
+            "bytes": 107279
+          }
+        }
+      ],
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 429116,
+        "bytes": 107279,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 52,
+          "width": 3840,
+          "height": 2160,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 60036,
+          "fieldOrder": "progressive",
+          "sar": null
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      },
+      "attribute": {
+        "sizeFromPreset": true,
+        "sizeFromSequence": false,
+        "fpsFromPreset": false,
+        "fpsFromSequence": false,
+        "ffprobeProfile": "High",
+        "ffprobeLevel": 52,
+        "notes": [
+          "frame size follows the preset",
+          "fps matches both",
+          "audio sample rate 48000 (preset 48000)",
+          "audio aac 2ch 314692 bps",
+          "ffprobe profile High level 52 (preset profile code 3, level 5.2)",
+          "file bitrate 429116 bps; preset target 35 Mbps, max 40 Mbps"
+        ]
+      }
+    },
+    {
+      "file": "FullHD.epr",
+      "preset": {
+        "size": "1920x1080",
+        "fps": 25,
+        "profileCode": 3,
+        "level": "4.2",
+        "targetBitrateMbps": 10,
+        "maxBitrateMbps": 20,
+        "audio": {
+          "codec": "AAC",
+          "codecFourcc": "AAC",
+          "sampleRate": 48000,
+          "bitrateKbps": 320,
+          "channels": 2
+        }
+      },
+      "out": "C:/CRBK/work/export-research/pr/out/FullHD.mp4",
+      "hostMs": 465,
+      "wallMs": 544,
+      "returned": "No Error",
+      "checks": [
+        {
+          "name": "probe project open",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "how": "active",
+            "path": "C:\\CRBK\\work\\export-research\\pr\\probe.prproj",
+            "ok": true
+          }
+        },
+        {
+          "name": "sequence CRBK_ExportProbe",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRBK_ExportProbe",
+            "width": 1920,
+            "height": 1080,
+            "timebase": 10160640000,
+            "fps": 25,
+            "videoClips": 1,
+            "audioClips": 1,
+            "settingsFps": "10160640000"
+          }
+        },
+        {
+          "name": "In/Out refreshed",
+          "pass": true,
+          "required": true,
+          "detail": [
+            0,
+            50
+          ]
+        },
+        {
+          "name": "exportAsMediaDirect FullHD.epr",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:\\CRBK\\work\\export-research\\pr\\out\\FullHD.mp4",
+            "returned": "No Error",
+            "ms": 465,
+            "bytes": 96916
+          }
+        }
+      ],
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 387664,
+        "bytes": 96916,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50,
+          "bitrate": 18588,
+          "fieldOrder": "progressive",
+          "sar": null
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      },
+      "attribute": {
+        "sizeFromPreset": false,
+        "sizeFromSequence": false,
+        "fpsFromPreset": false,
+        "fpsFromSequence": false,
+        "ffprobeProfile": "High",
+        "ffprobeLevel": 42,
+        "notes": [
+          "frame size matches both the preset and the sequence",
+          "fps matches both",
+          "audio sample rate 48000 (preset 48000)",
+          "audio aac 2ch 314692 bps",
+          "ffprobe profile High level 42 (preset profile code 3, level 4.2)",
+          "file bitrate 387664 bps; preset target 10 Mbps, max 20 Mbps"
+        ]
+      }
+    },
+    {
+      "file": "SMM_1440x1080.epr",
+      "preset": {
+        "size": "1440x1080",
+        "fps": 30,
+        "profileCode": 3,
+        "level": "4.2",
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 12,
+        "audio": {
+          "codec": "AAC",
+          "codecFourcc": "AAC",
+          "sampleRate": 48000,
+          "bitrateKbps": 320,
+          "channels": 2
+        }
+      },
+      "out": "C:/CRBK/work/export-research/pr/out/SMM_1440x1080.mp4",
+      "hostMs": 451,
+      "wallMs": 503,
+      "returned": "No Error",
+      "checks": [
+        {
+          "name": "probe project open",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "how": "active",
+            "path": "C:\\CRBK\\work\\export-research\\pr\\probe.prproj",
+            "ok": true
+          }
+        },
+        {
+          "name": "sequence CRBK_ExportProbe",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRBK_ExportProbe",
+            "width": 1920,
+            "height": 1080,
+            "timebase": 10160640000,
+            "fps": 25,
+            "videoClips": 1,
+            "audioClips": 1,
+            "settingsFps": "10160640000"
+          }
+        },
+        {
+          "name": "In/Out refreshed",
+          "pass": true,
+          "required": true,
+          "detail": [
+            0,
+            50
+          ]
+        },
+        {
+          "name": "exportAsMediaDirect SMM_1440x1080.epr",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:\\CRBK\\work\\export-research\\pr\\out\\SMM_1440x1080.mp4",
+            "returned": "No Error",
+            "ms": 451,
+            "bytes": 97200
+          }
+        }
+      ],
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 388800,
+        "bytes": 97200,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1440,
+          "height": 1080,
+          "fps": 30,
+          "pixFmt": "yuv420p",
+          "frames": 60,
+          "bitrate": 19140,
+          "fieldOrder": "progressive",
+          "sar": null
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      },
+      "attribute": {
+        "sizeFromPreset": true,
+        "sizeFromSequence": false,
+        "fpsFromPreset": true,
+        "fpsFromSequence": false,
+        "ffprobeProfile": "High",
+        "ffprobeLevel": 42,
+        "notes": [
+          "frame size follows the preset",
+          "fps follows the preset (30, sequence is 25)",
+          "audio sample rate 48000 (preset 48000)",
+          "audio aac 2ch 314692 bps",
+          "ffprobe profile High level 42 (preset profile code 3, level 4.2)",
+          "file bitrate 388800 bps; preset target 5 Mbps, max 12 Mbps"
+        ]
+      }
+    },
+    {
+      "file": "SMM_16x9.epr",
+      "preset": {
+        "size": "1920x1080",
+        "fps": 30,
+        "profileCode": 3,
+        "level": "4.2",
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 12,
+        "audio": {
+          "codec": "AAC",
+          "codecFourcc": "AAC",
+          "sampleRate": 48000,
+          "bitrateKbps": 320,
+          "channels": 2
+        }
+      },
+      "out": "C:/CRBK/work/export-research/pr/out/SMM_16x9.mp4",
+      "hostMs": 479,
+      "wallMs": 532,
+      "returned": "No Error",
+      "checks": [
+        {
+          "name": "probe project open",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "how": "active",
+            "path": "C:\\CRBK\\work\\export-research\\pr\\probe.prproj",
+            "ok": true
+          }
+        },
+        {
+          "name": "sequence CRBK_ExportProbe",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRBK_ExportProbe",
+            "width": 1920,
+            "height": 1080,
+            "timebase": 10160640000,
+            "fps": 25,
+            "videoClips": 1,
+            "audioClips": 1,
+            "settingsFps": "10160640000"
+          }
+        },
+        {
+          "name": "In/Out refreshed",
+          "pass": true,
+          "required": true,
+          "detail": [
+            0,
+            50
+          ]
+        },
+        {
+          "name": "exportAsMediaDirect SMM_16x9.epr",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:\\CRBK\\work\\export-research\\pr\\out\\SMM_16x9.mp4",
+            "returned": "No Error",
+            "ms": 479,
+            "bytes": 97834
+          }
+        }
+      ],
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 391336,
+        "bytes": 97834,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 30,
+          "pixFmt": "yuv420p",
+          "frames": 60,
+          "bitrate": 21676,
+          "fieldOrder": "progressive",
+          "sar": null
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      },
+      "attribute": {
+        "sizeFromPreset": false,
+        "sizeFromSequence": false,
+        "fpsFromPreset": true,
+        "fpsFromSequence": false,
+        "ffprobeProfile": "High",
+        "ffprobeLevel": 42,
+        "notes": [
+          "frame size matches both the preset and the sequence",
+          "fps follows the preset (30, sequence is 25)",
+          "audio sample rate 48000 (preset 48000)",
+          "audio aac 2ch 314692 bps",
+          "ffprobe profile High level 42 (preset profile code 3, level 4.2)",
+          "file bitrate 391336 bps; preset target 5 Mbps, max 12 Mbps"
+        ]
+      }
+    },
+    {
+      "file": "SMM_1x1.epr",
+      "preset": {
+        "size": "1080x1080",
+        "fps": 30,
+        "profileCode": 3,
+        "level": "5.2",
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 12,
+        "audio": {
+          "codec": "AAC",
+          "codecFourcc": "AAC",
+          "sampleRate": 48000,
+          "bitrateKbps": 320,
+          "channels": 2
+        }
+      },
+      "out": "C:/CRBK/work/export-research/pr/out/SMM_1x1.mp4",
+      "hostMs": 405,
+      "wallMs": 456,
+      "returned": "No Error",
+      "checks": [
+        {
+          "name": "probe project open",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "how": "active",
+            "path": "C:\\CRBK\\work\\export-research\\pr\\probe.prproj",
+            "ok": true
+          }
+        },
+        {
+          "name": "sequence CRBK_ExportProbe",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRBK_ExportProbe",
+            "width": 1920,
+            "height": 1080,
+            "timebase": 10160640000,
+            "fps": 25,
+            "videoClips": 1,
+            "audioClips": 1,
+            "settingsFps": "10160640000"
+          }
+        },
+        {
+          "name": "In/Out refreshed",
+          "pass": true,
+          "required": true,
+          "detail": [
+            0,
+            50
+          ]
+        },
+        {
+          "name": "exportAsMediaDirect SMM_1x1.epr",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:\\CRBK\\work\\export-research\\pr\\out\\SMM_1x1.mp4",
+            "returned": "No Error",
+            "ms": 405,
+            "bytes": 96438
+          }
+        }
+      ],
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 385752,
+        "bytes": 96438,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 52,
+          "width": 1080,
+          "height": 1080,
+          "fps": 30,
+          "pixFmt": "yuv420p",
+          "frames": 60,
+          "bitrate": 16084,
+          "fieldOrder": "progressive",
+          "sar": null
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      },
+      "attribute": {
+        "sizeFromPreset": true,
+        "sizeFromSequence": false,
+        "fpsFromPreset": true,
+        "fpsFromSequence": false,
+        "ffprobeProfile": "High",
+        "ffprobeLevel": 52,
+        "notes": [
+          "frame size follows the preset",
+          "fps follows the preset (30, sequence is 25)",
+          "audio sample rate 48000 (preset 48000)",
+          "audio aac 2ch 314692 bps",
+          "ffprobe profile High level 52 (preset profile code 3, level 5.2)",
+          "file bitrate 385752 bps; preset target 5 Mbps, max 12 Mbps"
+        ]
+      }
+    },
+    {
+      "file": "SMM_9x16.epr",
+      "preset": {
+        "size": "1080x1920",
+        "fps": 30,
+        "profileCode": 3,
+        "level": "4.2",
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 12,
+        "audio": {
+          "codec": "AAC",
+          "codecFourcc": "AAC",
+          "sampleRate": 48000,
+          "bitrateKbps": 320,
+          "channels": 2
+        }
+      },
+      "out": "C:/CRBK/work/export-research/pr/out/SMM_9x16.mp4",
+      "hostMs": 604,
+      "wallMs": 657,
+      "returned": "No Error",
+      "checks": [
+        {
+          "name": "probe project open",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "how": "active",
+            "path": "C:\\CRBK\\work\\export-research\\pr\\probe.prproj",
+            "ok": true
+          }
+        },
+        {
+          "name": "sequence CRBK_ExportProbe",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRBK_ExportProbe",
+            "width": 1920,
+            "height": 1080,
+            "timebase": 10160640000,
+            "fps": 25,
+            "videoClips": 1,
+            "audioClips": 1,
+            "settingsFps": "10160640000"
+          }
+        },
+        {
+          "name": "In/Out refreshed",
+          "pass": true,
+          "required": true,
+          "detail": [
+            0,
+            50
+          ]
+        },
+        {
+          "name": "exportAsMediaDirect SMM_9x16.epr",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:\\CRBK\\work\\export-research\\pr\\out\\SMM_9x16.mp4",
+            "returned": "No Error",
+            "ms": 604,
+            "bytes": 98132
+          }
+        }
+      ],
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 392528,
+        "bytes": 98132,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1080,
+          "height": 1920,
+          "fps": 30,
+          "pixFmt": "yuv420p",
+          "frames": 60,
+          "bitrate": 22868,
+          "fieldOrder": "progressive",
+          "sar": null
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      },
+      "attribute": {
+        "sizeFromPreset": true,
+        "sizeFromSequence": false,
+        "fpsFromPreset": true,
+        "fpsFromSequence": false,
+        "ffprobeProfile": "High",
+        "ffprobeLevel": 42,
+        "notes": [
+          "frame size follows the preset",
+          "fps follows the preset (30, sequence is 25)",
+          "audio sample rate 48000 (preset 48000)",
+          "audio aac 2ch 314692 bps",
+          "ffprobe profile High level 42 (preset profile code 3, level 4.2)",
+          "file bitrate 392528 bps; preset target 5 Mbps, max 12 Mbps"
+        ]
+      }
+    },
+    {
+      "file": "Webinar_Final render.epr",
+      "preset": {
+        "size": "1920x1080",
+        "fps": 24,
+        "profileCode": 3,
+        "level": "4.2",
+        "targetBitrateMbps": 5,
+        "maxBitrateMbps": 10,
+        "audio": {
+          "codec": "AAC",
+          "codecFourcc": "AAC",
+          "sampleRate": 48000,
+          "bitrateKbps": 320,
+          "channels": 2
+        }
+      },
+      "out": "C:/CRBK/work/export-research/pr/out/Webinar_Final_render.mp4",
+      "hostMs": 416,
+      "wallMs": 468,
+      "returned": "No Error",
+      "checks": [
+        {
+          "name": "probe project open",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "how": "active",
+            "path": "C:\\CRBK\\work\\export-research\\pr\\probe.prproj",
+            "ok": true
+          }
+        },
+        {
+          "name": "sequence CRBK_ExportProbe",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRBK_ExportProbe",
+            "width": 1920,
+            "height": 1080,
+            "timebase": 10160640000,
+            "fps": 25,
+            "videoClips": 1,
+            "audioClips": 1,
+            "settingsFps": "10160640000"
+          }
+        },
+        {
+          "name": "In/Out refreshed",
+          "pass": true,
+          "required": true,
+          "detail": [
+            0,
+            50
+          ]
+        },
+        {
+          "name": "exportAsMediaDirect Webinar_Final render.epr",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:\\CRBK\\work\\export-research\\pr\\out\\Webinar_Final_render.mp4",
+            "returned": "No Error",
+            "ms": 416,
+            "bytes": 96802
+          }
+        }
+      ],
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 387208,
+        "bytes": 96802,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 24,
+          "pixFmt": "yuv420p",
+          "frames": 48,
+          "bitrate": 17980,
+          "fieldOrder": "progressive",
+          "sar": null
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      },
+      "attribute": {
+        "sizeFromPreset": false,
+        "sizeFromSequence": false,
+        "fpsFromPreset": true,
+        "fpsFromSequence": false,
+        "ffprobeProfile": "High",
+        "ffprobeLevel": 42,
+        "notes": [
+          "frame size matches both the preset and the sequence",
+          "fps follows the preset (24, sequence is 25)",
+          "audio sample rate 48000 (preset 48000)",
+          "audio aac 2ch 314692 bps",
+          "ffprobe profile High level 42 (preset profile code 3, level 4.2)",
+          "file bitrate 387208 bps; preset target 5 Mbps, max 10 Mbps"
+        ]
+      }
+    },
+    {
+      "file": "Webinar_Timer.epr",
+      "preset": {
+        "size": "1920x1080",
+        "fps": 24,
+        "profileCode": 3,
+        "level": "4.2",
+        "targetBitrateMbps": 3,
+        "maxBitrateMbps": 5,
+        "audio": {
+          "codec": "AAC",
+          "codecFourcc": "AAC",
+          "sampleRate": 48000,
+          "bitrateKbps": 320,
+          "channels": 2
+        }
+      },
+      "out": "C:/CRBK/work/export-research/pr/out/Webinar_Timer.mp4",
+      "hostMs": 413,
+      "wallMs": 463,
+      "returned": "No Error",
+      "checks": [
+        {
+          "name": "probe project open",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "how": "active",
+            "path": "C:\\CRBK\\work\\export-research\\pr\\probe.prproj",
+            "ok": true
+          }
+        },
+        {
+          "name": "sequence CRBK_ExportProbe",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRBK_ExportProbe",
+            "width": 1920,
+            "height": 1080,
+            "timebase": 10160640000,
+            "fps": 25,
+            "videoClips": 1,
+            "audioClips": 1,
+            "settingsFps": "10160640000"
+          }
+        },
+        {
+          "name": "In/Out refreshed",
+          "pass": true,
+          "required": true,
+          "detail": [
+            0,
+            50
+          ]
+        },
+        {
+          "name": "exportAsMediaDirect Webinar_Timer.epr",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:\\CRBK\\work\\export-research\\pr\\out\\Webinar_Timer.mp4",
+            "returned": "No Error",
+            "ms": 413,
+            "bytes": 96802
+          }
+        }
+      ],
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 387208,
+        "bytes": 96802,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 24,
+          "pixFmt": "yuv420p",
+          "frames": 48,
+          "bitrate": 17980,
+          "fieldOrder": "progressive",
+          "sar": null
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      },
+      "attribute": {
+        "sizeFromPreset": false,
+        "sizeFromSequence": false,
+        "fpsFromPreset": true,
+        "fpsFromSequence": false,
+        "ffprobeProfile": "High",
+        "ffprobeLevel": 42,
+        "notes": [
+          "frame size matches both the preset and the sequence",
+          "fps follows the preset (24, sequence is 25)",
+          "audio sample rate 48000 (preset 48000)",
+          "audio aac 2ch 314692 bps",
+          "ffprobe profile High level 42 (preset profile code 3, level 4.2)",
+          "file bitrate 387208 bps; preset target 3 Mbps, max 5 Mbps"
+        ]
+      }
+    },
+    {
+      "file": "Webinar_Zastavka.epr",
+      "preset": {
+        "size": "1920x1080",
+        "fps": 24,
+        "profileCode": 3,
+        "level": "4.2",
+        "targetBitrateMbps": 15,
+        "maxBitrateMbps": 20,
+        "audio": {
+          "codec": "AAC",
+          "codecFourcc": "AAC",
+          "sampleRate": 48000,
+          "bitrateKbps": 320,
+          "channels": 2
+        }
+      },
+      "out": "C:/CRBK/work/export-research/pr/out/Webinar_Zastavka.mp4",
+      "hostMs": 398,
+      "wallMs": 453,
+      "returned": "No Error",
+      "checks": [
+        {
+          "name": "probe project open",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "how": "active",
+            "path": "C:\\CRBK\\work\\export-research\\pr\\probe.prproj",
+            "ok": true
+          }
+        },
+        {
+          "name": "sequence CRBK_ExportProbe",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "name": "CRBK_ExportProbe",
+            "width": 1920,
+            "height": 1080,
+            "timebase": 10160640000,
+            "fps": 25,
+            "videoClips": 1,
+            "audioClips": 1,
+            "settingsFps": "10160640000"
+          }
+        },
+        {
+          "name": "In/Out refreshed",
+          "pass": true,
+          "required": true,
+          "detail": [
+            0,
+            50
+          ]
+        },
+        {
+          "name": "exportAsMediaDirect Webinar_Zastavka.epr",
+          "pass": true,
+          "required": true,
+          "detail": {
+            "file": "C:\\CRBK\\work\\export-research\\pr\\out\\Webinar_Zastavka.mp4",
+            "returned": "No Error",
+            "ms": 398,
+            "bytes": 96802
+          }
+        }
+      ],
+      "error": null,
+      "probed": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "formatBitrate": 387208,
+        "bytes": 96802,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 24,
+          "pixFmt": "yuv420p",
+          "frames": 48,
+          "bitrate": 17980,
+          "fieldOrder": "progressive",
+          "sar": null
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 314692,
+          "layout": "stereo"
+        }
+      },
+      "attribute": {
+        "sizeFromPreset": false,
+        "sizeFromSequence": false,
+        "fpsFromPreset": true,
+        "fpsFromSequence": false,
+        "ffprobeProfile": "High",
+        "ffprobeLevel": 42,
+        "notes": [
+          "frame size matches both the preset and the sequence",
+          "fps follows the preset (24, sequence is 25)",
+          "audio sample rate 48000 (preset 48000)",
+          "audio aac 2ch 314692 bps",
+          "ffprobe profile High level 42 (preset profile code 3, level 4.2)",
+          "file bitrate 387208 bps; preset target 15 Mbps, max 20 Mbps"
+        ]
+      }
+    }
+  ],
+  "conclusion": {
+    "presetWins": [
+      "frame size",
+      "fps",
+      "profile High",
+      "level"
+    ],
+    "sequenceDoesNotOverrideThose": true,
+    "example": "SMM_16x9.epr exports 30 fps from a 25p sequence. Webinar presets export 24 fps. 4K and FullHD stay 25.",
+    "audio": "Every export was AAC 48 kHz stereo at about 315 kbps, against the preset value of 320 kbps.",
+    "bitrate": "A flat colour underruns VBR, so the 2 second files do not show the target video bitrate.",
+    "vsD2": "D2 is 25 fps for every template. SMM files are 30. Webinar files are 24. 4K and FullHD are already 25. Files also differ in size, level (4.2 or 5.2) and the target/max bitrate pair. All nine are High profile, VBR, AAC 48 kHz stereo 320 kbps."
+  }
+}
