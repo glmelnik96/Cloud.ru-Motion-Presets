@@ -59,6 +59,37 @@ describe('transfer check, dry', () => {
     expect(transferVerdict([{ name: 'cut', file: 'C:/CRBK/work/panel-live/pr/cut-clip.png', missing: false }], 'C:/CRBK/work/panel-live/pr-moved')).toMatchObject({ outside: [], ours: 0 });
   });
 
+  it('a folder still busy after the release is renamed once it is free', async () => {
+    const fs = disk(files);
+    const real = fs.rename;
+    let busy = 2;
+    fs.rename = (from, to) => {
+      if (from.endsWith('/Cloud.ru BrandKit') && busy > 0) {
+        busy -= 1;
+        const e = new Error(`EPERM: operation not permitted, rename '${from}'`);
+        e.code = 'EPERM';
+        throw e;
+      }
+      real(from, to);
+    };
+    const slept = [];
+    const R = new Report('pr');
+    await runTransferLive({ host: 'pr', hostRun: async (op, p) => ok(op === 'transferOpen' ? { items: [{ name: 'l', file: `${W}/pr-moved/Cloud.ru BrandKit/x.mov`, missing: false }] } : {}), R, fs, sleep: async (ms) => void slept.push(ms),
+      project: `${W}/pr/media_live.prproj`, movedDir: `${W}/pr-moved`, libraryRoot: `${W}/media/library` });
+    expect(R.failed()).toEqual([]);
+    expect(slept).toEqual([500, 1000]);
+    expect(R.checks.find((c) => /out of the way/.test(c.name)).detail.retries[`${W}/pr/Cloud.ru BrandKit`]).toBe(2);
+  });
+
+  it('a folder that stays busy names who holds it', async () => {
+    const fs = disk(files);
+    fs.rename = (from) => { const e = new Error(`EPERM ${from}`); e.code = 'EPERM'; throw e; };
+    const R = new Report('pr');
+    await runTransferLive({ host: 'pr', hostRun: async () => ok({}), R, fs, sleep: async () => undefined, holders: () => 'Adobe Premiere Pro.exe pid: 4242',
+      project: `${W}/pr/media_live.prproj`, movedDir: `${W}/pr-moved`, libraryRoot: `${W}/media/library` });
+    expect(R.checks.find((c) => c.name === 'transfer: finished without an exception').detail).toMatch(/held by: Adobe Premiere Pro\.exe pid: 4242/);
+  });
+
   it('a rename that fails is reported and the rest is put back', async () => {
     const fs = disk(files.filter((f) => !f.includes('/media/library/')));
     const R = new Report('ae');

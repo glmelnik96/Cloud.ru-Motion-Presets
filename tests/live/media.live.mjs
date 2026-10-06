@@ -122,6 +122,11 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
         project: base.project,
         movedDir: workPath('panel-live', `${HOST}-moved`).replace(/\\/g, '/'),
         libraryRoot: built.libraryRoot.replace(/\\/g, '/'),
+        // Sysinternals handle.exe, when installed: which process keeps a folder busy
+        holders: (p) => {
+          const r = spawnSync('handle', ['-accepteula', '-nobanner', p.replace(/\//g, '\\')], { encoding: 'utf8' });
+          return r.status === null || r.error ? 'handle.exe not on PATH' : (r.stdout || '').trim().split(/\r?\n/).slice(0, 10).join(' | ') || 'no handle found';
+        },
         fs: {
           exists: (p) => existsSync(p),
           files: (d) => readdirSync(d).filter((f) => statSync(path.join(d, f)).isFile()),
