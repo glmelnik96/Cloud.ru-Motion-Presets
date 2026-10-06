@@ -1,3 +1,88 @@
 {
-  "refs": []
+  "refs": [
+    {
+      "slug": "writetyper",
+      "url": "https://aescripts.com/writetyper/",
+      "file": null,
+      "note": "aescripts WriteTyper: естественная печать текста, риг в один клик",
+      "added": "2026-10-06"
+    },
+    {
+      "slug": "gridwarp",
+      "url": "https://aescripts.com/gridwarp/",
+      "file": null,
+      "note": "aescripts GridWarp: растяжение картинки перетаскиванием линий сетки, волна линий",
+      "added": "2026-10-06"
+    },
+    {
+      "slug": "cosmic",
+      "url": "https://www.youtube.com/watch?v=4Q6xk3can8U",
+      "file": null,
+      "note": "aescripts Cosmic: кинематографичные градиенты со свечением и диффузией на шейпах и тексте (страница https://aescripts.com/cosmic/)",
+      "added": "2026-10-06"
+    },
+    {
+      "slug": "instant-depth-map",
+      "url": "https://aescripts.com/instant-depth-map/",
+      "file": null,
+      "note": "aescripts Instant Depth Map: карта глубины нейросетью Depth Anything V2",
+      "added": "2026-10-06"
+    },
+    {
+      "slug": "popcorn",
+      "url": "https://aescripts.com/popcorn/",
+      "file": null,
+      "note": "aescripts Popcorn!: физика — столкновения, гравитация, запекание в ключи",
+      "added": "2026-10-06"
+    },
+    {
+      "slug": "bounce-motion",
+      "url": "https://aescripts.com/bounce-motion/",
+      "file": null,
+      "note": "aescripts Bounce Motion: отскоки по точкам, squash и stretch, ключи или выражения",
+      "added": "2026-10-06"
+    },
+    {
+      "slug": "chromabba",
+      "url": "https://aescripts.com/chromabba/",
+      "file": null,
+      "note": "aescripts Chromabba: хроматическая аберрация по краям, жидкое стекло",
+      "added": "2026-10-06"
+    },
+    {
+      "slug": "tracery",
+      "url": "https://www.youtube.com/watch?v=UjcJluBfeZ8",
+      "file": null,
+      "note": "aescripts Tracery: трекинг цвета или движения и FUI-оверлеи (страница https://aescripts.com/tracery/)",
+      "added": "2026-10-06"
+    },
+    {
+      "slug": "grid-builder",
+      "url": "https://www.youtube.com/watch?v=ZNZa-0PJ9dA",
+      "file": null,
+      "note": "aescripts Grid Builder: сетки слоёв от одного нуля, эффекты близости (страница https://aescripts.com/grid-builder/)",
+      "added": "2026-10-06"
+    },
+    {
+      "slug": "textborder",
+      "url": "https://www.youtube.com/watch?v=WV4AgQD95PM",
+      "file": null,
+      "note": "aescripts TextBorder (бесплатный): плашка под текст по его размеру (страница https://aescripts.com/textborder/)",
+      "added": "2026-10-06"
+    },
+    {
+      "slug": "pixel-sorter",
+      "url": "https://www.youtube.com/watch?v=aOVfjuqIuc0",
+      "file": null,
+      "note": "aescripts Pixel Sorter: сортировка пикселей, глитч (страница https://aescripts.com/pixel-sorter/)",
+      "added": "2026-10-06"
+    },
+    {
+      "slug": "slitscan",
+      "url": "https://www.youtube.com/watch?v=oHfZjEeO3Cs",
+      "file": null,
+      "note": "aescripts Slitscan: слит-скан, срезы кадров во времени (страница https://aescripts.com/slitscan/)",
+      "added": "2026-10-06"
+    }
+  ]
 }
