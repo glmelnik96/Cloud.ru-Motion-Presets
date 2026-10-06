@@ -1,0 +1,65 @@
+# CR Субтитры.prtextstyle — образец формата (Premiere Pro 26.5.2, 2026-10-07)
+# Файл целиком: 24753 байт, UTF-8 XML <PremiereData Version="3">, по сути мини-проект:
+# Project + ProjectSettings + compile settings (шаблонные) + StyleProjectItem -> VideoFilterComponent "AE.ADBE Text"
+# с 22 параметрами. Всё оформление — в base64-блоке параметра "Source Text" (ParameterID 1), 464 байта.
+# Бинарей шрифта нет: шрифт записан только PostScript-именем "SBSansText-Regular".
+# В блоке найдены float32: смещение 420 = 35 (размер), 408 = -32 (трекинг), 156 = 10 (отступ фона);
+# байты 22 22 22 = цвет фона #222222. Атрибут BinaryHash — как в .prproj (алгоритм не установлен).
+# Ниже — выдержки без изменений, шаблонные compile settings опущены.
+<?xml version="1.0" encoding="UTF-8" ?>
+<PremiereData Version="3">
+		<!-- ... Project, ProjectSettings, Compile/Scratch/Ingest settings опущены ... -->
+	<StyleProjectItem ObjectUID="866fb96d-3a2a-4edb-ba67-7849daf579fc" ClassID="31673410-6b9a-420b-990a-fdfe31ef94f3" Version="1">
+		<ProjectItem Version="1">
+			<Node Version="1">
+				<Properties Version="1">
+					<project.icon.view.grid.order>5</project.icon.view.grid.order>
+				</Properties>
+			</Node>
+			<Name>CR Субтитры</Name>
+		</ProjectItem>
+		<Component ObjectRef="27"/>
+	</StyleProjectItem>
+	<!-- ... -->
+	<VideoFilterComponent ObjectID="27" ClassID="d10da199-beea-4dd1-b941-ed3a78766d50" Version="9">
+		<Component Version="7">
+			<Params Version="1">
+				<Param Index="0" ObjectRef="40"/>
+				<Param Index="1" ObjectRef="41"/>
+				<Param Index="2" ObjectRef="42"/>
+				<Param Index="3" ObjectRef="43"/>
+				<Param Index="4" ObjectRef="44"/>
+				<Param Index="5" ObjectRef="45"/>
+				<Param Index="6" ObjectRef="46"/>
+				<Param Index="7" ObjectRef="47"/>
+				<Param Index="8" ObjectRef="48"/>
+				<Param Index="9" ObjectRef="49"/>
+				<Param Index="10" ObjectRef="50"/>
+				<Param Index="11" ObjectRef="51"/>
+				<Param Index="12" ObjectRef="52"/>
+				<Param Index="13" ObjectRef="53"/>
+				<Param Index="14" ObjectRef="54"/>
+				<Param Index="15" ObjectRef="55"/>
+				<Param Index="16" ObjectRef="56"/>
+				<Param Index="17" ObjectRef="57"/>
+				<Param Index="18" ObjectRef="58"/>
+				<Param Index="19" ObjectRef="59"/>
+				<Param Index="20" ObjectRef="60"/>
+				<Param Index="21" ObjectRef="61"/>
+			</Params>
+			<DisplayName>Text</DisplayName>
+		</Component>
+		<MatchName>AE.ADBE Text</MatchName>
+		<VideoFilterType>2</VideoFilterType>
+	</VideoFilterComponent>
+	<!-- ... -->
+	<ArbVideoComponentParam ObjectID="40" ClassID="313e54d4-6903-49ad-b0bf-8262cdd10f4e" Version="3">
+		<Name>Source Text</Name>
+		<ParameterControlType>9</ParameterControlType>
+		<ParameterID>1</ParameterID>
+		<StartKeyframePosition>-91445760000000000</StartKeyframePosition>
+		<StartKeyframeValue Encoding="base64" BinaryHash="b3d94016-e1ca-adb5-f88a-9723000001dc">xAEAAAAAAABEMyIRDAAAAAAABgAKAAQABgAAAGQAAAAAAF4ASAAQAAwAAAAAAEQAQAAAAAAAAAAAADwAAAA4AAAANAAwACwAKAAnACAAHAAAAAAAAAAAAAAAGgAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAAAAAAAgAAAAAABsABwBeAAAAAAAAAUAAAACAAAAAnAAAADwAAAAAAAEAAAAgQQAAyEIAAAABVAAAAAAAQEEAAMBAAABAQAAAyEJIAAAAAgAAAAIAAAAA////BP///wEAAAAMAAAAAAAGAAgABAAGAAAABAAAAA0AAABBbmltYXRpb25UeXBlAAAARv///wAiIiJO////AAAAAAEAAAAEAAAAEgAAAFNCU2Fuc1RleHQtUmVndWxhcgAAAQAAAAwAAAAIAAwABAAIAAgAAAAIAAAARAAAAAIAAABBYQAAAAA2ACAAAAAcAAAAAAAYAAAAFAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAgABAA2AAAAAgAAABgAAAAcAAAAAAAAwgAAAAAgAAAAAAAMQuD///8EAAYABAAAAAAACgAIAAUABgAHAAoAAAAAAAAABAAEAAQAAAA=
+		</StartKeyframeValue>
+	</ArbVideoComponentParam>
+	<!-- ... параметры 2..21 (Transform/Position/Scale/... Parent*) — стандартные значения ... -->
+</PremiereData>

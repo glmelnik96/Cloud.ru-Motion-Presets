@@ -64,5 +64,40 @@
       "Captions track → Properties: SB Sans Text Regular 35, tracking -32, leading 36.8, white, background #222222 (the pack has a fixed plate, Premiere gives a box behind the text with padding) → Track Style + → Create Style «CR Субтитры», Save to Local styles and to the project",
       "Copy the .prtextstyle to C:/CRBK/work/materials/premiere/ and check: app.project.importFiles([… .prtextstyle]) — does it become a style item (then the panel can bring the style into a project, the editor only picks it in the dropdown)"
     ]
+  },
+  "addendum_2026_10_07": {
+    "plan": "docs/superpowers/plans/2026-10-06-phase3-premiere-transfer-handoff.md, steps 3-4; reply docs/research/premiere-transfer-reply-2026-10-06.md",
+    "scratch": "C:/CRBK/work/materials/premiere/blur (blur_1080.prproj, blur_2160.prproj, checker_1920/3840.png, probe.srt, frames), C:/CRBK/work/materials/premiere/captions (cap_import.prproj); scripts in C:/CRBK/work/materials/scratch",
+    "blurPreset": {
+      "maskUI": "Premiere 26 has no mask buttons in Effect Controls: Tools → long-press the mask tool group → Rectangle Mask Tool, draw in the Program Monitor; the mask lands on the effect selected in Effect Controls. The drawn vertices were then set exactly by patching the .prproj (stale BinaryHash accepted on open).",
+      "maskXml": "docs/research/premiere/blur-preset-mask.xml: SubComponent VideoFilterComponent AE.ADBE AEMask2 «Mask2» instance «01» under the effect; Path = ParameterID 7 (binary layout in the file header), vertices in fractions of the frame, so one preset fits 1080p and 4K; Inverted = ParameterID 17, Feather 14, Opacity 15, Expansion 16. Preset XML carries a Checksum attribute on binary values (algorithm unknown: not CRC32/Adler32/CRC32C/FNV).",
+      "frames": {
+        "1080p": "Fast Blur 20 + mask: centre identical to the source (max diff 0), sharp from x=53 / y=51 — docs/research/premiere/blur-mask.png",
+        "4K": "Fast Blur 38 + same preset: centre identical, border at 105/102 px"
+      },
+      "files": "C:/CRBK/work/materials/premiere/CR Размытие полей.prfpset (30 275 B, Blurriness 20) and CR Размытие полей 4K.prfpset (30 305 B, Blurriness 38); Save Preset type Scale; Export Preset from the Effects panel (not in git)",
+      "applyUI": "drag the preset from Effects onto Effect Controls of the adjustment layer: Fast Blur arrives with the mask. Double-click on a preset starts a rename.",
+      "qe": "qe.project.getVideoEffectByName('CR Размытие полей') returns an object with an empty name; qe trackItem.addVideoEffect(it) returns false and adds nothing",
+      "fileDelivery": "fails on this PC in every variant: (а) a separate .prfpset in Profile-<user>/, (б) the exported block merged into Effect Presets and Custom Items.prfpset (alone, and with a generated 60 px block with a stale checksum), and even a byte copy of Premiere's own shared file. Effects → Import Presets works within the session, but after a restart the imported presets and even a maskless test preset «CR тест без маски» are gone from the Effects panel while the file still contains them. So Premiere 26.5.2 here does not load user effect presets at startup (perhaps the Cyrillic profile path). The shared file was restored byte-identical (1181 B).",
+      "byCrop": {
+        "script": "C:/CRBK/work/materials/scratch/blur-by-crop.jsx: the same item on V1 (Fast Blur, Repeat Edge Pixels) and V2 (Crop L/R 2.734 %, T/B 4.722 %), all via QE addVideoEffect + DOM params",
+        "rms": { "1080p": "1.604 of 255 vs the mask variant, max 106 only on 2663 px (0.13 %) of the boundary column/row x=52, x=1867, y=1029 — half-pixel rounding of 52.5", "4K": "0.152, max 12" },
+        "screenshot": "docs/research/premiere/blur-crop.png",
+        "limits": "blurs only the duplicated clip, not everything below like an adjustment layer; needs the clip twice on the timeline"
+      }
+    },
+    "captionStyle": {
+      "ui": "Properties of a caption: font SB Sans Text / Regular, size 35, tracking -32, fill white, stroke off, shadow off (was on by default), centre; Background on, colour 222222 (Color Picker hex), opacity 100, size 10 (default padding), corner 0. Rendered plate pixels are exactly RGB 34,34,34 — docs/research/premiere/captions-cr-style.png",
+      "leading": "fork: left at 0. Premiere's leading is an offset from auto line spacing, the pack's 36.8 is absolute; 36.8 would roughly double the gap. Not visible with one-line captions.",
+      "createStyle": "Track Style + → Create style… → New Text Style: name «CR Субтитры», Save to Project (on by default), Save to Local styles (off by default, ticked). The file appears at once in Documents/Adobe/Common/Assets/Text Styles/CR Субтитры.prtextstyle (24 753 B); copied to C:/CRBK/work/materials/premiere/ (not in git); a «CR Субтитры» item appears in the Project panel",
+      "format": "text: UTF-8 XML <PremiereData Version=\"3\">, a mini-project (template compile settings) + StyleProjectItem → VideoFilterComponent AE.ADBE Text with 22 params; the look is a 464 B base64 blob in «Source Text» (ParameterID 1), FlatBuffer-like, font only as PostScript name SBSansText-Regular, float32 35 at offset 420, -32 at 408, 10 at 156, bytes 22 22 22 = #222222; no font binaries. Sample: docs/research/premiere/captions-style-sample.txt",
+      "scriptImport": "app.newProject(cap_import.prproj) then app.project.importFiles([… .prtextstyle], true, rootItem, false) → true in 407 ms, no hang; item «CR Субтитры» type 5; in a new caption track from probe.srt the Track Style dropdown lists None + «CR Субтитры». This time app.newProject made the new project active in the same eval.",
+      "assignWithoutUI": {
+        "1_selection": "seq.getSelection() with a caption selected in the UI → one item «SyntheticCaption», components empty, projectItem null, methods getLinkedItems/getMGTComponent/getSpeed/isAdjustmentLayer/isMGT/isSelected/isSpeedReversed/move/remove/setSelected — nothing to set a style",
+        "2_metadata_reflect": "style item: getProjectMetadata has only name/label/MediaType Non-Media, getXMPMetadata empty, videoComponents() null; probe.srt and sequence metadata have no style fields; QE sequence/project have no caption-track methods",
+        "3_projectFile": "in .prproj the CaptionDataClipTrack holds CaptionDataTemplateStyle (base64) + <ParentStyle ObjectURef=StyleProjectItem UID>. Patching only those → render unchanged (Lucida + shadow), because each caption Block has its own FormattedTextData (text + formatting). Copying the per-caption FormattedTextData from a styled project with the same texts as well → styled render and Track Style shows «CR Субтитры». For any SRT the panel would have to encode FormattedTextData per caption — not done.",
+        "result": "no API path; the editor picks the style in the dropdown (one click per caption track)"
+      }
+    }
   }
 }
