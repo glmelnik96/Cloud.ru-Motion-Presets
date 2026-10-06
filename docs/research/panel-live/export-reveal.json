@@ -1,0 +1,54 @@
+{
+  "panel": "0.1.16",
+  "library": "2026.10.06",
+  "libraryInstall": "node tools/panel/install-dev.mjs without --library. It took C:/CRBK/work/library because library.json was there.",
+  "tests": "710 passed, 17 skipped",
+  "status": {
+    "pr": "Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.16 · библиотека 2026.10.06",
+    "ae": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.16 · библиотека 2026.10.06"
+  },
+  "premiere": {
+    "project": "C:/CRBK/work/panel-live/pr/export_live.prproj",
+    "sequence": "BK recheck, 1920×1080, 25 fps",
+    "select": {
+      "clicked": "Сразу, без AME on Вебинар — таймер, then Показать в папке",
+      "shown": "Готово: BK recheck_WebinarTimer_3.mp4",
+      "window": "file:///C:/CRBK/work/panel-live/pr/Export",
+      "selected": "BK recheck_WebinarTimer_3.mp4",
+      "screenshot": "pr-reveal-selected.png"
+    },
+    "missingFile": {
+      "clicked": "В очередь Media Encoder on Вебинар — финальный рендер, then Показать в папке before the file existed",
+      "shown": "В очереди Media Encoder: BK recheck_WebinarFinal.mp4",
+      "existedAtClick": false,
+      "window": "file:///C:/CRBK/work/panel-live/pr/Export",
+      "selected": [],
+      "screenshot": "pr-reveal-folder.png"
+    }
+  },
+  "afterEffects": {
+    "select": {
+      "clicked": "Показать в папке on Готово: BK recheck_WebinarFinal_3.mp4",
+      "window": "file:///C:/CRBK/work/panel-live/ae/Export",
+      "selected": "BK recheck_WebinarFinal_3.mp4",
+      "screenshot": "ae-reveal-selected.png",
+      "note": "The name has a space. The first click, in the same moment as Готово for BK recheck_WebinarIntro_2.mp4, opened this folder with nothing selected. The click after the file was already on disk selected it."
+    },
+    "documents": {
+      "clicked": "New unsaved project, Рендерить, then Показать в папке",
+      "shown": "Готово: BK unsaved_WebinarFinal_2.mp4",
+      "folderHint": "C:/Users/Глеб/Documents/Cloud.ru BrandKit/Export",
+      "window": "file:///C:/Users/Глеб/Documents/Cloud.ru%20BrandKit/Export",
+      "selected": "BK unsaved_WebinarFinal_2.mp4",
+      "statAtClick": "16234 bytes",
+      "screenshot": "ae-reveal-documents.png",
+      "note": "The path has Cyrillic (Глеб) and a space (Cloud.ru BrandKit), and the file name has a space. An earlier click on BK unsaved_WebinarFinal.mp4 opened the same folder with nothing selected."
+    },
+    "jobs": {
+      "background": "Готово: BK recheck_WebinarFinal_3.mp4 in 5802 ms, project C:/CRBK/work/panel-live/ae/export_live.aep",
+      "otherProject": "colors.aep, comp Colors. Export tab shows the comp and no Готово line. Screenshot ae-reveal-other.png.",
+      "returned": "export_live.aep, comp BK recheck. The same Готово line is back. Screenshot ae-reveal-back.png.",
+      "unsaved": "A new unsaved project showed no job lines from the saved project."
+    }
+  }
+}
