@@ -118,6 +118,10 @@ AME_LIST="$PAYLOAD/ame.txt"
 if [ "$WITH_AME" = 1 ]; then
   if [ -s "$AME_LIST" ] && [ -d "$AME_ROOT" ]; then
     for v in "$AME_ROOT"/*/; do
+      # version folders only (25.0, 26.0): AME keeps other folders there too, such as its Audio Previews
+      case "$(basename "$v")" in
+        ''|*[!0-9.]*) continue ;;
+      esac
       mkdir -p "$v/Presets"
       n=0
       while IFS="$(printf '\t')" read -r rel name || [ -n "$rel" ]; do

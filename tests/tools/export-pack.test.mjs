@@ -5,7 +5,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 
 import os from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { EXPORT_CANON, eprProblems, readEpr, stageExport } from '../../tools/library/export-pack.mjs';
+import { EXPORT_CANON, eprIds, eprProblems, readEpr, renamePreset, stageExport } from '../../tools/library/export-pack.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '../..');
 const readJson = (p) => JSON.parse(readFileSync(path.join(REPO, p), 'utf8'));
@@ -13,7 +13,7 @@ const readJson = (p) => JSON.parse(readFileSync(path.join(REPO, p), 'utf8'));
 // A .epr as Media Encoder writes it, reduced to the parameters the canon reads.
 function epr({ w, h, fps = 25, level, target, max, profile = 3, rate = 48000, kbps = 320, ch = 2 }) {
   const p = (id, v) => `<ExporterParam ObjectID="1" ClassID="x" Version="1"><ParamIdentifier>${id}</ParamIdentifier><ParamValue>${v}</ParamValue></ExporterParam>`;
-  return `<?xml version="1.0"?><PremiereData Version="3"><ExportPreset>${[
+  return `<?xml version="1.0"?><PremiereData Version="3"><ExportPreset><PresetName>FullHD_10-20_25fps</PresetName><PresetID>8f2a-${w}x${h}</PresetID>${[
     p('ADBEVideoWidth', w), p('ADBEVideoHeight', h), p('ADBEVideoFPS', Math.round(254016000000 / fps)), p('ADBEVideoMPEGProfile', profile),
     p('ADBEVideoMPEGProfileLevel', level), p('ADBEVideoTargetBitrate', target), p('ADBEVideoMaxBitrate', max),
     p('ADBEAudioRatePerSecond', rate), p('ADBEAudioBitrate', kbps), p('ADBEAudioNumChannels', ch),
@@ -62,11 +62,15 @@ describe('export staging', () => {
     return { root, eprDir, aom, buildDir: path.join(root, 'build') };
   };
 
-  it('copies the presets and the .aom under the build names', () => {
+  it('copies the presets and the .aom under the build names; a preset is named like its AE template', () => {
     const s = setup();
     const r = stageExport(s);
     expect(r.problems).toEqual([]);
     expect(r.staged).toHaveLength(10);
+    const staged = readFileSync(path.join(s.buildDir, 'AME_WebinarTimer', 'AME_WebinarTimer_epr_v1.epr'), 'utf8');
+    expect(staged).toContain('<PresetName>CR Webinar Timer</PresetName>');
+    expect(eprProblems(EXPORT_CANON.find((c) => c.id === 'AME_WebinarTimer'), readEpr(staged))).toEqual([]);
+    expect(r.ids[0]).toBe('AME_4K: PresetID=8f2a-3840x2160');
     expect(existsSync(path.join(s.buildDir, 'AME_FullHD', 'AME_FullHD_epr_v1.epr'))).toBe(true);
     expect(existsSync(path.join(s.buildDir, 'AME_Templates', 'AME_Templates_aom_v1.aom'))).toBe(true);
   });
@@ -84,6 +88,12 @@ describe('export staging', () => {
 
   it('--check copies nothing', () => {
     const s = setup();
-    expect(stageExport({ ...s, check: true })).toEqual({ ok: true, problems: [], staged: [] });
+    const r = stageExport({ ...s, check: true });
+    expect([r.ok, r.problems, r.staged]).toEqual([true, [], []]);
+  });
+
+  it('renames every PresetName and lists the id tags', () => {
+    expect(renamePreset('<a><PresetName>x</PresetName><b><PresetName>y</PresetName></b></a>', 'CR SMM 4x3')).toBe('<a><PresetName>CR SMM 4x3</PresetName><b><PresetName>CR SMM 4x3</PresetName></b></a>');
+    expect(eprIds('<PresetID>1</PresetID><ExporterClassID>2</ExporterClassID><Name>n</Name>')).toEqual(['PresetID=1', 'ExporterClassID=2']);
   });
 });

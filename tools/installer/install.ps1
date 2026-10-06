@@ -126,7 +126,8 @@ try {
   }
   if ($WithAme) {
     if ($ameList.Count -and (Test-Path -LiteralPath $AmeRoot)) {
-      foreach ($v in Get-ChildItem -LiteralPath $AmeRoot -Directory) {
+      # version folders only (25.0, 26.0): AME keeps other folders there too, such as its Audio Previews
+      foreach ($v in (Get-ChildItem -LiteralPath $AmeRoot -Directory | Where-Object { $_.Name -match '^[0-9]+(\.[0-9]+)*$' })) {
         $presets = Join-Path $v.FullName 'Presets'
         New-Item -ItemType Directory -Force -Path $presets | Out-Null
         foreach ($a in $ameList) {

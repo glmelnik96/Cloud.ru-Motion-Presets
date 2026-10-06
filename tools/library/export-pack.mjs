@@ -7,7 +7,7 @@
 // (docs/research/export/epr-inventory.json), AAC 48 kHz stereo 320 kbps. The files stay out of git, like the
 // rest of the build.
 //   node tools/library/export-pack.mjs [--epr <work>/export/epr] [--aom <work>/export/CR_BrandKit.aom] [--build <work>/build] [--check]
-import { copyFileSync, existsSync, mkdirSync, readFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { workPath } from '../lib/work.mjs';
@@ -82,6 +82,18 @@ export function aomProblems(bytes) {
   return EXPORT_CANON.filter((c) => !text.includes(c.omTemplate)).map((c) => `${AOM_ID}: в .aom нет шаблона «${c.omTemplate}»`);
 }
 
+// Media Encoder lists a user preset by the <PresetName> inside the file, not by the file name (Windows install
+// check 2026-10-06: «CR FullHD.epr» showed as FullHD_10-20_25fps). The staged copy is named like the AE template.
+export function renamePreset(xml, name) {
+  const safe = name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return xml.replace(/<PresetName>[^<]*<\/PresetName>/g, `<PresetName>${safe}</PresetName>`);
+}
+
+// Tags of a .epr that look like identifiers: what Media Encoder may use to tell presets apart.
+export function eprIds(xml) {
+  return [...xml.matchAll(/<([A-Za-z]*(?:ID|Id|GUID|Guid|UUID))>([^<]{1,80})<\/\1>/g)].map((m) => `${m[1]}=${m[2]}`);
+}
+
 export const eprBuildName = (id) => `${id}/${id}_epr_v1.epr`;
 export const aomBuildName = () => `${AOM_ID}/${AOM_ID}_aom_v1.aom`;
 
@@ -89,18 +101,21 @@ export const aomBuildName = () => `${AOM_ID}/${AOM_ID}_aom_v1.aom`;
 export function stageExport({ eprDir = workPath('export', 'epr'), aom = workPath('export', 'CR_BrandKit.aom'), buildDir = workPath('build'), check = false } = {}) {
   const problems = [];
   const staged = [];
+  const ids = [];
   for (const c of EXPORT_CANON) {
     const src = path.join(eprDir, `${c.id}.epr`);
     if (!existsSync(src)) {
       problems.push(`${c.id}: нет файла ${src} (пересохранённый ${c.archive})`);
       continue;
     }
-    const bad = eprProblems(c, readEpr(readFileSync(src, 'utf8')));
+    const xml = readFileSync(src, 'utf8');
+    const bad = eprProblems(c, readEpr(xml));
     problems.push(...bad);
+    ids.push(`${c.id}: ${eprIds(xml).join(' ') || 'no id tags'}`);
     if (bad.length || check) continue;
     const dst = path.join(buildDir, eprBuildName(c.id));
     mkdirSync(path.dirname(dst), { recursive: true });
-    copyFileSync(src, dst);
+    writeFileSync(dst, renamePreset(xml, c.omTemplate), 'utf8');
     staged.push(eprBuildName(c.id));
   }
   if (!existsSync(aom)) problems.push(`${AOM_ID}: нет файла ${aom}`);
@@ -114,7 +129,7 @@ export function stageExport({ eprDir = workPath('export', 'epr'), aom = workPath
       staged.push(aomBuildName());
     }
   }
-  return { ok: problems.length === 0, problems, staged };
+  return { ok: problems.length === 0, problems, staged, ids };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -123,6 +138,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const r = stageExport({ eprDir: opt('--epr'), aom: opt('--aom'), buildDir: opt('--build'), check: argv.includes('--check') });
   for (const p of r.problems) console.error('FAIL ' + p);
   for (const s of r.staged) console.log('staged ' + s);
+  for (const s of r.ids) console.log('ids ' + s);
   console.log(r.ok ? `OK: ${EXPORT_CANON.length} presets and the .aom match the canon` : `${r.problems.length} problem(s)`);
   process.exit(r.ok ? 0 : 1);
 }

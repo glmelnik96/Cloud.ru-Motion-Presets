@@ -123,6 +123,7 @@ describe.skipIf(!HAS_BASH)('install.command', () => {
     mkdirSync(path.join(w.cache, 'AEFT_26.5_ru.cloud.brandkit.panel'), { recursive: true });
     mkdirSync(path.join(w.cache, 'AEFT_26.5_com.other.panel'), { recursive: true });
     mkdirSync(path.join(w.ame, '26.0'), { recursive: true });
+    mkdirSync(path.join(w.ame, 'Adobe Adobe Media Encoder Audio Previews'), { recursive: true });
     const r = install(pkg, sb, '--with-ame');
     expect(r.status, r.stdout + r.stderr).toBe(0);
     expect(r.stdout).toMatch(/Шаблоны MOGRT: 7 в .*, убрано прежних: 0/);
@@ -134,6 +135,8 @@ describe.skipIf(!HAS_BASH)('install.command', () => {
     expect(readdirSync(path.join(w.ame, '26.0', 'Presets')).sort()).toEqual(['CR FullHD.epr', 'CR Webinar Timer.epr']);
     expect(readFileSync(path.join(w.ame, '26.0', 'Presets', 'CR FullHD.epr'), 'utf8')).toBe('epr AME_FullHD');
     expect(r.stdout).toMatch(/Пресеты AME: 2 в .*26\.0\/Presets/);
+    // not a version folder of AME (Windows install check 2026-10-06)
+    expect(readdirSync(path.join(w.ame, 'Adobe Adobe Media Encoder Audio Previews'))).toEqual([]);
     expect(r.stdout).toContain(`Edit > Templates > Output Module > Load... файл ${w.library}/items/AME_Templates/AME_Templates_aom_v1.aom`);
     expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(new RegExp(`^plugin=${pluginVersion().replace(/\./g, '\\.')}\\nlibrary=2026\\.10\\.05\\ninstalled=`));
     expect(r.stdout).not.toMatch(/без подписи/);
