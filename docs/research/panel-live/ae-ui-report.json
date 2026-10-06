@@ -1,6 +1,6 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-06T18:40:15.182Z",
+  "startedAt": "2026-10-06T21:22:53.377Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -142,6 +142,6 @@
       "detail": "C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD.mp4"
     }
   ],
-  "finishedAt": "2026-10-06T18:41:09.893Z",
+  "finishedAt": "2026-10-06T21:23:46.214Z",
   "failed": []
 }

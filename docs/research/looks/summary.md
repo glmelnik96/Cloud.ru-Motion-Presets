@@ -17,21 +17,21 @@
 
 ## Размытия — 13
 
-| Пакет / композиция / слой | Эффект | Корр. слой | Параметры |
-|---|---|---|---|
-| podcast / Контент_1 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
-| podcast / Контент_2 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
-| podcast / Контент_3 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
-| podcast / О_госте / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
-| podcast / Подписывайтесь на канал CLOUD.RU / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
-| podcast / Подпись_спикера_1 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
-| podcast / Подпись_спикера_2 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
-| podcast / Текст на плашке_1 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
-| podcast / Текст на плашке_2 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
-| podcast / Текст на плашке_3 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
-| podcast / QR_код_1 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
-| podcast / QR_код_2 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
-| podcast / QR_код_3 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 |
+| Пакет / композиция / слой | Эффект | Корр. слой | Параметры | Маски |
+|---|---|---|---|---|
+| podcast / Контент_1 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
+| podcast / Контент_2 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
+| podcast / Контент_3 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
+| podcast / О_госте / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
+| podcast / Подписывайтесь на канал CLOUD.RU / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
+| podcast / Подпись_спикера_1 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
+| podcast / Подпись_спикера_2 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
+| podcast / Текст на плашке_1 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
+| podcast / Текст на плашке_2 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
+| podcast / Текст на плашке_3 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
+| podcast / QR_код_1 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
+| podcast / QR_код_2 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
+| podcast / QR_код_3 / Blur | Fast Box Blur | да | Blur Radius: 15; Iterations: 3; Blur Dimensions: 1; Repeat Edge Pixels: 1; Compositing Options / Effect Opacity: 100 | инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |
 
 ## Текстовые стили — 34
 

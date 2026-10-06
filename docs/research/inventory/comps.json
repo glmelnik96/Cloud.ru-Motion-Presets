@@ -57,6 +57,8 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 11
  },
  {
@@ -117,6 +119,8 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 3
  },
  {
@@ -177,6 +181,8 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 5
  },
  {
@@ -231,6 +237,8 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 24
  },
  {
@@ -272,6 +280,8 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 24
  },
  {
@@ -301,6 +311,8 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 12
  },
  {
@@ -326,6 +338,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -351,6 +365,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -376,6 +392,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -401,6 +419,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -426,6 +446,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -451,6 +473,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -476,6 +500,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -503,6 +529,8 @@
    "Pre-comp 4"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -563,6 +591,8 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 3
  },
  {
@@ -623,6 +653,8 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 5
  },
  {
@@ -650,6 +682,8 @@
    "Pre-comp 3"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -710,6 +744,13 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [
+   {
+    "layer": "slide_01.png",
+    "file": "slide_01.png"
+   }
+  ],
+  "off": [],
   "expressions": 11
  },
  {
@@ -770,6 +811,13 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [
+   {
+    "layer": "slide_01.png",
+    "file": "slide_01.png"
+   }
+  ],
+  "off": [],
   "expressions": 11
  },
  {
@@ -824,6 +872,8 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 24
  },
  {
@@ -865,6 +915,8 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 24
  },
  {
@@ -893,6 +945,8 @@
    "Pre-comp 2"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -921,6 +975,17 @@
    "Pre-comp 2"
   ],
   "threeD": false,
+  "missing": [
+   {
+    "layer": "Запись экрана 2026-09-01 в 12.42.01.mov",
+    "file": "Запись экрана 2026-09-01 в 12.42.01.mov"
+   },
+   {
+    "layer": "Запись экрана 2026-09-01 в 12.42.01.mov",
+    "file": "Запись экрана 2026-09-01 в 12.42.01.mov"
+   }
+  ],
+  "off": [],
   "expressions": 0
  },
  {
@@ -948,6 +1013,8 @@
    "Прекомп спикер"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -975,6 +1042,8 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 12
  },
  {
@@ -1000,6 +1069,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1025,6 +1096,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1050,6 +1123,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1075,6 +1150,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1100,6 +1177,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1125,6 +1204,18 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [
+   {
+    "layer": "3D.png",
+    "file": "3D.png"
+   }
+  ],
+  "off": [
+   {
+    "layer": "Kubernetes.png",
+    "file": "Kubernetes.png"
+   }
+  ],
   "expressions": 0
  },
  {
@@ -1150,6 +1241,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1182,6 +1275,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1214,6 +1309,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1241,6 +1338,8 @@
    "Логошот без саблайна"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1268,6 +1367,8 @@
    "Логошот без саблайна с плашкой"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1298,6 +1399,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1328,6 +1431,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1364,6 +1469,8 @@
    "Есть где развернуться"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1400,6 +1507,8 @@
    "Умное облако"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1425,6 +1534,8 @@
   "texts": [],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1457,6 +1568,8 @@
   ],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1489,6 +1602,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1521,6 +1636,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1548,6 +1665,8 @@
    "Логошот без саблайна"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1575,6 +1694,8 @@
    "Логошот без саблайна с плашкой"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1605,6 +1726,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1635,6 +1758,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1671,6 +1796,8 @@
    "Есть где развернуться"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1707,6 +1834,8 @@
    "Умное облако"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1732,6 +1861,8 @@
   "texts": [],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1764,6 +1895,8 @@
   ],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1789,6 +1922,8 @@
   "texts": [],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1821,6 +1956,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1853,6 +1990,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1885,6 +2024,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1917,6 +2058,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1949,6 +2092,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -1981,6 +2126,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2006,6 +2153,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2031,6 +2180,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2056,6 +2207,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2081,6 +2234,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2113,6 +2268,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2145,6 +2302,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2177,6 +2336,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2209,6 +2370,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2234,6 +2397,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2259,6 +2424,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2284,6 +2451,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2309,6 +2478,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2334,6 +2505,8 @@
   "texts": [],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2359,6 +2532,8 @@
   "texts": [],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2384,6 +2559,8 @@
   "texts": [],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2409,6 +2586,8 @@
   "texts": [],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2441,6 +2620,8 @@
   ],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2473,6 +2654,8 @@
   ],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2505,6 +2688,8 @@
   ],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2530,6 +2715,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2555,6 +2742,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2593,6 +2782,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2631,6 +2822,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2678,6 +2871,8 @@
    "Verts_lines_2 Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2739,6 +2934,13 @@
    "LINES Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [
+   {
+    "layer": "Still 2025-12-10 132207_1.2.1.png",
+    "file": "Still 2025-12-10 132207_1.2.1.png"
+   }
+  ],
   "expressions": 0
  },
  {
@@ -2768,6 +2970,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2797,6 +3001,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2845,6 +3051,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2881,6 +3089,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2925,6 +3135,8 @@
   ],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2956,6 +3168,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -2999,6 +3213,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3050,6 +3266,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3098,6 +3316,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3146,6 +3366,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3194,6 +3416,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3221,6 +3445,8 @@
    "Есть где развернуться"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3253,6 +3479,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3285,6 +3513,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3319,6 +3549,8 @@
    "LIne Comp 1"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3384,6 +3616,8 @@
    "Pattern_strelki"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3411,6 +3645,8 @@
    "PATTERN_EDIT"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3438,6 +3674,8 @@
    "+"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 1
  },
  {
@@ -3465,6 +3703,8 @@
    "PATTERN_EDIT"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3492,6 +3732,8 @@
    "+"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 1
  },
  {
@@ -3542,6 +3784,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3592,6 +3836,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3619,6 +3865,8 @@
    "Shape Layer 5 Comp 1"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 1
  },
  {
@@ -3646,6 +3894,8 @@
    "Shape Layer 2 Comp 1"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 1
  },
  {
@@ -3674,6 +3924,8 @@
    "Transition_gray"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3699,6 +3951,8 @@
   "texts": [],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3724,6 +3978,8 @@
   "texts": [],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3749,6 +4005,8 @@
   "texts": [],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3774,6 +4032,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3799,6 +4059,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3824,6 +4086,13 @@
   "texts": [],
   "precomps": [],
   "threeD": true,
+  "missing": [],
+  "off": [
+   {
+    "layer": "Rectangle 34627972.png",
+    "file": "Rectangle 34627972.png"
+   }
+  ],
   "expressions": 1
  },
  {
@@ -3849,6 +4118,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3876,6 +4147,8 @@
    "+"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 1
  },
  {
@@ -3903,6 +4176,8 @@
    "Pattern_edit"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 391
  },
  {
@@ -3928,6 +4203,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -3953,6 +4230,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4003,6 +4282,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4030,6 +4311,8 @@
    "Pre-comp 1"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4057,6 +4340,8 @@
    "Pre-comp 2"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4095,6 +4380,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4133,6 +4420,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4180,6 +4469,8 @@
    "AI_анимация precomp_2"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4226,6 +4517,8 @@
    "AI_анимация precomp_2"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4262,6 +4555,8 @@
    "PATTERN RACK"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 1
  },
  {
@@ -4304,6 +4599,8 @@
    "PATTERN RACK_Animation"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 1
  },
  {
@@ -4347,6 +4644,8 @@
    "Timer precomp"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 2
  },
  {
@@ -4396,6 +4695,8 @@
    "PATTERN RACK_Animation"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 1
  },
  {
@@ -4430,6 +4731,8 @@
    "Logo"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 1
  },
  {
@@ -4455,6 +4758,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4482,6 +4787,8 @@
    "AI_анимация precomp_1"
   ],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4507,6 +4814,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4532,6 +4841,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4557,6 +4868,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4582,6 +4895,8 @@
   "texts": [],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 0
  },
  {
@@ -4609,6 +4924,8 @@
    "PATTERN RACK"
   ],
   "threeD": true,
+  "missing": [],
+  "off": [],
   "expressions": 2
  },
  {
@@ -4641,6 +4958,8 @@
   ],
   "precomps": [],
   "threeD": false,
+  "missing": [],
+  "off": [],
   "expressions": 1
  }
 ]

@@ -1,11 +1,11 @@
 {
   "os": "win",
   "startedAt": "2026-10-06T18:39:25.362Z",
-  "finishedAt": "2026-10-06T18:43:04.844Z",
+  "finishedAt": "2026-10-06T21:39:17.322Z",
   "ok": false,
   "tests": {
     "ok": true,
-    "line": "Tests  739 passed | 18 skipped (757)"
+    "line": "Tests  764 passed | 18 skipped (782)"
   },
   "criteria": [
     {
@@ -23,12 +23,10 @@
       "host": "ae",
       "suite": "media",
       "what": "T2/T3 и компаньоны; AE: эффекты и цвета; перенос проекта; Premiere: «вписать в окно»",
-      "ok": false,
-      "checks": 208,
-      "passed": 207,
-      "failed": [
-        "transfer: finished without an exception"
-      ]
+      "ok": true,
+      "checks": 211,
+      "passed": 211,
+      "failed": []
     },
     {
       "criterion": "Сквозные сценарии",
@@ -38,8 +36,7 @@
       "ok": true,
       "checks": 150,
       "passed": 150,
-      "failed": [],
-      "note": "The checkpoint's first export pass stopped at 6/7: CR Webinar Timer was not loaded. The current .aom was then loaded (AE skipped 28 templates that already had the same name) and this suite was run again: 150/150."
+      "failed": []
     },
     {
       "criterion": "Сквозные сценарии",
@@ -56,11 +53,9 @@
       "host": "ae",
       "suite": "media",
       "what": "копия проекта открывается без пропавших файлов при убранных оригиналах и библиотеке",
-      "ok": false,
-      "checks": 3,
-      "failed": [
-        "transfer: finished without an exception"
-      ]
+      "ok": true,
+      "checks": 6,
+      "failed": []
     },
     {
       "criterion": "Сквозные сценарии",
@@ -77,12 +72,10 @@
       "host": "pr",
       "suite": "media",
       "what": "T2/T3 и компаньоны; AE: эффекты и цвета; перенос проекта; Premiere: «вписать в окно»",
-      "ok": false,
+      "ok": true,
       "checks": 116,
-      "passed": 115,
-      "failed": [
-        "transfer: finished without an exception"
-      ]
+      "passed": 116,
+      "failed": []
     },
     {
       "criterion": "Сквозные сценарии",
@@ -95,6 +88,17 @@
       "failed": []
     },
     {
+      "criterion": "Перенос проекта (на этой машине)",
+      "host": "pr",
+      "suite": "transfer",
+      "what": "копия проекта открывается без пропавших файлов при убранных оригиналах и библиотеке; после перезапуска Premiere",
+      "ok": false,
+      "checks": 4,
+      "failed": [
+        "transfer: no missing files after the move (18 listed)"
+      ]
+    },
+    {
       "criterion": "Сквозные сценарии",
       "host": "pr",
       "suite": "ui",
@@ -103,17 +107,6 @@
       "checks": 20,
       "passed": 20,
       "failed": []
-    },
-    {
-      "criterion": "Перенос проекта (на этой машине)",
-      "host": "pr",
-      "suite": "media",
-      "what": "копия проекта открывается без пропавших файлов при убранных оригиналах и библиотеке",
-      "ok": false,
-      "checks": 3,
-      "failed": [
-        "transfer: finished without an exception"
-      ]
     }
   ],
   "manual": {

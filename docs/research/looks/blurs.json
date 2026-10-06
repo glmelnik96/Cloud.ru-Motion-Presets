@@ -16,7 +16,33 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  },
  {
   "pack": "podcast",
@@ -35,7 +61,33 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  },
  {
   "pack": "podcast",
@@ -54,7 +106,33 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  },
  {
   "pack": "podcast",
@@ -73,7 +151,33 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  },
  {
   "pack": "podcast",
@@ -92,7 +196,33 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  },
  {
   "pack": "podcast",
@@ -111,7 +241,33 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  },
  {
   "pack": "podcast",
@@ -130,7 +286,33 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  },
  {
   "pack": "podcast",
@@ -149,7 +331,33 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  },
  {
   "pack": "podcast",
@@ -168,7 +376,33 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  },
  {
   "pack": "podcast",
@@ -187,7 +421,33 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  },
  {
   "pack": "podcast",
@@ -206,7 +466,33 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  },
  {
   "pack": "podcast",
@@ -225,7 +511,33 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  },
  {
   "pack": "podcast",
@@ -244,6 +556,32 @@
    "Repeat Edge Pixels": 1,
    "Compositing Options / Effect Opacity": 100,
    "Compositing Options / GPU Rendering": 1
-  }
+  },
+  "frame": {
+   "w": 3840,
+   "h": 2160
+  },
+  "masks": [
+   {
+    "name": "Mask 1",
+    "mode": "ADD",
+    "inverted": true,
+    "feather": [
+     0,
+     0
+    ],
+    "expansion": 0,
+    "opacity": 100,
+    "keyed": false,
+    "vertices": 4,
+    "closed": true,
+    "box": {
+     "left": 105,
+     "top": 102,
+     "right": 3735,
+     "bottom": 2058
+    }
+   }
+  ]
  }
 ]

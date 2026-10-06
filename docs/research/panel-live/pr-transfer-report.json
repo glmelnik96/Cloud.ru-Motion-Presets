@@ -1,0 +1,122 @@
+{
+  "host": "pr",
+  "startedAt": "2026-10-06T21:35:32.687Z",
+  "finishedAt": "2026-10-06T21:35:34.885Z",
+  "summary": {
+    "checks": 5,
+    "passed": 4,
+    "failed": 1
+  },
+  "failed": [
+    "transfer: no missing files after the move (18 listed)"
+  ],
+  "checks": [
+    {
+      "name": "a staged copy is noted in C:/CRBK/work/panel-live/pr-transfer-staged.json",
+      "pass": true,
+      "required": true,
+      "detail": "run node tools/panel/live.mjs --host pr --media first"
+    },
+    {
+      "name": "transfer: the original folders and the library are out of the way",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "renamed": [
+          "C:/CRBK/work/panel-live/media/library",
+          "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media",
+          "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit"
+        ],
+        "retries": {
+          "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit": 0,
+          "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media": 0,
+          "C:/CRBK/work/panel-live/media/library": 0
+        }
+      }
+    },
+    {
+      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/pr-moved-20261006T212525/media_live.prproj",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "path": "",
+        "clips": 18
+      }
+    },
+    {
+      "name": "transfer: no missing files after the move (18 listed)",
+      "pass": false,
+      "required": true,
+      "detail": [
+        {
+          "name": "BG_DotGrid_16x9_v1.png",
+          "file": "C:/CRBK/work/panel-live/media/library/items/BG_DotGrid/BG_DotGrid_16x9_v1.png",
+          "missing": true
+        },
+        {
+          "name": "BG_DotGrid_16x9_v1.png",
+          "file": "C:/CRBK/work/panel-live/media/library/items/BG_DotGrid/BG_DotGrid_16x9_v1.png",
+          "missing": true
+        },
+        {
+          "name": "BG_Arrows_16x9_intro_v1.mov",
+          "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "missing": true
+        },
+        {
+          "name": "BG_Arrows_16x9_loop_v1.mov",
+          "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "missing": true
+        },
+        {
+          "name": "BG_Arrows_16x9_outro_v1.mov",
+          "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+          "missing": true
+        },
+        {
+          "name": "backdrop_222222_1920x1080.png",
+          "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/backdrop_222222_1920x1080.png",
+          "missing": true
+        },
+        {
+          "name": "TRN_StepWipe_16x9_v1.mov",
+          "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_v1.mov",
+          "missing": true
+        },
+        {
+          "name": "BG_DotGrid_16x9_v1.png",
+          "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png",
+          "missing": true
+        },
+        {
+          "name": "SFX_WhooshIn_wav_v1.wav",
+          "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+          "missing": true
+        },
+        {
+          "name": "TTL_LowerThird_16x9_v1",
+          "file": "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media/1eea26fa-9a7f-4686-a7bc-212861ee52b4/TTL_LowerThird_16x9_v1.aegraphic",
+          "missing": true
+        }
+      ]
+    },
+    {
+      "name": "transfer: every file the panel put next to the project found inside the moved copy (8)",
+      "pass": true,
+      "required": true,
+      "detail": []
+    }
+  ],
+  "staged": {
+    "host": "pr",
+    "project": "C:/CRBK/work/panel-live/pr/media_live.prproj",
+    "movedDir": "C:/CRBK/work/panel-live/pr-moved-20261006T212525",
+    "moved": "C:/CRBK/work/panel-live/pr-moved-20261006T212525/media_live.prproj",
+    "parts": [
+      "Cloud.ru BrandKit",
+      "Motion Graphics Template Media"
+    ],
+    "libraryRoot": "C:/CRBK/work/panel-live/media/library",
+    "mediaStartedAt": "2026-10-06T21:25:07.822Z"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-06T18:42:58.414Z",
+  "startedAt": "2026-10-06T21:39:09.158Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -21,7 +21,7 @@
           "pass": true,
           "required": true,
           "detail": {
-            "ui": "1266747e-21c1-4c8d-86cc-78aad2fce932"
+            "ui": "f2433377-301e-46a5-9d63-04d03dedd6e1"
           }
         }
       ]
@@ -39,7 +39,7 @@
     {
       "name": "status line shows the host, the panel and the library",
       "pass": true,
-      "detail": "Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.18 · библиотека 2026.10.06Скопировать диагностику"
+      "detail": "Шрифты не проверены · Pr — · панель 0.1.18 · библиотека 2026.10.06Скопировать диагностику"
     },
     {
       "name": "card previews: H.264 is playable in the panel",
@@ -147,16 +147,16 @@
       "name": "export: reported as done in the panel",
       "pass": true,
       "detail": {
-        "done": "done: Готово: UI_check_9_FullHD.mp4.Показать в папке",
+        "done": "done: Готово: UI_check_11_FullHD.mp4.Показать в папке",
         "problems": []
       }
     },
     {
-      "name": "export: the file is in Export next to the project (C:/CRBK/work/panel-live/pr/Export/UI_check_9_FullHD.mp4)",
+      "name": "export: the file is in Export next to the project (C:/CRBK/work/panel-live/pr/Export/UI_check_11_FullHD.mp4)",
       "pass": true,
-      "detail": "C:/CRBK/work/panel-live/pr/Export/UI_check_9_FullHD.mp4"
+      "detail": "C:/CRBK/work/panel-live/pr/Export/UI_check_11_FullHD.mp4"
     }
   ],
-  "finishedAt": "2026-10-06T18:43:04.834Z",
+  "finishedAt": "2026-10-06T21:39:17.309Z",
   "failed": []
 }
