@@ -290,6 +290,49 @@ function lvFitPlace() {
   });
 }
 
+// ---- Перенос проекта (tests/live/transfer.mjs) ----
+
+// The scratch project saved and closed, so its folders can be renamed on disk (Premiere holds media open).
+function lvTransferRelease() {
+  check('project saved and closed', function () {
+    var path = String(app.project.path);
+    app.project.save();
+    app.project.closeDocument(1, 0);
+    return { pass: !!path, detail: path };
+  });
+}
+
+// The moved copy opened without the locate and warning dialogs; every clip listed with its media path and
+// whether Premiere has it offline; then the copy is closed again.
+function lvTransferOpen() {
+  check('moved project opened: ' + PARAMS.project, function () {
+    var f = new File(PARAMS.project);
+    var items = [];
+    var ok;
+    app.openDocument(f.fsName, true, true, true);
+    ok = sameFsPath(String(app.project.path), f.fsName);
+    if (ok) {
+      walkProject(function (it) {
+        var media = null;
+        var off = false;
+        if (isBin(it)) {
+          return false;
+        }
+        try { media = it.getMediaPath ? String(it.getMediaPath()).split('\\').join('/') : null; } catch (e) { media = null; }
+        try { off = it.isOffline() === true; } catch (e2) { off = false; }
+        if (media || off) {
+          items.push({ name: String(it.name), file: media, missing: off });
+        }
+        return false;
+      });
+      DATA.items = items;
+      DATA.path = String(app.project.path).split('\\').join('/');
+      app.project.closeDocument(0, 0);
+    }
+    return { pass: ok, detail: { path: String(app.project.path), clips: items.length } };
+  });
+}
+
 if (PARAMS.op === 'setup') {
   lvSetup();
 } else if (PARAMS.op === 'activate') {
@@ -312,5 +355,9 @@ if (PARAMS.op === 'setup') {
   lvExportSetup();
 } else if (PARAMS.op === 'fitPlace') {
   lvFitPlace();
+} else if (PARAMS.op === 'transferRelease') {
+  lvTransferRelease();
+} else if (PARAMS.op === 'transferOpen') {
+  lvTransferOpen();
 }
 finish(DATA);

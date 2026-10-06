@@ -15,6 +15,7 @@
     "library:build": "node tools/library/build-catalog.mjs",
     "typecheck": "tsc -p panel/tsconfig.json",
     "panel:live": "node tools/panel/live.mjs",
+    "panel:checkpoint": "node tools/panel/checkpoint.mjs",
     "panel:build": "vite build --config panel/vite.config.mjs",
     "panel:dev": "vite --config panel/vite.config.mjs",
     "installer:build": "node tools/installer/build.mjs"

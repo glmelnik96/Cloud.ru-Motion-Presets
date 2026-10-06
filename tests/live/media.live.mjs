@@ -5,7 +5,9 @@
 // <work>/panel-live/media; the scratch project to <work>/panel-live/<host>/media_live.*.
 // Report: docs/research/panel-live/<host>-media-report.json.
 import { copyFile } from 'node:fs/promises';
-import { existsSync, mkdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, renameSync, rmSync, statSync, unlinkSync, writeFileSync } from 'node:fs';
+import { copyTree } from '../../tools/lib/copy-tree.mjs';
+import { runTransferLive } from './transfer.mjs';
 import path from 'node:path';
 import { deflateSync } from 'node:zlib';
 import { describe, expect, it } from 'vitest';
@@ -110,6 +112,25 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
         scratchDir: outDir,
         backdropPixel,
         R,
+      });
+      // Portability: the project with its inserts copied elsewhere and opened with the originals and the library
+      // out of the way (spec 3, phase 3). fs.cpSync is avoided: Node 24 on Windows crashed in it (0xC0000409).
+      await runTransferLive({
+        host: HOST,
+        hostRun,
+        R,
+        project: base.project,
+        movedDir: workPath('panel-live', `${HOST}-moved`).replace(/\\/g, '/'),
+        libraryRoot: built.libraryRoot.replace(/\\/g, '/'),
+        fs: {
+          exists: (p) => existsSync(p),
+          reset: (d) => {
+            rmSync(d, { recursive: true, force: true });
+            mkdirSync(d, { recursive: true });
+          },
+          copy: (from, to) => (statSync(from).isDirectory() ? copyTree(from, to) : copyFileSync(from, to)),
+          rename: (from, to) => renameSync(from, to),
+        },
       });
       // The «Эффекты» tab: AE only, with AE's own presets standing in for the brand .ffx.
       if (HOST === 'ae') {

@@ -409,6 +409,45 @@ function lvRq() {
   });
 }
 
+// ---- Перенос проекта (tests/live/transfer.mjs) ----
+
+// The scratch project saved and let go (a new empty project), so its folders can be renamed on disk.
+function lvTransferRelease() {
+  check('project saved and released', function () {
+    var path = bkProjectPath();
+    bkQuiet(function () {
+      app.project.save();
+    });
+    bkNewProject();
+    return { pass: !!path, detail: path };
+  });
+}
+
+// The moved copy opened with dialogs suppressed; every footage file listed with where AE found it.
+function lvTransferOpen() {
+  check('moved project opened: ' + PARAMS.project, function () {
+    var items = [];
+    var i, it, src, f;
+    bkOpenProject(PARAMS.project);
+    for (i = 1; i <= app.project.numItems; i++) {
+      it = app.project.item(i);
+      if (!(it instanceof FootageItem)) {
+        continue;
+      }
+      src = it.mainSource;
+      if (src && src instanceof SolidSource) {
+        continue;
+      }
+      f = null;
+      try { f = it.file ? String(it.file.fsName).split('\\').join('/') : null; } catch (e) { f = null; }
+      items.push({ name: String(it.name), file: f, missing: it.footageMissing === true });
+    }
+    DATA.path = String(bkProjectPath()).split('\\').join('/');
+    DATA.items = items;
+    return { pass: bkNorm(bkProjectPath()) === bkNorm(new File(PARAMS.project).fsName), detail: { path: DATA.path, footage: items.length } };
+  });
+}
+
 if (PARAMS.op === 'setup') {
   lvSetup();
 } else if (PARAMS.op === 'activate') {
@@ -443,5 +482,9 @@ if (PARAMS.op === 'setup') {
   lvQueueUser();
 } else if (PARAMS.op === 'rq') {
   lvRq();
+} else if (PARAMS.op === 'transferRelease') {
+  lvTransferRelease();
+} else if (PARAMS.op === 'transferOpen') {
+  lvTransferOpen();
 }
 finish(DATA);
