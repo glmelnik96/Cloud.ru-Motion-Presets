@@ -81,6 +81,9 @@ async function start(el: HTMLElement): Promise<void> {
     logger,
     fonts: rt.fonts,
     prepareFiles: rt.prepareFiles,
+    exportFs: rt.exportFs,
+    aerender: rt.aerender,
+    reveal: rt.reveal,
   });
   const ui: UiServices = {
     fileUrl: (file) => fileUrl(rt.libraryRoot, rt.platform, file),

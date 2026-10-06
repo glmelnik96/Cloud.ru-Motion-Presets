@@ -46,12 +46,14 @@ export function toCatalogItem(raw: unknown, keepCompanions = false): Item {
   return it;
 }
 
+// The templates of the first pack; the export presets of library.src.json are in export.test.ts and
+// tests/tools/export-pack.test.mjs.
 export function catalog(): Catalog {
   return {
     schemaVersion: 1,
     libraryVersion: '2026.10.05',
     minPluginVersion: '0.1.0',
-    items: (src.items as unknown[]).map((i) => toCatalogItem(i)),
+    items: (src.items as unknown[]).filter((i) => (i as Item).category !== 'export').map((i) => toCatalogItem(i)),
   };
 }
 

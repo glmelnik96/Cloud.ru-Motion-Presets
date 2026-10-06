@@ -34,7 +34,8 @@ function fakeBuild(ids, opts = {}) {
     const item = SRC.items.find((i) => i.id === id);
     for (const f of itemFiles(item)) {
       if (f.optional) continue;
-      const p = path.join(build, f.from);
+      // a file of any extension (T2/T3): the export presets are .epr and .aom, by the variant key
+      const p = path.join(build, f.anyExt ? `${f.from}.${f.key}` : f.from);
       if (f.from.endsWith('.mogrt')) mogrtFor(item, p, opts);
       else {
         mkdirSync(path.dirname(p), { recursive: true });
@@ -66,7 +67,8 @@ describe('build-catalog', () => {
   });
 
   it('builds a valid catalog of the first pack and copies the files', async () => {
-    const ids = ['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird'];
+    const ids = SRC.items.map((i) => i.id);
+    expect(ids.slice(0, 3)).toEqual(['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird']);
     const { build, out } = fakeBuild(ids);
     const r = await buildCatalog({ src: SRC, buildDir: build, outDir: out, libraryVersion: '2026.10.05', tokens: TOKENS, now: new Date('2026-10-05T10:00:00.123Z') });
     expect(r.problems).toEqual([]);

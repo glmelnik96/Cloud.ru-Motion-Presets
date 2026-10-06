@@ -500,6 +500,105 @@
           }
         }
       ]
+    },
+    {
+      "id": "AME_4K",
+      "title_ru": "4K, 3840×2160",
+      "category": "export",
+      "tier": "T3",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "omTemplate": "CR 4K",
+      "variants": [{ "key": "epr", "aspect": "16x9", "w": 3840, "h": 2160, "fps": 25 }]
+    },
+    {
+      "id": "AME_FullHD",
+      "title_ru": "Full HD — основной мастер",
+      "category": "export",
+      "tier": "T3",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "omTemplate": "CR FullHD",
+      "variants": [{ "key": "epr", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25 }]
+    },
+    {
+      "id": "AME_SMM_4x3",
+      "title_ru": "SMM 4:3, 1440×1080",
+      "category": "export",
+      "tier": "T3",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "omTemplate": "CR SMM 4x3",
+      "variants": [{ "key": "epr", "aspect": "4x3", "w": 1440, "h": 1080, "fps": 25 }]
+    },
+    {
+      "id": "AME_SMM_16x9",
+      "title_ru": "SMM 16:9",
+      "category": "export",
+      "tier": "T3",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "omTemplate": "CR SMM 16x9",
+      "variants": [{ "key": "epr", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25 }]
+    },
+    {
+      "id": "AME_SMM_1x1",
+      "title_ru": "SMM 1:1, квадрат",
+      "category": "export",
+      "tier": "T3",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "omTemplate": "CR SMM 1x1",
+      "variants": [{ "key": "epr", "aspect": "1x1", "w": 1080, "h": 1080, "fps": 25 }]
+    },
+    {
+      "id": "AME_SMM_9x16",
+      "title_ru": "SMM 9:16, вертикаль",
+      "category": "export",
+      "tier": "T3",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "omTemplate": "CR SMM 9x16",
+      "variants": [{ "key": "epr", "aspect": "9x16", "w": 1080, "h": 1920, "fps": 25 }]
+    },
+    {
+      "id": "AME_WebinarFinal",
+      "title_ru": "Вебинар — финальный рендер",
+      "category": "export",
+      "tier": "T3",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "omTemplate": "CR Webinar Final",
+      "variants": [{ "key": "epr", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25 }]
+    },
+    {
+      "id": "AME_WebinarTimer",
+      "title_ru": "Вебинар — таймер",
+      "category": "export",
+      "tier": "T3",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "omTemplate": "CR Webinar Timer",
+      "variants": [{ "key": "epr", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25 }]
+    },
+    {
+      "id": "AME_WebinarIntro",
+      "title_ru": "Вебинар — заставка",
+      "category": "export",
+      "tier": "T3",
+      "hosts": ["ae", "pr"],
+      "version": 1,
+      "omTemplate": "CR Webinar Intro",
+      "variants": [{ "key": "epr", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25 }]
+    },
+    {
+      "id": "AME_Templates",
+      "title_ru": "Шаблоны Output Module для After Effects",
+      "category": "export",
+      "tier": "T3",
+      "hosts": ["ae"],
+      "version": 1,
+      "variants": [{ "key": "aom" }]
     }
   ]
 }

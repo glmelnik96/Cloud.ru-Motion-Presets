@@ -30,6 +30,12 @@ describe('export canon', () => {
     expect(EXPORT_CANON).toHaveLength(inv.length);
   });
 
+  it('is in the library of the panel as in the example source (after the live runs of 2026-10-06)', () => {
+    const real = readJson('library/library.src.json').items.filter((i) => i.category === 'export');
+    const example = readJson('docs/library/example.src.json').items.filter((i) => i.category === 'export');
+    expect(real).toEqual(example);
+  });
+
   it('matches the export items of the example source', () => {
     const items = readJson('docs/library/example.src.json').items.filter((i) => i.category === 'export' && i.variants[0].key === 'epr');
     expect(items.map((i) => [i.id, i.omTemplate, i.variants[0].w, i.variants[0].h, i.variants[0].fps])).toEqual(EXPORT_CANON.map((c) => [c.id, c.omTemplate, c.w, c.h, 25]));
