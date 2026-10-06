@@ -2,7 +2,7 @@
 // expressions tools/panel/ui-check.mjs uses on the real panel in AE and Premiere. Runs where a Chromium is
 // installed (BRANDKIT_CHROMIUM, or the Playwright browsers of the cloud sessions); skipped elsewhere.
 import { spawn, spawnSync } from 'node:child_process';
-import { existsSync, mkdtempSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createServer } from 'vite';
@@ -42,6 +42,11 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
       const src = ['-f', 'lavfi', '-i', 'color=c=0x222222:s=480x270:r=12.5:d=2', '-vf', 'drawbox=x=t*100:y=100:w=60:h=60:color=0x26D07C:t=fill'];
       spawnSync('ffmpeg', ['-y', '-loglevel', 'error', ...src, '-c:v', 'libvpx-vp9', '-b:v', '200k', path.join(media, 'preview.webm')]);
       spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', 'color=c=0xF2F2F2:s=480x270', '-frames:v', '1', path.join(media, 'poster.jpg')]);
+      // the sounds of the example source, to listen to
+      for (const [id, d] of [['SFX_WhooshIn', 0.8], ['SFX_WebinarBed', 3]]) {
+        mkdirSync(path.join(media, 'items', id), { recursive: true });
+        spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', `sine=frequency=600:duration=${d}`, '-c:a', 'pcm_s16le', path.join(media, 'items', id, `${id}_wav_v1.wav`)]);
+      }
       // previews of the lower third per format and style
       for (const [stem, size] of [['16x9_style-1', '480x270'], ['16x9_style-2', '480x270'], ['9x16_style-1', '270x480']]) {
         spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', `color=c=0x5A5A5A:s=${size}:r=12.5:d=1`, '-c:v', 'libvpx-vp9', path.join(media, `preview_${stem}.webm`)]);
@@ -51,7 +56,7 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     server = await createServer({ configFile: path.join(REPO, 'panel', 'vite.config.mjs'), server: { port: 5299, strictPort: false, fs: { allow: [REPO, media] } }, logLevel: 'silent' });
     await server.listen();
     base = server.resolvedUrls.local[0];
-    chrome = spawn(CHROME, ['--no-sandbox', '--headless', `--remote-debugging-port=${PORT}`, `--user-data-dir=${mkdtempSync(path.join(os.tmpdir(), 'bk-chrome-'))}`, '--window-size=360,900', 'about:blank'], { stdio: 'ignore' });
+    chrome = spawn(CHROME, ['--no-sandbox', '--headless', `--remote-debugging-port=${PORT}`, `--user-data-dir=${mkdtempSync(path.join(os.tmpdir(), 'bk-chrome-'))}`, '--window-size=360,900', '--autoplay-policy=no-user-gesture-required', 'about:blank'], { stdio: 'ignore' });
     s = await cdpSession((await pageTarget()).webSocketDebuggerUrl);
     await s.send('Runtime.enable');
     await s.send('Page.enable');
@@ -196,6 +201,20 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     expect(await evaluate(s, `document.querySelectorAll('.swatch-hex')[1].textContent`)).toBe('Скопировано');
     await go('?host=pr');
     expect(await evaluate(s, `document.querySelectorAll('.tab').length`)).toBe(0);
+  }, 60000);
+
+  it.skipIf(!HAS_FFMPEG)('a sound plays in its card, one at a time, without opening the form', async () => {
+    const mediaUrl = encodeURIComponent('/@fs/' + media.replace(/\\/g, '/').replace(/^\//, '') + '/');
+    await go(`?host=pr&media=${mediaUrl}`);
+    const card = (title) => `[...document.querySelectorAll('.card')].find((c) => c.querySelector('.title').textContent === ${JSON.stringify(title)})`;
+    await waitFor(s, `!!${card('Звук входа плашки')}.querySelector('.sound-length')`, { timeoutMs: 10000 });
+    expect(await evaluate(s, `${card('Звук входа плашки')}.querySelector('.sound-length').textContent`)).toBe('0,8 с');
+    await evaluate(s, `${card('Подложка вебинара')}.querySelector('.sound-play').click()`);
+    await waitFor(s, `!${card('Подложка вебинара')}.querySelector('audio').paused`, { timeoutMs: 5000 });
+    await evaluate(s, `${card('Звук входа плашки')}.querySelector('.sound-play').click()`);
+    await waitFor(s, `!${card('Звук входа плашки')}.querySelector('audio').paused`, { timeoutMs: 5000 });
+    expect(await evaluate(s, `${card('Подложка вебинара')}.querySelector('audio').paused`)).toBe(true);
+    expect(await evaluate(s, `!!document.querySelector('.form-head')`)).toBe(false);
   }, 60000);
 });
 

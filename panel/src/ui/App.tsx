@@ -132,6 +132,44 @@ function Preview({ item, ui, playing, media }: { item: Item; ui: UiServices; pla
   );
 }
 
+// The file of a sound item to listen to: its .wav variant.
+export function soundFile(item: Item): string | null {
+  return item.variants.find((v) => /\.wav$/i.test(v.file ?? ''))?.file ?? null;
+}
+
+// One sound plays at a time across the panel (spec 7 «Звуки: прослушивание и вставка»).
+let playingAudio: HTMLAudioElement | null = null;
+
+function SoundPlayer({ src }: { src: string }) {
+  const audio = useRef<HTMLAudioElement>(null);
+  const [playing, setPlaying] = useState(false);
+  const [length, setLength] = useState<number | null>(null);
+  const toggle = (e: Event) => {
+    e.stopPropagation();
+    const a = audio.current;
+    if (!a) return;
+    if (!a.paused) {
+      a.pause();
+      a.currentTime = 0;
+      return;
+    }
+    if (playingAudio && playingAudio !== a) {
+      playingAudio.pause();
+      playingAudio.currentTime = 0;
+    }
+    playingAudio = a;
+    void a.play().catch(() => setPlaying(false));
+  };
+  return (
+    <div class="sound">
+      <audio ref={audio} src={src} preload="metadata" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}
+        onLoadedMetadata={(e) => setLength((e.target as HTMLAudioElement).duration)} />
+      <button class={'sound-play' + (playing ? ' on' : '')} title={playing ? 'Остановить' : 'Прослушать'} onClick={toggle}>{playing ? '■' : '▶'}</button>
+      {length !== null && Number.isFinite(length) && <span class="sound-length">{sec(length)} с</span>}
+    </div>
+  );
+}
+
 function Card({ app, ui, item }: { app: PanelApp; ui: UiServices; item: Item }) {
   const [hover, setHover] = useState(false);
   const fav = app.state.favorites.has(item.id);
@@ -139,7 +177,7 @@ function Card({ app, ui, item }: { app: PanelApp; ui: UiServices; item: Item }) 
   return (
     <div class="card" role="button" tabIndex={0} onClick={() => app.open(item.id)} onKeyDown={(e) => e.key === 'Enter' && app.open(item.id)}
       onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-      <Preview item={item} ui={ui} playing={hover} />
+      {soundFile(item) && !item.preview ? <SoundPlayer src={ui.fileUrl(soundFile(item)!)} /> : <Preview item={item} ui={ui} playing={hover} />}
       <div class="title">{item.title_ru}</div>
       <div class="meta">{formats}</div>
       <button class={'star' + (fav ? ' on' : '')} title={fav ? 'Убрать из избранного' : 'В избранное'}
@@ -235,7 +273,9 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
         <button class={'star' + (fav ? ' on' : '')} style={{ position: 'static' }} onClick={() => app.toggleFavorite(item.id)}>★</button>
       </div>
       {/* keyed by the file: another format or style loads its own preview (user 2026-10-05) */}
-      <div class="hero">{(() => { const m = app.previewMedia(item); return <Preview key={m.video?.file ?? m.poster?.file ?? item.id} item={item} ui={ui} media={m} playing />; })()}</div>
+      <div class="hero">{soundFile(item) && !item.preview
+        ? <SoundPlayer src={ui.fileUrl(soundFile(item)!)} />
+        : (() => { const m = app.previewMedia(item); return <Preview key={m.video?.file ?? m.poster?.file ?? item.id} item={item} ui={ui} media={m} playing />; })()}</div>
 
       {preset && <p class="hint">Выделите в композиции слои: эффект ляжет на каждый из них, ключи — на текущее время.</p>}
 

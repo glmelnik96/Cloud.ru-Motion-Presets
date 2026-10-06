@@ -493,3 +493,37 @@ select {
   padding: 0;
 }
 
+/* Sounds (spec 7 «Звуки»): listen in the card and in the form, one at a time. */
+.sound {
+  aspect-ratio: 16 / 9;
+  background: #151515;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.hero .sound {
+  aspect-ratio: auto;
+  height: 96px;
+}
+
+.sound-play {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.sound-play.on {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.sound-length {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+
