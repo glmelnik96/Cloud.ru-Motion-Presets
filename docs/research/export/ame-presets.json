@@ -1,0 +1,84 @@
+{
+  "when": "2026-10-06",
+  "os": "Windows",
+  "branch": "claude/determined-cannon-eum3ei",
+  "panel": "0.1.17",
+  "library": "2026.10.06",
+  "mediaEncoder": "2026",
+  "reliableMethod": "Все девять «CR …» появляются, если файлы с уже переписанным <PresetName> лежат в Presets папки версии и сохранённое дерево Presets\\PresetTree.xml сброшено при закрытом Media Encoder. Ручной Import для этого не нужен.",
+  "exportPack": {
+    "command": "node tools/library/export-pack.mjs --epr C:/CRBK/work/export/epr --aom C:/CRBK/work/export/CR_BrandKit.aom",
+    "ids": [
+      "ids AME_4K: ExporterClassID=1313424203 PresetID=92c6205d-d7bc-4623-87ad-10a96c624fe2",
+      "ids AME_FullHD: ExporterClassID=1313424203 PresetID=7a07a836-29fc-4272-b9ed-ebe4a9ff8013",
+      "ids AME_SMM_4x3: ExporterClassID=1313424203 PresetID=4fc8a973-621c-40c0-9c4f-d7549813c605",
+      "ids AME_SMM_16x9: ExporterClassID=1313424203 PresetID=a096d079-74f1-4ced-9428-277410778a27",
+      "ids AME_SMM_1x1: ExporterClassID=1313424203 PresetID=04bc87e4-d855-4ad8-b13b-016d921c11f1",
+      "ids AME_SMM_9x16: ExporterClassID=1313424203 PresetID=0ed11573-0af2-4768-a513-9142672783c8",
+      "ids AME_WebinarFinal: ExporterClassID=1313424203 PresetID=30750626-abfe-4dce-a91c-16da4fc820a4",
+      "ids AME_WebinarTimer: ExporterClassID=1313424203 PresetID=2d939eb6-2c1f-4e27-bc74-b58542f47bb2",
+      "ids AME_WebinarIntro: ExporterClassID=1313424203 PresetID=f7a8076b-0872-4d09-a7ff-f06ba762acf2"
+    ],
+    "note": "Девять PresetID разные, ExporterClassID один (H.264). export-pack печатает идентификаторы исходных .epr и в копию для сборки подставляет <PresetName> шаблона AE (CR 4K, CR FullHD, …). Установленные CR *.epr сохраняют эти же PresetID. Старые AME_*.epr из прошлых проверок, снятые в ame-backup, имели другие PresetID при тех же именах: AME_SMM_16x9 f1101ef8-b8f9-43fd-abed-5bbeb6f0bb86, AME_SMM_1x1 de219f6b-046a-4c47-b1c1-cd835d506172, AME_SMM_4x3 fc3aef9b-4dfe-4b0d-99e1-89a5afdd6d88, AME_SMM_9x16 c0ad8de0-29ec-4451-9c5e-48243b5df716, AME_WebinarFinal 9169da5c-e87e-45cd-8e62-bb63695d1795, AME_WebinarIntro 02b04d73-2739-4f1d-8d5b-82672f3892ef, AME_WebinarTimer 36f1b02f-3f3b-4637-8097-196070a8fc54. Из-за другого PresetID браузер показывал их второй строкой рядом с копией CR."
+  },
+  "install": {
+    "backup": "C:\\CRBK\\work\\export\\ame-backup\\ — 25.0, 26.0 (Presets и соседние xml) и Audio-Previews-Presets. Чужие файлы не удалялись: «Копия Файл шаблона настроек видео.epr» и пустой «.epr».",
+    "removed": "Папка Audio Previews\\Presets удалена. Из Presets 25.0 и 26.0 удалены только CR *.epr и AME_*.epr.",
+    "exit": 0,
+    "output": "Пресеты AME: 9 в …\\25.0\\Presets. Пресеты AME: 9 в …\\26.0\\Presets. Строки про Audio Previews нет. audio-presets-exists=false после установки.",
+    "presetNameInside": "Установленный CR FullHD.epr содержит <PresetName>CR FullHD</PresetName> и PresetID исходного AME_FullHD."
+  },
+  "browserAfterCleanInstall": {
+    "group": "Пользовательские стили и группы",
+    "crLabelsVisible": false,
+    "rows": [
+      "Копия Файл шаблона настроек видео (HEVC, 1920x1080)",
+      "4K_35-40_25fps (H.264, 3840x2160) — путь CR 4K.epr",
+      "AME_SMM_1x1 (H.264, 1080x1080)",
+      "AME_SMM_4x3 (H.264, 1440x1080)",
+      "AME_SMM_9x16 (H.264, 1080x1920)",
+      "AME_SMM_16x9 (H.264, 1920x1080)",
+      "AME_WebinarFinal (H.264, 1920x1080)",
+      "AME_WebinarIntro (H.264, 1920x1080)"
+    ],
+    "screenshot": "docs/research/export/ame-before-tree-reset.png",
+    "note": "Файлы на диске уже назывались CR и внутри уже имели <PresetName> CR …. Браузер показал старые имена из PresetTree.xml. Нижняя часть списка на скриншоте обрезана панелью."
+  },
+  "storage": {
+    "versionFolder": "Documents\\Adobe\\Adobe Media Encoder\\26.0\\",
+    "presetTree": "Presets\\PresetTree.xml — дерево браузера, системные пресеты и <UserPresets>. У строки пользователя есть <Name>, а внутри <ProxyPreset>: <PresetName>, <PresetID>, <PresetClassID>, <PresetFileType>, <PresetModifiedTime>, <FolderDisplayPath>, <PresetPath>, <IngestPreset>. Браузер показывает <Name>, не имя файла. Замена .epr с тем же PresetID само дерево не переписывает.",
+    "presetUserCache": "26.0\\PresetUserCache.xml — плоский список тех же полей, по одному <Key> на файл в Presets, плюс <DirectoryPath>.",
+    "presetCache": "26.0\\PresetCache.xml — кэш системных пресетов, не список пользователя.",
+    "notTheUserList": "Папка Audio Previews к списку не относится. Установщик 0.1.17 её больше не заполняет."
+  },
+  "rename": {
+    "action": "При закрытом AME Presets\\PresetTree.xml переименован в PresetTree.xml.aside, не удалён.",
+    "whileOpen": "Новый PresetTree.xml за время сеанса не появился. PresetUserCache.xml переписан и содержал девять имён CR … с исходными PresetID, плюс два чужих файла. Aside остался со старыми <Name> (4K_35-40_25fps, AME_SMM_*, AME_Webinar*, FullHD_10-20_25fps), пути уже на CR *.epr; записи удалённых AME_*.epr из него выпали.",
+    "browser": "В группе «Пользовательские стили и группы» появились CR 4K, CR FullHD, CR SMM 1x1, CR SMM 4x3, CR SMM 9x16, CR SMM 16x9, CR Webinar Final, и ниже по списку CR Webinar Intro и CR Webinar Timer.",
+    "screenshots": [
+      "docs/research/export/ame-after-tree-reset.png",
+      "docs/research/export/ame-cr-top.png"
+    ],
+    "onQuit": "При выходе AME записал новый Presets\\PresetTree.xml. <UserPresets> в нём — те же девять CR с теми же PresetID и путями …\\26.0\\Presets\\CR ….epr. Следующий запуск с этим файлом на месте снова показал девять «CR …» без нового сброса."
+  },
+  "import": {
+    "what": "Preset Browser, значок импорта, файл …\\26.0\\Presets\\CR Webinar Timer.epr.",
+    "folder": "Появился новый файл CR Webinar Timer_1.epr. Исходный CR Webinar Timer.epr не изменился.",
+    "identifiers": "PresetName стал CR Webinar Timer_1. Новый PresetID 83174c1b-2b67-4c89-8658-4e5dd00362f5. ExporterClassID тот же, 1313424203. FolderDisplayPath: User Presets & Groups. У исходного файла PresetID по-прежнему 2d939eb6-2c1f-4e27-bc74-b58542f47bb2 и пустой FolderDisplayPath.",
+    "browser": "Отдельная строка CR Webinar Timer_1 (H.264, 1920x1080) рядом с CR Webinar Timer. Кэш на диске обновился при выходе, не в момент диалога.",
+    "screenshot": "docs/research/export/ame-import-timer.png"
+  },
+  "twoCopies": {
+    "what": "Байтовая копия CR Webinar Timer.epr в CR Webinar Timer B.epr: тот же PresetName CR Webinar Timer и тот же PresetID 2d939eb6-2c1f-4e27-bc74-b58542f47bb2.",
+    "browser": "Одна строка CR Webinar Timer. Вторая копия в браузере не появилась ни до выхода, ни на следующем запуске. Строка CR Webinar Timer_1 от Import осталась отдельной, потому что у неё другой PresetID.",
+    "tree": "PresetTree.xml хранит один путь, …\\26.0\\Presets\\CR Webinar Timer.epr.",
+    "cache": "PresetUserCache.xml после выхода перечислил оба файла двумя <Key> с одним PresetID и одним PresetName. Браузер этому списку не следует: строка одна.",
+    "screenshot": "docs/research/export/ame-same-id-one-row.png",
+    "leftInPresets": "CR Webinar Timer_1.epr и CR Webinar Timer B.epr оставлены в 26.0\\Presets как результат проверки. PresetTree.xml.aside тоже оставлен."
+  },
+  "fragments": {
+    "treeBeforeRename": "<PresetName>FullHD_10-20_25fps</PresetName>\n<PresetID>7a07a836-29fc-4272-b9ed-ebe4a9ff8013</PresetID>\n<FolderDisplayPath></FolderDisplayPath>\n<IngestPreset>false</IngestPreset>\n<PresetPath>…\\26.0\\Presets\\CR FullHD.epr</PresetPath>\n<Name>FullHD_10-20_25fps</Name>",
+    "treeAfterQuit": "<PresetName>CR FullHD</PresetName>\n<PresetID>7a07a836-29fc-4272-b9ed-ebe4a9ff8013</PresetID>\n<FolderDisplayPath></FolderDisplayPath>\n<IngestPreset>false</IngestPreset>\n<PresetPath>…\\26.0\\Presets\\CR FullHD.epr</PresetPath>\n<Name>CR FullHD</Name>",
+    "importedPreset": "<PresetName>CR Webinar Timer_1</PresetName>\n<PresetID>83174c1b-2b67-4c89-8658-4e5dd00362f5</PresetID>\n<FolderDisplayPath>User Presets &amp; Groups</FolderDisplayPath>\n<PresetPath>…\\26.0\\Presets\\CR Webinar Timer_1.epr</PresetPath>"
+  }
+}
