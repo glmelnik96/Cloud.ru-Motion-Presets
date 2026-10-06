@@ -3,7 +3,7 @@
 //   <out>/library.json                       the catalog: files, sha256, bytes, versions; never edited by hand
 //   <out>/items/<id>/<id>_v<N>.aep           T1 for AE: every format of the item in one project
 //   <out>/items/<id>/<id>_<key>_v<N>.mogrt   T1 for Premiere: one MOGRT per variant
-//   <out>/items/<id>/<id>_<key>_v<N>.<ext>   T2/T3: the variant file (.mov, .wav, .png, .svg, .ffx, .epr, .aom)
+//   <out>/items/<id>/<id>_<key>_v<N>.<ext>   T2/T3: the variant file (.mov, .wav, .png, .svg, .ffx, .epr, .aom, .prtextstyle)
 //   <out>/items/<id>/<id>_<key>_<part>_v<N>.mov   T2 with parts (intro, loop, outro)
 //   <out>/items/<id>/preview.mp4, poster.jpg  the card, when the build has them
 //   <out>/items/<id>/preview_<variant>[_<field>-<value>…].mp4, poster_<the same>.jpg   previews per format and
@@ -25,7 +25,7 @@ import { parsePreviewName } from './preview-names.mjs';
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const stripBom = (t) => (t.charCodeAt(0) === 0xfeff ? t.slice(1) : t);
 const readJson = (p) => JSON.parse(stripBom(readFileSync(p, 'utf8')));
-const MEDIA_EXT = ['mov', 'wav', 'png', 'svg', 'ffx', 'epr', 'aom'];
+const MEDIA_EXT = ['mov', 'wav', 'png', 'svg', 'ffx', 'epr', 'aom', 'prtextstyle'];
 
 export function sha256File(file) {
   return new Promise((resolve, reject) => {

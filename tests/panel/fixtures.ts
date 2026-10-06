@@ -18,6 +18,7 @@ function mediaExt(it: Item, key: string): string {
   if (key === 'svg') return 'svg';
   if (key === 'ffx') return 'ffx';
   if (key === 'epr' || key === 'aom') return key;
+  if (it.textStyle) return 'prtextstyle';
   return it.tier === 'T3' ? 'png' : 'mov';
 }
 
@@ -53,7 +54,7 @@ export function catalog(): Catalog {
     schemaVersion: 1,
     libraryVersion: '2026.10.05',
     minPluginVersion: '0.1.0',
-    items: (src.items as unknown[]).filter((i) => (i as Item).category !== 'export').map((i) => toCatalogItem(i)),
+    items: (src.items as unknown[]).filter((i) => (i as Item).category !== 'export' && !(i as Item).textStyle).map((i) => toCatalogItem(i)),
   };
 }
 

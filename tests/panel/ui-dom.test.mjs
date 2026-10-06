@@ -200,7 +200,7 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     await evaluate(s, `document.querySelectorAll('.swatch-hex')[1].click()`);
     expect(await evaluate(s, `document.querySelectorAll('.swatch-hex')[1].textContent`)).toBe('Скопировано');
     await go('?host=pr');
-    expect(await evaluate(s, `[...document.querySelectorAll('.tab')].map((t) => t.textContent)`)).toEqual(['Каталог', 'Экспорт']);
+    expect(await evaluate(s, `[...document.querySelectorAll('.tab')].map((t) => t.textContent)`)).toEqual(['Каталог', 'Монтаж', 'Экспорт']);
   }, 60000);
 
   it('«Вписать в окно» in the form of a frame template, Premiere only', async () => {
@@ -213,6 +213,26 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     await go('?host=ae&open=WEB_Screen');
     await waitFor(s, `!!document.querySelector('.form-head')`);
     expect(await evaluate(s, `!!document.querySelector('.fit')`)).toBe(false);
+  }, 60000);
+
+  it('«Монтаж» in Premiere: the margins blurred on the selected clip, the caption style brought into the project', async () => {
+    await go('?host=pr');
+    await evaluate(s, `[...document.querySelectorAll('.tab')].find((t) => t.textContent === 'Монтаж').click()`);
+    await waitFor(s, `document.querySelectorAll('.edit .tool').length === 2`);
+    expect(await evaluate(s, `[...document.querySelectorAll('.edit .tool h3')].map((e) => e.textContent)`)).toEqual(['Размыть поля', 'Стиль субтитров']);
+    await evaluate(s, `[...document.querySelectorAll('.edit button')].find((b) => b.textContent === 'Размыть поля выделенного клипа').click()`);
+    await waitFor(s, `!!document.querySelector('.edit .done')`, { timeoutMs: 10000 });
+    expect(await evaluate(s, `document.querySelector('.edit .done').textContent`)).toBe('Поля «Запись спикера.mp4» размыты: Fast Blur 20 на клипе, резкая копия с Crop — на V3.');
+    // a second time: the clip is blurred already
+    await evaluate(s, `[...document.querySelectorAll('.edit button')].find((b) => b.textContent === 'Размыть поля выделенного клипа').click()`);
+    await waitFor(s, `/уже размыты/.test((document.querySelector('.edit .problems') || {}).textContent || '')`, { timeoutMs: 10000 });
+    await evaluate(s, `[...document.querySelectorAll('.edit button')].find((b) => b.textContent === 'Добавить «CR Субтитры» в проект').click()`);
+    await waitFor(s, `/добавлен в проект/.test((document.querySelector('.edit .done') || {}).textContent || '')`, { timeoutMs: 10000 });
+    expect(await evaluate(s, `document.querySelector('.edit .done').textContent`)).toBe('Стиль «CR Субтитры» добавлен в проект, в папку «Cloud.ru BrandKit». Выделите дорожку субтитров и выберите его в Properties → Track Style.');
+    // the style is no card of the catalog
+    await evaluate(s, `[...document.querySelectorAll('.tab')].find((t) => t.textContent === 'Каталог').click()`);
+    await waitFor(s, `document.querySelectorAll('.card').length > 0`);
+    expect(await evaluate(s, `[...document.querySelectorAll('.card .title')].some((t) => /Стиль субтитров/.test(t.textContent))`)).toBe(false);
   }, 60000);
 
   it('«Экспорт» in Premiere: presets for the frame, the AME queue, the next file gets _2 (P19, P22, P23)', async () => {

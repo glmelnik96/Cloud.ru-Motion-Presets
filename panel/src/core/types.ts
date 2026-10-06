@@ -100,6 +100,8 @@ export interface Item {
   alpha?: boolean;
   // Export presets: the After Effects Output Module template that repeats the .epr (decision P21).
   omTemplate?: string;
+  // A caption Track Style of Premiere (.prtextstyle, D25): its name in the Track Style list.
+  textStyle?: string;
   fields?: Field[];
   companions?: Companion[];
   requiredFonts?: Array<{ postScriptName: string; build?: string }>;

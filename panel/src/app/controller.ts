@@ -1,6 +1,7 @@
 // State and actions of the panel (spec 7) on top of the core. The UI renders this state and calls these
 // actions; it never talks to CSInterface or Node itself (spec 6: «Интерфейс знает только API ядра»).
 import { planColor, runColor, type ColorTarget } from '../core/colors';
+import { planBlur, planStyle, runBlur, runStyle, textStyles } from '../core/edit';
 import { isPreset, planPreset, runPreset } from '../core/effects';
 import { aomFile, defaultMode, exportFolder, exportNote, exportPresets, MODES, planExport, presetsForFrame, runExport, type ExportFit, type ExportMode, type ExportPlan, type ExportPreset } from '../core/export';
 import { formFields } from '../core/fields';
@@ -41,8 +42,8 @@ export interface Services {
 }
 
 export type View = 'catalog' | 'form';
-// Tabs of the panel (spec 7): the catalog, «Цвета» in After Effects, «Экспорт» in both.
-export type Tab = 'catalog' | 'colors' | 'export';
+// Tabs of the panel (spec 7): the catalog, «Цвета» in After Effects, «Монтаж» in Premiere, «Экспорт» in both.
+export type Tab = 'catalog' | 'colors' | 'edit' | 'export';
 
 // An AE render in the background (aerender): running, then done or failed.
 export interface BackgroundJob {
@@ -195,6 +196,7 @@ export class PanelApp {
   tabs(): Array<{ key: Tab; label_ru: string }> {
     const tabs: Array<{ key: Tab; label_ru: string }> = [{ key: 'catalog', label_ru: 'Каталог' }];
     if (this.state.host === 'ae') tabs.push({ key: 'colors', label_ru: 'Цвета' });
+    if (this.state.host === 'pr') tabs.push({ key: 'edit', label_ru: 'Монтаж' });
     if (this.presets().length) tabs.push({ key: 'export', label_ru: 'Экспорт' });
     return tabs.length > 1 ? tabs : [];
   }
@@ -222,6 +224,53 @@ export class PanelApp {
       return this.finish({ ok: out.ok, problems: out.problems, at: Date.now(), note: out.ok ? `Перекрашено: ${on.join(', ')}.` : undefined });
     } catch (e) {
       this.log('error', 'color.exception', { error: String(e) });
+      return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
+    }
+  }
+
+  // ---- «Монтаж» (Premiere): «Размыть поля» (D11) and the caption style (D25), panel/src/core/edit.ts ----
+
+  textStyles(): Item[] {
+    return textStyles(this.state.catalog);
+  }
+
+  // The margins of the clip selected on the timeline: Fast Blur on it, a sharp copy cut by Crop above it.
+  async blurFields(): Promise<Outcome> {
+    if (this.state.busy) return { ok: false, problems: [], at: Date.now() };
+    this.set({ busy: true, outcome: null });
+    try {
+      const ctx = await this.refreshContext();
+      if (!ctx) return this.finish({ ok: false, problems: [error('NO_TARGET', messages.noTarget(this.state.host))], at: Date.now() });
+      const refused = planBlur(ctx);
+      if (refused.length || !ctx.target) return this.finish({ ok: false, problems: refused, at: Date.now() });
+      const out = await runBlur(this.svc.host, ctx.target);
+      this.log(out.ok ? 'info' : 'warn', out.ok ? 'blur.done' : 'blur.failed', { numbers: out.numbers, reply: out.reply, problems: out.problems.map((p) => p.code) });
+      if (!out.ok || !out.reply) return this.finish({ ok: false, problems: out.problems, at: Date.now() });
+      const r = out.reply;
+      return this.finish({ ok: true, problems: out.problems, at: Date.now(), note: `Поля «${r.name}» размыты: Fast Blur ${sec(r.blurriness)} на клипе, резкая копия с Crop — на V${r.copyTrack + 1}.` });
+    } catch (e) {
+      this.log('error', 'blur.exception', { error: String(e) });
+      return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
+    }
+  }
+
+  // The Track Style of the library into the project; the editor picks it on the caption track.
+  async addTextStyle(id: string): Promise<Outcome> {
+    const item = this.textStyles().find((i) => i.id === id);
+    if (!item || this.state.busy) return { ok: false, problems: [], at: Date.now() };
+    this.set({ busy: true, outcome: null });
+    try {
+      const ctx = await this.refreshContext();
+      if (!ctx) return this.finish({ ok: false, problems: [error('NO_TARGET', messages.noTarget(this.state.host))], at: Date.now() });
+      const plan = planStyle(item, ctx, this.svc.libraryRoot);
+      if (!plan.request) return this.finish({ ok: false, problems: plan.problems, at: Date.now() });
+      const out = await runStyle(this.svc.host, plan.request);
+      this.log(out.ok ? 'info' : 'warn', out.ok ? 'style.done' : 'style.failed', { id, reply: out.reply, problems: out.problems.map((p) => p.code) });
+      if (!out.ok || !out.reply) return this.finish({ ok: false, problems: out.problems, at: Date.now() });
+      const pick = 'Выделите дорожку субтитров и выберите его в Properties → Track Style.';
+      return this.finish({ ok: true, problems: [], at: Date.now(), note: out.reply.imported ? `Стиль «${out.reply.name}» добавлен в проект, в папку «Cloud.ru BrandKit». ${pick}` : `Стиль «${out.reply.name}» уже есть в проекте. ${pick}` });
+    } catch (e) {
+      this.log('error', 'style.exception', { error: String(e) });
       return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
     }
   }

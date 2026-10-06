@@ -20,7 +20,7 @@ const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const LIVE = (flag) => (h) => ['tools/panel/live.mjs', '--host', h, ...(flag ? [flag] : [])];
 export const SUITES = [
   { key: 'base', cmd: LIVE(null), report: (h) => `${h}-report.json`, what: 'каждый элемент библиотеки в каждом формате: вставка, поля, кадры' },
-  { key: 'media', cmd: LIVE('--media'), report: (h) => `${h}-media-report.json`, what: 'T2/T3 и компаньоны; AE: эффекты и цвета; перенос проекта; Premiere: «вписать в окно»' },
+  { key: 'media', cmd: LIVE('--media'), report: (h) => `${h}-media-report.json`, what: 'T2/T3 и компаньоны; AE: эффекты и цвета; перенос проекта; Premiere: «вписать в окно», «Монтаж»' },
   { key: 'export', cmd: LIVE('--export'), report: (h) => `${h}-export-report.json`, what: '«Экспорт» брендовыми пресетами' },
   { key: 'ui', cmd: (h) => ['tools/panel/ui-check.mjs', '--host', h], report: (h) => `${h}-ui-report.json`, what: 'настоящая панель: каталог, превью, форма, вставка из интерфейса' },
   { key: 'transfer', hosts: ['pr'], explicit: true, cmd: LIVE('--transfer'), report: (h) => `${h}-transfer-report.json`, what: 'перенос проекта после перезапуска Premiere' },

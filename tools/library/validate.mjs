@@ -167,6 +167,14 @@ function checkItem(item, byId, kind, err) {
   }
   if (item.alpha !== undefined && item.tier === 'T1') err('alpha', 'alpha is for T2/T3 media; a T1 template brings its own background');
 
+  // Caption styles (D25): a Premiere Track Style is T3, Premiere only, one variant with the .prtextstyle file.
+  if (item.textStyle !== undefined) {
+    if (item.tier !== 'T3') err('textStyle', 'a caption style is T3');
+    if (item.hosts.length !== 1 || item.hosts[0] !== 'pr') err('textStyle', 'a caption style is for Premiere only');
+    if (variants.length !== 1) err('textStyle', 'a caption style has one variant');
+    if (kind === 'catalog' && variants[0]?.file && !variants[0].file.endsWith('.prtextstyle')) err('textStyle', 'the variant of a caption style is a .prtextstyle file');
+  }
+
   // Export presets (decisions P18, P21): an AME_ item is T3 of the «Экспорт» category; a preset is one .epr
   // variant with its frame at 25 fps (D2), and in AE the Output Module template of the brand .aom.
   const isExport = item.category === 'export';

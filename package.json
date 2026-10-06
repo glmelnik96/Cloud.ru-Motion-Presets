@@ -13,6 +13,7 @@
     "spike:report": "node tools/spike/report.mjs",
     "library:validate": "node tools/library/validate.mjs library/library.src.json",
     "library:build": "node tools/library/build-catalog.mjs",
+    "library:style": "node tools/library/style-pack.mjs",
     "typecheck": "tsc -p panel/tsconfig.json",
     "panel:live": "node tools/panel/live.mjs",
     "panel:checkpoint": "node tools/panel/checkpoint.mjs",

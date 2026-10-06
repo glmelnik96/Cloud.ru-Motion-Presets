@@ -23,7 +23,7 @@ function toItem(raw: unknown, keepCompanions: boolean): Item {
     else if (v.parts) {
       const src = v.parts as unknown as Record<string, [number, number]>;
       out.parts = Object.fromEntries(Object.entries(src).map(([p, r]) => [p, { file: `${base}_${p}_v${it.version}.mov`, sha256: SHA, bytes: 0, frames: r[1] - r[0] }]));
-    } else out.file = `${base}_v${it.version}.${it.category === 'sounds' ? 'wav' : v.key === 'svg' || v.key === 'ffx' || v.key === 'epr' || v.key === 'aom' ? v.key : it.tier === 'T3' ? 'png' : 'mov'}`;
+    } else out.file = `${base}_v${it.version}.${it.category === 'sounds' ? 'wav' : it.textStyle ? 'prtextstyle' : v.key === 'svg' || v.key === 'ffx' || v.key === 'epr' || v.key === 'aom' ? v.key : it.tier === 'T3' ? 'png' : 'mov'}`;
     return out;
   });
   if (it.tier === 'T1') it.aep = { file: `${dir}/${it.id}_v${it.version}.aep`, sha256: SHA, bytes: 0 };
@@ -33,6 +33,8 @@ function toItem(raw: unknown, keepCompanions: boolean): Item {
 
 class DemoHost implements HostCaller {
   ctx: HostContext;
+  private blurred = false;
+  private readonly styles = new Set<string>();
   // ?instant=1: replies without delay, so the whole start-up can finish before the UI subscribes.
   // ?templates=0: AE has not loaded the brand .aom yet (the instruction instead of a render).
   constructor(host: 'ae' | 'pr', w: number, h: number, private readonly instant = false, private readonly templates = true) {
@@ -45,7 +47,7 @@ class DemoHost implements HostCaller {
     };
   }
   async call<T>(fn: string, args?: unknown, _opts?: CallOptions): Promise<HostReply<T>> {
-    if (!this.instant) await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' || fn === 'applyPreset' || fn === 'applyColor' || fn === 'exportComp' || fn === 'exportSequence' || fn === 'fitClip' ? 500 : 30));
+    if (!this.instant) await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' || fn === 'applyPreset' || fn === 'applyColor' || fn === 'exportComp' || fn === 'exportSequence' || fn === 'fitClip' || fn === 'blurFields' ? 500 : 30));
     if (fn === 'getContext') return { ok: true, data: this.ctx as T };
     if (fn === 'diag') return { ok: true, data: { app: 'demo' } as T };
     if (fn === 'insertItem') {
@@ -72,7 +74,20 @@ class DemoHost implements HostCaller {
       if (r.mode === 'background') return { ok: true, data: { file: r.output, aerender: { exe: 'C:/AE/aerender.exe', project: 'C:/Projects/demo.aep', rqIndex: 1 } } as T };
       return { ok: true, data: { file: r.output, bytes: 1000, ms: 500 } as T };
     }
-    if (fn === 'selectedClip') return { ok: true, data: { track: 1, startTicks: '0', name: 'Запись спикера.mp4', src: { w: 1920, h: 1080, par: 1 } } as T };
+    if (fn === 'selectedClip') return { ok: true, data: { track: 1, startTicks: '0', name: 'Запись спикера.mp4', src: { w: 1920, h: 1080, par: 1 }, motion: { position: [960, 540], scale: 100, scaleWidth: 100, uniform: true } } as T };
+    // «Размыть поля»: the copy goes onto the track above; the first time the clip is blurred, then it is not.
+    if (fn === 'blurFields') {
+      const r = args as { blurriness: number; crop: unknown };
+      if (this.blurred) return { ok: false, error: { code: 'ALREADY', message: '' } };
+      this.blurred = true;
+      return { ok: true, data: { name: 'Запись спикера.mp4', copyTrack: 2, blurriness: r.blurriness, crop: r.crop, effects: [], keyed: false } as T };
+    }
+    if (fn === 'importTextStyle') {
+      const r = args as { name: string };
+      const imported = !this.styles.has(r.name);
+      this.styles.add(r.name);
+      return { ok: true, data: { name: r.name, imported } as T };
+    }
     if (fn === 'fitClip') {
       const r = args as { scale: number; position: [number, number]; crop: unknown };
       return { ok: true, data: { name: 'Запись спикера.mp4', scale: r.scale, position: r.position, normalized: true, crop: r.crop, cropAdded: !!r.crop, cropMissing: false } as T };

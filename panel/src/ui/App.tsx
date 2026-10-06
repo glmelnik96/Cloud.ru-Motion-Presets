@@ -39,6 +39,7 @@ export function App({ app, ui }: { app: PanelApp; ui: UiServices }) {
         {s.phase === 'loading' && <div class="empty">Загрузка библиотеки…</div>}
         {s.phase === 'error' && <Fatal problems={s.libraryProblems} />}
         {s.phase === 'ready' && s.tab === 'colors' && <Colors app={app} ui={ui} />}
+        {s.phase === 'ready' && s.tab === 'edit' && <Edit app={app} />}
         {s.phase === 'ready' && s.tab === 'export' && <Export app={app} />}
         {s.phase === 'ready' && s.tab === 'catalog' && (s.view === 'catalog' ? <Catalog app={app} ui={ui} /> : <Form app={app} ui={ui} />)}
       </main>
@@ -68,6 +69,35 @@ function Colors({ app, ui }: { app: PanelApp; ui: UiServices }) {
           </div>
         ))}
       </div>
+      <div class="actions">
+        <Problems list={s.outcome?.problems ?? []} />
+        {s.outcome?.ok && <div class="done">{s.outcome.note}</div>}
+      </div>
+    </div>
+  );
+}
+
+// «Монтаж» (Premiere): the margins of the podcast blurred on the selected clip (D11), the caption style of the
+// courses brought into the project (D25).
+function Edit({ app }: { app: PanelApp }) {
+  const s = app.state;
+  const styles = app.textStyles();
+  return (
+    <div class="edit">
+      <section class="tool">
+        <h3>Размыть поля</h3>
+        <p class="hint">Как в подкасте: выделите клип записи на таймлайне. Панель размоет его (Fast Blur), а на дорожку выше положит резкую копию, обрезанную по полям. Дорожка над клипом должна быть свободна.</p>
+        <button disabled={s.busy} onClick={() => void app.blurFields()}>Размыть поля выделенного клипа</button>
+      </section>
+      <section class="tool">
+        <h3>Стиль субтитров</h3>
+        {styles.length ? (
+          <>
+            <p class="hint">Добавьте стиль в проект, затем выделите дорожку субтитров и выберите его в Properties → Track Style. Нужен шрифт SB Sans Text.</p>
+            {styles.map((it) => <button key={it.id} disabled={s.busy} onClick={() => void app.addTextStyle(it.id)}>Добавить «{it.textStyle}» в проект</button>)}
+          </>
+        ) : <p class="hint">{messages.styleNone()}</p>}
+      </section>
       <div class="actions">
         <Problems list={s.outcome?.problems ?? []} />
         {s.outcome?.ok && <div class="done">{s.outcome.note}</div>}

@@ -10,7 +10,7 @@ var BridgeTalk = { appName: 'premierepro' };
 var $ = { os: 'Windows/64 10.0', sleep: function () {} };
 var TPS = 254016000000;
 
-var __pr = { files: {}, folders: {}, mogrts: {}, media: {}, calls: [], drop: [], imports: 0, qe: true, exports: [], jobs: 0, effects: ['Crop'] };
+var __pr = { files: {}, folders: {}, mogrts: {}, media: {}, calls: [], drop: [], imports: 0, qe: true, exports: [], jobs: 0, effects: ['Crop', 'Fast Blur'], styles: {} };
 var ProjectItemType = { CLIP: 1, BIN: 2, ROOT: 3, FILE: 4 };
 
 function __norm(p) { return String(p).split('\\').join('/'); }
@@ -87,6 +87,10 @@ TrackItem.prototype.isMGT = function () { return this._isMgt; };
 function __crop() {
   return { matchName: 'AE.ADBE AECrop', displayName: 'Crop', properties: __collection(['Left', 'Top', 'Right', 'Bottom', 'Zoom', 'Edge Feather'].map(function (n) { return __param(n, 'number', n === 'Zoom' ? false : 0); })) };
 }
+// Fast Blur as QE adds it: matchName AE.ADBE Fast Blur; Blurriness, Blur Dimensions, Repeat Edge Pixels.
+function __fastBlur() {
+  return { matchName: 'AE.ADBE Fast Blur', displayName: 'Fast Blur', properties: __collection([__param('Blurriness', 'number', 0), __param('Blur Dimensions', 'number', 0), __param('Repeat Edge Pixels', 'bool', false)]) };
+}
 Object.defineProperty(TrackItem.prototype, 'start', { get: function () { return __time(this._start); } });
 Object.defineProperty(TrackItem.prototype, 'end', {
   get: function () { return __time(this._end); },
@@ -110,12 +114,30 @@ Track.prototype.overwriteClip = function (item, sec) {
   var tpf = Number(this._seq.timebase);
   var start = Math.round(Number(sec) * TPS / tpf) * tpf;
   var m = __pr.media[item._path];
-  var len = Math.round((m.still ? 5 : m.sec) * TPS);
+  var inT = item._inT || 0;
+  var len = item._outT !== undefined ? item._outT - inT : Math.round((m.still ? 5 : m.sec) * TPS);
   __pr.calls.push('overwrite ' + item.name + ' ' + this.name + ' @' + Math.round(start / tpf));
   this._clips = this._clips.filter(function (c) { return !(c._start < start + len && c._end > start); });
   var clip = new TrackItem(item.name, start, len, { params: [] });
   clip.projectItem = item;
+  clip._in = inT;
+  clip._out = inT + len;
   this._clips.push(clip);
+  // a video track brings the audio of the media along, onto the audio track of the same index
+  if (m.audio && this.name.charAt(0) === 'V') {
+    var at = this._seq._atracks[Number(this.name.slice(1)) - 1];
+    var a = new TrackItem(item.name, start, len, { params: [] });
+    a.projectItem = item;
+    at._clips = at._clips.filter(function (c) { return !(c._start < start + len && c._end > start); });
+    at._clips.push(a);
+  }
+  return true;
+};
+TrackItem.prototype.remove = function () {
+  var self = this;
+  var s = app.project.activeSequence;
+  s._tracks.concat(s._atracks).forEach(function (t) { t._clips = t._clips.filter(function (c) { return c !== self; }); });
+  __pr.calls.push('remove ' + this.name);
   return true;
 };
 
@@ -139,10 +161,19 @@ ProjectItem.prototype.getProjectMetadata = function () {
   if (!m || !m.w) return '<?xpacket?><rdf:RDF><premierePrivateProjectMetaData:Column.Intrinsic.MediaType>Audio</premierePrivateProjectMetaData:Column.Intrinsic.MediaType></rdf:RDF>';
   return '<?xpacket?><rdf:RDF><premierePrivateProjectMetaData:Column.Intrinsic.VideoInfo>' + m.w + ' x ' + m.h + ' (' + (m.par || '1.0') + ')</premierePrivateProjectMetaData:Column.Intrinsic.VideoInfo></rdf:RDF>';
 };
-ProjectItem.prototype.getInPoint = function () { return __time(0); };
+ProjectItem.prototype.getInPoint = function () { return __time(this._inT || 0); };
 ProjectItem.prototype.getOutPoint = function () {
+  if (this._outT !== undefined) return __time(this._outT);
   var m = __pr.media[this._path];
   return __time(Math.round((m.still ? 5 : m.sec) * TPS));
+};
+// In and out of the source in seconds (mediaType 4: video and audio); the full range clears the marks.
+ProjectItem.prototype.setInPoint = function (sec) { this._inT = Math.round(Number(sec) * TPS); };
+ProjectItem.prototype.setOutPoint = function (sec) {
+  var m = __pr.media[this._path];
+  var t = Math.round(Number(sec) * TPS);
+  if (m && t === Math.round((m.still ? 5 : m.sec) * TPS)) delete this._outT;
+  else this._outT = t;
 };
 Object.defineProperty(Track.prototype, 'clips', {
   get: function () {
@@ -236,6 +267,7 @@ __qeSeq.getVideoTrackAt = function (i) {
       var c = clips[k];
       return { type: 'Clip', name: c.name, start: { secs: String(c._start / TPS) }, addVideoEffect: function (e) {
         if (e.name === 'Crop' || e.name === 'Обрезка') c._components.push(__crop());
+        if (e.name === 'Fast Blur' || e.name === 'Быстрое размытие') c._components.push(__fastBlur());
         __pr.calls.push('qe.addVideoEffect ' + e.name + ' ' + c.name);
       } };
     },
@@ -272,6 +304,12 @@ var app = {
     importFiles: function (paths, suppress, bin) {
       for (var i = 0; i < paths.length; i++) {
         var p = __norm(paths[i]);
+        // a Track Style file (.prtextstyle) becomes an item named by the style inside it
+        if (__pr.styles[p]) {
+          __pr.calls.push('import style ' + p.slice(p.lastIndexOf('/') + 1) + ' -> ' + bin.name);
+          bin._children.push(new ProjectItem(__pr.styles[p], 5, null));
+          continue;
+        }
         if (!__pr.media[p]) return false;
         __pr.imports += 1;
         __pr.calls.push('import ' + p.slice(p.lastIndexOf('/') + 1) + ' -> ' + bin.name);
@@ -300,9 +338,13 @@ __pr.occupy = function (trackIdx, fromSec, toSec, name, audio) {
   (audio ? s._atracks : s._tracks)[trackIdx]._clips.push(c);
   return c;
 };
-__pr.addMedia = function (path, sec, still, w, h, par) {
+__pr.addMedia = function (path, sec, still, w, h, par, audio) {
   __pr.files[__norm(path)] = 'media';
-  __pr.media[__norm(path)] = { sec: sec, still: !!still, w: w, h: h, par: par };
+  __pr.media[__norm(path)] = { sec: sec, still: !!still, w: w, h: h, par: par, audio: !!audio };
+};
+__pr.addStyle = function (path, name) {
+  __pr.files[__norm(path)] = 'style';
+  __pr.styles[__norm(path)] = name;
 };
 // A clip of a media file on a video track, selected, for «вписать в окно».
 __pr.clipOf = function (path, trackIdx, fromSec, selected) {

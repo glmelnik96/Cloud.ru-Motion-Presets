@@ -726,8 +726,32 @@
     if (!src) {
       throw fail('NO_SIZE', 'no frame size of ' + String(c.name));
     }
-    return { track: found[0].track, startTicks: String(c.start.ticks), name: String(c.name), src: src };
+    return { track: found[0].track, startTicks: String(c.start.ticks), name: String(c.name), src: src, motion: motionOf(c, seq) };
   };
+
+  // Motion of a clip: Position in pixels of the sequence (normalized when its value is, S7), Scale, and Scale
+  // Width with Uniform Scale when Premiere has them (indexes 2 and 3 of AE.ADBE Motion).
+  function motionOf(clip, seq) {
+    var m = componentByMatch(clip, 'AE.ADBE Motion');
+    var w = Number(seq.frameSizeHorizontal);
+    var h = Number(seq.frameSizeVertical);
+    var p, norm, out;
+    if (!m) {
+      return null;
+    }
+    try {
+      p = m.properties[0].getValue();
+      norm = !!p && p.length === 2 && p[0] >= 0 && p[0] <= 1.0001 && p[1] >= 0 && p[1] <= 1.0001;
+      out = { position: norm ? [BK.round(p[0] * w), BK.round(p[1] * h)] : [Number(p[0]), Number(p[1])], scale: Number(m.properties[1].getValue()), scaleWidth: null, uniform: null };
+      if (m.properties.numItems > 3) {
+        out.scaleWidth = Number(m.properties[2].getValue());
+        out.uniform = m.properties[3].getValue() === true;
+      }
+    } catch (e) {
+      return null;
+    }
+    return out;
+  }
 
   function clipOf(seq, ref) {
     var track = seq.videoTracks[ref.track];
@@ -741,8 +765,9 @@
     throw fail('NO_TARGET', 'the clip ' + ref.name + ' is no longer on V' + (ref.track + 1));
   }
 
-  // Crop through QE: the effect by one of its localized names, onto the QE item at the clip's start (S7).
-  function addCrop(seq, ref, names) {
+  // An effect through QE (Crop, Fast Blur): by one of its localized names, onto the QE item at the clip's start
+  // (S7).
+  function addEffect(seq, ref, names) {
     var effect = null;
     var i, e, qt, it, s, start;
     try { app.enableQE(); } catch (e0) { return false; }
@@ -798,7 +823,7 @@
     added = false;
     missing = false;
     if (!crop && req.crop) {
-      added = addCrop(seq, req.clip, req.cropNames || []);
+      added = addEffect(seq, req.clip, req.cropNames || []);
       clip = clipOf(seq, req.clip);
       crop = componentByMatch(clip, 'AE.ADBE AECrop');
       missing = !crop;
@@ -823,6 +848,199 @@
       cropAdded: added,
       cropMissing: missing
     };
+  };
+
+  // ---- «Размыть поля» (D11, panel/src/core/edit.ts) ----
+
+  var INTRINSIC = { 'AE.ADBE Motion': true, 'AE.ADBE Opacity': true, 'AE.ADBE Time Remapping': true };
+
+  // Effects of the clip beyond Motion, Opacity and Time Remapping (Lumetri and the like).
+  function effectNames(clip) {
+    var out = [];
+    var i, c;
+    for (i = 0; i < clip.components.numItems; i++) {
+      c = clip.components[i];
+      if (!INTRINSIC[String(c.matchName)]) {
+        out.push(String(c.displayName || c.matchName));
+      }
+    }
+    return out;
+  }
+
+  function trackFree(track, a, b) {
+    var i, c;
+    for (i = 0; i < track.clips.numItems; i++) {
+      c = track.clips[i];
+      if (Number(c.start.ticks) < b && Number(c.end.ticks) > a) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function clipAt(track, ticks) {
+    var i;
+    for (i = 0; i < track.clips.numItems; i++) {
+      if (String(track.clips[i].start.ticks) === String(ticks)) {
+        return track.clips[i];
+      }
+    }
+    return null;
+  }
+
+  // The values of Motion and Opacity at the start of the clip onto its copy; true when the clip has keys there.
+  function copyLook(from, to) {
+    var names = ['AE.ADBE Motion', 'AE.ADBE Opacity'];
+    var keyed = false;
+    var k, i, a, b;
+    for (k = 0; k < names.length; k++) {
+      a = componentByMatch(from, names[k]);
+      b = componentByMatch(to, names[k]);
+      for (i = 0; a && b && i < a.properties.numItems && i < b.properties.numItems; i++) {
+        try {
+          if (a.properties[i].isTimeVarying && a.properties[i].isTimeVarying()) {
+            keyed = true;
+          }
+        } catch (e0) { keyed = keyed || false; }
+        try { b.properties[i].setValue(a.properties[i].getValue(), 1); } catch (e1) { keyed = keyed || false; }
+      }
+    }
+    return keyed;
+  }
+
+  function paramByName(comp, re, fallback) {
+    var i;
+    for (i = 0; i < comp.properties.numItems; i++) {
+      if (re.test(String(comp.properties[i].displayName))) {
+        return comp.properties[i];
+      }
+    }
+    return comp.properties.numItems > fallback ? comp.properties[fallback] : null;
+  }
+
+  // The clip gets Fast Blur; a copy of it over the same time on the track above gets Crop to the inside of the
+  // margins and keeps the centre sharp. The copy takes the same source range, the Motion and Opacity of the clip
+  // and no audio. Nothing changes when the track above is busy or the clip is blurred already.
+  A.blurFields = function (req) {
+    var seq = targetSeq(req.targetId);
+    var clip = clipOf(seq, req.clip);
+    var a = Number(clip.start.ticks);
+    var b = Number(clip.end.ticks);
+    var up = req.clip.track + 1;
+    var item = clip.projectItem;
+    var sides = ['left', 'top', 'right', 'bottom'];
+    var audio = [];
+    var fx = effectNames(clip);
+    var t, i, c, copy, oldIn, oldOut, crop, blur, edge, keyed, ref;
+    if (componentByMatch(clip, 'AE.ADBE Fast Blur')) {
+      throw fail('ALREADY', 'Fast Blur is on ' + req.clip.name);
+    }
+    if (up >= seq.videoTracks.numTracks || !trackFree(seq.videoTracks[up], a, b)) {
+      throw fail('NO_TRACK', 'V' + (up + 1));
+    }
+    if (!item) {
+      throw fail('INSERT_FAILED', 'no project item of ' + req.clip.name);
+    }
+    for (t = 0; t < seq.audioTracks.numTracks; t++) {
+      c = clipAt(seq.audioTracks[t], a);
+      audio.push(c ? String(c.name) : null);
+    }
+    oldIn = item.getInPoint().seconds;
+    oldOut = item.getOutPoint().seconds;
+    item.setInPoint(clip.inPoint.seconds, 4);
+    item.setOutPoint(clip.outPoint.seconds, 4);
+    try {
+      seq.videoTracks[up].overwriteClip(item, clip.start.seconds);
+    } finally {
+      item.setInPoint(oldIn, 4);
+      item.setOutPoint(oldOut, 4);
+    }
+    copy = clipAt(seq.videoTracks[up], a);
+    if (!copy) {
+      throw fail('INSERT_FAILED', 'the copy did not appear on V' + (up + 1));
+    }
+    if (String(copy.end.ticks) !== String(b)) {
+      copy.end = clip.end;
+    }
+    // the copy brings its audio along: what was not at the start of the clip on an audio track goes
+    for (t = 0; t < seq.audioTracks.numTracks; t++) {
+      c = clipAt(seq.audioTracks[t], a);
+      if (c && audio[t] === null) {
+        try { c.remove(false, false); } catch (e2) { audio[t] = 'left'; }
+      }
+    }
+    keyed = copyLook(clip, copy);
+    ref = { track: up, startTicks: String(a), name: String(copy.name) };
+    addEffect(seq, ref, req.cropNames || []);
+    copy = clipAt(seq.videoTracks[up], a);
+    crop = componentByMatch(copy, 'AE.ADBE AECrop');
+    if (!crop) {
+      throw fail('INSERT_FAILED', 'Crop was not added to the copy on V' + (up + 1));
+    }
+    for (i = 0; i < 4; i++) {
+      crop.properties[i].setValue(req.crop[sides[i]], 1);
+    }
+    addEffect(seq, req.clip, req.blurNames || []);
+    clip = clipOf(seq, req.clip);
+    blur = componentByMatch(clip, 'AE.ADBE Fast Blur');
+    if (!blur) {
+      throw fail('INSERT_FAILED', 'Fast Blur was not added to ' + req.clip.name);
+    }
+    blur.properties[0].setValue(req.blurriness, 1);
+    edge = paramByName(blur, /Repeat Edge|\u041f\u043e\u0432\u0442\u043e\u0440/, 2);
+    if (edge) {
+      edge.setValue(true, 1);
+    }
+    return {
+      name: String(clip.name),
+      copyTrack: up,
+      blurriness: Number(blur.properties[0].getValue()),
+      crop: cropValues(crop),
+      effects: fx,
+      keyed: keyed
+    };
+  };
+
+  // ---- «Стиль субтитров» (D25) ----
+
+  function findNamed(bin, name) {
+    var i, c, r;
+    for (i = 0; i < bin.children.numItems; i++) {
+      c = bin.children[i];
+      if (c.type === ProjectItemType.BIN) {
+        r = findNamed(c, name);
+        if (r) {
+          return r;
+        }
+      } else if (String(c.name) === name) {
+        return c;
+      }
+    }
+    return null;
+  }
+
+  // The Track Style file into the BrandKit bin, once; the item gets the name of the style.
+  A.importTextStyle = function (req) {
+    var f = new File(req.file);
+    var stem = BK.leafName(req.file).replace(/[.][^.]+$/, '');
+    var bin, it;
+    it = findNamed(app.project.rootItem, req.name);
+    if (it) {
+      return { name: String(it.name), imported: false };
+    }
+    if (!f.exists) {
+      throw fail('NO_FILE', 'нет файла ' + req.file);
+    }
+    bin = findBin(req.bin);
+    app.project.importFiles([f.fsName], true, bin, false);
+    it = findNamed(bin, stem) || findNamed(bin, req.name);
+    if (!it) {
+      throw fail('INSERT_FAILED', 'стиль не появился в проекте');
+    }
+    if (String(it.name) !== req.name) {
+      it.name = req.name;
+    }
+    return { name: String(it.name), imported: true };
   };
 
   A.diag = function () {

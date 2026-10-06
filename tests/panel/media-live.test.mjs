@@ -113,7 +113,7 @@ describe('live media checks, dry', () => {
       const d = dry(host);
       const R = new Report(host);
       await runMediaLive({
-        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.18', R,
+        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.19', R,
         prepare: async (prep) => {
           for (const c of prep.copies) d.add(c.to);
           for (const s of prep.solids) d.add(s.path);

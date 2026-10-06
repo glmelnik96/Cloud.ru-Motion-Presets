@@ -34,8 +34,9 @@ function fakeBuild(ids, opts = {}) {
     const item = SRC.items.find((i) => i.id === id);
     for (const f of itemFiles(item)) {
       if (f.optional) continue;
-      // a file of any extension (T2/T3): the export presets are .epr and .aom, by the variant key
-      const p = path.join(build, f.anyExt ? `${f.from}.${f.key}` : f.from);
+      // a file of any extension (T2/T3): the export presets are .epr and .aom, by the variant key; the caption
+      // style is .prtextstyle
+      const p = path.join(build, f.anyExt ? `${f.from}.${item.textStyle ? 'prtextstyle' : f.key}` : f.from);
       if (f.from.endsWith('.mogrt')) mogrtFor(item, p, opts);
       else {
         mkdirSync(path.dirname(p), { recursive: true });

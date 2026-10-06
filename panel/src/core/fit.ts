@@ -55,6 +55,9 @@ export interface ClipInfo {
   name: string;
   // Size of the source in pixels and its pixel aspect ratio.
   src: { w: number; h: number; par: number };
+  // Motion at the start of the clip: Position in pixels of the sequence, Scale and Scale Width in percent
+  // (Scale Width counts when Uniform Scale is off). Read since 0.1.19 for «Размыть поля».
+  motion?: { position: [number, number]; scale: number; scaleWidth: number | null; uniform: boolean | null };
 }
 
 export interface FitNumbers {

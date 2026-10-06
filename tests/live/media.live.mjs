@@ -26,6 +26,7 @@ import { waitForStableFiles } from '../../tools/golden/png.mjs';
 import { findColorCentroid, pixelAt } from '../../tools/png/read-png.mjs';
 import { spawnSync } from 'node:child_process';
 import { runFitLive } from './fit.mjs';
+import { runEditLive } from './edit.mjs';
 import { runColorsLive } from './colors.mjs';
 import { runEffectsLive } from './effects.mjs';
 import { runMediaLive } from './media.mjs';
@@ -152,6 +153,21 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
             return file;
           },
           colorBox: (file, hex) => findColorCentroid(file, hex, 16).box,
+        });
+        // «Монтаж» (0.1.19): the margins of a checkerboard blurred, the caption style of the build PC imported.
+        const board = path.posix.join(outDir, 'blur-checker.png');
+        if (!existsSync(board)) spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', "nullsrc=s=1920x1080,format=gray,geq=lum='if(mod(floor(X/48)+floor(Y/48),2),255,0)'", '-frames:v', '1', board]);
+        const styleRoot = workPath('materials', 'premiere').replace(/\\/g, '/');
+        await runEditLive({
+          bridge, hostRun, R, checker: board,
+          style: existsSync(path.join(styleRoot, 'CR Субтитры.prtextstyle')) ? { root: styleRoot, file: 'CR Субтитры.prtextstyle' } : null,
+          frame: async (id, frame, key) => {
+            const r = await hostRun('frames', { id, frames: [{ key, frame }] });
+            const file = r?.data?.frames?.[key] ?? null;
+            if (file) await waitForStableFiles([file], { timeoutMs: 120000 });
+            return file;
+          },
+          gray: (file, x, y) => pixelAt(file, x, y).r,
         });
       }
     } catch (e) {

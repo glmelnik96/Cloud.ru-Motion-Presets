@@ -178,7 +178,15 @@ if (isMain) {
     // «Экспорт» from the interface (decisions P18–P23): the presets for the 1920x1080 frame, then a file in
     // Export next to the project — AE through the Render Queue with «CR FullHD», Premiere straight from the .epr.
     const tabs = await evaluate(s, page.tabs);
-    check(`tabs: ${tabs.join(', ')}`, JSON.stringify(tabs) === JSON.stringify(host === 'ae' ? ['Каталог', 'Цвета', 'Экспорт'] : ['Каталог', 'Экспорт']), tabs);
+    check(`tabs: ${tabs.join(', ')}`, JSON.stringify(tabs) === JSON.stringify(host === 'ae' ? ['Каталог', 'Цвета', 'Экспорт'] : ['Каталог', 'Монтаж', 'Экспорт']), tabs);
+    // «Монтаж» (Premiere, 0.1.19): both tools are there; the style of the library is offered when the build has it
+    if (host === 'pr' && await evaluate(s, page.openTab('Монтаж'))) {
+      const tools = await waitFor(s, `(() => { const h = [...document.querySelectorAll('.edit .tool h3')].map((e) => e.textContent); return h.length === 2 ? h : null; })()`, { timeoutMs: 5000 }).catch(() => null);
+      check('edit: «Размыть поля» and «Стиль субтитров»', JSON.stringify(tools) === JSON.stringify(['Размыть поля', 'Стиль субтитров']), tools);
+      const styleBtn = await evaluate(s, `[...document.querySelectorAll('.edit button')].map((b) => b.textContent).filter((t) => /^Добавить/.test(t))`);
+      check('edit: the caption style of the library is offered', styleBtn.length === 1, styleBtn, false);
+      await shot('6-edit');
+    }
     if (await evaluate(s, page.openTab('Экспорт'))) {
       await waitFor(s, `document.querySelectorAll('.preset').length > 0`, { timeoutMs: 10000 }).catch(() => false);
       const presets = await evaluate(s, page.presets);

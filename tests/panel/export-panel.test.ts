@@ -29,7 +29,7 @@ function app(host: Host, over: Partial<Services> = {}, store = memoryStore()) {
   const svc: Services = {
     host,
     hostKey: host.ctx.host,
-    pluginVersion: '0.1.18',
+    pluginVersion: '0.1.19',
     platform: 'win',
     libraryRoot: 'C:/lib',
     readLibrary: async () => JSON.stringify(exampleCatalog()),
@@ -45,7 +45,7 @@ describe('panel app: «Экспорт»', () => {
     const store = memoryStore();
     const { a } = app(new Host(prContext()), {}, store);
     await a.init();
-    expect(a.tabs().map((t) => t.key)).toEqual(['catalog', 'export']);
+    expect(a.tabs().map((t) => t.key)).toEqual(['catalog', 'edit', 'export']);
     expect(a.state.exportMode).toBe('queue');
     a.setExportMode('direct');
     const again = app(new Host(prContext()), {}, store).a;

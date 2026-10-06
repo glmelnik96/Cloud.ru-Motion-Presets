@@ -32,7 +32,7 @@ const motion = (h0) => JSON.parse(h0.run(`(function () { var c = app.project.act
 describe('Premiere selectedClip', () => {
   it('the one selected video clip, its track, start and frame size', () => {
     const h0 = pr(`__pr.clipOf(${JSON.stringify(REC)}, 1, 4, true)`);
-    expect(h0.call('selectedClip', { targetId: 'seq-Edit' }).data).toEqual({ track: 1, startTicks: String(4 * 254016000000), name: 'speaker.mp4', src: { w: 1920, h: 1080, par: 1 } });
+    expect(h0.call('selectedClip', { targetId: 'seq-Edit' }).data).toEqual({ track: 1, startTicks: String(4 * 254016000000), name: 'speaker.mp4', src: { w: 1920, h: 1080, par: 1 }, motion: { position: [960, 540], scale: 100, scaleWidth: null, uniform: null } });
   });
 
   it('refuses none, two, the template itself, and a clip without a frame size', () => {

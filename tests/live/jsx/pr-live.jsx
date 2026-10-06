@@ -290,6 +290,31 @@ function lvFitPlace() {
   });
 }
 
+// ---- «Монтаж» (tests/live/edit.mjs) ----
+
+// The clips of the video tracks of a sequence: name, start and end in frames, match names of the components.
+function lvEditState() {
+  check('the timeline listed', function () {
+    var seq = lvSeq(PARAMS.id);
+    var tpf = Number(seq.timebase);
+    var video = [];
+    var t, i, k, c, fx;
+    for (t = 0; t < seq.videoTracks.numTracks; t++) {
+      video.push([]);
+      for (i = 0; i < seq.videoTracks[t].clips.numItems; i++) {
+        c = seq.videoTracks[t].clips[i];
+        fx = [];
+        for (k = 0; k < c.components.numItems; k++) {
+          fx.push(String(c.components[k].matchName));
+        }
+        video[t].push({ name: String(c.name), start: Math.round(Number(c.start.ticks) / tpf), end: Math.round(Number(c.end.ticks) / tpf), fx: fx });
+      }
+    }
+    DATA.video = video;
+    return { pass: true, detail: { tracks: video.length } };
+  });
+}
+
 // ---- Перенос проекта (tests/live/transfer.mjs) ----
 
 // The scratch project saved and closed, so its folders can be renamed on disk (Premiere holds media open).
@@ -357,6 +382,8 @@ if (PARAMS.op === 'setup') {
   lvExportSetup();
 } else if (PARAMS.op === 'fitPlace') {
   lvFitPlace();
+} else if (PARAMS.op === 'editState') {
+  lvEditState();
 } else if (PARAMS.op === 'transferRelease') {
   lvTransferRelease();
 } else if (PARAMS.op === 'transferOpen') {

@@ -42,6 +42,13 @@ export type ProblemCode =
   | 'AERENDER'
   | 'FIT_FAILED'
   | 'FIT_NO_CROP'
+  | 'BLUR_FAILED'
+  | 'BLUR_NO_TRACK'
+  | 'BLUR_DONE'
+  | 'BLUR_NOT_FULL'
+  | 'BLUR_EFFECTS'
+  | 'BLUR_KEYED'
+  | 'STYLE_FAILED'
   | 'INSERT_FAILED'
   | 'READBACK'
   | 'TIMEOUT'
@@ -131,6 +138,15 @@ export const messages = {
   fitNoSize: () => 'Premiere не сообщил размер кадра клипа: вписать его в окно нельзя. Задайте Scale и Position вручную.',
   fitFailed: (detail: string) => `Не удалось вписать клип в окно: ${detail}.`,
   fitNoCrop: () => 'Клип больше окна, а Crop добавить не удалось: поставьте клип спикера на дорожку ниже клипа экрана или добавьте Crop вручную.',
+  blurSelection: (detail: string) => `Выделите на таймлайне один видеоклип, у которого размыть поля${detail ? ` (${detail})` : ''}.`,
+  blurNoTrack: (track: number) => `Над клипом нужна свободная видеодорожка V${track} на всю длину клипа: туда ляжет резкая копия. Добавьте дорожку (Sequence → Add Tracks) или освободите её.`,
+  blurDone: () => 'У клипа поля уже размыты (на нём есть Fast Blur). Чтобы повторить, удалите Fast Blur и копию над клипом.',
+  blurNotFull: () => 'Клип не закрывает кадр целиком: поля размыты только там, где он есть.',
+  blurEffects: (names: string[]) => `На клипе есть эффекты (${names.join(', ')}): на резкую копию сверху они не перенесены. Скопируйте их на копию: Edit → Copy, затем Paste Attributes.`,
+  blurKeyed: () => 'У клипа есть ключи Motion или Opacity: на копию перенесены только значения на начало клипа. Проверьте, что копия двигается вместе с клипом.',
+  blurFailed: (detail: string) => `Не удалось размыть поля: ${detail}. Отмените последние действия (Ctrl+Z) и повторите.`,
+  styleNone: () => 'В библиотеке нет стиля субтитров.',
+  styleFailed: (detail: string) => `Стиль не добавлен в проект: ${detail}.`,
   placement: (what: string[]) => `Файлы встали не так, как задумано (${what.join('; ')}). Отмените вставку и повторите.`,
   insertFailed: (detail: string) => `Вставка не выполнена: ${detail}.`,
   readback: (labels: string[]) =>

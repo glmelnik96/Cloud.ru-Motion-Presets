@@ -502,6 +502,22 @@
       ]
     },
     {
+      "id": "CRS_SubtitleStyle",
+      "title_ru": "Стиль субтитров «CR Субтитры»",
+      "category": "courses",
+      "tier": "T3",
+      "hosts": [
+        "pr"
+      ],
+      "version": 1,
+      "textStyle": "CR Субтитры",
+      "variants": [
+        {
+          "key": "style"
+        }
+      ]
+    },
+    {
       "id": "AME_4K",
       "title_ru": "4K, 3840×2160",
       "category": "export",
