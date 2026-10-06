@@ -1,0 +1,99 @@
+{
+  "panel": "0.1.15",
+  "library": "2026.10.06",
+  "libraryInstall": "npm run library:build wrote C:/CRBK/work/library. install-dev was given --library C:/CRBK/work/library because its default is C:/CRBK/work/panel-live/library.",
+  "status": {
+    "ae": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.15 · библиотека 2026.10.06",
+    "pr": "Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.15 · библиотека 2026.10.06"
+  },
+  "premiere": {
+    "project": "C:/CRBK/work/panel-live/pr/export_live.prproj",
+    "sequence": "BK recheck, 1920×1080, 25 fps, one clip, In 0 to Out 2",
+    "preset": "Вебинар — таймер",
+    "mode": "В очередь Media Encoder",
+    "first": {
+      "shown": "В очереди Media Encoder: BK recheck_WebinarTimer.mp4. Media Encoder закодирует файл сам.",
+      "panelMs": 158,
+      "file": "C:/CRBK/work/panel-live/pr/Export/BK recheck_WebinarTimer.mp4",
+      "bytes": 820055,
+      "stableAfterMs": 2050
+    },
+    "second": {
+      "shown": "В очереди Media Encoder: BK recheck_WebinarTimer_2.mp4. Media Encoder закодирует файл сам.",
+      "panelMs": 166,
+      "file": "C:/CRBK/work/panel-live/pr/Export/BK recheck_WebinarTimer_2.mp4",
+      "bytes": 820055
+    },
+    "ameSuffix1": false,
+    "note": "No BK recheck_WebinarTimer_1.mp4. Older BK export FHD_WebinarTimer_1.mp4 from the previous check is still in the folder and is not this run."
+  },
+  "afterEffects": {
+    "project": "C:/CRBK/work/panel-live/ae/export_live.aep",
+    "comp": "BK recheck, 1920×1080, 25 fps, work area 2 s",
+    "preset": "Вебинар — финальный рендер",
+    "mode": "В фоне (aerender)",
+    "userQueueUntouched": {
+      "comp": "BK export FHD",
+      "status": 3015,
+      "render": true,
+      "file": "C:/CRBK/work/panel-live/ae/user_item.mp4",
+      "rendering": false
+    },
+    "hostRespondedDuringRenderMs": 6,
+    "background": {
+      "running": "В фоне: BK recheck_WebinarFinal.mp4",
+      "done": "Готово: BK recheck_WebinarFinal.mp4",
+      "note": "Рендер в фоне: BK recheck_WebinarFinal.mp4. Можно работать дальше.",
+      "ms": 6428,
+      "file": "C:/CRBK/work/panel-live/ae/Export/BK recheck_WebinarFinal.mp4",
+      "probe": "h264 1920×1080 25 fps, duration 2.000 s"
+    },
+    "repeat": {
+      "running": "В фоне: BK recheck_WebinarFinal_2.mp4",
+      "done": "Готово: BK recheck_WebinarFinal_2.mp4",
+      "ms": 5789,
+      "file": "C:/CRBK/work/panel-live/ae/Export/BK recheck_WebinarFinal_2.mp4"
+    },
+    "ameSuffix1": false,
+    "render": {
+      "preset": "Вебинар — заставка",
+      "mode": "Render Queue",
+      "shown": "Готово: BK recheck_WebinarIntro.mp4",
+      "file": "C:/CRBK/work/panel-live/ae/Export/BK recheck_WebinarIntro.mp4",
+      "bytes": 16220
+    },
+    "unsaved": {
+      "comp": "BK unsaved, 1920×1080, 25 fps, 2 s",
+      "background": "not started",
+      "shown": "Для рендера в фоне проект должен быть сохранён: aerender рендерит файл проекта. Сохраните проект или выберите Render Queue.",
+      "folderHint": "C:/Users/Глеб/Documents/Cloud.ru BrandKit/Export",
+      "render": {
+        "preset": "Вебинар — заставка",
+        "shown": "Готово: BK unsaved_WebinarIntro.mp4",
+        "ms": 1048,
+        "file": "C:/Users/Глеб/Documents/Cloud.ru BrandKit/Export/BK unsaved_WebinarIntro.mp4",
+        "bytes": 16234,
+        "probe": "duration 2.000 s"
+      }
+    }
+  },
+  "reveal": {
+    "premiereFolderOnly": "The first «Показать в папке», while the file was not on disk yet, opened Explorer at C:/CRBK/work/panel-live/pr/Export with nothing selected. Screenshot: pr-recheck-explorer.png.",
+    "existingFile": "Later clicks, after the file existed, opened a new Explorer window at the user's Documents folder and selected nothing. The same happened in AE for BK recheck_WebinarIntro.mp4 and for BK unsaved_WebinarIntro.mp4. A direct explorer.exe /select of BK recheck_WebinarTimer_2.mp4 does select that file; that window is not the panel's.",
+    "where": "revealCommand passes one argument /select,<native path> to child_process.spawn. Paths here contain a space (BK recheck, BK unsaved)."
+  },
+  "screenshots": [
+    "pr-recheck-tab.png",
+    "pr-recheck-queued.png",
+    "pr-recheck-2.png",
+    "pr-recheck-explorer.png",
+    "ae-recheck-background.png",
+    "ae-recheck-done.png",
+    "ae-recheck-2-running.png",
+    "ae-recheck-2.png",
+    "ae-recheck-rendering.png",
+    "ae-recheck-render.png",
+    "ae-recheck-unsaved.png",
+    "ae-recheck-documents.png"
+  ]
+}
