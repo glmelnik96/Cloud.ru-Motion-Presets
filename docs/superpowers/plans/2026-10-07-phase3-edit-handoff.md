@@ -1,4 +1,4 @@
-# Задание локальному агенту: панель 0.1.19 — «Монтаж» в Premiere, перенос с исправленным стендом, установщик
+# Задание локальному агенту: панель 0.1.20 — «Монтаж» в Premiere, «Движение» в AE, перенос с исправленным стендом, установщик
 
 **От кого:** облачная сессия, ветка `claude/determined-cannon-eum3ei`.
 **Где:** ПК сборки, как в прошлых заданиях.
@@ -27,6 +27,25 @@
   - `ui-check` проверяет вкладку «Монтаж» у настоящей панели.
   - Руководство монтажёра (`docs/guide/panel.md`) — раздел «Монтаж».
 
+- **Панель 0.1.20** (`091ea45`) — вкладка «Движение» в After Effects, «Фирменные кривые» D19:
+  - 26 кривых из `brand/tokens.json` по типам и стилям;
+  - клик ставит кривую между соседними выделенными ключами (Bezier, скорость 0, влияния кривой), одна отмена;
+  - живая проверка `tests/live/ease.mjs` — в прогоне media AE, `ui-check` видит вкладку (скриншот `ae-ui-6-motion.png`).
+- **Видео-референсы** (`npm run refs`, `docs/research/refs/README.md`) — когда пользователь пришлёт ссылки: `npm run refs -- fetch`, затем `analyze`, результат закоммитить (видео — нет).
+- `npm run library:style` исправлен: файл по умолчанию с кириллицей в имени ронял `workPath`.
+
+Везде ниже вместо 0.1.19 — 0.1.20: статус «панель 0.1.20», установщик 0.1.20, отчёт `windows-0.1.20.json`.
+
+**Дополнительно к шагу 2 — «Движение» в настоящей панели AE:**
+1. Композиция 1920×1080 25 fps, шейп-плашка, ключи Scale X 0 → 100 на 0 и 20 кадрах, ключи Position на 0, 20 и 40 кадрах.
+2. Выделите оба ключа Scale и первые два ключа Position → «Движение» → «Плашка по X (M1): титры» → «вход (20)».
+3. Проверьте:
+   - в Graph Editor (Speed) у ключей влияния 33,3 % и 100 %, скорость 0;
+   - третий ключ Position не изменился;
+   - один Ctrl+Z возвращает всё без «Undo group mismatch».
+4. Скриншот Graph Editor — `docs/research/panel-live/ae-motion-graph.png`.
+5. Сравните кадры 0–20 с плашкой подписи спикера из пакета (titles): одинаково ли растёт.
+
 ## Правила
 
 Как в прошлом задании.
@@ -47,7 +66,7 @@ npm run library:build        # пресеты AME уже лежат в сбор�
 node tools/panel/install-dev.mjs
 ```
 
-Перезапустите AE и Premiere, чтобы обе панели (BrandKit Dev и BrandKit) поднялись на 0.1.19. В статусе панели — «панель 0.1.19».
+Перезапустите AE и Premiere, чтобы обе панели (BrandKit Dev и BrandKit) поднялись на 0.1.20. В статусе панели — «панель 0.1.20».
 
 ## 1. Контрольная точка Windows целиком
 
@@ -94,16 +113,16 @@ node tools/panel/install-dev.mjs
    - таймлайн после размытия — `docs/research/premiere/edit-timeline.png`;
    - Track Style со стилем — `docs/research/premiere/edit-track-style.png`.
 
-## 3. Установщик 0.1.19
+## 3. Установщик 0.1.20
 
-1. Соберите подписанный пакет 0.1.19: `package-zxp`, затем `tools/installer/build.mjs --library C:/CRBK/work/library`.
+1. Соберите подписанный пакет 0.1.20: `package-zxp`, затем `tools/installer/build.mjs --library C:/CRBK/work/library`.
 2. `install.cmd -WithAme` при закрытом Media Encoder → код 0.
 3. Проверьте:
    - в установленной библиотеке есть `items/CRS_SubtitleStyle/CRS_SubtitleStyle_style_v1.prtextstyle`;
    - в установленной панели Premiere — вкладка «Монтаж» с кнопкой стиля;
    - в AE вкладки «Монтаж» нет;
    - девять «CR …» в AME по-прежнему без дублей.
-4. Итог — `docs/research/installer/windows-0.1.19.json`.
+4. Итог — `docs/research/installer/windows-0.1.20.json`.
 
 ## 4. Копии для Mac
 
@@ -113,7 +132,7 @@ node tools/panel/install-dev.mjs
 
 Закоммитьте:
 - сводку контрольной точки и отчёты `docs/research/panel-live/*`;
-- `docs/research/installer/windows-0.1.19.json`;
+- `docs/research/installer/windows-0.1.20.json`;
 - скриншоты шага 2.
 
 Ответ — в `docs/research/edit-reply-2026-10-07.md`:

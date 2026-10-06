@@ -72,12 +72,14 @@
    - `npm run library:build`, шаблоны «CR …» загружены в AE на Mac;
    - `npm run panel:checkpoint`.
 4. **Открытие на другой ОС:**
-   - копии с Windows (`ae-moved`, `pr-moved`) откройте так:
+   - копии с Windows — архив `C:\CRBK\archive\2026-10-07-panel-live-moved.zip` (задание `2026-10-07-phase3-edit-handoff.md`, шаг 4). С 2026-10-06 копия Premiere лежит в `pr-moved-<время>`, а не в `pr-moved`. Откройте их так:
      ```bash
      node tools/panel/live.mjs --host ae --open <путь>/ae-moved/media_live.aep
-     node tools/panel/live.mjs --host pr --open <путь>/pr-moved/media_live.prproj
+     node tools/panel/live.mjs --host pr --open <путь>/pr-moved-<время>/media_live.prproj
      ```
-   - обратно: `ae-moved` и `pr-moved` после прогона на Mac — на Windows тем же `--open`.
+   - Стенд открывает проект с поиском файлов по относительным путям, как интерфейс (`9e5e839`). До этого Premiere оставлял клипы у старых путей.
+   - Если на Mac Premiere держит медиа так же, как на Windows, перенос там проверяется после перезапуска Premiere: `--only transfer`, как на Windows.
+   - обратно: `ae-moved` и `pr-moved-*` после прогона на Mac — на Windows тем же `--open`.
 5. Закоммитьте:
    - `docs/research/checkpoint/mac-*.json` и `.md`;
    - `docs/research/panel-live/*-open-*-report.json`;
