@@ -77,12 +77,15 @@ export function toBezier({ dur, delta, out, inn, outInterp, inInterp }) {
 
 // Shapes (mask and shape paths) have no number to move: AE eases them on the progress 0..1 of the segment, so
 // the curve is the influences alone while the speeds are 0 (the brand's paths: build PC, 2026-10-06); with a
-// speed the curve is unknown.
+// real speed the curve is unknown.
+// Speeds below this are the noise AE leaves on path keys (48 of 57 path segments of the packs, 2026-10-07).
+export const SHAPE_SPEED_NOISE = 1e-3;
+
 export function progressBezier({ out, inn, outInterp, inInterp }) {
   if (outInterp === 'HOLD') return { hold: true };
   const side = (ease, interp, first) => {
     if (interp === 'LINEAR' || !ease) return first ? [1 / 3, 1 / 3] : [2 / 3, 2 / 3];
-    if (Math.abs(ease.speed ?? 0) > 1e-6) return null;
+    if (Math.abs(ease.speed ?? 0) > SHAPE_SPEED_NOISE) return null;
     const x = Math.min(1, Math.max(0.0001, (ease.influence ?? 16.666667) / 100));
     return first ? [x, 0] : [1 - x, 1];
   };

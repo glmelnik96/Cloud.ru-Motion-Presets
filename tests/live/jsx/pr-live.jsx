@@ -309,7 +309,9 @@ function lvTransferOpen() {
     var f = new File(PARAMS.project);
     var items = [];
     var ok;
-    app.openDocument(f.fsName, true, true, true);
+    // bypassLocateFileDialog false: Premiere then resolves the media by the paths relative to the project, as an
+    // open from its UI does; true leaves every clip offline at its old place (build PC, 2026-10-07).
+    app.openDocument(f.fsName, true, false, true);
     ok = sameFsPath(String(app.project.path), f.fsName);
     if (ok) {
       walkProject(function (it) {

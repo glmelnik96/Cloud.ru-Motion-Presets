@@ -124,7 +124,10 @@ if (isMain) {
     await s.send('Page.reload', { ignoreCache: true });
     const ready = await waitFor(s, page.ready);
     check('panel opens and shows the catalog (N3/N4 of panel-framework.md)', ready === 'catalog', ready);
-    check('status line shows the host, the panel and the library', /панель \d+\.\d+\.\d+ · библиотека \d{4}\.\d{2}\.\d{2}/.test(await evaluate(s, page.text('.status'))), await evaluate(s, page.text('.status')));
+    // the status fills in once the host answers: the catalog may show a moment earlier (checkpoint 2026-10-06)
+    const STATUS = /панель \d+\.\d+\.\d+ · библиотека \d{4}\.\d{2}\.\d{2}/;
+    const status = await waitFor(s, `(() => { const t = ${page.text('.status')}; return ${STATUS}.test(t) ? t : ''; })()`, { timeoutMs: 10000 }).catch(() => '');
+    check('status line shows the host, the panel and the library', Boolean(status), status || await evaluate(s, page.text('.status')));
     // Card previews (tools/masters/preview.mjs): the poster shows, and the 480 px H.264 plays under the cursor
     // in the Chromium of CEP (a CEF build may lack the codec). Only when the library carries previews.
     const media = await evaluate(s, page.cardMedia);

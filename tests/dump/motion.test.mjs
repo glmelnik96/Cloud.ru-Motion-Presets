@@ -63,6 +63,8 @@ describe('motion: curves', () => {
     expect(progressBezier({ out: { speed: 0, influence: 33 }, inn: { speed: 0, influence: 100 }, outInterp: 'BEZIER', inInterp: 'BEZIER' })).toEqual({ x1: 0.33, y1: 0, x2: 0, y2: 1 });
     expect(progressBezier({ out: { speed: 0, influence: 50 }, outInterp: 'BEZIER', inInterp: 'LINEAR' })).toEqual({ x1: 0.5, y1: 0, x2: 0.667, y2: 0.667 });
     expect(progressBezier({ out: { speed: 3, influence: 50 }, inn: { speed: 0, influence: 50 }, outInterp: 'BEZIER', inInterp: 'BEZIER' })).toBeNull();
+    // the noise AE leaves on path keys is no speed
+    expect(progressBezier({ out: { speed: 4e-4, influence: 50 }, inn: { speed: -2e-4, influence: 50 }, outInterp: 'BEZIER', inInterp: 'BEZIER' })).toEqual({ x1: 0.5, y1: 0, x2: 0.5, y2: 1 });
     expect(progressBezier({ outInterp: 'HOLD', inInterp: 'BEZIER' })).toEqual({ hold: true });
     const shape = { vertices: [[0, 0], [10, 0]], closed: true };
     const mask = { index: 1, name: 'Текст', type: 'text', switches: { enabled: true }, effects: [], props: [
