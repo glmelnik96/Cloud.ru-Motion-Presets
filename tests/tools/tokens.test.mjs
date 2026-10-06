@@ -31,4 +31,27 @@ describe('brand/tokens.json', () => {
     const formats = Object.fromEntries(Object.entries(data(tokens.video.formats)).map(([k, v]) => [k, [v.w, v.h]]));
     expect(formats).toEqual(FORMATS);
   });
+  it('holds the D19 motion numbers: every type M1–M12, curves within 0..1 in time, keys in order', () => {
+    const m = tokens.motion;
+    expect(m.fps).toBe(25);
+    expect(Object.keys(m).filter((k) => /^M\d+$/.test(k))).toEqual(['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12']);
+    const walk = (v, path) => {
+      if (Array.isArray(v) || !v || typeof v !== 'object') return;
+      if (v.bezier) {
+        expect(v.bezier, path).toHaveLength(4);
+        for (const x of [v.bezier[0], v.bezier[2]]) expect(x >= 0 && x <= 1, `${path}: ${v.bezier}`).toBe(true);
+      }
+      for (const k of ['keys', 'scale', 'x', 'opacity', 'plateScaleX']) {
+        if (!Array.isArray(v[k])) continue;
+        const ts = v[k].map((key) => key.t);
+        expect(ts, `${path}.${k}`).toEqual([...ts].sort((a, b) => a - b));
+        for (const key of v[k]) for (const e of [key.in, key.out].filter(Boolean)) expect(e[1] > 0 && e[1] <= 100, `${path}.${k} influence`).toBe(true);
+      }
+      for (const [k, x] of Object.entries(v)) walk(x, `${path}.${k}`);
+    };
+    walk(m, 'motion');
+    expect(m.M1.rule).toBe(2);
+    expect(m.M9.expression).toBe('time*40');
+    expect(m.M12.plain.scale.at(-1).v).toBe(100);
+  });
 });
