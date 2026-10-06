@@ -132,7 +132,7 @@ describe('live run, dry', () => {
       const R = new Report(host);
       const allFonts = async (names) => Object.fromEntries(names.map((n) => [n, { found: true, version: null }]));
       await runLive({
-        host, bridge: h.bridge, hostRun, coldStart: h.coldStart, catalog: cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.15',
+        host, bridge: h.bridge, hostRun, coldStart: h.coldStart, catalog: cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.16',
         fonts: allFonts, frames: false, framesDir: 'C:/CRBK/work/panel-live/frames', ssimMin: 0.98, compare: async () => 1, R,
         ...hooks({ wait: noWait }),
       });

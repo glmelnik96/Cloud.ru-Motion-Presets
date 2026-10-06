@@ -47,6 +47,8 @@ export type Tab = 'catalog' | 'colors' | 'export';
 export interface BackgroundJob {
   file: string;
   title: string;
+  // The project the render was started from: finished jobs of another project are not listed.
+  project: string | null;
   status: 'running' | 'done' | 'failed';
   message?: string;
 }
@@ -294,7 +296,7 @@ export class PanelApp {
       const problems = [...plan.problems, ...out.problems];
       this.log(out.ok ? 'info' : 'error', out.ok ? 'export.done' : 'export.failed', { id: preset.id, mode: req.mode, output: req.output, problems: problems.map((p) => p.code), reply: out.reply });
       if (!out.ok || !out.reply) return this.finish({ ok: false, problems, at: Date.now() });
-      if (out.reply.aerender) this.startBackground(out.reply.aerender, req.output, preset.title);
+      if (out.reply.aerender) this.startBackground(out.reply.aerender, req.output, preset.title, ctx.project.path);
       return this.finish({ ok: true, problems, at: Date.now(), note: exportNote(req, out.reply), file: out.reply.file || req.output });
     } catch (e) {
       this.log('error', 'export.exception', { error: String(e) });
@@ -303,10 +305,10 @@ export class PanelApp {
   }
 
   // aerender runs on its own: the panel is free, the list of background renders shows how it ends.
-  private startBackground(job: AerenderJob, file: string, title: string): void {
+  private startBackground(job: AerenderJob, file: string, title: string, project: string | null): void {
     const update = (patch: Partial<BackgroundJob>) =>
       this.set({ background: this.state.background.map((b) => (b.file === file ? { ...b, ...patch } : b)) });
-    this.set({ background: [...this.state.background.filter((b) => b.file !== file), { file, title, status: 'running' }] });
+    this.set({ background: [...this.state.background.filter((b) => b.file !== file), { file, title, project, status: 'running' }] });
     if (!this.svc.aerender) {
       update({ status: 'failed', message: messages.aerender('панель не может запустить aerender') });
       return;
@@ -320,6 +322,13 @@ export class PanelApp {
       },
       (e) => update({ status: 'failed', message: messages.aerender(String((e as Error)?.message ?? e)) }),
     );
+  }
+
+  // Renders in the background shown in the tab: the ones still running, and the finished ones of the open
+  // project (PC recheck 2026-10-06: «Готово» of the previous project stayed in a new one).
+  backgroundJobs(): BackgroundJob[] {
+    const project = this.state.context?.project.path ?? null;
+    return this.state.background.filter((b) => b.status === 'running' || b.project === project);
   }
 
   // The last background render, for tests.

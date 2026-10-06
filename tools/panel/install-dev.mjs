@@ -5,8 +5,10 @@
 // 2. copies it into the per-user CEP extensions folder as ru.cloud.brandkit, with a .debug file that opens
 //    DevTools of the panel on 8101 (AE) and 8102 (Premiere): the dev harness holds 8094/8096 (background)
 //    and 8095/8097 (its visible panel), and 8088, 8092, 8098-8100 are taken (spec 8.3);
-// 3. copies a library root (default <work>/panel-live/library from the live checks) to the shared library
-//    folder the panel reads (C:\ProgramData\CloudRuBrandKit\library, /Users/Shared/CloudRuBrandKit/library);
+// 3. copies a library root to the shared library folder the panel reads (C:\ProgramData\CloudRuBrandKit\library,
+//    /Users/Shared/CloudRuBrandKit/library). Default: <work>/library of npm run library:build, else
+//    <work>/panel-live/library of the live checks (recheck 2026-10-06: the build went to <work>/library and
+//    the default missed it);
 // 4. reports PlayerDebugMode (CSXS.11 and .12): an unsigned panel loads only with it.
 // AE and Premiere must be closed or restarted afterwards: CEP reads extensions at start.
 import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -18,6 +20,12 @@ import { readManifest } from './manifest-info.mjs';
 import { checkDist } from './dist-check.mjs';
 import { workPath } from '../lib/work.mjs';
 import { copyTree } from '../lib/copy-tree.mjs';
+
+// The library of the panel: the catalog build if there is one, else the one of the live checks.
+export function defaultLibrary(exists = existsSync) {
+  const built = workPath('library');
+  return exists(path.join(built, 'library.json')) ? built : workPath('panel-live', 'library');
+}
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const DIST = path.join(REPO, 'panel', 'dist');
@@ -83,7 +91,7 @@ if (isMain) {
 
   if (!argv.includes('--no-library')) {
     const i = argv.indexOf('--library');
-    const src = i === -1 ? workPath('panel-live', 'library') : argv[i + 1];
+    const src = i === -1 ? defaultLibrary() : argv[i + 1];
     if (!existsSync(path.join(src, 'library.json'))) {
       console.log(`no library at ${src}: run node tools/panel/live.mjs --host ae once, or npm run library:build -- --out <root>, then --library <root>`);
     } else {

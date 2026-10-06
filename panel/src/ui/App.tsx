@@ -134,9 +134,9 @@ function Export({ app }: { app: PanelApp }) {
             {s.outcome.file && <button class="link" onClick={() => app.reveal(s.outcome!.file!)}>Показать в папке</button>}
           </div>
         )}
-        {s.background.length > 0 && (
+        {app.backgroundJobs().length > 0 && (
           <ul class="jobs">
-            {s.background.map((b) => (
+            {app.backgroundJobs().map((b) => (
               <li key={b.file} class={b.status}>
                 <span>{b.status === 'running' ? 'В фоне' : b.status === 'done' ? 'Готово' : 'Ошибка'}: {b.file.split('/').pop()}</span>
                 {b.status === 'done' && <button class="link" onClick={() => app.reveal(b.file)}>Показать в папке</button>}

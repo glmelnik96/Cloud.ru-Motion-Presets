@@ -29,7 +29,7 @@ function app(host: Host, over: Partial<Services> = {}, store = memoryStore()) {
   const svc: Services = {
     host,
     hostKey: host.ctx.host,
-    pluginVersion: '0.1.15',
+    pluginVersion: '0.1.16',
     platform: 'win',
     libraryRoot: 'C:/lib',
     readLibrary: async () => JSON.stringify(exampleCatalog()),
@@ -93,7 +93,15 @@ describe('panel app: «Экспорт»', () => {
     expect(a.state.busy).toBe(false);
     await a.backgroundDone;
     expect(jobs).toEqual([{ exe: 'C:/AE/aerender.exe', project: 'C:/CRBK/work/user/user.aep', rqIndex: 3 }]);
-    expect(a.state.background).toEqual([{ file: 'C:/CRBK/work/user/Export/Main_FullHD.mp4', title: 'Full HD — основной мастер', status: 'done' }]);
+    expect(a.state.background).toEqual([{ file: 'C:/CRBK/work/user/Export/Main_FullHD.mp4', title: 'Full HD — основной мастер', project: 'C:/CRBK/work/user/user.aep', status: 'done' }]);
+    expect(a.backgroundJobs()).toHaveLength(1);
+    // another project: its own list, the finished job of the first one is not shown
+    host.ctx = aeContext({ project: { saved: true, path: 'C:/CRBK/work/other/other.aep' } });
+    await a.refreshContext();
+    expect(a.backgroundJobs()).toEqual([]);
+    host.ctx = aeContext();
+    await a.refreshContext();
+    expect(a.backgroundJobs()).toHaveLength(1);
   });
 
   it('AE in the background: an aerender error is named on the job', async () => {
@@ -150,9 +158,11 @@ describe('aerender and the folder', () => {
     expect(aerenderProblem(r, 'C:/x/a.mp4')).toBe('a.mp4: aerender ERROR: No comp was found with the given name.');
   });
 
-  it('shows the file in Explorer or Finder, or its folder while it is not there', () => {
-    expect(revealCommand('win', 'C:/p/Export/a.mp4', true)).toEqual({ cmd: 'explorer.exe', args: ['/select,C:\\p\\Export\\a.mp4'] });
-    expect(revealCommand('win', 'C:/p/Export/a.mp4', false)).toEqual({ cmd: 'explorer.exe', args: ['C:\\p\\Export'] });
-    expect(revealCommand('mac', '/p/Export/a.mp4', true)).toEqual({ cmd: 'open', args: ['-R', '/p/Export/a.mp4'] });
+  it('shows the file in Explorer or Finder, or its folder while it is not there; quotes around the path only', () => {
+    expect(revealCommand('win', 'C:/Users/Глеб/Documents/Cloud.ru BrandKit/Export/BK unsaved_WebinarIntro.mp4', true)).toEqual({
+      cmd: 'explorer.exe', args: ['/select,"C:\\Users\\Глеб\\Documents\\Cloud.ru BrandKit\\Export\\BK unsaved_WebinarIntro.mp4"'], verbatim: true,
+    });
+    expect(revealCommand('win', 'C:/p/Export/a.mp4', false)).toEqual({ cmd: 'explorer.exe', args: ['"C:\\p\\Export"'], verbatim: true });
+    expect(revealCommand('mac', '/p/a b/Export/a.mp4', true)).toEqual({ cmd: 'open', args: ['-R', '/p/a b/Export/a.mp4'], verbatim: false });
   });
 });

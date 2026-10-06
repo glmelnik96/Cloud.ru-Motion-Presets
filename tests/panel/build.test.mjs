@@ -6,7 +6,8 @@ import path from 'node:path';
 import { build } from 'vite';
 import { describe, expect, it } from 'vitest';
 import { checkDist } from '../../tools/panel/dist-check.mjs';
-import { debugXml } from '../../tools/panel/install-dev.mjs';
+import { debugXml, defaultLibrary } from '../../tools/panel/install-dev.mjs';
+import { workPath } from '../../tools/lib/work.mjs';
 import { certArgs, signArgs } from '../../tools/panel/package-zxp.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '../..');
@@ -54,5 +55,9 @@ describe('panel build', () => {
   it('signs with a DigiCert time stamp and keeps the password out of the repo', () => {
     expect(signArgs({ dist: 'panel/dist', out: 'x.zxp', cert: 'c.p12', password: 'p' })).toEqual(['-sign', 'panel/dist', 'x.zxp', 'c.p12', 'p', '-tsa', 'http://timestamp.digicert.com']);
     expect(certArgs({ cert: 'c.p12', password: 'p' })).toEqual(['-selfSignedCert', 'RU', 'Moscow', 'Cloud.ru', 'Cloud.ru BrandKit', 'p', 'c.p12']);
+  });
+  it('install-dev takes the catalog build by default, else the library of the live checks', () => {
+    expect(defaultLibrary(() => true)).toBe(workPath('library'));
+    expect(defaultLibrary(() => false)).toBe(workPath('panel-live', 'library'));
   });
 });

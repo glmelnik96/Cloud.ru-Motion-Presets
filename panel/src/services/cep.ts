@@ -187,7 +187,7 @@ export function cepRuntime(bundleVersion?: string): CepRuntime | null {
     reveal: (path) => {
       const r = revealCommand(node.platform, path, node.prepFs.size(path) !== null);
       try {
-        req('child_process').spawn(r.cmd, r.args, { detached: true, stdio: 'ignore' }).unref();
+        req('child_process').spawn(r.cmd, r.args, { detached: true, stdio: 'ignore', windowsVerbatimArguments: r.verbatim }).unref();
       } catch {
         // the panel cannot open the folder; the path stays in the result line
       }

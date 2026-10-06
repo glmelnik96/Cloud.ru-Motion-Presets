@@ -72,11 +72,15 @@ export function runAerender(spawn: Spawn, platform: Platform, job: AerenderJob):
 }
 
 // Explorer or Finder with the file selected, or its folder while the file is not there yet (the AME queue).
-export function revealCommand(platform: Platform, path: string, fileExists: boolean): { cmd: string; args: string[] } {
+// explorer.exe reads its own command line: the quotes go around the path only, /select,"C:\a b\f.mp4". Node
+// would quote the whole argument ("/select,C:\a b\f.mp4") and Explorer then opens Documents with nothing
+// selected (PC recheck 2026-10-06, a path with a space), so Windows gets the line verbatim.
+export function revealCommand(platform: Platform, path: string, fileExists: boolean): { cmd: string; args: string[]; verbatim: boolean } {
   if (platform === 'win') {
-    return fileExists ? { cmd: 'explorer.exe', args: [`/select,${native(platform, path)}`] } : { cmd: 'explorer.exe', args: [native(platform, dirname(path))] };
+    const q = (p: string) => `"${native(platform, p)}"`;
+    return { cmd: 'explorer.exe', args: [fileExists ? `/select,${q(path)}` : q(dirname(path))], verbatim: true };
   }
-  return fileExists ? { cmd: 'open', args: ['-R', path] } : { cmd: 'open', args: [dirname(path)] };
+  return { cmd: 'open', args: fileExists ? ['-R', path] : [dirname(path)], verbatim: false };
 }
 
 // The message of a failed background render: the last line that says something.
