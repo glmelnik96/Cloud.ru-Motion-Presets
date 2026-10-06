@@ -1,0 +1,59 @@
+{
+  "when": "2026-10-06",
+  "os": "Windows",
+  "branch": "claude/determined-cannon-eum3ei",
+  "panel": "0.1.18",
+  "library": "2026.10.06",
+  "mediaEncoder": "2026",
+  "package": "C:\\CRBK\\work\\release\\CloudRuBrandKit-0.1.18-2026.10.06.zip",
+  "zxp": "65142 bytes, 6 entries, signed true, .debug false, manifest ru.cloud.brandkit 0.1.18. Password was not printed.",
+  "removedBeforeInstall": [
+    "26.0\\Presets\\CR Webinar Timer_1.epr",
+    "26.0\\Presets\\CR Webinar Timer B.epr",
+    "26.0\\Presets\\PresetTree.xml.aside"
+  ],
+  "backup": "C:\\CRBK\\work\\export\\ame-backup\\26.0-checkpoint",
+  "steps": [
+    {
+      "name": "install.cmd -WithAme while Media Encoder is open",
+      "exit": 2,
+      "output": "Cloud.ru BrandKit: панель 0.1.18, библиотека 2026.10.06\nЗакройте Media Encoder и запустите установщик снова."
+    },
+    {
+      "name": "install.cmd -WithAme",
+      "exit": 0,
+      "output": "Пресеты AME: 9 в …\\25.0\\Presets. Список пресетов Media Encoder перестроится при запуске; прежний сохранён: …\\25.0\\Presets\\PresetTree.xml.brandkit-20261006-213057.bak. Пресеты AME: 9 в …\\26.0\\Presets. Список пресетов Media Encoder перестроится при запуске; прежний сохранён: …\\26.0\\Presets\\PresetTree.xml.brandkit-20261006-213057.bak. Строки про Audio Previews нет."
+    }
+  ],
+  "ame": {
+    "firstLaunch": {
+      "group": "Пользовательские стили и группы",
+      "rows": [
+        "Копия Файл шаблона настроек видео (HEVC, 1920x1080) — the user's own preset",
+        "CR 4K (H.264, 3840x2160)",
+        "CR FullHD (H.264, 1920x1080)",
+        "CR SMM 1x1 (H.264, 1080x1080)",
+        "CR SMM 4x3 (H.264, 1440x1080)",
+        "CR SMM 9x16 (H.264, 1080x1920)",
+        "CR SMM 16x9 (H.264, 1920x1080)",
+        "CR Webinar Final (H.264, 1920x1080)",
+        "CR Webinar Intro (H.264, 1920x1080)",
+        "CR Webinar Timer (H.264, 1920x1080)"
+      ],
+      "duplicates": false,
+      "oldNames": false,
+      "screenshots": [
+        "docs/research/installer/ame-0.1.18.png",
+        "docs/research/installer/ame-0.1.18-end.png"
+      ]
+    },
+    "afterQuit": {
+      "tree": "26.0\\Presets\\PresetTree.xml written on quit. User names: the HEVC copy, the nine CR …, and the group title. No Timer_1, no second Timer, no 4K_35-40_25fps or AME_*.",
+      "cache": "PresetUserCache.xml lists the same nine CR files plus the user's HEVC copy and the empty .epr."
+    },
+    "afterRestart": {
+      "sameList": true,
+      "screenshot": "docs/research/installer/ame-0.1.18-restart.png"
+    }
+  }
+}

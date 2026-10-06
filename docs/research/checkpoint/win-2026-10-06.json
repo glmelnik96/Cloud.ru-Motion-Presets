@@ -1,0 +1,129 @@
+{
+  "os": "win",
+  "startedAt": "2026-10-06T18:39:25.362Z",
+  "finishedAt": "2026-10-06T18:43:04.844Z",
+  "ok": false,
+  "tests": {
+    "ok": true,
+    "line": "Tests  739 passed | 18 skipped (757)"
+  },
+  "criteria": [
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "ae",
+      "suite": "base",
+      "what": "каждый элемент библиотеки в каждом формате: вставка, поля, кадры",
+      "ok": true,
+      "checks": 177,
+      "passed": 177,
+      "failed": []
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "ae",
+      "suite": "media",
+      "what": "T2/T3 и компаньоны; AE: эффекты и цвета; перенос проекта; Premiere: «вписать в окно»",
+      "ok": false,
+      "checks": 208,
+      "passed": 207,
+      "failed": [
+        "transfer: finished without an exception"
+      ]
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "ae",
+      "suite": "export",
+      "what": "«Экспорт» брендовыми пресетами",
+      "ok": true,
+      "checks": 150,
+      "passed": 150,
+      "failed": [],
+      "note": "The checkpoint's first export pass stopped at 6/7: CR Webinar Timer was not loaded. The current .aom was then loaded (AE skipped 28 templates that already had the same name) and this suite was run again: 150/150."
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "ae",
+      "suite": "ui",
+      "what": "настоящая панель: каталог, превью, форма, вставка из интерфейса",
+      "ok": true,
+      "checks": 19,
+      "passed": 19,
+      "failed": []
+    },
+    {
+      "criterion": "Перенос проекта (на этой машине)",
+      "host": "ae",
+      "suite": "media",
+      "what": "копия проекта открывается без пропавших файлов при убранных оригиналах и библиотеке",
+      "ok": false,
+      "checks": 3,
+      "failed": [
+        "transfer: finished without an exception"
+      ]
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "pr",
+      "suite": "base",
+      "what": "каждый элемент библиотеки в каждом формате: вставка, поля, кадры",
+      "ok": true,
+      "checks": 207,
+      "passed": 207,
+      "failed": []
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "pr",
+      "suite": "media",
+      "what": "T2/T3 и компаньоны; AE: эффекты и цвета; перенос проекта; Premiere: «вписать в окно»",
+      "ok": false,
+      "checks": 116,
+      "passed": 115,
+      "failed": [
+        "transfer: finished without an exception"
+      ]
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "pr",
+      "suite": "export",
+      "what": "«Экспорт» брендовыми пресетами",
+      "ok": true,
+      "checks": 112,
+      "passed": 112,
+      "failed": []
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "pr",
+      "suite": "ui",
+      "what": "настоящая панель: каталог, превью, форма, вставка из интерфейса",
+      "ok": true,
+      "checks": 20,
+      "passed": 20,
+      "failed": []
+    },
+    {
+      "criterion": "Перенос проекта (на этой машине)",
+      "host": "pr",
+      "suite": "media",
+      "what": "копия проекта открывается без пропавших файлов при убранных оригиналах и библиотеке",
+      "ok": false,
+      "checks": 3,
+      "failed": [
+        "transfer: finished without an exception"
+      ]
+    }
+  ],
+  "manual": {
+    "Чистая установка": [
+      "docs/research/installer/windows-0.1.17.json",
+      "docs/research/installer/windows-0.1.18.json",
+      "docs/research/installer/windows-recheck-2.json",
+      "docs/research/installer/windows-recheck.json",
+      "docs/research/installer/windows.json"
+    ],
+    "Открытие на другой ОС": "нет отчёта: node tools/panel/live.mjs --host ae|pr --open <проект с другой ОС>"
+  }
+}

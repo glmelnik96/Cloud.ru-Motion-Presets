@@ -1,6 +1,6 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-05T20:27:05.072Z",
+  "startedAt": "2026-10-06T18:40:15.182Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -30,7 +30,7 @@
     {
       "name": "status line shows the host, the panel and the library",
       "pass": true,
-      "detail": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.11 · библиотека 2026.10.05Скопировать диагностику"
+      "detail": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.18 · библиотека 2026.10.06Скопировать диагностику"
     },
     {
       "name": "card previews: H.264 is playable in the panel",
@@ -73,12 +73,9 @@
       "detail": null
     },
     {
-      "name": "form preview: «Подкаст» shows its own preview",
+      "name": "form preview: no previews per style in this library yet",
       "pass": true,
-      "detail": {
-        "before": "file:///C:/ProgramData/CloudRuBrandKit/library/items/TTL_LowerThird/poster_16x9_style-1.jpg",
-        "after": "file:///C:/ProgramData/CloudRuBrandKit/library/items/TTL_LowerThird/poster_16x9_style-2.jpg"
-      }
+      "detail": "file:///C:/ProgramData/CloudRuBrandKit/library/items/TTL_LowerThird/poster_16x9_style-2.jpg"
     },
     {
       "name": "«Вставить на плейхед» clicked",
@@ -104,8 +101,47 @@
         },
         "hostVersion": "26.5x89"
       }
+    },
+    {
+      "name": "tabs: Каталог, Цвета, Экспорт",
+      "pass": true,
+      "detail": [
+        "Каталог",
+        "Цвета",
+        "Экспорт"
+      ]
+    },
+    {
+      "name": "export: Full HD first among the presets for 1920×1080, 4K marked «увеличение», no vertical",
+      "pass": true,
+      "detail": [
+        "Full HD — основной мастер | 1920×1080 · 25 к/с",
+        "SMM 16:9 | 1920×1080 · 25 к/с",
+        "Вебинар — финальный рендер | 1920×1080 · 25 к/с",
+        "Вебинар — таймер | 1920×1080 · 25 к/с",
+        "Вебинар — заставка | 1920×1080 · 25 к/с",
+        "4K, 3840×2160 | 3840×2160 · 25 к/с · увеличение"
+      ]
+    },
+    {
+      "name": "export: the button clicked",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "export: reported as done in the panel",
+      "pass": true,
+      "detail": {
+        "done": "done: Готово: UI_check_FullHD.mp4.Показать в папке",
+        "problems": []
+      }
+    },
+    {
+      "name": "export: the file is in Export next to the project (C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD.mp4)",
+      "pass": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD.mp4"
     }
   ],
-  "finishedAt": "2026-10-05T20:27:07.976Z",
+  "finishedAt": "2026-10-06T18:41:09.893Z",
   "failed": []
 }

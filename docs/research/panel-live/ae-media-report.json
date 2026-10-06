@@ -1,13 +1,15 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-05T22:58:35.350Z",
-  "finishedAt": "2026-10-05T22:58:40.909Z",
+  "startedAt": "2026-10-06T18:40:06.583Z",
+  "finishedAt": "2026-10-06T18:40:13.457Z",
   "summary": {
-    "checks": 205,
-    "passed": 205,
-    "failed": 0
+    "checks": 208,
+    "passed": 207,
+    "failed": 1
   },
-  "failed": [],
+  "failed": [
+    "transfer: finished without an exception"
+  ],
   "checks": [
     {
       "name": "synthetic pack built: 0 files made, catalog in C:\\CRBK\\work\\panel-live\\media\\library",
@@ -30,7 +32,7 @@
         "data": {
           "app": "ae",
           "version": "26.5x89",
-          "bk": "0.1.12"
+          "bk": "0.1.18"
         }
       }
     },
@@ -2269,6 +2271,26 @@
       "pass": true,
       "required": false,
       "detail": ""
+    },
+    {
+      "name": "transfer: release the project: project saved and released",
+      "pass": true,
+      "required": true,
+      "detail": "C:\\CRBK\\work\\panel-live\\ae\\media_live.aep"
+    },
+    {
+      "name": "transfer: copied the project and Cloud.ru BrandKit to C:/CRBK/work/panel-live/ae-moved",
+      "pass": true,
+      "required": true,
+      "detail": [
+        "Cloud.ru BrandKit"
+      ]
+    },
+    {
+      "name": "transfer: finished without an exception",
+      "pass": false,
+      "required": true,
+      "detail": "EPERM: operation not permitted, rename 'C:\\CRBK\\work\\panel-live\\ae\\Cloud.ru BrandKit' -> 'C:\\CRBK\\work\\panel-live\\ae\\Cloud.ru BrandKit.away'"
     },
     {
       "name": "effects: stand-in presets found in the AE presets folder",
