@@ -1,10 +1,10 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-05T14:50:58.474Z",
-  "finishedAt": "2026-10-05T14:51:07.464Z",
+  "startedAt": "2026-10-06T16:46:42.282Z",
+  "finishedAt": "2026-10-06T16:46:59.754Z",
   "summary": {
-    "checks": 93,
-    "passed": 93,
+    "checks": 113,
+    "passed": 113,
     "failed": 0
   },
   "failed": [],
@@ -30,7 +30,7 @@
         "data": {
           "app": "pr",
           "version": "26.5.2",
-          "bk": "0.1.6"
+          "bk": "0.1.17"
         }
       }
     },
@@ -39,7 +39,7 @@
       "pass": true,
       "required": true,
       "detail": {
-        "how": "active",
+        "how": "opened",
         "path": "C:\\CRBK\\work\\panel-live\\pr\\media_live.prproj",
         "ok": true
       }
@@ -49,11 +49,11 @@
       "pass": true,
       "required": true,
       "detail": {
-        "loop": "6b1d6182-80bc-417d-8db0-24e34ca901f0",
-        "transition": "b2691877-9f20-4458-9017-41ee7c844010",
-        "still": "c79872a7-9ae1-4d17-8792-b797946feb48",
-        "sound": "9be36f2f-a408-47e7-a6ce-19d9e73bed4b",
-        "companions": "ee869cf5-214d-4bfd-9257-c790c2dadb6a"
+        "loop": "0f7772b0-7d8b-4744-baf0-b90046660027",
+        "transition": "037015ea-5006-49be-88c1-cf98a4e65bb5",
+        "still": "80148740-f6ec-4574-a3a1-02214ecef600",
+        "sound": "b7df376e-5ed2-4caa-8cac-3ca3a17c3dfb",
+        "companions": "de131d85-0863-410d-838f-0311ec7df11c"
       }
     },
     {
@@ -63,7 +63,7 @@
       "detail": "BG_Arrows"
     },
     {
-      "name": "loop: range: out point of sequence 6b1d6182-80bc-417d-8db0-24e34ca901f0 at 20 s",
+      "name": "loop: range: out point of sequence 0f7772b0-7d8b-4744-baf0-b90046660027 at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -72,11 +72,11 @@
       }
     },
     {
-      "name": "loop: activate: sequence 6b1d6182-80bc-417d-8db0-24e34ca901f0 active, playhead at 2 s",
+      "name": "loop: activate: sequence 0f7772b0-7d8b-4744-baf0-b90046660027 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media loop_4",
+        "name": "BK media loop_5",
         "player": 2
       }
     },
@@ -86,8 +86,8 @@
       "required": true,
       "detail": {
         "kind": "sequence",
-        "id": "6b1d6182-80bc-417d-8db0-24e34ca901f0",
-        "name": "BK media loop_4",
+        "id": "0f7772b0-7d8b-4744-baf0-b90046660027",
+        "name": "BK media loop_5",
         "w": 1920,
         "h": 1080,
         "fps": 25,
@@ -173,7 +173,7 @@
       }
     },
     {
-      "name": "loop: timeline: clips of sequence 6b1d6182-80bc-417d-8db0-24e34ca901f0 listed with their files",
+      "name": "loop: timeline: clips of sequence 0f7772b0-7d8b-4744-baf0-b90046660027 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -685,11 +685,11 @@
       "detail": "BG_Arrows"
     },
     {
-      "name": "reuse: activate: sequence 6b1d6182-80bc-417d-8db0-24e34ca901f0 active, playhead at 30 s",
+      "name": "reuse: activate: sequence 0f7772b0-7d8b-4744-baf0-b90046660027 active, playhead at 30 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media loop_4",
+        "name": "BK media loop_5",
         "player": 30
       }
     },
@@ -760,7 +760,7 @@
       }
     },
     {
-      "name": "reuse: timeline: clips of sequence 6b1d6182-80bc-417d-8db0-24e34ca901f0 listed with their files",
+      "name": "reuse: timeline: clips of sequence 0f7772b0-7d8b-4744-baf0-b90046660027 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1158,7 +1158,7 @@
       "detail": "TRN_StepWipe"
     },
     {
-      "name": "transition: cuts on V1: clips on V1 of sequence b2691877-9f20-4458-9017-41ee7c844010 cut at 0, 10, 20 s",
+      "name": "transition: cuts on V1: clips on V1 of sequence 037015ea-5006-49be-88c1-cf98a4e65bb5 cut at 0, 10, 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -1166,11 +1166,11 @@
       }
     },
     {
-      "name": "transition: activate: sequence b2691877-9f20-4458-9017-41ee7c844010 active, playhead at 12 s",
+      "name": "transition: activate: sequence 037015ea-5006-49be-88c1-cf98a4e65bb5 active, playhead at 12 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media transition_4",
+        "name": "BK media transition_5",
         "player": 12
       }
     },
@@ -1234,7 +1234,7 @@
       }
     },
     {
-      "name": "transition: timeline: clips of sequence b2691877-9f20-4458-9017-41ee7c844010 listed with their files",
+      "name": "transition: timeline: clips of sequence 037015ea-5006-49be-88c1-cf98a4e65bb5 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1326,11 +1326,11 @@
       "detail": "BG_DotGrid"
     },
     {
-      "name": "still: activate: sequence c79872a7-9ae1-4d17-8792-b797946feb48 active, playhead at 2 s",
+      "name": "still: activate: sequence 80148740-f6ec-4574-a3a1-02214ecef600 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media still_4",
+        "name": "BK media still_5",
         "player": 2
       }
     },
@@ -1381,7 +1381,7 @@
       }
     },
     {
-      "name": "still: timeline: clips of sequence c79872a7-9ae1-4d17-8792-b797946feb48 listed with their files",
+      "name": "still: timeline: clips of sequence 80148740-f6ec-4574-a3a1-02214ecef600 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1463,11 +1463,11 @@
       "detail": "SFX_WhooshIn"
     },
     {
-      "name": "sound: activate: sequence 9be36f2f-a408-47e7-a6ce-19d9e73bed4b active, playhead at 5 s",
+      "name": "sound: activate: sequence b7df376e-5ed2-4caa-8cac-3ca3a17c3dfb active, playhead at 5 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media sound_4",
+        "name": "BK media sound_5",
         "player": 5
       }
     },
@@ -1518,7 +1518,7 @@
       }
     },
     {
-      "name": "sound: timeline: clips of sequence 9be36f2f-a408-47e7-a6ce-19d9e73bed4b listed with their files",
+      "name": "sound: timeline: clips of sequence b7df376e-5ed2-4caa-8cac-3ca3a17c3dfb listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1600,11 +1600,11 @@
       "detail": "TTL_LowerThird"
     },
     {
-      "name": "companions: activate: sequence ee869cf5-214d-4bfd-9257-c790c2dadb6a active, playhead at 2 s",
+      "name": "companions: activate: sequence de131d85-0863-410d-838f-0311ec7df11c active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media companions_4",
+        "name": "BK media companions_5",
         "player": 2
       }
     },
@@ -1695,7 +1695,7 @@
       }
     },
     {
-      "name": "companions: timeline: clips of sequence ee869cf5-214d-4bfd-9257-c790c2dadb6a listed with their files",
+      "name": "companions: timeline: clips of sequence de131d85-0863-410d-838f-0311ec7df11c listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2055,6 +2055,303 @@
       "pass": true,
       "required": false,
       "detail": ""
+    },
+    {
+      "name": "fit: setup: scratch project C:/CRBK/work/panel-live/pr/media_live.prproj is the active project",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "how": "active",
+        "path": "C:\\CRBK\\work\\panel-live\\pr\\media_live.prproj",
+        "ok": true
+      }
+    },
+    {
+      "name": "fit: setup: sequences created: 1",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "fit": "d149f379-49d4-431f-83fe-48b476ed1b85"
+      }
+    },
+    {
+      "name": "fit screen: place: still C:/CRBK/work/panel-live/pr/fit-screen.png on V2 at 0 s, selected alone",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "startF": 0
+      }
+    },
+    {
+      "name": "fit screen: activate: sequence d149f379-49d4-431f-83fe-48b476ed1b85 active, playhead at 1 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK fit",
+        "player": 1
+      }
+    },
+    {
+      "name": "fit screen: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "fit screen: fitted",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "problems": [],
+        "reply": {
+          "name": "fit-screen.png",
+          "scale": 66.6669998168945,
+          "position": [
+            736,
+            522
+          ],
+          "normalized": true,
+          "crop": null,
+          "cropAdded": false,
+          "cropMissing": false
+        }
+      }
+    },
+    {
+      "name": "fit screen: the clip's frame size read from the project (1920 x 1080)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "scale": 66.667,
+        "position": [
+          736,
+          522
+        ],
+        "crop": null
+      }
+    },
+    {
+      "name": "fit screen: Scale and Position read back",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "reply": {
+          "name": "fit-screen.png",
+          "scale": 66.6669998168945,
+          "position": [
+            736,
+            522
+          ],
+          "normalized": true,
+          "crop": null,
+          "cropAdded": false,
+          "cropMissing": false
+        },
+        "numbers": {
+          "scale": 66.667,
+          "position": [
+            736,
+            522
+          ],
+          "crop": null
+        }
+      }
+    },
+    {
+      "name": "fit screen: no Crop",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "fit-screen.png",
+        "scale": 66.6669998168945,
+        "position": [
+          736,
+          522
+        ],
+        "normalized": true,
+        "crop": null,
+        "cropAdded": false,
+        "cropMissing": false
+      }
+    },
+    {
+      "name": "fit screen: frame rendered",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/pr/media-frames/fit-screen.png"
+    },
+    {
+      "name": "fit screen: the colour fills the window 96,162 1280x720 and nothing else (±4 px)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "box": {
+          "x0": 96,
+          "y0": 162,
+          "x1": 1375,
+          "y1": 881,
+          "w": 1280,
+          "h": 720
+        },
+        "rect": {
+          "x": 96,
+          "y": 162,
+          "w": 1280,
+          "h": 720
+        }
+      }
+    },
+    {
+      "name": "fit speaker: place: still C:/CRBK/work/panel-live/pr/fit-speaker.png on V2 at 10 s, selected alone",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "startF": 250
+      }
+    },
+    {
+      "name": "fit speaker: activate: sequence d149f379-49d4-431f-83fe-48b476ed1b85 active, playhead at 11 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK fit",
+        "player": 11
+      }
+    },
+    {
+      "name": "fit speaker: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "fit speaker: fitted",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "problems": [],
+        "reply": {
+          "name": "fit-speaker.png",
+          "scale": 66.6669998168945,
+          "position": [
+            1632,
+            522
+          ],
+          "normalized": true,
+          "crop": {
+            "left": 35,
+            "top": 0,
+            "right": 35,
+            "bottom": 0
+          },
+          "cropAdded": true,
+          "cropMissing": false
+        }
+      }
+    },
+    {
+      "name": "fit speaker: the clip's frame size read from the project (1920 x 1080)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "scale": 66.667,
+        "position": [
+          1632,
+          522
+        ],
+        "crop": {
+          "left": 35,
+          "top": 0,
+          "right": 35,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "name": "fit speaker: Scale and Position read back",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "reply": {
+          "name": "fit-speaker.png",
+          "scale": 66.6669998168945,
+          "position": [
+            1632,
+            522
+          ],
+          "normalized": true,
+          "crop": {
+            "left": 35,
+            "top": 0,
+            "right": 35,
+            "bottom": 0
+          },
+          "cropAdded": true,
+          "cropMissing": false
+        },
+        "numbers": {
+          "scale": 66.667,
+          "position": [
+            1632,
+            522
+          ],
+          "crop": {
+            "left": 35,
+            "top": 0,
+            "right": 35,
+            "bottom": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "fit speaker: Crop added through QE and set",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "fit-speaker.png",
+        "scale": 66.6669998168945,
+        "position": [
+          1632,
+          522
+        ],
+        "normalized": true,
+        "crop": {
+          "left": 35,
+          "top": 0,
+          "right": 35,
+          "bottom": 0
+        },
+        "cropAdded": true,
+        "cropMissing": false
+      }
+    },
+    {
+      "name": "fit speaker: frame rendered",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/pr/media-frames/fit-speaker.png"
+    },
+    {
+      "name": "fit speaker: the colour fills the window 1440,162 384x720 and nothing else (±4 px)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "box": {
+          "x0": 1440,
+          "y0": 162,
+          "x1": 1823,
+          "y1": 881,
+          "w": 384,
+          "h": 720
+        },
+        "rect": {
+          "x": 1440,
+          "y": 162,
+          "w": 384,
+          "h": 720
+        }
+      }
     }
   ],
   "hostVersion": "26.5.2",

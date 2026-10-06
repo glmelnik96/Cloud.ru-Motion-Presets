@@ -1,0 +1,130 @@
+{
+  "when": "2026-10-06",
+  "os": "Windows",
+  "branch": "claude/determined-cannon-eum3ei",
+  "panel": "0.1.17",
+  "library": "2026.10.06",
+  "hosts": { "afterEffects": "26.5", "premiere": "26.5.2", "mediaEncoder": "2026" },
+  "steps": [
+    {
+      "name": "git pull",
+      "exit": 0,
+      "output": "Fast-forward eb4d5cb..df122c8. Includes d35e0b0 feat(panel): fit the selected clip to a window; installer sets the brand AME presets (0.1.17)."
+    },
+    {
+      "name": "npm ci",
+      "exit": 0,
+      "output": "added 45 packages, audited 46 packages, found 0 vulnerabilities"
+    },
+    {
+      "name": "npm test",
+      "exit": 0,
+      "output": "Test Files 100 passed | 1 skipped (101). Tests 726 passed | 18 skipped (744). Duration 9.35s. The install.command suite stays skipped on Windows."
+    },
+    {
+      "name": "live.mjs --host pr --media",
+      "exit": 0,
+      "output": "113/113 passed in 17.87s. Report docs/research/panel-live/pr-media-report.json. Fit screen and fit speaker passed. Default Media Scaling is None: BE.Prefs.General.DefaultScaleToFrameSize=false, DefaultSetToFrameSize=false, ShouldScaleMedia=false, BE.Prefs.StillImages.ScaleToProject=false."
+    },
+    {
+      "name": "library:build",
+      "exit": 0,
+      "output": "OK C:\\CRBK\\work\\library\\library.json: 2026.10.06, 13 items, 167 files, 6.4 MB"
+    },
+    {
+      "name": "package-zxp",
+      "exit": 0,
+      "output": "Signed successfully with the trial certificate (CN Cloud.ru BrandKit Trial, 2026-10-05 until 2036-10-02). Signature verified successfully. zxp: 65118 bytes, 6 entries, signed true, .debug false, manifest ru.cloud.brandkit 0.1.17. OK C:/CRBK/work/panel/CloudRuBrandKit-0.1.17.zxp. The password was not printed."
+    },
+    {
+      "name": "build.mjs",
+      "exit": 0,
+      "output": "OK C:\\CRBK\\work\\release\\CloudRuBrandKit-0.1.17-2026.10.06.zip: 10 MOGRT, signed, 1.9 MB. payload/ame.txt has 9 lines. payload/aom.txt is items/AME_Templates/AME_Templates_aom_v1.aom."
+    },
+    {
+      "name": "install.cmd -WithAme -Sandbox",
+      "exit": 0,
+      "output": "Cloud.ru BrandKit: панель 0.1.17, библиотека 2026.10.06\nПанель: C:\\CRBK\\work\\installer-sb\\AppData\\Roaming\\Adobe\\CEP\\extensions\\ru.cloud.brandkit\nБиблиотека: C:\\CRBK\\work\\installer-sb\\ProgramData\\CloudRuBrandKit\\library\nШаблоны MOGRT: 10 в C:\\CRBK\\work\\installer-sb\\AppData\\Roaming\\Adobe\\Common\\Motion Graphics Templates, убрано прежних: 0\nПресеты AME: 9 в C:\\CRBK\\work\\installer-sb\\Documents\\Adobe\\Adobe Media Encoder\\26.0\\Presets\nШаблоны вывода After Effects: один раз загрузите в AE через Edit > Templates > Output Module > Load... файл C:\\CRBK\\work\\installer-sb\\ProgramData\\CloudRuBrandKit\\library\\items\\AME_Templates\\AME_Templates_aom_v1.aom\nГотово. Запустите After Effects или Premiere: Window > Extensions > Cloud.ru BrandKit."
+    },
+    {
+      "name": "install.cmd -WithAme while AE and Premiere are open",
+      "exit": 2,
+      "output": "Cloud.ru BrandKit: панель 0.1.17, библиотека 2026.10.06\nЗакройте After Effects и Premiere и запустите установщик снова."
+    },
+    {
+      "name": "install.cmd -WithAme",
+      "exit": 0,
+      "output": "Cloud.ru BrandKit: панель 0.1.17, библиотека 2026.10.06\nПанель: C:\\Users\\Глеб\\AppData\\Roaming\\Adobe\\CEP\\extensions\\ru.cloud.brandkit\nБиблиотека: C:\\ProgramData\\CloudRuBrandKit\\library\nШаблоны MOGRT: 10 в C:\\Users\\Глеб\\AppData\\Roaming\\Adobe\\Common\\Motion Graphics Templates, убрано прежних: 0\nПресеты AME: 9 в C:\\Users\\Глеб\\Documents\\Adobe\\Adobe Media Encoder\\25.0\\Presets\nПресеты AME: 9 в C:\\Users\\Глеб\\Documents\\Adobe\\Adobe Media Encoder\\26.0\\Presets\nПресеты AME: 9 в C:\\Users\\Глеб\\Documents\\Adobe\\Adobe Media Encoder\\Adobe Adobe Media Encoder Audio Previews\\Presets\nШаблоны вывода After Effects: один раз загрузите в AE через Edit > Templates > Output Module > Load... файл C:\\ProgramData\\CloudRuBrandKit\\library\\items\\AME_Templates\\AME_Templates_aom_v1.aom\nГотово. Запустите After Effects или Premiere: Window > Extensions > Cloud.ru BrandKit."
+    }
+  ],
+  "icacls": {
+    "path": "C:\\ProgramData\\CloudRuBrandKit",
+    "exit": 0,
+    "usersModify": true,
+    "output": "C:\\ProgramData\\CloudRuBrandKit BUILTIN\\Пользователи:(OI)(CI)(M)\n                               NT AUTHORITY\\СИСТЕМА:(I)(OI)(CI)(F)\n                               BUILTIN\\Администраторы:(I)(OI)(CI)(F)\n                               СОЗДАТЕЛЬ-ВЛАДЕЛЕЦ:(I)(OI)(CI)(IO)(F)\n                               BUILTIN\\Пользователи:(I)(OI)(CI)(RX)\n                               BUILTIN\\Пользователи:(I)(CI)(WD,AD,WEA,WA)\n\nУспешно обработано 1 файлов; не удалось обработать 0 файлов"
+  },
+  "ame": {
+    "filesOnDisk": {
+      "25.0": ["CR 4K.epr", "CR FullHD.epr", "CR SMM 16x9.epr", "CR SMM 1x1.epr", "CR SMM 4x3.epr", "CR SMM 9x16.epr", "CR Webinar Final.epr", "CR Webinar Intro.epr", "CR Webinar Timer.epr"],
+      "26.0": ["CR 4K.epr", "CR FullHD.epr", "CR SMM 16x9.epr", "CR SMM 1x1.epr", "CR SMM 4x3.epr", "CR SMM 9x16.epr", "CR Webinar Final.epr", "CR Webinar Intro.epr", "CR Webinar Timer.epr"]
+    },
+    "presetBrowser": {
+      "group": "Пользовательские стили и группы",
+      "rows": [
+        "Копия Файл шаблона настроек видео (HEVC, 1920x1080) — already there",
+        "4K_35-40_25fps (H.264, 3840x2160) — PresetName inside CR 4K.epr",
+        "AME_SMM_1x1 (H.264, 1080x1080) — twice",
+        "AME_SMM_4x3 (H.264, 1440x1080) — twice",
+        "AME_SMM_9x16 (H.264, 1080x1920) — twice"
+      ],
+      "crLabelsVisible": false,
+      "note": "No row is named «CR …». The list ends on the second AME_SMM_9x16. FullHD_10-20_25fps, AME_SMM_16x9 and the three Webinar names are not on screen. Older AME_*.epr files from previous checks are still in the Presets folder and were not removed. PresetTree.xml was last written when AME quit before this install and does not list the CR files."
+    },
+    "export": {
+      "presetFile": "C:\\Users\\Глеб\\Documents\\Adobe\\Adobe Media Encoder\\26.0\\Presets\\CR FullHD.epr",
+      "presetNameInLog": "FullHD_10-20_25fps",
+      "output": "C:\\CRBK\\work\\panel-live\\pr\\Export\\installer-CR-FullHD.mp4",
+      "ffprobe": "1920x1080, r_frame_rate=25/1, avg_frame_rate=25/1, nb_frames=50",
+      "eprFrameRate": "ADBEVideoFPS 10160640000 (25 fps)"
+    }
+  },
+  "afterEffects": {
+    "project": "C:/CRBK/work/panel-live/ae/export_live.aep",
+    "activeComp": "BK recheck",
+    "status": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.17 · библиотека 2026.10.06",
+    "tabs": ["Каталог", "Цвета", "Экспорт"],
+    "export": {
+      "preset": "Full HD — основной мастер",
+      "modes": ["Render Queue", "В фоне (aerender)"],
+      "button": "Рендерить",
+      "omTemplatePresent": "CR FullHD",
+      "outcome": "Готово: BK recheck_FullHD.mp4",
+      "file": "C:/CRBK/work/panel-live/ae/Export/BK recheck_FullHD.mp4",
+      "ffprobe": "1920x1080, 25/1, duration 2s, 50 frames",
+      "userQueueItem": "the existing user_item.mp4 item is still the only render-queue item, status 3015"
+    }
+  },
+  "premiere": {
+    "project": "C:/CRBK/work/panel-live/pr/export_live.prproj",
+    "sequence": "BK recheck",
+    "status": "Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.17 · библиотека 2026.10.06",
+    "tabs": ["Каталог", "Экспорт"],
+    "export": {
+      "preset": "Full HD — основной мастер",
+      "modes": ["В очередь Media Encoder", "Сразу, без AME"],
+      "button": "В очередь Media Encoder",
+      "hint": "Секвенция «BK recheck», 1920×1080 · 25 к/с"
+    }
+  },
+  "fit": {
+    "report": "docs/research/panel-live/pr-media-report.json",
+    "screen": "colour fills 96,162 1280x720 exactly; scale 66.667; position 736,522; crop null; cropAdded false",
+    "speaker": "colour fills 1440,162 384x720 exactly; scale 66.667; position 1632,522; crop left/right 35, top/bottom 0; cropAdded true",
+    "frameSize": "1920x1080 from Column.Intrinsic.VideoInfo in project metadata. Scale 66.667% is 1280/1920. Default Media Scaling is None."
+  },
+  "bugs": [
+    "The nine installed files are named CR ….epr, but Media Encoder's Preset Browser shows the PresetName inside the file (4K_35-40_25fps, AME_SMM_1x1, …), not «CR …». The encode log for CR FullHD.epr names the preset FullHD_10-20_25fps.",
+    "The browser does not list every file that was copied. On screen: the pre-existing HEVC copy, 4K_35-40_25fps, and two rows each of AME_SMM_1x1, AME_SMM_4x3 and AME_SMM_9x16. Not on screen: FullHD, SMM 16x9, and the three Webinar presets, including the older AME_*.epr copies of those.",
+    "install.ps1 treats every subdirectory of Documents\\Adobe\\Adobe Media Encoder as a version folder, so the nine presets were also copied into Adobe Adobe Media Encoder Audio Previews\\Presets."
+  ]
+}
