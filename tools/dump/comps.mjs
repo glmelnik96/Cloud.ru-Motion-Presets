@@ -11,6 +11,8 @@ import { layerProp, loadDumpRoot } from './model.mjs';
 
 const r = (v, d = 3) => (typeof v === 'number' && Number.isFinite(v) ? Math.round(v * 10 ** d) / 10 ** d : v);
 
+const fileName = (f) => (f ? String(f).replace(/\\/g, '/').split('/').pop() : null);
+
 export function compRecord(dump, pack) {
   const c = dump.comp ?? {};
   const layers = (dump.layers ?? []).filter((l) => !l.error);
@@ -30,6 +32,9 @@ export function compRecord(dump, pack) {
     texts,
     precomps: [...new Set(layers.filter((l) => l.source?.kind === 'comp').map((l) => l.source.name))],
     threeD: layers.some((l) => l.switches?.threeDLayer),
+    // footage the master would lose: files missing on the build PC, layers of files switched off
+    missing: layers.filter((l) => l.source?.kind === 'file' && l.source.missing === true).map((l) => ({ layer: l.name, file: fileName(l.source.file) })),
+    off: layers.filter((l) => l.source?.kind === 'file' && l.switches?.enabled === false && l.source.hasVideo !== false).map((l) => ({ layer: l.name, file: fileName(l.source.file) })),
     expressions: dump.stats?.expressions ?? null,
   };
 }
@@ -44,9 +49,9 @@ export function extractComps(dumpRoot) {
 }
 
 export function compsMarkdown(comps) {
-  const lines = ['# Композиции пакетов (по JSX-дампам)', '', 'Корневая — не вложена в другие. Поля — текстовые слои. EG — Essential Graphics.', '', '| Пакет | Композиция | Кадр | fps | Длит., с | Корн. | EG | Маркеры | Поля |', '|---|---|---|---|---|---|---|---|---|'];
+  const lines = ['# Композиции пакетов (по JSX-дампам)', '', 'Корневая — не вложена в другие. Поля — текстовые слои. EG — Essential Graphics.', '', '| Пакет | Композиция | Кадр | fps | Длит., с | Корн. | EG | Маркеры | Поля | Пропавшие / выключенные футажи |', '|---|---|---|---|---|---|---|---|---|---|'];
   for (const c of comps) {
-    lines.push(`| ${c.pack} | ${c.name} | ${c.w}×${c.h} | ${c.fps} | ${c.duration} | ${c.root ? 'да' : ''} | ${c.egp ? `${c.egp.controllers ?? '?'}` : ''} | ${c.markers.map((m) => `${m.time}${m.comment ? ` ${m.comment}` : ''}`).join('; ')} | ${c.texts.map((t) => t.layer).join(', ')} |`);
+    lines.push(`| ${c.pack} | ${c.name} | ${c.w}×${c.h} | ${c.fps} | ${c.duration} | ${c.root ? 'да' : ''} | ${c.egp ? `${c.egp.controllers ?? '?'}` : ''} | ${c.markers.map((m) => `${m.time}${m.comment ? ` ${m.comment}` : ''}`).join('; ')} | ${c.texts.map((t) => t.layer).join(', ')} | ${[...(c.missing ?? []).map((m) => `нет: ${m.file}`), ...(c.off ?? []).map((m) => `выкл.: ${m.file}`)].join('; ')} |`);
   }
   return lines.join('\n') + '\n';
 }
@@ -59,5 +64,5 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   mkdirSync(out, { recursive: true });
   writeFileSync(path.join(out, 'comps.json'), JSON.stringify(comps, null, 1) + '\n', 'utf8');
   writeFileSync(path.join(out, 'comps.md'), compsMarkdown(comps), 'utf8');
-  console.log(`OK ${comps.length} comps (${comps.filter((c) => c.root).length} roots) -> ${out}`);
+  console.log(`OK ${comps.length} comps (${comps.filter((c) => c.root).length} roots, ${comps.filter((c) => c.missing.length).length} with missing footage) -> ${out}`);
 }

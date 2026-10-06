@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { gunzipSync } from 'node:zlib';
 import { describe, expect, it } from 'vitest';
-import { change, extractMotion, propKind, summarize, toBezier, writeMotion } from '../../tools/dump/motion.mjs';
+import { change, extractMotion, progressBezier, propKind, segmentsOfComp, summarize, toBezier, writeMotion } from '../../tools/dump/motion.mjs';
 
 const easy = (speed = 0, influence = 33.333333) => [{ speed, influence }];
 const key = (time, value, o = {}) => ({ time, value, inInterp: 'BEZIER', outInterp: 'BEZIER', inEase: easy(), outEase: easy(), ...o });
@@ -59,6 +59,21 @@ describe('motion: curves', () => {
     expect(toBezier({ dur: 1, delta: 0, outInterp: 'BEZIER', inInterp: 'BEZIER' })).toBeNull();
   });
 
+  it('eases a path on its progress: the influences alone while the speeds are 0', () => {
+    expect(progressBezier({ out: { speed: 0, influence: 33 }, inn: { speed: 0, influence: 100 }, outInterp: 'BEZIER', inInterp: 'BEZIER' })).toEqual({ x1: 0.33, y1: 0, x2: 0, y2: 1 });
+    expect(progressBezier({ out: { speed: 0, influence: 50 }, outInterp: 'BEZIER', inInterp: 'LINEAR' })).toEqual({ x1: 0.5, y1: 0, x2: 0.667, y2: 0.667 });
+    expect(progressBezier({ out: { speed: 3, influence: 50 }, inn: { speed: 0, influence: 50 }, outInterp: 'BEZIER', inInterp: 'BEZIER' })).toBeNull();
+    expect(progressBezier({ outInterp: 'HOLD', inInterp: 'BEZIER' })).toEqual({ hold: true });
+    const shape = { vertices: [[0, 0], [10, 0]], closed: true };
+    const mask = { index: 1, name: 'Текст', type: 'text', switches: { enabled: true }, effects: [], props: [
+      { matchName: 'ADBE Mask Parade', name: 'Masks', children: [{ matchName: 'ADBE Mask Atom', name: 'Mask 1', children: [
+        { matchName: 'ADBE Mask Shape', name: 'Mask Path', pvt: 'SHAPE', keys: [key(1, shape, { outEase: easy(0, 33) }), key(1.28, shape, { inEase: easy(0, 100) })] },
+      ] }] },
+    ] };
+    const [seg] = [...segmentsOfComp(comp('Подкаст', [mask]), { pack: 'podcast' })];
+    expect(seg).toMatchObject({ kind: 'mask.path', frames: 7, valueKind: 'SHAPE', progress: true, bezier: { x1: 0.33, y1: 0, x2: 0, y2: 1 }, ease: { outInfluence: 33, inInfluence: 100 } });
+  });
+
   it('measures the change of numbers, of the dimension that moves most, and along a spatial path', () => {
     expect(change(0, 100)).toMatchObject({ delta: 100, dim: 0 });
     expect(change([0, 100, 100], [100, 100, 100], 'ThreeD')).toMatchObject({ delta: 100, dim: 0 });
@@ -100,7 +115,17 @@ describe('motion: extraction', () => {
     const s = summarize(res.segments);
     expect(s.scale).toMatchObject({ count: 2, packs: { podcast: 1, titles: 1 }, frames: { p50: 15 }, topCurves: [{ curve: '0.33,0.00,0.67,1.00', count: 2, packs: { podcast: 1, titles: 1 } }] });
     expect(s.opacity).toMatchObject({ count: 2, linear: 2 });
-    expect(s['effect:ADBE Gaussian Blur 2']).toMatchObject({ count: 3, hold: 1 });
+    // 30 → 0, a pause at 0, then a hold: the pause gives no curve and no length
+    expect(s['effect:ADBE Gaussian Blur 2']).toMatchObject({ count: 3, hold: 1, still: 1 });
+    expect(res.segments.filter((x) => x.still)).toHaveLength(1);
+  });
+
+  it('counts a pack converted in phase 1 (*_conv) once: its source alone', () => {
+    const res = extractMotion(root());
+    const conv = res.segments.filter((x) => x.pack === 'titles').map((x) => ({ ...x, pack: 'titles_conv' }));
+    const s = summarize([...res.segments, ...conv]);
+    expect(s.scale.packs).toEqual({ podcast: 1, titles: 1 });
+    expect(summarize([...res.segments, ...conv], { skip: null }).scale.count).toBe(3);
   });
 
   it('writes the segments gzipped, the expressions, the summary and a readable page', () => {

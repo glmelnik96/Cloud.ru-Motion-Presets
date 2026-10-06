@@ -4,7 +4,7 @@ import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { manualReports, suiteResult, summarize, toMarkdown, transferResult } from '../../tools/panel/checkpoint.mjs';
+import { DEFAULT_ONLY, deferredTransferResult, manualReports, mergeSummary, suiteResult, summarize, toMarkdown, transferResult } from '../../tools/panel/checkpoint.mjs';
 
 const T0 = '2026-10-07T09:00:00.000Z';
 const rep = (over = {}) => ({ startedAt: '2026-10-07T09:05:00.000Z', summary: { checks: 10, passed: 10, failed: 0 }, failed: [], checks: [], ...over });
@@ -53,5 +53,29 @@ describe('checkpoint summary', () => {
     for (const f of ['ae-open-mac-report.json', 'pr-report.json']) writeFileSync(path.join(repo, 'docs/research/panel-live', f), '{}');
     expect(manualReports(repo, 'win')).toEqual({ install: ['docs/research/installer/windows-0.1.17.json', 'docs/research/installer/windows.json'], open: ['docs/research/panel-live/ae-open-mac-report.json'] });
     expect(manualReports(repo, 'mac').install).toEqual(['docs/research/installer/mac-0.1.17.json']);
+  });
+
+  it('Premiere: the move is judged by the transfer report of the copy the latest media run staged', () => {
+    const media = rep({ startedAt: '2026-10-07T09:05:00.000Z' });
+    const transfer = rep({ startedAt: '2026-10-07T10:00:00.000Z', staged: { mediaStartedAt: media.startedAt }, checks: [{ name: 'transfer: no missing files after the move (5 listed)', pass: true }] });
+    expect(deferredTransferResult(transfer, media)).toMatchObject({ ok: true, checks: 1 });
+    expect(deferredTransferResult(null, media)).toMatchObject({ ok: false, reason: expect.stringMatching(/перезапуска Premiere.*--only transfer/) });
+    expect(deferredTransferResult({ ...transfer, staged: { mediaStartedAt: '2026-10-06T08:00:00.000Z' } }, media)).toMatchObject({ ok: false, reason: expect.stringMatching(/прошлого прогона/) });
+    expect(DEFAULT_ONLY).toEqual(['base', 'media', 'export', 'ui']);
+    const sum = summarize({ os: 'win', hosts: ['pr'], startedAt: T0, tests: null, suites: { pr: { media: suiteResult(media, T0), mediaReport: media, deferredTransfer: deferredTransferResult(transfer, media) } }, manual: { install: [], open: [] } });
+    expect(sum.criteria.map((c) => [c.criterion, c.suite, c.ok])).toEqual([['Сквозные сценарии', 'media', true], ['Перенос проекта (на этой машине)', 'transfer', true]]);
+  });
+
+  it('a later run of the same day keeps the criteria it did not check', () => {
+    const c = (host, suite, ok) => ({ criterion: 'Сквозные сценарии', host, suite, ok });
+    const prev = { startedAt: T0, tests: { ok: true, line: 'Tests 780 passed' }, ok: false, criteria: [c('ae', 'base', true), c('pr', 'base', true), { criterion: 'Перенос проекта (на этой машине)', host: 'pr', suite: 'transfer', ok: false }] };
+    const sum = { startedAt: '2026-10-07T11:00:00.000Z', tests: null, ok: true, criteria: [{ criterion: 'Перенос проекта (на этой машине)', host: 'pr', suite: 'transfer', ok: true }] };
+    const m = mergeSummary(prev, sum);
+    expect(m).toMatchObject({ ok: true, startedAt: T0, tests: { ok: true } });
+    expect(m.criteria.map((x) => `${x.host} ${x.suite} ${x.ok}`)).toEqual(['ae base true', 'pr base true', 'pr transfer true']);
+    expect(mergeSummary(null, sum)).toBe(sum);
+    // the move judged by the media report before replaces nothing else, and is replaced by the transfer suite
+    const old = { ...prev, criteria: [c('pr', 'base', true), { criterion: 'Перенос проекта (на этой машине)', host: 'pr', suite: 'media', ok: false }] };
+    expect(mergeSummary(old, sum).criteria.map((x) => `${x.host} ${x.suite} ${x.ok}`)).toEqual(['pr base true', 'pr transfer true']);
   });
 });

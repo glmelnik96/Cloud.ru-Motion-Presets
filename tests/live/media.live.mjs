@@ -5,9 +5,9 @@
 // <work>/panel-live/media; the scratch project to <work>/panel-live/<host>/media_live.*.
 // Report: docs/research/panel-live/<host>-media-report.json.
 import { copyFile } from 'node:fs/promises';
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, statSync, unlinkSync, writeFileSync } from 'node:fs';
-import { copyTree } from '../../tools/lib/copy-tree.mjs';
+import { existsSync, mkdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs';
 import { runTransferLive } from './transfer.mjs';
+import { freshMovedDir, handleHolders, nodeTransferFs, writeStaged } from './transfer-fs.mjs';
 import path from 'node:path';
 import { deflateSync } from 'node:zlib';
 import { describe, expect, it } from 'vitest';
@@ -114,29 +114,17 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
         R,
       });
       // Portability: the project with its inserts copied elsewhere and opened with the originals and the library
-      // out of the way (spec 3, phase 3). fs.cpSync is avoided: Node 24 on Windows crashed in it (0xC0000409).
+      // out of the way (spec 3, phase 3). In Premiere only staged here: it keeps the media open until it quits.
       await runTransferLive({
         host: HOST,
         hostRun,
         R,
         project: base.project,
-        movedDir: workPath('panel-live', `${HOST}-moved`).replace(/\\/g, '/'),
+        movedDir: freshMovedDir(HOST),
         libraryRoot: built.libraryRoot.replace(/\\/g, '/'),
-        // Sysinternals handle.exe, when installed: which process keeps a folder busy
-        holders: (p) => {
-          const r = spawnSync('handle', ['-accepteula', '-nobanner', p.replace(/\//g, '\\')], { encoding: 'utf8' });
-          return r.status === null || r.error ? 'handle.exe not on PATH' : (r.stdout || '').trim().split(/\r?\n/).slice(0, 10).join(' | ') || 'no handle found';
-        },
-        fs: {
-          exists: (p) => existsSync(p),
-          files: (d) => readdirSync(d).filter((f) => statSync(path.join(d, f)).isFile()),
-          reset: (d) => {
-            rmSync(d, { recursive: true, force: true });
-            mkdirSync(d, { recursive: true });
-          },
-          copy: (from, to) => (statSync(from).isDirectory() ? copyTree(from, to) : copyFileSync(from, to)),
-          rename: (from, to) => renameSync(from, to),
-        },
+        holders: handleHolders,
+        fs: nodeTransferFs,
+        defer: (staged) => writeStaged(HOST, { ...staged, mediaStartedAt: R.startedAt }),
       });
       // The «Эффекты» tab: AE only, with AE's own presets standing in for the brand .ffx.
       if (HOST === 'ae') {

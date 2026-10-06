@@ -75,6 +75,22 @@ export function toBezier({ dur, delta, out, inn, outInterp, inInterp }) {
   return { x1: r(x1), y1: r(y1), x2: r(x2), y2: r(y2) };
 }
 
+// Shapes (mask and shape paths) have no number to move: AE eases them on the progress 0..1 of the segment, so
+// the curve is the influences alone while the speeds are 0 (the brand's paths: build PC, 2026-10-06); with a
+// speed the curve is unknown.
+export function progressBezier({ out, inn, outInterp, inInterp }) {
+  if (outInterp === 'HOLD') return { hold: true };
+  const side = (ease, interp, first) => {
+    if (interp === 'LINEAR' || !ease) return first ? [1 / 3, 1 / 3] : [2 / 3, 2 / 3];
+    if (Math.abs(ease.speed ?? 0) > 1e-6) return null;
+    const x = Math.min(1, Math.max(0.0001, (ease.influence ?? 16.666667) / 100));
+    return first ? [x, 0] : [1 - x, 1];
+  };
+  const a = side(out, outInterp, true);
+  const b = side(inn, inInterp, false);
+  return a && b ? { x1: r(a[0]), y1: r(a[1]), x2: r(b[0]), y2: r(b[1]) } : null;
+}
+
 const easeAt = (list, dim) => (Array.isArray(list) && list.length ? list[Math.min(dim, list.length - 1)] : null);
 
 // Every segment of one comp dump.
@@ -108,9 +124,15 @@ export function* segmentsOfComp(dump, meta = {}) {
           seg.ease = { outSpeed: r(out?.speed), outInfluence: r(out?.influence), inSpeed: r(inn?.speed), inInfluence: r(inn?.influence) };
           seg.bezier = toBezier({ dur, delta: c.delta, out, inn, outInterp: seg.outInterp, inInterp: seg.inInterp });
           if (seg.bezier && !seg.bezier.hold) seg.overshoot = seg.bezier.y1 > 1.001 || seg.bezier.y1 < -0.001 || seg.bezier.y2 > 1.001 || seg.bezier.y2 < -0.001;
+          // two keys of the same value: a pause, no curve
+          if (!c.magnitude && !seg.bezier?.hold) seg.still = true;
         } else {
           seg.valueKind = node.pvt ?? 'unknown';
-          seg.bezier = seg.outInterp === 'HOLD' ? { hold: true } : null;
+          const out = easeAt(k0.outEase, 0);
+          const inn = easeAt(k1.inEase, 0);
+          seg.ease = { outSpeed: r(out?.speed), outInfluence: r(out?.influence), inSpeed: r(inn?.speed), inInfluence: r(inn?.influence) };
+          seg.bezier = seg.valueKind === 'SHAPE' ? progressBezier({ out, inn, outInterp: seg.outInterp, inInterp: seg.inInterp }) : seg.outInterp === 'HOLD' ? { hold: true } : null;
+          if (seg.bezier && !seg.bezier.hold) seg.progress = true;
         }
         yield seg;
       }
@@ -145,13 +167,21 @@ const quant = (xs, q) => {
 };
 const curveKey = (b) => `${b.x1.toFixed(2)},${b.y1.toFixed(2)},${b.x2.toFixed(2)},${b.y2.toFixed(2)}`;
 
-// Per kind: how many segments, in which packs, how long, and the curves that repeat (rounded to 0.01).
-export function summarize(segments, { top = 8 } = {}) {
+// The packs converted for the panel in phase 1 (*_conv) repeat their sources: counted once.
+export const COPY_PACK = /_conv$/;
+
+// Per kind: how many segments, in which packs, how long, and the curves that repeat (rounded to 0.01). Pauses
+// (two keys of one value) are counted apart and give no curve.
+export function summarize(segments, { top = 8, skip = COPY_PACK } = {}) {
   const kinds = {};
   for (const s of segments) {
-    if (s.off) continue;
-    const k = (kinds[s.kind] ??= { count: 0, packs: {}, frames: [], curves: new Map(), hold: 0, linear: 0, overshoot: 0 });
+    if (s.off || (skip && skip.test(String(s.pack)))) continue;
+    const k = (kinds[s.kind] ??= { count: 0, packs: {}, frames: [], curves: new Map(), hold: 0, linear: 0, overshoot: 0, still: 0 });
     k.count += 1;
+    if (s.still) {
+      k.still += 1;
+      continue;
+    }
     k.packs[s.pack] = (k.packs[s.pack] ?? 0) + 1;
     k.frames.push(s.frames);
     if (s.bezier?.hold) k.hold += 1;
@@ -169,7 +199,7 @@ export function summarize(segments, { top = 8 } = {}) {
   const out = {};
   for (const [kind, k] of Object.entries(kinds).sort((a, b) => b[1].count - a[1].count)) {
     out[kind] = {
-      count: k.count, packs: k.packs, hold: k.hold, linear: k.linear, overshoot: k.overshoot,
+      count: k.count, packs: k.packs, hold: k.hold, still: k.still, linear: k.linear, overshoot: k.overshoot,
       frames: { p10: quant(k.frames, 0.1), p50: quant(k.frames, 0.5), p90: quant(k.frames, 0.9) },
       topCurves: [...k.curves.values()].sort((a, b) => b.count - a.count).slice(0, top),
     };
@@ -178,9 +208,9 @@ export function summarize(segments, { top = 8 } = {}) {
 }
 
 export function toMarkdown(summary, expressions) {
-  const lines = ['# Движение пакетов по JSX-дампам (D19)', '', 'Отрезок — пара соседних ключей одного свойства. Кривая — cubic-bezier (x1, y1, x2, y2) из скорости и влияния ключей AE, округлено до 0,01; y вне 0…1 — перелёт.', ''];
+  const lines = ['# Движение пакетов по JSX-дампам (D19)', '', 'Отрезок — пара соседних ключей одного свойства. Кривая — cubic-bezier (x1, y1, x2, y2) из скорости и влияния ключей AE, округлено до 0,01; y вне 0…1 — перелёт. У путей масок и фигур — по одному влиянию (скорость 0). Пакеты `*_conv` повторяют исходные и не считаются; пауза — два ключа одного значения.', ''];
   for (const [kind, k] of Object.entries(summary)) {
-    lines.push(`## ${kind} — ${k.count} отр.`, '', `Пакеты: ${Object.entries(k.packs).map(([p, n]) => `${p} ${n}`).join(', ')}. Кадров: p10 ${k.frames.p10}, медиана ${k.frames.p50}, p90 ${k.frames.p90}. Линейных ${k.linear}, hold ${k.hold}, с перелётом ${k.overshoot}.`, '');
+    lines.push(`## ${kind} — ${k.count} отр.`, '', `Пакеты: ${Object.entries(k.packs).map(([p, n]) => `${p} ${n}`).join(', ')}. Кадров: p10 ${k.frames.p10}, медиана ${k.frames.p50}, p90 ${k.frames.p90}. Линейных ${k.linear}, hold ${k.hold}, пауз ${k.still}, с перелётом ${k.overshoot}.`, '');
     if (k.topCurves.length) {
       lines.push('| Кривая | Отрезков | Пакеты | Примеры |', '|---|---|---|---|');
       for (const c of k.topCurves) lines.push(`| ${c.curve} | ${c.count} | ${Object.keys(c.packs).join(', ')} | ${c.examples.join('; ')} |`);

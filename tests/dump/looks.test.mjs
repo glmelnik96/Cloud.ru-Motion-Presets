@@ -9,7 +9,9 @@ const doc = (text, o = {}) => ({ text, font: 'SBSansDisplay-Semibold', fontSize:
 const textLayer = (name, d) => ({ index: 1, name, type: 'text', switches: { enabled: true }, effects: [], masks: [], props: [
   { matchName: 'ADBE Text Properties', name: 'Text', children: [{ matchName: 'ADBE Text Document', name: 'Source Text', pvt: 'TEXT_DOCUMENT', value: d }] },
 ] });
-const blurAdj = { index: 2, name: 'Blur', type: 'adjustment', switches: { enabled: true, adjustmentLayer: true }, masks: [], props: [], effects: [
+// the podcast: only the fields outside an inverted rectangle are blurred
+const fields = { name: 'Mask 1', mode: 'ADD', inverted: true, path: { matchName: 'ADBE Mask Shape', pvt: 'SHAPE', value: { vertices: [[105, 102], [3735, 102], [3735, 2058], [105, 2058]], closed: true } }, feather: { value: [0, 0] }, expansion: { value: 0 }, opacity: { value: 100 }, other: [] };
+const blurAdj = { index: 2, name: 'Blur', type: 'adjustment', switches: { enabled: true, adjustmentLayer: true }, masks: [fields], props: [], effects: [
   { index: 1, matchName: 'ADBE Gaussian Blur 2', name: 'Gaussian Blur', enabled: true, params: [
     { matchName: 'ADBE Gaussian Blur 2-0001', name: 'Blurriness', pvt: 'OneD', value: 60 },
     { matchName: 'ADBE Gaussian Blur 2-0002', name: 'Blur Dimensions', pvt: 'OneD', value: 1 },
@@ -24,7 +26,7 @@ function root() {
     mkdirSync(path.join(dir, slug), { recursive: true });
     writeFileSync(path.join(dir, slug, 'index.json'), JSON.stringify({ comps: [{ file: 'c.json' }] }));
     writeFileSync(path.join(dir, slug, 'project.json'), JSON.stringify({ fonts }));
-    writeFileSync(path.join(dir, slug, 'c.json'), JSON.stringify({ comp: { name: `${slug} main`, frameRate: 25 }, layers }));
+    writeFileSync(path.join(dir, slug, 'c.json'), JSON.stringify({ comp: { name: `${slug} main`, frameRate: 25, width: 3840, height: 2160 }, layers }));
   };
   write('podcast', [blurAdj, textLayer('Тег', doc('Подкаст', { allCaps: true }))], [{ postScriptName: 'SBSansDisplay-Semibold', uses: 3 }]);
   write('courses', [textLayer('Субтитр', doc('Первая строка\rвторая', { font: 'SBSansText-Regular', fontSize: 40 })), textLayer('Субтитр 2', doc('Ещё', { font: 'SBSansText-Regular', fontSize: 40 }))], [{ postScriptName: 'SBSansText-Regular' }]);
@@ -41,7 +43,8 @@ describe('looks', () => {
     const res = extractLooks(root());
     expect(res.packs).toEqual(['courses', 'podcast']);
     expect(res.effects.map((e) => [e.matchName, e.count])).toEqual([['ADBE Gaussian Blur 2', 1], ['ADBE Fill', 1]]);
-    expect(res.blurs).toEqual([expect.objectContaining({ pack: 'podcast', layer: 'Blur', adjustment: true, params: expect.objectContaining({ Blurriness: 60 }) })]);
+    expect(res.blurs).toEqual([expect.objectContaining({ pack: 'podcast', layer: 'Blur', adjustment: true, params: expect.objectContaining({ Blurriness: 60 }), frame: { w: 3840, h: 2160 } })]);
+    expect(res.blurs[0].masks).toEqual([{ name: 'Mask 1', mode: 'ADD', inverted: true, feather: [0, 0], expansion: 0, opacity: 100, keyed: false, vertices: 4, closed: true, box: { left: 105, top: 102, right: 3735, bottom: 2058 } }]);
     expect(res.styles.map((s) => [s.font, s.size, s.count, s.allCaps])).toEqual([['SBSansText-Regular', 40, 2, false], ['SBSansDisplay-Semibold', 48, 1, true]]);
     expect(res.styles[0].examples[0]).toBe('courses / courses main / Субтитр: Первая строка вторая');
     expect(res.fonts).toEqual({ courses: ['SBSansText-Regular'], podcast: ['SBSansDisplay-Semibold'] });
@@ -57,6 +60,7 @@ describe('looks', () => {
     writeLooks(extractLooks(root()), out);
     const md = readFileSync(path.join(out, 'summary.md'), 'utf8');
     expect(md).toContain('| podcast / podcast main / Blur | Gaussian Blur | да | Blurriness: 60;');
+    expect(md).toContain('| инв. ADD (105,102)–(3735,2058) в кадре 3840×2160 |');
     expect(md).toContain('| SBSansText-Regular | 40 | 0 | auto | 255,255,255 | — |  | 2 |');
     expect(JSON.parse(readFileSync(path.join(out, 'blurs.json'), 'utf8'))).toHaveLength(1);
   });

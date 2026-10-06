@@ -31,15 +31,36 @@ export function effectParams(fx) {
 
 const BLUR = /blur/i;
 
+// The masks of a layer as a blur needs them (the podcast blurs only the fields outside an inverted rectangle):
+// mode, inverted, feather, expansion, opacity and the box of the path (its first key when it moves).
+export function masksOf(layer) {
+  return (layer.masks ?? []).filter((m) => !m.error).map((m) => {
+    const shape = m.path?.value ?? m.path?.keys?.find((k) => k && k.value)?.value ?? null;
+    const v = Array.isArray(shape?.vertices) ? shape.vertices : [];
+    const xs = v.map((p) => p[0]);
+    const ys = v.map((p) => p[1]);
+    return {
+      name: m.name, mode: m.mode ?? null, inverted: m.inverted === true,
+      feather: r(m.feather?.value ?? null), expansion: r(m.expansion?.value ?? null), opacity: r(m.opacity?.value ?? null),
+      keyed: Array.isArray(m.path?.keys) && m.path.keys.length > 0,
+      vertices: v.length, closed: shape?.closed ?? null,
+      box: v.length ? { left: r(Math.min(...xs), 1), top: r(Math.min(...ys), 1), right: r(Math.max(...xs), 1), bottom: r(Math.max(...ys), 1) } : null,
+    };
+  });
+}
+
 export function looksOfComp(dump, pack) {
   const effects = [];
   const texts = [];
   for (const layer of dump.layers ?? []) {
     if (layer.error) continue;
     const place = { pack, comp: dump.comp?.name ?? null, layer: layer.name, layerType: layer.type, adjustment: layer.switches?.adjustmentLayer === true, enabled: layer.switches?.enabled !== false };
+    const frame = { w: dump.comp?.width ?? null, h: dump.comp?.height ?? null };
     for (const fx of layer.effects ?? []) {
       if (fx.error) continue;
-      effects.push({ ...place, matchName: fx.matchName, name: fx.name, fxEnabled: fx.enabled !== false, params: effectParams(fx) });
+      const e = { ...place, matchName: fx.matchName, name: fx.name, fxEnabled: fx.enabled !== false, params: effectParams(fx) };
+      if (BLUR.test(fx.matchName) || BLUR.test(fx.name)) Object.assign(e, { frame, masks: masksOf(layer) });
+      effects.push(e);
     }
     if (layer.type === 'text') {
       const st = layerProp(layer, 'ADBE Text Properties', 'ADBE Text Document');
@@ -99,8 +120,9 @@ export function extractLooks(dumpRoot) {
 export function looksMarkdown(res) {
   const lines = ['# Эффекты, размытия и текстовые стили пакетов (по JSX-дампам)', '', `Пакеты: ${res.packs.join(', ')}.`, '', '## Эффекты', '', '| matchName | Имена | Раз | Пакеты |', '|---|---|---|---|'];
   for (const e of res.effects) lines.push(`| ${e.matchName} | ${e.names.join(', ')} | ${e.count} | ${Object.entries(e.packs).map(([p, n]) => `${p} ${n}`).join(', ')} |`);
-  lines.push('', `## Размытия — ${res.blurs.length}`, '', '| Пакет / композиция / слой | Эффект | Корр. слой | Параметры |', '|---|---|---|---|');
-  for (const b of res.blurs.slice(0, 80)) lines.push(`| ${b.pack} / ${b.comp} / ${b.layer} | ${b.name} | ${b.adjustment ? 'да' : 'нет'} | ${Object.entries(b.params).slice(0, 5).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join('; ')} |`);
+  lines.push('', `## Размытия — ${res.blurs.length}`, '', '| Пакет / композиция / слой | Эффект | Корр. слой | Параметры | Маски |', '|---|---|---|---|---|');
+  const maskText = (m) => `${m.inverted ? 'инв. ' : ''}${m.mode ?? ''} ${m.box ? `(${m.box.left},${m.box.top})–(${m.box.right},${m.box.bottom})` : '?'}${[m.feather].flat().some((x) => x) ? ` растушёвка ${JSON.stringify(m.feather)}` : ''}${m.keyed ? ' с ключами' : ''}`;
+  for (const b of res.blurs.slice(0, 80)) lines.push(`| ${b.pack} / ${b.comp} / ${b.layer} | ${b.name} | ${b.adjustment ? 'да' : 'нет'} | ${Object.entries(b.params).slice(0, 5).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join('; ')} | ${(b.masks ?? []).map(maskText).join('; ') || '—'}${b.frame?.w ? ` в кадре ${b.frame.w}×${b.frame.h}` : ''} |`);
   lines.push('', `## Текстовые стили — ${res.styles.length}`, '', '| Шрифт | Кегль | Трекинг | Интерлиньяж | Заливка | Обводка | Caps | Раз | Где |', '|---|---|---|---|---|---|---|---|---|');
   for (const s of res.styles.slice(0, 120)) lines.push(`| ${s.font} | ${s.size} | ${s.tracking} | ${s.leading} | ${s.fill ? s.fill.map((x) => Math.round(x * 255)).join(',') : '—'} | ${s.stroke ? `${s.stroke.color.map((x) => Math.round(x * 255)).join(',')} @${s.stroke.width}` : '—'} | ${s.allCaps ? 'да' : ''} | ${s.count} | ${s.examples.join('; ')} |`);
   lines.push('', '## Шрифты по пакетам', '');

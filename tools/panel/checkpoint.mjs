@@ -3,10 +3,13 @@
 // установка с нуля, на Mac включая файл с карантином; проект со вставками из AE и Premiere открывается на
 // другой ОС без пропавших файлов») on one machine, in one command:
 //   node tools/panel/checkpoint.mjs [--host ae|pr] [--skip-tests] [--only base,media,export,ui]
+//   node tools/panel/checkpoint.mjs --host pr --only transfer --skip-tests     after a restart of Premiere
 // Runs npm test and the live suites — base (every item of the library in every format), media (T2/T3,
 // companions, effects, colours, the move of a project, fit to a window), export (tools/panel/live.mjs) and ui
 // (the real panel, tools/panel/ui-check.mjs) — in each host, then writes docs/research/checkpoint/<win|mac>-<date>.json and .md: every criterion with what proves it.
-// A suite that left no fresh report counts as failed. The clean install and the open on the other OS are
+// Premiere keeps the media of a session open until it quits, so its move of a project is checked after a restart
+// (suite transfer, run only when named). A run updates the summary of the same day: criteria it did not check
+// stay as they were. A suite that left no fresh report counts as failed. The clean install and the open on the other OS are
 // checked by hand; the summary names the latest reports of them, it does not judge them.
 import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -20,7 +23,11 @@ export const SUITES = [
   { key: 'media', cmd: LIVE('--media'), report: (h) => `${h}-media-report.json`, what: 'T2/T3 и компаньоны; AE: эффекты и цвета; перенос проекта; Premiere: «вписать в окно»' },
   { key: 'export', cmd: LIVE('--export'), report: (h) => `${h}-export-report.json`, what: '«Экспорт» брендовыми пресетами' },
   { key: 'ui', cmd: (h) => ['tools/panel/ui-check.mjs', '--host', h], report: (h) => `${h}-ui-report.json`, what: 'настоящая панель: каталог, превью, форма, вставка из интерфейса' },
+  { key: 'transfer', hosts: ['pr'], explicit: true, cmd: LIVE('--transfer'), report: (h) => `${h}-transfer-report.json`, what: 'перенос проекта после перезапуска Premiere' },
 ];
+export const DEFAULT_ONLY = SUITES.filter((s) => !s.explicit).map((s) => s.key);
+const TRANSFER_WHAT = 'копия проекта открывается без пропавших файлов при убранных оригиналах и библиотеке';
+const WAIT_RESTART = 'ждёт перезапуска Premiere: node tools/panel/checkpoint.mjs --host pr --only transfer --skip-tests';
 
 const readJson = (p) => JSON.parse(readFileSync(p, 'utf8').replace(/^﻿/, ''));
 
@@ -43,6 +50,24 @@ export function transferResult(report) {
   return { ok: failed.length === 0, checks: checks.length, failed };
 }
 
+// Premiere: the transfer report of the copy the latest media run staged.
+export function deferredTransferResult(transferReport, mediaReport) {
+  if (!transferReport) return { ok: false, reason: WAIT_RESTART };
+  if (mediaReport && transferReport.staged?.mediaStartedAt !== mediaReport.startedAt) return { ok: false, reason: `проверена копия прошлого прогона медиа; ${WAIT_RESTART}` };
+  return transferResult(transferReport);
+}
+
+// The summary of the same day with the criteria of this run put over it.
+export function mergeSummary(prev, sum) {
+  if (!prev) return sum;
+  // the move of a project is one criterion per host, whichever suite proved it (media before 2026-10-06 in Premiere)
+  const key = (c) => (c.criterion.startsWith('Перенос') ? `${c.criterion}|${c.host}` : `${c.criterion}|${c.host}|${c.suite}`);
+  const fresh = new Set(sum.criteria.map(key));
+  const criteria = [...prev.criteria.filter((c) => !fresh.has(key(c))), ...sum.criteria];
+  const tests = sum.tests ?? prev.tests ?? null;
+  return { ...sum, startedAt: prev.startedAt, tests, criteria, ok: (tests ? tests.ok : true) && criteria.every((c) => c.ok) };
+}
+
 // The reports a person made by hand: the install on this OS and the open of a moved project.
 export function manualReports(repo = REPO, os) {
   const pick = (dir, re) => {
@@ -59,13 +84,14 @@ export function manualReports(repo = REPO, os) {
 export function summarize({ os, hosts, tests, suites, startedAt, manual }) {
   const criteria = [];
   for (const h of hosts) {
-    for (const s of SUITES) {
+    for (const s of SUITES.filter((x) => x.key !== 'transfer')) {
       const r = suites[h]?.[s.key];
       if (r === undefined) continue;
       criteria.push({ criterion: 'Сквозные сценарии', host: h, suite: s.key, what: s.what, ...r });
     }
     const media = suites[h]?.mediaReport;
-    if (media !== undefined) criteria.push({ criterion: 'Перенос проекта (на этой машине)', host: h, suite: 'media', what: 'копия проекта открывается без пропавших файлов при убранных оригиналах и библиотеке', ...transferResult(media) });
+    if (suites[h]?.deferredTransfer !== undefined) criteria.push({ criterion: 'Перенос проекта (на этой машине)', host: h, suite: 'transfer', what: `${TRANSFER_WHAT}; после перезапуска Premiere`, ...suites[h].deferredTransfer });
+    else if (media !== undefined) criteria.push({ criterion: 'Перенос проекта (на этой машине)', host: h, suite: 'media', what: TRANSFER_WHAT, ...transferResult(media) });
   }
   const ok = (tests ? tests.ok : true) && criteria.every((c) => c.ok);
   return {
@@ -93,7 +119,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const argv = process.argv.slice(2);
   const opt = (k) => (argv.includes(k) ? argv[argv.indexOf(k) + 1] : undefined);
   const hosts = opt('--host') ? [opt('--host')] : ['ae', 'pr'];
-  const only = opt('--only') ? opt('--only').split(',') : SUITES.map((s) => s.key);
+  const only = opt('--only') ? opt('--only').split(',') : DEFAULT_ONLY;
   const os = process.platform === 'win32' ? 'win' : 'mac';
   const startedAt = new Date().toISOString();
   let tests = null;
@@ -106,7 +132,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const suites = {};
   for (const h of hosts) {
     suites[h] = {};
-    for (const s of SUITES.filter((x) => only.includes(x.key))) {
+    for (const s of SUITES.filter((x) => only.includes(x.key) && (!x.hosts || x.hosts.includes(h)))) {
       console.log(`\n== ${h} ${s.key} ==`);
       const [script, ...args] = s.cmd(h);
       spawnSync(process.execPath, [path.join(REPO, script), ...args], { cwd: REPO, stdio: 'inherit' });
@@ -115,11 +141,16 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       suites[h][s.key] = suiteResult(report, startedAt);
       if (s.key === 'media') suites[h].mediaReport = report && suiteResult(report, startedAt).reason === undefined ? report : null;
     }
+    if (h === 'pr' && (only.includes('media') || only.includes('transfer'))) {
+      const read = (f) => (existsSync(path.join(REPO, 'docs', 'research', 'panel-live', f)) ? readJson(path.join(REPO, 'docs', 'research', 'panel-live', f)) : null);
+      suites[h].deferredTransfer = deferredTransferResult(read('pr-transfer-report.json'), read('pr-media-report.json'));
+    }
+    delete suites[h].transfer;
   }
-  const sum = summarize({ os, hosts, tests, suites, startedAt, manual: manualReports(REPO, os) });
   const dir = path.join(REPO, 'docs', 'research', 'checkpoint');
   mkdirSync(dir, { recursive: true });
   const base = path.join(dir, `${os}-${startedAt.slice(0, 10)}`);
+  const sum = mergeSummary(existsSync(`${base}.json`) ? readJson(`${base}.json`) : null, summarize({ os, hosts, tests, suites, startedAt, manual: manualReports(REPO, os) }));
   writeFileSync(`${base}.json`, JSON.stringify(sum, null, 2) + '\n', 'utf8');
   writeFileSync(`${base}.md`, toMarkdown(sum), 'utf8');
   console.log(`\n${toMarkdown(sum)}\nwritten ${base}.json and .md`);

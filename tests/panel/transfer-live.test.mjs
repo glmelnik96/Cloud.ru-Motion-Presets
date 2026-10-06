@@ -1,7 +1,7 @@
 // A dry run of the portability check (tests/live/transfer.mjs): an in-memory disk, the host answering with the
 // listing of the opened copy. What the check catches: a file missing, a file found at its old place.
 import { describe, expect, it } from 'vitest';
-import { runTransferLive, transferVerdict } from '../live/transfer.mjs';
+import { checkTransfer, runTransferLive, transferVerdict } from '../live/transfer.mjs';
 import { Report } from '../live/runner.mjs';
 
 const W = 'C:/CRBK/work/panel-live';
@@ -96,5 +96,36 @@ describe('transfer check, dry', () => {
     await runTransferLive({ host: 'pr', hostRun: async () => ok({ items: [] }), R, fs, project: `${W}/pr/media_live.prproj`, movedDir: `${W}/pr-moved`, libraryRoot: `${W}/media/library` });
     expect(R.failed()).toEqual(['transfer: finished without an exception']);
     expect(fs.exists(`${W}/pr/Cloud.ru BrandKit`)).toBe(true);
+  });
+
+  it('in Premiere the media run only stages the copy; the check after a restart moves the originals and opens it', async () => {
+    const fs = disk(files);
+    const R = new Report('pr');
+    let staged = null;
+    const listing = { items: [{ name: 'l', file: `${W}/pr-moved/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov`, missing: false }] };
+    const hostRun = async (op) => ok(op === 'transferOpen' ? listing : {});
+    await runTransferLive({ host: 'pr', hostRun, R, fs, project: `${W}/pr/media_live.prproj`, movedDir: `${W}/pr-moved`, libraryRoot: `${W}/media/library`, defer: (s) => { staged = s; } });
+    expect(R.failed()).toEqual([]);
+    expect(fs.log.filter((l) => l.startsWith('rename'))).toEqual([]);
+    expect(staged).toMatchObject({ host: 'pr', moved: `${W}/pr-moved/media_live.prproj`, parts: ['Cloud.ru BrandKit', 'Motion Graphics Template Media'], libraryRoot: `${W}/media/library` });
+    // a new session: the check alone, from what was staged
+    const R2 = new Report('pr');
+    await checkTransfer({ hostRun, R: R2, fs }, JSON.parse(JSON.stringify(staged)));
+    expect(R2.failed()).toEqual([]);
+    expect(fs.log.filter((l) => l.startsWith('rename'))).toHaveLength(6);
+    expect(fs.exists(`${W}/pr/Cloud.ru BrandKit`) && fs.exists(`${W}/media/library`)).toBe(true);
+  });
+
+  it('the deferred check fails when the staged copy is gone, and a busy folder in Premiere asks for a restart', async () => {
+    const staged = { host: 'pr', project: `${W}/pr/media_live.prproj`, movedDir: `${W}/pr-moved`, moved: `${W}/pr-moved/media_live.prproj`, parts: ['Cloud.ru BrandKit'], libraryRoot: `${W}/media/library` };
+    const R = new Report('pr');
+    await checkTransfer({ hostRun: async () => ok({}), R, fs: disk(files) }, staged);
+    expect(R.checks.at(-1).detail).toMatch(/the staged copy is gone/);
+    const fs = disk([...files, `${W}/pr-moved/media_live.prproj`, `${W}/pr-moved/Cloud.ru BrandKit/x.mov`]);
+    fs.rename = (from) => { const e = new Error(`EPERM ${from}`); e.code = 'EPERM'; throw e; };
+    const R2 = new Report('pr');
+    await checkTransfer({ hostRun: async () => ok({}), R: R2, fs, sleep: async () => undefined }, staged);
+    expect(R2.failed()).toEqual(['transfer: finished without an exception']);
+    expect(R2.checks.at(-1).detail).toMatch(/перезапустите Premiere/);
   });
 });
