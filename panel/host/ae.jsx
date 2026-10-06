@@ -710,6 +710,67 @@
     return out;
   };
 
+  // ---- «Фирменные кривые» (D19, panel/src/core/ease.ts) ----
+
+  function easeList(n, influence) {
+    var out = [];
+    var i;
+    for (i = 0; i < n; i++) {
+      out.push(new KeyframeEase(0, influence));
+    }
+    return out;
+  }
+
+  function layerOfProp(p) {
+    var g = p;
+    try {
+      while (g && g.propertyDepth > 0) {
+        g = g.parentProperty;
+      }
+    } catch (e) { g = null; }
+    return g ? String(g.name) : '';
+  }
+
+  // Every pair of neighbouring selected keys of every selected property gets the brand curve: Bezier, speed 0,
+  // the outgoing influence on the first key and the incoming one on the second. The other side of each key stays.
+  A.applyEase = function (req) {
+    var comp = targetComp(req.targetId);
+    var sel = comp.selectedProperties || [];
+    var out = { props: [], single: [] };
+    var B = KeyframeInterpolationType.BEZIER;
+    var i, j, p, keys, k, k2, pairs;
+    app.beginUndoGroup(req.undoLabel || 'BrandKit');
+    try {
+      for (i = 0; i < sel.length; i++) {
+        p = sel[i];
+        if (p.propertyType !== PropertyType.PROPERTY || !p.numKeys) {
+          continue;
+        }
+        keys = (p.selectedKeys || []).slice(0).sort(function (a, b) { return a - b; });
+        if (keys.length < 2) {
+          if (keys.length === 1) {
+            out.single.push(String(p.name));
+          }
+          continue;
+        }
+        pairs = 0;
+        for (j = 0; j + 1 < keys.length; j++) {
+          k = keys[j];
+          k2 = keys[j + 1];
+          p.setInterpolationTypeAtKey(k, p.keyInInterpolationType(k), B);
+          p.setTemporalEaseAtKey(k, p.keyInTemporalEase(k), easeList(p.keyOutTemporalEase(k).length, req.outInfluence));
+          p.setInterpolationTypeAtKey(k2, B, p.keyOutInterpolationType(k2));
+          p.setTemporalEaseAtKey(k2, easeList(p.keyInTemporalEase(k2).length, req.inInfluence), p.keyOutTemporalEase(k2));
+          pairs += 1;
+        }
+        out.props.push({ name: String(p.name), layer: layerOfProp(p), pairs: pairs });
+      }
+    } finally {
+      app.endUndoGroup();
+    }
+    return out;
+  };
+
   // A T2/T3 file on its own, in one undo group.
   A.insertMedia = function (req) {
     var comp = targetComp(req.targetId);

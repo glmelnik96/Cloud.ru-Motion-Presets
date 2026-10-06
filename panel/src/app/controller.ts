@@ -1,6 +1,7 @@
 // State and actions of the panel (spec 7) on top of the core. The UI renders this state and calls these
 // actions; it never talks to CSInterface or Node itself (spec 6: «Интерфейс знает только API ядра»).
 import { planColor, runColor, type ColorTarget } from '../core/colors';
+import { brandCurves, planEase, runEase, type BrandCurve } from '../core/ease';
 import { planBlur, planStyle, runBlur, runStyle, textStyles } from '../core/edit';
 import { isPreset, planPreset, runPreset } from '../core/effects';
 import { aomFile, defaultMode, exportFolder, exportNote, exportPresets, MODES, planExport, presetsForFrame, runExport, type ExportFit, type ExportMode, type ExportPlan, type ExportPreset } from '../core/export';
@@ -42,8 +43,9 @@ export interface Services {
 }
 
 export type View = 'catalog' | 'form';
-// Tabs of the panel (spec 7): the catalog, «Цвета» in After Effects, «Монтаж» in Premiere, «Экспорт» in both.
-export type Tab = 'catalog' | 'colors' | 'edit' | 'export';
+// Tabs of the panel (spec 7): the catalog, «Цвета» and «Движение» in After Effects, «Монтаж» in Premiere,
+// «Экспорт» in both.
+export type Tab = 'catalog' | 'colors' | 'motion' | 'edit' | 'export';
 
 // An AE render in the background (aerender): running, then done or failed.
 export interface BackgroundJob {
@@ -195,7 +197,7 @@ export class PanelApp {
 
   tabs(): Array<{ key: Tab; label_ru: string }> {
     const tabs: Array<{ key: Tab; label_ru: string }> = [{ key: 'catalog', label_ru: 'Каталог' }];
-    if (this.state.host === 'ae') tabs.push({ key: 'colors', label_ru: 'Цвета' });
+    if (this.state.host === 'ae') tabs.push({ key: 'colors', label_ru: 'Цвета' }, { key: 'motion', label_ru: 'Движение' });
     if (this.state.host === 'pr') tabs.push({ key: 'edit', label_ru: 'Монтаж' });
     if (this.presets().length) tabs.push({ key: 'export', label_ru: 'Экспорт' });
     return tabs.length > 1 ? tabs : [];
@@ -224,6 +226,33 @@ export class PanelApp {
       return this.finish({ ok: out.ok, problems: out.problems, at: Date.now(), note: out.ok ? `Перекрашено: ${on.join(', ')}.` : undefined });
     } catch (e) {
       this.log('error', 'color.exception', { error: String(e) });
+      return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
+    }
+  }
+
+  // ---- «Движение» (After Effects): the brand curves of D19 onto the selected keys, panel/src/core/ease.ts ----
+
+  curves(): BrandCurve[] {
+    return brandCurves();
+  }
+
+  async brandEase(key: string): Promise<Outcome> {
+    if (this.state.busy) return { ok: false, problems: [], at: Date.now() };
+    this.set({ busy: true, outcome: null });
+    try {
+      const ctx = await this.refreshContext();
+      if (!ctx) return this.finish({ ok: false, problems: [error('NO_TARGET', messages.noTarget(this.state.host))], at: Date.now() });
+      const curve = this.curves().find((c) => c.key === key);
+      const plan = planEase(ctx, curve);
+      if (!plan.request || !curve) return this.finish({ ok: false, problems: plan.problems, at: Date.now() });
+      const out = await runEase(this.svc.host, plan.request);
+      this.log(out.ok ? 'info' : 'warn', out.ok ? 'ease.done' : 'ease.failed', { curve: key, reply: out.reply, problems: out.problems.map((p) => p.code) });
+      if (!out.ok || !out.reply) return this.finish({ ok: false, problems: out.problems, at: Date.now() });
+      const on = out.reply.props.map((p) => `${p.layer ? `${p.layer} / ` : ''}${p.name}${p.pairs > 1 ? ` (${p.pairs})` : ''}`);
+      const len = curve.frames ? ` В каноне — ${curve.frames} кадр.` : '';
+      return this.finish({ ok: true, problems: out.problems, at: Date.now(), note: `Кривая «${curve.group}, ${curve.label}» поставлена: ${on.join(', ')}.${len}` });
+    } catch (e) {
+      this.log('error', 'ease.exception', { error: String(e) });
       return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
     }
   }

@@ -615,3 +615,20 @@ select {
   width: 100%;
   margin-top: 6px;
 }
+
+/* «Движение» (After Effects): the brand curves by type. */
+.motion .curve-group {
+  border-bottom: 1px solid var(--line);
+  padding: 6px 0 8px;
+}
+
+.motion .curve-group h3 {
+  margin: 0 0 4px;
+  font-size: 1em;
+}
+
+.motion .curves {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}

@@ -186,7 +186,7 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
 
   it('«Цвета» in AE: a target, a swatch, the layers repainted; no such tab in Premiere', async () => {
     await go('?host=ae');
-    expect(await evaluate(s, `[...document.querySelectorAll('.tab')].map((t) => t.textContent)`)).toEqual(['Каталог', 'Цвета', 'Экспорт']);
+    expect(await evaluate(s, `[...document.querySelectorAll('.tab')].map((t) => t.textContent)`)).toEqual(['Каталог', 'Цвета', 'Движение', 'Экспорт']);
     await evaluate(s, `[...document.querySelectorAll('.tab')].find((t) => t.textContent === 'Цвета').click()`);
     await waitFor(s, `document.querySelectorAll('.swatch').length === 7`);
     expect(await evaluate(s, `[...document.querySelectorAll('.swatch-hex')].map((e) => e.textContent)`)).toEqual(['#26D07C', '#222222', '#FFFFFF', '#F2F2F2', '#CFF500', '#A068FF', '#C0E0FC']);
@@ -213,6 +213,19 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     await go('?host=ae&open=WEB_Screen');
     await waitFor(s, `!!document.querySelector('.form-head')`);
     expect(await evaluate(s, `!!document.querySelector('.fit')`)).toBe(false);
+  }, 60000);
+
+  it('«Движение» in AE: the brand curves by type; a click puts one on the selected keys', async () => {
+    await go('?host=ae');
+    await evaluate(s, `[...document.querySelectorAll('.tab')].find((t) => t.textContent === 'Движение').click()`);
+    await waitFor(s, `document.querySelectorAll('.curve-group').length > 0`);
+    const groups = await evaluate(s, `[...document.querySelectorAll('.curve-group h3')].map((e) => e.textContent)`);
+    expect(groups[0]).toBe('Плашка по X (M1): титры');
+    expect(groups).toContain('Вскрытие маской (M4)');
+    await evaluate(s, `[...document.querySelectorAll('.curve-group')].find((g) => g.querySelector('h3').textContent === 'Вскрытие маской (M4)').querySelector('button').click()`);
+    await waitFor(s, `!!document.querySelector('.motion .done')`, { timeoutMs: 10000 });
+    expect(await evaluate(s, `document.querySelector('.motion .done').textContent`)).toBe('Кривая «Вскрытие маской (M4), вход» поставлена: Плашка / Position. В каноне — 29 кадр.');
+    expect(await evaluate(s, `[...document.querySelectorAll('.curve-group button')][0].title`)).toBe('cubic-bezier(0.333, 0, 0, 1) · влияние 33,3 / 100 %');
   }, 60000);
 
   it('«Монтаж» in Premiere: the margins blurred on the selected clip, the caption style brought into the project', async () => {

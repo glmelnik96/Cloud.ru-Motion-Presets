@@ -39,6 +39,7 @@ export function App({ app, ui }: { app: PanelApp; ui: UiServices }) {
         {s.phase === 'loading' && <div class="empty">Загрузка библиотеки…</div>}
         {s.phase === 'error' && <Fatal problems={s.libraryProblems} />}
         {s.phase === 'ready' && s.tab === 'colors' && <Colors app={app} ui={ui} />}
+        {s.phase === 'ready' && s.tab === 'motion' && <Motion app={app} />}
         {s.phase === 'ready' && s.tab === 'edit' && <Edit app={app} />}
         {s.phase === 'ready' && s.tab === 'export' && <Export app={app} />}
         {s.phase === 'ready' && s.tab === 'catalog' && (s.view === 'catalog' ? <Catalog app={app} ui={ui} /> : <Form app={app} ui={ui} />)}
@@ -69,6 +70,38 @@ function Colors({ app, ui }: { app: PanelApp; ui: UiServices }) {
           </div>
         ))}
       </div>
+      <div class="actions">
+        <Problems list={s.outcome?.problems ?? []} />
+        {s.outcome?.ok && <div class="done">{s.outcome.note}</div>}
+      </div>
+    </div>
+  );
+}
+
+// «Движение» (AE): the brand curves of D19 by type; a click puts the curve between the selected keys.
+function Motion({ app }: { app: PanelApp }) {
+  const s = app.state;
+  const groups: Array<[string, ReturnType<PanelApp['curves']>]> = [];
+  for (const c of app.curves()) {
+    const g = groups.find(([name]) => name === c.group);
+    if (g) g[1].push(c);
+    else groups.push([c.group, [c]]);
+  }
+  return (
+    <div class="motion">
+      <p class="hint">Выделите на таймлайне ключи (хотя бы два у свойства) и нажмите кривую: она встанет между соседними выделенными ключами. Тайминг остаётся вашим, в скобках — длина по канону.</p>
+      {groups.map(([name, list]) => (
+        <section key={name} class="curve-group">
+          <h3>{name}</h3>
+          <div class="curves">
+            {list.map((c) => (
+              <button key={c.key} disabled={s.busy} title={`cubic-bezier(${c.bezier.join(', ')}) · влияние ${sec(c.outInfluence)} / ${sec(c.inInfluence)} %`} onClick={() => void app.brandEase(c.key)}>
+                {c.label}{c.frames ? ` (${c.frames})` : ''}
+              </button>
+            ))}
+          </div>
+        </section>
+      ))}
       <div class="actions">
         <Problems list={s.outcome?.problems ?? []} />
         {s.outcome?.ok && <div class="done">{s.outcome.note}</div>}

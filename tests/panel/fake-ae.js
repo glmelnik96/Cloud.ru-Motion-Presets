@@ -162,6 +162,7 @@ function CompItem(name, w, h, duration, fps, ep) {
 CompItem.prototype = new Item();
 CompItem.prototype.constructor = CompItem;
 CompItem.prototype.layer = function (i) { return this._layers[i - 1]; };
+Object.defineProperty(CompItem.prototype, 'selectedProperties', { get: function () { return this._selectedProps || []; } });
 Object.defineProperty(CompItem.prototype, 'numLayers', { get: function () { return this._layers.length; } });
 Object.defineProperty(CompItem.prototype, 'selectedLayers', {
   get: function () { return this._layers.filter(function (l) { return l.selected; }); },
@@ -528,4 +529,36 @@ __ae.template = function (aepPath, comps, footage) {
     (footage || []).forEach(function (p) { __ae.files[p] = 'media'; __move(new FootageItem(p), folder); });
     return folder;
   };
+};
+
+// «Фирменные кривые»: KeyframeEase and an animated property with keys at times, some selected. Temporal ease
+// per key and side has one entry per dimension (one for a spatial property), as in AE; interpolation per side.
+function KeyframeEase(speed, influence) {
+  if (influence < 0.1 || influence > 100) throw new Error('After Effects error: influence out of range');
+  this.speed = speed;
+  this.influence = influence;
+}
+__ae.keyProp = function (comp, layerName, name, dims, times, selected) {
+  var layer = { name: layerName, propertyDepth: 0 };
+  var p = { name: name, propertyType: PropertyType.PROPERTY, propertyDepth: 2, parentProperty: { name: 'Transform', propertyDepth: 1, parentProperty: layer } };
+  p._keys = times.map(function (t) {
+    var e = function () { var a = []; for (var i = 0; i < dims; i++) a.push({ speed: 0, influence: 16.666667 }); return a; };
+    return { t: t, inEase: e(), outEase: e(), inI: KeyframeInterpolationType.LINEAR, outI: KeyframeInterpolationType.LINEAR };
+  });
+  Object.defineProperty(p, 'numKeys', { get: function () { return p._keys.length; } });
+  p.selectedKeys = selected || [];
+  p.keyTime = function (k) { return p._keys[k - 1].t; };
+  p.keyInTemporalEase = function (k) { return p._keys[k - 1].inEase; };
+  p.keyOutTemporalEase = function (k) { return p._keys[k - 1].outEase; };
+  p.keyInInterpolationType = function (k) { return p._keys[k - 1].inI; };
+  p.keyOutInterpolationType = function (k) { return p._keys[k - 1].outI; };
+  p.setInterpolationTypeAtKey = function (k, a, b) { p._keys[k - 1].inI = a; p._keys[k - 1].outI = b === undefined ? a : b; };
+  p.setTemporalEaseAtKey = function (k, a, b) {
+    if (a.length !== dims || (b && b.length !== dims)) throw new Error('After Effects error: wrong number of ease dimensions');
+    p._keys[k - 1].inEase = a.map(function (e) { return { speed: e.speed, influence: e.influence }; });
+    if (b) p._keys[k - 1].outEase = b.map(function (e) { return { speed: e.speed, influence: e.influence }; });
+    __ae.calls.push('ease ' + name + ' #' + k);
+  };
+  comp._selectedProps = (comp._selectedProps || []).concat([p]);
+  return p;
 };

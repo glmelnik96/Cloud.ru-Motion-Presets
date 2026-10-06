@@ -28,6 +28,7 @@ import { spawnSync } from 'node:child_process';
 import { runFitLive } from './fit.mjs';
 import { runEditLive } from './edit.mjs';
 import { runColorsLive } from './colors.mjs';
+import { runEaseLive } from './ease.mjs';
 import { runEffectsLive } from './effects.mjs';
 import { runMediaLive } from './media.mjs';
 import { Report } from './runner.mjs';
@@ -135,6 +136,8 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
       }
       // The «Цвета» tab: AE only, on its own scratch project.
       if (HOST === 'ae') await runColorsLive({ bridge, hostRun, project: path.posix.join(outDir, 'colors_live.aep'), R });
+      // «Движение» (0.1.20): a brand curve of D19 between selected keys, read back.
+      if (HOST === 'ae') await runEaseLive({ bridge, hostRun, project: path.posix.join(outDir, 'ease_live.aep'), R });
       // «Вписать в окно»: Premiere only, stills of a known colour into the windows of WEB_Screen (example source).
       if (HOST === 'pr') {
         const clips = {};

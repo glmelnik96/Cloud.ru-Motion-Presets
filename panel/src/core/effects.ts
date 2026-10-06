@@ -2,7 +2,7 @@
 // layers the user selected, its first keys at the current time. S4 (AE 26.5) fixed the rules: applyPreset
 // acts on every selected layer of the comp, and with nothing selected it makes a new solid — so the panel
 // refuses without a selection. The preset leaves no reference to its file in the project: nothing is copied.
-// «Фирменные кривые» (applyBrandEase) wait for the curve numbers of D19 (JSX dumps of phase 1).
+// «Фирменные кривые» are in ease.ts (tab «Движение»).
 import type { HostCaller } from './host';
 import { error, messages, warning, type Problem } from './problems';
 import { libraryFile, libraryKey } from './paths';

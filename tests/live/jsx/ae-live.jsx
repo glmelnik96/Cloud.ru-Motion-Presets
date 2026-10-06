@@ -448,6 +448,69 @@ function lvTransferOpen() {
   });
 }
 
+// ---- «Движение» (tests/live/ease.mjs) ----
+
+// A solid with keys on Position (0, 0.8, 2 s) and Scale (0, 1.16 s); the first two of each selected, the rest
+// not, so the adapter sees exactly what an editor would select on the timeline.
+function lvEaseLayer() {
+  check('comp ' + PARAMS.id + ': BK Ease with keys selected', function () {
+    var c = lvComp(PARAMS.id);
+    var l, tr, pos, sc, i;
+    c.openInViewer();
+    for (i = 1; i <= c.numLayers; i++) {
+      c.layer(i).selected = false;
+    }
+    l = c.layers.addSolid([0.15, 0.82, 0.49], 'BK Ease', 400, 200, 1, c.duration);
+    tr = l.property('ADBE Transform Group');
+    pos = tr.property('ADBE Position');
+    sc = tr.property('ADBE Scale');
+    pos.setValueAtTime(0, [400, 540]);
+    pos.setValueAtTime(0.8, [960, 540]);
+    pos.setValueAtTime(2, [1500, 540]);
+    sc.setValueAtTime(0, [0, 100]);
+    sc.setValueAtTime(1.16, [100, 100]);
+    l.selected = true;
+    pos.selected = true;
+    sc.selected = true;
+    for (i = 1; i <= pos.numKeys; i++) {
+      pos.setSelectedAtKey(i, i <= 2);
+    }
+    for (i = 1; i <= sc.numKeys; i++) {
+      sc.setSelectedAtKey(i, true);
+    }
+    return { pass: c.selectedProperties.length >= 2, detail: { selected: c.selectedProperties.length, posKeys: pos.selectedKeys.length, scaleKeys: sc.selectedKeys.length } };
+  });
+}
+
+function lvEaseList(list) {
+  var out = [];
+  var i;
+  for (i = 0; i < list.length; i++) {
+    out.push({ speed: Math.round(list[i].speed * 1000) / 1000, influence: Math.round(list[i].influence * 1000) / 1000 });
+  }
+  return out;
+}
+
+function lvEaseRead() {
+  check('eases of BK Ease read', function () {
+    var c = lvComp(PARAMS.id);
+    var l = c.layer('BK Ease');
+    var tr = l.property('ADBE Transform Group');
+    var out = {};
+    var names = ['ADBE Position', 'ADBE Scale'];
+    var n, p, k;
+    for (n = 0; n < names.length; n++) {
+      p = tr.property(names[n]);
+      out[names[n]] = [];
+      for (k = 1; k <= p.numKeys; k++) {
+        out[names[n]].push({ inEase: lvEaseList(p.keyInTemporalEase(k)), outEase: lvEaseList(p.keyOutTemporalEase(k)), out: p.keyOutInterpolationType(k) === KeyframeInterpolationType.BEZIER ? 'bezier' : 'other' });
+      }
+    }
+    DATA.eases = out;
+    return true;
+  });
+}
+
 if (PARAMS.op === 'setup') {
   lvSetup();
 } else if (PARAMS.op === 'activate') {
@@ -482,6 +545,10 @@ if (PARAMS.op === 'setup') {
   lvQueueUser();
 } else if (PARAMS.op === 'rq') {
   lvRq();
+} else if (PARAMS.op === 'easeLayer') {
+  lvEaseLayer();
+} else if (PARAMS.op === 'easeRead') {
+  lvEaseRead();
 } else if (PARAMS.op === 'transferRelease') {
   lvTransferRelease();
 } else if (PARAMS.op === 'transferOpen') {

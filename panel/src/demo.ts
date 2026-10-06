@@ -82,6 +82,8 @@ class DemoHost implements HostCaller {
       this.blurred = true;
       return { ok: true, data: { name: 'Запись спикера.mp4', copyTrack: 2, blurriness: r.blurriness, crop: r.crop, effects: [], keyed: false } as T };
     }
+    // «Движение»: two keys of Position selected on the plate
+    if (fn === 'applyEase') return { ok: true, data: { props: [{ name: 'Position', layer: 'Плашка', pairs: 1 }], single: [] } as T };
     if (fn === 'importTextStyle') {
       const r = args as { name: string };
       const imported = !this.styles.has(r.name);

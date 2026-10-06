@@ -49,6 +49,8 @@ export type ProblemCode =
   | 'BLUR_EFFECTS'
   | 'BLUR_KEYED'
   | 'STYLE_FAILED'
+  | 'EASE_NO_KEYS'
+  | 'EASE_SINGLE'
   | 'INSERT_FAILED'
   | 'READBACK'
   | 'TIMEOUT'
@@ -145,6 +147,11 @@ export const messages = {
   blurEffects: (names: string[]) => `На клипе есть эффекты (${names.join(', ')}): на резкую копию сверху они не перенесены. Скопируйте их на копию: Edit → Copy, затем Paste Attributes.`,
   blurKeyed: () => 'У клипа есть ключи Motion или Opacity: на копию перенесены только значения на начало клипа. Проверьте, что копия двигается вместе с клипом.',
   blurFailed: (detail: string) => `Не удалось размыть поля: ${detail}. Отмените последние действия (Ctrl+Z) и повторите.`,
+  easeUnknown: () => 'Такой кривой нет в каноне.',
+  easeNoKeys: (single: string[]) => single.length
+    ? `Выделите хотя бы два ключа одного свойства: у ${single.join(', ')} выделен один ключ.`
+    : 'Выделите на таймлайне ключи, между которыми поставить кривую: хотя бы два ключа одного свойства.',
+  easeSingle: (names: string[]) => `У свойств ${names.join(', ')} выделен один ключ — кривая на них не поставлена.`,
   styleNone: () => 'В библиотеке нет стиля субтитров.',
   styleFailed: (detail: string) => `Стиль не добавлен в проект: ${detail}.`,
   placement: (what: string[]) => `Файлы встали не так, как задумано (${what.join('; ')}). Отмените вставку и повторите.`,
