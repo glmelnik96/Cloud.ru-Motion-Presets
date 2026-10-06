@@ -18,6 +18,7 @@
     "panel:live": "node tools/panel/live.mjs",
     "panel:checkpoint": "node tools/panel/checkpoint.mjs",
     "materials": "node tools/dump/materials.mjs",
+    "refs": "node tools/refs/refs.mjs",
     "panel:build": "vite build --config panel/vite.config.mjs",
     "panel:dev": "vite --config panel/vite.config.mjs",
     "installer:build": "node tools/installer/build.mjs"

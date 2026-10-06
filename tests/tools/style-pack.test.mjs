@@ -4,7 +4,7 @@ import { existsSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { stageStyle, styleBuildName, styleProblems } from '../../tools/library/style-pack.mjs';
+import { defaultStyleFile, stageStyle, styleBuildName, styleProblems } from '../../tools/library/style-pack.mjs';
 
 const SAMPLE = readFileSync(new URL('../../docs/research/premiere/captions-style-sample.txt', import.meta.url), 'utf8');
 const XML = SAMPLE.slice(SAMPLE.indexOf('<?xml'));
@@ -30,5 +30,9 @@ describe('caption style for the build', () => {
     expect(stageStyle({ from, buildDir: build })).toEqual({ ok: true, problems: [], staged: ['CRS_SubtitleStyle/CRS_SubtitleStyle_style_v1.prtextstyle'] });
     expect(readFileSync(path.join(build, styleBuildName()), 'utf8')).toBe(XML);
     expect(stageStyle({ from: path.join(dir, 'nope.prtextstyle'), buildDir: build }).problems[0]).toMatch(/нет файла/);
+  });
+
+  it('the default file of the build PC: a Cyrillic name under the ASCII work folder', () => {
+    expect(defaultStyleFile()).toMatch(/\/materials\/premiere\/CR Субтитры\.prtextstyle$/);
   });
 });

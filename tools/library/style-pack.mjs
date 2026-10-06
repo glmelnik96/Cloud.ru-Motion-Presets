@@ -26,7 +26,10 @@ export function styleProblems(xml, style = STYLE) {
   return out;
 }
 
-export function stageStyle({ from = workPath('materials', 'premiere', `${STYLE.name}.prtextstyle`), buildDir = workPath('build'), check = false } = {}) {
+// The default file has a Cyrillic name: joined outside workPath, which takes ASCII only.
+export const defaultStyleFile = () => path.posix.join(workPath('materials', 'premiere'), `${STYLE.name}.prtextstyle`);
+
+export function stageStyle({ from = defaultStyleFile(), buildDir = workPath('build'), check = false } = {}) {
   if (!existsSync(from)) return { ok: false, problems: [`${STYLE.id}: нет файла ${from}`], staged: [] };
   const problems = styleProblems(readFileSync(from, 'utf8'));
   if (problems.length || check) return { ok: problems.length === 0, problems, staged: [] };
