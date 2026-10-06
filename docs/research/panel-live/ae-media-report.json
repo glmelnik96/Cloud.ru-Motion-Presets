@@ -1,15 +1,13 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-06T18:40:06.583Z",
-  "finishedAt": "2026-10-06T18:40:13.457Z",
+  "startedAt": "2026-10-06T19:07:43.807Z",
+  "finishedAt": "2026-10-06T19:07:50.549Z",
   "summary": {
-    "checks": 208,
-    "passed": 207,
-    "failed": 1
+    "checks": 211,
+    "passed": 211,
+    "failed": 0
   },
-  "failed": [
-    "transfer: finished without an exception"
-  ],
+  "failed": [],
   "checks": [
     {
       "name": "synthetic pack built: 0 files made, catalog in C:\\CRBK\\work\\panel-live\\media\\library",
@@ -2287,10 +2285,40 @@
       ]
     },
     {
-      "name": "transfer: finished without an exception",
-      "pass": false,
+      "name": "transfer: the original folders and the library are out of the way",
+      "pass": true,
       "required": true,
-      "detail": "EPERM: operation not permitted, rename 'C:\\CRBK\\work\\panel-live\\ae\\Cloud.ru BrandKit' -> 'C:\\CRBK\\work\\panel-live\\ae\\Cloud.ru BrandKit.away'"
+      "detail": {
+        "renamed": [
+          "C:/CRBK/work/panel-live/media/library",
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit"
+        ],
+        "retries": {
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit": 0,
+          "C:/CRBK/work/panel-live/media/library": 0
+        }
+      }
+    },
+    {
+      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/ae-moved/media_live.aep",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "path": "C:/CRBK/work/panel-live/ae-moved/media_live.aep",
+        "footage": 6
+      }
+    },
+    {
+      "name": "transfer: no missing files after the move (6 listed)",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "transfer: every file the panel put next to the project found inside the moved copy (6)",
+      "pass": true,
+      "required": true,
+      "detail": []
     },
     {
       "name": "effects: stand-in presets found in the AE presets folder",

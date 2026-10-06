@@ -1,0 +1,36 @@
+{
+ "courses": [
+  "SBSansDisplay-Regular",
+  "SBSansDisplay-Semibold",
+  "SBSansText-Regular"
+ ],
+ "courses_conv": [
+  "SBSansDisplay-Regular",
+  "SBSansDisplay-Semibold",
+  "SBSansText-Regular"
+ ],
+ "logo": [
+  "SBSansDisplay-Semibold"
+ ],
+ "logo_conv": [
+  "SBSansDisplay-Semibold"
+ ],
+ "podcast": [
+  "SBSansDisplay-Regular",
+  "SBSansDisplay-Semibold",
+  "SBSansDisplay-Bold"
+ ],
+ "smm": [
+  "SBSansDisplay-Semibold"
+ ],
+ "titles": [
+  "SBSansText-Regular"
+ ],
+ "titles_conv": [
+  "SBSansText-Regular"
+ ],
+ "webinars": [
+  "SBSansDisplay-Regular",
+  "SBSansDisplay-Semibold"
+ ]
+}

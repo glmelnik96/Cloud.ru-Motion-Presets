@@ -1,0 +1,249 @@
+[
+ {
+  "pack": "podcast",
+  "comp": "Контент_1",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ },
+ {
+  "pack": "podcast",
+  "comp": "Контент_2",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ },
+ {
+  "pack": "podcast",
+  "comp": "Контент_3",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ },
+ {
+  "pack": "podcast",
+  "comp": "О_госте",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ },
+ {
+  "pack": "podcast",
+  "comp": "Подписывайтесь на канал CLOUD.RU",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ },
+ {
+  "pack": "podcast",
+  "comp": "Подпись_спикера_1",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ },
+ {
+  "pack": "podcast",
+  "comp": "Подпись_спикера_2",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ },
+ {
+  "pack": "podcast",
+  "comp": "Текст на плашке_1",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ },
+ {
+  "pack": "podcast",
+  "comp": "Текст на плашке_2",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ },
+ {
+  "pack": "podcast",
+  "comp": "Текст на плашке_3",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ },
+ {
+  "pack": "podcast",
+  "comp": "QR_код_1",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ },
+ {
+  "pack": "podcast",
+  "comp": "QR_код_2",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ },
+ {
+  "pack": "podcast",
+  "comp": "QR_код_3",
+  "layer": "Blur",
+  "layerType": "adjustment",
+  "adjustment": true,
+  "enabled": true,
+  "matchName": "ADBE Box Blur2",
+  "name": "Fast Box Blur",
+  "fxEnabled": true,
+  "params": {
+   "Blur Radius": 15,
+   "Iterations": 3,
+   "Blur Dimensions": 1,
+   "Repeat Edge Pixels": 1,
+   "Compositing Options / Effect Opacity": 100,
+   "Compositing Options / GPU Rendering": 1
+  }
+ }
+]

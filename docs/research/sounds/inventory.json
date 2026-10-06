@@ -1,0 +1,484 @@
+{
+ "generated": "2026-10-06T19:13:26.051Z",
+ "packs": "C:/CRBK/packs",
+ "files": [
+  {
+   "pack": "courses_conv",
+   "file": "courses_conv/(Footage)/Folder/Music/Music Intro.mp3",
+   "bytes": 528082,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": null,
+   "duration": 15.1,
+   "lufs": -18.8,
+   "lra": 15.3,
+   "truePeak": -3.5,
+   "usedBy": [
+    {
+     "pack": "courses",
+     "item": "Music Intro.mp3",
+     "usedIn": 3
+    },
+    {
+     "pack": "courses_conv",
+     "item": "Music Intro.mp3",
+     "usedIn": 4
+    }
+   ]
+  },
+  {
+   "pack": "courses",
+   "file": "courses/(Footage)/Folder/Music/Music Intro.mp3",
+   "bytes": 528082,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": null,
+   "duration": 15.1,
+   "lufs": -18.8,
+   "lra": 15.3,
+   "truePeak": -3.5,
+   "usedBy": [
+    {
+     "pack": "courses",
+     "item": "Music Intro.mp3",
+     "usedIn": 3
+    },
+    {
+     "pack": "courses_conv",
+     "item": "Music Intro.mp3",
+     "usedIn": 4
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/_experimental.wav",
+   "bytes": 384168,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 2,
+   "lufs": -21.8,
+   "lra": 0,
+   "truePeak": -2.8,
+   "usedBy": []
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/02 Simple Whoosh B.wav",
+   "bytes": 582326,
+   "codec": "pcm_s24le",
+   "sampleRate": 44100,
+   "channels": 2,
+   "bits": 24,
+   "duration": 2.2,
+   "lufs": -17.6,
+   "lra": 0,
+   "truePeak": -0.1,
+   "usedBy": []
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/Podcasts_1.wav",
+   "bytes": 30658600,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 159.68,
+   "lufs": -15.4,
+   "lra": 6.9,
+   "truePeak": -2.3,
+   "usedBy": []
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SCIMach_SMorph_Motion Graphics - Micro SFX 04.wav",
+   "bytes": 4074062,
+   "codec": "pcm_s24le",
+   "sampleRate": 96000,
+   "channels": 2,
+   "bits": 24,
+   "duration": 6.906,
+   "lufs": -25.3,
+   "lra": 3.4,
+   "truePeak": 0.1,
+   "usedBy": []
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/Дисклеймер.wav",
+   "bytes": 5980510,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 30.36,
+   "lufs": -35.6,
+   "lra": 9.1,
+   "truePeak": -13.9,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "Дисклеймер.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/Заставка_ПОДКАСТ_CLOUD.RU.wav",
+   "bytes": 5057922,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 25.72,
+   "lufs": -32.4,
+   "lra": 7.9,
+   "truePeak": -8.5,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "Заставка_ПОДКАСТ_CLOUD.RU.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/Контент_1.wav",
+   "bytes": 1911472,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 9.64,
+   "lufs": -46.5,
+   "lra": 16.5,
+   "truePeak": -25.1,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "Контент_1.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/Контент_2.wav",
+   "bytes": 1906506,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 9.64,
+   "lufs": -46.8,
+   "lra": 15.8,
+   "truePeak": -25.1,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "Контент_2.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/Контент_3.wav",
+   "bytes": 1915458,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 9.64,
+   "lufs": -45.9,
+   "lra": 18.2,
+   "truePeak": -25.1,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "Контент_3.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/О_госте.wav",
+   "bytes": 1918322,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 9.64,
+   "lufs": -46.9,
+   "lra": 16.2,
+   "truePeak": -25.1,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "О_госте.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/Подписывайтесь на канал CLOUD.RU.wav",
+   "bytes": 1952346,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 9.64,
+   "lufs": -46.3,
+   "lra": 16.1,
+   "truePeak": -25.1,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "Подписывайтесь на канал CLOUD.RU.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/Подпись_спикера_1.wav",
+   "bytes": 1920610,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 9.64,
+   "lufs": -46.5,
+   "lra": 16.2,
+   "truePeak": -25.1,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "Подпись_спикера_1.wav",
+     "usedIn": 1
+    },
+    {
+     "pack": "podcast",
+     "item": "Подпись_спикера_2.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/Текст на плашке_1.wav",
+   "bytes": 1930992,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 9.64,
+   "lufs": -46.1,
+   "lra": 17.8,
+   "truePeak": -25.1,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "Текст на плашке_1.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/Текст на плашке_2.wav",
+   "bytes": 1918996,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 9.64,
+   "lufs": -46.2,
+   "lra": 17.8,
+   "truePeak": -25.1,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "Текст на плашке_2.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/Текст на плашке_3.wav",
+   "bytes": 1918996,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 9.64,
+   "lufs": -46.2,
+   "lra": 17.8,
+   "truePeak": -25.1,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "Текст на плашке_3.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/QR_код_1.wav",
+   "bytes": 1917690,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 9.64,
+   "lufs": -46.9,
+   "lra": 15.8,
+   "truePeak": -25.1,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "QR_код_1.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/QR_код_2.wav",
+   "bytes": 1925818,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 9.64,
+   "lufs": -46.7,
+   "lra": 15.8,
+   "truePeak": -25.1,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "QR_код_2.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SFX/QR_код_3.wav",
+   "bytes": 1926358,
+   "codec": "pcm_s16le",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": 16,
+   "duration": 9.64,
+   "lufs": -46.7,
+   "lra": 15.8,
+   "truePeak": -25.1,
+   "usedBy": [
+    {
+     "pack": "podcast",
+     "item": "QR_код_3.wav",
+     "usedIn": 0
+    },
+    {
+     "pack": "podcast",
+     "item": "QR_код_3.wav",
+     "usedIn": 1
+    }
+   ]
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/soundscrate-air-woosh-2.mp3",
+   "bytes": 21996,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": null,
+   "duration": 1.332,
+   "lufs": -19,
+   "lra": 0,
+   "truePeak": -5.2,
+   "usedBy": []
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/SoundsCrate-Fighting-Woosh-9.mp3",
+   "bytes": 13677,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "bits": null,
+   "duration": 0.793,
+   "lufs": -36.2,
+   "lra": 0,
+   "truePeak": -18.4,
+   "usedBy": []
+  },
+  {
+   "pack": "podcast",
+   "file": "podcast/(Footage)/Whoosh 42.mp3",
+   "bytes": 31306,
+   "codec": "mp3",
+   "sampleRate": 44100,
+   "channels": 2,
+   "bits": null,
+   "duration": 0.731,
+   "lufs": -23,
+   "lra": 0,
+   "truePeak": -9.9,
+   "usedBy": []
+  },
+  {
+   "pack": "webinars",
+   "file": "webinars/(Footage)/Folder/Music/Музыка вебинар 5 минут.mp3",
+   "bytes": 7129560,
+   "codec": "mp3",
+   "sampleRate": 44100,
+   "channels": 2,
+   "bits": null,
+   "duration": 296.338,
+   "lufs": -10.8,
+   "lra": 1.9,
+   "truePeak": 0.4,
+   "usedBy": [
+    {
+     "pack": "webinars",
+     "item": "Музыка вебинар 5 минут.mp3",
+     "usedIn": 2
+    }
+   ]
+  },
+  {
+   "pack": "webinars",
+   "file": "webinars/(Footage)/Folder/Music/Music vebinar.mp3",
+   "bytes": 737948,
+   "codec": "mp3",
+   "sampleRate": 44100,
+   "channels": 2,
+   "bits": null,
+   "duration": 30.072,
+   "lufs": -11.7,
+   "lra": 2.6,
+   "truePeak": 0.8,
+   "usedBy": [
+    {
+     "pack": "webinars",
+     "item": "Music vebinar.mp3",
+     "usedIn": 2
+    }
+   ]
+  }
+ ]
+}

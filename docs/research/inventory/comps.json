@@ -1,0 +1,4646 @@
+[
+ {
+  "pack": "courses",
+  "name": "Обложка #1",
+  "folder": "Заставки",
+  "w": 2560,
+  "h": 1440,
+  "fps": 25,
+  "duration": 7.92,
+  "workArea": [
+   0,
+   7.92
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 22,
+  "texts": [
+   {
+    "layer": "Cloud.ru Advanced ",
+    "text": "Cloud.ru Advanced",
+    "font": "SBSansDisplay-Regular",
+    "size": 30
+   },
+   {
+    "layer": "третья последняя",
+    "text": "третья последняя",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "вторая строчка",
+    "text": "вторая строчка",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "Первая строчка",
+    "text": "Первая строчка",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 39.6
+   }
+  ],
+  "precomps": [
+   "Переход",
+   "Visual",
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 11
+ },
+ {
+  "pack": "courses",
+  "name": "Обложка #2",
+  "folder": "Заставки",
+  "w": 2560,
+  "h": 1440,
+  "fps": 25,
+  "duration": 15.04,
+  "workArea": [
+   0,
+   7.04
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 16,
+  "texts": [
+   {
+    "layer": "Cloud.ru Advanced 2",
+    "text": "Cloud.ru Advanced",
+    "font": "SBSansDisplay-Regular",
+    "size": 30
+   },
+   {
+    "layer": "третья последняя",
+    "text": "третья последняя",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "вторая строчка 2",
+    "text": "вторая строчка",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "Первая строчка 2",
+    "text": "Первая строчка",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 39.6
+   }
+  ],
+  "precomps": [
+   "Переход",
+   "Visual",
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 3
+ },
+ {
+  "pack": "courses",
+  "name": "Обложка #3",
+  "folder": "Заставки",
+  "w": 2560,
+  "h": 1440,
+  "fps": 25,
+  "duration": 15.04,
+  "workArea": [
+   0,
+   7.04
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 17,
+  "texts": [
+   {
+    "layer": "Cloud.ru Advanced 3",
+    "text": "Cloud.ru Advanced",
+    "font": "SBSansDisplay-Regular",
+    "size": 30
+   },
+   {
+    "layer": "третья последняя 2",
+    "text": "третья последняя",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "вторая строчка 3",
+    "text": "вторая строчка",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "Первая строчка 3",
+    "text": "Первая строчка",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 39.6
+   }
+  ],
+  "precomps": [
+   "Переход",
+   "Visual with background",
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 5
+ },
+ {
+  "pack": "courses",
+  "name": "Оверлей 3 на 2",
+  "folder": "Оверлеи",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 6.72,
+    "comment": "Поставить скорость \"портала\" на минимум"
+   },
+   {
+    "time": 27.48,
+    "comment": "сделать портал как прогресс-бар\r"
+   },
+   {
+    "time": 66.44,
+    "comment": "поиграться с отступом в риалтайме"
+   }
+  ],
+  "layers": 24,
+  "texts": [
+   {
+    "layer": "SUBTITLES_1 строка",
+    "text": "Пишем текстр, много текста, ооочень много",
+    "font": "SBSansText-Regular",
+    "size": 35
+   },
+   {
+    "layer": "SUBTITLES_2 строка",
+    "text": "Ававававававава",
+    "font": "SBSansText-Regular",
+    "size": 35
+   }
+  ],
+  "precomps": [
+   "Прекомп 3 на 2",
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 24
+ },
+ {
+  "pack": "courses",
+  "name": "Оверлей 16 на 9",
+  "folder": "Оверлеи",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 24,
+  "texts": [
+   {
+    "layer": "SUBTITLES_1 строка",
+    "text": "Пишем текстр, много текста, ооочень много",
+    "font": "SBSansText-Regular",
+    "size": 35
+   },
+   {
+    "layer": "SUBTITLES_2 строка",
+    "text": "2 слова",
+    "font": "SBSansText-Regular",
+    "size": 35
+   }
+  ],
+  "precomps": [
+   "Прекомп 16 на 9",
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 24
+ },
+ {
+  "pack": "courses",
+  "name": "Оверлей со спикером",
+  "folder": "Оверлеи",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 14,
+  "texts": [],
+  "precomps": [
+   "Прекомп спикер",
+   "Прекомп 16 на 9",
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 12
+ },
+ {
+  "pack": "courses",
+  "name": "Переход",
+  "folder": "Переход",
+  "w": 2560,
+  "h": 1440,
+  "fps": 25,
+  "duration": 2.04,
+  "workArea": [
+   0,
+   2.04
+  ],
+  "root": false,
+  "usedIn": 3,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 6,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses",
+  "name": "Прекомп 3 на 2",
+  "folder": "Folder/Precomps",
+  "w": 1920,
+  "h": 1280,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 0,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses",
+  "name": "Прекомп 16 на 9",
+  "folder": "Folder/Precomps",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 0,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses",
+  "name": "Прекомп спикер",
+  "folder": "Folder/Precomps",
+  "w": 500,
+  "h": 750,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses",
+  "name": "Logo",
+  "folder": "Folder/Precomps",
+  "w": 905,
+  "h": 180,
+  "fps": 25,
+  "duration": 14.16,
+  "workArea": [
+   0,
+   14.16
+  ],
+  "root": false,
+  "usedIn": 6,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses",
+  "name": "Visual",
+  "folder": "Folder/Precomps",
+  "w": 2700,
+  "h": 2700,
+  "fps": 25,
+  "duration": 10.04,
+  "workArea": [
+   0,
+   10.04
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses",
+  "name": "Visual with background",
+  "folder": "Folder/Precomps",
+  "w": 2700,
+  "h": 2700,
+  "fps": 25,
+  "duration": 10.04,
+  "workArea": [
+   0,
+   10.04
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Обложка #1",
+  "folder": "Заставки",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 7.92,
+  "workArea": [
+   0,
+   7.92
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [
+   "Pre-comp 4"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Обложка #2",
+  "folder": "Заставки",
+  "w": 2560,
+  "h": 1440,
+  "fps": 25,
+  "duration": 15.04,
+  "workArea": [
+   0,
+   7.04
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 16,
+  "texts": [
+   {
+    "layer": "Cloud.ru Advanced 2",
+    "text": "Cloud.ru Advanced",
+    "font": "SBSansDisplay-Regular",
+    "size": 30
+   },
+   {
+    "layer": "третья последняя",
+    "text": "третья последняя",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "вторая строчка 2",
+    "text": "вторая строчка",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "Первая строчка 2",
+    "text": "Первая строчка",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 39.6
+   }
+  ],
+  "precomps": [
+   "Переход",
+   "Visual",
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 3
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Обложка #3",
+  "folder": "Заставки",
+  "w": 2560,
+  "h": 1440,
+  "fps": 25,
+  "duration": 15.04,
+  "workArea": [
+   0,
+   7.04
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 17,
+  "texts": [
+   {
+    "layer": "Cloud.ru Advanced 3",
+    "text": "Cloud.ru Advanced",
+    "font": "SBSansDisplay-Regular",
+    "size": 30
+   },
+   {
+    "layer": "третья последняя 2",
+    "text": "третья последняя",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "вторая строчка 3",
+    "text": "вторая строчка",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "Первая строчка 3",
+    "text": "Первая строчка",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 39.6
+   }
+  ],
+  "precomps": [
+   "Переход",
+   "Visual with background",
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 5
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Обложка #4",
+  "folder": "Заставки",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 7.92,
+  "workArea": [
+   0,
+   7.92
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [
+   "Pre-comp 3"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Pre-comp 3",
+  "folder": "Заставки",
+  "w": 2560,
+  "h": 1440,
+  "fps": 25,
+  "duration": 7.92,
+  "workArea": [
+   0,
+   7.92
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 23,
+  "texts": [
+   {
+    "layer": "Cloud.ru",
+    "text": "Cloud.ru",
+    "font": "SBSansDisplay-Regular",
+    "size": 30
+   },
+   {
+    "layer": "и аварийное восстановление",
+    "text": "и аварийное восстановление",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "резервное копирование",
+    "text": "резервное копирование",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "Миграция,",
+    "text": "Миграция,",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 39.6
+   }
+  ],
+  "precomps": [
+   "Переход",
+   "Visual",
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 11
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Pre-comp 4",
+  "folder": "Заставки",
+  "w": 2560,
+  "h": 1440,
+  "fps": 25,
+  "duration": 7.92,
+  "workArea": [
+   0,
+   7.92
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 23,
+  "texts": [
+   {
+    "layer": "Cloud.ru Advanced ",
+    "text": "Cloud.ru Advanced",
+    "font": "SBSansDisplay-Regular",
+    "size": 30
+   },
+   {
+    "layer": "Cloud.ru Advanced",
+    "text": "Cloud.ru Advanced",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "платформы",
+    "text": "платформы",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "Продвижение",
+    "text": "Продвижение",
+    "font": "SBSansDisplay-Regular",
+    "size": 125
+   },
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 39.6
+   }
+  ],
+  "precomps": [
+   "Переход",
+   "Visual",
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 11
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Оверлей 3 на 2",
+  "folder": "Оверлеи",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 6.72,
+    "comment": "Поставить скорость \"портала\" на минимум"
+   },
+   {
+    "time": 27.48,
+    "comment": "сделать портал как прогресс-бар\r"
+   },
+   {
+    "time": 66.44,
+    "comment": "поиграться с отступом в риалтайме"
+   }
+  ],
+  "layers": 24,
+  "texts": [
+   {
+    "layer": "SUBTITLES_1 строка",
+    "text": "Пишем текстр, много текста, ооочень много",
+    "font": "SBSansText-Regular",
+    "size": 35
+   },
+   {
+    "layer": "SUBTITLES_2 строка",
+    "text": "Ававававававава",
+    "font": "SBSansText-Regular",
+    "size": 35
+   }
+  ],
+  "precomps": [
+   "Прекомп 3 на 2",
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 24
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Оверлей 16 на 9",
+  "folder": "Оверлеи",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 24,
+  "texts": [
+   {
+    "layer": "SUBTITLES_1 строка",
+    "text": "Пишем текстр, много текста, ооочень много",
+    "font": "SBSansText-Regular",
+    "size": 35
+   },
+   {
+    "layer": "SUBTITLES_2 строка",
+    "text": "2 слова",
+    "font": "SBSansText-Regular",
+    "size": 35
+   }
+  ],
+  "precomps": [
+   "Прекомп 16 на 9",
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 24
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Оверлей со спикером",
+  "folder": "Оверлеи",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 3,
+  "texts": [],
+  "precomps": [
+   "Pre-comp 1",
+   "Pre-comp 2"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Оверлей со спикером 2",
+  "folder": "Оверлеи",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 4,
+  "texts": [],
+  "precomps": [
+   "Pre-comp 1",
+   "Pre-comp 2"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Pre-comp 1",
+  "folder": "Оверлеи",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [
+   "Прекомп спикер"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Pre-comp 2",
+  "folder": "Оверлеи",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 10,
+  "texts": [],
+  "precomps": [
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 12
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Переход",
+  "folder": "Переход",
+  "w": 2560,
+  "h": 1440,
+  "fps": 25,
+  "duration": 2.04,
+  "workArea": [
+   0,
+   2.04
+  ],
+  "root": false,
+  "usedIn": 4,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 6,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Прекомп 3 на 2",
+  "folder": "Folder/Precomps",
+  "w": 1920,
+  "h": 1280,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 0,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Прекомп 16 на 9",
+  "folder": "Folder/Precomps",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 0,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Прекомп спикер",
+  "folder": "Folder/Precomps",
+  "w": 500,
+  "h": 750,
+  "fps": 25,
+  "duration": 3600,
+  "workArea": [
+   0,
+   3600
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Logo",
+  "folder": "Folder/Precomps",
+  "w": 905,
+  "h": 180,
+  "fps": 25,
+  "duration": 14.16,
+  "workArea": [
+   0,
+   14.16
+  ],
+  "root": false,
+  "usedIn": 7,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Visual",
+  "folder": "Folder/Precomps",
+  "w": 2700,
+  "h": 2700,
+  "fps": 25,
+  "duration": 10.04,
+  "workArea": [
+   0,
+   10.04
+  ],
+  "root": false,
+  "usedIn": 3,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "courses_conv",
+  "name": "Visual with background",
+  "folder": "Folder/Precomps",
+  "w": 2700,
+  "h": 2700,
+  "fps": 25,
+  "duration": 10.04,
+  "workArea": [
+   0,
+   10.04
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo",
+  "name": "Логошоты вертикальный_Умное облако",
+  "folder": "Логошоты/Вертикальные",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 3.64,
+  "workArea": [
+   0,
+   3.64
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 6,
+  "texts": [
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 30.7
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo",
+  "name": "Логошоты вертикальный_Умное облако_запасной вариант",
+  "folder": "Логошоты/Вертикальные",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 3.64,
+  "workArea": [
+   0,
+   3.64
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 6,
+  "texts": [
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 30.7
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo",
+  "name": "Логошоты вертикальный_без саблайна",
+  "folder": "Логошоты/Вертикальные",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 3,
+  "workArea": [
+   0,
+   3
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [
+   "Логошот без саблайна"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo",
+  "name": "Логошоты вертикальный_без саблайна с плашкой",
+  "folder": "Логошоты/Вертикальные",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 3,
+  "workArea": [
+   0,
+   3
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [
+   "Логошот без саблайна с плашкой"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo",
+  "name": "Логошот без саблайна",
+  "folder": "Логошоты/Горизонтальные",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3,
+  "workArea": [
+   0,
+   3
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 10.88,
+    "comment": "схлопнуть в точку"
+   }
+  ],
+  "layers": 3,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo",
+  "name": "Логошот без саблайна с плашкой",
+  "folder": "Логошоты/Горизонтальные",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3,
+  "workArea": [
+   0,
+   3
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 10.88,
+    "comment": "схлопнуть в точку"
+   }
+  ],
+  "layers": 4,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo",
+  "name": "Логошот_Есть где развернуться",
+  "folder": "Логошоты/Горизонтальные",
+  "w": 3840,
+  "h": 2160,
+  "fps": 50,
+  "duration": 12.2,
+  "workArea": [
+   0,
+   5.02
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 4.52,
+    "comment": "Размещаем на плашке всегда!\nСлоганы всегда справа"
+   },
+   {
+    "time": 7.32,
+    "comment": "https://www.figma.com/design/BcvmP7P8zVb26jBHMr88Jo/BAZIS?node-id=4079-486&t=X7Jg5FmMykj62Toy-1"
+   }
+  ],
+  "layers": 1,
+  "texts": [],
+  "precomps": [
+   "Есть где развернуться"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo",
+  "name": "Логошот_Умное облако",
+  "folder": "Логошоты/Горизонтальные",
+  "w": 3840,
+  "h": 2160,
+  "fps": 50,
+  "duration": 12.2,
+  "workArea": [
+   0,
+   5.02
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 4.52,
+    "comment": "Размещаем на плашке всегда!\nСлоганы всегда справа"
+   },
+   {
+    "time": 7.32,
+    "comment": "https://www.figma.com/design/BcvmP7P8zVb26jBHMr88Jo/BAZIS?node-id=4079-486&t=X7Jg5FmMykj62Toy-1"
+   }
+  ],
+  "layers": 2,
+  "texts": [],
+  "precomps": [
+   "Умное облако"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo",
+  "name": "Есть где развернуться",
+  "folder": "Folder/Precomps",
+  "w": 765,
+  "h": 80,
+  "fps": 25,
+  "duration": 30,
+  "workArea": [
+   0,
+   4.36
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 5,
+  "texts": [],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "logo",
+  "name": "Умное облако",
+  "folder": "Folder/Precomps",
+  "w": 815,
+  "h": 80,
+  "fps": 25,
+  "duration": 30,
+  "workArea": [
+   0.04,
+   4.4
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 6,
+  "texts": [
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 100
+   }
+  ],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "logo_conv",
+  "name": "Логошоты вертикальный_Умное облако",
+  "folder": "Логошоты/Вертикальные",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 3.64,
+  "workArea": [
+   0,
+   3.64
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 6,
+  "texts": [
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 30.7
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo_conv",
+  "name": "Логошоты вертикальный_Умное облако_запасной вариант",
+  "folder": "Логошоты/Вертикальные",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 3.64,
+  "workArea": [
+   0,
+   3.64
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 6,
+  "texts": [
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 30.7
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo_conv",
+  "name": "Логошоты вертикальный_без саблайна",
+  "folder": "Логошоты/Вертикальные",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 3,
+  "workArea": [
+   0,
+   3
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [
+   "Логошот без саблайна"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo_conv",
+  "name": "Логошоты вертикальный_без саблайна с плашкой",
+  "folder": "Логошоты/Вертикальные",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 3,
+  "workArea": [
+   0,
+   3
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [
+   "Логошот без саблайна с плашкой"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo_conv",
+  "name": "Логошот без саблайна",
+  "folder": "Логошоты/Горизонтальные",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3,
+  "workArea": [
+   0,
+   3
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 10.88,
+    "comment": "схлопнуть в точку"
+   }
+  ],
+  "layers": 3,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo_conv",
+  "name": "Логошот без саблайна с плашкой",
+  "folder": "Логошоты/Горизонтальные",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 3,
+  "workArea": [
+   0,
+   3
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 10.88,
+    "comment": "схлопнуть в точку"
+   }
+  ],
+  "layers": 4,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo_conv",
+  "name": "Логошот_Есть где развернуться",
+  "folder": "Логошоты/Горизонтальные",
+  "w": 3840,
+  "h": 2160,
+  "fps": 50,
+  "duration": 12.2,
+  "workArea": [
+   0,
+   5.02
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 4.52,
+    "comment": "Размещаем на плашке всегда!\nСлоганы всегда справа"
+   },
+   {
+    "time": 7.32,
+    "comment": "https://www.figma.com/design/BcvmP7P8zVb26jBHMr88Jo/BAZIS?node-id=4079-486&t=X7Jg5FmMykj62Toy-1"
+   }
+  ],
+  "layers": 2,
+  "texts": [],
+  "precomps": [
+   "Есть где развернуться"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo_conv",
+  "name": "Логошот_Умное облако",
+  "folder": "Логошоты/Горизонтальные",
+  "w": 3840,
+  "h": 2160,
+  "fps": 50,
+  "duration": 12.2,
+  "workArea": [
+   0,
+   5.02
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 4.52,
+    "comment": "Размещаем на плашке всегда!\nСлоганы всегда справа"
+   },
+   {
+    "time": 7.32,
+    "comment": "https://www.figma.com/design/BcvmP7P8zVb26jBHMr88Jo/BAZIS?node-id=4079-486&t=X7Jg5FmMykj62Toy-1"
+   }
+  ],
+  "layers": 2,
+  "texts": [],
+  "precomps": [
+   "Умное облако"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "logo_conv",
+  "name": "Есть где развернуться",
+  "folder": "Folder/Precomps",
+  "w": 765,
+  "h": 80,
+  "fps": 25,
+  "duration": 30,
+  "workArea": [
+   0,
+   4.36
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 5,
+  "texts": [],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "logo_conv",
+  "name": "Умное облако",
+  "folder": "Folder/Precomps",
+  "w": 815,
+  "h": 80,
+  "fps": 25,
+  "duration": 30,
+  "workArea": [
+   0.04,
+   4.4
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 6,
+  "texts": [
+   {
+    "layer": "облачные и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 100
+   }
+  ],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Есть где развернуться",
+  "folder": "Precomp",
+  "w": 765,
+  "h": 80,
+  "fps": 25,
+  "duration": 30,
+  "workArea": [
+   0,
+   4.36
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 5,
+  "texts": [],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Подкаст",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [
+   {
+    "layer": "ПОДКАСТ",
+    "text": " ПОДКАСТ",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Подкаст",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 13,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [
+   {
+    "layer": "ПОДКАСТ",
+    "text": " ПОДКАСТ",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Подпись_QR_1",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [
+   {
+    "layer": "@STRDUB",
+    "text": "@STRDUB",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Подпись_QR_1",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [
+   {
+    "layer": "@STRDUB",
+    "text": "@STRDUB",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Подпись_QR_2",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [
+   {
+    "layer": "@ULBI_TV",
+    "text": "@ULBI_TV",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Подпись_QR_2",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [
+   {
+    "layer": "@VLADIMIR_BALUN_PROGRAMMING",
+    "text": "@VLADIMIR_BALUN_PROGRAMMING",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "  QR_1",
+  "folder": "Precomp",
+  "w": 1024,
+  "h": 1024,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "  QR_1",
+  "folder": "Precomp",
+  "w": 1024,
+  "h": 1024,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "  QR_2",
+  "folder": "Precomp",
+  "w": 1024,
+  "h": 1024,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 0,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "  QR_2",
+  "folder": "Precomp",
+  "w": 1024,
+  "h": 1024,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "  QR_3",
+  "folder": "Precomp",
+  "w": 1024,
+  "h": 1166,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [
+   {
+    "layer": "@CLOUDRUPROVIDER",
+    "text": "@CLOUDRUPROVIDER",
+    "font": "SBSansDisplay-Bold",
+    "size": 91.2
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "  QR_3",
+  "folder": "Precomp",
+  "w": 1024,
+  "h": 1166,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 3,
+  "texts": [
+   {
+    "layer": "@CLOUDRUPROVIDER",
+    "text": "@CLOUDRUPROVIDER",
+    "font": "SBSansDisplay-Bold",
+    "size": 91.2
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Cloud.ru",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [
+   {
+    "layer": "CLOUD.RU",
+    "text": "CLOUD.RU",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Cloud.ru",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 13,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [
+   {
+    "layer": "CLOUD.RU",
+    "text": "CLOUD.RU",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Cloud.ru_BlackColour",
+  "folder": "Precomp",
+  "w": 711,
+  "h": 132,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Cloud.ru_WhiteColour",
+  "folder": "Precomp",
+  "w": 711,
+  "h": 132,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "LIne Comp 1",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "LIne Comp 1",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 13,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "LINES 2 Comp 1",
+  "folder": "Precomp",
+  "w": 1280,
+  "h": 720,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "LINES Comp 1",
+  "folder": "Precomp",
+  "w": 1280,
+  "h": 720,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Pattern_1",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 20,
+  "workArea": [
+   0,
+   20
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 15,
+  "texts": [],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Pattern_1",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 20,
+  "workArea": [
+   0,
+   20
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 15,
+  "texts": [],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Pre-comp 3",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [
+   {
+    "layer": "ПОДПИСАТЬСЯЁ",
+    "text": "ПОДПИСАТЬСЯ",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   }
+  ],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Pre-comp 4",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [
+   {
+    "layer": "ПОДПИСАТЬСЯЁ",
+    "text": "ССЫЛКИ В ОПИСАНИИ",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   }
+  ],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Pre-comp 4",
+  "folder": "Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 3,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [
+   {
+    "layer": "ПОДПИСАТЬСЯЁ",
+    "text": "ПОДПИСАТЬСЯ",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   }
+  ],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Vert_lines_1 Comp 1",
+  "folder": "Precomp",
+  "w": 1280,
+  "h": 720,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Verts_lines_2 Comp 1",
+  "folder": "Precomp",
+  "w": 1280,
+  "h": 720,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Булит",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 4,
+  "texts": [
+   {
+    "layer": "Text_2",
+    "text": "Перестанет быть нужным",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   },
+   {
+    "layer": "Text_1",
+    "text": "Через несколько лет знание синтаксиса",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Булит_1",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 4,
+  "texts": [
+   {
+    "layer": "Text_2",
+    "text": "Это лучший пользователь ИИ",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   },
+   {
+    "layer": "Text_1",
+    "text": "Лучший разработчик будущего",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Дисклеймер",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 1,
+    "comment": "1"
+   }
+  ],
+  "layers": 22,
+  "texts": [
+   {
+    "layer": "ВСЕ МНЕНИЯ И ВЫСКАЗЫВАНИЯ В ЭТОМ ВИДЕО ПРИНАДЛЕЖАТ ИСКЛЮЧИТЕЛЬНО НАШЕМУ ГОСТЮ, ВЫСТУПАЮЩЕМУ КАК ЧАСТНОЕ ЛИЦО. ВИДЕО НЕ СВЯЗАНО С КОМПАНИЕЙ И НЕ ОТРАЖАЕТ ЕЁ ОФИЦИАЛЬНУЮ ПОЗИЦИЮ.",
+    "text": "ВСЕ МНЕНИЯ И ВЫСКАЗЫВАНИЯ В ЭТОМ ВИДЕО ПРИНАДЛЕЖАТ ИСКЛЮЧИТЕ",
+    "font": "SBSansDisplay-Bold",
+    "size": 40
+   },
+   {
+    "layer": "ДИСКЛЕЙМЕР",
+    "text": "ДИСКЛЕЙМЕР",
+    "font": "SBSansDisplay-Bold",
+    "size": 53
+   }
+  ],
+  "precomps": [
+   "Pattern_1",
+   "Vert_lines_1 Comp 1",
+   "Verts_lines_2 Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Заставка_ПОДКАСТ_CLOUD.RU",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 7,
+  "workArea": [
+   0,
+   7
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 1,
+    "comment": "1"
+   }
+  ],
+  "layers": 34,
+  "texts": [
+   {
+    "layer": "ПОДКАСТ 2",
+    "text": " ПОДКАСТ",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   },
+   {
+    "layer": "ПОДКАСТ",
+    "text": " ПОДКАСТ",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   },
+   {
+    "layer": "CLOUD.RU 2",
+    "text": "CLOUD.RU",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   },
+   {
+    "layer": "CLOUD.RU",
+    "text": "CLOUD.RU",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   }
+  ],
+  "precomps": [
+   "Cloud.ru_BlackColour",
+   "Cloud.ru_WhiteColour",
+   "Pattern_1",
+   "LINES 2 Comp 1",
+   "LINES Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Контент_1",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 7,
+  "texts": [],
+  "precomps": [
+   "Cloud.ru",
+   "Подкаст",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Контент_2",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 7,
+  "texts": [],
+  "precomps": [
+   "Подкаст",
+   "Cloud.ru",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Контент_3",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 13,
+  "texts": [
+   {
+    "layer": "Text_3",
+    "text": "И тут, и так далее",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   },
+   {
+    "layer": "Text_2",
+    "text": "Затем появляется тут",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   },
+   {
+    "layer": "Text_1",
+    "text": "текст появляется тут",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   }
+  ],
+  "precomps": [
+   "Подкаст",
+   "Cloud.ru",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "О_госте",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 8,
+  "texts": [
+   {
+    "layer": "Владимир Балун -  Основатель Balun. Courses  - Руководил инфраструктурной командой в Яндексе по разработке системы трейсинга (11ГБ/с трафик) - Разрабатывал системы трейсинга (7ГБ/с трафик) и непрерывного профилирования в Ozon, корпоративный мессенджер в Mail.ru и высоконагруженные сервисы рекламной платформы в Тинькофф. - Сейчас занимается развитием своих проектов it-interview.io и balun.courses",
+    "text": "Владимир Балун - Основатель Balun. Courses - Руководил инфра",
+    "font": "SBSansDisplay-Semibold",
+    "size": 70
+   }
+  ],
+  "precomps": [
+   "Подкаст",
+   "Cloud.ru",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Подписывайся! Ссылки в описании",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 5,
+  "texts": [
+   {
+    "layer": "ПОДПИСАТЬСЯЁ 2",
+    "text": "ПОДПИСЫВАЙСЯ!",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   },
+   {
+    "layer": "ПОДПИСАТЬСЯЁ 3",
+    "text": "ССЫЛКИ В ОПИСАНИИ",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   },
+   {
+    "layer": "ПОДПИСАТЬСЯЁ",
+    "text": "ССЫЛКИ В ОПИСАНИИ",
+    "font": "SBSansDisplay-Bold",
+    "size": 190
+   }
+  ],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Подписывайтесь на канал CLOUD.RU",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 8,
+  "texts": [],
+  "precomps": [
+   "Pre-comp 4",
+   "  QR_3",
+   "Подкаст",
+   "Cloud.ru",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Подпись_спикера_1",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 12,
+  "texts": [
+   {
+    "layer": "Технический лидер CLOUd.ru",
+    "text": "Технический лидер CLOUd.ru",
+    "font": "SBSansDisplay-Semibold",
+    "size": 97.8
+   },
+   {
+    "layer": "Surname",
+    "text": "Александр Стародубцев",
+    "font": "SBSansDisplay-Bold",
+    "size": 180
+   }
+  ],
+  "precomps": [
+   "Подпись_спикера_2",
+   "Подкаст",
+   "Cloud.ru",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Подпись_спикера_2",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 0.6,
+    "comment": "2"
+   },
+   {
+    "time": 1.4,
+    "comment": "1"
+   }
+  ],
+  "layers": 11,
+  "texts": [
+   {
+    "layer": "Основатель balun.Courses",
+    "text": "Основатель balun.Courses",
+    "font": "SBSansDisplay-Semibold",
+    "size": 97.8
+   },
+   {
+    "layer": " Name/Surname",
+    "text": "Владимир Балун",
+    "font": "SBSansDisplay-Bold",
+    "size": 180
+   }
+  ],
+  "precomps": [
+   "Подкаст",
+   "Cloud.ru",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Текст на плашке_1",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 12,
+  "texts": [
+   {
+    "layer": "Text_1",
+    "text": "текст появляется тут",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   },
+   {
+    "layer": "Text_2",
+    "text": "Затем появляется тут",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   },
+   {
+    "layer": "Text_3",
+    "text": "И тут, и так далее",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   }
+  ],
+  "precomps": [
+   "Подкаст",
+   "Cloud.ru",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Текст на плашке_2",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 12,
+  "texts": [
+   {
+    "layer": "Text_1",
+    "text": "текст появляется тут",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   },
+   {
+    "layer": "Text_2",
+    "text": "Затем появляется тут",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   },
+   {
+    "layer": "Text_3",
+    "text": "И тут, и так далее",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   }
+  ],
+  "precomps": [
+   "Подкаст",
+   "Cloud.ru",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "Текст на плашке_3",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 12,
+  "texts": [
+   {
+    "layer": "Text_1",
+    "text": "текст появляется тут",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   },
+   {
+    "layer": "Text_2",
+    "text": "Затем появляется тут",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   },
+   {
+    "layer": "Text_3",
+    "text": "И тут, и так далее",
+    "font": "SBSansDisplay-Bold",
+    "size": 100
+   }
+  ],
+  "precomps": [
+   "Подкаст",
+   "Cloud.ru",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "OUTRO",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 3,
+  "texts": [],
+  "precomps": [
+   "Есть где развернуться"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "QR_код_1",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 9,
+  "texts": [],
+  "precomps": [
+   "Подпись_QR_1",
+   "Pre-comp 3",
+   "  QR_1",
+   "Подкаст",
+   "Cloud.ru",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "QR_код_2",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 9,
+  "texts": [],
+  "precomps": [
+   "Pre-comp 4",
+   "  QR_2",
+   "Подпись_QR_2",
+   "Подкаст",
+   "Cloud.ru",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "podcast",
+  "name": "QR_код_3",
+  "folder": "RENDER",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 11,
+  "texts": [],
+  "precomps": [
+   "Pre-comp 4",
+   "Подпись_QR_2",
+   "Подпись_QR_1",
+   "  QR_1",
+   "  QR_2",
+   "Подкаст",
+   "Cloud.ru",
+   "LIne Comp 1"
+  ],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "Заставка_9x16",
+  "folder": "Render",
+  "w": 1080,
+  "h": 1920,
+  "fps": 24,
+  "duration": 5,
+  "workArea": [
+   0,
+   5
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [
+   {
+    "time": 3.542,
+    "comment": "1"
+   }
+  ],
+  "layers": 12,
+  "texts": [
+   {
+    "layer": "сотрудников?",
+    "text": "сотрудников?",
+    "font": "SBSansDisplay-Semibold",
+    "size": 60
+   },
+   {
+    "layer": "под обучение",
+    "text": "под обучение",
+    "font": "SBSansDisplay-Semibold",
+    "size": 60
+   },
+   {
+    "layer": "Telegram-бота с AI",
+    "text": "Telegram-бота с AI",
+    "font": "SBSansDisplay-Semibold",
+    "size": 60
+   },
+   {
+    "layer": "Как быстро создать ",
+    "text": "Как быстро создать",
+    "font": "SBSansDisplay-Semibold",
+    "size": 60
+   },
+   {
+    "layer": "Как быстро создать Telegram-бота с AI под обучение сотрудников?",
+    "text": "Как быстро создать Telegram-бота с AI под обучение сотрудник",
+    "font": "SBSansDisplay-Semibold",
+    "size": 60
+   }
+  ],
+  "precomps": [
+   "Cloud.ru_BlackMono",
+   "Transition_gray",
+   "Pattern_strelki"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "BG_pattern_1x1_1",
+  "folder": "Render/BG_pattern",
+  "w": 1440,
+  "h": 1440,
+  "fps": 25,
+  "duration": 30,
+  "workArea": [
+   0,
+   30
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [
+   "PATTERN_EDIT"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "BG_pattern_1x1_2",
+  "folder": "Render/BG_pattern",
+  "w": 1440,
+  "h": 1440,
+  "fps": 25,
+  "duration": 30,
+  "workArea": [
+   0,
+   30
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [
+   "+"
+  ],
+  "threeD": false,
+  "expressions": 1
+ },
+ {
+  "pack": "smm",
+  "name": "BG_pattern_9x16_1",
+  "folder": "Render/BG_pattern",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 30,
+  "workArea": [
+   0,
+   30
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [
+   "PATTERN_EDIT"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "BG_pattern_9x16_2",
+  "folder": "Render/BG_pattern",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 30,
+  "workArea": [
+   0,
+   30
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [
+   "+"
+  ],
+  "threeD": false,
+  "expressions": 1
+ },
+ {
+  "pack": "smm",
+  "name": "Плашки_1x1",
+  "folder": "Render/Bullets",
+  "w": 1440,
+  "h": 1440,
+  "fps": 25,
+  "duration": 7.84,
+  "workArea": [
+   0,
+   7.84
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 6,
+  "texts": [
+   {
+    "layer": " Cloud.ru Evolution",
+    "text": " Cloud.ru Evolution",
+    "font": "SBSansDisplay-Semibold",
+    "size": 100
+   },
+   {
+    "layer": "На виртуальной машине",
+    "text": "На виртуальной машине",
+    "font": "SBSansDisplay-Semibold",
+    "size": 100
+   },
+   {
+    "layer": " блог на Word Press",
+    "text": " блог на Word Press",
+    "font": "SBSansDisplay-Semibold",
+    "size": 100
+   },
+   {
+    "layer": "Разверните свой личный",
+    "text": "Разверните свой личный",
+    "font": "SBSansDisplay-Semibold",
+    "size": 100
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "Плашки_9x16",
+  "folder": "Render/Bullets",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 9.16,
+  "workArea": [
+   0,
+   9.16
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 6,
+  "texts": [
+   {
+    "layer": " Cloud.ru Evolution 2",
+    "text": " Cloud.ru Evolution",
+    "font": "SBSansDisplay-Semibold",
+    "size": 100
+   },
+   {
+    "layer": "На виртуальной машине 2",
+    "text": "На виртуальной машине",
+    "font": "SBSansDisplay-Semibold",
+    "size": 100
+   },
+   {
+    "layer": " видеоконференций 2",
+    "text": " видеоконференций",
+    "font": "SBSansDisplay-Semibold",
+    "size": 100
+   },
+   {
+    "layer": "Разверните свой сервис 2",
+    "text": "Разверните свой сервис",
+    "font": "SBSansDisplay-Semibold",
+    "size": 100
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "Оверлей_1x1",
+  "folder": "Render/Overlays",
+  "w": 1440,
+  "h": 1440,
+  "fps": 25,
+  "duration": 60,
+  "workArea": [
+   0,
+   60
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [
+   "Shape Layer 5 Comp 1"
+  ],
+  "threeD": false,
+  "expressions": 1
+ },
+ {
+  "pack": "smm",
+  "name": "Оверлей_9x16",
+  "folder": "Render/Overlays",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 60,
+  "workArea": [
+   0,
+   60
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [
+   "Shape Layer 2 Comp 1"
+  ],
+  "threeD": false,
+  "expressions": 1
+ },
+ {
+  "pack": "smm",
+  "name": "Transition with Logo",
+  "folder": "Render/Transitions",
+  "w": 1080,
+  "h": 1920,
+  "fps": 24,
+  "duration": 0.875,
+  "workArea": [
+   0,
+   0.875
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [
+   "Cloud.ru_BlackMono 3",
+   "Transition_gray"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "Transition_gray",
+  "folder": "Render/Transitions",
+  "w": 1080,
+  "h": 1920,
+  "fps": 24,
+  "duration": 0.875,
+  "workArea": [
+   0,
+   0.875
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "Transition_green",
+  "folder": "Render/Transitions",
+  "w": 1080,
+  "h": 1920,
+  "fps": 24,
+  "duration": 0.875,
+  "workArea": [
+   0,
+   0.875
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "Transition_white",
+  "folder": "Render/Transitions",
+  "w": 1080,
+  "h": 1920,
+  "fps": 24,
+  "duration": 0.875,
+  "workArea": [
+   0,
+   0.875
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "Cloud.ru_BlackMono",
+  "folder": "Folder/Solids",
+  "w": 711,
+  "h": 132,
+  "fps": 24,
+  "duration": 2,
+  "workArea": [
+   0,
+   2
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "Cloud.ru_BlackMono 3",
+  "folder": "Folder/Solids",
+  "w": 711,
+  "h": 132,
+  "fps": 24,
+  "duration": 2,
+  "workArea": [
+   0,
+   2
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "Pattern_strelki",
+  "folder": "Folder/Solids",
+  "w": 6539,
+  "h": 5598,
+  "fps": 24,
+  "duration": 8,
+  "workArea": [
+   0,
+   8
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 4,
+  "texts": [],
+  "precomps": [],
+  "threeD": true,
+  "expressions": 1
+ },
+ {
+  "pack": "smm",
+  "name": "+",
+  "folder": "Folder/Precomps",
+  "w": 150,
+  "h": 150,
+  "fps": 25,
+  "duration": 401.92,
+  "workArea": [
+   0,
+   401.92
+  ],
+  "root": false,
+  "usedIn": 3,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "Pattern_edit",
+  "folder": "Folder/Precomps",
+  "w": 150,
+  "h": 150,
+  "fps": 25,
+  "duration": 300,
+  "workArea": [
+   0,
+   300
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 4,
+  "texts": [],
+  "precomps": [
+   "+"
+  ],
+  "threeD": false,
+  "expressions": 1
+ },
+ {
+  "pack": "smm",
+  "name": "PATTERN_EDIT",
+  "folder": "Folder/Precomps",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 30,
+  "workArea": [
+   0,
+   30
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 394,
+  "texts": [],
+  "precomps": [
+   "Pattern_edit"
+  ],
+  "threeD": false,
+  "expressions": 391
+ },
+ {
+  "pack": "smm",
+  "name": "Shape Layer 2 Comp 1",
+  "folder": "Folder/Precomps",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 15,
+  "workArea": [
+   0,
+   15
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "smm",
+  "name": "Shape Layer 5 Comp 1",
+  "folder": "Folder/Precomps",
+  "w": 1440,
+  "h": 1440,
+  "fps": 25,
+  "duration": 22.4,
+  "workArea": [
+   0,
+   22.4
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "titles",
+  "name": "Подпись_спикеров",
+  "folder": "",
+  "w": 1500,
+  "h": 500,
+  "fps": 25,
+  "duration": 6.04,
+  "workArea": [
+   0,
+   6.04
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 13,
+  "texts": [
+   {
+    "layer": "Александр Стародубцев 2",
+    "text": "Александр Стародубцев",
+    "font": "SBSansText-Regular",
+    "size": 40
+   },
+   {
+    "layer": " Технический лидер Cloud.ru 2",
+    "text": " Технический лидер Cloud.ru",
+    "font": "SBSansText-Regular",
+    "size": 40
+   },
+   {
+    "layer": "Александр Стародубцев",
+    "text": "Александр Стародубцев",
+    "font": "SBSansText-Regular",
+    "size": 40
+   },
+   {
+    "layer": " Технический лидер Cloud.ru",
+    "text": " Технический лидер Cloud.ru",
+    "font": "SBSansText-Regular",
+    "size": 40
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "titles_conv",
+  "name": "Подпись_спикеров",
+  "folder": "",
+  "w": 1500,
+  "h": 500,
+  "fps": 25,
+  "duration": 6.04,
+  "workArea": [
+   0,
+   6.04
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [
+   "Pre-comp 1"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "titles_conv",
+  "name": "Подпись_спикеров 2",
+  "folder": "",
+  "w": 1500,
+  "h": 500,
+  "fps": 25,
+  "duration": 6.04,
+  "workArea": [
+   0,
+   6.04
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [
+   "Pre-comp 2"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "titles_conv",
+  "name": "Pre-comp 1",
+  "folder": "",
+  "w": 1500,
+  "h": 500,
+  "fps": 25,
+  "duration": 4.4,
+  "workArea": [
+   0,
+   4.4
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 7,
+  "texts": [
+   {
+    "layer": "Никита Грехов",
+    "text": "Никита Грехов",
+    "font": "SBSansText-Regular",
+    "size": 40
+   },
+   {
+    "layer": " Руководитель направления по работе с партнерами",
+    "text": " Руководитель направления по работе с партнерами",
+    "font": "SBSansText-Regular",
+    "size": 40
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "titles_conv",
+  "name": "Pre-comp 2",
+  "folder": "",
+  "w": 1500,
+  "h": 500,
+  "fps": 25,
+  "duration": 4.4,
+  "workArea": [
+   0,
+   4.4
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 7,
+  "texts": [
+   {
+    "layer": "Роман Путилов",
+    "text": "Роман Путилов",
+    "font": "SBSansText-Regular",
+    "size": 40
+   },
+   {
+    "layer": " Руководитель направления позиционирования продукта",
+    "text": " Руководитель направления позиционирования продукта",
+    "font": "SBSansText-Regular",
+    "size": 40
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "webinars",
+  "name": "Анонс_Вебинар_1x1",
+  "folder": "Render/Анонс",
+  "w": 1400,
+  "h": 1400,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 13,
+  "texts": [
+   {
+    "layer": "25 ноября в 11:00",
+    "text": "25 ноября в 11:00",
+    "font": "SBSansDisplay-Regular",
+    "size": 60
+   },
+   {
+    "layer": "Вебинар 2",
+    "text": "Вебинар",
+    "font": "SBSansDisplay-Regular",
+    "size": 60
+   },
+   {
+    "layer": "Чек-лист от юриста: как выбрать безопасное облако",
+    "text": "Чек-лист от юриста: как выбрать безопасное облако",
+    "font": "SBSansDisplay-Regular",
+    "size": 83.3
+   }
+  ],
+  "precomps": [
+   "Logo",
+   "AI_анимация precomp_2"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "webinars",
+  "name": "Анонс_Вебинар_9x16",
+  "folder": "Render/Анонс",
+  "w": 1080,
+  "h": 1920,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 16,
+  "texts": [
+   {
+    "layer": "Вебинар 3",
+    "text": "Вебинар",
+    "font": "SBSansDisplay-Regular",
+    "size": 60
+   },
+   {
+    "layer": "25.11 в 11:00",
+    "text": "25.11 в 11:00",
+    "font": "SBSansDisplay-Regular",
+    "size": 60
+   },
+   {
+    "layer": "Чек-лист от юриста: как выбрать безопасное облако",
+    "text": "Чек-лист от юриста: как выбрать безопасное облако",
+    "font": "SBSansDisplay-Regular",
+    "size": 70
+   }
+  ],
+  "precomps": [
+   "AI_анимация precomp_2"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "webinars",
+  "name": "Заставка с вижуалом",
+  "folder": "Render/Оформление",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 30,
+  "workArea": [
+   0,
+   30
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 9,
+  "texts": [
+   {
+    "layer": "Чек-лист от юриста: как выбрать безопасное облако",
+    "text": "Чек-лист от юриста: как выбрать безопасное облако",
+    "font": "SBSansDisplay-Regular",
+    "size": 60
+   }
+  ],
+  "precomps": [
+   "Логоблок с челкой",
+   "AI_анимация precomp",
+   "PATTERN RACK"
+  ],
+  "threeD": false,
+  "expressions": 1
+ },
+ {
+  "pack": "webinars",
+  "name": "Заставка со спикером",
+  "folder": "Render/Оформление",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 30,
+  "workArea": [
+   0,
+   30
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 14,
+  "texts": [
+   {
+    "layer": "Александр Константинов, Технический эксперт по облачным технологиям 2",
+    "text": "Александр Константинов, Технический эксперт по облачным техн",
+    "font": "SBSansDisplay-Regular",
+    "size": 35
+   },
+   {
+    "layer": "Собираем корпоративный AI-чат: от выбора модели до работающего прототипа",
+    "text": "Собираем корпоративный AI-чат: от выбора модели до работающе",
+    "font": "SBSansDisplay-Regular",
+    "size": 60
+   }
+  ],
+  "precomps": [
+   "Логоблок с челкой",
+   "Спикер",
+   "PATTERN RACK_Animation"
+  ],
+  "threeD": false,
+  "expressions": 1
+ },
+ {
+  "pack": "webinars",
+  "name": "Таймер с вижуалом",
+  "folder": "Render/Оформление",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 300,
+  "workArea": [
+   0,
+   300
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 12,
+  "texts": [
+   {
+    "layer": "Чек-лист от юриста: как выбрать безопасное облако",
+    "text": "Чек-лист от юриста: как выбрать безопасное облако",
+    "font": "SBSansDisplay-Regular",
+    "size": 60
+   },
+   {
+    "layer": "начало через",
+    "text": "начало через",
+    "font": "SBSansDisplay-Regular",
+    "size": 39.6
+   }
+  ],
+  "precomps": [
+   "Логоблок с челкой",
+   "AI_анимация precomp",
+   "PATTERN RACK",
+   "Timer precomp"
+  ],
+  "threeD": false,
+  "expressions": 2
+ },
+ {
+  "pack": "webinars",
+  "name": "Таймер со спикером",
+  "folder": "Render/Оформление",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 300,
+  "workArea": [
+   0,
+   300
+  ],
+  "root": true,
+  "usedIn": 0,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 14,
+  "texts": [
+   {
+    "layer": "Александр Константинов, Технический эксперт по облачным технологиям",
+    "text": "Александр Константинов, Технический эксперт по облачным техн",
+    "font": "SBSansDisplay-Regular",
+    "size": 35
+   },
+   {
+    "layer": "Собираем корпоративный AI-чат: от выбора модели до работающего прототипа",
+    "text": "Собираем корпоративный AI-чат: от выбора модели до работающе",
+    "font": "SBSansDisplay-Regular",
+    "size": 60
+   },
+   {
+    "layer": "начало через",
+    "text": "начало через",
+    "font": "SBSansDisplay-Regular",
+    "size": 35
+   }
+  ],
+  "precomps": [
+   "Логоблок с челкой",
+   "Timer precomp",
+   "Спикер",
+   "PATTERN RACK_Animation"
+  ],
+  "threeD": false,
+  "expressions": 1
+ },
+ {
+  "pack": "webinars",
+  "name": "Логоблок с челкой",
+  "folder": "Folder/Precomp",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 6,
+  "workArea": [
+   0,
+   6
+  ],
+  "root": false,
+  "usedIn": 4,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 4,
+  "texts": [
+   {
+    "layer": "облачные  и ИИ-сервисы",
+    "text": "облачные и ИИ-сервисы",
+    "font": "SBSansDisplay-Semibold",
+    "size": 39.6
+   }
+  ],
+  "precomps": [
+   "Logo"
+  ],
+  "threeD": false,
+  "expressions": 1
+ },
+ {
+  "pack": "webinars",
+  "name": "Спикер",
+  "folder": "Folder/Precomp",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 300,
+  "workArea": [
+   0,
+   300
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "webinars",
+  "name": "AI_анимация precomp",
+  "folder": "Folder/Precomp",
+  "w": 1720,
+  "h": 1204,
+  "fps": 25,
+  "duration": 30.16,
+  "workArea": [
+   0,
+   30.16
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 3,
+  "texts": [],
+  "precomps": [
+   "AI_анимация precomp_1"
+  ],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "webinars",
+  "name": "AI_анимация precomp_1",
+  "folder": "Folder/Precomp",
+  "w": 1720,
+  "h": 1204,
+  "fps": 25,
+  "duration": 20.12,
+  "workArea": [
+   0,
+   20.12
+  ],
+  "root": false,
+  "usedIn": 1,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "webinars",
+  "name": "AI_анимация precomp_2",
+  "folder": "Folder/Precomp",
+  "w": 1976,
+  "h": 1580,
+  "fps": 25,
+  "duration": 10,
+  "workArea": [
+   0,
+   10
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "webinars",
+  "name": "Logo",
+  "folder": "Folder/Precomp",
+  "w": 936,
+  "h": 173,
+  "fps": 25,
+  "duration": 14.16,
+  "workArea": [
+   0,
+   14.16
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 2,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "webinars",
+  "name": "PATTERN RACK",
+  "folder": "Folder/Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 310,
+  "workArea": [
+   0,
+   310
+  ],
+  "root": false,
+  "usedIn": 3,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 0
+ },
+ {
+  "pack": "webinars",
+  "name": "PATTERN RACK_Animation",
+  "folder": "Folder/Precomp",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25,
+  "duration": 300,
+  "workArea": [
+   0,
+   300
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 3,
+  "texts": [],
+  "precomps": [
+   "PATTERN RACK"
+  ],
+  "threeD": true,
+  "expressions": 2
+ },
+ {
+  "pack": "webinars",
+  "name": "Timer precomp",
+  "folder": "Folder/Precomp",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25,
+  "duration": 300,
+  "workArea": [
+   0,
+   0.04
+  ],
+  "root": false,
+  "usedIn": 2,
+  "egp": {
+   "name": "Untitled",
+   "controllers": 0
+  },
+  "markers": [],
+  "layers": 1,
+  "texts": [
+   {
+    "layer": "TIMER",
+    "text": "0:00",
+    "font": "SBSansDisplay-Regular",
+    "size": 155
+   }
+  ],
+  "precomps": [],
+  "threeD": false,
+  "expressions": 1
+ }
+]

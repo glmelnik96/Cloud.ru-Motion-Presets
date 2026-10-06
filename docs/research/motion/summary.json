@@ -1,0 +1,1115 @@
+{
+ "generated": "2026-10-06T19:13:22.417Z",
+ "packs": [
+  {
+   "pack": "courses",
+   "comps": 13,
+   "truncatedKeys": []
+  },
+  {
+   "pack": "courses_conv",
+   "comps": 19,
+   "truncatedKeys": []
+  },
+  {
+   "pack": "logo",
+   "comps": 10,
+   "truncatedKeys": []
+  },
+  {
+   "pack": "logo_conv",
+   "comps": 10,
+   "truncatedKeys": []
+  },
+  {
+   "pack": "podcast",
+   "comps": 47,
+   "truncatedKeys": []
+  },
+  {
+   "pack": "smm",
+   "comps": 21,
+   "truncatedKeys": []
+  },
+  {
+   "pack": "titles",
+   "comps": 1,
+   "truncatedKeys": []
+  },
+  {
+   "pack": "titles_conv",
+   "comps": 4,
+   "truncatedKeys": []
+  },
+  {
+   "pack": "webinars",
+   "comps": 15,
+   "truncatedKeys": []
+  }
+ ],
+ "segments": 1444,
+ "expressions": 575,
+ "kinds": {
+  "position": {
+   "count": 309,
+   "packs": {
+    "courses": 79,
+    "courses_conv": 79,
+    "logo": 32,
+    "logo_conv": 32,
+    "podcast": 81,
+    "smm": 6
+   },
+   "hold": 0,
+   "linear": 235,
+   "overshoot": 0,
+   "frames": {
+    "p10": 10,
+    "p50": 192,
+    "p90": 375
+   },
+   "topCurves": [
+    {
+     "curve": "0.33,0.33,0.67,0.67",
+     "count": 214,
+     "packs": {
+      "courses": 79,
+      "courses_conv": 79,
+      "logo": 22,
+      "logo_conv": 22,
+      "podcast": 6,
+      "smm": 6
+     },
+     "examples": [
+      "courses / Обложка #2 / Shape Layer 8 (73 кадр.)",
+      "courses / Обложка #2 / Shape Layer 8 (76 кадр.)",
+      "courses / Обложка #2 / Shape Layer 7 (73 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.33,0.00,0.67,1.00",
+     "count": 16,
+     "packs": {
+      "podcast": 16
+     },
+     "examples": [
+      "podcast / Pattern_1 / Cube_4 (6 кадр.)",
+      "podcast / Pattern_1 / Cube_4 (8 кадр.)",
+      "podcast / Pattern_1 / Cube_2 (6 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.79,0.00,0.18,1.00",
+     "count": 13,
+     "packs": {
+      "podcast": 13
+     },
+     "examples": [
+      "podcast / Контент_1 / LIne Comp 1 (23 кадр.)",
+      "podcast / Контент_2 / LIne Comp 1 (23 кадр.)",
+      "podcast / Контент_3 / LIne Comp 1 (23 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.74,0.00,0.12,1.00",
+     "count": 13,
+     "packs": {
+      "podcast": 13
+     },
+     "examples": [
+      "podcast / Контент_1 / LIne Comp 1 (26 кадр.)",
+      "podcast / Контент_2 / LIne Comp 1 (26 кадр.)",
+      "podcast / Контент_3 / LIne Comp 1 (26 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.33,0.00,0.00,1.00",
+     "count": 4,
+     "packs": {
+      "podcast": 4
+     },
+     "examples": [
+      "podcast / Дисклеймер / Strelka_1 (25 кадр.)",
+      "podcast / Дисклеймер / Strelka_3 (25 кадр.)",
+      "podcast / Дисклеймер / Strelka_2 (25 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.82,0.00,0.17,1.00",
+     "count": 4,
+     "packs": {
+      "podcast": 4
+     },
+     "examples": [
+      "podcast / Заставка_ПОДКАСТ_CLOUD.RU / Стрелка_3 Outlines (16 кадр.)",
+      "podcast / Заставка_ПОДКАСТ_CLOUD.RU / Стрелка_5 Outlines (16 кадр.)",
+      "podcast / Заставка_ПОДКАСТ_CLOUD.RU / Стрелка_4 Outlines (16 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.84,0.00,0.16,1.00",
+     "count": 3,
+     "packs": {
+      "podcast": 3
+     },
+     "examples": [
+      "podcast / Заставка_ПОДКАСТ_CLOUD.RU / Стрелка_9 Outlines (16 кадр.)",
+      "podcast / Заставка_ПОДКАСТ_CLOUD.RU / Стрелка_15 Outlines (16 кадр.)",
+      "podcast / Заставка_ПОДКАСТ_CLOUD.RU / Стрелка_16 Outlines (16 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.71,0.00,0.01,1.00",
+     "count": 2,
+     "packs": {
+      "podcast": 2
+     },
+     "examples": [
+      "podcast / Заставка_ПОДКАСТ_CLOUD.RU / Стрелка_11 Outlines (10 кадр.)",
+      "podcast / Заставка_ПОДКАСТ_CLOUD.RU / Стрелка_12 Outlines (10 кадр.)"
+     ]
+    }
+   ]
+  },
+  "position.y": {
+   "count": 204,
+   "packs": {
+    "courses": 76,
+    "courses_conv": 76,
+    "logo": 26,
+    "logo_conv": 26
+   },
+   "hold": 0,
+   "linear": 0,
+   "overshoot": 0,
+   "frames": {
+    "p10": 12,
+    "p50": 375,
+    "p90": 375
+   },
+   "topCurves": [
+    {
+     "curve": "0.78,0.00,0.67,1.00",
+     "count": 96,
+     "packs": {
+      "courses": 48,
+      "courses_conv": 48
+     },
+     "examples": [
+      "courses / Оверлей 3 на 2 / Shape Layer 22 (375 кадр.)",
+      "courses / Оверлей 3 на 2 / Shape Layer 22 (375 кадр.)",
+      "courses / Оверлей 3 на 2 / Shape Layer 22 (375 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.33,0.00,0.22,1.00",
+     "count": 12,
+     "packs": {
+      "logo": 6,
+      "logo_conv": 6
+     },
+     "examples": [
+      "logo / Логошоты вертикальный_Умное облако / LOGO (33 кадр.)",
+      "logo / Логошоты вертикальный_Умное облако / Shape Layer 1 (33 кадр.)",
+      "logo / Логошоты вертикальный_Умное облако / Shape Layer 2 (33 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.63,0.00,0.67,1.00",
+     "count": 4,
+     "packs": {
+      "courses": 2,
+      "courses_conv": 2
+     },
+     "examples": [
+      "courses / Обложка #2 / Shape Layer 7 (76 кадр.)",
+      "courses / Обложка #2 / Shape Layer 6 (76 кадр.)",
+      "courses_conv / Обложка #2 / Shape Layer 7 (76 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.76,0.00,0.67,1.00",
+     "count": 4,
+     "packs": {
+      "logo": 2,
+      "logo_conv": 2
+     },
+     "examples": [
+      "logo / Логошоты вертикальный_Умное облако / LOGO (25 кадр.)",
+      "logo / Логошоты вертикальный_Умное облако_запасной вариант / LOGO (25 кадр.)",
+      "logo_conv / Логошоты вертикальный_Умное облако / LOGO (25 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.17,0.00,0.67,1.00",
+     "count": 4,
+     "packs": {
+      "logo": 2,
+      "logo_conv": 2
+     },
+     "examples": [
+      "logo / Логошоты вертикальный_Умное облако / Shape Layer 1 (10 кадр.)",
+      "logo / Логошоты вертикальный_Умное облако_запасной вариант / Shape Layer 1 (10 кадр.)",
+      "logo_conv / Логошоты вертикальный_Умное облако / Shape Layer 1 (10 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.17,0.00,0.83,1.00",
+     "count": 4,
+     "packs": {
+      "logo": 2,
+      "logo_conv": 2
+     },
+     "examples": [
+      "logo / Логошоты вертикальный_Умное облако / Shape Layer 2 (10 кадр.)",
+      "logo / Логошоты вертикальный_Умное облако_запасной вариант / Shape Layer 2 (10 кадр.)",
+      "logo_conv / Логошоты вертикальный_Умное облако / Shape Layer 2 (10 кадр.)"
+     ]
+    }
+   ]
+  },
+  "mask.path": {
+   "count": 200,
+   "packs": {
+    "podcast": 130,
+    "webinars": 70
+   },
+   "hold": 0,
+   "linear": 4,
+   "overshoot": 0,
+   "frames": {
+    "p10": 21,
+    "p50": 145,
+    "p90": 453.29
+   },
+   "topCurves": []
+  },
+  "scale": {
+   "count": 197,
+   "packs": {
+    "courses": 10,
+    "courses_conv": 9,
+    "logo": 24,
+    "logo_conv": 24,
+    "podcast": 86,
+    "smm": 20,
+    "titles": 16,
+    "titles_conv": 8
+   },
+   "hold": 0,
+   "linear": 11,
+   "overshoot": 0,
+   "frames": {
+    "p10": 11.24,
+    "p50": 20,
+    "p90": 130
+   },
+   "topCurves": [
+    {
+     "curve": "0.33,0.00,0.00,1.00",
+     "count": 27,
+     "packs": {
+      "podcast": 11,
+      "titles": 8,
+      "titles_conv": 8
+     },
+     "examples": [
+      "podcast / Pattern_1 / Cube_4 (13 кадр.)",
+      "podcast / Pattern_1 / Cube_2 (13 кадр.)",
+      "podcast / Pattern_1 / Cube_3 (13 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.77,0.00,0.20,1.00",
+     "count": 20,
+     "packs": {
+      "podcast": 20
+     },
+     "examples": [
+      "podcast / Pre-comp 4 / Cube_3 (19 кадр.)",
+      "podcast / Pre-comp 4 / Cube_3 (19 кадр.)",
+      "podcast / Булит / Box_2 (18 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.73,0.00,0.25,1.00",
+     "count": 16,
+     "packs": {
+      "podcast": 16
+     },
+     "examples": [
+      "podcast / Булит / Box_2 (23 кадр.)",
+      "podcast / Булит / Box_1 (23 кадр.)",
+      "podcast / Булит_1 / Box_2 (23 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.33,0.33,0.67,0.67",
+     "count": 11,
+     "packs": {
+      "courses": 6,
+      "courses_conv": 5
+     },
+     "examples": [
+      "courses / Переход / Shape Layer 16 (50 кадр.)",
+      "courses / Переход / Shape Layer 15 (50 кадр.)",
+      "courses / Переход / Shape Layer 14 (50 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.17,0.00,0.83,1.00",
+     "count": 8,
+     "packs": {
+      "logo": 4,
+      "logo_conv": 4
+     },
+     "examples": [
+      "logo / Логошоты вертикальный_Умное облако / Shape Layer 1 (10 кадр.)",
+      "logo / Логошоты вертикальный_Умное облако / Shape Layer 2 (10 кадр.)",
+      "logo / Логошоты вертикальный_Умное облако_запасной вариант / Shape Layer 1 (10 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.92,0.00,0.16,1.00",
+     "count": 8,
+     "packs": {
+      "smm": 8
+     },
+     "examples": [
+      "smm / Плашки_1x1 / Shape Layer 3 (20 кадр.)",
+      "smm / Плашки_1x1 / Shape Layer 3 (20 кадр.)",
+      "smm / Плашки_1x1 / Shape Layer 4 (20 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.83,0.00,0.17,1.00",
+     "count": 6,
+     "packs": {
+      "podcast": 6
+     },
+     "examples": [
+      "podcast / Pre-comp 3 / Cube_3 (22 кадр.)",
+      "podcast / Дисклеймер / Shape Layer 2 (9 кадр.)",
+      "podcast / Дисклеймер / Shape Layer 1 (11 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.63,0.00,0.67,1.00",
+     "count": 4,
+     "packs": {
+      "courses": 2,
+      "courses_conv": 2
+     },
+     "examples": [
+      "courses / Обложка #2 / Shape Layer 7 (76 кадр.)",
+      "courses / Обложка #2 / Shape Layer 6 (76 кадр.)",
+      "courses_conv / Обложка #2 / Shape Layer 7 (76 кадр.)"
+     ]
+    }
+   ]
+  },
+  "position.x": {
+   "count": 185,
+   "packs": {
+    "courses": 79,
+    "courses_conv": 79,
+    "logo": 12,
+    "logo_conv": 12,
+    "podcast": 3
+   },
+   "hold": 0,
+   "linear": 0,
+   "overshoot": 0,
+   "frames": {
+    "p10": 25,
+    "p50": 375,
+    "p90": 375
+   },
+   "topCurves": [
+    {
+     "curve": "0.78,0.00,0.67,1.00",
+     "count": 90,
+     "packs": {
+      "courses": 45,
+      "courses_conv": 45
+     },
+     "examples": [
+      "courses / Оверлей 3 на 2 / Shape Layer 22 (375 кадр.)",
+      "courses / Оверлей 3 на 2 / Shape Layer 22 (375 кадр.)",
+      "courses / Оверлей 3 на 2 / Shape Layer 21 (375 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.70,0.00,0.67,1.00",
+     "count": 9,
+     "packs": {
+      "courses": 3,
+      "courses_conv": 3,
+      "logo": 1,
+      "logo_conv": 1,
+      "podcast": 1
+     },
+     "examples": [
+      "courses / Обложка #2 / Shape Layer 8 (73 кадр.)",
+      "courses / Обложка #2 / Shape Layer 7 (73 кадр.)",
+      "courses / Обложка #2 / Shape Layer 6 (73 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.63,0.00,0.67,1.00",
+     "count": 4,
+     "packs": {
+      "courses": 2,
+      "courses_conv": 2
+     },
+     "examples": [
+      "courses / Обложка #2 / Shape Layer 8 (76 кадр.)",
+      "courses / Обложка #2 / Shape Layer 7 (76 кадр.)",
+      "courses_conv / Обложка #2 / Shape Layer 8 (76 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.01,0.00,0.00,1.00",
+     "count": 3,
+     "packs": {
+      "logo": 1,
+      "logo_conv": 1,
+      "podcast": 1
+     },
+     "examples": [
+      "logo / Есть где развернуться / Back_4 (25 кадр.)",
+      "logo_conv / Есть где развернуться / Back_4 (25 кадр.)",
+      "podcast / Есть где развернуться / Back_4 (25 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.74,0.00,0.27,1.00",
+     "count": 2,
+     "packs": {
+      "courses": 1,
+      "courses_conv": 1
+     },
+     "examples": [
+      "courses / Переход / Shape Layer 11 (50 кадр.)",
+      "courses_conv / Переход / Shape Layer 11 (50 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.33,0.00,0.32,1.00",
+     "count": 2,
+     "packs": {
+      "logo": 1,
+      "logo_conv": 1
+     },
+     "examples": [
+      "logo / Логошот без саблайна / Layer 3 Outlines 2 (25 кадр.)",
+      "logo_conv / Логошот без саблайна / Layer 3 Outlines 2 (25 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.51,0.00,0.74,0.70",
+     "count": 2,
+     "packs": {
+      "logo": 1,
+      "logo_conv": 1
+     },
+     "examples": [
+      "logo / Логошот без саблайна / Layer 3 Outlines 2 (18.76 кадр.)",
+      "logo_conv / Логошот без саблайна / Layer 3 Outlines 2 (18.76 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.31,0.88,0.62,1.00",
+     "count": 2,
+     "packs": {
+      "logo": 1,
+      "logo_conv": 1
+     },
+     "examples": [
+      "logo / Логошот без саблайна / Layer 3 Outlines 2 (11.24 кадр.)",
+      "logo_conv / Логошот без саблайна / Layer 3 Outlines 2 (11.24 кадр.)"
+     ]
+    }
+   ]
+  },
+  "text.selector": {
+   "count": 124,
+   "packs": {
+    "courses": 9,
+    "courses_conv": 12,
+    "podcast": 71,
+    "smm": 20,
+    "titles": 6,
+    "titles_conv": 6
+   },
+   "hold": 0,
+   "linear": 6,
+   "overshoot": 10,
+   "frames": {
+    "p10": 11,
+    "p50": 20,
+    "p90": 130
+   },
+   "topCurves": [
+    {
+     "curve": "0.09,0.00,0.32,1.00",
+     "count": 21,
+     "packs": {
+      "courses": 9,
+      "courses_conv": 12
+     },
+     "examples": [
+      "courses / Обложка #1 / третья последняя (19 кадр.)",
+      "courses / Обложка #1 / вторая строчка (22 кадр.)",
+      "courses / Обложка #1 / Первая строчка (27 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.41,0.00,0.65,1.00",
+     "count": 16,
+     "packs": {
+      "podcast": 16
+     },
+     "examples": [
+      "podcast / Булит / Text_2 (23 кадр.)",
+      "podcast / Булит / Text_1 (23 кадр.)",
+      "podcast / Булит_1 / Text_2 (23 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.77,0.00,0.20,1.00",
+     "count": 16,
+     "packs": {
+      "podcast": 16
+     },
+     "examples": [
+      "podcast / Булит / Text_2 (18 кадр.)",
+      "podcast / Булит / Text_1 (18 кадр.)",
+      "podcast / Булит_1 / Text_2 (18 кадр.)"
+     ]
+    },
+    {
+     "curve": "1.00,0.00,0.67,1.00",
+     "count": 8,
+     "packs": {
+      "smm": 8
+     },
+     "examples": [
+      "smm / Плашки_1x1 /  Cloud.ru Evolution (20 кадр.)",
+      "smm / Плашки_1x1 / На виртуальной машине (20 кадр.)",
+      "smm / Плашки_1x1 /  блог на Word Press (20 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.33,0.00,0.00,1.00",
+     "count": 8,
+     "packs": {
+      "smm": 8
+     },
+     "examples": [
+      "smm / Плашки_1x1 /  Cloud.ru Evolution (11 кадр.)",
+      "smm / Плашки_1x1 / На виртуальной машине (11 кадр.)",
+      "smm / Плашки_1x1 /  блог на Word Press (11 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.33,0.33,0.67,0.67",
+     "count": 6,
+     "packs": {
+      "podcast": 2,
+      "titles": 2,
+      "titles_conv": 2
+     },
+     "examples": [
+      "podcast / Дисклеймер / ВСЕ МНЕНИЯ И ВЫСКАЗЫВАНИЯ В ЭТОМ ВИДЕО ПРИНАДЛЕЖАТ ИСКЛЮЧИТЕЛЬНО НАШЕМУ ГОСТЮ, ВЫСТУПАЮЩЕМУ КАК ЧАСТНОЕ ЛИЦО. ВИДЕО НЕ СВЯЗАНО С КОМПАНИЕЙ И НЕ ОТРАЖАЕТ ЕЁ ОФИЦИАЛЬНУЮ ПОЗИЦИЮ. (22 кадр.)",
+      "podcast / О_госте / Владимир Балун -  Основатель Balun. Courses  - Руководил инфраструктурной командой в Яндексе по разработке системы трейсинга (11ГБ/с трафик) - Разрабатывал системы трейсинга (7ГБ/с трафик) и непрерывного профилирования в Ozon, корпоративный мессенджер в Mail.ru и высоконагруженные сервисы рекламной платформы в Тинькофф. - Сейчас занимается развитием своих проектов it-interview.io и balun.courses (11 кадр.)",
+      "titles / Подпись_спикеров / Александр Стародубцев 2 (13 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.76,0.00,0.10,1.00",
+     "count": 4,
+     "packs": {
+      "podcast": 4
+     },
+     "examples": [
+      "podcast / Подпись_спикера_1 / Технический лидер CLOUd.ru (20 кадр.)",
+      "podcast / Подпись_спикера_1 / Surname (20 кадр.)",
+      "podcast / Подпись_спикера_2 / Основатель balun.Courses (20 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.12,0.00,0.90,1.00",
+     "count": 4,
+     "packs": {
+      "smm": 4
+     },
+     "examples": [
+      "smm / Заставка_9x16 / сотрудников? (23 кадр.)",
+      "smm / Заставка_9x16 / под обучение (23 кадр.)",
+      "smm / Заставка_9x16 / Telegram-бота с AI (23 кадр.)"
+     ]
+    }
+   ]
+  },
+  "shape.path": {
+   "count": 46,
+   "packs": {
+    "courses": 6,
+    "courses_conv": 8,
+    "logo": 12,
+    "logo_conv": 12,
+    "podcast": 8
+   },
+   "hold": 0,
+   "linear": 0,
+   "overshoot": 0,
+   "frames": {
+    "p10": 25,
+    "p50": 30,
+    "p90": 76
+   },
+   "topCurves": []
+  },
+  "rotation.y": {
+   "count": 36,
+   "packs": {
+    "podcast": 36
+   },
+   "hold": 0,
+   "linear": 0,
+   "overshoot": 0,
+   "frames": {
+    "p10": 14,
+    "p50": 34,
+    "p90": 66
+   },
+   "topCurves": [
+    {
+     "curve": "0.86,0.00,0.20,1.00",
+     "count": 4,
+     "packs": {
+      "podcast": 4
+     },
+     "examples": [
+      "podcast / Pattern_1 / Null 2 (34 кадр.)",
+      "podcast / Pattern_1 / Null 1 (34 кадр.)",
+      "podcast / Pattern_1 / Null 2 (34 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.81,0.00,0.18,1.00",
+     "count": 4,
+     "packs": {
+      "podcast": 4
+     },
+     "examples": [
+      "podcast / Pattern_1 / Null 2 (36 кадр.)",
+      "podcast / Pattern_1 / Null 1 (36 кадр.)",
+      "podcast / Pattern_1 / Null 2 (36 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.84,0.00,0.25,1.00",
+     "count": 4,
+     "packs": {
+      "podcast": 4
+     },
+     "examples": [
+      "podcast / Pattern_1 / Null 2 (46 кадр.)",
+      "podcast / Pattern_1 / Null 1 (46 кадр.)",
+      "podcast / Pattern_1 / Null 2 (46 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.81,0.00,0.07,1.00",
+     "count": 4,
+     "packs": {
+      "podcast": 4
+     },
+     "examples": [
+      "podcast / Pattern_1 / Null 2 (58 кадр.)",
+      "podcast / Pattern_1 / Null 1 (58 кадр.)",
+      "podcast / Pattern_1 / Null 2 (58 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.78,0.00,0.22,1.00",
+     "count": 2,
+     "packs": {
+      "podcast": 2
+     },
+     "examples": [
+      "podcast / Pattern_1 / Null 2 (66 кадр.)",
+      "podcast / Pattern_1 / Null 2 (66 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.77,0.00,0.23,1.00",
+     "count": 2,
+     "packs": {
+      "podcast": 2
+     },
+     "examples": [
+      "podcast / Pattern_1 / Null 1 (67 кадр.)",
+      "podcast / Pattern_1 / Null 1 (67 кадр.)"
+     ]
+    }
+   ]
+  },
+  "shape.position": {
+   "count": 36,
+   "packs": {
+    "smm": 36
+   },
+   "hold": 0,
+   "linear": 36,
+   "overshoot": 0,
+   "frames": {
+    "p10": 68.73,
+    "p50": 125,
+    "p90": 372.01
+   },
+   "topCurves": [
+    {
+     "curve": "0.33,0.33,0.67,0.67",
+     "count": 20,
+     "packs": {
+      "smm": 20
+     },
+     "examples": [
+      "smm / Shape Layer 2 Comp 1 / Shape Layer 2 (100 кадр.)",
+      "smm / Shape Layer 2 Comp 1 / Shape Layer 2 (86 кадр.)",
+      "smm / Shape Layer 2 Comp 1 / Shape Layer 2 (63 кадр.)"
+     ]
+    }
+   ]
+  },
+  "opacity": {
+   "count": 22,
+   "packs": {
+    "courses": 3,
+    "courses_conv": 4,
+    "logo": 5,
+    "logo_conv": 5,
+    "podcast": 5
+   },
+   "hold": 0,
+   "linear": 9,
+   "overshoot": 0,
+   "frames": {
+    "p10": 2,
+    "p50": 25,
+    "p90": 33
+   },
+   "topCurves": [
+    {
+     "curve": "0.33,0.33,0.67,0.67",
+     "count": 9,
+     "packs": {
+      "courses": 3,
+      "courses_conv": 4,
+      "podcast": 2
+     },
+     "examples": [
+      "courses / Обложка #1 / Cloud.ru Advanced  (33 кадр.)",
+      "courses / Обложка #2 / Cloud.ru Advanced 2 (33 кадр.)",
+      "courses / Обложка #3 / Cloud.ru Advanced 3 (33 кадр.)"
+     ]
+    },
+    {
+     "curve": "1.00,0.00,0.67,1.00",
+     "count": 4,
+     "packs": {
+      "logo": 2,
+      "logo_conv": 2
+     },
+     "examples": [
+      "logo / Логошот без саблайна / Layer 2 Outlines 2 (17 кадр.)",
+      "logo / Логошот без саблайна с плашкой / Layer 2 Outlines 2 (17 кадр.)",
+      "logo_conv / Логошот без саблайна / Layer 2 Outlines 2 (17 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.33,0.00,0.32,1.00",
+     "count": 2,
+     "packs": {
+      "logo": 1,
+      "logo_conv": 1
+     },
+     "examples": [
+      "logo / Логошот без саблайна / Layer 3 Outlines 2 (25 кадр.)",
+      "logo_conv / Логошот без саблайна / Layer 3 Outlines 2 (25 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.33,0.00,0.52,1.00",
+     "count": 2,
+     "packs": {
+      "logo": 1,
+      "logo_conv": 1
+     },
+     "examples": [
+      "logo / Логошот без саблайна с плашкой / Layer 3 Outlines 2 (25 кадр.)",
+      "logo_conv / Логошот без саблайна с плашкой / Layer 3 Outlines 2 (25 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.33,0.00,0.67,1.00",
+     "count": 2,
+     "packs": {
+      "podcast": 2
+     },
+     "examples": [
+      "podcast / Заставка_ПОДКАСТ_CLOUD.RU / LINES 2 Comp 1 (3 кадр.)",
+      "podcast / Заставка_ПОДКАСТ_CLOUD.RU / LINES Comp 1 (3 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.84,0.00,0.22,1.00",
+     "count": 1,
+     "packs": {
+      "podcast": 1
+     },
+     "examples": [
+      "podcast / Дисклеймер / Light Gray Solid 4 (1 кадр.)"
+     ]
+    }
+   ]
+  },
+  "effect:ADBE Fill": {
+   "count": 17,
+   "packs": {
+    "podcast": 17
+   },
+   "hold": 0,
+   "linear": 4,
+   "overshoot": 0,
+   "frames": {
+    "p10": 1,
+    "p50": 1,
+    "p90": 1
+   },
+   "topCurves": [
+    {
+     "curve": "0.33,0.00,0.67,1.00",
+     "count": 13,
+     "packs": {
+      "podcast": 13
+     },
+     "examples": [
+      "podcast / Дисклеймер / Vert_lines_1 Comp 1 (1 кадр.)",
+      "podcast / Дисклеймер / Verts_lines_2 Comp 1 (1 кадр.)",
+      "podcast / Заставка_ПОДКАСТ_CLOUD.RU / LINES 2 Comp 1 (1 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.33,0.33,0.67,0.67",
+     "count": 4,
+     "packs": {
+      "podcast": 4
+     },
+     "examples": [
+      "podcast / Дисклеймер / Strelka_1 (1 кадр.)",
+      "podcast / Дисклеймер / Strelka_3 (1 кадр.)",
+      "podcast / Дисклеймер / Strelka_2 (1 кадр.)"
+     ]
+    }
+   ]
+  },
+  "timeRemap": {
+   "count": 13,
+   "packs": {
+    "courses": 3,
+    "courses_conv": 3,
+    "smm": 2,
+    "webinars": 5
+   },
+   "hold": 0,
+   "linear": 13,
+   "overshoot": 0,
+   "frames": {
+    "p10": 149,
+    "p50": 353,
+    "p90": 559
+   },
+   "topCurves": [
+    {
+     "curve": "0.33,0.33,0.67,0.67",
+     "count": 13,
+     "packs": {
+      "courses": 3,
+      "courses_conv": 3,
+      "smm": 2,
+      "webinars": 5
+     },
+     "examples": [
+      "courses / Оверлей 3 на 2 / Logo (353 кадр.)",
+      "courses / Оверлей 16 на 9 / Logo (353 кадр.)",
+      "courses / Оверлей со спикером / Logo (353 кадр.)"
+     ]
+    }
+   ]
+  },
+  "rotation.x": {
+   "count": 10,
+   "packs": {
+    "logo": 4,
+    "logo_conv": 4,
+    "podcast": 2
+   },
+   "hold": 0,
+   "linear": 0,
+   "overshoot": 3,
+   "frames": {
+    "p10": 15,
+    "p50": 16.67,
+    "p90": 16.67
+   },
+   "topCurves": [
+    {
+     "curve": "0.01,0.50,0.66,0.92",
+     "count": 5,
+     "packs": {
+      "logo": 2,
+      "logo_conv": 2,
+      "podcast": 1
+     },
+     "examples": [
+      "logo / Есть где развернуться / LOGO 2 (16.67 кадр.)",
+      "logo / Умное облако / LOGO (16.67 кадр.)",
+      "logo_conv / Есть где развернуться / LOGO 2 (16.67 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.19,1.15,0.90,1.00",
+     "count": 3,
+     "packs": {
+      "logo": 1,
+      "logo_conv": 1,
+      "podcast": 1
+     },
+     "examples": [
+      "logo / Есть где развернуться / LOGO 2 (15 кадр.)",
+      "logo_conv / Есть где развернуться / LOGO 2 (15 кадр.)",
+      "podcast / Есть где развернуться / LOGO 2 (15 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.19,0.87,0.90,1.00",
+     "count": 2,
+     "packs": {
+      "logo": 1,
+      "logo_conv": 1
+     },
+     "examples": [
+      "logo / Умное облако / LOGO (15 кадр.)",
+      "logo_conv / Умное облако / LOGO (15 кадр.)"
+     ]
+    }
+   ]
+  },
+  "text.position": {
+   "count": 7,
+   "packs": {
+    "podcast": 7
+   },
+   "hold": 0,
+   "linear": 0,
+   "overshoot": 0,
+   "frames": {
+    "p10": 13,
+    "p50": 13,
+    "p90": 16
+   },
+   "topCurves": [
+    {
+     "curve": "0.80,0.00,0.18,1.00",
+     "count": 5,
+     "packs": {
+      "podcast": 5
+     },
+     "examples": [
+      "podcast / Подкаст / ПОДКАСТ (13 кадр.)",
+      "podcast / Подкаст / ПОДКАСТ (13 кадр.)",
+      "podcast / Pre-comp 3 / ПОДПИСАТЬСЯЁ (16 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.77,0.00,0.13,1.00",
+     "count": 2,
+     "packs": {
+      "podcast": 2
+     },
+     "examples": [
+      "podcast / Cloud.ru / CLOUD.RU (13 кадр.)",
+      "podcast / Cloud.ru / CLOUD.RU (13 кадр.)"
+     ]
+    }
+   ]
+  },
+  "shape.strokeWidth": {
+   "count": 2,
+   "packs": {
+    "podcast": 2
+   },
+   "hold": 0,
+   "linear": 0,
+   "overshoot": 0,
+   "frames": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20
+   },
+   "topCurves": [
+    {
+     "curve": "0.74,0.00,0.51,1.00",
+     "count": 2,
+     "packs": {
+      "podcast": 2
+     },
+     "examples": [
+      "podcast / LIne Comp 1 / LIne (20 кадр.)",
+      "podcast / LIne Comp 1 / LIne (20 кадр.)"
+     ]
+    }
+   ]
+  },
+  "other:ADBE Vector Stroke Color": {
+   "count": 2,
+   "packs": {
+    "podcast": 2
+   },
+   "hold": 0,
+   "linear": 0,
+   "overshoot": 0,
+   "frames": {
+    "p10": 1,
+    "p50": 1,
+    "p90": 1
+   },
+   "topCurves": [
+    {
+     "curve": "0.82,0.00,0.21,1.00",
+     "count": 1,
+     "packs": {
+      "podcast": 1
+     },
+     "examples": [
+      "podcast / Дисклеймер / Lines (1 кадр.)"
+     ]
+    },
+    {
+     "curve": "0.73,0.00,0.18,1.00",
+     "count": 1,
+     "packs": {
+      "podcast": 1
+     },
+     "examples": [
+      "podcast / Заставка_ПОДКАСТ_CLOUD.RU / LINES (1 кадр.)"
+     ]
+    }
+   ]
+  }
+ }
+}

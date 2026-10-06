@@ -1,0 +1,526 @@
+[
+ {
+  "matchName": "ADBE Fill",
+  "names": [
+   "Fill"
+  ],
+  "count": 37,
+  "packs": {
+   "logo": 2,
+   "logo_conv": 2,
+   "podcast": 19,
+   "smm": 2,
+   "webinars": 12
+  },
+  "examples": [
+   {
+    "comp": "Логошот без саблайна",
+    "layer": "Layer 2 Outlines 2",
+    "adjustment": false,
+    "params": {
+     "Fill Mask": 0,
+     "All Masks": 0,
+     "Color": [
+      0.969,
+      0.969,
+      0.969,
+      1
+     ],
+     "Invert": 0,
+     "Horizontal Feather": 0,
+     "Vertical Feather": 0,
+     "Opacity": 1,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   },
+   {
+    "comp": "Логошот без саблайна с плашкой",
+    "layer": "Layer 2 Outlines 2",
+    "adjustment": false,
+    "params": {
+     "Fill Mask": 0,
+     "All Masks": 0,
+     "Color": [
+      0.969,
+      0.969,
+      0.969,
+      1
+     ],
+     "Invert": 0,
+     "Horizontal Feather": 0,
+     "Vertical Feather": 0,
+     "Opacity": 1,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   },
+   {
+    "comp": "Логошот без саблайна",
+    "layer": "Layer 2 Outlines 2",
+    "adjustment": false,
+    "params": {
+     "Fill Mask": 0,
+     "All Masks": 0,
+     "Color": [
+      0.969,
+      0.969,
+      0.969,
+      1
+     ],
+     "Invert": 0,
+     "Horizontal Feather": 0,
+     "Vertical Feather": 0,
+     "Opacity": 1,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   }
+  ]
+ },
+ {
+  "matchName": "ADBE Box Blur2",
+  "names": [
+   "Fast Box Blur"
+  ],
+  "count": 13,
+  "packs": {
+   "podcast": 13
+  },
+  "examples": [
+   {
+    "comp": "Контент_1",
+    "layer": "Blur",
+    "adjustment": true,
+    "params": {
+     "Blur Radius": 15,
+     "Iterations": 3,
+     "Blur Dimensions": 1,
+     "Repeat Edge Pixels": 1,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   },
+   {
+    "comp": "Контент_2",
+    "layer": "Blur",
+    "adjustment": true,
+    "params": {
+     "Blur Radius": 15,
+     "Iterations": 3,
+     "Blur Dimensions": 1,
+     "Repeat Edge Pixels": 1,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   },
+   {
+    "comp": "Контент_3",
+    "layer": "Blur",
+    "adjustment": true,
+    "params": {
+     "Blur Radius": 15,
+     "Iterations": 3,
+     "Blur Dimensions": 1,
+     "Repeat Edge Pixels": 1,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   }
+  ]
+ },
+ {
+  "matchName": "ADBE Fractal Noise",
+  "names": [
+   "Fractal Noise"
+  ],
+  "count": 4,
+  "packs": {
+   "smm": 3,
+   "webinars": 1
+  },
+  "examples": [
+   {
+    "comp": "BG_pattern_1x1_2",
+    "layer": "Dark Gray Solid 5",
+    "adjustment": false,
+    "params": {
+     "Fractal Type": 1,
+     "Noise Type": 1,
+     "Invert": 0,
+     "Contrast": 100,
+     "Brightness": 0,
+     "Overflow": 4,
+     "Rotation": 0,
+     "Uniform Scaling": 1,
+     "Scale": 111.7,
+     "Scale Width": 100,
+     "Scale Height": 100,
+     "Offset Turbulence": [
+      771.2,
+      708.8
+     ],
+     "Perspective Offset": 0,
+     "Complexity": 1,
+     "Sub Influence (%)": 70,
+     "Sub Scaling": 56,
+     "Sub Rotation": 0,
+     "Sub Offset": [
+      0,
+      0
+     ],
+     "Center Subscale": 0,
+     "Evolution": 0,
+     "Evolution (expression)": "time*50",
+     "Cycle Evolution": 0,
+     "Cycle (in Revolutions)": 1,
+     "Random Seed": 0,
+     "Opacity": 100,
+     "Blending Mode": 2,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   },
+   {
+    "comp": "BG_pattern_9x16_2",
+    "layer": "Dark Gray Solid 6",
+    "adjustment": false,
+    "params": {
+     "Fractal Type": 1,
+     "Noise Type": 1,
+     "Invert": 0,
+     "Contrast": 100,
+     "Brightness": 0,
+     "Overflow": 4,
+     "Rotation": 0,
+     "Uniform Scaling": 1,
+     "Scale": 111.7,
+     "Scale Width": 100,
+     "Scale Height": 100,
+     "Offset Turbulence": [
+      771.2,
+      708.8
+     ],
+     "Perspective Offset": 0,
+     "Complexity": 1,
+     "Sub Influence (%)": 70,
+     "Sub Scaling": 56,
+     "Sub Rotation": 0,
+     "Sub Offset": [
+      0,
+      0
+     ],
+     "Center Subscale": 0,
+     "Evolution": 0,
+     "Evolution (expression)": "time*50",
+     "Cycle Evolution": 0,
+     "Cycle (in Revolutions)": 1,
+     "Random Seed": 0,
+     "Opacity": 100,
+     "Blending Mode": 2,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   },
+   {
+    "comp": "Pattern_strelki",
+    "layer": "Mask",
+    "adjustment": false,
+    "params": {
+     "Fractal Type": 5,
+     "Noise Type": 1,
+     "Invert": 0,
+     "Contrast": 400,
+     "Brightness": -100,
+     "Overflow": 1,
+     "Rotation": 0,
+     "Uniform Scaling": 1,
+     "Scale": 244,
+     "Scale Width": 100,
+     "Scale Height": 100,
+     "Offset Turbulence": [
+      3269.5,
+      2799
+     ],
+     "Perspective Offset": 0,
+     "Complexity": 1,
+     "Sub Influence (%)": 70,
+     "Sub Scaling": 56,
+     "Sub Rotation": 0,
+     "Sub Offset": [
+      0,
+      0
+     ],
+     "Center Subscale": 0,
+     "Evolution": 0,
+     "Cycle Evolution": 0,
+     "Cycle (in Revolutions)": 1,
+     "Random Seed": {
+      "keyed": 2,
+      "first": 0,
+      "last": 24
+     },
+     "Random Seed (expression)": "effect(\"Fractal Noise\")(28)\r",
+     "Opacity": 100,
+     "Blending Mode": 2,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   }
+  ]
+ },
+ {
+  "matchName": "ADBE Slider Control",
+  "names": [
+   "Scale From",
+   "Scale To",
+   "hitbox Inside",
+   "hitbox Outside"
+  ],
+  "count": 4,
+  "packs": {
+   "smm": 4
+  },
+  "examples": [
+   {
+    "comp": "PATTERN_EDIT",
+    "layer": "Adjustment Layer 1",
+    "adjustment": true,
+    "params": {
+     "Slider": 100,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   },
+   {
+    "comp": "PATTERN_EDIT",
+    "layer": "Adjustment Layer 1",
+    "adjustment": true,
+    "params": {
+     "Slider": 0,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   },
+   {
+    "comp": "PATTERN_EDIT",
+    "layer": "Adjustment Layer 1",
+    "adjustment": true,
+    "params": {
+     "Slider": 0,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   }
+  ]
+ },
+ {
+  "matchName": "CC RepeTile",
+  "names": [
+   "CC RepeTile"
+  ],
+  "count": 2,
+  "packs": {
+   "smm": 2
+  },
+  "examples": [
+   {
+    "comp": "BG_pattern_1x1_2",
+    "layer": "+ 2",
+    "adjustment": false,
+    "params": {
+     "Expand Right": 3200,
+     "Expand Left": 0,
+     "Expand Down": 3200,
+     "Expand Up": 0,
+     "Tiling": 1,
+     "Blend Borders": 0,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   },
+   {
+    "comp": "BG_pattern_9x16_2",
+    "layer": "+ 3",
+    "adjustment": false,
+    "params": {
+     "Expand Right": 3200,
+     "Expand Left": 0,
+     "Expand Down": 3780,
+     "Expand Up": 0,
+     "Tiling": 1,
+     "Blend Borders": 0,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   }
+  ]
+ },
+ {
+  "matchName": "CC Threshold RGB",
+  "names": [
+   "CC Threshold RGB"
+  ],
+  "count": 1,
+  "packs": {
+   "smm": 1
+  },
+  "examples": [
+   {
+    "comp": "Pattern_strelki",
+    "layer": "Rectangle 34627972.png",
+    "adjustment": false,
+    "params": {
+     "Red Threshold": 0.5,
+     "Green Threshold": 0.5,
+     "Blue Threshold": 0.5,
+     "Invert Red Channel": 0,
+     "Invert Green Channel": 0,
+     "Invert Blue Channel": 0,
+     "Blend w. Original": 0,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   }
+  ]
+ },
+ {
+  "matchName": "CS Vignette",
+  "names": [
+   "CC Vignette"
+  ],
+  "count": 1,
+  "packs": {
+   "smm": 1
+  },
+  "examples": [
+   {
+    "comp": "Pattern_strelki",
+    "layer": "Rectangle 34627972.png",
+    "adjustment": false,
+    "params": {
+     "Amount": 100,
+     "Angle of View": 45,
+     "Center": [
+      3269.5,
+      2799
+     ],
+     "Pin Highlights": 0,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   }
+  ]
+ },
+ {
+  "matchName": "ADBE Lumetri",
+  "names": [
+   "Lumetri Color"
+  ],
+  "count": 1,
+  "packs": {
+   "webinars": 1
+  },
+  "examples": [
+   {
+    "comp": "AI_анимация precomp_1",
+    "layer": "AI_robot_arm_B_1440p24.mp4",
+    "adjustment": false,
+    "params": {
+     "High Dynamic Range": 0,
+     "Active": 1,
+     "Input LUT": 1,
+     "HDR White": 100,
+     "Intensity": 100,
+     "White Balance": [
+      0.753,
+      0.753,
+      0.753,
+      1
+     ],
+     "Temperature": 0,
+     "Tint": 0,
+     "Saturation": 100,
+     "Exposure": 0.1,
+     "Contrast": 0,
+     "Highlights": 0,
+     "Shadows": 0,
+     "Whites": 0,
+     "Blacks": 0,
+     "HDR Specular": 0,
+     "Look": 1,
+     "Color Space": 29,
+     "Faded Film": 0,
+     "Sharpen": 0,
+     "Vibrance": 0,
+     "Tint Balance": 0,
+     "HDR Range": 100,
+     "Hue (vs Sat) Selector": [
+      0,
+      0,
+      0.004,
+      1
+     ],
+     "Hue (vs Hue) Selector": [
+      0,
+      0,
+      0.004,
+      1
+     ],
+     "Hue (vs Luma) Selector": [
+      0,
+      0,
+      0.004,
+      1
+     ],
+     "Luma (vs Sat) Selector": [
+      0,
+      0,
+      0.004,
+      1
+     ],
+     "Sat (vs Sat) Selector": [
+      0,
+      0,
+      0.004,
+      1
+     ],
+     "Face Detection": 1,
+     "Set color": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "Add color": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "Remove color": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "Show Mask": 0,
+     " ": 1,
+     "Invert Mask": 0,
+     "Denoise": 0,
+     "Blur": 0,
+     "Amount": 0,
+     "Midpoint": 50,
+     "Roundness": 0,
+     "Feather": 50,
+     "Custom Layer": 1,
+     "Legacy Tone And Saturation": 0,
+     "SemanticAutoTone Progress": -1,
+     "Auto Color Active...": 0,
+     "Compositing Options / Effect Opacity": 100,
+     "Compositing Options / GPU Rendering": 1
+    }
+   }
+  ]
+ }
+]

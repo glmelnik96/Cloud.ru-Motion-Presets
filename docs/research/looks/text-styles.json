@@ -1,0 +1,914 @@
+[
+ {
+  "key": "SBSansDisplay-Regular|125|-16|132.9|255,255,255|nostroke||LEFT_JUSTIFY|point",
+  "font": "SBSansDisplay-Regular",
+  "size": 125,
+  "tracking": -16,
+  "leading": 132.9,
+  "fill": [
+   1,
+   1,
+   1
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": null,
+  "count": 15,
+  "packs": {
+   "courses": 6,
+   "courses_conv": 9
+  },
+  "examples": [
+   "courses / Обложка #1 / третья последняя: третья последняя",
+   "courses / Обложка #1 / вторая строчка: вторая строчка",
+   "courses / Обложка #1 / Первая строчка: Первая строчка",
+   "courses / Обложка #2 / третья последняя: третья последняя"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Bold|100|-28|100|34,34,34|nostroke|caps|CENTER_JUSTIFY|box",
+  "font": "SBSansDisplay-Bold",
+  "size": 100,
+  "tracking": -28,
+  "leading": 100,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": true,
+  "justification": "CENTER_JUSTIFY",
+  "box": [
+   2508.714,
+   219
+  ],
+  "count": 14,
+  "packs": {
+   "podcast": 14
+  },
+  "examples": [
+   "podcast / Булит_1 / Text_2: Это лучший пользователь ИИ",
+   "podcast / Булит_1 / Text_1: Лучший разработчик будущего",
+   "podcast / Контент_3 / Text_3: И тут, и так далее",
+   "podcast / Контент_3 / Text_2: Затем появляется тут"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Bold|190|-28|190|34,34,34|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Bold",
+  "size": 190,
+  "tracking": -28,
+  "leading": 190,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   1134.093,
+   179.067
+  ],
+  "count": 10,
+  "packs": {
+   "podcast": 10
+  },
+  "examples": [
+   "podcast / Подкаст / ПОДКАСТ:  ПОДКАСТ",
+   "podcast / Подкаст / ПОДКАСТ:  ПОДКАСТ",
+   "podcast / Cloud.ru / CLOUD.RU: CLOUD.RU",
+   "podcast / Cloud.ru / CLOUD.RU: CLOUD.RU"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Semibold|39.6|-18|41|255,255,255|nostroke||LEFT_JUSTIFY|point",
+  "font": "SBSansDisplay-Semibold",
+  "size": 39.6,
+  "tracking": -18,
+  "leading": 41,
+  "fill": [
+   1,
+   1,
+   1
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": null,
+  "count": 8,
+  "packs": {
+   "courses": 3,
+   "courses_conv": 4,
+   "webinars": 1
+  },
+  "examples": [
+   "courses / Обложка #1 / облачные и ИИ-сервисы: облачные и ИИ-сервисы",
+   "courses / Обложка #2 / облачные и ИИ-сервисы: облачные и ИИ-сервисы",
+   "courses / Обложка #3 / облачные и ИИ-сервисы: облачные и ИИ-сервисы",
+   "courses_conv / Обложка #2 / облачные и ИИ-сервисы: облачные и ИИ-сервисы"
+  ]
+ },
+ {
+  "key": "SBSansText-Regular|35|-32|36.8|255,255,255|nostroke||CENTER_JUSTIFY|point",
+  "font": "SBSansText-Regular",
+  "size": 35,
+  "tracking": -32,
+  "leading": 36.8,
+  "fill": [
+   1,
+   1,
+   1
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "CENTER_JUSTIFY",
+  "box": null,
+  "count": 8,
+  "packs": {
+   "courses": 4,
+   "courses_conv": 4
+  },
+  "examples": [
+   "courses / Оверлей 3 на 2 / SUBTITLES_1 строка: Пишем текстр, много текста, ооочень мног",
+   "courses / Оверлей 3 на 2 / SUBTITLES_2 строка: Ававававававава",
+   "courses / Оверлей 16 на 9 / SUBTITLES_1 строка: Пишем текстр, много текста, ооочень мног",
+   "courses / Оверлей 16 на 9 / SUBTITLES_2 строка: 2 слова"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Semibold|100|-50|89|207,245,0|nostroke||LEFT_JUSTIFY|point",
+  "font": "SBSansDisplay-Semibold",
+  "size": 100,
+  "tracking": -50,
+  "leading": 89,
+  "fill": [
+   0.812,
+   0.961,
+   0
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": null,
+  "count": 8,
+  "packs": {
+   "smm": 8
+  },
+  "examples": [
+   "smm / Плашки_1x1 /  Cloud.ru Evolution:  Cloud.ru Evolution",
+   "smm / Плашки_1x1 / На виртуальной машине: На виртуальной машине",
+   "smm / Плашки_1x1 /  блог на Word Press:  блог на Word Press",
+   "smm / Плашки_1x1 / Разверните свой личный: Разверните свой личный"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Regular|125|-16|132.9|34,34,34|nostroke||LEFT_JUSTIFY|point",
+  "font": "SBSansDisplay-Regular",
+  "size": 125,
+  "tracking": -16,
+  "leading": 132.9,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": null,
+  "count": 6,
+  "packs": {
+   "courses": 3,
+   "courses_conv": 3
+  },
+  "examples": [
+   "courses / Обложка #3 / третья последняя 2: третья последняя",
+   "courses / Обложка #3 / вторая строчка 3: вторая строчка",
+   "courses / Обложка #3 / Первая строчка 3: Первая строчка",
+   "courses_conv / Обложка #3 / третья последняя 2: третья последняя"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Regular|30|5|48|204,204,204|nostroke||LEFT_JUSTIFY|point",
+  "font": "SBSansDisplay-Regular",
+  "size": 30,
+  "tracking": 5,
+  "leading": 48,
+  "fill": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": null,
+  "count": 5,
+  "packs": {
+   "courses": 2,
+   "courses_conv": 3
+  },
+  "examples": [
+   "courses / Обложка #1 / Cloud.ru Advanced : Cloud.ru Advanced",
+   "courses / Обложка #2 / Cloud.ru Advanced 2: Cloud.ru Advanced",
+   "courses_conv / Обложка #2 / Cloud.ru Advanced 2: Cloud.ru Advanced",
+   "courses_conv / Pre-comp 3 / Cloud.ru: Cloud.ru"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Semibold|60|0|60|34,34,34|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Semibold",
+  "size": 60,
+  "tracking": 0,
+  "leading": 60,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   698,
+   282
+  ],
+  "count": 5,
+  "packs": {
+   "smm": 5
+  },
+  "examples": [
+   "smm / Заставка_9x16 / сотрудников?: сотрудников?",
+   "smm / Заставка_9x16 / под обучение: под обучение",
+   "smm / Заставка_9x16 / Telegram-бота с AI: Telegram-бота с AI",
+   "smm / Заставка_9x16 / Как быстро создать : Как быстро создать"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Bold|190|-34|190|34,34,34|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Bold",
+  "size": 190,
+  "tracking": -34,
+  "leading": 190,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   1134.093,
+   179.067
+  ],
+  "count": 4,
+  "packs": {
+   "podcast": 4
+  },
+  "examples": [
+   "podcast / Заставка_ПОДКАСТ_CLOUD.RU / ПОДКАСТ 2:  ПОДКАСТ",
+   "podcast / Заставка_ПОДКАСТ_CLOUD.RU / ПОДКАСТ:  ПОДКАСТ",
+   "podcast / Заставка_ПОДКАСТ_CLOUD.RU / CLOUD.RU 2: CLOUD.RU",
+   "podcast / Заставка_ПОДКАСТ_CLOUD.RU / CLOUD.RU: CLOUD.RU"
+  ]
+ },
+ {
+  "key": "SBSansText-Regular|40|0|45|255,255,255|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansText-Regular",
+  "size": 40,
+  "tracking": 0,
+  "leading": 45,
+  "fill": [
+   1,
+   1,
+   1
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   1002,
+   366
+  ],
+  "count": 4,
+  "packs": {
+   "titles": 2,
+   "titles_conv": 2
+  },
+  "examples": [
+   "titles / Подпись_спикеров / Александр Стародубцев 2: Александр Стародубцев",
+   "titles / Подпись_спикеров / Александр Стародубцев: Александр Стародубцев",
+   "titles_conv / Pre-comp 1 / Никита Грехов: Никита Грехов",
+   "titles_conv / Pre-comp 2 / Роман Путилов: Роман Путилов"
+  ]
+ },
+ {
+  "key": "SBSansText-Regular|40|0|35|255,255,255|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansText-Regular",
+  "size": 40,
+  "tracking": 0,
+  "leading": 35,
+  "fill": [
+   1,
+   1,
+   1
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   1002,
+   366
+  ],
+  "count": 4,
+  "packs": {
+   "titles": 2,
+   "titles_conv": 2
+  },
+  "examples": [
+   "titles / Подпись_спикеров /  Технический лидер Cloud.ru 2:  Технический лидер Cloud.ru",
+   "titles / Подпись_спикеров /  Технический лидер Cloud.ru:  Технический лидер Cloud.ru",
+   "titles_conv / Pre-comp 1 /  Руководитель направления по работе с партнерами:  Руководитель направления по работе с па",
+   "titles_conv / Pre-comp 2 /  Руководитель направления позиционирования продукта:  Руководитель направления позиционирован"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Regular|60|0|67|34,34,34|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Regular",
+  "size": 60,
+  "tracking": 0,
+  "leading": 67,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   904,
+   368
+  ],
+  "count": 4,
+  "packs": {
+   "webinars": 4
+  },
+  "examples": [
+   "webinars / Заставка с вижуалом / Чек-лист от юриста: как выбрать безопасное облако: Чек-лист от юриста: как выбрать безопасн",
+   "webinars / Заставка со спикером / Собираем корпоративный AI-чат: от выбора модели до работающего прототипа: Собираем корпоративный AI-чат: от выбора",
+   "webinars / Таймер с вижуалом / Чек-лист от юриста: как выбрать безопасное облако: Чек-лист от юриста: как выбрать безопасн",
+   "webinars / Таймер со спикером / Собираем корпоративный AI-чат: от выбора модели до работающего прототипа: Собираем корпоративный AI-чат: от выбора"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Bold|100|-28|100|34,34,34|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Bold",
+  "size": 100,
+  "tracking": -28,
+  "leading": 100,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   1020,
+   145
+  ],
+  "count": 3,
+  "packs": {
+   "podcast": 3
+  },
+  "examples": [
+   "podcast / Подпись_QR_1 / @STRDUB: @STRDUB",
+   "podcast / Подпись_QR_1 / @STRDUB: @STRDUB",
+   "podcast / Подпись_QR_2 / @ULBI_TV: @ULBI_TV"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Regular|30|5|48|34,34,34|nostroke||LEFT_JUSTIFY|point",
+  "font": "SBSansDisplay-Regular",
+  "size": 30,
+  "tracking": 5,
+  "leading": 48,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": null,
+  "count": 2,
+  "packs": {
+   "courses": 1,
+   "courses_conv": 1
+  },
+  "examples": [
+   "courses / Обложка #3 / Cloud.ru Advanced 3: Cloud.ru Advanced",
+   "courses_conv / Обложка #3 / Cloud.ru Advanced 3: Cloud.ru Advanced"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Semibold|30.7|8|31.4|255,255,255|nostroke||CENTER_JUSTIFY|point",
+  "font": "SBSansDisplay-Semibold",
+  "size": 30.7,
+  "tracking": 8,
+  "leading": 31.4,
+  "fill": [
+   1,
+   1,
+   1
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "CENTER_JUSTIFY",
+  "box": null,
+  "count": 2,
+  "packs": {
+   "logo": 1,
+   "logo_conv": 1
+  },
+  "examples": [
+   "logo / Логошоты вертикальный_Умное облако / облачные и ИИ-сервисы: облачные и ИИ-сервисы",
+   "logo_conv / Логошоты вертикальный_Умное облако / облачные и ИИ-сервисы: облачные и ИИ-сервисы"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Semibold|30.7|8|31.4|255,255,255|nostroke||LEFT_JUSTIFY|point",
+  "font": "SBSansDisplay-Semibold",
+  "size": 30.7,
+  "tracking": 8,
+  "leading": 31.4,
+  "fill": [
+   1,
+   1,
+   1
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": null,
+  "count": 2,
+  "packs": {
+   "logo": 1,
+   "logo_conv": 1
+  },
+  "examples": [
+   "logo / Логошоты вертикальный_Умное облако_запасной вариант / облачные и ИИ-сервисы: облачные и ИИ-сервисы",
+   "logo_conv / Логошоты вертикальный_Умное облако_запасной вариант / облачные и ИИ-сервисы: облачные и ИИ-сервисы"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Semibold|100|0|39|34,34,34|nostroke||LEFT_JUSTIFY|point",
+  "font": "SBSansDisplay-Semibold",
+  "size": 100,
+  "tracking": 0,
+  "leading": 39,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": null,
+  "count": 2,
+  "packs": {
+   "logo": 1,
+   "logo_conv": 1
+  },
+  "examples": [
+   "logo / Умное облако / облачные и ИИ-сервисы: облачные и ИИ-сервисы",
+   "logo_conv / Умное облако / облачные и ИИ-сервисы: облачные и ИИ-сервисы"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Bold|91.2|-28|100|34,34,34|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Bold",
+  "size": 91.2,
+  "tracking": -28,
+  "leading": 100,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   1146,
+   145
+  ],
+  "count": 2,
+  "packs": {
+   "podcast": 2
+  },
+  "examples": [
+   "podcast /   QR_3 / @CLOUDRUPROVIDER: @CLOUDRUPROVIDER",
+   "podcast /   QR_3 / @CLOUDRUPROVIDER: @CLOUDRUPROVIDER"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Bold|100|-28|100|34,34,34|nostroke|caps|LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Bold",
+  "size": 100,
+  "tracking": -28,
+  "leading": 100,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": true,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   2143.214,
+   219
+  ],
+  "count": 2,
+  "packs": {
+   "podcast": 2
+  },
+  "examples": [
+   "podcast / Булит / Text_2: Перестанет быть нужным",
+   "podcast / Булит / Text_1: Через несколько лет знание синтаксиса"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Semibold|97.8|-10|95|34,34,34|nostroke|caps|LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Semibold",
+  "size": 97.8,
+  "tracking": -10,
+  "leading": 95,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": true,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   1308.5,
+   282
+  ],
+  "count": 2,
+  "packs": {
+   "podcast": 2
+  },
+  "examples": [
+   "podcast / Подпись_спикера_1 / Технический лидер CLOUd.ru: Технический лидер CLOUd.ru",
+   "podcast / Подпись_спикера_2 / Основатель balun.Courses: Основатель balun.Courses"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Bold|180|-33|95|34,34,34|nostroke|caps|RIGHT_JUSTIFY|box",
+  "font": "SBSansDisplay-Bold",
+  "size": 180,
+  "tracking": -33,
+  "leading": 95,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": true,
+  "justification": "RIGHT_JUSTIFY",
+  "box": [
+   2987,
+   276
+  ],
+  "count": 2,
+  "packs": {
+   "podcast": 2
+  },
+  "examples": [
+   "podcast / Подпись_спикера_1 / Surname: Александр Стародубцев",
+   "podcast / Подпись_спикера_2 /  Name/Surname: Владимир Балун"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Regular|60|0|95|38,208,124|nostroke||CENTER_JUSTIFY|box",
+  "font": "SBSansDisplay-Regular",
+  "size": 60,
+  "tracking": 0,
+  "leading": 95,
+  "fill": [
+   0.149,
+   0.816,
+   0.486
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "CENTER_JUSTIFY",
+  "box": [
+   1294,
+   88
+  ],
+  "count": 2,
+  "packs": {
+   "webinars": 2
+  },
+  "examples": [
+   "webinars / Анонс_Вебинар_1x1 / 25 ноября в 11:00: 25 ноября в 11:00",
+   "webinars / Анонс_Вебинар_9x16 / 25.11 в 11:00: 25.11 в 11:00"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Regular|60|0|95|194,194,194|nostroke||CENTER_JUSTIFY|box",
+  "font": "SBSansDisplay-Regular",
+  "size": 60,
+  "tracking": 0,
+  "leading": 95,
+  "fill": [
+   0.761,
+   0.761,
+   0.761
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "CENTER_JUSTIFY",
+  "box": [
+   1294,
+   88
+  ],
+  "count": 2,
+  "packs": {
+   "webinars": 2
+  },
+  "examples": [
+   "webinars / Анонс_Вебинар_1x1 / Вебинар 2: Вебинар",
+   "webinars / Анонс_Вебинар_9x16 / Вебинар 3: Вебинар"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Regular|35|19|47|255,255,255|nostroke||LEFT_JUSTIFY|point",
+  "font": "SBSansDisplay-Regular",
+  "size": 35,
+  "tracking": 19,
+  "leading": 47,
+  "fill": [
+   1,
+   1,
+   1
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": null,
+  "count": 2,
+  "packs": {
+   "webinars": 2
+  },
+  "examples": [
+   "webinars / Заставка со спикером / Александр Константинов, Технический эксперт по облачным технологиям 2: Александр Константинов, Технический эксп",
+   "webinars / Таймер со спикером / Александр Константинов, Технический эксперт по облачным технологиям: Александр Константинов, Технический эксп"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Bold|100|-28|100|34,34,34|nostroke||RIGHT_JUSTIFY|box",
+  "font": "SBSansDisplay-Bold",
+  "size": 100,
+  "tracking": -28,
+  "leading": 100,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "RIGHT_JUSTIFY",
+  "box": [
+   1818.714,
+   219
+  ],
+  "count": 1,
+  "packs": {
+   "podcast": 1
+  },
+  "examples": [
+   "podcast / Подпись_QR_2 / @VLADIMIR_BALUN_PROGRAMMING: @VLADIMIR_BALUN_PROGRAMMING"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Bold|40|-24|47|179,179,179|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Bold",
+  "size": 40,
+  "tracking": -24,
+  "leading": 47,
+  "fill": [
+   0.702,
+   0.702,
+   0.702
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   1027.445,
+   244.38
+  ],
+  "count": 1,
+  "packs": {
+   "podcast": 1
+  },
+  "examples": [
+   "podcast / Дисклеймер / ВСЕ МНЕНИЯ И ВЫСКАЗЫВАНИЯ В ЭТОМ ВИДЕО ПРИНАДЛЕЖАТ ИСКЛЮЧИТЕЛЬНО НАШЕМУ ГОСТЮ, ВЫСТУПАЮЩЕМУ КАК ЧАСТНОЕ ЛИЦО. ВИДЕО НЕ СВЯЗАНО С КОМПАНИЕЙ И НЕ ОТРАЖАЕТ ЕЁ ОФИЦИАЛЬНУЮ ПОЗИЦИЮ.: ВСЕ МНЕНИЯ И ВЫСКАЗЫВАНИЯ В ЭТОМ ВИДЕО П"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Bold|53|-22|47|34,34,34|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Bold",
+  "size": 53,
+  "tracking": -22,
+  "leading": 47,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   673.422,
+   75.01
+  ],
+  "count": 1,
+  "packs": {
+   "podcast": 1
+  },
+  "examples": [
+   "podcast / Дисклеймер / ДИСКЛЕЙМЕР: ДИСКЛЕЙМЕР"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Semibold|70|-10|75|34,34,34|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Semibold",
+  "size": 70,
+  "tracking": -10,
+  "leading": 75,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   1143.666,
+   1458.521
+  ],
+  "count": 1,
+  "packs": {
+   "podcast": 1
+  },
+  "examples": [
+   "podcast / О_госте / Владимир Балун -  Основатель Balun. Courses  - Руководил инфраструктурной командой в Яндексе по разработке системы трейсинга (11ГБ/с трафик) - Разрабатывал системы трейсинга (7ГБ/с трафик) и непрерывного профилирования в Ozon, корпоративный мессенджер в Mail.ru и высоконагруженные сервисы рекламной платформы в Тинькофф. - Сейчас занимается развитием своих проектов it-interview.io и balun.courses: Владимир Балун - Основатель Balun. Cours"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Regular|83.3|0|95|255,255,255|nostroke||CENTER_JUSTIFY|box",
+  "font": "SBSansDisplay-Regular",
+  "size": 83.3,
+  "tracking": 0,
+  "leading": 95,
+  "fill": [
+   1,
+   1,
+   1
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "CENTER_JUSTIFY",
+  "box": [
+   1296,
+   370
+  ],
+  "count": 1,
+  "packs": {
+   "webinars": 1
+  },
+  "examples": [
+   "webinars / Анонс_Вебинар_1x1 / Чек-лист от юриста: как выбрать безопасное облако: Чек-лист от юриста: как выбрать безопасн"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Regular|70|16|79|34,34,34|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Regular",
+  "size": 70,
+  "tracking": 16,
+  "leading": 79,
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   1296,
+   370
+  ],
+  "count": 1,
+  "packs": {
+   "webinars": 1
+  },
+  "examples": [
+   "webinars / Анонс_Вебинар_9x16 / Чек-лист от юриста: как выбрать безопасное облако: Чек-лист от юриста: как выбрать безопасн"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Regular|39.6|0|auto|34,34,34|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Regular",
+  "size": 39.6,
+  "tracking": 0,
+  "leading": "auto",
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   309.5,
+   150.5
+  ],
+  "count": 1,
+  "packs": {
+   "webinars": 1
+  },
+  "examples": [
+   "webinars / Таймер с вижуалом / начало через: начало через"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Regular|35|0|auto|34,34,34|nostroke||LEFT_JUSTIFY|box",
+  "font": "SBSansDisplay-Regular",
+  "size": 35,
+  "tracking": 0,
+  "leading": "auto",
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": [
+   309.5,
+   150.5
+  ],
+  "count": 1,
+  "packs": {
+   "webinars": 1
+  },
+  "examples": [
+   "webinars / Таймер со спикером / начало через: начало через"
+  ]
+ },
+ {
+  "key": "SBSansDisplay-Regular|155|0|auto|34,34,34|nostroke||LEFT_JUSTIFY|point",
+  "font": "SBSansDisplay-Regular",
+  "size": 155,
+  "tracking": 0,
+  "leading": "auto",
+  "fill": [
+   0.133,
+   0.133,
+   0.133
+  ],
+  "stroke": null,
+  "allCaps": false,
+  "justification": "LEFT_JUSTIFY",
+  "box": null,
+  "count": 1,
+  "packs": {
+   "webinars": 1
+  },
+  "examples": [
+   "webinars / Timer precomp / TIMER: 0:00"
+  ]
+ }
+]

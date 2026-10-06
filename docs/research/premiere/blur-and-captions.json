@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-06",
+  "host": "Premiere Pro 26.5.2, Windows build PC; AE 2026 for the reference",
+  "scratch": "C:/CRBK/work/materials/premiere/probe (blur_probe.prproj, frames, edge_1920.png, probe.srt); probe scripts in C:/CRBK/work/materials/scratch",
+  "blurD11": {
+    "pack": {
+      "source": "docs/research/looks/blurs.json + raw dumps C:/CRBK/work/dumps/podcast",
+      "effect": "ADBE Box Blur2 (Fast Box Blur)",
+      "params": { "Blur Radius": 15, "Iterations": 3, "Blur Dimensions": "1 = Horizontal and Vertical", "Repeat Edge Pixels": true },
+      "layer": "adjustment layer «Blur» (solid «Adjustment Layer 1», 3840x2160), the same in all 13 comps: Контент_1..3, О_госте, Подписывайтесь на канал CLOUD.RU, Подпись_спикера_1..2, Текст на плашке_1..3, QR_код_1..3",
+      "mask": "one static mask, ADD, inverted, feather 0, expansion 0, rectangle (105,102)-(3735,2058) in a 3840x2160 comp: only the margins are blurred, 105 px left/right and 102 px top/bottom at 4K (52.5 / 51 px at 1080p)",
+      "gap": "blurs.json has no masks: tools/dump/looks.mjs does not carry layer.masks over; the mask above is read from the dumps directly"
+    },
+    "premiereEffects": {
+      "query": "qe.project.getVideoEffectList(): 194 effects; blurs: Fast Blur, Gaussian Blur, Gaussian Blur (Legacy), Camera Blur, Directional Blur, … — no Fast Box Blur",
+      "Fast Blur": { "matchName": "AE.ADBE Fast Blur", "params": ["Blurriness", "Blur Dimensions (0 = Horizontal and Vertical)", "Repeat Edge Pixels"] },
+      "Gaussian Blur (Legacy)": { "matchName": "AE.ADBE Gaussian Blur 2", "params": ["Blurriness", "Blur Dimensions", "Repeat Edge Pixels"] },
+      "Gaussian Blur": { "matchName": "AE.Impact_Blur_FX", "params": ["Amount", "Thickness", "Angle", "Seed", "Chromatic Aberration", "Edge Behavior"], "note": "in 26.5 «Gaussian Blur» is a new effect without Blurriness and Repeat Edge Pixels; the classic one is «Gaussian Blur (Legacy)»" }
+    },
+    "equivalence": {
+      "method": "edge_1920.png (black / white band / black, 1920x1080). AE: Fast Box Blur radius 15 and 7.5, 3 iterations, Repeat Edge Pixels, saveFrameToPng. Premiere: the same still in a 1920x1080 sequence, each effect swept, QE exportFramePNG. Row profiles across both edges compared by RMS.",
+      "linearLight": "Premiere 26.5 blurs in linear light: its frames match AE only after decoding sRGB to linear (RMS 2-3 of 255); raw frames are off by RMS ~24, the transition shifted toward black. Sequence setting compositeLinearColor=false gives a byte-identical frame, so it does not help. The edge looks a little brighter/wider than in AE; the kernel width below matches.",
+      "aeRadius7_5_isPackAt1080p": { "Fast Blur": 20, "Gaussian Blur (Legacy)": 30, "Gaussian Blur (Amount)": 5 },
+      "aeRadius15_isPackAt4K": { "Fast Blur": "35-40 (best 40, RMS 3.3; 35 RMS 3.4)", "Gaussian Blur (Legacy)": "≥50 (best of the sweep 50, RMS 3.7)", "Gaussian Blur (Amount)": 10 },
+      "recommendation": "Fast Blur (AE.ADBE Fast Blur): Blurriness 20 in a 1080p sequence, ~38 in a 4K sequence, Blur Dimensions Horizontal and Vertical, Repeat Edge Pixels on; inverted rectangle mask on the effect, inset 52.5/51 px at 1080p (105/102 at 4K), feather 0. The numbers of the pack do not carry over 1:1 to any Premiere blur."
+    },
+    "scripting": {
+      "presetByNameQE": "qe.project.getVideoEffectByName() returns a non-null object for any string (an existing preset name, «CR Размытие полей», nonsense); trackItem.addVideoEffect() with the factory preset «Fast Blur In» added nothing (no Fast Blur with 127→0 keys appeared). QE has no preset methods at all (full reflect of qe, qe.project, track item, sequence).",
+      "effectMasks": "no DOM or QE API creates or edits an effect mask",
+      "adjustmentLayer": "no newAdjustmentLayer in QE or DOM. qe.project.newTransparentVideo(): no args → EvalScript error; (w,h,timebase,par,name) and two other orders → «Illegal Parameter type». QE has newBlackVideo, newColorMatte, newBarsAndTone, newUniversalCountingLeader.",
+      "effectRemovalQE": "qe trackItem.getComponentAt(k).removeEffect() crashed the eval (EvalScript error); set the amount to 0 instead",
+      "newProjectQE": "app.newProject(path) leaves app.project on the previous project for the rest of the same eval: the next calls hit the wrong project and the eval died; app.openDocument() of the new file makes it active"
+    },
+    "presetStorage": {
+      "userPresets": "Documents/Adobe/Premiere Pro/26.0/Profile-<user>/Effect Presets and Custom Items.prfpset — not present on this PC yet (no user preset saved); Premiere creates it on the first Save Preset",
+      "factoryPresets": "C:/Program Files/Adobe/Adobe Premiere Pro 2026/LocalizedPresets/<lang>/Effect Presets/Factory Presets.prfpset",
+      "format": "XML <PremiereData Version=\"3\">: BinTreeItem → TreeItem → FilterPresetItem → FilterPreset (FilterMatchName, Type, AnchorIn/OutPoint) → VideoFilterComponent → VideoComponentParam (Name, CurrentValue, Keyframes, StartKeyframe). No factory preset carries a mask, so the XML of an effect mask is not known yet.",
+      "fileDropWhileClosed": "not tested: needs a Premiere restart and the Effects panel to look at; worth it only after a real preset with the mask exists"
+    },
+    "manualLeft": [
+      "On an adjustment layer: Fast Blur with the numbers above, rectangle mask on the effect, Inverted, then Effects → Save Preset «CR Размытие полей» and Export Preset to C:/CRBK/work/materials/premiere/CR Размытие полей.prfpset",
+      "With that file: whether a copy into Profile-<user>/ while Premiere is closed shows up after a restart, or only Import Presets works; and the XML of the mask inside it (then a preset per sequence size can be generated)"
+    ]
+  },
+  "captionsD25": {
+    "pack": {
+      "source": "docs/research/looks/text-styles.json, courses / Оверлей 16 на 9 and Оверлей 3 на 2 (SUBTITLES_1 строка, SUBTITLES_2 строка)",
+      "text": { "font": "SBSansText-Regular (SB Sans Text 1.003)", "size": 35, "tracking": -32, "leading": 36.8, "fill": "#FFFFFF", "stroke": "none", "justification": "center", "frame": "1920x1080" },
+      "plate": "not a text box: separate shape layers «Shape Layer 23/24» under each line, fill #222222, white stroke 2 px in the group (whether it is on is not in the dump), sharp corners, fixed size about 772x55 px (path 785x82 at scale 98.3/67.5 %); position by expression thisComp.layer(\"1 строка\" / \"2 строка\").transform.position, the same as the text",
+      "lines": "two lines, each its own text layer driven by the nulls «1 строка» / «2 строка»"
+    },
+    "scripting": {
+      "createCaptionTrack": "works: seq.createCaptionTrack(srtProjectItem, 0, Sequence.CAPTION_FORMAT_SUBTITLE) → true; the .srt imports with app.project.importFiles; the captions render in exportFramePNG with the default style (screenshot captions-from-srt-default-style.png)",
+      "styleBinding": "no way to set a style: the DOM Sequence has no captionTracks (properties: audioDisplayFormat, audioTracks, end, frameSize*, id, markers, name, projectItem, sequenceID, timebase, videoDisplayFormat, videoTracks, zeroPoint); createCaptionTrack has no style argument",
+      "formats": { "CAPTION_FORMAT_SUBTITLE": 0, "CAPTION_FORMAT_608": 1, "CAPTION_FORMAT_708": 2, "CAPTION_FORMAT_TELETEXT": 3, "CAPTION_FORMAT_OPEN_EBU": 65539, "CAPTION_FORMAT_OP42": 131075, "CAPTION_FORMAT_OP47": 196611 }
+    },
+    "styleStorage": {
+      "docs": "https://helpx.adobe.com/premiere/desktop/add-text-images/insert-captions/create-styles-for-captions.html; since 24.3 caption styles are «Track Styles»",
+      "file": ".prtextstyle. «Save to Local styles» writes it to Documents/Adobe/Common/Assets/Text Styles (the folder exists on this PC, empty); «Save to Project» makes a project item that can be exported (Export Track Style / Export Text Styles)",
+      "anotherProject": "drag the .prtextstyle into the Project panel (Adobe community: Import in the Properties panel hangs on «importing files» in some builds) — then it is in the Track Style dropdown",
+      "nextToProject": "nothing: the style is inside the project or in the local Text Styles folder; the font SB Sans Text must be installed"
+    },
+    "manualLeft": [
+      "Captions track → Properties: SB Sans Text Regular 35, tracking -32, leading 36.8, white, background #222222 (the pack has a fixed plate, Premiere gives a box behind the text with padding) → Track Style + → Create Style «CR Субтитры», Save to Local styles and to the project",
+      "Copy the .prtextstyle to C:/CRBK/work/materials/premiere/ and check: app.project.importFiles([… .prtextstyle]) — does it become a style item (then the panel can bring the style into a project, the editor only picks it in the dropdown)"
+    ]
+  }
+}
