@@ -21,7 +21,9 @@ import { buildMediaFixtures } from '../../tools/panel/media-fixtures.mjs';
 import { composeProbe, REPO } from '../../tools/spike/runner.mjs';
 import { presetSources, stagePreset } from '../../tools/pr/env.mjs';
 import { waitForStableFiles } from '../../tools/golden/png.mjs';
-import { pixelAt } from '../../tools/png/read-png.mjs';
+import { findColorCentroid, pixelAt } from '../../tools/png/read-png.mjs';
+import { spawnSync } from 'node:child_process';
+import { runFitLive } from './fit.mjs';
 import { runColorsLive } from './colors.mjs';
 import { runEffectsLive } from './effects.mjs';
 import { runMediaLive } from './media.mjs';
@@ -117,6 +119,26 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
       }
       // The «Цвета» tab: AE only, on its own scratch project.
       if (HOST === 'ae') await runColorsLive({ bridge, hostRun, project: path.posix.join(outDir, 'colors_live.aep'), R });
+      // «Вписать в окно»: Premiere only, stills of a known colour into the windows of WEB_Screen (example source).
+      if (HOST === 'pr') {
+        const clips = {};
+        for (const [key, hex] of [['screen', '26D07C'], ['speaker', 'A068FF']]) {
+          clips[key] = path.posix.join(outDir, `fit-${key}.png`);
+          if (!existsSync(clips[key])) spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', `color=c=0x${hex}:s=1920x1080`, '-frames:v', '1', clips[key]]);
+        }
+        const example = JSON.parse(readFileSync(path.join(REPO, 'docs', 'library', 'example.src.json'), 'utf8'));
+        await runFitLive({
+          bridge, hostRun, R, clips,
+          item: example.items.find((i) => i.id === 'WEB_Screen'),
+          frame: async (id, frame, key) => {
+            const r = await hostRun('frames', { id, frames: [{ key, frame }] });
+            const file = r?.data?.frames?.[key] ?? null;
+            if (file) await waitForStableFiles([file], { timeoutMs: 120000 });
+            return file;
+          },
+          colorBox: (file, hex) => findColorCentroid(file, hex, 16).box,
+        });
+      }
     } catch (e) {
       R.check('live run finished without an exception', false, String(e && e.stack ? e.stack : e));
     } finally {

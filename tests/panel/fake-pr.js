@@ -10,7 +10,7 @@ var BridgeTalk = { appName: 'premierepro' };
 var $ = { os: 'Windows/64 10.0', sleep: function () {} };
 var TPS = 254016000000;
 
-var __pr = { files: {}, folders: {}, mogrts: {}, media: {}, calls: [], drop: [], imports: 0, qe: true, exports: [], jobs: 0 };
+var __pr = { files: {}, folders: {}, mogrts: {}, media: {}, calls: [], drop: [], imports: 0, qe: true, exports: [], jobs: 0, effects: ['Crop'] };
 var ProjectItemType = { CLIP: 1, BIN: 2, ROOT: 3, FILE: 4 };
 
 function __norm(p) { return String(p).split('\\').join('/'); }
@@ -76,8 +76,16 @@ function TrackItem(name, startTicks, lenTicks, def) {
   };
   this._mgt = { properties: props };
   this._scale = __param('Scale', 'number', 100);
-  var motion = { matchName: 'AE.ADBE Motion', displayName: 'Motion', properties: __collection([__param('Position', 'point', [0.5, 0.5]), this._scale]) };
-  this.components = __collection([{ matchName: 'AE.ADBE Opacity', displayName: 'Opacity', properties: __collection([]) }, motion]);
+  this._position = __param('Position', 'point', [0.5, 0.5]);
+  var motion = { matchName: 'AE.ADBE Motion', displayName: 'Motion', properties: __collection([this._position, this._scale]) };
+  this._components = [{ matchName: 'AE.ADBE Opacity', displayName: 'Opacity', properties: __collection([]) }, motion];
+  this._isMgt = false;
+}
+Object.defineProperty(TrackItem.prototype, 'components', { get: function () { return __collection(this._components); } });
+TrackItem.prototype.isMGT = function () { return this._isMgt; };
+// Crop as QE adds it (S7): matchName AE.ADBE AECrop, parameters Left, Top, Right, Bottom in percent.
+function __crop() {
+  return { matchName: 'AE.ADBE AECrop', displayName: 'Crop', properties: __collection(['Left', 'Top', 'Right', 'Bottom', 'Zoom', 'Edge Feather'].map(function (n) { return __param(n, 'number', n === 'Zoom' ? false : 0); })) };
 }
 Object.defineProperty(TrackItem.prototype, 'start', { get: function () { return __time(this._start); } });
 Object.defineProperty(TrackItem.prototype, 'end', {
@@ -125,6 +133,12 @@ ProjectItem.prototype.createBin = function (name) {
   return b;
 };
 ProjectItem.prototype.getMediaPath = function () { return this._path; };
+// The frame size column of the project metadata, as Premiere writes it: «1920 x 1080 (1.0)».
+ProjectItem.prototype.getProjectMetadata = function () {
+  var m = __pr.media[this._path];
+  if (!m || !m.w) return '<?xpacket?><rdf:RDF><premierePrivateProjectMetaData:Column.Intrinsic.MediaType>Audio</premierePrivateProjectMetaData:Column.Intrinsic.MediaType></rdf:RDF>';
+  return '<?xpacket?><rdf:RDF><premierePrivateProjectMetaData:Column.Intrinsic.VideoInfo>' + m.w + ' x ' + m.h + ' (' + (m.par || '1.0') + ')</premierePrivateProjectMetaData:Column.Intrinsic.VideoInfo></rdf:RDF>';
+};
 ProjectItem.prototype.getInPoint = function () { return __time(0); };
 ProjectItem.prototype.getOutPoint = function () {
   var m = __pr.media[this._path];
@@ -198,6 +212,7 @@ Sequence.prototype.importMGT = function (path, ticks, vIdx) {
   var track = this._tracks[vIdx];
   track._clips = track._clips.filter(function (c) { return !(c._start < start + len && c._end > start); });
   var clip = new TrackItem(name, start, len, def);
+  clip._isMgt = true;
   track._clips.push(clip);
   return clip;
 };
@@ -211,7 +226,25 @@ var __qeSeq = {
     for (var j = 0; j < (audio || 0); j++) s._atracks.push(new Track('A' + (s._atracks.length + 1), s));
   },
 };
-var qe = { project: { getActiveSequence: function () { return __qeSeq; } } };
+// QE track items of the active sequence: addVideoEffect puts Crop onto the DOM clip; __pr.effects lists the
+// names the fake knows (the language of the interface decides them in Premiere).
+__qeSeq.getVideoTrackAt = function (i) {
+  var clips = app.project.activeSequence._tracks[i]._clips;
+  return {
+    numItems: clips.length,
+    getItemAt: function (k) {
+      var c = clips[k];
+      return { type: 'Clip', name: c.name, start: { secs: String(c._start / TPS) }, addVideoEffect: function (e) {
+        if (e.name === 'Crop' || e.name === 'Обрезка') c._components.push(__crop());
+        __pr.calls.push('qe.addVideoEffect ' + e.name + ' ' + c.name);
+      } };
+    },
+  };
+};
+var qe = { project: {
+  getActiveSequence: function () { return __qeSeq; },
+  getVideoEffectByName: function (n) { return { name: __pr.effects.indexOf(n) >= 0 ? n : '' }; },
+} };
 
 var app = {
   version: '26.5.2',
@@ -267,7 +300,18 @@ __pr.occupy = function (trackIdx, fromSec, toSec, name, audio) {
   (audio ? s._atracks : s._tracks)[trackIdx]._clips.push(c);
   return c;
 };
-__pr.addMedia = function (path, sec, still) {
+__pr.addMedia = function (path, sec, still, w, h, par) {
   __pr.files[__norm(path)] = 'media';
-  __pr.media[__norm(path)] = { sec: sec, still: !!still };
+  __pr.media[__norm(path)] = { sec: sec, still: !!still, w: w, h: h, par: par };
+};
+// A clip of a media file on a video track, selected, for «вписать в окно».
+__pr.clipOf = function (path, trackIdx, fromSec, selected) {
+  var s = app.project.activeSequence;
+  var name = __norm(path).slice(__norm(path).lastIndexOf('/') + 1);
+  var m = __pr.media[__norm(path)];
+  var c = new TrackItem(name, Math.round(fromSec * TPS), Math.round((m.sec || 5) * TPS), { params: [] });
+  c.projectItem = new ProjectItem(name, ProjectItemType.CLIP, __norm(path));
+  c._selected = !!selected;
+  s._tracks[trackIdx]._clips.push(c);
+  return c;
 };

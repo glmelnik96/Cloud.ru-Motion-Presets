@@ -45,7 +45,7 @@ class DemoHost implements HostCaller {
     };
   }
   async call<T>(fn: string, args?: unknown, _opts?: CallOptions): Promise<HostReply<T>> {
-    if (!this.instant) await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' || fn === 'applyPreset' || fn === 'applyColor' || fn === 'exportComp' || fn === 'exportSequence' ? 500 : 30));
+    if (!this.instant) await new Promise((r) => setTimeout(r, fn === 'insertItem' || fn === 'insertMedia' || fn === 'applyPreset' || fn === 'applyColor' || fn === 'exportComp' || fn === 'exportSequence' || fn === 'fitClip' ? 500 : 30));
     if (fn === 'getContext') return { ok: true, data: this.ctx as T };
     if (fn === 'diag') return { ok: true, data: { app: 'demo' } as T };
     if (fn === 'insertItem') {
@@ -71,6 +71,11 @@ class DemoHost implements HostCaller {
       if (!this.templates) return { ok: false, error: { code: 'NO_TEMPLATE', message: r.omTemplate ?? '' } };
       if (r.mode === 'background') return { ok: true, data: { file: r.output, aerender: { exe: 'C:/AE/aerender.exe', project: 'C:/Projects/demo.aep', rqIndex: 1 } } as T };
       return { ok: true, data: { file: r.output, bytes: 1000, ms: 500 } as T };
+    }
+    if (fn === 'selectedClip') return { ok: true, data: { track: 1, startTicks: '0', name: 'Запись спикера.mp4', src: { w: 1920, h: 1080, par: 1 } } as T };
+    if (fn === 'fitClip') {
+      const r = args as { scale: number; position: [number, number]; crop: unknown };
+      return { ok: true, data: { name: 'Запись спикера.mp4', scale: r.scale, position: r.position, normalized: true, crop: r.crop, cropAdded: !!r.crop, cropMissing: false } as T };
     }
     if (fn === 'getCuts') return { ok: true, data: { cuts: [this.ctx.target!.timeSec - 0.4] } as T };
     return { ok: false, error: { code: 'NO_FUNCTION', message: fn } };

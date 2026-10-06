@@ -203,6 +203,18 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     expect(await evaluate(s, `[...document.querySelectorAll('.tab')].map((t) => t.textContent)`)).toEqual(['Каталог', 'Экспорт']);
   }, 60000);
 
+  it('«Вписать в окно» in the form of a frame template, Premiere only', async () => {
+    await go('?host=pr&open=WEB_Screen');
+    await waitFor(s, `!!document.querySelector('.fit')`);
+    expect(await evaluate(s, `[...document.querySelectorAll('.fit .seg button')].map((b) => b.textContent)`)).toEqual(['Экран', 'Спикер']);
+    await evaluate(s, `[...document.querySelectorAll('.fit .seg button')].find((b) => b.textContent === 'Спикер').click()`);
+    await waitFor(s, `!!document.querySelector('.actions .done')`, { timeoutMs: 10000 });
+    expect(await evaluate(s, `document.querySelector('.actions .done').textContent`)).toBe('«Запись спикера.mp4» вписан в окно «Спикер»: масштаб 66,67 %, обрезка по бокам 35 %.');
+    await go('?host=ae&open=WEB_Screen');
+    await waitFor(s, `!!document.querySelector('.form-head')`);
+    expect(await evaluate(s, `!!document.querySelector('.fit')`)).toBe(false);
+  }, 60000);
+
   it('«Экспорт» in Premiere: presets for the frame, the AME queue, the next file gets _2 (P19, P22, P23)', async () => {
     await go('?host=pr');
     await evaluate(s, `[...document.querySelectorAll('.tab')].find((t) => t.textContent === 'Экспорт').click()`);

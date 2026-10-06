@@ -684,6 +684,147 @@
     return { file: BK.slash(out.fsName), bytes: out.length, inSec: range.inSec, outSec: range.outSec, ms: new Date().getTime() - t0 };
   };
 
+  // ---- «Вписать в окно» (spec 6.1, spike S7) ----
+
+  // Size of the source frame from the project metadata: «1920 x 1080 (1.0)» (width, height, pixel aspect).
+  function sourceSize(item) {
+    var md = '';
+    var m;
+    try { md = String(item.getProjectMetadata()); } catch (e) { md = ''; }
+    m = /VideoInfo>\s*([0-9]+)\s*x\s*([0-9]+)(\s*\(([0-9]+([.][0-9]+|[\x2c][0-9]+)?)\))?/.exec(md);
+    if (!m) {
+      return null;
+    }
+    return { w: Number(m[1]), h: Number(m[2]), par: m[4] ? Number(String(m[4]).replace(',', '.')) || 1 : 1 };
+  }
+
+  function isMogrt(clip) {
+    try { return clip.isMGT() === true; } catch (e) { return false; }
+  }
+
+  // The one video clip selected on the timeline (audio clips and the template itself do not count).
+  A.selectedClip = function (args) {
+    var seq = targetSeq(args && args.targetId);
+    var found = [];
+    var t, i, c, src;
+    for (t = 0; t < seq.videoTracks.numTracks; t++) {
+      for (i = 0; i < seq.videoTracks[t].clips.numItems; i++) {
+        c = seq.videoTracks[t].clips[i];
+        if (c.isSelected()) {
+          found.push({ clip: c, track: t });
+        }
+      }
+    }
+    if (found.length !== 1) {
+      throw fail('NO_SELECTION', found.length ? 'выделено клипов: ' + found.length : '');
+    }
+    c = found[0].clip;
+    if (isMogrt(c)) {
+      throw fail('NO_SELECTION', 'выделен шаблон, а не клип');
+    }
+    src = c.projectItem ? sourceSize(c.projectItem) : null;
+    if (!src) {
+      throw fail('NO_SIZE', 'no frame size of ' + String(c.name));
+    }
+    return { track: found[0].track, startTicks: String(c.start.ticks), name: String(c.name), src: src };
+  };
+
+  function clipOf(seq, ref) {
+    var track = seq.videoTracks[ref.track];
+    var i, c;
+    for (i = 0; track && i < track.clips.numItems; i++) {
+      c = track.clips[i];
+      if (String(c.start.ticks) === String(ref.startTicks) && String(c.name) === String(ref.name)) {
+        return c;
+      }
+    }
+    throw fail('NO_TARGET', 'the clip ' + ref.name + ' is no longer on V' + (ref.track + 1));
+  }
+
+  // Crop through QE: the effect by one of its localized names, onto the QE item at the clip's start (S7).
+  function addCrop(seq, ref, names) {
+    var effect = null;
+    var i, e, qt, it, s, start;
+    try { app.enableQE(); } catch (e0) { return false; }
+    for (i = 0; i < names.length && !effect; i++) {
+      e = null;
+      try { e = qe.project.getVideoEffectByName(names[i]); } catch (e1) { e = null; }
+      // a miss may come back as an effect without a name
+      if (e && !(e.name !== undefined && String(e.name) === '')) {
+        effect = e;
+      }
+    }
+    if (!effect) {
+      return false;
+    }
+    start = Number(ref.startTicks) / TPS;
+    try { qt = qe.project.getActiveSequence().getVideoTrackAt(ref.track); } catch (e2) { return false; }
+    for (i = 0; i < qt.numItems; i++) {
+      it = qt.getItemAt(i);
+      if (!it || String(it.type) === 'Empty' || String(it.name) !== String(ref.name)) {
+        continue;
+      }
+      s = NaN;
+      try { s = parseFloat(it.start.secs); } catch (e3) { s = NaN; }
+      if (isNaN(s) || Math.abs(s - start) < 0.02) {
+        it.addVideoEffect(effect);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function cropValues(crop) {
+    var p = crop.properties;
+    return { left: Number(p[0].getValue()), top: Number(p[1].getValue()), right: Number(p[2].getValue()), bottom: Number(p[3].getValue()) };
+  }
+
+  // Motion Position and Scale, then Crop: the one on the clip, else a new one through QE when the clip sticks
+  // out of the window. Position is normalized when its default is (S7), else in pixels.
+  A.fitClip = function (req) {
+    var seq = targetSeq(req.targetId);
+    var clip = clipOf(seq, req.clip);
+    var motion = componentByMatch(clip, 'AE.ADBE Motion');
+    var pos0, norm, crop, added, missing, back, v, i;
+    var sides = ['left', 'top', 'right', 'bottom'];
+    if (!motion) {
+      throw fail('INSERT_FAILED', 'no Motion on ' + req.clip.name);
+    }
+    pos0 = motion.properties[0].getValue();
+    norm = !!pos0 && pos0.length === 2 && pos0[0] >= 0 && pos0[0] <= 1.0001 && pos0[1] >= 0 && pos0[1] <= 1.0001;
+    motion.properties[0].setValue(norm ? [req.position[0] / req.frame.w, req.position[1] / req.frame.h] : [req.position[0], req.position[1]], 1);
+    motion.properties[1].setValue(req.scale, 1);
+    crop = componentByMatch(clip, 'AE.ADBE AECrop');
+    added = false;
+    missing = false;
+    if (!crop && req.crop) {
+      added = addCrop(seq, req.clip, req.cropNames || []);
+      clip = clipOf(seq, req.clip);
+      crop = componentByMatch(clip, 'AE.ADBE AECrop');
+      missing = !crop;
+      added = added && !!crop;
+    }
+    if (crop) {
+      for (i = 0; i < 4; i++) {
+        crop.properties[i].setValue(req.crop ? req.crop[sides[i]] : 0, 1);
+      }
+    }
+    clip = clipOf(seq, req.clip);
+    motion = componentByMatch(clip, 'AE.ADBE Motion');
+    v = motion.properties[0].getValue();
+    back = norm ? [v[0] * req.frame.w, v[1] * req.frame.h] : [Number(v[0]), Number(v[1])];
+    crop = componentByMatch(clip, 'AE.ADBE AECrop');
+    return {
+      name: String(clip.name),
+      scale: Number(motion.properties[1].getValue()),
+      position: [BK.round(back[0]), BK.round(back[1])],
+      normalized: norm,
+      crop: crop && req.crop ? cropValues(crop) : null,
+      cropAdded: added,
+      cropMissing: missing
+    };
+  };
+
   A.diag = function () {
     var seq = app.project.activeSequence;
     return {

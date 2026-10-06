@@ -114,18 +114,37 @@ try {
   [IO.File]::WriteAllLines($stateFile, [string[]]$installed)
   Say "Шаблоны MOGRT: $($installed.Count) в $TemplatesDir, убрано прежних: $removed"
 
-  # 6. Brand export presets for Adobe Media Encoder, on request: into every version folder that exists.
+  # 6. Brand export presets for Adobe Media Encoder, on request: into every version folder that exists, under
+  #    the names of their AE templates (payload\ame.txt: <path in the library><TAB><file name>).
+  $ameList = @()
+  $ameFile = Join-Path $Payload 'ame.txt'
+  if (Test-Path -LiteralPath $ameFile) {
+    foreach ($line in Get-Content -LiteralPath $ameFile) {
+      $parts = $line -split "`t"
+      if ($parts.Count -eq 2 -and $parts[1] -match '^[A-Za-z0-9 _-]+\.epr$') { $ameList += ,$parts }
+    }
+  }
   if ($WithAme) {
-    $ame = Join-Path $Payload 'library\ame'
-    if ((Test-Path -LiteralPath $ame) -and (Test-Path -LiteralPath $AmeRoot)) {
+    if ($ameList.Count -and (Test-Path -LiteralPath $AmeRoot)) {
       foreach ($v in Get-ChildItem -LiteralPath $AmeRoot -Directory) {
         $presets = Join-Path $v.FullName 'Presets'
         New-Item -ItemType Directory -Force -Path $presets | Out-Null
-        Copy-Item -Path (Join-Path $ame '*.epr') -Destination $presets -Force
-        Say "Пресеты AME: $presets"
+        foreach ($a in $ameList) {
+          Copy-Item -LiteralPath (Join-Path $LibraryDir ($a[0] -replace '/', '\')) -Destination (Join-Path $presets $a[1]) -Force
+        }
+        Say "Пресеты AME: $($ameList.Count) в $presets"
       }
     } else {
       Say "Пресеты AME: нечего ставить или нет папки $AmeRoot"
+    }
+  }
+
+  # 6a. The AE Output Module templates cannot be loaded by a script (decision P21): say where the file is.
+  $aomFile = Join-Path $Payload 'aom.txt'
+  if (Test-Path -LiteralPath $aomFile) {
+    $aomRel = (Get-Content -LiteralPath $aomFile | Select-Object -First 1)
+    if ($aomRel) {
+      Say "Шаблоны вывода After Effects: один раз загрузите в AE через Edit > Templates > Output Module > Load... файл $(Join-Path $LibraryDir ($aomRel -replace '/', '\'))"
     }
   }
 

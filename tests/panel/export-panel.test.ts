@@ -29,7 +29,7 @@ function app(host: Host, over: Partial<Services> = {}, store = memoryStore()) {
   const svc: Services = {
     host,
     hostKey: host.ctx.host,
-    pluginVersion: '0.1.16',
+    pluginVersion: '0.1.17',
     platform: 'win',
     libraryRoot: 'C:/lib',
     readLibrary: async () => JSON.stringify(exampleCatalog()),

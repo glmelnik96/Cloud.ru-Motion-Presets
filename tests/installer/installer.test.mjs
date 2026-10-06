@@ -26,10 +26,11 @@ async function library({ ids, version = 1, libraryVersion = '2026.10.05', extra 
   for (const item of src.items) {
     for (const f of itemFiles(item)) {
       if (f.optional) continue;
-      const p = path.join(buildDir, f.from);
+      // a file of any extension (the export presets): .epr or .aom by the variant key
+      const p = path.join(buildDir, f.anyExt ? `${f.from}.${f.key}` : f.from);
       mkdirSync(path.dirname(p), { recursive: true });
       if (!f.from.endsWith('.mogrt')) {
-        writeFileSync(p, 'aep ' + item.id);
+        writeFileSync(p, (f.anyExt ? f.key : 'aep') + ' ' + item.id);
         continue;
       }
       const zip = new AdmZip();
@@ -115,7 +116,7 @@ describe('release package', () => {
 
 describe.skipIf(!HAS_BASH)('install.command', () => {
   it('installs the panel, the library and flat MOGRTs, cleans the CEP cache, records what it put', async () => {
-    const lib = await library({ ids: ['LOGO_Shot', 'TTL_LowerThird'], extra: { 'ame/CloudRu_FullHD_25.epr': '<preset/>' } });
+    const lib = await library({ ids: ['LOGO_Shot', 'TTL_LowerThird', 'AME_FullHD', 'AME_WebinarTimer', 'AME_Templates'] });
     const pkg = (await buildPackage({ zxp, library: lib, out: tmp('bk-inst-out-') })).dir;
     const sb = tmp('bk-inst-sb-');
     const w = where(sb);
@@ -129,7 +130,11 @@ describe.skipIf(!HAS_BASH)('install.command', () => {
     expect(existsSync(path.join(w.library, 'library.json'))).toBe(true);
     expect(readdirSync(w.templates).sort()).toEqual(readFileSync(path.join(pkg, 'payload', 'mogrt.txt'), 'utf8').trim().split('\n').map((m) => m.split('/').pop()).sort());
     expect(readdirSync(w.cache)).toEqual(['AEFT_26.5_com.other.panel']);
-    expect(existsSync(path.join(w.ame, '26.0', 'Presets', 'CloudRu_FullHD_25.epr'))).toBe(true);
+    // the brand presets under the names of their AE templates; the .aom: where it is and how to load it
+    expect(readdirSync(path.join(w.ame, '26.0', 'Presets')).sort()).toEqual(['CR FullHD.epr', 'CR Webinar Timer.epr']);
+    expect(readFileSync(path.join(w.ame, '26.0', 'Presets', 'CR FullHD.epr'), 'utf8')).toBe('epr AME_FullHD');
+    expect(r.stdout).toMatch(/Пресеты AME: 2 в .*26\.0\/Presets/);
+    expect(r.stdout).toContain(`Edit > Templates > Output Module > Load... файл ${w.library}/items/AME_Templates/AME_Templates_aom_v1.aom`);
     expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(new RegExp(`^plugin=${pluginVersion().replace(/\./g, '\\.')}\\nlibrary=2026\\.10\\.05\\ninstalled=`));
     expect(r.stdout).not.toMatch(/без подписи/);
   }, 60000);

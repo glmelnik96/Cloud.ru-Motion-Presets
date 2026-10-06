@@ -387,6 +387,16 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
         </div>
       )}
 
+      {app.fitWindows(item).length > 0 && (
+        <div class="field fit">
+          <label>Вписать выделенный клип в окно</label>
+          <div class="seg" role="group" aria-label="Окно шаблона">
+            {app.fitWindows(item).map((w) => <button key={w.key} disabled={s.busy} onClick={() => void app.fitToWindow(w.key)}>{w.label_ru}</button>)}
+          </div>
+          <span class="hint">Выделите клип записи на таймлайне: панель задаст Scale и Position, лишнее обрежет Crop.</span>
+        </div>
+      )}
+
       {/* Problems, consent, the button and the result stay in sight at the bottom of the panel (live UI check
           2026-10-05: «Вставлено» was below the fold). */}
       <div class="actions">

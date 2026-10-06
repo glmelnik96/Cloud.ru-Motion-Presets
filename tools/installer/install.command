@@ -112,15 +112,35 @@ fi
 mv "$NEW_LIST" "$STATE_DIR/installed-mogrt.txt"
 say "Шаблоны MOGRT: $(wc -l < "$STATE_DIR/installed-mogrt.txt" | tr -d ' ') в $TEMPLATES_DIR, убрано прежних: $REMOVED"
 
-# 6. Brand export presets for Adobe Media Encoder, on request: into every version folder that exists.
+# 6. Brand export presets for Adobe Media Encoder, on request: into every version folder that exists, under
+#    the names of their AE templates (payload/ame.txt: <path in the library><TAB><file name>).
+AME_LIST="$PAYLOAD/ame.txt"
 if [ "$WITH_AME" = 1 ]; then
-  if [ -d "$PAYLOAD/library/ame" ] && [ -d "$AME_ROOT" ]; then
+  if [ -s "$AME_LIST" ] && [ -d "$AME_ROOT" ]; then
     for v in "$AME_ROOT"/*/; do
-      mkdir -p "$v/Presets" && cp "$PAYLOAD/library/ame/"*.epr "$v/Presets/" 2>/dev/null && say "Пресеты AME: $v/Presets"
+      mkdir -p "$v/Presets"
+      n=0
+      while IFS="$(printf '\t')" read -r rel name || [ -n "$rel" ]; do
+        case "$name" in
+          *.epr) ;;
+          *) continue ;;
+        esac
+        case "$rel$name" in
+          *..*|*/) continue ;;
+        esac
+        cp "$LIBRARY_DIR/$rel" "$v/Presets/$name" && n=$((n + 1))
+      done < "$AME_LIST"
+      say "Пресеты AME: $n в ${v}Presets"
     done
   else
     say "Пресеты AME: нечего ставить или нет папки $AME_ROOT"
   fi
+fi
+
+# 6a. The AE Output Module templates cannot be loaded by a script (decision P21): say where the file is.
+if [ -s "$PAYLOAD/aom.txt" ]; then
+  AOM_REL="$(head -n 1 "$PAYLOAD/aom.txt")"
+  say "Шаблоны вывода After Effects: один раз загрузите в AE через Edit > Templates > Output Module > Load... файл $LIBRARY_DIR/$AOM_REL"
 fi
 
 # 7. Cached pages of earlier versions of the panel.

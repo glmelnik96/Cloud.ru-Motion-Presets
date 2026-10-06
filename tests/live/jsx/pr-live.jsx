@@ -265,6 +265,31 @@ function lvExportSetup() {
   });
 }
 
+// ---- «Вписать в окно» (tests/live/fit.mjs) ----
+
+// A still of a known colour on a video track at a time, the only selected clip of the sequence.
+function lvFitPlace() {
+  check('still ' + PARAMS.file + ' on V' + (PARAMS.track + 1) + ' at ' + PARAMS.startSec + ' s, selected alone', function () {
+    var seq = lvSeq(PARAMS.id);
+    var tpf = Number(seq.timebase);
+    var imported = importFile(PARAMS.file, app.project.rootItem, 15000);
+    var placed, t, i, sel;
+    if (!imported.item) {
+      return { pass: false, detail: imported };
+    }
+    activateSequence(seq);
+    placed = placeClip(seq.videoTracks[PARAMS.track], imported.item, PARAMS.startSec, tpf);
+    try { sel = seq.getSelection(); } catch (e) { sel = []; }
+    for (i = 0; sel && i < sel.length; i++) {
+      try { sel[i].setSelected(false, true); } catch (e2) { t = null; }
+    }
+    if (placed.clip) {
+      placed.clip.setSelected(true, true);
+    }
+    return { pass: !!placed.clip && placed.clip.isSelected(), detail: { startF: placed.startF } };
+  });
+}
+
 if (PARAMS.op === 'setup') {
   lvSetup();
 } else if (PARAMS.op === 'activate') {
@@ -285,5 +310,7 @@ if (PARAMS.op === 'setup') {
   lvSave();
 } else if (PARAMS.op === 'exportSetup') {
   lvExportSetup();
+} else if (PARAMS.op === 'fitPlace') {
+  lvFitPlace();
 }
 finish(DATA);

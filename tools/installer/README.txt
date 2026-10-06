@@ -16,6 +16,12 @@ macOS
   панель           в папку расширений CEP пользователя (ru.cloud.brandkit)
   библиотека       Windows: C:\ProgramData\CloudRuBrandKit\library   macOS: /Users/Shared/CloudRuBrandKit/library
   шаблоны MOGRT    плоско в Local Templates, их видит и штатная панель Graphics Templates
+  пресеты AME      с ключом -WithAme / --with-ame: брендовые пресеты «CR …» в Media Encoder
+
+Экспорт из After Effects
+  Шаблоны вывода «CR …» скриптом не ставятся. Один раз на компьютере загрузите их в AE:
+  Edit > Templates > Output Module > Load... и выберите файл из библиотеки
+  library\items\AME_Templates\AME_Templates_aom_v1.aom (установщик печатает полный путь).
 
 Шрифты SB Sans в комплект не входят: их ставит IT, одна сборка для всех пользователей.
 

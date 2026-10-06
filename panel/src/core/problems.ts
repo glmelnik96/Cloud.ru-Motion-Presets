@@ -40,6 +40,8 @@ export type ProblemCode =
   | 'EXPORT_BUSY'
   | 'EXPORT_FAILED'
   | 'AERENDER'
+  | 'FIT_FAILED'
+  | 'FIT_NO_CROP'
   | 'INSERT_FAILED'
   | 'READBACK'
   | 'TIMEOUT'
@@ -124,6 +126,11 @@ export const messages = {
   exportBusy: () => 'After Effects уже рендерит очередь. Дождитесь конца рендера.',
   exportFailed: (detail: string) => `Экспорт не выполнен: ${detail}.`,
   aerender: (detail: string) => `Рендер в фоне не выполнен: ${detail}.`,
+  fitNoWindow: (key: string) => `У этого формата шаблона нет окна «${key}».`,
+  fitSelection: (detail: string) => `Выделите на таймлайне один видеоклип, который вписать в окно${detail ? ` (${detail})` : ''}.`,
+  fitNoSize: () => 'Premiere не сообщил размер кадра клипа: вписать его в окно нельзя. Задайте Scale и Position вручную.',
+  fitFailed: (detail: string) => `Не удалось вписать клип в окно: ${detail}.`,
+  fitNoCrop: () => 'Клип больше окна, а Crop добавить не удалось: поставьте клип спикера на дорожку ниже клипа экрана или добавьте Crop вручную.',
   placement: (what: string[]) => `Файлы встали не так, как задумано (${what.join('; ')}). Отмените вставку и повторите.`,
   insertFailed: (detail: string) => `Вставка не выполнена: ${detail}.`,
   readback: (labels: string[]) =>

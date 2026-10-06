@@ -9,7 +9,9 @@
 //     payload/extension/         the panel: the signed ZXP unpacked (its signature stays valid unpacked)
 //     payload/library/           the library root with library.json, checked against its sha256
 //     payload/mogrt.txt          MOGRTs the installers copy flat into Local Templates
-// The installers need no Node: they read only VERSION and mogrt.txt.
+//     payload/ame.txt            brand .epr presets: <path in the library><TAB><preset file name>, for --with-ame
+//     payload/aom.txt            the AE Output Module templates (.aom) in the library: the installers say how to load it
+// The installers need no Node: they read only these text files.
 import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync, chmodSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -33,7 +35,7 @@ export function pluginVersion() {
 export async function checkLibrary(root) {
   const problems = [];
   const file = path.join(root, 'library.json');
-  if (!existsSync(file)) return { ok: false, problems: [`no ${file}`], catalog: null, mogrts: [] };
+  if (!existsSync(file)) return { ok: false, problems: [`no ${file}`], catalog: null, mogrts: [], ame: [], aom: null };
   const catalog = JSON.parse(readFileSync(file, 'utf8').replace(/^﻿/, ''));
   const v = validateLibrary(catalog, 'catalog');
   problems.push(...v.errors);
@@ -58,7 +60,26 @@ export async function checkLibrary(root) {
     if (names.has(leaf)) problems.push(`two MOGRTs named ${leaf}: ${names.get(leaf)}, ${m}`);
     names.set(leaf, m);
   }
-  return { ok: problems.length === 0, problems, catalog, mogrts };
+  return { ok: problems.length === 0, problems, catalog, mogrts, ...exportFiles(catalog, problems) };
+}
+
+// The export presets of the catalog (decisions P18, P21): every .epr under the name of its AE template, which
+// Media Encoder shows as the preset name («CR FullHD.epr»), and the one .aom.
+export function exportFiles(catalog, problems = []) {
+  const ame = [];
+  let aom = null;
+  for (const it of catalog.items ?? []) {
+    if (it.category !== 'export') continue;
+    for (const v of it.variants ?? []) {
+      if (v.key === 'epr' && v.file) {
+        const name = `${it.omTemplate || it.id}.epr`;
+        if (!/^[A-Za-z0-9 _-]+\.epr$/.test(name)) problems.push(`preset name not ASCII: ${name}`);
+        else ame.push({ file: v.file, name });
+      }
+      if (v.key === 'aom' && v.file) aom = v.file;
+    }
+  }
+  return { ame, aom };
 }
 
 const crlf = (s) => s.replace(/\r?\n/g, '\r\n');
@@ -93,6 +114,8 @@ export async function buildPackage({ zxp = null, unsigned = false, dist = path.j
   copyTree(library, path.join(payload, 'library'), { filter: (src) => !JUNK.test(src.replace(/\\/g, '/')) });
   writeFileSync(path.join(payload, 'VERSION'), `plugin=${version}\nlibrary=${lib.catalog.libraryVersion}\nsigned=${zxp ? 1 : 0}\n`, 'utf8');
   writeFileSync(path.join(payload, 'mogrt.txt'), lib.mogrts.map((m) => m + '\n').join(''), 'utf8');
+  writeFileSync(path.join(payload, 'ame.txt'), lib.ame.map((a) => `${a.file}\t${a.name}\n`).join(''), 'utf8');
+  writeFileSync(path.join(payload, 'aom.txt'), lib.aom ? lib.aom + '\n' : '', 'utf8');
 
   const read = (f) => readFileSync(path.join(here, f), 'utf8');
   writeFileSync(path.join(dir, 'install.command'), read('install.command'), 'utf8');

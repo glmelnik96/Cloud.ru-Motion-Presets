@@ -4,6 +4,7 @@ import { planColor, runColor, type ColorTarget } from '../core/colors';
 import { isPreset, planPreset, runPreset } from '../core/effects';
 import { aomFile, defaultMode, exportFolder, exportNote, exportPresets, MODES, planExport, presetsForFrame, runExport, type ExportFit, type ExportMode, type ExportPlan, type ExportPreset } from '../core/export';
 import { formFields } from '../core/fields';
+import { planFit, runFit, windowsFor, type FitWindow } from '../core/fit';
 import { previewFor, type PreviewMedia } from '../core/previews';
 import type { HostCaller } from '../core/host';
 import { planItem, runInsert, runMedia, type InsertOptions, type InsertPlan } from '../core/insert';
@@ -12,7 +13,7 @@ import type { Logger } from '../core/log';
 import { backdropDefault, CUT_WINDOW_SEC, defaultMediaLengthSec, mediaKind, pickMediaVariant, placeable, type Prepare } from '../core/media';
 import { FieldMemory, type KeyValueStore } from '../core/memory';
 import { dirname, type Platform } from '../core/paths';
-import { error, messages, type Problem } from '../core/problems';
+import { error, messages, sec, type Problem } from '../core/problems';
 import { defaultLengthSec } from '../core/timing';
 import type { Catalog, Category, FieldValue, FontStatus, Host, HostContext, Item, Values, Variant } from '../core/types';
 import { pickVariant, variantLabel, type VariantPick } from '../core/variant';
@@ -574,6 +575,37 @@ export class PanelApp {
     this.log(out.ok ? 'info' : 'error', out.ok ? 'preset.done' : 'preset.failed', { id: item.id, problems: out.problems.map((p) => p.code), reply: out.reply });
     const on = out.reply?.layers.filter((l) => l.changed).map((l) => l.name) ?? [];
     return { ok: out.ok, problems: out.problems, at: Date.now(), note: out.ok ? `Применено к слоям: ${on.join(', ')}.` : undefined };
+  }
+
+  // ---- «Вписать в окно» (Premiere, spec 6.1) ----
+
+  // The windows of the frame template in the format the form would insert.
+  fitWindows(item: Item): FitWindow[] {
+    if (this.state.host !== 'pr' || item.tier !== 'T1') return [];
+    const v = this.pick(item)?.variant;
+    return v ? windowsFor(item, v, this.state.values) : [];
+  }
+
+  // The clip selected on the timeline into a window of the template: Motion and, if it sticks out, Crop.
+  async fitToWindow(windowKey: string): Promise<Outcome> {
+    const item = this.selected();
+    if (!item || this.state.busy) return { ok: false, problems: [], at: Date.now() };
+    this.set({ busy: true, outcome: null });
+    try {
+      const ctx = await this.refreshContext();
+      if (!ctx) return this.finish({ ok: false, problems: [error('NO_TARGET', messages.noTarget(this.state.host))], at: Date.now() });
+      const plan = planFit(item, ctx, this.state.values, windowKey, this.state.manualVariant);
+      if (!plan.ok || !plan.request) return this.finish({ ok: false, problems: plan.problems, at: Date.now() });
+      const out = await runFit(this.svc.host, plan.request);
+      this.log(out.ok ? 'info' : 'warn', out.ok ? 'fit.done' : 'fit.failed', { id: item.id, window: windowKey, numbers: out.numbers, reply: out.reply, problems: out.problems.map((p) => p.code) });
+      if (!out.ok || !out.reply) return this.finish({ ok: false, problems: out.problems, at: Date.now() });
+      const c = out.reply.crop;
+      const cut = c ? `, обрезка ${c.left ? `по бокам ${sec(c.left)} %` : `сверху и снизу ${sec(c.top)} %`}` : '';
+      return this.finish({ ok: true, problems: out.problems, at: Date.now(), note: `«${out.reply.name}» вписан в окно «${plan.request.label}»: масштаб ${sec(out.reply.scale)} %${cut}.` });
+    } catch (e) {
+      this.log('error', 'fit.exception', { error: String(e) });
+      return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
+    }
   }
 
   // Premiere: the edges of the clips around the playhead, for a transition (decision P13).
