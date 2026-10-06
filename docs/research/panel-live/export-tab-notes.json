@@ -1,0 +1,746 @@
+{
+  "startedAt": "2026-10-06T09:48:35.918Z",
+  "hosts": {
+    "pr": {
+      "log": [
+        {
+          "step": "opened",
+          "snap": {
+            "status": "Шрифты не проверены · Pr 26.5.2 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику",
+            "tabs": [
+              "Каталог",
+              "Экспорт"
+            ],
+            "hints": [
+              "Секвенция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — от In до Out, без меток — вся секвенция.",
+              "Premiere сразу свободен: файл закодирует Media Encoder.",
+              "C:/CRBK/work/panel-live/pr/Export"
+            ],
+            "presets": [
+              {
+                "title": "Full HD — основной мастер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": true
+              },
+              {
+                "title": "SMM 16:9",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — финальный рендер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — таймер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — заставка",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "4K, 3840×2160",
+                "meta": "3840×2160 · 25 к/с · увеличение",
+                "on": false
+              }
+            ],
+            "modes": [
+              "В очередь Media Encoder*",
+              "Сразу, без AME"
+            ],
+            "button": "В очередь Media Encoder",
+            "disabled": false,
+            "done": "",
+            "jobs": [],
+            "problems": [],
+            "view": "export"
+          }
+        },
+        {
+          "step": "preset",
+          "snap": {
+            "status": "Шрифты не проверены · Pr 26.5.2 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику",
+            "tabs": [
+              "Каталог",
+              "Экспорт"
+            ],
+            "hints": [
+              "Секвенция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — от In до Out, без меток — вся секвенция.",
+              "Premiere сразу свободен: файл закодирует Media Encoder.",
+              "C:/CRBK/work/panel-live/pr/Export"
+            ],
+            "presets": [
+              {
+                "title": "Full HD — основной мастер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "SMM 16:9",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — финальный рендер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — таймер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": true
+              },
+              {
+                "title": "Вебинар — заставка",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "4K, 3840×2160",
+                "meta": "3840×2160 · 25 к/с · увеличение",
+                "on": false
+              }
+            ],
+            "modes": [
+              "В очередь Media Encoder*",
+              "Сразу, без AME"
+            ],
+            "button": "В очередь Media Encoder",
+            "disabled": false,
+            "done": "",
+            "jobs": [],
+            "problems": [],
+            "view": "export"
+          }
+        },
+        {
+          "step": "queue:before",
+          "snap": {
+            "status": "Шрифты не проверены · Pr 26.5.2 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику",
+            "tabs": [
+              "Каталог",
+              "Экспорт"
+            ],
+            "hints": [
+              "Секвенция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — от In до Out, без меток — вся секвенция.",
+              "Premiere сразу свободен: файл закодирует Media Encoder.",
+              "C:/CRBK/work/panel-live/pr/Export"
+            ],
+            "presets": [
+              {
+                "title": "Full HD — основной мастер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "SMM 16:9",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — финальный рендер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — таймер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": true
+              },
+              {
+                "title": "Вебинар — заставка",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "4K, 3840×2160",
+                "meta": "3840×2160 · 25 к/с · увеличение",
+                "on": false
+              }
+            ],
+            "modes": [
+              "В очередь Media Encoder*",
+              "Сразу, без AME"
+            ],
+            "button": "В очередь Media Encoder",
+            "disabled": false,
+            "done": "",
+            "jobs": [],
+            "problems": [],
+            "view": "export"
+          }
+        },
+        {
+          "step": "queue",
+          "result": {
+            "last": {
+              "status": "Шрифты не проверены · Pr 26.5.2 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику",
+              "tabs": [
+                "Каталог",
+                "Экспорт"
+              ],
+              "hints": [
+                "Секвенция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — от In до Out, без меток — вся секвенция.",
+                "Premiere сразу свободен: файл закодирует Media Encoder.",
+                "C:/CRBK/work/panel-live/pr/Export"
+              ],
+              "presets": [
+                {
+                  "title": "Full HD — основной мастер",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "SMM 16:9",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "Вебинар — финальный рендер",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "Вебинар — таймер",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": true
+                },
+                {
+                  "title": "Вебинар — заставка",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "4K, 3840×2160",
+                  "meta": "3840×2160 · 25 к/с · увеличение",
+                  "on": false
+                }
+              ],
+              "modes": [
+                "В очередь Media Encoder*",
+                "Сразу, без AME"
+              ],
+              "button": "В очередь Media Encoder",
+              "disabled": false,
+              "done": "В очереди Media Encoder: BK export FHD_WebinarTimer.mp4. Media Encoder закодирует файл сам.Показать в папке",
+              "jobs": [],
+              "problems": [],
+              "view": "export"
+            },
+            "saw": [
+              "Экспорт… |  | ",
+              "В очередь Media Encoder | В очереди Media Encoder: BK export FHD_WebinarTimer.mp4. Media Encoder закодирует файл сам.Показать в папке | "
+            ],
+            "ms": 215,
+            "shotBusy": false
+          }
+        },
+        {
+          "step": "queue:reveal",
+          "revealed": true
+        },
+        {
+          "step": "repeat:before",
+          "snap": {
+            "status": "Шрифты не проверены · Pr 26.5.2 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику",
+            "tabs": [
+              "Каталог",
+              "Экспорт"
+            ],
+            "hints": [
+              "Секвенция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — от In до Out, без меток — вся секвенция.",
+              "Premiere сразу свободен: файл закодирует Media Encoder.",
+              "C:/CRBK/work/panel-live/pr/Export"
+            ],
+            "presets": [
+              {
+                "title": "Full HD — основной мастер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "SMM 16:9",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — финальный рендер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — таймер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": true
+              },
+              {
+                "title": "Вебинар — заставка",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "4K, 3840×2160",
+                "meta": "3840×2160 · 25 к/с · увеличение",
+                "on": false
+              }
+            ],
+            "modes": [
+              "В очередь Media Encoder*",
+              "Сразу, без AME"
+            ],
+            "button": "В очередь Media Encoder",
+            "disabled": false,
+            "done": "В очереди Media Encoder: BK export FHD_WebinarTimer.mp4. Media Encoder закодирует файл сам.Показать в папке",
+            "jobs": [],
+            "problems": [],
+            "view": "export"
+          }
+        },
+        {
+          "step": "repeat",
+          "result": {
+            "last": {
+              "status": "Шрифты не проверены · Pr 26.5.2 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику",
+              "tabs": [
+                "Каталог",
+                "Экспорт"
+              ],
+              "hints": [
+                "Секвенция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — от In до Out, без меток — вся секвенция.",
+                "Premiere сразу свободен: файл закодирует Media Encoder.",
+                "C:/CRBK/work/panel-live/pr/Export"
+              ],
+              "presets": [
+                {
+                  "title": "Full HD — основной мастер",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "SMM 16:9",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "Вебинар — финальный рендер",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "Вебинар — таймер",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": true
+                },
+                {
+                  "title": "Вебинар — заставка",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "4K, 3840×2160",
+                  "meta": "3840×2160 · 25 к/с · увеличение",
+                  "on": false
+                }
+              ],
+              "modes": [
+                "В очередь Media Encoder*",
+                "Сразу, без AME"
+              ],
+              "button": "В очередь Media Encoder",
+              "disabled": false,
+              "done": "В очереди Media Encoder: BK export FHD_WebinarTimer.mp4. Media Encoder закодирует файл сам.Показать в папке",
+              "jobs": [],
+              "problems": [],
+              "view": "export"
+            },
+            "saw": [
+              "Экспорт… |  | ",
+              "В очередь Media Encoder | В очереди Media Encoder: BK export FHD_WebinarTimer.mp4. Media Encoder закодирует файл сам.Показать в папке | "
+            ],
+            "ms": 30099,
+            "timeout": true,
+            "shotBusy": false
+          }
+        }
+      ],
+      "error": "Error: repeat timed out: {\"status\":\"Шрифты не проверены · Pr 26.5.2 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику\",\"tabs\":[\"Каталог\",\"Экспорт\"],\"hints\":[\"Секвенция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — от In до Out, без меток — вся секвенция.\",\"Premiere сразу свободен: файл закодирует Media Encoder.\",\"C:/CRBK/work/panel-live/pr/Export\"],\"presets\":[{\"title\":\"Full HD — основной мастер\",\"meta\":\"1920×1080 · 25 к/с\",\"on\":false},{\"title\":\"SMM 16:9\",\"meta\":\"1920×1080 · 25 к/с\",\"on\":false},{\"title\":\"Вебинар — финальный рендер\",\"meta\":\"1920×1080 · 25 к/с\",\"on\":false},{\"title\":\"Вебинар — таймер\",\"meta\":\"1920×1080 · 25 к/с\",\"on\":true},{\"title\":\"Вебинар — заставка\",\"meta\":\"1920×1080 · 25 к/с\",\"on\":false},{\"title\":\"4K, 3840×2160\",\"meta\":\"3840×2160 · 25 к/с · увеличение\",\"on\":false}],\"modes\":[\"В очередь Media Encoder*\",\"Сразу, без AME\"],\"button\":\"В очередь Media Encoder\",\"disabled\":false,\"done\":\"В очереди Media Encoder: BK export FHD_WebinarTimer.mp4. Media Encoder закодирует файл сам.Показать в папке\",\"jobs\":[],\"problems\":[],\"view\":\"export\"}\n    at walk (file:///C:/dev/temp/export-tab.mjs:106:33)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async file:///C:/dev/temp/export-tab.mjs:119:3"
+    },
+    "ae": {
+      "log": [
+        {
+          "step": "opened",
+          "snap": {
+            "status": "Шрифты не проверены · AE 26.5 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику",
+            "tabs": [
+              "Каталог",
+              "Цвета",
+              "Экспорт"
+            ],
+            "hints": [
+              "Композиция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — рабочая область.",
+              "After Effects занят до конца рендера и показывает его ход.",
+              "C:/CRBK/work/panel-live/ae/Export"
+            ],
+            "presets": [
+              {
+                "title": "Full HD — основной мастер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": true
+              },
+              {
+                "title": "SMM 16:9",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — финальный рендер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — таймер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — заставка",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "4K, 3840×2160",
+                "meta": "3840×2160 · 25 к/с · увеличение",
+                "on": false
+              }
+            ],
+            "modes": [
+              "Render Queue*",
+              "В фоне (aerender)"
+            ],
+            "button": "Рендерить",
+            "disabled": false,
+            "done": "",
+            "jobs": [],
+            "problems": [],
+            "view": "export"
+          }
+        },
+        {
+          "step": "preset",
+          "snap": {
+            "status": "Шрифты не проверены · AE 26.5 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику",
+            "tabs": [
+              "Каталог",
+              "Цвета",
+              "Экспорт"
+            ],
+            "hints": [
+              "Композиция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — рабочая область.",
+              "After Effects занят до конца рендера и показывает его ход.",
+              "C:/CRBK/work/panel-live/ae/Export"
+            ],
+            "presets": [
+              {
+                "title": "Full HD — основной мастер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "SMM 16:9",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — финальный рендер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": true
+              },
+              {
+                "title": "Вебинар — таймер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — заставка",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "4K, 3840×2160",
+                "meta": "3840×2160 · 25 к/с · увеличение",
+                "on": false
+              }
+            ],
+            "modes": [
+              "Render Queue*",
+              "В фоне (aerender)"
+            ],
+            "button": "Рендерить",
+            "disabled": false,
+            "done": "",
+            "jobs": [],
+            "problems": [],
+            "view": "export"
+          }
+        },
+        {
+          "step": "render:before",
+          "snap": {
+            "status": "Шрифты не проверены · AE 26.5 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику",
+            "tabs": [
+              "Каталог",
+              "Цвета",
+              "Экспорт"
+            ],
+            "hints": [
+              "Композиция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — рабочая область.",
+              "After Effects занят до конца рендера и показывает его ход.",
+              "C:/CRBK/work/panel-live/ae/Export"
+            ],
+            "presets": [
+              {
+                "title": "Full HD — основной мастер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "SMM 16:9",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — финальный рендер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": true
+              },
+              {
+                "title": "Вебинар — таймер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — заставка",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "4K, 3840×2160",
+                "meta": "3840×2160 · 25 к/с · увеличение",
+                "on": false
+              }
+            ],
+            "modes": [
+              "Render Queue*",
+              "В фоне (aerender)"
+            ],
+            "button": "Рендерить",
+            "disabled": false,
+            "done": "",
+            "jobs": [],
+            "problems": [],
+            "view": "export"
+          }
+        },
+        {
+          "step": "render",
+          "result": {
+            "last": {
+              "status": "Шрифты не проверены · AE 26.5 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику",
+              "tabs": [
+                "Каталог",
+                "Цвета",
+                "Экспорт"
+              ],
+              "hints": [
+                "Композиция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — рабочая область.",
+                "After Effects занят до конца рендера и показывает его ход.",
+                "C:/CRBK/work/panel-live/ae/Export"
+              ],
+              "presets": [
+                {
+                  "title": "Full HD — основной мастер",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "SMM 16:9",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "Вебинар — финальный рендер",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": true
+                },
+                {
+                  "title": "Вебинар — таймер",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "Вебинар — заставка",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "4K, 3840×2160",
+                  "meta": "3840×2160 · 25 к/с · увеличение",
+                  "on": false
+                }
+              ],
+              "modes": [
+                "Render Queue*",
+                "В фоне (aerender)"
+              ],
+              "button": "Рендерить",
+              "disabled": false,
+              "done": "Готово: BK export FHD_WebinarFinal.mp4.Показать в папке",
+              "jobs": [],
+              "problems": [],
+              "view": "export"
+            },
+            "saw": [
+              "Рендер… |  | ",
+              "Рендерить | Готово: BK export FHD_WebinarFinal.mp4.Показать в папке | "
+            ],
+            "ms": 2693,
+            "shotBusy": true
+          }
+        },
+        {
+          "step": "background:before",
+          "snap": {
+            "status": "Шрифты не проверены · AE 26.5 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику",
+            "tabs": [
+              "Каталог",
+              "Цвета",
+              "Экспорт"
+            ],
+            "hints": [
+              "Композиция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — рабочая область.",
+              "Панель сохранит проект и запустит aerender: можно работать дальше. Рендерится сохранённый проект.",
+              "C:/CRBK/work/panel-live/ae/Export"
+            ],
+            "presets": [
+              {
+                "title": "Full HD — основной мастер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "SMM 16:9",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — финальный рендер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": true
+              },
+              {
+                "title": "Вебинар — таймер",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "Вебинар — заставка",
+                "meta": "1920×1080 · 25 к/с",
+                "on": false
+              },
+              {
+                "title": "4K, 3840×2160",
+                "meta": "3840×2160 · 25 к/с · увеличение",
+                "on": false
+              }
+            ],
+            "modes": [
+              "Render Queue",
+              "В фоне (aerender)*"
+            ],
+            "button": "Сохранить проект и рендерить в фоне",
+            "disabled": false,
+            "done": "",
+            "jobs": [],
+            "problems": [],
+            "view": "export"
+          }
+        },
+        {
+          "step": "background",
+          "result": {
+            "last": {
+              "status": "Шрифты не проверены · AE 26.5 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику",
+              "tabs": [
+                "Каталог",
+                "Цвета",
+                "Экспорт"
+              ],
+              "hints": [
+                "Композиция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — рабочая область.",
+                "Панель сохранит проект и запустит aerender: можно работать дальше. Рендерится сохранённый проект.",
+                "C:/CRBK/work/panel-live/ae/Export"
+              ],
+              "presets": [
+                {
+                  "title": "Full HD — основной мастер",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "SMM 16:9",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "Вебинар — финальный рендер",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": true
+                },
+                {
+                  "title": "Вебинар — таймер",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "Вебинар — заставка",
+                  "meta": "1920×1080 · 25 к/с",
+                  "on": false
+                },
+                {
+                  "title": "4K, 3840×2160",
+                  "meta": "3840×2160 · 25 к/с · увеличение",
+                  "on": false
+                }
+              ],
+              "modes": [
+                "Render Queue",
+                "В фоне (aerender)*"
+              ],
+              "button": "Сохранить проект и рендерить в фоне",
+              "disabled": false,
+              "done": "Рендер в фоне: BK export FHD_WebinarFinal.mp4. Можно работать дальше.Показать в папке",
+              "jobs": [
+                "failed Ошибка: BK export FHD_WebinarFinal.mp4Рендер в фоне не выполнен: панель не может запустить aerender."
+              ],
+              "problems": [],
+              "view": "export"
+            },
+            "saw": [
+              "Рендер… |  | ",
+              "Сохранить проект и рендерить в фоне | Рендер в фоне: BK export FHD_WebinarFinal.mp4. Можно работать дальше.Показать в папке | failed Ошибка: BK export FHD_WebinarFinal.mp4Рендер в фоне не выполнен: панель не может запустить aerender."
+            ],
+            "ms": 120140,
+            "timeout": true,
+            "shotBusy": true
+          }
+        }
+      ],
+      "error": "Error: background timed out: {\"status\":\"Шрифты не проверены · AE 26.5 · панель 0.1.14 · библиотека 2026.10.06Скопировать диагностику\",\"tabs\":[\"Каталог\",\"Цвета\",\"Экспорт\"],\"hints\":[\"Композиция «BK export FHD», 1920×1080 · 25 к/с. Диапазон — рабочая область.\",\"Панель сохранит проект и запустит aerender: можно работать дальше. Рендерится сохранённый проект.\",\"C:/CRBK/work/panel-live/ae/Export\"],\"presets\":[{\"title\":\"Full HD — основной мастер\",\"meta\":\"1920×1080 · 25 к/с\",\"on\":false},{\"title\":\"SMM 16:9\",\"meta\":\"1920×1080 · 25 к/с\",\"on\":false},{\"title\":\"Вебинар — финальный рендер\",\"meta\":\"1920×1080 · 25 к/с\",\"on\":true},{\"title\":\"Вебинар — таймер\",\"meta\":\"1920×1080 · 25 к/с\",\"on\":false},{\"title\":\"Вебинар — заставка\",\"meta\":\"1920×1080 · 25 к/с\",\"on\":false},{\"title\":\"4K, 3840×2160\",\"meta\":\"3840×2160 · 25 к/с · увеличение\",\"on\":false}],\"modes\":[\"Render Queue\",\"В фоне (aerender)*\"],\"button\":\"Сохранить проект и рендерить в фоне\",\"disabled\":false,\"done\":\"Рендер в фоне: BK export FHD_WebinarFinal.mp4. Можно работать дальше.Показать в папке\",\"jobs\":[\"failed Ошибка: BK export FHD_WebinarFinal.mp4Рендер в фоне не выполнен: панель не может запустить aerender.\"],\"problems\":[],\"view\":\"export\"}\n    at walk (file:///C:/dev/temp/export-tab.mjs:106:33)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async file:///C:/dev/temp/export-tab.mjs:131:3"
+    }
+  },
+  "finishedAt": "2026-10-06T09:51:10.266Z"
+}

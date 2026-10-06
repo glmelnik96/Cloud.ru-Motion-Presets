@@ -1,0 +1,1718 @@
+{
+  "host": "pr",
+  "startedAt": "2026-10-06T09:38:26.610Z",
+  "finishedAt": "2026-10-06T09:38:41.424Z",
+  "summary": {
+    "checks": 113,
+    "passed": 113,
+    "failed": 0
+  },
+  "failed": [],
+  "checks": [
+    {
+      "name": "export catalog built from the staged presets (tools/library/export-pack.mjs)",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "catalog read by the panel core",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export clip made with ffmpeg",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "bridge: the host bundle 0.1.14 answers",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "data": {
+          "app": "pr",
+          "version": "26.5.2",
+          "bk": "0.1.14"
+        }
+      }
+    },
+    {
+      "name": "export: the catalog has the 9 presets for pr",
+      "pass": true,
+      "required": true,
+      "detail": [
+        "AME_4K",
+        "AME_FullHD",
+        "AME_SMM_4x3",
+        "AME_SMM_16x9",
+        "AME_SMM_1x1",
+        "AME_SMM_9x16",
+        "AME_WebinarFinal",
+        "AME_WebinarTimer",
+        "AME_WebinarIntro"
+      ]
+    },
+    {
+      "name": "export: setup: scratch project C:/CRBK/work/panel-live/pr/export_live.prproj is the active project",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "how": "created",
+        "path": "C:\\CRBK\\work\\panel-live\\pr\\export_live.prproj",
+        "ok": true
+      }
+    },
+    {
+      "name": "export: setup: sequences created: 4",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "fhd": "f9d5d5ab-a839-41a5-9189-00f1235ba109",
+        "whole": "d69d9b0e-d6ed-4c28-97fa-d0a5cce8012b",
+        "uhd": "952ac995-5f85-4f38-b800-481f6a682d63",
+        "vert": "eb157b7e-c47f-407e-9962-8d220268178a"
+      }
+    },
+    {
+      "name": "export: setup: the clip on V1 of every sequence, In/Out set",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "fhd": {
+          "clips": 1,
+          "audio": 1,
+          "inSec": 0.001,
+          "outSec": 2.001
+        },
+        "whole": {
+          "clips": 1,
+          "audio": 1,
+          "inSec": -400000,
+          "outSec": -400000
+        },
+        "uhd": {
+          "clips": 1,
+          "audio": 1,
+          "inSec": 0.001,
+          "outSec": 2.001
+        },
+        "vert": {
+          "clips": 1,
+          "audio": 1,
+          "inSec": 0.001,
+          "outSec": 2.001
+        }
+      }
+    },
+    {
+      "name": "export fullhd (AME_FullHD, direct): activate: sequence f9d5d5ab-a839-41a5-9189-00f1235ba109 active, playhead at 0 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK export FHD",
+        "player": 0
+      }
+    },
+    {
+      "name": "export fullhd (AME_FullHD, direct): context",
+      "pass": true,
+      "required": true,
+      "detail": null
+    },
+    {
+      "name": "export fullhd (AME_FullHD, direct): planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export fullhd (AME_FullHD, direct): warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export fullhd (AME_FullHD, direct): exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "problems": [],
+        "reply": {
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_FullHD.mp4",
+          "bytes": 2693352,
+          "inSec": 0.001,
+          "outSec": 2.001,
+          "ms": 882
+        }
+      }
+    },
+    {
+      "name": "export fullhd (AME_FullHD, direct): the file is where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_FullHD.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_FullHD.mp4"
+      }
+    },
+    {
+      "name": "export fullhd (AME_FullHD, direct): frame 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export fullhd (AME_FullHD, direct): 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export fullhd (AME_FullHD, direct): H.264 High, level 4.2",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export fullhd (AME_FullHD, direct): AAC 48 kHz stereo",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export fullhd (AME_FullHD, direct): 2 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export again (AME_FullHD, direct): activate: sequence f9d5d5ab-a839-41a5-9189-00f1235ba109 active, playhead at 0 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK export FHD",
+        "player": 0
+      }
+    },
+    {
+      "name": "export again (AME_FullHD, direct): context",
+      "pass": true,
+      "required": true,
+      "detail": null
+    },
+    {
+      "name": "export again (AME_FullHD, direct): planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export again (AME_FullHD, direct): warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export again (AME_FullHD, direct): the next file gets _2",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_FullHD_2.mp4"
+    },
+    {
+      "name": "export again (AME_FullHD, direct): exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "problems": [],
+        "reply": {
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_FullHD_2.mp4",
+          "bytes": 2693352,
+          "inSec": 0.001,
+          "outSec": 2.001,
+          "ms": 522
+        }
+      }
+    },
+    {
+      "name": "export again (AME_FullHD, direct): the file is where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_FullHD_2.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_FullHD_2.mp4"
+      }
+    },
+    {
+      "name": "export again (AME_FullHD, direct): frame 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export again (AME_FullHD, direct): 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export again (AME_FullHD, direct): H.264 High, level 4.2",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export again (AME_FullHD, direct): AAC 48 kHz stereo",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export again (AME_FullHD, direct): 2 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export smm (AME_SMM_16x9, direct): activate: sequence f9d5d5ab-a839-41a5-9189-00f1235ba109 active, playhead at 0 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK export FHD",
+        "player": 0
+      }
+    },
+    {
+      "name": "export smm (AME_SMM_16x9, direct): context",
+      "pass": true,
+      "required": true,
+      "detail": null
+    },
+    {
+      "name": "export smm (AME_SMM_16x9, direct): planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export smm (AME_SMM_16x9, direct): warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export smm (AME_SMM_16x9, direct): exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "problems": [],
+        "reply": {
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_SMM_16x9.mp4",
+          "bytes": 1352689,
+          "inSec": 0.001,
+          "outSec": 2.001,
+          "ms": 540
+        }
+      }
+    },
+    {
+      "name": "export smm (AME_SMM_16x9, direct): the file is where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_SMM_16x9.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_SMM_16x9.mp4"
+      }
+    },
+    {
+      "name": "export smm (AME_SMM_16x9, direct): frame 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export smm (AME_SMM_16x9, direct): 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export smm (AME_SMM_16x9, direct): H.264 High, level 4.2",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export smm (AME_SMM_16x9, direct): AAC 48 kHz stereo",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export smm (AME_SMM_16x9, direct): 2 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): activate: sequence f9d5d5ab-a839-41a5-9189-00f1235ba109 active, playhead at 0 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK export FHD",
+        "player": 0
+      }
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): context",
+      "pass": true,
+      "required": true,
+      "detail": null
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "problems": [],
+        "reply": {
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_WebinarFinal.mp4",
+          "queued": true,
+          "job": "7613e8a8-3c3b-4e5e-83f9-4add94889520",
+          "inSec": 0.001,
+          "outSec": 2.001,
+          "ms": 10
+        }
+      }
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): the file is where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_WebinarFinal.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_WebinarFinal.mp4"
+      }
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): the host returned at once (16 ms), the job in AME",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_WebinarFinal.mp4",
+        "queued": true,
+        "job": "7613e8a8-3c3b-4e5e-83f9-4add94889520",
+        "inSec": 0.001,
+        "outSec": 2.001,
+        "ms": 10
+      }
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): the file appeared",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_WebinarFinal.mp4"
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): frame 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): H.264 High, level 4.2",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): AAC 48 kHz stereo",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export queue (AME_WebinarFinal, queue): 2 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export whole (AME_WebinarTimer, direct): activate: sequence d69d9b0e-d6ed-4c28-97fa-d0a5cce8012b active, playhead at 0 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK export whole",
+        "player": 0
+      }
+    },
+    {
+      "name": "export whole (AME_WebinarTimer, direct): context",
+      "pass": true,
+      "required": true,
+      "detail": null
+    },
+    {
+      "name": "export whole (AME_WebinarTimer, direct): planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export whole (AME_WebinarTimer, direct): warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export whole (AME_WebinarTimer, direct): exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "problems": [],
+        "reply": {
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export whole_WebinarTimer.mp4",
+          "bytes": 1255757,
+          "inSec": -400000,
+          "outSec": -400000,
+          "ms": 660
+        }
+      }
+    },
+    {
+      "name": "export whole (AME_WebinarTimer, direct): the file is where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export whole_WebinarTimer.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export whole_WebinarTimer.mp4"
+      }
+    },
+    {
+      "name": "export whole (AME_WebinarTimer, direct): frame 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 3,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 75
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export whole (AME_WebinarTimer, direct): 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 3,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 75
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export whole (AME_WebinarTimer, direct): H.264 High, level 4.2",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 3,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 75
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export whole (AME_WebinarTimer, direct): AAC 48 kHz stereo",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 3,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 75
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export whole (AME_WebinarTimer, direct): 3 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 3,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 75
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export uhd (AME_4K, direct): activate: sequence 952ac995-5f85-4f38-b800-481f6a682d63 active, playhead at 0 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK export 4K",
+        "player": 0
+      }
+    },
+    {
+      "name": "export uhd (AME_4K, direct): context",
+      "pass": true,
+      "required": true,
+      "detail": null
+    },
+    {
+      "name": "export uhd (AME_4K, direct): planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export uhd (AME_4K, direct): warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export uhd (AME_4K, direct): exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "problems": [],
+        "reply": {
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_4K.mp4",
+          "bytes": 7426638,
+          "inSec": 0.001,
+          "outSec": 2.001,
+          "ms": 1326
+        }
+      }
+    },
+    {
+      "name": "export uhd (AME_4K, direct): the file is where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_4K.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_4K.mp4"
+      }
+    },
+    {
+      "name": "export uhd (AME_4K, direct): frame 3840x2160",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 52,
+          "width": 3840,
+          "height": 2160,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export uhd (AME_4K, direct): 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 52,
+          "width": 3840,
+          "height": 2160,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export uhd (AME_4K, direct): H.264 High, level 5.2",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 52,
+          "width": 3840,
+          "height": 2160,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export uhd (AME_4K, direct): AAC 48 kHz stereo",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 52,
+          "width": 3840,
+          "height": 2160,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export uhd (AME_4K, direct): 2 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 52,
+          "width": 3840,
+          "height": 2160,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export down (AME_FullHD, direct): activate: sequence 952ac995-5f85-4f38-b800-481f6a682d63 active, playhead at 0 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK export 4K",
+        "player": 0
+      }
+    },
+    {
+      "name": "export down (AME_FullHD, direct): context",
+      "pass": true,
+      "required": true,
+      "detail": null
+    },
+    {
+      "name": "export down (AME_FullHD, direct): planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export down (AME_FullHD, direct): warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export down (AME_FullHD, direct): exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "problems": [],
+        "reply": {
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_FullHD.mp4",
+          "bytes": 2476431,
+          "inSec": 0.001,
+          "outSec": 2.001,
+          "ms": 460
+        }
+      }
+    },
+    {
+      "name": "export down (AME_FullHD, direct): the file is where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_FullHD.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_FullHD.mp4"
+      }
+    },
+    {
+      "name": "export down (AME_FullHD, direct): frame 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export down (AME_FullHD, direct): 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export down (AME_FullHD, direct): H.264 High, level 4.2",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export down (AME_FullHD, direct): AAC 48 kHz stereo",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export down (AME_FullHD, direct): 2 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1920,
+          "height": 1080,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export up (AME_4K, direct): activate: sequence f9d5d5ab-a839-41a5-9189-00f1235ba109 active, playhead at 0 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK export FHD",
+        "player": 0
+      }
+    },
+    {
+      "name": "export up (AME_4K, direct): context",
+      "pass": true,
+      "required": true,
+      "detail": null
+    },
+    {
+      "name": "export up (AME_4K, direct): planned",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "code": "EXPORT_UPSCALE",
+          "severity": "warning",
+          "message": "Кадр 1920×1080 меньше пресета 3840×2160: картинка будет увеличена и потеряет резкость."
+        }
+      ]
+    },
+    {
+      "name": "export up (AME_4K, direct): warnings EXPORT_UPSCALE",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "code": "EXPORT_UPSCALE",
+          "severity": "warning",
+          "message": "Кадр 1920×1080 меньше пресета 3840×2160: картинка будет увеличена и потеряет резкость."
+        }
+      ]
+    },
+    {
+      "name": "export up (AME_4K, direct): exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "problems": [],
+        "reply": {
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4K.mp4",
+          "bytes": 9035763,
+          "inSec": 0.001,
+          "outSec": 2.001,
+          "ms": 1637
+        }
+      }
+    },
+    {
+      "name": "export up (AME_4K, direct): the file is where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4K.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4K.mp4"
+      }
+    },
+    {
+      "name": "export up (AME_4K, direct): frame 3840x2160",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 52,
+          "width": 3840,
+          "height": 2160,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export up (AME_4K, direct): 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 52,
+          "width": 3840,
+          "height": 2160,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export up (AME_4K, direct): H.264 High, level 5.2",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 52,
+          "width": 3840,
+          "height": 2160,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export up (AME_4K, direct): AAC 48 kHz stereo",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 52,
+          "width": 3840,
+          "height": 2160,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export up (AME_4K, direct): 2 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 52,
+          "width": 3840,
+          "height": 2160,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export vertical (AME_SMM_9x16, direct): activate: sequence eb157b7e-c47f-407e-9962-8d220268178a active, playhead at 0 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK export 9x16",
+        "player": 0
+      }
+    },
+    {
+      "name": "export vertical (AME_SMM_9x16, direct): context",
+      "pass": true,
+      "required": true,
+      "detail": null
+    },
+    {
+      "name": "export vertical (AME_SMM_9x16, direct): planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export vertical (AME_SMM_9x16, direct): warnings none",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "export vertical (AME_SMM_9x16, direct): exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "problems": [],
+        "reply": {
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export 9x16_SMM_9x16.mp4",
+          "bytes": 1342271,
+          "inSec": 0.001,
+          "outSec": 2.001,
+          "ms": 692
+        }
+      }
+    },
+    {
+      "name": "export vertical (AME_SMM_9x16, direct): the file is where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export 9x16_SMM_9x16.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export 9x16_SMM_9x16.mp4"
+      }
+    },
+    {
+      "name": "export vertical (AME_SMM_9x16, direct): frame 1080x1920",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1080,
+          "height": 1920,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export vertical (AME_SMM_9x16, direct): 25 fps",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1080,
+          "height": 1920,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export vertical (AME_SMM_9x16, direct): H.264 High, level 4.2",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1080,
+          "height": 1920,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export vertical (AME_SMM_9x16, direct): AAC 48 kHz stereo",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1080,
+          "height": 1920,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export vertical (AME_SMM_9x16, direct): 2 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "container": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": 2,
+        "video": {
+          "codec": "h264",
+          "profile": "High",
+          "level": 42,
+          "width": 1080,
+          "height": 1920,
+          "fps": 25,
+          "pixFmt": "yuv420p",
+          "frames": 50
+        },
+        "audio": {
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2
+        }
+      }
+    },
+    {
+      "name": "export aspect (AME_SMM_9x16, direct): activate: sequence f9d5d5ab-a839-41a5-9189-00f1235ba109 active, playhead at 0 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK export FHD",
+        "player": 0
+      }
+    },
+    {
+      "name": "export aspect (AME_SMM_9x16, direct): context",
+      "pass": true,
+      "required": true,
+      "detail": null
+    },
+    {
+      "name": "export aspect (AME_SMM_9x16, direct): refused before the host (another proportion)",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "code": "EXPORT_ASPECT",
+          "severity": "error",
+          "message": "Пресет 1080×1920 другой пропорции, чем кадр 1920×1080: картинка сожмётся или ляжет с полями."
+        }
+      ]
+    }
+  ],
+  "hostVersion": "26.5.2",
+  "outDir": "C:/CRBK/work/panel-live/pr"
+}

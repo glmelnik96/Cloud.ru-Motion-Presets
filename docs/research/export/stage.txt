@@ -1,0 +1,13 @@
+node tools/library/export-pack.mjs --epr C:/CRBK/work/export/epr --aom C:/CRBK/work/export/CR_BrandKit.aom
+
+staged AME_4K/AME_4K_epr_v1.epr
+staged AME_FullHD/AME_FullHD_epr_v1.epr
+staged AME_SMM_4x3/AME_SMM_4x3_epr_v1.epr
+staged AME_SMM_16x9/AME_SMM_16x9_epr_v1.epr
+staged AME_SMM_1x1/AME_SMM_1x1_epr_v1.epr
+staged AME_SMM_9x16/AME_SMM_9x16_epr_v1.epr
+staged AME_WebinarFinal/AME_WebinarFinal_epr_v1.epr
+staged AME_WebinarTimer/AME_WebinarTimer_epr_v1.epr
+staged AME_WebinarIntro/AME_WebinarIntro_epr_v1.epr
+staged AME_Templates/AME_Templates_aom_v1.aom
+OK: 9 presets and the .aom match the canon
