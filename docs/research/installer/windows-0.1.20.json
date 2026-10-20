@@ -32,7 +32,7 @@
     },
     "premiere": {
       "start": "panel log 10:28:34Z: start host pr, plugin 0.1.20, library 2026.10.20 (3 s after the test project opened)",
-      "tabs": "not seen on screen: the panel's tab sits behind the » overflow of the right panel group and a release panel has no DevTools. The installed files equal the build whose ui-check (checkpoint 2026-10-20) found exactly Каталог, Монтаж, Экспорт in Premiere and the style button on «Монтаж». A look by eye is asked of the user."
+      "tabs": "Каталог, Монтаж, Экспорт; «Монтаж» with both buttons («Размыть поля выделенного клипа», «Добавить «CR Субтитры» в проект»); footer «Pr 26.5.2 · панель 0.1.20 · библиотека 2026.10.20». Seen in the evening by GUI steps (the tab sat in the overflow of the left group), screenshot docs/research/installer/pr-0.1.20-installed.png; the labels of the buttons were hardly readable, fixed in 0.1.21."
     },
     "mediaEncoder": {
       "firstLaunch": "Preset Browser, «Пользовательские стили и группы»: the user's HEVC copy, CR 4K, CR FullHD, CR SMM 1x1, CR SMM 4x3, CR SMM 9x16, CR SMM 16x9, CR Webinar Final, … (the rest below the fold)",

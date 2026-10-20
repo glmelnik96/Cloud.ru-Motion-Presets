@@ -1,11 +1,11 @@
 {
   "os": "win",
   "startedAt": "2026-10-20T09:32:16.018Z",
-  "finishedAt": "2026-10-20T09:48:30.871Z",
+  "finishedAt": "2026-10-20T15:11:51.968Z",
   "ok": true,
   "tests": {
     "ok": true,
-    "line": "Tests  799 passed | 20 skipped (819)"
+    "line": "Tests  804 passed | 20 skipped (824)"
   },
   "criteria": [
     {
@@ -30,16 +30,6 @@
     },
     {
       "criterion": "Сквозные сценарии",
-      "host": "ae",
-      "suite": "ui",
-      "what": "настоящая панель: каталог, превью, форма, вставка из интерфейса",
-      "ok": true,
-      "checks": 20,
-      "passed": 20,
-      "failed": []
-    },
-    {
-      "criterion": "Сквозные сценарии",
       "host": "pr",
       "suite": "base",
       "what": "каждый элемент библиотеки в каждом формате: вставка, поля, кадры",
@@ -56,16 +46,6 @@
       "ok": true,
       "checks": 112,
       "passed": 112,
-      "failed": []
-    },
-    {
-      "criterion": "Сквозные сценарии",
-      "host": "pr",
-      "suite": "ui",
-      "what": "настоящая панель: каталог, превью, форма, вставка из интерфейса",
-      "ok": true,
-      "checks": 22,
-      "passed": 22,
       "failed": []
     },
     {
@@ -93,8 +73,8 @@
       "suite": "media",
       "what": "T2/T3 и компаньоны; AE: эффекты и цвета; перенос проекта; Premiere: «вписать в окно», «Монтаж»",
       "ok": true,
-      "checks": 132,
-      "passed": 132,
+      "checks": 135,
+      "passed": 135,
       "failed": []
     },
     {
@@ -105,12 +85,33 @@
       "ok": true,
       "checks": 4,
       "failed": []
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "pr",
+      "suite": "ui",
+      "what": "настоящая панель: каталог, превью, форма, вставка из интерфейса",
+      "ok": true,
+      "checks": 22,
+      "passed": 22,
+      "failed": []
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "ae",
+      "suite": "ui",
+      "what": "настоящая панель: каталог, превью, форма, вставка из интерфейса",
+      "ok": true,
+      "checks": 20,
+      "passed": 20,
+      "failed": []
     }
   ],
   "manual": {
     "Чистая установка": [
       "docs/research/installer/windows-0.1.17.json",
       "docs/research/installer/windows-0.1.18.json",
+      "docs/research/installer/windows-0.1.20.json",
       "docs/research/installer/windows-recheck-2.json",
       "docs/research/installer/windows-recheck.json",
       "docs/research/installer/windows.json"

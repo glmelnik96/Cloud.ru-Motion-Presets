@@ -1,7 +1,7 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-20T09:48:24.899Z",
-  "finishedAt": "2026-10-20T09:48:30.674Z",
+  "startedAt": "2026-10-20T14:22:33.011Z",
+  "finishedAt": "2026-10-20T14:22:35.695Z",
   "summary": {
     "checks": 5,
     "passed": 5,
@@ -33,16 +33,16 @@
       }
     },
     {
-      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/pr-moved-20261020T094612/media_live.prproj",
+      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/pr-moved-20261020T141120/media_live.prproj",
       "pass": true,
       "required": true,
       "detail": {
         "path": "",
-        "clips": 22
+        "clips": 23
       }
     },
     {
-      "name": "transfer: no missing files after the move (22 listed)",
+      "name": "transfer: no missing files after the move (23 listed)",
       "pass": true,
       "required": true,
       "detail": []
@@ -57,13 +57,13 @@
   "staged": {
     "host": "pr",
     "project": "C:/CRBK/work/panel-live/pr/media_live.prproj",
-    "movedDir": "C:/CRBK/work/panel-live/pr-moved-20261020T094612",
-    "moved": "C:/CRBK/work/panel-live/pr-moved-20261020T094612/media_live.prproj",
+    "movedDir": "C:/CRBK/work/panel-live/pr-moved-20261020T141120",
+    "moved": "C:/CRBK/work/panel-live/pr-moved-20261020T141120/media_live.prproj",
     "parts": [
       "Cloud.ru BrandKit",
       "Motion Graphics Template Media"
     ],
     "libraryRoot": "C:/CRBK/work/panel-live/media/library",
-    "mediaStartedAt": "2026-10-20T09:45:50.591Z"
+    "mediaStartedAt": "2026-10-20T14:10:51.152Z"
   }
 }
