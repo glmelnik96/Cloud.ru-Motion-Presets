@@ -33,13 +33,21 @@ export function caseFrames(c, dir) {
   return list.map((ms) => ({ ms, t: masterTime(ms, c.shift || []), file: path.posix.join(dir, `m${ms}.png`), gate: (c.gate || []).includes(ms) }));
 }
 
+// The texts of a case; "pack": the pack's own, which the master resolves from the dump at build time (a real
+// guest's name and bio stay out of the repository).
+export function caseText(params, c) {
+  if (c.text !== 'pack') return c.text;
+  if (!params.pack) throw new Error(`${c.name}: the master has no pack texts (params.pack)`);
+  return params.pack;
+}
+
 async function renderCase(params, c, frames) {
   const v = variantPlan(params).find((x) => x.key === c.variant);
   if (!v) throw new Error(`${c.name}: no variant ${c.variant}`);
   const { aep } = packagePaths(params);
   for (const f of frames) rmSync(f.file, { force: true });
   const since = Date.now();
-  const set = withDefaults(params, c.ctrl, c.text);
+  const set = withDefaults(params, c.ctrl, caseText(params, c));
   const body = composeProbe(['spikes/lib/ae-project.jsx', 'tools/masters/jsx/render-case.jsx'], {
     workDir: params.workDir, aep, comp: v.comp, ctrl: set.ctrl, text: set.text, frames: frames.map((f) => ({ t: f.t, file: f.file })),
   });

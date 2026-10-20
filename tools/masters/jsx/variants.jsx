@@ -29,6 +29,10 @@ function vrScaleText(comp, k) {
     if (doc.autoLeading === false) {
       doc.leading = doc.leading * k;
     }
+    // paragraph text: the box grows from its top-left corner, where the anchor is (ae-build-lib.jsx bdText)
+    if (doc.boxText) {
+      doc.boxTextSize = [doc.boxTextSize[0] * k, doc.boxTextSize[1] * k];
+    }
     prop.setValue(doc);
     out.push(L.name + ' ' + was + ' -> ' + prop.valueAtTime(0, true).fontSize);
   }

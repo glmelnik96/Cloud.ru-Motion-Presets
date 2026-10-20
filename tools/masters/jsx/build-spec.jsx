@@ -446,12 +446,19 @@ sbStep('measurements (' + (PARAMS.spec.measure || []).length + ' cases)', true, 
         sbLayer('CTRL').property('ADBE Effect Parade').property(key).property(1).setValue(cs.ctrl[key]);
       }
     }
-    var row = { name: cs.name, rects: {}, positions: {} };
+    var row = { name: cs.name, rects: {}, positions: {}, baselines: {} };
     for (var i = 0; i < cs.layers.length; i++) {
       var L = sbLayer(cs.layers[i]);
       var r = L.sourceRectAtTime(cs.t, false);
       row.rects[cs.layers[i]] = [r.left, r.top, r.width, r.height];
       row.positions[cs.layers[i]] = bdXform(L, 'ADBE Position').valueAtTime(cs.t, false);
+      if (L instanceof TextLayer) {
+        try {
+          row.baselines[cs.layers[i]] = bkSourceText(L).valueAtTime(cs.t, false).baselineLocs;
+        } catch (eb) {
+          row.baselines[cs.layers[i]] = null;
+        }
+      }
     }
     out.push(row);
   }

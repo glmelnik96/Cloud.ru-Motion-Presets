@@ -139,9 +139,11 @@ function bdFill(L, groupName, hex, itemName) {
 }
 
 // ae-quirks #9: set the text, then change the LIVE document and set it again. addText takes the alignment
-// last used in the Paragraph panel, so justification is always set.
+// last used in the Paragraph panel, so justification is always set. st.box [w, h]: paragraph text in a box
+// centred on the layer origin; the anchor goes to the box's top-left corner, which stays where it is when a
+// variant scales the box (boxTextSize is writable, boxTextPos is not: AE 26.5, 2026-10-21).
 function bdText(comp, name, str, st) {
-  var L = comp.layers.addText(str);
+  var L = st.box ? comp.layers.addBoxText(st.box, str) : comp.layers.addText(str);
   L.name = name;
   var prop = bkSourceText(L);
   var doc = prop.value;
@@ -164,6 +166,10 @@ function bdText(comp, name, str, st) {
   prop.setValue(live);
   bdSpan(L, comp.duration);
   bdNeutral(L);
+  if (st.box) {
+    var corner = bkSourceText(L).value.boxTextPos;
+    bdXform(L, 'ADBE Anchor Point').setValue([corner[0], corner[1]]);
+  }
   return L;
 }
 
