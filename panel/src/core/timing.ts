@@ -65,12 +65,14 @@ export function remapKeys(item: Item, lengthSec: number, fps: number): Key[] | n
   const D = templateSec(item);
   if (Math.abs(lengthSec - D) < 0.5 / fps) return null;
   const outStart = r6(D - d.outroSec);
-  return [
+  const keys: Key[] = [
     [0, 0],
     [d.introSec, d.introSec],
     [r6(lengthSec - d.outroSec), outStart],
     [r6(lengthSec), D],
   ];
+  // without an outro (TTL_Disclaimer) the last two keys are one
+  return d.outroSec > 0 ? keys : keys.slice(0, 3);
 }
 
 export interface LengthPlan {

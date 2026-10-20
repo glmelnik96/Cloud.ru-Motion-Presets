@@ -165,6 +165,8 @@ describe('timing', () => {
     expect(remapKeys(ttl, 10, 25)).toEqual([[0, 0], [2.2, 2.2], [8, 4], [10, 6]]);
     expect(remapKeys(ttl, 6, 25)).toBeNull();
     expect(remapKeys(web, 100, 25)).toBeNull();
+    // a card without an exit holds to the end: three keys
+    expect(remapKeys(item('TTL_Disclaimer'), 14, 25)).toEqual([[0, 0], [1.92, 1.92], [14, 10]]);
   });
   it('rounds to frames of the target and refuses lengths the intro and outro do not fit', () => {
     expect(toFrames(5.013, 25)).toBe(125);
