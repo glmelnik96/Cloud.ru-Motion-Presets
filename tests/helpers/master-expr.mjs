@@ -50,15 +50,41 @@ export function exprComp(spec, { w = 1920, h = 1080, ctrl = {}, texts = {}, ink 
     return statics.get(id(layer, ['effect', name]));
   };
   const textOf = (layer, t) => (exprs.has(id(layer, ['text'])) ? exprs.get(id(layer, ['text']))(comp, t, statics.get(id(layer, ['text']))) : statics.get(id(layer, ['text'])));
+  // How far the words of a text hang under it at time t: its rise when the selector holds every word (Start
+  // to End over all of it), as AE's sourceRectAtTime includes the animator. A text measured from its own
+  // expressions counts as at rest (AE breaks that loop too).
+  const busy = new Set();
+  const rects = new Map();
+  const START_P = ['selector', 'Rise', 'ADBE Text Percent Start'];
+  const END_P = ['selector', 'Rise', 'ADBE Text Percent End'];
+  const hangOf = (layer, t) => {
+    if (busy.has(layer) || !exprs.has(id(layer, START_P))) return 0;
+    busy.add(layer);
+    try {
+      const s = exprs.get(id(layer, START_P))(comp, t, 0);
+      const e = exprs.has(id(layer, END_P)) ? exprs.get(id(layer, END_P))(comp, t, 100) : 100;
+      const rise = exprs.has(id(layer, ['animator', 'Rise', 'ADBE Text Position 3D'])) ? exprs.get(id(layer, ['animator', 'Rise', 'ADBE Text Position 3D']))(comp, t)[1] : 0;
+      return Math.abs(e - s) >= 99.9 ? rise : 0;
+    } finally {
+      busy.delete(layer);
+    }
+  };
   let now = 0;
   comp.layer = (name) => {
     if (!spec.layers.some((L) => L.name === name)) throw new Error('no layer ' + name);
     return {
       effect: (e) => () => ({ get value() { return effectValue(name, e, now); }, valueAtTime: (t) => effectValue(name, e, t) }),
       // ink(layer, text) -> { l, w, b }: b, how far the ink reaches below the baseline (FHD px), is 0 when left out
-      sourceRectAtTime: () => {
-        const r = ink(name, String(textOf(name, now) || ''));
-        return r.w > 0 ? { left: r.l * k, top: -36 * k, width: r.w * k, height: (36 + (r.b || 0)) * k } : { left: 0, top: 0, width: 0, height: 0 };
+      // texts and controls are fixed for this comp, so a rect is computed once per layer and time; a text
+      // measured from its own selector gets its rest rect, which is not kept
+      sourceRectAtTime: (t = now) => {
+        const key = name + '|' + t;
+        if (!busy.has(name) && rects.has(key)) return rects.get(key);
+        const r = ink(name, String(textOf(name, t) || ''));
+        const hang = busy.has(name) ? 0 : hangOf(name, t);
+        const rect = r.w > 0 ? { left: r.l * k, top: -36 * k, width: r.w * k, height: (36 + (r.b || 0)) * k + hang } : { left: 0, top: 0, width: 0, height: 0 };
+        if (!busy.has(name)) rects.set(key, rect);
+        return rect;
       },
       text: { get sourceText() { return textOf(name, now); } },
     };

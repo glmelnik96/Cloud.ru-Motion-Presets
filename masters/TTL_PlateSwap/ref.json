@@ -1,0 +1,59 @@
+{
+  "id": "TTL_PlateSwap",
+  "_note": "Golden comparison against the SMM pack «Плашки_9x16», which changes its phrase at 4.40 s. The master changes at 4.00 s: phrase 1 keeps the pack's time, the change runs 0.4 s earlier, the hold of phrase 2 (pack 6.40–7.68 s) maps to one master moment, 8.0 s. gate = static frames; view = the change (the pack raises its phrase 2 texts with the other line's plate, and has motion blur, C35).",
+  "preview": {
+    "_note": "Card preview: one per style, two lines changing to one on a neutral grey.",
+    "variant": "16x9",
+    "ctrl": { "Style": 1, "Position": 1 },
+    "text": { "TXT_1": "Облако для бизнеса", "TXT_2": "за пять минут", "TXT_3": "", "TXT2_1": "Cloud.ru Evolution", "TXT2_2": "", "TXT2_3": "" },
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "axes": { "style": "Style" }
+  },
+  "cases": [
+    {
+      "name": "smm_swap_9x16",
+      "title": "«SMM», «Авто» (слева), 9:16, обе фразы пакета",
+      "golden": { "slug": "smm", "compSlug": "plashki_9x16" },
+      "variant": "9x16",
+      "ctrl": { "Style": 2, "Position": 1 },
+      "text": { "TXT_1": "Разверните свой сервис", "TXT_2": "видеоконференций", "TXT_3": "", "TXT2_1": "На виртуальной машине", "TXT2_2": "Cloud.ru Evolution", "TXT2_3": "" },
+      "shift": [
+        { "from": 0, "to": 4.4, "by": 0 },
+        { "from": 4.4, "to": 6.4, "by": -0.4 },
+        { "from": 6.4, "to": 7.68, "by": 1.6, "scale": 0 }
+      ],
+      "gate": [2000, 3000, 6760, 7240],
+      "view": [4520, 4760, 5000, 5240, 5520, 5760, 6000, 6240],
+      "note": "Phrase 1 and the hold of phrase 2 are gated in place, as TTL_Plate's SMM case. The pack's plates of phrase 2 are scaled by hand (76.275 % and 58.875 %), the master's are ink + mean pads."
+    }
+  ],
+  "premiere": {
+    "_note": "The 16x9 MOGRT in Premiere against the same variant rendered in AE. B is 16 s long: its intro with the change and its exit keep master speed (intro = the first 8.56 s, exit = the last 2.96 s). C and D add «Позиция», «Скорость» and «Размер текста»: one line changing to two, centred, at 1,5× and 120 %; no phrase 2 (nothing changes) on the right at 2×.",
+    "variant": "16x9",
+    "clips": [
+      { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Style": 2, "Position": 1 },
+        "text": { "TXT_1": "Разверните свой сервис", "TXT_2": "видеоконференций", "TXT_3": "", "TXT2_1": "На виртуальной машине", "TXT2_2": "Cloud.ru Evolution", "TXT2_3": "" } },
+      { "key": "B", "atSec": 14, "lenSec": 16, "ctrl": { "Style": 1, "Position": 1 },
+        "text": { "TXT_1": "текст появляется тут", "TXT_2": "Затем появляется тут", "TXT_3": "И тут, и так далее", "TXT2_1": "А потом другая фраза", "TXT2_2": "в две строки", "TXT2_3": "" } },
+      { "key": "C", "atSec": 32, "lenSec": null, "ctrl": { "Style": 1, "Position": 3, "Speed": 4, "Size": 3 },
+        "text": { "TXT_1": "Одна строка", "TXT_2": "", "TXT_3": "", "TXT2_1": "Две строки", "TXT2_2": "во второй фразе", "TXT2_3": "" } },
+      { "key": "D", "atSec": 46, "lenSec": null, "ctrl": { "Style": 2, "Position": 4, "Speed": 5 },
+        "text": { "TXT_1": "Ёмкое облако", "TXT_2": "без второй фразы", "TXT_3": "", "TXT2_1": "", "TXT2_2": "", "TXT2_3": "" } }
+    ],
+    "frames": [
+      { "key": "A_phrase1", "clip": "A", "sec": 3, "master": 3 },
+      { "key": "A_change", "clip": "A", "sec": 5, "master": 5 },
+      { "key": "A_phrase2", "clip": "A", "sec": 8, "master": 8 },
+      { "key": "A_exit", "clip": "A", "sec": 11, "master": 11 },
+      { "key": "B_change", "clip": "B", "sec": 5.2, "master": 5.2 },
+      { "key": "B_hold", "clip": "B", "sec": 11, "master": 8.8 },
+      { "key": "B_exit", "clip": "B", "sec": 15, "master": 11 },
+      { "key": "C_phrase1", "clip": "C", "sec": 2, "master": 2 },
+      { "key": "C_change", "clip": "C", "sec": 3.4, "master": 3.4 },
+      { "key": "C_phrase2", "clip": "C", "sec": 8, "master": 8 },
+      { "key": "D_hold", "clip": "D", "sec": 6, "master": 6 },
+      { "key": "D_exit", "clip": "D", "sec": 11.6, "master": 11.6 }
+    ]
+  }
+}

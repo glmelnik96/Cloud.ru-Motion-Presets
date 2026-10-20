@@ -128,11 +128,17 @@ export function smmTiming(s916, s11, canon) {
   const p2 = dumpKeys(s916, 'На виртуальной машине 2', ...END);
   const q2 = dumpKeys(s11, 'На виртуальной машине', ...END);
   const plateLag = same([pt[4].time - p2[0].time, dumpKeys(s11, 'Shape Layer 3', ...T, 'ADBE Scale')[4].time - q2[0].time], 'smm plate after text End');
+  // the phrase change of 9x16: each plate takes the width of phrase 2 (canon M1 resize) 0.8 s after its text
+  // of phrase 1 starts to leave (the square pack: 0.48 s)
+  for (const [k, label] of [[pb, 'bottom'], [pt, 'top']]) checkCanon(k, 2, M1.resize, { dim: 0, label: `smm plate ${label} resize` });
+  const swapGap = same([pb[2].time - eb[0].time, pt[2].time - et[0].time], 'smm resize after the text of phrase 1');
   return {
     plateIn: M1.in, plateOut: M1.out, textIn: M2.in, textOut: M2.out,
     inDelays: [0, stagger, 2 * stagger],
     textLag: same([sb[0].time - pb[0].time, st[0].time - pt[0].time], 'smm text with plate'),
     outStagger: stagger,
     plateLag,
+    resize: M1.resize,
+    swapGap,
   };
 }

@@ -10,7 +10,7 @@ const REPO = path.resolve(import.meta.dirname, '../..');
 const lib = JSON.parse(readFileSync(path.join(REPO, 'library', 'library.src.json'), 'utf8'));
 const HAS_DUMPS = ['logo/umnoe_oblako.json', 'titles/podpis_spikerov.json', 'podcast/tekst_na_plashke_1.json', 'smm/plashki_9x16.json']
   .every((f) => existsSync('C:/CRBK/work/dumps/' + f));
-const MASTERS = ['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird', 'TTL_Plate', 'TTL_Subscribe'];
+const MASTERS = ['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird', 'TTL_Plate', 'TTL_PlateSwap', 'TTL_Subscribe'];
 
 describe.skipIf(!HAS_DUMPS)('library.src.json matches the masters', () => {
   for (const id of MASTERS) {

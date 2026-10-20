@@ -163,8 +163,15 @@ function blockPre(B, timeMap, size) {
     'function sl(e, t) { return R.effect(e)(1).valueAtTime(t); }',
     `function ink(n) { var r = thisComp.layer(n).sourceRectAtTime(${B.rest}, false); return r.width > 0 ? { l: r.left * f, w: r.width * f, b: (r.top + r.height) * f } : { l: 0, w: 0, b: 0 }; }`,
     `var I = [${B.texts.map((t) => `ink("${t}")`).join(', ')}];`,
+    // with a second phrase: its ink, whether it is there at all, and the lines of either phrase. At B.rest
+    // phrase 1 has left when there is a phrase 2: its words hang `rise` lower than at rest
+    ...(B.swap ? [
+      `var I2 = [${B.swap.texts.map((t) => `ink("${t}")`).join(', ')}];`,
+      `var swap = false; for (var q = 0; q < ${N}; q++) { if (I2[q].w > 0) { swap = true; } }`,
+      `if (swap) { for (var q1 = 0; q1 < ${N}; q1++) { if (I[q1].w > 0) { I[q1].b = I[q1].b - ${geo.rise} * k * f; } } }`,
+    ] : []),
     `var n = 0, at = [${B.texts.map(() => -1).join(', ')}];`,
-    `for (var j = 0; j < ${N}; j++) { if (I[j].w > 0) { at[j] = n; n++; } }`,
+    `for (var j = 0; j < ${N}; j++) { if (I[j].w > 0${B.swap ? ' || I2[j].w > 0' : ''}) { at[j] = n; n++; } }`,
     `var E = (${geo.edge}) * k, M = (${geo.margin}) * k, B0 = H - (${geo.bottom}) * k;`,
     // pads from the plate's left edge to the ink and from the ink to its right edge
     `function pads(e) { return [${geo.padL}, ${geo.padR}]; }`,
@@ -194,51 +201,90 @@ function lineJs(B, li) {
   ].join('\n') + '\n';
 }
 
+// The same with a second phrase (B.swap): the line keeps its place, its plate changes from the width of
+// phrase 1 (w1, its text at x01) to that of phrase 2 (w2, at x02) with r, the resize progress (keyed a gap
+// after the exit of phrase 1 on RIG; dS: the line's turn in the change). Without any phrase 2 (swap false)
+// nothing changes.
+function lineJsSwap(B, li) {
+  const tm = B.timing;
+  const thr = r6(0.03 * B.textStyle.size);
+  return [
+    `var e = I[${li}], e2 = I2[${li}], me = at[${li}], on = me >= 0;`,
+    'var b = n - 1 - me;',
+    `var s = ${B.fromTop ? 'me + 1' : 'b + 1'};`,
+    `var pb = B0 - b * ${B.geo.step} * kt, pd = pads(e), pd2 = pads(e2), w1 = width(e), w2 = width(e2), x01 = left(w1), x02 = left(w2);`,
+    `function dscOf(q) { var o = q.b - ${B.geo.base} * kt; return q.w > 0 && o > ${thr} * kt ? o : 0; }`,
+    `var dS = ${B.swap.stagger} * (s - 1);`,
+    `var r = swap ? sl("${B.sliders.resize}", TT - dS) : 0;`,
+    'var w = w1 + (w2 - w1) * r, x0 = left(w), dsc = dscOf(e) + (dscOf(e2) - dscOf(e)) * r;',
+    `var ext = b > 0 ? Math.max(dsc, ${r6(B.geo.step - B.geo.h)} * kt + 1) : dsc;`,
+    `var dIn = [${tm.inDelays.join(', ')}][Math.max(0, s - 1)] || 0, dOut = ${tm.outStagger} * (n - s);`,
+    `var g = on ? sl("${B.sliders.plateIn}", TT - dIn) * (1 - sl("${B.sliders.plateOut}", TT + dOut)) : 0;`,
+    'var gx0 = side == 3 ? x0 + w * (1 - g) : x0, gx1 = side == 3 ? x0 + w : x0 + w * g;',
+  ].join('\n') + '\n';
+}
+
+// Text of one phrase on a line: Start (and End) of its selector; out is the progress of its exit.
+function selectorExprs(spec, B, tx, line, tin, out) {
+  if (B.textOut === 'start') {
+    spec.expr(tx, P.start(), line + `100 * ${tin} * (1 - ${out})`);
+  } else {
+    spec.expr(tx, P.start(), line + `100 * ${tin}`);
+    spec.expr(tx, ['selector', 'Rise', 'ADBE Text Percent End'], line + `100 * (1 - ${out})`);
+  }
+}
+
 // Adds a block's layers (bottom first) and expressions; its keys are on RIG (the master's resolve.mjs).
 // B: style (the «Стиль» value that shows it, or none), auto (the side of «Авто»), fit (its Fit slider),
 // texts, plates (one per line, top first), values, source (texts copied from other layers), textStyle,
 // fill, geo { h, step, base, rise, edge, margin, bottom, padL, padR }, fromTop (the order lines come in),
 // timing { inDelays, outStagger }, sliders { plateIn, textIn, textOut, plateOut }, textOut ('start': Start
 // runs back, 'end': End runs down), rest (a comp time of the hold at every speed), upper (capitals by an
-// expression on the field layers instead of All Caps, for a pack that typed its capitals). Every text is matted
-// to its plate, which reaches under its descenders, so words rise inside the plate and no glyph is cut.
+// expression on the field layers instead of All Caps, for a pack that typed its capitals), swap (a second
+// phrase: { texts, values, source, stagger } and the sliders swapOut, resize, swapIn). Every text is
+// matted to its plate, which reaches under its descenders, so words rise inside the plate and no glyph is cut.
 export function addPlateBlock(spec, B, timeMap) {
   const geo = B.geo;
   const N = B.texts.length;
   if (!(B.rest > 0)) throw new Error('addPlateBlock: B.rest, a moment of the hold, is needed');
   const pre = blockPre(B, timeMap, sizeJs(B.fit));
-  spec.expr('RIG', P.slider(B.fit), fitExpr(blockPre(B, timeMap, SIZE_AT_1), `Math.max(${B.texts.map((_, i) => `width(I[${i}])`).join(', ')})`, 'side == 2 ? W - 2 * M : W - E - M'));
+  const widths = B.texts.map((_, i) => `width(I[${i}])`).concat(B.swap ? B.texts.map((_, i) => `width(I2[${i}])`) : []);
+  spec.expr('RIG', P.slider(B.fit), fitExpr(blockPre(B, timeMap, SIZE_AT_1), `Math.max(${widths.join(', ')})`, 'side == 2 ? W - 2 * M : W - E - M'));
   const k = 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n';
   for (let li = N - 1; li >= 0; li -= 1) spec.add(shape(B.plates[li], [rectGroup('Plate', B.fill)]));
-  for (let li = N - 1; li >= 0; li -= 1) {
-    spec.add(text(B.texts[li], { ...B.textStyle, value: B.values ? B.values[li] : '' }, [{ name: 'Rise', basedOn: 3 }]));
+  const phrases = [{ texts: B.texts, values: B.values, source: B.source }].concat(B.swap ? [B.swap] : []);
+  for (const ph of phrases) {
+    for (let li = N - 1; li >= 0; li -= 1) {
+      spec.add(text(ph.texts[li], { ...B.textStyle, value: ph.values ? ph.values[li] : '' }, [{ name: 'Rise', basedOn: 3 }]));
+    }
   }
   for (let li = 0; li < N; li += 1) {
     const plate = B.plates[li];
-    const tx = B.texts[li];
-    const line = pre + lineJs(B, li);
+    const line = pre + (B.swap ? lineJsSwap(B, li) : lineJs(B, li));
     spec.expr(plate, P.rectSize('Plate'), line + `[Math.max(0, gx1 - gx0), ${geo.h} * kt + ext]`);
     spec.expr(plate, P.rectPos('Plate'), line + `[(gx0 + gx1) / 2, pb + (ext - ${geo.h} * kt) / 2]`);
-    if (B.source) spec.expr(tx, P.text, `String(thisComp.layer("${B.source[li]}").text.sourceText)`);
-    // capitals by expression keep the font's spacing of typed capitals; All Caps adds its capital spacing
-    // (cpsp, +1.25 % in SB Sans Display Bold)
-    else if (B.upper) spec.expr(tx, P.text, 'String(value).toUpperCase()');
-    spec.expr(tx, P.pos, line + `[x0 + pd[0] - e.l, pb - ${geo.base} * kt]`);
     const tin = `sl("${B.sliders.textIn}", TT - dIn)`;
     const tout = `sl("${B.sliders.textOut}", TT + dOut)`;
-    if (B.textOut === 'start') {
-      spec.expr(tx, P.start(), line + `100 * ${tin} * (1 - ${tout})`);
-    } else {
-      spec.expr(tx, P.start(), line + `100 * ${tin}`);
-      spec.expr(tx, ['selector', 'Rise', 'ADBE Text Percent End'], line + `100 * (1 - ${tout})`);
+    // phrase 1 leaves in the change when there is a phrase 2, else with the block; phrase 2 rises with the resize
+    const texts = B.swap
+      ? [{ tx: B.texts[li], source: B.source, x: 'x01 + pd[0] - e.l', tin, out: `(swap ? sl("${B.sliders.swapOut}", TT - dS) : ${tout})` },
+        { tx: B.swap.texts[li], source: B.swap.source, x: 'x02 + pd2[0] - e2.l', tin: `sl("${B.sliders.swapIn}", TT - dS)`, out: tout }]
+      : [{ tx: B.texts[li], source: B.source, x: 'x0 + pd[0] - e.l', tin, out: tout }];
+    for (const t of texts) {
+      if (t.source) spec.expr(t.tx, P.text, `String(thisComp.layer("${t.source[li]}").text.sourceText)`);
+      // capitals by expression keep the font's spacing of typed capitals; All Caps adds its capital spacing
+      // (cpsp, +1.25 % in SB Sans Display Bold)
+      else if (B.upper) spec.expr(t.tx, P.text, 'String(value).toUpperCase()');
+      spec.expr(t.tx, P.pos, line + `[${t.x}, pb - ${geo.base} * kt]`);
+      selectorExprs(spec, B, t.tx, line, t.tin, t.out);
+      // rise in layer units: the layer scale f carries it with the text
+      spec.expr(t.tx, P.rise(), k + `[0, ${geo.rise} * k, 0]`);
+      spec.expr(t.tx, P.scale, scaleExpr(B.fit));
+      if (B.style) {
+        if (t === texts[0]) spec.expr(plate, P.opacity, visible(B.style));
+        spec.expr(t.tx, P.opacity, visible(B.style));
+      }
+      spec.matte(t.tx, plate);
     }
-    // rise in layer units: the layer scale f carries it with the text
-    spec.expr(tx, P.rise(), k + `[0, ${geo.rise} * k, 0]`);
-    spec.expr(tx, P.scale, scaleExpr(B.fit));
-    if (B.style) {
-      spec.expr(plate, P.opacity, visible(B.style));
-      spec.expr(tx, P.opacity, visible(B.style));
-    }
-    spec.matte(tx, plate);
   }
 }

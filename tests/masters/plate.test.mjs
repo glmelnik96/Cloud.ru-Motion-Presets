@@ -5,6 +5,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { exprComp } from '../helpers/master-expr.mjs';
+import { packInk, plateOf } from '../helpers/plate-ink.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '../..');
 const HAS_DUMPS = existsSync('C:/CRBK/work/dumps/podcast/tekst_na_plashke_1.json') && existsSync('C:/CRBK/work/dumps/smm/plashki_9x16.json');
@@ -12,31 +13,10 @@ const metrics = JSON.parse(readFileSync(path.join(REPO, 'masters/TTL_Plate/sourc
 const PACK = { TXT_1: 'текст появляется тут', TXT_2: 'Затем появляется тут', TXT_3: 'И тут, и так далее' };
 const SMM = { TXT_1: 'Разверните свой сервис', TXT_2: 'видеоконференций', TXT_3: '' };
 
-// Ink in FHD units at the master's font sizes: the pack's 4K podcast texts / 2, the SMM texts at 75 %; any
-// other text gets 22 px per character and no descender. Podcast texts are placed by their ink, so their side
-// bearing is 1; b is how far the pack's ink reaches below its baseline.
-function packInk() {
-  const byText = new Map();
-  for (const c of metrics.cases) {
-    for (const row of Object.values(c.layers)) {
-      const s = c.pack === 'podcast' ? 0.5 : (c.comp === 'Плашки_9x16' ? 0.75 : 1 / (1440 / 1080) * 1);
-      const base = row.lines.find(Boolean)[1];
-      byText.set(row.text.replace(/^\r/, ''), { l: c.pack === 'podcast' ? 1 : row.rect[0] * s, w: row.rect[2] * s, b: (row.rect[1] + row.rect[3] - base) * s });
-    }
-  }
-  return (layer, text) => (text ? byText.get(text) || { l: 1, w: text.length * 22, b: 0 } : { l: 0, w: 0, b: 0 });
-}
-
-const plateOf = (c, n, t) => {
-  const [w, h] = c.at(n, ['group', 'Plate', 'Rect', 'ADBE Vector Rect Size'], t);
-  const [x, y] = c.at(n, ['group', 'Plate', 'Rect', 'ADBE Vector Rect Position'], t);
-  return { x0: x - w / 2, x1: x + w / 2, y0: y - h / 2, y1: y + h / 2, w, h };
-};
-
 describe.skipIf(!HAS_DUMPS)('TTL_Plate', async () => {
   const { resolve } = await import('../../masters/TTL_Plate/resolve.mjs');
   const p = resolve();
-  const comp = (opts) => exprComp(p.spec, { ink: packInk(), ...opts });
+  const comp = (opts) => exprComp(p.spec, { ink: packInk(metrics), ...opts });
 
   it('takes its numbers from the packs and its curves from the canon', () => {
     const { podcast: pod, smm } = p.layout;

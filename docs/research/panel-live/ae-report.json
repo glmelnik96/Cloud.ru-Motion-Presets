@@ -1,16 +1,16 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-20T17:53:52.548Z",
-  "finishedAt": "2026-10-20T17:55:08.828Z",
+  "startedAt": "2026-10-20T19:43:50.585Z",
+  "finishedAt": "2026-10-20T19:45:21.615Z",
   "summary": {
-    "checks": 305,
-    "passed": 305,
+    "checks": 369,
+    "passed": 369,
     "failed": 0
   },
   "failed": [],
   "checks": [
     {
-      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, TTL_LowerThird, TTL_Plate, TTL_Subscribe",
+      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap",
       "pass": true,
       "required": true,
       "detail": []
@@ -39,7 +39,7 @@
       "pass": true,
       "required": true,
       "detail": {
-        "comps": 22,
+        "comps": 26,
         "path": "C:\\CRBK\\work\\panel-live\\ae\\panel_live.aep"
       }
     },
@@ -99,7 +99,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_16x9_v1",
-          "layerId": 337,
+          "layerId": 385,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 5,
@@ -126,7 +126,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_16x9_v1",
-          "layerId": 338,
+          "layerId": 386,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 9,
@@ -214,17 +214,17 @@
       "detail": {
         "found": true,
         "name": "CR_LOGO_Shot_16x9_v1",
-        "layerId": 338
+        "layerId": 386
       }
     },
     {
-      "name": "LOGO_Shot_16x9: layer A: layer 337 read",
+      "name": "LOGO_Shot_16x9: layer A: layer 385 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "LOGO_Shot_16x9: layer B: layer 338 read",
+      "name": "LOGO_Shot_16x9: layer B: layer 386 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -386,7 +386,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_16x9_4K_v1",
-          "layerId": 339,
+          "layerId": 387,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 5,
@@ -411,7 +411,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_16x9_4K_v1",
-          "layerId": 340,
+          "layerId": 388,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 9,
@@ -499,17 +499,17 @@
       "detail": {
         "found": true,
         "name": "CR_LOGO_Shot_16x9_4K_v1",
-        "layerId": 340
+        "layerId": 388
       }
     },
     {
-      "name": "LOGO_Shot_16x9_4K: layer A: layer 339 read",
+      "name": "LOGO_Shot_16x9_4K: layer A: layer 387 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "LOGO_Shot_16x9_4K: layer B: layer 340 read",
+      "name": "LOGO_Shot_16x9_4K: layer B: layer 388 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -671,7 +671,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_9x16_v1",
-          "layerId": 341,
+          "layerId": 389,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 5,
@@ -696,7 +696,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_9x16_v1",
-          "layerId": 342,
+          "layerId": 390,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 9,
@@ -784,17 +784,17 @@
       "detail": {
         "found": true,
         "name": "CR_LOGO_Shot_9x16_v1",
-        "layerId": 342
+        "layerId": 390
       }
     },
     {
-      "name": "LOGO_Shot_9x16: layer A: layer 341 read",
+      "name": "LOGO_Shot_9x16: layer A: layer 389 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "LOGO_Shot_9x16: layer B: layer 342 read",
+      "name": "LOGO_Shot_9x16: layer B: layer 390 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -956,7 +956,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Mark_16x9_v1",
-          "layerId": 407,
+          "layerId": 455,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 4,
@@ -983,7 +983,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Mark_16x9_v1",
-          "layerId": 408,
+          "layerId": 456,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 8,
@@ -1071,17 +1071,17 @@
       "detail": {
         "found": true,
         "name": "CR_LOGO_Mark_16x9_v1",
-        "layerId": 408
+        "layerId": 456
       }
     },
     {
-      "name": "LOGO_Mark_16x9: layer A: layer 407 read",
+      "name": "LOGO_Mark_16x9: layer A: layer 455 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "LOGO_Mark_16x9: layer B: layer 408 read",
+      "name": "LOGO_Mark_16x9: layer B: layer 456 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1243,7 +1243,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Mark_16x9_4K_v1",
-          "layerId": 409,
+          "layerId": 457,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 4,
@@ -1268,7 +1268,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Mark_16x9_4K_v1",
-          "layerId": 410,
+          "layerId": 458,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 8,
@@ -1356,17 +1356,17 @@
       "detail": {
         "found": true,
         "name": "CR_LOGO_Mark_16x9_4K_v1",
-        "layerId": 410
+        "layerId": 458
       }
     },
     {
-      "name": "LOGO_Mark_16x9_4K: layer A: layer 409 read",
+      "name": "LOGO_Mark_16x9_4K: layer A: layer 457 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "LOGO_Mark_16x9_4K: layer B: layer 410 read",
+      "name": "LOGO_Mark_16x9_4K: layer B: layer 458 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1528,7 +1528,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Mark_9x16_v1",
-          "layerId": 411,
+          "layerId": 459,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 4,
@@ -1553,7 +1553,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Mark_9x16_v1",
-          "layerId": 412,
+          "layerId": 460,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 8,
@@ -1641,17 +1641,17 @@
       "detail": {
         "found": true,
         "name": "CR_LOGO_Mark_9x16_v1",
-        "layerId": 412
+        "layerId": 460
       }
     },
     {
-      "name": "LOGO_Mark_9x16: layer A: layer 411 read",
+      "name": "LOGO_Mark_9x16: layer A: layer 459 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "LOGO_Mark_9x16: layer B: layer 412 read",
+      "name": "LOGO_Mark_9x16: layer B: layer 460 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1813,7 +1813,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_16x9_v1",
-          "layerId": 561,
+          "layerId": 609,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -1843,7 +1843,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_16x9_v1",
-          "layerId": 562,
+          "layerId": 610,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -1940,17 +1940,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_LowerThird_16x9_v1",
-        "layerId": 562
+        "layerId": 610
       }
     },
     {
-      "name": "TTL_LowerThird_16x9: layer A: layer 561 read",
+      "name": "TTL_LowerThird_16x9: layer A: layer 609 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_LowerThird_16x9: layer B: layer 562 read",
+      "name": "TTL_LowerThird_16x9: layer B: layer 610 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2112,7 +2112,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_16x9_4K_v1",
-          "layerId": 563,
+          "layerId": 611,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -2140,7 +2140,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_16x9_4K_v1",
-          "layerId": 564,
+          "layerId": 612,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -2237,17 +2237,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_LowerThird_16x9_4K_v1",
-        "layerId": 564
+        "layerId": 612
       }
     },
     {
-      "name": "TTL_LowerThird_16x9_4K: layer A: layer 563 read",
+      "name": "TTL_LowerThird_16x9_4K: layer A: layer 611 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_LowerThird_16x9_4K: layer B: layer 564 read",
+      "name": "TTL_LowerThird_16x9_4K: layer B: layer 612 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2409,7 +2409,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_9x16_v1",
-          "layerId": 565,
+          "layerId": 613,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -2437,7 +2437,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_9x16_v1",
-          "layerId": 566,
+          "layerId": 614,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -2534,17 +2534,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_LowerThird_9x16_v1",
-        "layerId": 566
+        "layerId": 614
       }
     },
     {
-      "name": "TTL_LowerThird_9x16: layer A: layer 565 read",
+      "name": "TTL_LowerThird_9x16: layer A: layer 613 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_LowerThird_9x16: layer B: layer 566 read",
+      "name": "TTL_LowerThird_9x16: layer B: layer 614 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2706,7 +2706,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_1x1_v1",
-          "layerId": 567,
+          "layerId": 615,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -2734,7 +2734,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_1x1_v1",
-          "layerId": 568,
+          "layerId": 616,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -2831,17 +2831,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_LowerThird_1x1_v1",
-        "layerId": 568
+        "layerId": 616
       }
     },
     {
-      "name": "TTL_LowerThird_1x1: layer A: layer 567 read",
+      "name": "TTL_LowerThird_1x1: layer A: layer 615 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_LowerThird_1x1: layer B: layer 568 read",
+      "name": "TTL_LowerThird_1x1: layer B: layer 616 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3003,7 +3003,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_16x9_v1",
-          "layerId": 681,
+          "layerId": 729,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 8,
@@ -3033,7 +3033,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_16x9_v1",
-          "layerId": 682,
+          "layerId": 730,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 12,
@@ -3130,17 +3130,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Plate_16x9_v1",
-        "layerId": 682
+        "layerId": 730
       }
     },
     {
-      "name": "TTL_Plate_16x9: layer A: layer 681 read",
+      "name": "TTL_Plate_16x9: layer A: layer 729 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Plate_16x9: layer B: layer 682 read",
+      "name": "TTL_Plate_16x9: layer B: layer 730 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3302,7 +3302,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_16x9_4K_v1",
-          "layerId": 683,
+          "layerId": 731,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 8,
@@ -3330,7 +3330,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_16x9_4K_v1",
-          "layerId": 684,
+          "layerId": 732,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 12,
@@ -3427,17 +3427,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Plate_16x9_4K_v1",
-        "layerId": 684
+        "layerId": 732
       }
     },
     {
-      "name": "TTL_Plate_16x9_4K: layer A: layer 683 read",
+      "name": "TTL_Plate_16x9_4K: layer A: layer 731 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Plate_16x9_4K: layer B: layer 684 read",
+      "name": "TTL_Plate_16x9_4K: layer B: layer 732 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3599,7 +3599,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_9x16_v1",
-          "layerId": 685,
+          "layerId": 733,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 8,
@@ -3627,7 +3627,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_9x16_v1",
-          "layerId": 686,
+          "layerId": 734,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 12,
@@ -3724,17 +3724,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Plate_9x16_v1",
-        "layerId": 686
+        "layerId": 734
       }
     },
     {
-      "name": "TTL_Plate_9x16: layer A: layer 685 read",
+      "name": "TTL_Plate_9x16: layer A: layer 733 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Plate_9x16: layer B: layer 686 read",
+      "name": "TTL_Plate_9x16: layer B: layer 734 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3896,7 +3896,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_1x1_v1",
-          "layerId": 687,
+          "layerId": 735,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 8,
@@ -3924,7 +3924,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_1x1_v1",
-          "layerId": 688,
+          "layerId": 736,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 12,
@@ -4021,17 +4021,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Plate_1x1_v1",
-        "layerId": 688
+        "layerId": 736
       }
     },
     {
-      "name": "TTL_Plate_1x1: layer A: layer 687 read",
+      "name": "TTL_Plate_1x1: layer A: layer 735 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Plate_1x1: layer B: layer 688 read",
+      "name": "TTL_Plate_1x1: layer B: layer 736 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4193,7 +4193,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_16x9_v1",
-          "layerId": 769,
+          "layerId": 817,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -4221,7 +4221,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_16x9_v1",
-          "layerId": 770,
+          "layerId": 818,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -4312,17 +4312,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Subscribe_16x9_v1",
-        "layerId": 770
+        "layerId": 818
       }
     },
     {
-      "name": "TTL_Subscribe_16x9: layer A: layer 769 read",
+      "name": "TTL_Subscribe_16x9: layer A: layer 817 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Subscribe_16x9: layer B: layer 770 read",
+      "name": "TTL_Subscribe_16x9: layer B: layer 818 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4484,7 +4484,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_16x9_4K_v1",
-          "layerId": 771,
+          "layerId": 819,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -4510,7 +4510,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_16x9_4K_v1",
-          "layerId": 772,
+          "layerId": 820,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -4601,17 +4601,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Subscribe_16x9_4K_v1",
-        "layerId": 772
+        "layerId": 820
       }
     },
     {
-      "name": "TTL_Subscribe_16x9_4K: layer A: layer 771 read",
+      "name": "TTL_Subscribe_16x9_4K: layer A: layer 819 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Subscribe_16x9_4K: layer B: layer 772 read",
+      "name": "TTL_Subscribe_16x9_4K: layer B: layer 820 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4773,7 +4773,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_9x16_v1",
-          "layerId": 773,
+          "layerId": 821,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -4799,7 +4799,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_9x16_v1",
-          "layerId": 774,
+          "layerId": 822,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -4890,17 +4890,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Subscribe_9x16_v1",
-        "layerId": 774
+        "layerId": 822
       }
     },
     {
-      "name": "TTL_Subscribe_9x16: layer A: layer 773 read",
+      "name": "TTL_Subscribe_9x16: layer A: layer 821 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Subscribe_9x16: layer B: layer 774 read",
+      "name": "TTL_Subscribe_9x16: layer B: layer 822 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5062,7 +5062,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_1x1_v1",
-          "layerId": 775,
+          "layerId": 823,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -5088,7 +5088,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_1x1_v1",
-          "layerId": 776,
+          "layerId": 824,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -5179,17 +5179,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Subscribe_1x1_v1",
-        "layerId": 776
+        "layerId": 824
       }
     },
     {
-      "name": "TTL_Subscribe_1x1: layer A: layer 775 read",
+      "name": "TTL_Subscribe_1x1: layer A: layer 823 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Subscribe_1x1: layer B: layer 776 read",
+      "name": "TTL_Subscribe_1x1: layer B: layer 824 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5327,7 +5327,1245 @@
       }
     },
     {
-      "name": "activate nearest at 2 s: comp 217 active at 2 s",
+      "name": "activate TTL_PlateSwap_16x9 at 2 s: comp 217 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_PlateSwap_16x9"
+      }
+    },
+    {
+      "name": "activate TTL_PlateSwap_16x9 at 20 s: comp 217 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_PlateSwap_16x9"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: A inserted at 2 s, 12 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_PlateSwap_16x9_v1",
+          "layerId": 961,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 12,
+          "readback": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": true,
+          "notes": [
+            "footage: 0"
+          ],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: B inserted at 20 s, 16 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_PlateSwap_16x9_v1",
+          "layerId": 962,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 16,
+          "readback": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: variant 16x9 chosen for 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_TTL_PlateSwap_16x9_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/TTL_PlateSwap/TTL_PlateSwap_16x9_v1.mogrt",
+          "sha256": "415f802ccb45c21477a4e863a40fe07d40e6acf0d0865f68a201a5ca92f49aa5",
+          "bytes": 82010
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 2,
+          "lengthSec": 12,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 20,
+          "lengthSec": 16,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_TTL_PlateSwap_16x9_v1",
+        "layerId": 962
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: layer A: layer 961 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: layer B: layer 962 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: A plays as is (no time remap, 12 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_TTL_PlateSwap_16x9_v1",
+        "inPoint": 2,
+        "outPoint": 14,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_TTL_PlateSwap_16x9"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            8.56,
+            8.56,
+            true
+          ],
+          [
+            13.04,
+            9.04,
+            true
+          ],
+          [
+            16,
+            12,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            8.56,
+            8.56
+          ],
+          [
+            13.04,
+            9.04
+          ],
+          [
+            16,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_TTL_PlateSwap_16x9_v1",
+        "inPoint": 20,
+        "outPoint": 36,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            8.56,
+            8.56,
+            true
+          ],
+          [
+            13.04,
+            9.04,
+            true
+          ],
+          [
+            16,
+            12,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_TTL_PlateSwap_16x9"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_b_intro.png"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_b_outro.png"
+      }
+    },
+    {
+      "name": "activate TTL_PlateSwap_16x9_4K at 2 s: comp 229 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_PlateSwap_16x9_4K"
+      }
+    },
+    {
+      "name": "activate TTL_PlateSwap_16x9_4K at 20 s: comp 229 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_PlateSwap_16x9_4K"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: A inserted at 2 s, 12 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_PlateSwap_16x9_4K_v1",
+          "layerId": 963,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 12,
+          "readback": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": [],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: B inserted at 20 s, 16 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_PlateSwap_16x9_4K_v1",
+          "layerId": 964,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 16,
+          "readback": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: variant 16x9_4K chosen for 3840x2160",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_TTL_PlateSwap_16x9_4K_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/TTL_PlateSwap/TTL_PlateSwap_16x9_4K_v1.mogrt",
+          "sha256": "70ef7b8471af4aba8cde2164f7521082e697788fceb556d58b5ee975adc4ca49",
+          "bytes": 81700
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 2,
+          "lengthSec": 12,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 20,
+          "lengthSec": 16,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_TTL_PlateSwap_16x9_4K_v1",
+        "layerId": 964
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: layer A: layer 963 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: layer B: layer 964 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: A plays as is (no time remap, 12 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_TTL_PlateSwap_16x9_4K_v1",
+        "inPoint": 2,
+        "outPoint": 14,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_TTL_PlateSwap_16x9_4K"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            8.56,
+            8.56,
+            true
+          ],
+          [
+            13.04,
+            9.04,
+            true
+          ],
+          [
+            16,
+            12,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            8.56,
+            8.56
+          ],
+          [
+            13.04,
+            9.04
+          ],
+          [
+            16,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_TTL_PlateSwap_16x9_4K_v1",
+        "inPoint": 20,
+        "outPoint": 36,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            8.56,
+            8.56,
+            true
+          ],
+          [
+            13.04,
+            9.04,
+            true
+          ],
+          [
+            16,
+            12,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_TTL_PlateSwap_16x9_4K"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_4K_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_4K_b_intro.png"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_16x9_4K: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_4K_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_4K_b_outro.png"
+      }
+    },
+    {
+      "name": "activate TTL_PlateSwap_9x16 at 2 s: comp 241 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_PlateSwap_9x16"
+      }
+    },
+    {
+      "name": "activate TTL_PlateSwap_9x16 at 20 s: comp 241 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_PlateSwap_9x16"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: A inserted at 2 s, 12 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_PlateSwap_9x16_v1",
+          "layerId": 965,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 12,
+          "readback": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": [],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: B inserted at 20 s, 16 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_PlateSwap_9x16_v1",
+          "layerId": 966,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 16,
+          "readback": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: variant 9x16 chosen for 1080x1920",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "aeComp": "CR_TTL_PlateSwap_9x16_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/TTL_PlateSwap/TTL_PlateSwap_9x16_v1.mogrt",
+          "sha256": "75ea46bd4497a016b62d4b49d41e95970e397f01b957b815cc19eb37377e6f10",
+          "bytes": 52676
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 2,
+          "lengthSec": 12,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 20,
+          "lengthSec": 16,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_TTL_PlateSwap_9x16_v1",
+        "layerId": 966
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: layer A: layer 965 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: layer B: layer 966 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: A plays as is (no time remap, 12 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_TTL_PlateSwap_9x16_v1",
+        "inPoint": 2,
+        "outPoint": 14,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_TTL_PlateSwap_9x16"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            8.56,
+            8.56,
+            true
+          ],
+          [
+            13.04,
+            9.04,
+            true
+          ],
+          [
+            16,
+            12,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            8.56,
+            8.56
+          ],
+          [
+            13.04,
+            9.04
+          ],
+          [
+            16,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_TTL_PlateSwap_9x16_v1",
+        "inPoint": 20,
+        "outPoint": 36,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            8.56,
+            8.56,
+            true
+          ],
+          [
+            13.04,
+            9.04,
+            true
+          ],
+          [
+            16,
+            12,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_TTL_PlateSwap_9x16"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_9x16_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_9x16_b_intro.png"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_9x16: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_9x16_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_9x16_b_outro.png"
+      }
+    },
+    {
+      "name": "activate TTL_PlateSwap_1x1 at 2 s: comp 253 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_PlateSwap_1x1"
+      }
+    },
+    {
+      "name": "activate TTL_PlateSwap_1x1 at 20 s: comp 253 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_TTL_PlateSwap_1x1"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: A inserted at 2 s, 12 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_PlateSwap_1x1_v1",
+          "layerId": 967,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 12,
+          "readback": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": [],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: B inserted at 20 s, 16 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_TTL_PlateSwap_1x1_v1",
+          "layerId": 968,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 16,
+          "readback": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "imported": false,
+          "notes": [
+            "remap keys: 4"
+          ],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: variant 1x1 chosen for 1080x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "1x1",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_TTL_PlateSwap_1x1_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/TTL_PlateSwap/TTL_PlateSwap_1x1_v1.mogrt",
+          "sha256": "25e2a39291e3ff565085950e80be1df50a61d8845d566ff63e78bb8157f1f755",
+          "bytes": 81793
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 2,
+          "lengthSec": 12,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Фраза 1: строка 1": "Анна-Мария Ёлкина",
+            "Фраза 1: строка 2": "Руководитель облачной платформы",
+            "Фраза 1: строка 3": "Cloud.ru Evolution",
+            "Фраза 2: строка 1": "Москва",
+            "Фраза 2: строка 2": "Анна-Мария Ёлкина",
+            "Фраза 2: строка 3": "Руководитель облачной платформы",
+            "Стиль": 2,
+            "Позиция": 4,
+            "Скорость": 2,
+            "Размер текста": 2
+          },
+          "startSec": 20,
+          "lengthSec": 16,
+          "timeRemap": true
+        }
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_TTL_PlateSwap_1x1_v1",
+        "layerId": 968
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: layer A: layer 967 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: layer B: layer 968 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: A plays as is (no time remap, 12 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_TTL_PlateSwap_1x1_v1",
+        "inPoint": 2,
+        "outPoint": 14,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_TTL_PlateSwap_1x1"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: B has the time-remap keys of contract C27, linear",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "got": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            8.56,
+            8.56,
+            true
+          ],
+          [
+            13.04,
+            9.04,
+            true
+          ],
+          [
+            16,
+            12,
+            true
+          ]
+        ],
+        "want": [
+          [
+            0,
+            0
+          ],
+          [
+            8.56,
+            8.56
+          ],
+          [
+            13.04,
+            9.04
+          ],
+          [
+            16,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_TTL_PlateSwap_1x1_v1",
+        "inPoint": 20,
+        "outPoint": 36,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": true,
+        "keys": [
+          [
+            0,
+            0,
+            true
+          ],
+          [
+            8.56,
+            8.56,
+            true
+          ],
+          [
+            13.04,
+            9.04,
+            true
+          ],
+          [
+            16,
+            12,
+            true
+          ]
+        ],
+        "selected": true,
+        "comp": "LIVE_TTL_PlateSwap_1x1"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_1x1_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_1x1_b_intro.png"
+      }
+    },
+    {
+      "name": "TTL_PlateSwap_1x1: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_1x1_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_1x1_b_outro.png"
+      }
+    },
+    {
+      "name": "activate nearest at 2 s: comp 265 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -5351,7 +6589,7 @@
       ]
     },
     {
-      "name": "activate nearest at 2 s: comp 217 active at 2 s",
+      "name": "activate nearest at 2 s: comp 265 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -5367,7 +6605,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_16x9_4K_v1",
-          "layerId": 777,
+          "layerId": 969,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 5,
@@ -5384,7 +6622,7 @@
       }
     },
     {
-      "name": "nearest: layer: layer 777 read",
+      "name": "nearest: layer: layer 969 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5400,7 +6638,7 @@
       ]
     },
     {
-      "name": "activate other at 2 s: comp 253 active at 2 s",
+      "name": "activate other at 2 s: comp 301 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -5408,7 +6646,7 @@
       }
     },
     {
-      "name": "activate undo at 2 s: comp 241 active at 2 s",
+      "name": "activate undo at 2 s: comp 289 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -5416,13 +6654,13 @@
       }
     },
     {
-      "name": "count: layers of comp 241 counted",
+      "name": "count: layers of comp 289 counted",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "count: layers of comp 241 counted",
+      "name": "count: layers of comp 289 counted",
       "pass": true,
       "required": true,
       "detail": ""

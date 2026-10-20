@@ -57,7 +57,8 @@ describe('library', () => {
     const items = c.items;
     expect(filterItems(items, { query: 'подписью логошот' }).map((i) => i.id)).toEqual(['LOGO_Shot']);
     expect(filterItems(items, { query: 'ttl' }).map((i) => i.id)).toEqual(ids.filter((id) => id.startsWith('TTL_')));
-    expect(filterItems(items, { query: 'плашке' }).map((i) => i.id)).toEqual(['TTL_Plate']);
+    expect(filterItems(items, { query: 'плашке' }).map((i) => i.id)).toEqual(['TTL_Plate', 'TTL_PlateSwap']);
+    expect(filterItems(items, { query: 'фразы плашке' }).map((i) => i.id)).toEqual(['TTL_PlateSwap']);
     expect(filterItems(items, { category: 'logo' }).length).toBe(2);
     expect(filterItems(items, { category: 'favorites', favorites: new Set(['LOGO_Mark']) }).map((i) => i.id)).toEqual(['LOGO_Mark']);
     items[0].title_ru = 'Ёлка';
