@@ -1,0 +1,199 @@
+{
+  "id": "TTL_Disclaimer",
+  "_note": "Golden comparison against the podcast pack «Дисклеймер» (4K variant, the pack's own texts). The decoration is the pack's own layers (moved over at build time), so the whole frame is compared. gate = frames where the globe stands still (it turns in steps: still 1.64–2.04, 3.48–4.48, 6.32–6.88 and 9.20–9.80 s); view = moving frames (motion blur in the pack, none in the master, C35). Before 0.96 s the pack shows its still under the decoration; the master is transparent there.",
+  "preview": {
+    "_note": "Card preview: the card as the pack has it, on a neutral grey for its first second.",
+    "variant": "16x9",
+    "ctrl": {},
+    "text": {},
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "axes": {}
+  },
+  "cases": [
+    {
+      "name": "pack",
+      "title": "Тексты пакета, 1×",
+      "golden": {
+        "slug": "podcast",
+        "compSlug": "diskleymer"
+      },
+      "variant": "16x9_4K",
+      "ctrl": {},
+      "text": {},
+      "shift": [],
+      "gate": [
+        2000,
+        4000,
+        6760,
+        9520
+      ],
+      "view": [
+        520,
+        760,
+        1000,
+        1240,
+        1520,
+        5000,
+        8000
+      ],
+      "note": "The master's plates end their mean pad past the ink of each line (the pack's ends are placed by hand, 11.3–15.7 px FHD) and are drawn square (the pack's right ends stand 1–1.5 px lower).",
+      "parts": [
+        {
+          "name": "line1",
+          "x": 500,
+          "y": 556,
+          "w": 3100,
+          "h": 146
+        },
+        {
+          "name": "line2",
+          "x": 500,
+          "y": 698,
+          "w": 3100,
+          "h": 146
+        },
+        {
+          "name": "line3",
+          "x": 500,
+          "y": 839,
+          "w": 3100,
+          "h": 146
+        },
+        {
+          "name": "line4",
+          "x": 500,
+          "y": 980,
+          "w": 3100,
+          "h": 146
+        },
+        {
+          "name": "line5",
+          "x": 500,
+          "y": 1121,
+          "w": 3100,
+          "h": 160
+        },
+        {
+          "name": "title",
+          "x": 2500,
+          "y": 1920,
+          "w": 1260,
+          "h": 170
+        }
+      ],
+      "maxShift": 3
+    }
+  ],
+  "premiere": {
+    "_note": "The 16x9 MOGRT in Premiere against the same variant rendered in AE. The card's globe turns in the hold, so every Premiere frame is taken where the globe stands still or in the intro. B is 26.16 s long: Premiere stretches the hold (from 1.92 s) three times, so clip c is master 1.92 + (c − 1.92) / 3 and every third frame lands on a master frame — clip 8.16 s is master 4.0 s and clip 24.48 s master 9.44 s, both with the globe still (the stripes drift all the time: the times must be exact). C plays at 2×: its decoration runs at 2× to 0.72 s, then in real time. D has texts of its own, typed in lower case, with a line longer than the pack's box (the block fits).",
+    "variant": "16x9",
+    "clips": [
+      {
+        "key": "A",
+        "atSec": 0,
+        "lenSec": null,
+        "ctrl": {},
+        "text": {}
+      },
+      {
+        "key": "B",
+        "atSec": 12,
+        "lenSec": 26.16,
+        "ctrl": {},
+        "text": {}
+      },
+      {
+        "key": "C",
+        "atSec": 40,
+        "lenSec": null,
+        "ctrl": {
+          "Speed": 5
+        },
+        "text": {}
+      },
+      {
+        "key": "D",
+        "atSec": 52,
+        "lenSec": null,
+        "ctrl": {},
+        "text": {
+          "TITLE": "Важно",
+          "TXT_1": "Мнение гостя — его личная позиция,",
+          "TXT_2": "она может не совпадать с позицией компании и её партнёров по рынку",
+          "TXT_3": "",
+          "TXT_4": "",
+          "TXT_5": ""
+        }
+      }
+    ],
+    "frames": [
+      {
+        "key": "A_intro",
+        "clip": "A",
+        "sec": 0.8,
+        "master": 0.8
+      },
+      {
+        "key": "A_words",
+        "clip": "A",
+        "sec": 1.2,
+        "master": 1.2
+      },
+      {
+        "key": "A_hold",
+        "clip": "A",
+        "sec": 4,
+        "master": 4
+      },
+      {
+        "key": "A_late",
+        "clip": "A",
+        "sec": 9.6,
+        "master": 9.6
+      },
+      {
+        "key": "B_intro",
+        "clip": "B",
+        "sec": 1.2,
+        "master": 1.2
+      },
+      {
+        "key": "B_hold",
+        "clip": "B",
+        "sec": 8.16,
+        "master": 4
+      },
+      {
+        "key": "B_late",
+        "clip": "B",
+        "sec": 24.48,
+        "master": 9.44
+      },
+      {
+        "key": "C_intro",
+        "clip": "C",
+        "sec": 0.4,
+        "master": 0.4
+      },
+      {
+        "key": "C_hold",
+        "clip": "C",
+        "sec": 3.2,
+        "master": 3.2
+      },
+      {
+        "key": "C_late",
+        "clip": "C",
+        "sec": 8.8,
+        "master": 8.8
+      },
+      {
+        "key": "D_hold",
+        "clip": "D",
+        "sec": 4,
+        "master": 4
+      }
+    ]
+  }
+}

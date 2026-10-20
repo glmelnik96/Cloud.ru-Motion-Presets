@@ -8,9 +8,9 @@ import { egpLabels } from '../../tools/masters/package.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '../..');
 const lib = JSON.parse(readFileSync(path.join(REPO, 'library', 'library.src.json'), 'utf8'));
-const HAS_DUMPS = ['logo/umnoe_oblako.json', 'titles/podpis_spikerov.json', 'podcast/tekst_na_plashke_1.json', 'smm/plashki_9x16.json']
+const HAS_DUMPS = ['logo/umnoe_oblako.json', 'titles/podpis_spikerov.json', 'podcast/tekst_na_plashke_1.json', 'podcast/diskleymer.json', 'smm/plashki_9x16.json']
   .every((f) => existsSync('C:/CRBK/work/dumps/' + f));
-const MASTERS = ['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird', 'TTL_Plate', 'TTL_PlateSwap', 'TTL_Subscribe', 'POD_Frame'];
+const MASTERS = ['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird', 'TTL_Plate', 'TTL_PlateSwap', 'TTL_Subscribe', 'TTL_Disclaimer', 'POD_Frame'];
 
 describe.skipIf(!HAS_DUMPS)('library.src.json matches the masters', () => {
   for (const id of MASTERS) {
@@ -45,7 +45,8 @@ describe.skipIf(!HAS_DUMPS)('library.src.json matches the masters', () => {
       const inM = p.markers.find((m) => m.comment === 'in');
       const outM = p.markers.find((m) => m.comment === 'out');
       expect(item.duration.introSec).toBeCloseTo(inM.time + inM.duration, 6);
-      expect(item.duration.outroSec).toBeCloseTo(outM.duration, 6);
+      // a master without an exit (TTL_Disclaimer) has no «out» region
+      expect(item.duration.outroSec).toBeCloseTo(outM ? outM.duration : 0, 6);
       expect(item.duration.introSec + item.duration.holdSec + item.duration.outroSec).toBeCloseTo(p.comp.duration, 6);
     });
   }

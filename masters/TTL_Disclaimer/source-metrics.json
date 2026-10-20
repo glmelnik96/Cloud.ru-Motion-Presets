@@ -1,0 +1,119 @@
+{
+ "_note": "Ink of the texts of «Дисклеймер» (podcast pack, item 134, 3840x2160), which the JSX dump does not record: sourceRectAtTime (layer space, [left, top, width, height]) and per-line baselines [x0, y0, x1, y1]. Measured live on AE 26.5 with tools/masters/jsx/text-ink.jsx on the relinked working copy C:/CRBK/packs/podcast/podcast_relinked.aep (closed without saving), 2026-10-20, at 4.0 s (everything at rest from 1.44 s). The body is one box text of five lines; the ink of each line on its own is measured on the master (master below).",
+ "cases": [
+  {
+   "pack": "podcast",
+   "comp": "Дисклеймер",
+   "t": 4,
+   "layers": {
+    "ВСЕ МНЕНИЯ И ВЫСКАЗЫВАНИЯ В ЭТОМ ВИДЕО ПРИНАДЛЕЖАТ ИСКЛЮЧИТЕЛЬНО НАШЕМУ ГОСТЮ, ВЫСТУПАЮЩЕМУ КАК ЧАСТНОЕ ЛИЦО. ВИДЕО НЕ СВЯЗАНО С КОМПАНИЕЙ И НЕ ОТРАЖАЕТ ЕЁ ОФИЦИАЛЬНУЮ ПОЗИЦИЮ.": {
+     "text": "ВСЕ МНЕНИЯ И ВЫСКАЗЫВАНИЯ В ЭТОМ ВИДЕО\rПРИНАДЛЕЖАТ ИСКЛЮЧИТЕЛЬНО НАШЕМУ\rГОСТЮ, ВЫСТУПАЮЩЕМУ КАК ЧАСТНОЕ ЛИЦО.\rВИДЕО НЕ СВЯЗАНО С КОМПАНИЕЙ\rИ НЕ ОТРАЖАЕТ ЕЁ ОФИЦИАЛЬНУЮ ПОЗИЦИЮ.",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 40,
+     "tracking": -24,
+     "leading": 47,
+     "rect": [
+      -514.1791,
+      -120.8714,
+      1002.9631,
+      221.9185
+     ],
+     "lines": [
+      [
+       -517.5226,
+       -92.1898,
+       489.8375,
+       -92.1898
+      ],
+      [
+       -517.5226,
+       -45.1898,
+       413.9974,
+       -45.1898
+      ],
+      [
+       -517.5226,
+       1.8102,
+       487.6774,
+       1.8102
+      ],
+      [
+       -517.5226,
+       48.8102,
+       229.3574,
+       48.8102
+      ],
+      [
+       -517.5226,
+       95.8102,
+       490.9174,
+       95.8102
+      ]
+     ]
+    },
+    "ДИСКЛЕЙМЕР": {
+     "text": "ДИСКЛЕЙМЕР",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 53,
+     "tracking": -22,
+     "leading": 47,
+     "rect": [
+      -322.0307,
+      -31.7252,
+      389.474,
+      53.909
+     ],
+     "lines": [
+      [
+       -322.5111,
+       15.2451,
+       69.5829,
+       15.2451
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "master": {
+  "_note": "The pack lines on the master, each line on its own (TXT_1–TXT_5: SB Sans Display Bold 60, tracking -24, FHD), and the title: sourceRectAtTime at 4.0 s, layer space [left, top, width, height]. From the first build of TTL_Disclaimer (measurement «pack»), 2026-10-20; the right pad of the body plates is the pack plates against these.",
+  "lines": [
+   [
+    5.0153,
+    -43.0225,
+    1504.4447,
+    50.8777
+   ],
+   [
+    5.0153,
+    -43.0225,
+    1391.9088,
+    50.8777
+   ],
+   [
+    5.0153,
+    -43.0225,
+    1497.5007,
+    52.9321
+   ],
+   [
+    5.0153,
+    -53.1738,
+    1110.6399,
+    61.0291
+   ],
+   [
+    5.0153,
+    -52.9926,
+    1502.3607,
+    60.8478
+   ]
+  ],
+  "title": [
+   0.7206,
+   -70.4553,
+   584.211,
+   80.8635
+  ]
+ }
+}

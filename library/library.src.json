@@ -1123,6 +1123,140 @@
       ]
     },
     {
+      "id": "TTL_Disclaimer",
+      "title_ru": "Дисклеймер",
+      "category": "titles",
+      "tier": "T1",
+      "hosts": [
+        "ae",
+        "pr"
+      ],
+      "version": 1,
+      "fit": "rdt",
+      "duration": {
+        "introSec": 1.92,
+        "holdSec": 8.08,
+        "outroSec": 0
+      },
+      "requiredFonts": [
+        {
+          "postScriptName": "SBSansDisplay-Bold"
+        }
+      ],
+      "fields": [
+        {
+          "key": "title",
+          "label_ru": "Заголовок",
+          "type": "text",
+          "egpName": "Заголовок",
+          "egpIndex": 0,
+          "maxLen": 20,
+          "default": "ДИСКЛЕЙМЕР"
+        },
+        {
+          "key": "line1",
+          "label_ru": "Строка 1",
+          "type": "text",
+          "egpName": "Строка 1",
+          "egpIndex": 1,
+          "maxLen": 60,
+          "default": "ВСЕ МНЕНИЯ И ВЫСКАЗЫВАНИЯ В ЭТОМ ВИДЕО"
+        },
+        {
+          "key": "line2",
+          "label_ru": "Строка 2",
+          "type": "text",
+          "egpName": "Строка 2",
+          "egpIndex": 2,
+          "maxLen": 60,
+          "default": "ПРИНАДЛЕЖАТ ИСКЛЮЧИТЕЛЬНО НАШЕМУ"
+        },
+        {
+          "key": "line3",
+          "label_ru": "Строка 3",
+          "type": "text",
+          "egpName": "Строка 3",
+          "egpIndex": 3,
+          "maxLen": 60,
+          "default": "ГОСТЮ, ВЫСТУПАЮЩЕМУ КАК ЧАСТНОЕ ЛИЦО."
+        },
+        {
+          "key": "line4",
+          "label_ru": "Строка 4",
+          "type": "text",
+          "egpName": "Строка 4",
+          "egpIndex": 4,
+          "maxLen": 60,
+          "default": "ВИДЕО НЕ СВЯЗАНО С КОМПАНИЕЙ"
+        },
+        {
+          "key": "line5",
+          "label_ru": "Строка 5",
+          "type": "text",
+          "egpName": "Строка 5",
+          "egpIndex": 5,
+          "maxLen": 60,
+          "default": "И НЕ ОТРАЖАЕТ ЕЁ ОФИЦИАЛЬНУЮ ПОЗИЦИЮ."
+        },
+        {
+          "key": "speed",
+          "label_ru": "Скорость",
+          "type": "dropdown",
+          "egpName": "Скорость",
+          "egpIndex": 6,
+          "default": 2,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "0,75×"
+            },
+            {
+              "index": 2,
+              "label_ru": "1×"
+            },
+            {
+              "index": 3,
+              "label_ru": "1,25×"
+            },
+            {
+              "index": 4,
+              "label_ru": "1,5×"
+            },
+            {
+              "index": 5,
+              "label_ru": "2×"
+            }
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_TTL_Disclaimer_16x9",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_TTL_Disclaimer_16x9_4K",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
+      ]
+    },
+    {
       "id": "POD_Frame",
       "title_ru": "Рамка подкаста",
       "category": "podcast",
