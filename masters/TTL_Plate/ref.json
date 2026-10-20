@@ -1,0 +1,101 @@
+{
+  "id": "TTL_Plate",
+  "_note": "Golden comparison against the podcast pack («Текст на плашке_1» right, «Булит» centre; 4K variant) and the SMM pack («Плашки_9x16», 9x16 variant). The master starts its first plate at 0 where the podcast pack starts at 1.20 s; its exits end on the last frame. gate = static frames; view = moving frames (motion blur in the packs, none in the master, C35).",
+  "preview": {
+    "_note": "Card preview: one per style, two lines on a neutral grey.",
+    "variant": "16x9",
+    "ctrl": { "Style": 1, "Position": 1 },
+    "text": { "TXT_1": "Облако для бизнеса", "TXT_2": "за пять минут", "TXT_3": "" },
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "axes": { "style": "Style" }
+  },
+  "cases": [
+    {
+      "name": "podcast_right",
+      "title": "«Подкаст», «Авто» (справа), три строки пакета",
+      "golden": { "slug": "podcast", "compSlug": "tekst_na_plashke_1" },
+      "variant": "16x9_4K",
+      "ctrl": { "Style": 1, "Position": 1 },
+      "text": { "TXT_1": "текст появляется тут", "TXT_2": "Затем появляется тут", "TXT_3": "И тут, и так далее" },
+      "rect": { "x": 2700, "y": 1446, "w": 1020, "h": 273 },
+      "parts": [
+        { "name": "line1", "x": 2700, "y": 1446, "w": 1020, "h": 90 },
+        { "name": "line2", "x": 2700, "y": 1538, "w": 1020, "h": 90 },
+        { "name": "line3", "x": 2700, "y": 1630, "w": 1020, "h": 89 }
+      ],
+      "maxShift": 5,
+      "shift": [
+        { "from": 0, "to": 7.0, "by": -1.2 },
+        { "from": 7.0, "to": 60, "by": -0.76 }
+      ],
+      "gate": [4000, 5000, 6000],
+      "view": [1240, 1520, 1760, 2000, 2240, 2520, 2760, 3000, 7520, 7760, 8000, 8240, 8520],
+      "note": "Compared where all three plates are: the pack puts the podcast frame and a still behind them. The pack placed each line by hand (the right ink edges differ by 1.7 px FHD) and scaled each plate around it; the master aligns the lines by one rule (ink + mean pads), so the lines are gated one by one after registration, each within 5 px (4K) of the pack's place."
+    },
+    {
+      "name": "podcast_centre",
+      "title": "«Подкаст», «По центру», две строки «Булита»",
+      "golden": { "slug": "podcast", "compSlug": "bulit" },
+      "variant": "16x9_4K",
+      "ctrl": { "Style": 1, "Position": 3 },
+      "text": { "TXT_1": "Через несколько лет знание синтаксиса", "TXT_2": "Перестанет быть нужным", "TXT_3": "" },
+      "rect": { "x": 1150, "y": 1761, "w": 1535, "h": 186 },
+      "parts": [
+        { "name": "line1", "x": 700, "y": 1762, "w": 1800, "h": 90 },
+        { "name": "line2", "x": 1150, "y": 1857, "w": 1535, "h": 90 }
+      ],
+      "maxShift": 5,
+      "shift": [
+        { "from": 0, "to": 60, "by": -1.2 }
+      ],
+      "gate": [3000, 4000, 5000, 6000, 7000],
+      "view": [1240, 1520, 1760, 2000],
+      "note": "«Булит» starts its texts 0.12 s after the plates (the master: 0.52 s, as «Текст на плашке_1»), so only the hold is gated. Its lower plate is 104.4 % tall: the master's upper line stands 2.2 px (FHD) lower."
+    },
+    {
+      "name": "smm_9x16",
+      "title": "«SMM», «Авто» (слева), 9:16, первая фраза пакета",
+      "golden": { "slug": "smm", "compSlug": "plashki_9x16" },
+      "variant": "9x16",
+      "ctrl": { "Style": 2, "Position": 1 },
+      "text": { "TXT_1": "Разверните свой сервис", "TXT_2": "видеоконференций", "TXT_3": "" },
+      "shift": [],
+      "gate": [1520, 2000, 3000, 4000],
+      "view": [0, 240, 520, 760, 1000, 1240],
+      "note": "The pack changes the phrase at 4.40 s (D: no phrase change in the master yet); its exit is the second phrase's, so only the intro and the first hold are compared."
+    }
+  ],
+  "premiere": {
+    "_note": "The 16x9 MOGRT in Premiere against the same variant rendered in AE. B is 12 s long: its intro and exit keep master speed (exit = the last 2.96 s). C, D, E add «Позиция», «Скорость» and «Размер текста»: the centre at 1,5× and 120 %, SMM on the right with a long line at 160 % (fit to the frame), one line on the left at 2×.",
+    "variant": "16x9",
+    "clips": [
+      { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Style": 1, "Position": 1 },
+        "text": { "TXT_1": "текст появляется тут", "TXT_2": "Затем появляется тут", "TXT_3": "И тут, и так далее" } },
+      { "key": "B", "atSec": 10, "lenSec": 12, "ctrl": { "Style": 2, "Position": 1 },
+        "text": { "TXT_1": "Разверните свой сервис", "TXT_2": "видеоконференций", "TXT_3": "" } },
+      { "key": "C", "atSec": 30, "lenSec": null, "ctrl": { "Style": 1, "Position": 3, "Speed": 4, "Size": 3 },
+        "text": { "TXT_1": "Через несколько лет знание синтаксиса", "TXT_2": "перестанет быть нужным", "TXT_3": "" } },
+      { "key": "D", "atSec": 40, "lenSec": null, "ctrl": { "Style": 2, "Position": 4, "Size": 5 },
+        "text": { "TXT_1": "Ёмкое облако", "TXT_2": "для команд разработки и машинного обучения", "TXT_3": "Cloud.ru Evolution" } },
+      { "key": "E", "atSec": 50, "lenSec": null, "ctrl": { "Style": 1, "Position": 2, "Speed": 5 },
+        "text": { "TXT_1": "", "TXT_2": "Одна строка", "TXT_3": "" } }
+    ],
+    "frames": [
+      { "key": "A_intro", "clip": "A", "sec": 0.8, "master": 0.8 },
+      { "key": "A_hold", "clip": "A", "sec": 4, "master": 4 },
+      { "key": "A_exit", "clip": "A", "sec": 7.2, "master": 7.2 },
+      { "key": "B_intro", "clip": "B", "sec": 0.6, "master": 0.6 },
+      { "key": "B_hold", "clip": "B", "sec": 6, "master": 4 },
+      { "key": "B_exit", "clip": "B", "sec": 11.04, "master": 7.04 },
+      { "key": "C_intro", "clip": "C", "sec": 0.4, "master": 0.4 },
+      { "key": "C_hold", "clip": "C", "sec": 4, "master": 4 },
+      { "key": "C_exit", "clip": "C", "sec": 7.6, "master": 7.6 },
+      { "key": "D_hold", "clip": "D", "sec": 4, "master": 4 },
+      { "key": "D_exit", "clip": "D", "sec": 7.4, "master": 7.4 },
+      { "key": "E_intro", "clip": "E", "sec": 0.4, "master": 0.4 },
+      { "key": "E_hold", "clip": "E", "sec": 3, "master": 3 },
+      { "key": "E_exit", "clip": "E", "sec": 7.8, "master": 7.8 }
+    ]
+  }
+}

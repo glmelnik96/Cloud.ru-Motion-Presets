@@ -1,0 +1,310 @@
+{
+ "_note": "Ink of the plate texts, which the JSX dumps do not record: sourceRectAtTime (layer space, [left, top, width, height]) and per-line baselines [x0, y0, x1, y1] (null: an empty line). Measured live on AE 26.5 with tools/masters/jsx/text-ink.jsx on the relinked working copies C:/CRBK/packs/podcast/podcast_relinked.aep and C:/CRBK/packs/smm/smm_relinked.aep (closed without saving), 2026-10-20, at moments where every listed text is at rest.",
+ "cases": [
+  {
+   "pack": "podcast",
+   "comp": "Текст на плашке_1",
+   "t": 4,
+   "layers": {
+    "Text_1": {
+     "text": "текст появляется тут",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 100,
+     "tracking": -28,
+     "rect": [
+      -935.3434,
+      -69.2041,
+      1270.5198,
+      72.9126
+     ],
+     "lines": [
+      [
+       -937.2569,
+       2.5,
+       337.043,
+       2.5
+      ]
+     ]
+    },
+    "Text_2": {
+     "text": "Затем появляется тут",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 100,
+     "tracking": -28,
+     "rect": [
+      -944.7687,
+      -69.2041,
+      1292.895,
+      72.9126
+     ],
+     "lines": [
+      [
+       -950.2069,
+       2.5,
+       349.993,
+       2.5
+      ]
+     ]
+    },
+    "Text_3": {
+     "text": "И тут, и так далее",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 100,
+     "tracking": -28,
+     "rect": [
+      -808.8982,
+      -67.9956,
+      1020.2561,
+      87.0117
+     ],
+     "lines": [
+      [
+       -817.257,
+       2.5,
+       217.0431,
+       2.5
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "podcast",
+   "comp": "Булит",
+   "t": 4,
+   "layers": {
+    "Text_1": {
+     "text": "Через несколько лет знание синтаксиса",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 100,
+     "tracking": -28,
+     "rect": [
+      -924.4735,
+      -69.2041,
+      2425.0907,
+      72.9126
+     ],
+     "lines": [
+      [
+       -930.2139,
+       2.5,
+       1501.4861,
+       2.5
+      ]
+     ]
+    },
+    "Text_2": {
+     "text": "Перестанет быть нужным",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 100,
+     "tracking": -28,
+     "rect": [
+      -934.3551,
+      -69.2041,
+      1505.6615,
+      72.9126
+     ],
+     "lines": [
+      [
+       -942.7139,
+       2.5,
+       579.4861,
+       2.5
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "podcast",
+   "comp": "Булит_1",
+   "t": 4,
+   "layers": {
+    "Text_1": {
+     "text": "Лучший разработчик будущего",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 100,
+     "tracking": -28,
+     "rect": [
+      -925.1992,
+      -86.123,
+      1868.1586,
+      101.7151
+     ],
+     "lines": [
+      [
+       -926.3069,
+       2.5,
+       946.0931,
+       2.5
+      ]
+     ]
+    },
+    "Text_2": {
+     "text": "Это лучший пользователь ИИ",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 100,
+     "tracking": -28,
+     "rect": [
+      -931.668,
+      -86.123,
+      1752.3865,
+      89.8315
+     ],
+     "lines": [
+      [
+       -937.207,
+       2.5,
+       828.9931,
+       2.5
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "smm",
+   "comp": "Плашки_1x1",
+   "t": 1.6,
+   "layers": {
+    "Разверните свой личный": {
+     "text": "Разверните свой личный",
+     "font": "SBSansDisplay-Semibold",
+     "fontSize": 100,
+     "tracking": -50,
+     "rect": [
+      9.1644,
+      -83.4303,
+      1095.9172,
+      94.8669
+     ],
+     "lines": [
+      [
+       0,
+       -8,
+       1106.8,
+       -8
+      ]
+     ]
+    },
+    " блог на Word Press": {
+     "text": "\rблог на Word Press",
+     "font": "SBSansDisplay-Semibold",
+     "fontSize": 100,
+     "tracking": -50,
+     "rect": [
+      4.2297,
+      2.9513,
+      834.8761,
+      79.1565
+     ],
+     "lines": [
+      null,
+      [
+       0,
+       81,
+       837.9,
+       81
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "smm",
+   "comp": "Плашки_1x1",
+   "t": 5,
+   "layers": {
+    "На виртуальной машине": {
+     "text": "На виртуальной машине",
+     "font": "SBSansDisplay-Semibold",
+     "fontSize": 100,
+     "tracking": -50,
+     "rect": [
+      9.1644,
+      -83.4303,
+      1083.6066,
+      95.5719
+     ],
+     "lines": [
+      [
+       0,
+       -8,
+       1091.1,
+       -8
+      ]
+     ]
+    },
+    " Cloud.ru Evolution": {
+     "text": "\rCloud.ru Evolution",
+     "font": "SBSansDisplay-Semibold",
+     "fontSize": 100,
+     "tracking": -50,
+     "rect": [
+      4.129,
+      4.5626,
+      804.9491,
+      77.5452
+     ],
+     "lines": [
+      null,
+      [
+       0,
+       81,
+       810.1,
+       81
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "smm",
+   "comp": "Плашки_9x16",
+   "t": 3,
+   "layers": {
+    "Разверните свой сервис 2": {
+     "text": "Разверните свой сервис",
+     "font": "SBSansDisplay-Semibold",
+     "fontSize": 100,
+     "tracking": -50,
+     "rect": [
+      9.1644,
+      -83.4303,
+      1062.3677,
+      94.8669
+     ],
+     "lines": [
+      [
+       0,
+       -8,
+       1069.8,
+       -8
+      ]
+     ]
+    },
+    " видеоконференций 2": {
+     "text": "\rвидеоконференций",
+     "font": "SBSansDisplay-Semibold",
+     "fontSize": 100,
+     "tracking": -50,
+     "rect": [
+      7.1503,
+      5.469,
+      866.3314,
+      94.9677
+     ],
+     "lines": [
+      null,
+      [
+       0,
+       81,
+       875.2,
+       81
+      ]
+     ]
+    }
+   }
+  }
+ ]
+}

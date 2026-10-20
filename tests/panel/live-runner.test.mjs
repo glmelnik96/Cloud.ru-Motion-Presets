@@ -105,7 +105,8 @@ describe('live plan', () => {
   it('gives every variant of the host a case, with values that differ from the defaults', () => {
     const cases = variantCases(catalog(), 'pr');
     expect(cases.map((c) => c.key)).toContain('TTL_LowerThird_1x1');
-    expect(cases).toHaveLength(10);
+    expect(cases.map((c) => c.key)).toContain('TTL_Plate_9x16');
+    expect(cases).toHaveLength(14);
     const v = sampleValues(item('TTL_LowerThird'));
     expect(v).toMatchObject({ name: 'Анна-Мария Ёлкина', style: 3, side: 2, speed: 2, size: 2 });
     expect(sampleValues(item('LOGO_Mark')).plate).toBe(false);
