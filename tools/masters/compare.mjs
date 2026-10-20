@@ -2,7 +2,8 @@
 // Golden comparison of a packaged master (spec §4.4 step 6): for every case of masters/<id>/ref.json the
 // variant is rendered in AE with the case's control values at the golden moments (shifted where the
 // master's timing differs), then compared with the pack's golden PNGs: SSIM over black and white plus
-// alpha (tools/qa/ssim.mjs), and a golden | master | diff picture for the eye.
+// alpha (tools/qa/ssim.mjs), and a golden | master | diff picture for the eye. A case with parts (lines the
+// pack placed by hand) is gated part by part after registering each one, its placement by maxShift.
 //   node tools/masters/compare.mjs --item LOGO_Shot [--case egr] [--no-render]
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -16,7 +17,7 @@ import { sideBySide } from '../qa/side-by-side.mjs';
 import { registerWindow, sampleWindow } from '../qa/register.mjs';
 import { readPng } from '../png/read-png.mjs';
 import { loadMaster, printChecks } from './build-master.mjs';
-import { packagePaths, variantPlan } from './package.mjs';
+import { packagePaths, variantPlan, withDefaults } from './package.mjs';
 
 // Golden time -> master time, piecewise: in a segment, master = from + by + (t - from) * scale (scale 1 when
 // absent: a plain shift; 0: a pause of the pack that the master does not have).
@@ -38,8 +39,9 @@ async function renderCase(params, c, frames) {
   const { aep } = packagePaths(params);
   for (const f of frames) rmSync(f.file, { force: true });
   const since = Date.now();
+  const set = withDefaults(params, c.ctrl, c.text);
   const body = composeProbe(['spikes/lib/ae-project.jsx', 'tools/masters/jsx/render-case.jsx'], {
-    workDir: params.workDir, aep, comp: v.comp, ctrl: c.ctrl, text: c.text || {}, frames: frames.map((f) => ({ t: f.t, file: f.file })),
+    workDir: params.workDir, aep, comp: v.comp, ctrl: set.ctrl, text: set.text, frames: frames.map((f) => ({ t: f.t, file: f.file })),
   });
   const r = await run('ae', body, { timeoutMs: 300000 });
   if (printChecks(r.checks, () => {})) throw new Error(`${c.name}: render call failed: ${JSON.stringify(r.checks).slice(0, 400)}`);
@@ -55,6 +57,26 @@ async function closeProject(params) {
 
 export function judge(result, min) {
   return result.ssim >= min;
+}
+
+const r1 = (v) => Math.round(v * 10) / 10;
+
+// Parts of a case that the pack placed by hand (lines of text): each part of the golden is registered in
+// the master frame once, on the first gate frame (whole pixels within search, then tenths), and compared at
+// that place in every frame of the case. The look is gated there, the placement by maxShift (frame px).
+export function registerParts(golden, master, parts, { search = 6 } = {}) {
+  return parts.map((p) => {
+    const reg = registerWindow(sampleWindow(golden, p.x, p.y, p.w, p.h), master, { offset: [p.x, p.y], search: p.search || search });
+    return { ...p, origin: reg.origin, shift: [r1(reg.origin[0] - p.x), r1(reg.origin[1] - p.y)] };
+  });
+}
+
+export function compareParts(golden, master, placed, { min, maxShift }) {
+  return placed.map((p) => {
+    const res = compareFrames(sampleWindow(golden, p.x, p.y, p.w, p.h), sampleWindow(master, p.origin[0], p.origin[1], p.w, p.h));
+    const placedOk = Math.hypot(p.shift[0], p.shift[1]) <= (p.maxShift === undefined ? maxShift : p.maxShift);
+    return { name: p.name, shift: p.shift, ssim: res.ssim, pass: res.ssim >= min && placedOk };
+  });
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
@@ -92,22 +114,33 @@ if (isMain) {
         origin = reg.origin;
         console.log(`${c.name}: window origin ${origin.join(', ')} (predicted ${c.crop.offset.join(', ')}, coarse ${reg.coarse.join(', ')}, MAD ${reg.mad.toFixed(2)})`);
       }
-      for (const f of frames) {
-        const golden = workPath('golden', c.golden.slug, c.golden.compSlug, `t${f.ms}.png`);
-        if (!existsSync(golden)) { rows.push({ ms: f.ms, error: 'no golden ' + golden }); continue; }
-        const g0 = goldenPart(readPng(golden));
+      const goldenFile = (ms) => workPath('golden', c.golden.slug, c.golden.compSlug, `t${ms}.png`);
+      const pair = (f) => {
+        const g0 = goldenPart(readPng(goldenFile(f.ms)));
         const g = c.remap ? remapColours(g0, { ...c.remap, rect: c.remap.rect || c.rect }) : g0;
-        const m = origin ? sampleWindow(readPng(f.file), origin[0], origin[1], g.width, g.height) : readPng(f.file);
+        return { g, m: origin ? sampleWindow(readPng(f.file), origin[0], origin[1], g.width, g.height) : readPng(f.file) };
+      };
+      let parts = null;
+      if (c.parts) {
+        const { g, m } = pair(frames.find((f) => f.gate) || frames[0]);
+        parts = registerParts(g, m, c.parts);
+        for (const p of parts) console.log(`${c.name}: part ${p.name} stands ${p.shift.join(', ')} px from the pack's`);
+      }
+      for (const f of frames) {
+        if (!existsSync(goldenFile(f.ms))) { rows.push({ ms: f.ms, error: 'no golden ' + goldenFile(f.ms) }); continue; }
+        const { g, m } = pair(f);
         const res = compareFrames(g, m, { masks: c.masks || [], rect: c.rect });
         sideBySide(g, m, path.posix.join(dir, `cmp_t${f.ms}.png`), { rect: res.rect });
-        const pass = f.gate ? judge(res, min) : null;
+        const pr = parts ? compareParts(g, m, parts, { min, maxShift: c.maxShift === undefined ? 4 : c.maxShift }) : null;
+        const pass = f.gate ? (pr ? pr.every((x) => x.pass) : judge(res, min)) : null;
         if (pass === false) failed += 1;
-        rows.push({ ms: f.ms, t: f.t, gate: f.gate, pass, ssim: res.ssim, luma: res.luma, alpha: res.alpha, rect: res.rect,
+        rows.push({ ms: f.ms, t: f.t, gate: f.gate, pass, ssim: res.ssim, luma: res.luma, alpha: res.alpha, rect: res.rect, parts: pr,
           worst: res.over.map((o) => ({ backdrop: o.backdrop, ssim: o.ssim, worst: o.worst.slice(0, 2) })) });
         console.log(`${c.name} t${f.ms} (master ${f.t}s) ssim ${res.ssim.toFixed(4)} luma ${res.luma.toFixed(4)} alpha ${res.alpha.toFixed(4)}` +
-          (f.gate ? (pass ? '  PASS' : '  FAIL') : '  view'));
+          (pr ? `; by part ${pr.map((x) => `${x.name} ${x.ssim.toFixed(4)}`).join(', ')}` : '') + (f.gate ? (pass ? '  PASS' : '  FAIL') : '  view'));
       }
-      report.cases.push({ name: c.name, title: c.title, golden: c.golden, ctrl: c.ctrl, text: c.text, origin, rows });
+      report.cases.push({ name: c.name, title: c.title, golden: c.golden, ctrl: c.ctrl, text: c.text, origin,
+        parts: parts && parts.map((p) => ({ name: p.name, rect: [p.x, p.y, p.w, p.h], shift: p.shift })), rows });
     }
   } finally {
     if (!argv.includes('--no-render')) await closeProject(params).catch((e) => console.error('close: ' + e.message));

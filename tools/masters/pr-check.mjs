@@ -18,7 +18,7 @@ import { deltaE2000, rgbToXyz, xyzToLab } from '../color/deltae.mjs';
 import { compareFrames } from '../qa/ssim.mjs';
 import { sideBySide } from '../qa/side-by-side.mjs';
 import { loadMaster, printChecks } from './build-master.mjs';
-import { packagePaths, variantPlan } from './package.mjs';
+import { packagePaths, variantPlan, withDefaults } from './package.mjs';
 
 export const PR_PROJECT = () => workPath('pr', 'CRT_masters.prproj');
 
@@ -61,6 +61,18 @@ async function aeClose(params) {
   const body = composeProbe(['spikes/lib/ae-project.jsx'], { workDir: params.workDir }) +
     '\nJSON.stringify({ checks: [], released: bkReleaseProject() });';
   return run('ae', body, { timeoutMs: 120000 });
+}
+
+// AE's saveFrameToPng writes colour premultiplied by alpha (matted with black), Premiere's frame export writes
+// it straight (TTL_Plate, 2026-10-20: plate edges on a transparent comp, alpha equal, colour x alpha in AE).
+// AE frames are unmatted before they are compared with Premiere's.
+export function unmatte(img) {
+  const d = Buffer.from(img.data);
+  for (let i = 0; i < d.length; i += 4) {
+    const a = d[i + 3];
+    if (a > 0 && a < 255) for (let c = 0; c < 3; c += 1) d[i + c] = Math.min(255, Math.round((d[i + c] * 255) / a));
+  }
+  return { ...img, data: d };
 }
 
 // Brand colour areas: the green of the logo cube, found in the AE frame and measured in both, on a solid
@@ -120,11 +132,12 @@ if (isMain) {
     await waitForStableFiles(plan.frames.map((f) => path.posix.join(dir, 'pr_' + f.key + '.png')), { timeoutMs: 120000 });
     for (const c of plan.clips) {
       const frames = plan.frames.filter((f) => f.clip === c.key).map((f) => ({ t: f.master, file: path.posix.join(dir, 'ae_' + f.key + '.png') }));
-      await aeRender(params, plan.variant, c.ctrl, frames, c.text);
+      const set = withDefaults(params, c.ctrl, c.text);
+      await aeRender(params, plan.variant, set.ctrl, frames, set.text);
     }
     for (const f of plan.frames) {
       const pr = readPng(path.posix.join(dir, 'pr_' + f.key + '.png'));
-      const ae = readPng(path.posix.join(dir, 'ae_' + f.key + '.png'));
+      const ae = unmatte(readPng(path.posix.join(dir, 'ae_' + f.key + '.png')));
       const cmp = compareFrames(ae, pr, { backdrops: [[0, 0, 0]], alpha: false });
       sideBySide(ae, pr, path.posix.join(dir, 'cmp_' + f.key + '.png'), { rect: cmp.rect, backdrop: [0, 0, 0] });
       const col = colourChecks(ae, pr, '#26D07C', tokens.qa.deltaE2000Max);

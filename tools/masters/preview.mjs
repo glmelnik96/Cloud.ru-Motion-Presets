@@ -25,7 +25,7 @@ import { run } from '../host-run.mjs';
 import { composeProbe, REPO } from '../spike/runner.mjs';
 import { waitForStableFiles } from '../golden/png.mjs';
 import { loadMaster, printChecks } from './build-master.mjs';
-import { packagePaths, variantPlan } from './package.mjs';
+import { packagePaths, variantPlan, withDefaults } from './package.mjs';
 import { parsePreviewName, previewName } from '../library/preview-names.mjs';
 
 export { parsePreviewName, previewName };
@@ -164,8 +164,9 @@ if (isMain) {
       if (!argv.includes('--no-render')) {
         rmSync(dir, { recursive: true, force: true });
         mkdirSync(dir, { recursive: true });
+        const set = withDefaults(params, c.ctrl, spec.text);
         const body = composeProbe(['spikes/lib/ae-project.jsx', 'tools/masters/jsx/render-case.jsx'], {
-          workDir: params.workDir, aep: packagePaths(params).aep, comp: c.variant.comp, ctrl: c.ctrl, text: spec.text, frames: frames.map((f) => ({ t: f.t, file: f.file })),
+          workDir: params.workDir, aep: packagePaths(params).aep, comp: c.variant.comp, ctrl: set.ctrl, text: set.text, frames: frames.map((f) => ({ t: f.t, file: f.file })),
         });
         const r = await run('ae', body, { timeoutMs: 600000 });
         if (printChecks(r.checks)) throw new Error(`render call failed (${c.name ?? 'default'})`);

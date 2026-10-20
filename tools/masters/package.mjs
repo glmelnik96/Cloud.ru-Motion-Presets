@@ -32,6 +32,17 @@ export function egpLabels(params) {
   });
 }
 
+// Control values and texts of one render: the template's defaults under the case's own. Premiere starts every
+// clip at the defaults, while the AE project stays open between renders and would keep what the previous
+// case set (TTL_Plate, 2026-10-20: a clip without «Размер текста» rendered at the previous clip's 160 %).
+export function withDefaults(params, ctrl = {}, text = {}) {
+  const c = {};
+  for (const [k, spec] of Object.entries(params.ctrl || {})) if (spec && spec.value !== undefined) c[k] = spec.value;
+  const t = {};
+  for (const [k, spec] of Object.entries(params.text || {})) if (spec && typeof spec.value === 'string') t[k] = spec.value;
+  return { ctrl: { ...c, ...ctrl }, text: { ...t, ...text } };
+}
+
 export function packagePaths(params) {
   return {
     aep: path.posix.join(params.out.dir, `${params.id}_v${params.version}.aep`),
