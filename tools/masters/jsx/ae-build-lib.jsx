@@ -291,6 +291,15 @@ function bdAnimatorPosition(L, name) {
   return bdAnimator(L, name).property('ADBE Text Animator Properties').property('ADBE Text Position 3D');
 }
 
+// AE 26.5 returns an animator property before it is added, hidden (setValue then fails): add it first.
+function bdAnimatorProp(L, name, matchName) {
+  var props = bdAnimator(L, name).property('ADBE Text Animator Properties');
+  if (props.canAddProperty(matchName)) {
+    props.addProperty(matchName);
+  }
+  return bdAnimator(L, name).property('ADBE Text Animator Properties').property(matchName);
+}
+
 function bdRangeSelector(L, name, basedOn) {
   var sels = bdAnimator(L, name).property('ADBE Text Selectors');
   if (sels.numProperties === 0) {

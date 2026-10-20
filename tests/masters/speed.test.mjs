@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { mapTime, regions, SPEED_CTRL, SPEEDS, timeMapJs } from '../../tools/masters/speed.mjs';
+import { liveTime, liveTimeJs, mapTime, regions, SPEED_CTRL, SPEEDS, timeMapJs } from '../../tools/masters/speed.mjs';
 
 const LOGO = { introEnd: 2.12, outroStart: 3.96, duration: 5 };
 
@@ -29,5 +29,21 @@ describe('speed', () => {
       for (const t of [0, 0.5, 1.2, 2.5, 3.7, 4.4, 5]) expect(T(comp, i + 1)(t)).toBeCloseTo(mapTime(t, { ...LOGO, speed: s }), 9);
     }
     expect(SPEED_CTRL.items[SPEED_CTRL.value - 1]).toBe('1×');
+  });
+
+  it('without an outro: only the «in» region, the hold to the end; live time runs on after the intro', () => {
+    const CARD = { introEnd: 1.44, outroStart: null, duration: 10 };
+    expect(mapTime(9.9, { ...CARD, speed: 2 })).toBe(1.44);
+    const r = regions({ ...CARD, fps: 25 });
+    expect(r.markers).toEqual([{ comment: 'in', time: 0, duration: 1.92 }]);
+    expect(r.duration).toEqual({ introSec: 1.92, holdSec: 8.08, outroSec: 0 });
+    const js = timeMapJs(CARD);
+    expect(js).not.toContain('D - t');
+    expect(liveTime(0.5, { introEnd: 1.44, speed: 2 })).toBe(1);
+    expect(liveTime(1.72, { introEnd: 1.44, speed: 2 })).toBeCloseTo(2.44, 9);
+    const TL = new Function('thisComp', 'speedIndex', `${liveTimeJs(CARD).replace('thisComp.layer("CTRL").effect("Speed")(1).value', 'speedIndex')}; return TL;`);
+    for (const [i, s] of SPEEDS.entries()) {
+      for (const t of [0, 0.4, 1.3, 2, 9.96]) expect(TL({}, i + 1)(t)).toBeCloseTo(liveTime(t, { introEnd: 1.44, speed: s }), 9);
+    }
   });
 });

@@ -11,7 +11,10 @@ export function keyedValue(keys, t) {
   for (let i = 0; i < keys.length - 1; i += 1) {
     const a = keys[i];
     const b = keys[i + 1];
-    if (t >= a.t && t <= b.t) return a.v + (b.v - a.v) * easedProgress((t - a.t) / (b.t - a.t), a.outEase[0][1], b.inEase[0][1]);
+    if (t >= a.t && t <= b.t) {
+      const u = (t - a.t) / (b.t - a.t);
+      return a.v + (b.v - a.v) * (a.outType === 'LINEAR' && b.inType === 'LINEAR' ? u : easedProgress(u, a.outEase[0][1], b.inEase[0][1]));
+    }
   }
   return last.v;
 }

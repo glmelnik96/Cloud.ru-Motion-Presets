@@ -40,7 +40,171 @@ function sbProp(layerName, path) {
   if (kind === 'effect') {
     return bkEffect(L, path[1], path[2]).property(path[3]);
   }
+  if (kind === 'timeRemap') {
+    return L.property('ADBE Time Remapping');
+  }
   throw new Error('BK_PATH: ' + path.join('/'));
+}
+
+// ---- Transplant: layers of a pack comp moved over exactly as the pack has them (PARAMS.spec.transplant) ----
+// The relinked working copy is imported into the new project; the source comp is duplicated once per target
+// comp and keeps only the listed layers (pack layer indices, names checked); the comps and solids they use
+// move to one folder; the rest of the import is removed. The working copy itself is only read.
+
+function sbFolderItems(folder, out) {
+  for (var i = 1; i <= folder.numItems; i++) {
+    var it = folder.item(i);
+    out.push(it);
+    if (it instanceof FolderItem) {
+      sbFolderItems(it, out);
+    }
+  }
+  return out;
+}
+
+// The items a comp needs, nested comps followed (null layers use a solid too).
+function sbUses(comp, seen, out) {
+  for (var i = 1; i <= comp.numLayers; i++) {
+    var src = null;
+    try {
+      src = comp.layer(i).source;
+    } catch (e) {
+      src = null;
+    }
+    if (src && !seen[src.id]) {
+      seen[src.id] = true;
+      out.push(src);
+      if (src instanceof CompItem) {
+        sbUses(src, seen, out);
+      }
+    }
+  }
+  return out;
+}
+
+// A longer comp: layers that ran to its end run to the new end (a precomp layer only as far as its source).
+function sbExtend(comp, d) {
+  var old = comp.duration;
+  comp.duration = d;
+  for (var i = 1; i <= comp.numLayers; i++) {
+    var L = comp.layer(i);
+    if (Math.abs(L.outPoint - old) < 1e-6) {
+      L.outPoint = d;
+    }
+  }
+  return comp.name + ' ' + old + ' -> ' + comp.duration + ' s';
+}
+
+function sbLayerNames(comp) {
+  var names = [];
+  for (var i = 1; i <= comp.numLayers; i++) {
+    names.push(comp.layer(i).name);
+  }
+  return names;
+}
+
+function sbTransplant(tp) {
+  var i, j, c, it;
+  var f = new File(tp.aep);
+  if (!f.exists) {
+    throw new Error('BK_NO_FILE: ' + tp.aep);
+  }
+  var opts = new ImportOptions(f);
+  opts.importAs = ImportAsType.PROJECT;
+  var root = bkQuiet(function () {
+    return app.project.importFile(opts);
+  });
+  if (!(root instanceof FolderItem)) {
+    throw new Error('BK_IMPORT: ' + tp.aep);
+  }
+  var all = sbFolderItems(root, []);
+  var hits = [];
+  for (i = 0; i < all.length; i++) {
+    it = all[i];
+    if (it instanceof CompItem && it.name === tp.source.name && it.width === tp.source.w && it.height === tp.source.h &&
+      it.numLayers === tp.source.layers) {
+      hits.push(it);
+    }
+  }
+  if (hits.length !== 1) {
+    throw new Error('BK_TRANSPLANT_SOURCE: ' + tp.source.name + ' x' + hits.length);
+  }
+  var src = hits[0];
+  var made = [];
+  for (i = 0; i < tp.comps.length; i++) {
+    c = tp.comps[i];
+    var keep = {};
+    for (j = 0; j < c.keep.length; j++) {
+      if (src.layer(c.keep[j].index).name !== c.keep[j].name) {
+        throw new Error('BK_TRANSPLANT_LAYER: ' + src.name + ' #' + c.keep[j].index + ' is ' + src.layer(c.keep[j].index).name);
+      }
+      keep[c.keep[j].index] = true;
+    }
+    var dup = src.duplicate();
+    dup.name = c.name;
+    for (j = dup.numLayers; j >= 1; j--) {
+      if (!keep[j]) {
+        dup.layer(j).remove();
+      }
+    }
+    while (dup.markerProperty.numKeys > 0) {
+      dup.markerProperty.removeKey(1);
+    }
+    dup.motionBlur = false;
+    SB.decor[c.name] = dup;
+    made.push(dup);
+  }
+  // the comps they use: nested comps first get longer, then the targets (a precomp layer stops at its source)
+  var seen = {};
+  var uses = [];
+  for (i = 0; i < made.length; i++) {
+    sbUses(made[i], seen, uses);
+  }
+  var log = [];
+  var ext = tp.extend || [];
+  for (i = 0; i < ext.length; i++) {
+    var hit = null;
+    for (j = 0; j < uses.length; j++) {
+      if (uses[j] instanceof CompItem && uses[j].name === ext[i].comp) {
+        if (hit) {
+          throw new Error('BK_TRANSPLANT_EXTEND: two comps named ' + ext[i].comp);
+        }
+        hit = uses[j];
+      }
+    }
+    if (!hit) {
+      throw new Error('BK_TRANSPLANT_EXTEND: no comp ' + ext[i].comp);
+    }
+    log.push(sbExtend(hit, ext[i].duration));
+  }
+  for (i = 0; i < tp.comps.length; i++) {
+    if (tp.comps[i].duration) {
+      log.push(sbExtend(made[i], tp.comps[i].duration));
+    }
+  }
+  var folder = app.project.items.addFolder(tp.folder);
+  for (i = 0; i < made.length; i++) {
+    made[i].parentFolder = folder;
+  }
+  for (i = 0; i < uses.length; i++) {
+    uses[i].parentFolder = folder;
+  }
+  root.remove();
+  var out = { comps: [], uses: [], extended: log, items: app.project.numItems };
+  var ok = true;
+  for (i = 0; i < made.length; i++) {
+    var names = sbLayerNames(made[i]);
+    var want = [];
+    for (j = 0; j < tp.comps[i].keep.length; j++) {
+      want.push(tp.comps[i].keep[j].name);
+    }
+    ok = ok && names.join('|') === want.join('|');
+    out.comps.push({ name: made[i].name, size: made[i].width + 'x' + made[i].height, duration: made[i].duration, renderer: made[i].renderer, layers: names });
+  }
+  for (i = 0; i < uses.length; i++) {
+    out.uses.push(uses[i].name + (uses[i] instanceof CompItem ? ' (comp ' + uses[i].duration + ' s)' : ''));
+  }
+  return { pass: ok && app.project.expressionEngine === 'javascript-1.0', detail: out };
 }
 
 function sbMakeLayer(spec) {
@@ -83,8 +247,23 @@ function sbMakeLayer(spec) {
     for (i = 0; i < anims.length; i++) {
       bdAddAnimator(L, anims[i].name);
       bdAnimatorPosition(L, anims[i].name);
+      if (anims[i].opacity !== undefined) {
+        bdAnimatorProp(L, anims[i].name, 'ADBE Text Opacity').setValue(anims[i].opacity);
+      }
       bdRangeSelector(L, anims[i].name, anims[i].basedOn);
     }
+  } else if (spec.type === 'precomp') {
+    var source = SB.decor[spec.source];
+    if (!source) {
+      throw new Error('BK_NO_DECOR: ' + spec.source);
+    }
+    L = SB.comp.layers.add(source);
+    L.name = spec.name;
+    if (spec.timeRemap) {
+      L.timeRemapEnabled = true;
+    }
+    bdSpan(L, SB.comp.duration);
+    L.collapseTransformation = false;
   } else {
     throw new Error('BK_LAYER_TYPE: ' + spec.type);
   }
@@ -151,6 +330,16 @@ sbStep('comp ' + PARAMS.spec.comp.name, true, function () {
   bdClassic3d(SB.comp);
   return { pass: SB.comp.frameRate === c.fps && Math.abs(SB.comp.duration - c.duration) < 1e-6, detail: SB.comp.width + 'x' + SB.comp.height + ' ' + c.duration + ' s' };
 });
+
+SB.decor = {};
+if (PARAMS.spec.transplant) {
+  sbStep('transplant: ' + PARAMS.spec.transplant.source.name + ' -> ' + PARAMS.spec.transplant.comps.length + ' comps', true, function () {
+    return sbTransplant(PARAMS.spec.transplant);
+  });
+  sbStep('project colour after the import: 8 bpc, no working space, no linearization', true, function () {
+    return bdProjectColour();
+  });
+}
 
 sbStep('layers (' + PARAMS.spec.layers.length + ')', true, function () {
   var made = [];

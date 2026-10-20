@@ -1,6 +1,6 @@
 // Helpers that write the declarative layer spec read by tools/masters/jsx/build-spec.jsx.
 // Paths: ['transform', mn] | ['group', g, item, mn] | ['text'] | ['animator', a, mn] | ['selector', a, mn]
-// | ['effect', name, effectMatchName, param].
+// | ['effect', name, effectMatchName, param] | ['timeRemap'].
 export const P = {
   pos: ['transform', 'ADBE Position'],
   scale: ['transform', 'ADBE Scale'],
@@ -13,6 +13,7 @@ export const P = {
   rise: (a = 'Rise') => ['animator', a, 'ADBE Text Position 3D'],
   start: (a = 'Rise') => ['selector', a, 'ADBE Text Percent Start'],
   slider: (name) => ['effect', name, 'ADBE Slider Control', 1],
+  timeRemap: ['timeRemap'],
 };
 
 export const shape = (name, groups, extra = {}) => ({ name, type: 'shape', groups, ...extra });
@@ -20,6 +21,8 @@ export const rectGroup = (name, fill) => ({ name, rect: true, fill });
 export const pathGroup = (name, fill, paths, position) => ({ name, fill, paths, position });
 export const text = (name, t, animators = [{ name: 'Rise', basedOn: 3 }]) => ({ name, type: 'text', text: t, animators });
 export const nul = (name, effects, extra = {}) => ({ name, type: 'null', effects, ...extra });
+// a layer of a comp the builder made from spec.transplant (by name); timeRemap: switched on for an expression
+export const precomp = (name, source, extra = {}) => ({ name, type: 'precomp', source, ...extra });
 
 export class Spec {
   constructor(comp) {

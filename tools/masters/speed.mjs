@@ -11,14 +11,14 @@ export const SPEED_CTRL = { label: 'Скорость', items: SPEED_ITEMS, value
 const r6 = (v) => Math.round(v * 1e6) / 1e6;
 
 // Expression code that defines SPEED and T(t) for a master whose intro ends at I and outro starts at O
-// (rig times, seconds). Valid in both expression engines (ES3 syntax).
+// (rig times, seconds); O null: no outro, the hold lasts to the end. Valid in both expression engines (ES3).
 export function timeMapJs({ introEnd: I, outroStart: O }) {
   return [
     `var SPEED = [${SPEEDS.join(', ')}][thisComp.layer("CTRL").effect("Speed")(1).value - 1] || 1;`,
     'function T(t) {',
     '  var D = thisComp.duration;',
     `  if (t <= ${I} / SPEED) { return t * SPEED; }`,
-    `  if (t >= D - (D - ${O}) / SPEED) { return D - (D - t) * SPEED; }`,
+    ...(O === null ? [] : [`  if (t >= D - (D - ${O}) / SPEED) { return D - (D - t) * SPEED; }`]),
     `  return ${I};`,
     '}',
   ].join('\n') + '\n';
@@ -27,22 +27,36 @@ export function timeMapJs({ introEnd: I, outroStart: O }) {
 // Node twin of the expression, for tests and for picking review frames.
 export function mapTime(t, { introEnd: I, outroStart: O, duration: D, speed: s }) {
   if (t <= I / s) return t * s;
-  if (t >= D - (D - O) / s) return D - (D - t) * s;
+  if (O !== null && t >= D - (D - O) / s) return D - (D - t) * s;
   return I;
 }
 
-// Protected regions and library durations for the slowest speed, on the frame grid.
+// The time of layers that keep moving in the hold (a pack's decoration moved over as it is, its globe
+// turning): the intro at the chosen speed, then real time on from I. Defines SPEED and TL(t).
+export function liveTimeJs({ introEnd: I }) {
+  return [
+    `var SPEED = [${SPEEDS.join(', ')}][thisComp.layer("CTRL").effect("Speed")(1).value - 1] || 1;`,
+    `function TL(t) { return t <= ${I} / SPEED ? t * SPEED : ${I} + (t - ${I} / SPEED); }`,
+  ].join('\n') + '\n';
+}
+
+export function liveTime(t, { introEnd: I, speed: s }) {
+  return t <= I / s ? t * s : I + (t - I / s);
+}
+
+// Protected regions and library durations for the slowest speed, on the frame grid. Without an outro
+// (outroStart null) there is only the «in» region and the hold runs to the end.
 export function regions({ introEnd, outroStart, duration, fps }) {
   const slow = Math.min(...SPEEDS);
   const inEnd = Math.ceil(r6((introEnd / slow) * fps)) / fps;
-  const outStart = Math.floor(r6((duration - (duration - outroStart) / slow) * fps)) / fps;
+  const outStart = outroStart === null ? duration : Math.floor(r6((duration - (duration - outroStart) / slow) * fps)) / fps;
   if (!(inEnd < outStart)) {
     throw new Error(`speed: at ${slow}x the intro (to ${inEnd} s) runs into the outro (from ${outStart} s); lengthen the master`);
   }
   return {
     markers: [
       { comment: 'in', time: 0, duration: r6(inEnd) },
-      { comment: 'out', time: r6(outStart), duration: r6(duration - outStart) },
+      ...(outroStart === null ? [] : [{ comment: 'out', time: r6(outStart), duration: r6(duration - outStart) }]),
     ],
     duration: { introSec: r6(inEnd), holdSec: r6(outStart - inEnd), outroSec: r6(duration - outStart) },
   };
