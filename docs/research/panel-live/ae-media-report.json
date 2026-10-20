@@ -1,10 +1,10 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-06T21:22:22.190Z",
-  "finishedAt": "2026-10-06T21:22:29.895Z",
+  "startedAt": "2026-10-20T09:45:41.519Z",
+  "finishedAt": "2026-10-20T09:45:48.496Z",
   "summary": {
-    "checks": 211,
-    "passed": 211,
+    "checks": 219,
+    "passed": 219,
     "failed": 0
   },
   "failed": [],
@@ -30,7 +30,7 @@
         "data": {
           "app": "ae",
           "version": "26.5x89",
-          "bk": "0.1.18"
+          "bk": "0.1.20"
         }
       }
     },
@@ -2277,7 +2277,7 @@
       "detail": "C:\\CRBK\\work\\panel-live\\ae\\media_live.aep"
     },
     {
-      "name": "transfer: copied the project and Cloud.ru BrandKit to C:/CRBK/work/panel-live/ae-moved-20261006T212226",
+      "name": "transfer: copied the project and Cloud.ru BrandKit to C:/CRBK/work/panel-live/ae-moved-20261020T094545",
       "pass": true,
       "required": true,
       "detail": [
@@ -2300,11 +2300,11 @@
       }
     },
     {
-      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/ae-moved-20261006T212226/media_live.aep",
+      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/ae-moved-20261020T094545/media_live.aep",
       "pass": true,
       "required": true,
       "detail": {
-        "path": "C:/CRBK/work/panel-live/ae-moved-20261006T212226/media_live.aep",
+        "path": "C:/CRBK/work/panel-live/ae-moved-20261020T094545/media_live.aep",
         "footage": 6
       }
     },
@@ -3610,6 +3610,234 @@
       "pass": true,
       "required": false,
       "detail": ""
+    },
+    {
+      "name": "ease: setup: scratch project created and saved in the work folder",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "comps": 1,
+        "path": "C:\\CRBK\\work\\panel-live\\ae\\ease_live.aep"
+      }
+    },
+    {
+      "name": "ease: keys selected: comp 1: BK Ease with keys selected",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "selected": 2,
+        "posKeys": 2,
+        "scaleKeys": 2
+      }
+    },
+    {
+      "name": "ease: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "ease: set on Position and Scale, one pair each",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "props": [
+            {
+              "name": "Scale",
+              "layer": "BK Ease",
+              "pairs": 1
+            },
+            {
+              "name": "Position",
+              "layer": "BK Ease",
+              "pairs": 1
+            }
+          ],
+          "single": []
+        }
+      }
+    },
+    {
+      "name": "ease: read back: eases of BK Ease read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "ease: Position key 1 out 67 %, key 2 in 89 %, speed 0, Bezier",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "inEase": [
+            {
+              "speed": 0,
+              "influence": 16.667
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 0,
+              "influence": 67
+            }
+          ],
+          "out": "bezier"
+        },
+        {
+          "inEase": [
+            {
+              "speed": 0,
+              "influence": 89
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 450,
+              "influence": 16.667
+            }
+          ],
+          "out": "bezier"
+        },
+        {
+          "inEase": [
+            {
+              "speed": 450,
+              "influence": 16.667
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 0,
+              "influence": 16.667
+            }
+          ],
+          "out": "other"
+        }
+      ]
+    },
+    {
+      "name": "ease: the third Position key and the out side of the second are not touched",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "inEase": [
+            {
+              "speed": 0,
+              "influence": 16.667
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 0,
+              "influence": 67
+            }
+          ],
+          "out": "bezier"
+        },
+        {
+          "inEase": [
+            {
+              "speed": 0,
+              "influence": 89
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 450,
+              "influence": 16.667
+            }
+          ],
+          "out": "bezier"
+        },
+        {
+          "inEase": [
+            {
+              "speed": 450,
+              "influence": 16.667
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 0,
+              "influence": 16.667
+            }
+          ],
+          "out": "other"
+        }
+      ]
+    },
+    {
+      "name": "ease: Scale has the curve in every dimension",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "inEase": [
+            {
+              "speed": 0,
+              "influence": 16.667
+            },
+            {
+              "speed": 0,
+              "influence": 16.667
+            },
+            {
+              "speed": 0,
+              "influence": 16.667
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 0,
+              "influence": 67
+            },
+            {
+              "speed": 0,
+              "influence": 67
+            },
+            {
+              "speed": 0,
+              "influence": 67
+            }
+          ],
+          "out": "bezier"
+        },
+        {
+          "inEase": [
+            {
+              "speed": 0,
+              "influence": 89
+            },
+            {
+              "speed": 0,
+              "influence": 89
+            },
+            {
+              "speed": 0,
+              "influence": 89
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 0,
+              "influence": 16.667
+            },
+            {
+              "speed": 0,
+              "influence": 16.667
+            },
+            {
+              "speed": 0,
+              "influence": 16.667
+            }
+          ],
+          "out": "bezier"
+        }
+      ]
     }
   ],
   "hostVersion": "26.5x89",

@@ -1,6 +1,6 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-06T21:22:53.377Z",
+  "startedAt": "2026-10-20T09:34:34.170Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -30,7 +30,7 @@
     {
       "name": "status line shows the host, the panel and the library",
       "pass": true,
-      "detail": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.18 · библиотека 2026.10.06Скопировать диагностику"
+      "detail": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.20 · библиотека 2026.10.20Скопировать диагностику"
     },
     {
       "name": "card previews: H.264 is playable in the panel",
@@ -103,12 +103,32 @@
       }
     },
     {
-      "name": "tabs: Каталог, Цвета, Экспорт",
+      "name": "tabs: Каталог, Цвета, Движение, Экспорт",
       "pass": true,
       "detail": [
         "Каталог",
         "Цвета",
+        "Движение",
         "Экспорт"
+      ]
+    },
+    {
+      "name": "motion: the brand curves by type",
+      "pass": true,
+      "detail": [
+        "Плашка по X (M1): титры",
+        "Плашка по X (M1): подкаст",
+        "Плашка по X (M1): SMM",
+        "Плашка по X (M1): логошоты",
+        "Подъём текста (M2): подкаст",
+        "Подъём текста (M2): SMM, плашки",
+        "Подъём текста (M2): SMM, интро",
+        "Подъём текста (M2): курсы",
+        "Подъём строк (M3)",
+        "Вскрытие маской (M4)",
+        "Поп (M5)",
+        "Пролёт рамки (M8)",
+        "Дрейф (M10)"
       ]
     },
     {
@@ -142,6 +162,6 @@
       "detail": "C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD.mp4"
     }
   ],
-  "finishedAt": "2026-10-06T21:23:46.214Z",
+  "finishedAt": "2026-10-20T09:35:29.746Z",
   "failed": []
 }

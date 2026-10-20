@@ -1,7 +1,7 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-06T21:25:41.626Z",
-  "finishedAt": "2026-10-06T21:26:01.440Z",
+  "startedAt": "2026-10-20T09:37:42.767Z",
+  "finishedAt": "2026-10-20T09:38:04.888Z",
   "summary": {
     "checks": 112,
     "passed": 112,
@@ -22,7 +22,7 @@
       "detail": []
     },
     {
-      "name": "bridge: the host bundle 0.1.18 answers",
+      "name": "bridge: the host bundle 0.1.20 answers",
       "pass": true,
       "required": true,
       "detail": {
@@ -30,7 +30,7 @@
         "data": {
           "app": "pr",
           "version": "26.5.2",
-          "bk": "0.1.18"
+          "bk": "0.1.20"
         }
       }
     },
@@ -65,10 +65,10 @@
       "pass": true,
       "required": true,
       "detail": {
-        "fhd": "e4b856f0-0b41-41e9-bec4-51aa0df3aab1",
-        "whole": "f84b6ff5-9f2d-4ae8-b4fc-18f85ce0ac33",
-        "uhd": "424345f0-b4cc-4cf3-975b-36bdd0567f24",
-        "vert": "8f8c1ea5-d218-498f-b8e7-1780eb6b1f2f"
+        "fhd": "a1bd1c70-f182-4be2-8934-d33998b899c0",
+        "whole": "1772b1ce-4666-4fa7-b5a4-63d1ecdeacf9",
+        "uhd": "7df3e1b1-f166-46fd-a943-121c3130182c",
+        "vert": "5296e77e-1e61-42f5-8c3d-d8dce536a8bd"
       }
     },
     {
@@ -103,11 +103,11 @@
       }
     },
     {
-      "name": "export fullhd (AME_FullHD, direct): activate: sequence e4b856f0-0b41-41e9-bec4-51aa0df3aab1 active, playhead at 0 s",
+      "name": "export fullhd (AME_FullHD, direct): activate: sequence a1bd1c70-f182-4be2-8934-d33998b899c0 active, playhead at 0 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK export FHD_3",
+        "name": "BK export FHD_4",
         "player": 0
       }
     },
@@ -136,11 +136,11 @@
       "detail": {
         "problems": [],
         "reply": {
-          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_FullHD.mp4",
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_FullHD.mp4",
           "bytes": 2693352,
           "inSec": 0.001,
           "outSec": 2.001,
-          "ms": 685
+          "ms": 846
         }
       }
     },
@@ -149,8 +149,8 @@
       "pass": true,
       "required": true,
       "detail": {
-        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_FullHD.mp4",
-        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_FullHD.mp4"
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_FullHD.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_FullHD.mp4"
       }
     },
     {
@@ -274,11 +274,11 @@
       }
     },
     {
-      "name": "export again (AME_FullHD, direct): activate: sequence e4b856f0-0b41-41e9-bec4-51aa0df3aab1 active, playhead at 0 s",
+      "name": "export again (AME_FullHD, direct): activate: sequence a1bd1c70-f182-4be2-8934-d33998b899c0 active, playhead at 0 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK export FHD_3",
+        "name": "BK export FHD_4",
         "player": 0
       }
     },
@@ -304,7 +304,7 @@
       "name": "export again (AME_FullHD, direct): the next file gets _2",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_FullHD_2.mp4"
+      "detail": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_FullHD_2.mp4"
     },
     {
       "name": "export again (AME_FullHD, direct): exported",
@@ -313,11 +313,11 @@
       "detail": {
         "problems": [],
         "reply": {
-          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_FullHD_2.mp4",
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_FullHD_2.mp4",
           "bytes": 2693352,
           "inSec": 0.001,
           "outSec": 2.001,
-          "ms": 706
+          "ms": 548
         }
       }
     },
@@ -326,8 +326,8 @@
       "pass": true,
       "required": true,
       "detail": {
-        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_FullHD_2.mp4",
-        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_FullHD_2.mp4"
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_FullHD_2.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_FullHD_2.mp4"
       }
     },
     {
@@ -451,11 +451,11 @@
       }
     },
     {
-      "name": "export smm (AME_SMM_16x9, direct): activate: sequence e4b856f0-0b41-41e9-bec4-51aa0df3aab1 active, playhead at 0 s",
+      "name": "export smm (AME_SMM_16x9, direct): activate: sequence a1bd1c70-f182-4be2-8934-d33998b899c0 active, playhead at 0 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK export FHD_3",
+        "name": "BK export FHD_4",
         "player": 0
       }
     },
@@ -484,11 +484,11 @@
       "detail": {
         "problems": [],
         "reply": {
-          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_SMM_16x9.mp4",
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_SMM_16x9.mp4",
           "bytes": 1352689,
           "inSec": 0.001,
           "outSec": 2.001,
-          "ms": 654
+          "ms": 596
         }
       }
     },
@@ -497,8 +497,8 @@
       "pass": true,
       "required": true,
       "detail": {
-        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_SMM_16x9.mp4",
-        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_SMM_16x9.mp4"
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_SMM_16x9.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_SMM_16x9.mp4"
       }
     },
     {
@@ -622,11 +622,11 @@
       }
     },
     {
-      "name": "export queue (AME_WebinarFinal, queue): activate: sequence e4b856f0-0b41-41e9-bec4-51aa0df3aab1 active, playhead at 0 s",
+      "name": "export queue (AME_WebinarFinal, queue): activate: sequence a1bd1c70-f182-4be2-8934-d33998b899c0 active, playhead at 0 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK export FHD_3",
+        "name": "BK export FHD_4",
         "player": 0
       }
     },
@@ -655,12 +655,12 @@
       "detail": {
         "problems": [],
         "reply": {
-          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_WebinarFinal.mp4",
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_WebinarFinal.mp4",
           "queued": true,
-          "job": "5d7543ba-7d01-4c12-9a51-102fe09da6c7",
+          "job": "bfef4a41-ae2c-4107-93a4-2d5ef31139fd",
           "inSec": 0.001,
           "outSec": 2.001,
-          "ms": 12
+          "ms": 11
         }
       }
     },
@@ -669,28 +669,28 @@
       "pass": true,
       "required": true,
       "detail": {
-        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_WebinarFinal.mp4",
-        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_WebinarFinal.mp4"
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_WebinarFinal.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_WebinarFinal.mp4"
       }
     },
     {
-      "name": "export queue (AME_WebinarFinal, queue): the host returned at once (19 ms), the job in AME",
+      "name": "export queue (AME_WebinarFinal, queue): the host returned at once (16 ms), the job in AME",
       "pass": true,
       "required": true,
       "detail": {
-        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_WebinarFinal.mp4",
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_WebinarFinal.mp4",
         "queued": true,
-        "job": "5d7543ba-7d01-4c12-9a51-102fe09da6c7",
+        "job": "bfef4a41-ae2c-4107-93a4-2d5ef31139fd",
         "inSec": 0.001,
         "outSec": 2.001,
-        "ms": 12
+        "ms": 11
       }
     },
     {
       "name": "export queue (AME_WebinarFinal, queue): the file appeared",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_WebinarFinal.mp4"
+      "detail": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_WebinarFinal.mp4"
     },
     {
       "name": "export queue (AME_WebinarFinal, queue): frame 1920x1080",
@@ -813,11 +813,11 @@
       }
     },
     {
-      "name": "export whole (AME_WebinarTimer, direct): activate: sequence f84b6ff5-9f2d-4ae8-b4fc-18f85ce0ac33 active, playhead at 0 s",
+      "name": "export whole (AME_WebinarTimer, direct): activate: sequence 1772b1ce-4666-4fa7-b5a4-63d1ecdeacf9 active, playhead at 0 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK export whole_3",
+        "name": "BK export whole_4",
         "player": 0
       }
     },
@@ -846,11 +846,11 @@
       "detail": {
         "problems": [],
         "reply": {
-          "file": "C:/CRBK/work/panel-live/pr/Export/BK export whole_3_WebinarTimer.mp4",
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export whole_4_WebinarTimer.mp4",
           "bytes": 1255757,
           "inSec": -400000,
           "outSec": -400000,
-          "ms": 942
+          "ms": 720
         }
       }
     },
@@ -859,8 +859,8 @@
       "pass": true,
       "required": true,
       "detail": {
-        "file": "C:/CRBK/work/panel-live/pr/Export/BK export whole_3_WebinarTimer.mp4",
-        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export whole_3_WebinarTimer.mp4"
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export whole_4_WebinarTimer.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export whole_4_WebinarTimer.mp4"
       }
     },
     {
@@ -984,11 +984,11 @@
       }
     },
     {
-      "name": "export uhd (AME_4K, direct): activate: sequence 424345f0-b4cc-4cf3-975b-36bdd0567f24 active, playhead at 0 s",
+      "name": "export uhd (AME_4K, direct): activate: sequence 7df3e1b1-f166-46fd-a943-121c3130182c active, playhead at 0 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK export 4K_3",
+        "name": "BK export 4K_4",
         "player": 0
       }
     },
@@ -1017,11 +1017,11 @@
       "detail": {
         "problems": [],
         "reply": {
-          "file": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_3_4K.mp4",
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_4_4K.mp4",
           "bytes": 7426637,
           "inSec": 0.001,
           "outSec": 2.001,
-          "ms": 1837
+          "ms": 1629
         }
       }
     },
@@ -1030,8 +1030,8 @@
       "pass": true,
       "required": true,
       "detail": {
-        "file": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_3_4K.mp4",
-        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_3_4K.mp4"
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_4_4K.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_4_4K.mp4"
       }
     },
     {
@@ -1155,11 +1155,11 @@
       }
     },
     {
-      "name": "export down (AME_FullHD, direct): activate: sequence 424345f0-b4cc-4cf3-975b-36bdd0567f24 active, playhead at 0 s",
+      "name": "export down (AME_FullHD, direct): activate: sequence 7df3e1b1-f166-46fd-a943-121c3130182c active, playhead at 0 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK export 4K_3",
+        "name": "BK export 4K_4",
         "player": 0
       }
     },
@@ -1188,11 +1188,11 @@
       "detail": {
         "problems": [],
         "reply": {
-          "file": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_3_FullHD.mp4",
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_4_FullHD.mp4",
           "bytes": 2476430,
           "inSec": 0.001,
           "outSec": 2.001,
-          "ms": 959
+          "ms": 563
         }
       }
     },
@@ -1201,8 +1201,8 @@
       "pass": true,
       "required": true,
       "detail": {
-        "file": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_3_FullHD.mp4",
-        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_3_FullHD.mp4"
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_4_FullHD.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export 4K_4_FullHD.mp4"
       }
     },
     {
@@ -1326,11 +1326,11 @@
       }
     },
     {
-      "name": "export up (AME_4K, direct): activate: sequence e4b856f0-0b41-41e9-bec4-51aa0df3aab1 active, playhead at 0 s",
+      "name": "export up (AME_4K, direct): activate: sequence a1bd1c70-f182-4be2-8934-d33998b899c0 active, playhead at 0 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK export FHD_3",
+        "name": "BK export FHD_4",
         "player": 0
       }
     },
@@ -1371,11 +1371,11 @@
       "detail": {
         "problems": [],
         "reply": {
-          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_4K.mp4",
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_4K.mp4",
           "bytes": 9035762,
           "inSec": 0.001,
           "outSec": 2.001,
-          "ms": 1964
+          "ms": 1753
         }
       }
     },
@@ -1384,8 +1384,8 @@
       "pass": true,
       "required": true,
       "detail": {
-        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_4K.mp4",
-        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_3_4K.mp4"
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_4K.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export FHD_4_4K.mp4"
       }
     },
     {
@@ -1509,11 +1509,11 @@
       }
     },
     {
-      "name": "export vertical (AME_SMM_9x16, direct): activate: sequence 8f8c1ea5-d218-498f-b8e7-1780eb6b1f2f active, playhead at 0 s",
+      "name": "export vertical (AME_SMM_9x16, direct): activate: sequence 5296e77e-1e61-42f5-8c3d-d8dce536a8bd active, playhead at 0 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK export 9x16_3",
+        "name": "BK export 9x16_4",
         "player": 0
       }
     },
@@ -1542,11 +1542,11 @@
       "detail": {
         "problems": [],
         "reply": {
-          "file": "C:/CRBK/work/panel-live/pr/Export/BK export 9x16_3_SMM_9x16.mp4",
+          "file": "C:/CRBK/work/panel-live/pr/Export/BK export 9x16_4_SMM_9x16.mp4",
           "bytes": 1342270,
           "inSec": 0.001,
           "outSec": 2.001,
-          "ms": 806
+          "ms": 711
         }
       }
     },
@@ -1555,8 +1555,8 @@
       "pass": true,
       "required": true,
       "detail": {
-        "file": "C:/CRBK/work/panel-live/pr/Export/BK export 9x16_3_SMM_9x16.mp4",
-        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export 9x16_3_SMM_9x16.mp4"
+        "file": "C:/CRBK/work/panel-live/pr/Export/BK export 9x16_4_SMM_9x16.mp4",
+        "planned": "C:/CRBK/work/panel-live/pr/Export/BK export 9x16_4_SMM_9x16.mp4"
       }
     },
     {
@@ -1680,11 +1680,11 @@
       }
     },
     {
-      "name": "export aspect (AME_SMM_9x16, direct): activate: sequence e4b856f0-0b41-41e9-bec4-51aa0df3aab1 active, playhead at 0 s",
+      "name": "export aspect (AME_SMM_9x16, direct): activate: sequence a1bd1c70-f182-4be2-8934-d33998b899c0 active, playhead at 0 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK export FHD_3",
+        "name": "BK export FHD_4",
         "player": 0
       }
     },
