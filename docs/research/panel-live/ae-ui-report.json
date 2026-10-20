@@ -1,6 +1,6 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-20T15:10:56.810Z",
+  "startedAt": "2026-10-20T16:17:25.984Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -30,7 +30,7 @@
     {
       "name": "status line shows the host, the panel and the library",
       "pass": true,
-      "detail": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.21 · библиотека 2026.10.20Скопировать диагностику"
+      "detail": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.22 · библиотека 2026.10.20Скопировать диагностику"
     },
     {
       "name": "card previews: H.264 is playable in the panel",
@@ -113,6 +113,32 @@
       ]
     },
     {
+      "name": "motion: the movements M1–M12 by type",
+      "pass": true,
+      "detail": [
+        "Плашка по X (M1): титры",
+        "Плашка по X (M1): подкаст",
+        "Плашка по X (M1): SMM",
+        "Плашка по X (M1): логошоты",
+        "Подъём текста (M2): титры, имя",
+        "Подъём текста (M2): титры, должность",
+        "Подъём текста (M2): подкаст",
+        "Подъём текста (M2): SMM, плашки",
+        "Подъём текста (M2): SMM, интро",
+        "Подъём текста (M2): курсы",
+        "Подъём строк (M3)",
+        "Вскрытие маской (M4)",
+        "Поп (M5)",
+        "Флип куба (M6)",
+        "Блочное проявление (M7)",
+        "Пролёт рамки по Z (M8)",
+        "Мерцающая сетка (M9)",
+        "Дрейф (M10)",
+        "Бегущая штриховка (M11)",
+        "Поп куба логотипа (M12)"
+      ]
+    },
+    {
       "name": "motion: the brand curves by type",
       "pass": true,
       "detail": [
@@ -152,16 +178,16 @@
       "name": "export: reported as done in the panel",
       "pass": true,
       "detail": {
-        "done": "done: Готово: UI_check_FullHD_2.mp4.Показать в папке",
+        "done": "done: Готово: UI_check_FullHD_3.mp4.Показать в папке",
         "problems": []
       }
     },
     {
-      "name": "export: the file is in Export next to the project (C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD_2.mp4)",
+      "name": "export: the file is in Export next to the project (C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD_3.mp4)",
       "pass": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD_2.mp4"
+      "detail": "C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD_3.mp4"
     }
   ],
-  "finishedAt": "2026-10-20T15:11:51.943Z",
+  "finishedAt": "2026-10-20T16:18:23.974Z",
   "failed": []
 }

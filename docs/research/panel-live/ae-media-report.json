@@ -1,10 +1,10 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-20T09:45:41.519Z",
-  "finishedAt": "2026-10-20T09:45:48.496Z",
+  "startedAt": "2026-10-20T16:17:14.343Z",
+  "finishedAt": "2026-10-20T16:17:25.639Z",
   "summary": {
-    "checks": 219,
-    "passed": 219,
+    "checks": 285,
+    "passed": 285,
     "failed": 0
   },
   "failed": [],
@@ -30,7 +30,7 @@
         "data": {
           "app": "ae",
           "version": "26.5x89",
-          "bk": "0.1.20"
+          "bk": "0.1.22"
         }
       }
     },
@@ -2277,7 +2277,7 @@
       "detail": "C:\\CRBK\\work\\panel-live\\ae\\media_live.aep"
     },
     {
-      "name": "transfer: copied the project and Cloud.ru BrandKit to C:/CRBK/work/panel-live/ae-moved-20261020T094545",
+      "name": "transfer: copied the project and Cloud.ru BrandKit to C:/CRBK/work/panel-live/ae-moved-20261020T161719",
       "pass": true,
       "required": true,
       "detail": [
@@ -2300,11 +2300,11 @@
       }
     },
     {
-      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/ae-moved-20261020T094545/media_live.aep",
+      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/ae-moved-20261020T161719/media_live.aep",
       "pass": true,
       "required": true,
       "detail": {
-        "path": "C:/CRBK/work/panel-live/ae-moved-20261020T094545/media_live.aep",
+        "path": "C:/CRBK/work/panel-live/ae-moved-20261020T161719/media_live.aep",
         "footage": 6
       }
     },
@@ -3838,6 +3838,1997 @@
           "out": "bezier"
         }
       ]
+    },
+    {
+      "name": "rigs: setup: scratch project created and saved in the work folder",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "comps": 1,
+        "path": "C:\\CRBK\\work\\panel-live\\ae\\rigs_live.aep"
+      }
+    },
+    {
+      "name": "rigs: layers: comp 1: 14 layers for the movements",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M1.titles.in: select P1: comp 1: selected P1",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M1.titles.in: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "rigs: M1.titles.in: applied",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "P1",
+              "done": true,
+              "keys": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: read P1: movements of P1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M1 Scale X 0 -> 100 at 1 and 1.8 s, Y kept, the ease of the titles",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "t": 1,
+          "v": [
+            0,
+            100,
+            100
+          ],
+          "inEase": [
+            {
+              "speed": 0,
+              "influence": 16.667
+            },
+            {
+              "speed": 0,
+              "influence": 16.667
+            },
+            {
+              "speed": 0,
+              "influence": 16.667
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 0,
+              "influence": 33.3
+            },
+            {
+              "speed": 0,
+              "influence": 33.3
+            },
+            {
+              "speed": 0,
+              "influence": 33.3
+            }
+          ],
+          "inI": "bezier",
+          "outI": "bezier"
+        },
+        {
+          "t": 1.8,
+          "v": [
+            100,
+            100,
+            100
+          ],
+          "inEase": [
+            {
+              "speed": 0,
+              "influence": 100
+            },
+            {
+              "speed": 0,
+              "influence": 100
+            },
+            {
+              "speed": 0,
+              "influence": 100
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 0,
+              "influence": 16.667
+            },
+            {
+              "speed": 0,
+              "influence": 16.667
+            },
+            {
+              "speed": 0,
+              "influence": 16.667
+            }
+          ],
+          "inI": "bezier",
+          "outI": "bezier"
+        }
+      ]
+    },
+    {
+      "name": "rigs: M2.podcast.in: select T1, P2: comp 1: selected T1, P2",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M2.podcast.in: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "rigs: M2.podcast.in: applied",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [
+          {
+            "code": "RIG_SKIPPED",
+            "severity": "warning",
+            "message": "Пропущены: P2 (нужен текстовый слой)."
+          }
+        ],
+        "reply": {
+          "layers": [
+            {
+              "name": "P2",
+              "done": false,
+              "keys": 0,
+              "skipped": "text"
+            },
+            {
+              "name": "T1",
+              "done": true,
+              "keys": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: M2 the shape is skipped as not a text layer",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "layers": [
+          {
+            "name": "P2",
+            "done": false,
+            "keys": 0,
+            "skipped": "text"
+          },
+          {
+            "name": "T1",
+            "done": true,
+            "keys": 2
+          }
+        ]
+      }
+    },
+    {
+      "name": "rigs: read T1: movements of T1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M2 animator «BrandKit M2» by words, Position 1.15 of the block, Start 0 -> 100 at 1 and 1.92 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "a": {
+          "name": "BrandKit M2",
+          "position": [
+            0,
+            44.1600036621094,
+            0
+          ],
+          "basedOn": 3,
+          "start": [
+            {
+              "t": 1,
+              "v": 0,
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 41
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 1.92,
+              "v": 100,
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 35
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            }
+          ]
+        },
+        "rect": {
+          "top": 15.3600025177002,
+          "left": -185.699999943376,
+          "width": 369.800023213029,
+          "height": 38.4000015258789
+        }
+      }
+    },
+    {
+      "name": "rigs: M3.in: select T2: comp 1: selected T2",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M3.in: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "rigs: M3.in: applied",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "T2",
+              "done": true,
+              "keys": 4
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: read T2: movements of T2 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M3 animator «BrandKit M3» of characters, Position 1.1 of the block -> 0 at 1 and 1.64 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "a": {
+          "name": "BrandKit M3",
+          "position": [
+            {
+              "t": 1,
+              "v": [
+                0,
+                42.2400016784668,
+                0
+              ],
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 80
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 1.64,
+              "v": [
+                0,
+                0,
+                0
+              ],
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 81.5
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            }
+          ],
+          "basedOn": 1,
+          "start": []
+        },
+        "rect": {
+          "top": 13.4400005340576,
+          "left": -185.699999943376,
+          "width": 369.800023213029,
+          "height": 38.4000015258789
+        }
+      }
+    },
+    {
+      "name": "rigs: M3 mask «BrandKit M3» opens its lower edge at 1.36 -> 1.64 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BrandKit M3",
+        "mode": "add",
+        "keys": [
+          {
+            "t": 1.36,
+            "v": [
+              [
+                -195.096008300781,
+                -38.1959991455078
+              ],
+              [
+                193.496032714844,
+                -38.1959991455078
+              ],
+              [
+                193.496032714844,
+                9.27336120605469
+              ],
+              [
+                -195.096008300781,
+                9.27336120605469
+              ]
+            ],
+            "inEase": [
+              {
+                "speed": 0,
+                "influence": 16.667
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 0,
+                "influence": 17
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          },
+          {
+            "t": 1.64,
+            "v": [
+              [
+                -195.096008300781,
+                -38.1959991455078
+              ],
+              [
+                193.496032714844,
+                -38.1959991455078
+              ],
+              [
+                193.496032714844,
+                18.9960021972656
+              ],
+              [
+                -195.096008300781,
+                18.9960021972656
+              ]
+            ],
+            "inEase": [
+              {
+                "speed": 0,
+                "influence": 17
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 0,
+                "influence": 16.667
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          }
+        ]
+      }
+    },
+    {
+      "name": "rigs: M4.y.in: select S1: comp 1: selected S1",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M4.y.in: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "rigs: M4.y.in: applied",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "S1",
+              "done": true,
+              "keys": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: M4.y.out: select S1: comp 1: selected S1",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M4.y.out: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "rigs: M4.y.out: applied",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "S1",
+              "done": true,
+              "keys": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: read S1: movements of S1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M4 one mask «BrandKit M4», keys at 1, 2.16, 3, 4.12 s, collapsed at the top, open, closed at the foot",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "name": "BrandKit M4",
+          "mode": "add",
+          "keys": [
+            {
+              "t": 1,
+              "v": [
+                [
+                  -6.80000305175781,
+                  -6.80000305175781
+                ],
+                [
+                  246.799987792969,
+                  -6.80000305175781
+                ],
+                [
+                  246.799987792969,
+                  -6.80000305175781
+                ],
+                [
+                  -6.80000305175781,
+                  -6.80000305175781
+                ]
+              ],
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 67
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 2.16,
+              "v": [
+                [
+                  -6.80000305175781,
+                  -6.80000305175781
+                ],
+                [
+                  246.799987792969,
+                  -6.80000305175781
+                ],
+                [
+                  246.799987792969,
+                  126.800003051758
+                ],
+                [
+                  -6.80000305175781,
+                  126.800003051758
+                ]
+              ],
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 89
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 3,
+              "v": [
+                [
+                  -6.80000305175781,
+                  -6.80000305175781
+                ],
+                [
+                  246.799987792969,
+                  -6.80000305175781
+                ],
+                [
+                  246.799987792969,
+                  126.800003051758
+                ],
+                [
+                  -6.80000305175781,
+                  126.800003051758
+                ]
+              ],
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 64
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 4.12,
+              "v": [
+                [
+                  -6.80000305175781,
+                  126.800018310547
+                ],
+                [
+                  246.799987792969,
+                  126.800018310547
+                ],
+                [
+                  246.799987792969,
+                  126.800018310547
+                ],
+                [
+                  -6.80000305175781,
+                  126.800018310547
+                ]
+              ],
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 74
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rigs: M6.in: select S2: comp 1: selected S2",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M6.in: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "rigs: M6.in: applied",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [
+          {
+            "code": "RIG_3D",
+            "severity": "warning",
+            "message": "Слоям S2 включено 3D: без него нет вращения по X и глубины."
+          }
+        ],
+        "reply": {
+          "layers": [
+            {
+              "name": "S2",
+              "done": true,
+              "keys": 3,
+              "made3D": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: read S2: movements of S2 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M6 the layer is made 3D and the panel says so",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "layers": [
+          {
+            "name": "S2",
+            "done": true,
+            "keys": 3,
+            "made3D": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "rigs: M6 Rotation X -90 -> -3.612 -> 0 at 1, 1.667, 2.267 s with the speeds of the pack",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "t": 1,
+          "v": -90,
+          "inEase": [
+            {
+              "speed": 0,
+              "influence": 16.667
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 11930.136,
+              "influence": 0.541
+            }
+          ],
+          "inI": "bezier",
+          "outI": "bezier"
+        },
+        {
+          "t": 1.667,
+          "v": -3.61199998855591,
+          "inEase": [
+            {
+              "speed": 28.415,
+              "influence": 34.504
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 27.418,
+              "influence": 19.152
+            }
+          ],
+          "inI": "bezier",
+          "outI": "bezier"
+        },
+        {
+          "t": 2.267,
+          "v": 0,
+          "inEase": [
+            {
+              "speed": 0,
+              "influence": 9.877
+            }
+          ],
+          "outEase": [
+            {
+              "speed": 0,
+              "influence": 16.667
+            }
+          ],
+          "inI": "bezier",
+          "outI": "bezier"
+        }
+      ]
+    },
+    {
+      "name": "rigs: M7.in: select S3: comp 1: selected S3",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M7.in: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "rigs: M7.in: applied",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "S3",
+              "done": true,
+              "keys": 0,
+              "matte": "BrandKit M7 · S3"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: read S3, BrandKit M7 · S3: movements of S3, BrandKit M7 · S3 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M7.in a solid «BrandKit M7 · S3» right over the layer, its video off, the layer's Luma matte",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "order": [
+          "S4",
+          "P7",
+          "P6",
+          "H1",
+          "P5",
+          "P4",
+          "P3",
+          "BrandKit M7 · S3 (off)",
+          "S3",
+          "S2",
+          "S1",
+          "T2",
+          "P2",
+          "T1",
+          "P1",
+          "Label 13",
+          "Label 12",
+          "Label 11",
+          "Label 10",
+          "Label 9",
+          "Label 8",
+          "Label 7",
+          "Label 6",
+          "Label 5",
+          "Label 4",
+          "Label 3",
+          "Label 2",
+          "Label 1",
+          "Label 0",
+          "BK Backdrop"
+        ],
+        "matte": {
+          "type": "LUMA",
+          "layer": "BrandKit M7 · S3"
+        }
+      }
+    },
+    {
+      "name": "rigs: M7.in Fractal Noise of the packs, its expression evaluates without an error",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "matchName": "ADBE Fractal Noise",
+        "values": {
+          "1": 5,
+          "2": 1,
+          "3": 0,
+          "4": 400,
+          "5": -100,
+          "6": 1,
+          "8": 0,
+          "9": 1,
+          "10": 224.479995727539,
+          "11": 100,
+          "12": 100,
+          "13": [
+            960,
+            540
+          ],
+          "15": 6,
+          "17": 70,
+          "18": 56,
+          "19": 0,
+          "20": [
+            0,
+            0
+          ],
+          "21": 0,
+          "23": 0,
+          "25": 0,
+          "26": 1,
+          "27": 3,
+          "29": 100,
+          "30": 2,
+          "31": 0
+        },
+        "expressions": {
+          "27": {
+            "text": "Math.floor(time * 25 / 8)",
+            "enabled": true,
+            "error": ""
+          }
+        }
+      }
+    },
+    {
+      "name": "rigs: M9.in: select S4: comp 1: selected S4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M9.in: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "rigs: M9.in: applied",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "S4",
+              "done": true,
+              "keys": 0,
+              "matte": "BrandKit M9 · S4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: read S4, BrandKit M9 · S4: movements of S4, BrandKit M9 · S4 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M9.in a solid «BrandKit M9 · S4» right over the layer, its video off, the layer's Luma matte",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "order": [
+          "BrandKit M9 · S4 (off)",
+          "S4",
+          "P7",
+          "P6",
+          "H1",
+          "P5",
+          "P4",
+          "P3",
+          "BrandKit M7 · S3 (off)",
+          "S3",
+          "S2",
+          "S1",
+          "T2",
+          "P2",
+          "T1",
+          "P1",
+          "Label 13",
+          "Label 12",
+          "Label 11",
+          "Label 10",
+          "Label 9",
+          "Label 8",
+          "Label 7",
+          "Label 6",
+          "Label 5",
+          "Label 4",
+          "Label 3",
+          "Label 2",
+          "Label 1",
+          "Label 0",
+          "BK Backdrop"
+        ],
+        "matte": {
+          "type": "LUMA",
+          "layer": "BrandKit M9 · S4"
+        }
+      }
+    },
+    {
+      "name": "rigs: M9.in Fractal Noise of the packs, its expression evaluates without an error",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "matchName": "ADBE Fractal Noise",
+        "values": {
+          "1": 5,
+          "2": 1,
+          "3": 0,
+          "4": 400,
+          "5": -100,
+          "6": 1,
+          "8": 0,
+          "9": 1,
+          "10": 112.5,
+          "11": 100,
+          "12": 100,
+          "13": [
+            960,
+            540
+          ],
+          "15": 6,
+          "17": 70,
+          "18": 56,
+          "19": 0,
+          "20": [
+            0,
+            0
+          ],
+          "21": 0,
+          "23": 40,
+          "25": 0,
+          "26": 1,
+          "27": 0,
+          "29": 100,
+          "30": 2,
+          "31": 0
+        },
+        "expressions": {
+          "23": {
+            "text": "time*40",
+            "enabled": true,
+            "error": ""
+          }
+        }
+      }
+    },
+    {
+      "name": "rigs: M8.in: select P3: comp 1: selected P3",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M8.in: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "rigs: M8.in: applied",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [
+          {
+            "code": "RIG_3D",
+            "severity": "warning",
+            "message": "Слоям P3 включено 3D: без него нет вращения по X и глубины."
+          }
+        ],
+        "reply": {
+          "layers": [
+            {
+              "name": "P3",
+              "done": true,
+              "keys": 4,
+              "made3D": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: read P3: movements of P3 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M8 3D, Z -645 -> 0 at 1 and 1.92 s, the stroke 48 -> 4 at 1 and 1.8 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "k": [
+          {
+            "t": 1,
+            "v": [
+              1200,
+              420,
+              -645
+            ],
+            "inEase": [
+              {
+                "speed": 0,
+                "influence": 16.667
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 0,
+                "influence": 79.3
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          },
+          {
+            "t": 1.92,
+            "v": [
+              1200,
+              420,
+              0
+            ],
+            "inEase": [
+              {
+                "speed": 0,
+                "influence": 81.7
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 0,
+                "influence": 16.667
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          }
+        ],
+        "strokes": [
+          {
+            "value": 48,
+            "keys": [
+              {
+                "t": 1,
+                "v": 48,
+                "inEase": [
+                  {
+                    "speed": 0,
+                    "influence": 16.667
+                  }
+                ],
+                "outEase": [
+                  {
+                    "speed": 0,
+                    "influence": 74
+                  }
+                ],
+                "inI": "bezier",
+                "outI": "bezier"
+              },
+              {
+                "t": 1.8,
+                "v": 4,
+                "inEase": [
+                  {
+                    "speed": 0,
+                    "influence": 49
+                  }
+                ],
+                "outEase": [
+                  {
+                    "speed": 0,
+                    "influence": 16.667
+                  }
+                ],
+                "inI": "bezier",
+                "outI": "bezier"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "rigs: M10.a60: select P4, P5: comp 1: selected P4, P5",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M10.a60: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "rigs: M10.a60: applied",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "P5",
+              "done": true,
+              "keys": 10
+            },
+            {
+              "name": "P4",
+              "done": true,
+              "keys": 5
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: read P4, P5: movements of P4, P5 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M10 five keys 15 s apart from 1 s with loopOut(), evaluating",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "plain": {
+          "keys": [
+            {
+              "t": 1,
+              "v": [
+                1680,
+                420,
+                0
+              ],
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 77.5
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 16,
+              "v": [
+                1695,
+                393,
+                0
+              ],
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 33.3
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 77.5
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 31,
+              "v": [
+                1740,
+                393,
+                0
+              ],
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 33.3
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 77.5
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 46,
+              "v": [
+                1740,
+                412.5,
+                0
+              ],
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 33.3
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 77.5
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 61,
+              "v": [
+                1680,
+                420,
+                0
+              ],
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 33.3
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            }
+          ],
+          "expression": "loopOut()",
+          "expressionEnabled": true,
+          "expressionError": ""
+        },
+        "sx": {
+          "keys": [
+            {
+              "t": 1,
+              "v": 240,
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 77.5
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 16,
+              "v": 180,
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 33.3
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 77.5
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 31,
+              "v": 180,
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 33.3
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 77.5
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 46,
+              "v": 180,
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 33.3
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 77.5
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 61,
+              "v": 240,
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 33.3
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            }
+          ],
+          "expression": "loopOut()",
+          "expressionEnabled": true,
+          "expressionError": ""
+        },
+        "sy": {
+          "keys": [
+            {
+              "t": 1,
+              "v": 690,
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 77.5
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 16,
+              "v": 690,
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 33.3
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 77.5
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 31,
+              "v": 705,
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 33.3
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 77.5
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 46,
+              "v": 675,
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 33.3
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 77.5
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            },
+            {
+              "t": 61,
+              "v": 690,
+              "inEase": [
+                {
+                  "speed": 0,
+                  "influence": 33.3
+                }
+              ],
+              "outEase": [
+                {
+                  "speed": 0,
+                  "influence": 16.667
+                }
+              ],
+              "inI": "bezier",
+              "outI": "bezier"
+            }
+          ],
+          "expression": "loopOut()",
+          "expressionEnabled": true,
+          "expressionError": ""
+        }
+      }
+    },
+    {
+      "name": "rigs: M10 the top layer the first drawing, the one below the second",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "top": [
+          [
+            0,
+            0
+          ],
+          [
+            -60,
+            0
+          ],
+          [
+            -60,
+            15
+          ],
+          [
+            -60,
+            -15
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "below": [
+          [
+            0,
+            0
+          ],
+          [
+            15,
+            -27
+          ],
+          [
+            60,
+            -27
+          ],
+          [
+            60,
+            -7.5
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "name": "rigs: M11.in: select H1, P6: comp 1: selected H1, P6",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M11.in: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "rigs: M11.in: applied",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [
+          {
+            "code": "RIG_SKIPPED",
+            "severity": "warning",
+            "message": "Пропущены: P6 (нет повторителя (Repeater))."
+          }
+        ],
+        "reply": {
+          "layers": [
+            {
+              "name": "P6",
+              "done": false,
+              "keys": 0,
+              "skipped": "repeater"
+            },
+            {
+              "name": "H1",
+              "done": true,
+              "keys": 0,
+              "expressions": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: read H1: movements of H1 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M11 Repeater Offset `-100 + time*0.5`, evaluating; the plain shape skipped",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "repeaters": [
+          {
+            "expression": "-100 + time*0.5",
+            "enabled": true,
+            "error": ""
+          }
+        ],
+        "reply": {
+          "layers": [
+            {
+              "name": "P6",
+              "done": false,
+              "keys": 0,
+              "skipped": "repeater"
+            },
+            {
+              "name": "H1",
+              "done": true,
+              "keys": 0,
+              "expressions": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: M12.in: select P7: comp 1: selected P7",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M12.in: planned",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "rigs: M12.in: applied",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "layers": [
+            {
+              "name": "P7",
+              "done": true,
+              "keys": 10
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rigs: read P7: movements of P7 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rigs: M12 Scale 132.28 -> 185.19 -> 116.73 -> 100 %, X +196.6 -> +277.1 -> +54.4 -> 0, Opacity 0 -> 100",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "s": [
+          {
+            "t": 1,
+            "v": [
+              132.279998779297,
+              132.279998779297,
+              100
+            ],
+            "inEase": [
+              {
+                "speed": 0,
+                "influence": 16.667
+              },
+              {
+                "speed": 0,
+                "influence": 16.667
+              },
+              {
+                "speed": 0,
+                "influence": 16.667
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 0,
+                "influence": 33.333
+              },
+              {
+                "speed": 0,
+                "influence": 33.333
+              },
+              {
+                "speed": 0,
+                "influence": 33.333
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          },
+          {
+            "t": 2,
+            "v": [
+              185.190002441406,
+              185.190002441406,
+              100
+            ],
+            "inEase": [
+              {
+                "speed": 0,
+                "influence": 68.089
+              },
+              {
+                "speed": 0,
+                "influence": 68.089
+              },
+              {
+                "speed": 0,
+                "influence": 68.089
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 0,
+                "influence": 50.64
+              },
+              {
+                "speed": 0,
+                "influence": 50.64
+              },
+              {
+                "speed": 0,
+                "influence": 50.64
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          },
+          {
+            "t": 2.75,
+            "v": [
+              116.730003356934,
+              116.730003356934,
+              100
+            ],
+            "inEase": [
+              {
+                "speed": -107.371,
+                "influence": 25.673
+              },
+              {
+                "speed": -107.371,
+                "influence": 25.673
+              },
+              {
+                "speed": -107.371,
+                "influence": 25.673
+              }
+            ],
+            "outEase": [
+              {
+                "speed": -107.371,
+                "influence": 30.582
+              },
+              {
+                "speed": -107.371,
+                "influence": 30.582
+              },
+              {
+                "speed": -107.371,
+                "influence": 30.582
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          },
+          {
+            "t": 3.2,
+            "v": [
+              100,
+              100,
+              100
+            ],
+            "inEase": [
+              {
+                "speed": 0,
+                "influence": 37.896
+              },
+              {
+                "speed": 0,
+                "influence": 37.896
+              },
+              {
+                "speed": 0,
+                "influence": 37.896
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 0,
+                "influence": 16.667
+              },
+              {
+                "speed": 0,
+                "influence": 16.667
+              },
+              {
+                "speed": 0,
+                "influence": 16.667
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          }
+        ],
+        "p": [
+          {
+            "t": 1,
+            "v": [
+              1396.64099121094,
+              690,
+              0
+            ],
+            "inEase": [
+              {
+                "speed": 0,
+                "influence": 16.667
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 0,
+                "influence": 33.333
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          },
+          {
+            "t": 2,
+            "v": [
+              1477.06494140625,
+              690,
+              0
+            ],
+            "inEase": [
+              {
+                "speed": 0,
+                "influence": 68.089
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 0,
+                "influence": 50.64
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          },
+          {
+            "t": 2.75,
+            "v": [
+              1254.42199707031,
+              690,
+              0
+            ],
+            "inEase": [
+              {
+                "speed": 349.226,
+                "influence": 25.673
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 349.226,
+                "influence": 30.582
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          },
+          {
+            "t": 3.2,
+            "v": [
+              1200,
+              690,
+              0
+            ],
+            "inEase": [
+              {
+                "speed": 0,
+                "influence": 37.896
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 0,
+                "influence": 16.667
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          }
+        ],
+        "op": [
+          {
+            "t": 1,
+            "v": 0,
+            "inEase": [
+              {
+                "speed": 0,
+                "influence": 16.667
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 0,
+                "influence": 33.333
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          },
+          {
+            "t": 2,
+            "v": 100,
+            "inEase": [
+              {
+                "speed": 0,
+                "influence": 68.089
+              }
+            ],
+            "outEase": [
+              {
+                "speed": 0,
+                "influence": 16.667
+              }
+            ],
+            "inI": "bezier",
+            "outI": "bezier"
+          }
+        ]
+      }
     }
   ],
   "hostVersion": "26.5x89",
