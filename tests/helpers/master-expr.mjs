@@ -16,15 +16,18 @@ export function keyedValue(keys, t) {
   return last.v;
 }
 
+// AE's linear(t, tMin, tMax, value1, value2), clamped.
+const LIB = 'function linear(t, a, b, c, d) { var u = b === a ? 1 : (t - a) / (b - a); u = Math.max(0, Math.min(1, u)); return c + (d - c) * u; }\n';
+
 // The last line of an expression is its value.
 function compile(src) {
   const lines = src.split('\n');
-  const body = lines.slice(0, -1).join('\n') + '\nreturn (' + lines[lines.length - 1] + ');';
+  const body = LIB + lines.slice(0, -1).join('\n') + '\nreturn (' + lines[lines.length - 1] + ');';
   return new Function('thisComp', 'time', body);
 }
 
 // spec: a built spec (toJSON); ctrl: CTRL values by effect name (1-based, as AE); texts: the field layers'
-// strings; ink(layer, text) -> { l, w } in FHD units (w 0 for no ink).
+// strings; ink(layer, text) -> { l, w, b } in FHD units (w 0 for no ink, b below the baseline).
 export function exprComp(spec, { w = 1920, h = 1080, ctrl = {}, texts = {}, ink }) {
   const k = Math.min(w, h) / 1080;
   const id = (layer, path) => layer + '|' + JSON.stringify(path);
@@ -52,9 +55,10 @@ export function exprComp(spec, { w = 1920, h = 1080, ctrl = {}, texts = {}, ink 
     if (!spec.layers.some((L) => L.name === name)) throw new Error('no layer ' + name);
     return {
       effect: (e) => () => ({ get value() { return effectValue(name, e, now); }, valueAtTime: (t) => effectValue(name, e, t) }),
+      // ink(layer, text) -> { l, w, b }: b, how far the ink reaches below the baseline (FHD px), is 0 when left out
       sourceRectAtTime: () => {
         const r = ink(name, String(textOf(name, now) || ''));
-        return { left: r.l * k, top: 0, width: r.w * k, height: r.w > 0 ? 50 * k : 0 };
+        return r.w > 0 ? { left: r.l * k, top: -36 * k, width: r.w * k, height: (36 + (r.b || 0)) * k } : { left: 0, top: 0, width: 0, height: 0 };
       },
       text: { get sourceText() { return textOf(name, now); } },
     };

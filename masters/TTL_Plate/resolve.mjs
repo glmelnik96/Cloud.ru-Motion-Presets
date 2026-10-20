@@ -9,10 +9,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readJson } from '../../tools/dump/model.mjs';
 import { workDir, workPath } from '../../tools/lib/work.mjs';
-import { addQaPatch, canonProgress, SIZE_CTRL } from '../../tools/masters/rig-plate.mjs';
+import { addPlateBlock, addQaPatch, canonProgress, rigTimes, SIZE_CTRL } from '../../tools/masters/rig-plate.mjs';
 import { nul, P, Spec } from '../../tools/masters/spec.mjs';
 import { regions, SPEED_CTRL, timeMapJs } from '../../tools/masters/speed.mjs';
-import { addPlateBlock, podcastLayout, podcastTiming, rigTimes, smmLayout, smmTiming } from './plates.mjs';
+import { podcastLayout, podcastTiming, smmLayout, smmTiming } from './plates.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(here, '../..');
@@ -23,6 +23,8 @@ const FPS = 25;
 // 8 s: a phrase of three lines stays readable for about 4 s at 1× (the pack's hold is 4.0 s); the editor
 // stretches the clip in Premiere, the hold is static.
 const DURATION = 8;
+// a moment of the hold at every speed (0,75×: 2.84–5.04 s, 2×: 1.06–6.90 s): the ink of the lines is read there
+const REST = 4.0;
 const FIT = { podcast: 'FitPod', smm: 'FitSmm' };
 const SLIDERS = {
   podcast: { plateIn: 'PodPlateIn', textIn: 'PodTextIn', textOut: 'PodTextOut', plateOut: 'PodPlateOut' },
@@ -87,7 +89,7 @@ export function resolvePlate(sources = loadSources()) {
   const blocks = {
     podcast: {
       style: 1, auto: 3, fit: FIT.podcast, texts: ['TXT_1', 'TXT_2', 'TXT_3'], plates: ['PL_POD_1', 'PL_POD_2', 'PL_POD_3'],
-      values: [text.TXT_1.value, text.TXT_2.value, text.TXT_3.value], textStyle: lineStyle, fill: hex.green,
+      values: [text.TXT_1.value, text.TXT_2.value, text.TXT_3.value], textStyle: lineStyle, fill: hex.green, rest: REST,
       geo: {
         h: podL.h, step: podL.step, base: podL.base, rise: podL.rise,
         edge: String(podL.edge), margin: String(podL.edge), bottom: `side == 2 ? ${podL.bottom.center} : ${podL.bottom.side}`,
@@ -101,7 +103,7 @@ export function resolvePlate(sources = loadSources()) {
       style: 2, auto: 1, fit: FIT.smm, texts: ['SMM_1', 'SMM_2', 'SMM_3'], plates: ['PL_SMM_1', 'PL_SMM_2', 'PL_SMM_3'],
       source: ['TXT_1', 'TXT_2', 'TXT_3'],
       textStyle: { font: smmL.font, size: smmL.size, fill: hex.yellow, tracking: smmL.tracking, justify: 'LEFT' },
-      fill: hex.black,
+      fill: hex.black, rest: REST,
       geo: {
         h: smmL.h, step: smmL.step, base: smmL.base, rise: smmL.rise,
         edge: `vert ? ${smmL.edge.vertical} : ${smmL.edge.horizontal}`, margin: String(smmL.edge.vertical),
@@ -172,7 +174,7 @@ export function resolvePlate(sources = loadSources()) {
     version: 1,
     variants: ['16x9', '16x9_4K', '9x16', '1x1'].map((key) => ({ key, ...tokens.video.formats[key] })),
     sweepTimes: [0, 0.2, 0.5, 0.9, 1.3, 1.7, 2.1, 4.0, 5.9, 6.3, 6.7, 7.1, 7.5, 7.96],
-    rest: 4.0,
+    rest: REST,
   };
 }
 

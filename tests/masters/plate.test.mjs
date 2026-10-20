@@ -13,16 +13,18 @@ const PACK = { TXT_1: 'текст появляется тут', TXT_2: 'Зате
 const SMM = { TXT_1: 'Разверните свой сервис', TXT_2: 'видеоконференций', TXT_3: '' };
 
 // Ink in FHD units at the master's font sizes: the pack's 4K podcast texts / 2, the SMM texts at 75 %; any
-// other text gets 22 px per character. Podcast texts are placed by their ink, so their side bearing is 1.
+// other text gets 22 px per character and no descender. Podcast texts are placed by their ink, so their side
+// bearing is 1; b is how far the pack's ink reaches below its baseline.
 function packInk() {
   const byText = new Map();
   for (const c of metrics.cases) {
     for (const row of Object.values(c.layers)) {
       const s = c.pack === 'podcast' ? 0.5 : (c.comp === 'Плашки_9x16' ? 0.75 : 1 / (1440 / 1080) * 1);
-      byText.set(row.text.replace(/^\r/, ''), { l: c.pack === 'podcast' ? 1 : row.rect[0] * s, w: row.rect[2] * s });
+      const base = row.lines.find(Boolean)[1];
+      byText.set(row.text.replace(/^\r/, ''), { l: c.pack === 'podcast' ? 1 : row.rect[0] * s, w: row.rect[2] * s, b: (row.rect[1] + row.rect[3] - base) * s });
     }
   }
-  return (layer, text) => (text ? byText.get(text) || { l: 1, w: text.length * 22 } : { l: 0, w: 0 });
+  return (layer, text) => (text ? byText.get(text) || { l: 1, w: text.length * 22, b: 0 } : { l: 0, w: 0, b: 0 });
 }
 
 const plateOf = (c, n, t) => {
@@ -57,12 +59,27 @@ describe.skipIf(!HAS_DUMPS)('TTL_Plate', async () => {
     expect(p.spec.mattes.map((m) => `${m.layer}<${m.matte}`)).toEqual(['TXT_1<PL_POD_1', 'TXT_2<PL_POD_2', 'TXT_3<PL_POD_3', 'SMM_1<PL_SMM_1', 'SMM_2<PL_SMM_2', 'SMM_3<PL_SMM_3']);
   });
 
+  it('a plate reaches under the descenders of its line (Д, comma): no glyph is cut, the others keep the pack height', () => {
+    const c = comp({ ctrl: { Style: 1, Position: 1 }, texts: PACK });
+    const h = p.layout.podcast.h;
+    // «И тут, и так далее»: the comma and Д reach 8.26 px under the baseline
+    const low = plateOf(c, 'PL_POD_3', 4);
+    expect(low.y0).toBeCloseTo(1080 - p.layout.podcast.bottom.side - h, 6);
+    expect(low.y1 - (1080 - p.layout.podcast.bottom.side)).toBeCloseTo(8.26 - p.layout.podcast.base, 1);
+    // round letters overshoot 0.6 px: under 3 % of the font, the plate keeps its height
+    expect(plateOf(c, 'PL_POD_1', 4).h).toBeCloseTo(h, 6);
+    // SMM: lowercase descenders stay inside the plate (baseline 18.26 px above its bottom)
+    const s = comp({ w: 1080, h: 1920, ctrl: { Style: 2, Position: 1 }, texts: SMM });
+    expect(plateOf(s, 'PL_SMM_1', 3).h).toBeCloseTo(p.layout.smm.h, 6);
+  });
+
   it('podcast «Авто»: the pack lines on the right, plates within 3 px (4K) of the pack', () => {
     const c = comp({ w: 3840, h: 2160, ctrl: { Style: 1, Position: 1 }, texts: PACK });
     const pack = [[2443.8, 3735.0, 1445.2, 1537.2], [2418.0, 3735.1, 1536.9, 1628.9], [2689.2, 3735.1, 1627.9, 1719.9]];
     pack.forEach(([x0, x1, y0, y1], i) => {
       const pl = plateOf(c, `PL_POD_${i + 1}`, 3);
-      for (const [a, b] of [[pl.x0, x0], [pl.x1, x1], [pl.y0, y0], [pl.y1, y1]]) expect(Math.abs(a - b)).toBeLessThan(3);
+      // line 3 reaches 16.6 px (4K) lower than the pack's plate, under its comma and Д (the next test)
+      for (const [a, b] of [[pl.x0, x0], [pl.x1, x1], [pl.y0, y0]].concat(i < 2 ? [[pl.y1, y1]] : [])) expect(Math.abs(a - b)).toBeLessThan(3);
     });
     expect(c.at('TXT_1', ['transform', 'ADBE Opacity'], 3)).toBe(100);
     expect(c.at('SMM_1', ['transform', 'ADBE Opacity'], 3)).toBe(0);
