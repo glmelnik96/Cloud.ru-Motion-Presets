@@ -72,21 +72,44 @@ if command -v xattr >/dev/null 2>&1; then
   xattr -dr com.apple.quarantine "$HERE" 2>/dev/null || true
 fi
 
-# 3. Extension: replaced as a whole; a folder of the same name that is not ours stays untouched.
+# 3. Extension: a folder of the same name that is not ours stays untouched.
 if [ -d "$CEP_DIR" ]; then
   grep -q "ExtensionBundleId=\"$BUNDLE_ID\"" "$CEP_DIR/CSXS/manifest.xml" 2>/dev/null \
     || fail "$CEP_DIR занята другим расширением: удалите её вручную"
-  rm -rf "$CEP_DIR" || fail "не удаляется прежняя версия панели $CEP_DIR"
 fi
-mkdir -p "$(dirname "$CEP_DIR")" && cp -R "$PAYLOAD/extension" "$CEP_DIR" || fail "панель не скопировалась в $CEP_DIR"
-say "Панель: $CEP_DIR"
 
 # 4. Library in the shared folder, open to every user of the Mac: chmod can be done by the owner only,
 #    so only our own files get it, errors on other users' files do not stop the install.
 mkdir -p "$SHARED_ROOT" || fail "не создаётся $SHARED_ROOT"
-rm -rf "$LIBRARY_DIR.new" && cp -R "$PAYLOAD/library" "$LIBRARY_DIR.new" || fail "библиотека не скопировалась"
-rm -rf "$LIBRARY_DIR" && mv "$LIBRARY_DIR.new" "$LIBRARY_DIR" || fail "библиотека не заменилась в $LIBRARY_DIR"
+
+# 3-4. The panel and the library are swapped in by renames, as install.ps1 does (an old library deleted file by file
+#    was left half gone on Windows, 2026-10-20): the new copies first (the panel's outside the CEP extensions folder,
+#    where CEP would load a second copy of the bundle), then the old ones aside in one move each; the panel failing
+#    puts the library back. What was set aside goes at the very end (step 8).
+STAMP="$(date +%Y%m%d-%H%M%S)"
+ASIDE="$STATE_DIR/aside"
+mkdir -p "$ASIDE" || fail "не создаётся $ASIDE"
+CEP_NEW="$ASIDE/panel-new-$STAMP"
+cp -R "$PAYLOAD/extension" "$CEP_NEW" || fail "панель не скопировалась в $CEP_NEW"
+LIBRARY_NEW="$LIBRARY_DIR.new-$STAMP"
+cp -R "$PAYLOAD/library" "$LIBRARY_NEW" || fail "библиотека не скопировалась"
+LIBRARY_OLD=""
+if [ -d "$LIBRARY_DIR" ]; then
+  LIBRARY_OLD="$LIBRARY_DIR.old-$STAMP"
+  mv "$LIBRARY_DIR" "$LIBRARY_OLD" || fail "Библиотека занята ($LIBRARY_DIR): закройте After Effects, Premiere и Media Encoder и запустите установщик снова. Ничего не изменено."
+fi
+mv "$LIBRARY_NEW" "$LIBRARY_DIR" || fail "библиотека не встала на место в $LIBRARY_DIR"
+mkdir -p "$(dirname "$CEP_DIR")" || fail "не создаётся $(dirname "$CEP_DIR")"
+if [ -d "$CEP_DIR" ]; then
+  if ! mv "$CEP_DIR" "$ASIDE/panel-old-$STAMP"; then
+    mv "$LIBRARY_DIR" "$LIBRARY_NEW"
+    [ -n "$LIBRARY_OLD" ] && mv "$LIBRARY_OLD" "$LIBRARY_DIR"
+    fail "Панель занята ($CEP_DIR): закройте After Effects и Premiere и запустите установщик снова. Ничего не изменено."
+  fi
+fi
+mv "$CEP_NEW" "$CEP_DIR" || fail "панель не встала на место в $CEP_DIR"
 find "$SHARED_ROOT" -user "$(id -u)" -exec chmod a+rwX {} + 2>/dev/null || true
+say "Панель: $CEP_DIR"
 say "Библиотека: $LIBRARY_DIR"
 
 # 5. MOGRT copies flat in Local Templates: the Graphics Templates panel does not see subfolders. Our copies of
@@ -168,4 +191,13 @@ if [ "$SIGNED" != 1 ]; then
   say "Внимание: панель без подписи. Она загрузится только с PlayerDebugMode: defaults write com.adobe.CSXS.11 PlayerDebugMode 1 (и .12)"
 fi
 say "Готово. Запустите After Effects или Premiere: Window > Extensions > Cloud.ru BrandKit."
+
+# 8. What the swaps set aside, and the leftovers of runs stopped half-way; what stays goes with the next install.
+LEFT=""
+for d in "$SHARED_ROOT"/library.old-* "$SHARED_ROOT"/library.new* "$ASIDE"/*; do
+  [ -e "$d" ] || continue
+  rm -rf "$d" 2>/dev/null
+  [ -e "$d" ] && LEFT="$LEFT $d"
+done
+[ -n "$LEFT" ] && say "Внимание: прежние копии удалились не целиком, их уберёт следующая установка:$LEFT"
 exit 0

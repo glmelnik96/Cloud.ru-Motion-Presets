@@ -1,7 +1,7 @@
-// The release package and the macOS installer (spec 8.1), run for real in a sandbox folder: install, update
-// over the previous version, refusals. install.ps1 does the same steps on Windows and is checked on the PC.
-import { spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+// The release package and both installers (spec 8.1), run for real in a sandbox folder: install, update over the
+// previous version, refusals. install.command where bash runs, install.cmd with install.ps1 on Windows.
+import { spawn, spawnSync } from 'node:child_process';
+import { closeSync, existsSync, mkdirSync, mkdtempSync, openSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import AdmZip from 'adm-zip';
@@ -92,7 +92,7 @@ describe('release package', () => {
     expect(ps1.charCodeAt(0)).toBe(0xfeff);
     expect(ps1).toContain('\r\n');
     expect(ps1).toContain('Закройте');
-    expect(readFileSync(p('install.cmd'), 'utf8')).toMatch(/install\.ps1" %\*\r\n/);
+    expect(readFileSync(p('install.cmd'), 'utf8')).toMatch(/install\.ps1" %\* -Done "%DONE%"\r\n/);
     if (process.platform !== 'win32') expect(statSync(p('install.command')).mode & 0o777).toBe(0o755);
     expect(readFileSync(p('install.command'), 'utf8')).not.toContain('\r');
     const entry = new AdmZip(r.zip).getEntries().find((e) => e.entryName.endsWith('/install.command'));
@@ -188,4 +188,111 @@ describe.skipIf(!HAS_BASH)('install.command', () => {
     expect(ok.status).toBe(0);
     expect(ok.stdout).toMatch(/панель без подписи/);
   }, 60000);
+});
+
+// install.cmd and install.ps1 on Windows (findings of the build PC, 2026-10-20: a held preview and an antivirus that
+// stopped the script left the old library half deleted, and install.cmd reported a success).
+const IS_WIN = process.platform === 'win32';
+
+// install.cmd as a user runs it (with an argument, so no pause); the console in UTF-8 for the Russian messages.
+function winInstall(pkg, sb, env = {}) {
+  const cmd = path.join(pkg, 'install.cmd');
+  const r = spawnSync('cmd.exe', ['/d', '/s', '/c', `"chcp 65001 >nul & "${cmd}" -Sandbox "${sb}""`], { env: { ...process.env, ...env }, windowsVerbatimArguments: true, windowsHide: true });
+  return { status: r.status, out: Buffer.concat([r.stdout ?? Buffer.alloc(0), r.stderr ?? Buffer.alloc(0)]).toString('utf8') };
+}
+
+function winWhere(sb) {
+  const roaming = path.join(sb, 'AppData', 'Roaming');
+  const shared = path.join(sb, 'ProgramData', 'CloudRuBrandKit');
+  return { cep: path.join(roaming, 'Adobe', 'CEP', 'extensions', 'ru.cloud.brandkit'), state: path.join(roaming, 'CloudRuBrandKit'), shared, library: path.join(shared, 'library') };
+}
+
+// What the swaps leave beside the library and in the state folder: nothing, once an install is through.
+const leftovers = (w) => [...readdirSync(w.shared).filter((n) => n !== 'library'), ...(existsSync(path.join(w.state, 'aside')) ? readdirSync(path.join(w.state, 'aside')) : [])];
+// The old copies go in a cmd the installer does not wait for: what stays after a few seconds.
+async function settled(w) {
+  const t0 = Date.now();
+  while (leftovers(w).length && Date.now() - t0 < 30000) await new Promise((r) => setTimeout(r, 250));
+  return leftovers(w);
+}
+const libVersion = (w) => JSON.parse(readFileSync(path.join(w.library, 'library.json'), 'utf8')).libraryVersion;
+
+// A file held open by another process the way a playing preview is: reading shared, no delete sharing.
+async function holdOpen(file, ms) {
+  const p = spawn('powershell', ['-NoProfile', '-Command', `$f = [IO.File]::Open('${file.replace(/'/g, "''")}', 'Open', 'Read', 'Read'); Start-Sleep -Milliseconds ${ms}; $f.Close()`], { stdio: 'ignore', windowsHide: true });
+  const t0 = Date.now();
+  for (;;) {
+    try {
+      closeSync(openSync(file, 'r+'));
+    } catch {
+      return p;
+    }
+    if (Date.now() - t0 > 15000) {
+      p.kill();
+      throw new Error('could not hold ' + file);
+    }
+    await new Promise((r) => setTimeout(r, 200));
+  }
+}
+const release = (p) => new Promise((r) => (p.exitCode !== null ? r() : (p.once('exit', r), p.kill())));
+
+describe.skipIf(!IS_WIN)('install.cmd (Windows)', () => {
+  it('installs into a sandbox; an update swaps the library in by renames and leaves nothing aside', async () => {
+    const v1 = (await buildPackage({ zxp, library: await library({ ids: ['LOGO_Mark', 'TTL_LowerThird'] }), out: tmp('bk-inst-out-') })).dir;
+    const v2 = (await buildPackage({ zxp, library: await library({ ids: ['TTL_LowerThird'], version: 2, libraryVersion: '2026.10.20' }), out: tmp('bk-inst-out-') })).dir;
+    const sb = tmp('bk-inst-sb-');
+    const w = winWhere(sb);
+    const a = winInstall(v1, sb);
+    expect(a.status, a.out).toBe(0);
+    expect(a.out).toContain('Готово');
+    expect(libVersion(w)).toBe('2026.10.05');
+    expect(readFileSync(path.join(w.cep, 'CSXS', 'manifest.xml'), 'utf8')).toContain('ExtensionBundleId="ru.cloud.brandkit"');
+    expect(await settled(w)).toEqual([]);
+    const b = winInstall(v2, sb);
+    expect(b.status, b.out).toBe(0);
+    expect(libVersion(w)).toBe('2026.10.20');
+    expect(existsSync(path.join(w.library, 'items', 'LOGO_Mark'))).toBe(false);
+    expect(await settled(w)).toEqual([]);
+    expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(/^plugin=.*\r?\nlibrary=2026\.10\.20\r?\n/);
+  }, 240000);
+
+  it('a file held open in the old library: refused before anything changes; the next run goes through', async () => {
+    const v1 = (await buildPackage({ zxp, library: await library({ ids: ['LOGO_Mark', 'TTL_LowerThird'] }), out: tmp('bk-inst-out-') })).dir;
+    const v2 = (await buildPackage({ zxp, library: await library({ ids: ['TTL_LowerThird'], version: 2, libraryVersion: '2026.10.20' }), out: tmp('bk-inst-out-') })).dir;
+    const sb = tmp('bk-inst-sb-');
+    const w = winWhere(sb);
+    expect(winInstall(v1, sb).status).toBe(0);
+    const panel = readFileSync(path.join(w.cep, 'CSXS', 'manifest.xml'), 'utf8');
+    const holder = await holdOpen(path.join(w.library, 'library.json'), 60000);
+    let r;
+    try {
+      r = winInstall(v2, sb);
+    } finally {
+      await release(holder);
+    }
+    expect(r.status, r.out).toBe(1);
+    expect(r.out).toMatch(/ОШИБКА: Библиотека занята .*Ничего не изменено/);
+    expect(libVersion(w)).toBe('2026.10.05');
+    expect(existsSync(path.join(w.library, 'items', 'LOGO_Mark'))).toBe(true);
+    expect(readFileSync(path.join(w.cep, 'CSXS', 'manifest.xml'), 'utf8')).toBe(panel);
+    const again = winInstall(v2, sb);
+    expect(again.status, again.out).toBe(0);
+    expect(libVersion(w)).toBe('2026.10.20');
+    expect(await settled(w)).toEqual([]);
+  }, 240000);
+
+  it('a run stopped right after the swap without a word, as an antivirus does, is reported as a failure', async () => {
+    const v1 = (await buildPackage({ zxp, library: await library({ ids: ['TTL_LowerThird'] }), out: tmp('bk-inst-out-') })).dir;
+    const sb = tmp('bk-inst-sb-');
+    const w = winWhere(sb);
+    const r = winInstall(v1, sb, { BRANDKIT_INSTALL_TEST_STOP: 'swap' });
+    expect(r.status, r.out).toBe(1);
+    expect(r.out).toMatch(/ОШИБКА: установка прервалась на середине/);
+    expect(r.out).not.toContain('Готово');
+    // the swap itself is whole: the new library is in place
+    expect(libVersion(w)).toBe('2026.10.05');
+    const again = winInstall(v1, sb);
+    expect(again.status, again.out).toBe(0);
+    expect(await settled(w)).toEqual([]);
+  }, 240000);
 });

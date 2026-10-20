@@ -4,11 +4,16 @@
 # -WithAme   also copies the brand .epr presets into the user presets of Adobe Media Encoder
 # -Sandbox   installs into <dir>\... instead of the real folders (a dry run for checks); skips the check for
 #            running apps and the folder rights
+# -Done <file>  written as the very last step; install.cmd passes it and reports a run that ended without it
+# -Interrupted  only says that the run before stopped half-way (install.cmd calls it, its text lives here)
 # Exit codes: 0 installed, 2 refused (After Effects or Premiere is running, or Media Encoder with -WithAme), 1 error.
 # The same steps as install.command (macOS); keep the two in step.
+# BRANDKIT_INSTALL_TEST_STOP=swap ends the process right after the swap, as an antivirus does (installer tests only).
 param(
   [switch]$WithAme,
-  [string]$Sandbox = ''
+  [string]$Sandbox = '',
+  [string]$Done = '',
+  [switch]$Interrupted
 )
 $ErrorActionPreference = 'Stop'
 $BundleId = 'ru.cloud.brandkit'
@@ -17,6 +22,13 @@ $Payload = Join-Path $Here 'payload'
 
 function Say([string]$Text) { Write-Host $Text }
 function Fail([string]$Text) { Write-Host "ОШИБКА: $Text"; exit 1 }
+function Busy([string]$What, [string]$Path) { "$What занята ($Path): закройте After Effects, Premiere и Media Encoder, подождите полминуты и запустите установщик снова. Ничего не изменено." }
+
+# On the build PC an antivirus (360 Total Security) stopped the script in the middle of a delete with exit code 0 and
+# no message (2026-10-20); install.cmd then saw a success. It now checks the -Done file and calls this.
+if ($Interrupted) {
+  Fail "установка прервалась на середине без сообщения: так бывает, когда скрипт останавливает антивирус. Запустите установщик ещё раз. Если повторится, запустите его из окна PowerShell: & `".\install.ps1`" (с теми же ключами) или попросите IT добавить папку установщика в исключения антивируса."
+}
 
 try {
   $versionFile = Join-Path $Payload 'VERSION'
@@ -64,17 +76,13 @@ try {
   # 2. Files downloaded by a browser carry the Mark of the Web; the copies must not.
   Get-ChildItem -LiteralPath $Here -Recurse -File | Unblock-File -ErrorAction SilentlyContinue
 
-  # 3. Extension: replaced as a whole; a folder of the same name that is not ours stays untouched.
+  # 3. Extension: a folder of the same name that is not ours stays untouched.
   if (Test-Path -LiteralPath $CepDir) {
     $manifest = Join-Path $CepDir 'CSXS\manifest.xml'
     if (-not ((Test-Path -LiteralPath $manifest) -and (Select-String -LiteralPath $manifest -SimpleMatch "ExtensionBundleId=`"$BundleId`"" -Quiet))) {
       Fail "$CepDir занята другим расширением: удалите её вручную"
     }
-    Remove-Item -LiteralPath $CepDir -Recurse -Force
   }
-  New-Item -ItemType Directory -Force -Path (Split-Path -Parent $CepDir) | Out-Null
-  Copy-Item -LiteralPath (Join-Path $Payload 'extension') -Destination $CepDir -Recurse
-  Say "Панель: $CepDir"
 
   # 4. Library in the shared folder, opened for writing to every user of the machine (Users group by SID,
   #    the same in any Windows language). On every install, not only when the folder is new: a folder left by
@@ -85,11 +93,39 @@ try {
     & icacls "$SharedRoot" /grant "*S-1-5-32-545:(OI)(CI)M" | Out-Null
     if ($LASTEXITCODE -ne 0) { Say "Внимание: icacls не открыл $SharedRoot на запись всем пользователям (код $LASTEXITCODE). Попросите владельца папки или IT выполнить: icacls `"$SharedRoot`" /grant `"*S-1-5-32-545:(OI)(CI)M`"" }
   }
-  $libraryNew = "$LibraryDir.new"
-  if (Test-Path -LiteralPath $libraryNew) { Remove-Item -LiteralPath $libraryNew -Recurse -Force }
+
+  # 3-4. The panel and the library are swapped in by renames, never deleted in place: an old library deleted file by
+  #    file was left half gone when a preview was held open, or when an antivirus stopped the script without a word
+  #    (build PC, 2026-10-20). The new copies are made first (the panel's outside the CEP extensions folder: CEP
+  #    would load a second copy of the bundle found there); the old ones move aside in one step each, a held file
+  #    refuses that before anything changes, and the panel failing puts the library back. What was set aside goes
+  #    at the very end (step 8).
+  $Stamp = (Get-Date).ToString('yyyyMMdd-HHmmss')
+  $Aside = Join-Path $StateDir 'aside'
+  New-Item -ItemType Directory -Force -Path $Aside | Out-Null
+  $cepNew = Join-Path $Aside "panel-new-$Stamp"
+  Copy-Item -LiteralPath (Join-Path $Payload 'extension') -Destination $cepNew -Recurse
+  $libraryNew = "$LibraryDir.new-$Stamp"
   Copy-Item -LiteralPath (Join-Path $Payload 'library') -Destination $libraryNew -Recurse
-  if (Test-Path -LiteralPath $LibraryDir) { Remove-Item -LiteralPath $LibraryDir -Recurse -Force }
+  $libraryOld = $null
+  if (Test-Path -LiteralPath $LibraryDir) {
+    $libraryOld = "$LibraryDir.old-$Stamp"
+    try { Rename-Item -LiteralPath $LibraryDir -NewName (Split-Path -Leaf $libraryOld) } catch { Fail (Busy 'Библиотека' $LibraryDir) }
+  }
   Rename-Item -LiteralPath $libraryNew -NewName 'library'
+  New-Item -ItemType Directory -Force -Path (Split-Path -Parent $CepDir) | Out-Null
+  if (Test-Path -LiteralPath $CepDir) {
+    try {
+      Move-Item -LiteralPath $CepDir -Destination (Join-Path $Aside "panel-old-$Stamp")
+    } catch {
+      Rename-Item -LiteralPath $LibraryDir -NewName (Split-Path -Leaf $libraryNew)
+      if ($libraryOld) { Rename-Item -LiteralPath $libraryOld -NewName 'library' }
+      Fail (Busy 'Панель' $CepDir)
+    }
+  }
+  Move-Item -LiteralPath $cepNew -Destination $CepDir
+  if ($env:BRANDKIT_INSTALL_TEST_STOP -eq 'swap') { [Environment]::Exit(0) }
+  Say "Панель: $CepDir"
   Say "Библиотека: $LibraryDir"
 
   # 5. MOGRT copies flat in Local Templates: the Graphics Templates panel does not see subfolders. Our copies of
@@ -167,10 +203,25 @@ try {
 
   [IO.File]::WriteAllLines((Join-Path $StateDir 'installed.txt'), [string[]]@(
     "plugin=$($ver['plugin'])", "library=$($ver['library'])", "installed=$((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ'))"))
+  if ($Done) { [IO.File]::WriteAllText($Done, 'ok') }
   if ($ver['signed'] -ne '1') {
     Say 'Внимание: панель без подписи. Она загрузится только с PlayerDebugMode: reg add HKCU\Software\Adobe\CSXS.11 /v PlayerDebugMode /t REG_SZ /d 1 /f (и CSXS.12)'
   }
   Say 'Готово. Запустите After Effects или Premiere: Window > Extensions > Cloud.ru BrandKit.'
+
+  # 8. What the swaps set aside, and the leftovers of runs stopped half-way, go by rmdir in a cmd of its own that this
+  #    script does not wait for: an antivirus killed the installer together with such a delete (build PC, 2026-10-20),
+  #    and the install is complete by now. Copies an earlier install left are named, for a manual delete.
+  $old = @(Get-ChildItem -LiteralPath $SharedRoot -Directory | Where-Object { $_.Name -like 'library.old-*' -or $_.Name -like 'library.new*' })
+  $old += @(Get-ChildItem -LiteralPath $Aside -Directory)
+  $earlier = @($old | Where-Object { $_.Name -notlike "*-$Stamp" })
+  if ($earlier.Count) {
+    Say "Внимание: прежние копии панели и библиотеки не удалились после прошлой установки (так бывает, когда удаление останавливает антивирус). Если они останутся и теперь, удалите их вручную: $(($earlier | ForEach-Object { $_.FullName }) -join ', ')"
+  }
+  if ($old.Count) {
+    $rm = ($old | ForEach-Object { "rmdir /s /q `"$($_.FullName)`"" }) -join ' & '
+    Start-Process -FilePath 'cmd.exe' -ArgumentList "/d /c $rm" -WindowStyle Hidden
+  }
   exit 0
 } catch {
   Fail $_.Exception.Message
