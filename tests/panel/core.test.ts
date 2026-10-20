@@ -29,7 +29,9 @@ describe('library', () => {
   it('loads the library', () => {
     const r = parseCatalog(JSON.stringify(catalog()), '0.1.0');
     expect(r.problems).toEqual([]);
-    expect(r.catalog?.items.map((i) => i.id)).toEqual(['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird', 'TTL_Plate']);
+    // every template of library.src.json, the first pack first (the list grows with every master)
+    expect(r.catalog?.items.map((i) => i.id)).toEqual(catalog().items.map((i) => i.id));
+    expect(r.catalog?.items.slice(0, 3).map((i) => i.id)).toEqual(['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird']);
   });
   it('refuses a library that is not JSON or needs a newer panel', () => {
     expect(parseCatalog('{', '0.1.0').problems[0].code).toBe('LIBRARY');
@@ -40,19 +42,21 @@ describe('library', () => {
   });
   it('drops a broken item and keeps the rest', () => {
     const c = catalog();
+    const rest = c.items.map((i) => i.id).filter((id) => id !== 'LOGO_Mark');
     delete (c.items[1] as { fit?: string }).fit;
     c.items.push(structuredClone(c.items[0]));
     const r = parseCatalog(c, '0.1.0');
-    expect(r.catalog?.items.map((i) => i.id)).toEqual(['LOGO_Shot', 'TTL_LowerThird', 'TTL_Plate']);
+    expect(r.catalog?.items.map((i) => i.id)).toEqual(rest);
     expect(r.problems.map((p) => [p.severity, p.detail])).toEqual([['warning', 'T1 without fit'], ['warning', 'duplicate id']]);
   });
   it('filters by host, category, favourites and words in any order, ё as е', () => {
     const c = catalog();
     c.items[1].hosts = ['ae'];
-    expect(itemsForHost(c, 'pr').map((i) => i.id)).toEqual(['LOGO_Shot', 'TTL_LowerThird', 'TTL_Plate']);
+    const ids = c.items.map((i) => i.id);
+    expect(itemsForHost(c, 'pr').map((i) => i.id)).toEqual(ids.filter((id) => id !== 'LOGO_Mark'));
     const items = c.items;
     expect(filterItems(items, { query: 'подписью логошот' }).map((i) => i.id)).toEqual(['LOGO_Shot']);
-    expect(filterItems(items, { query: 'ttl' }).map((i) => i.id)).toEqual(['TTL_LowerThird', 'TTL_Plate']);
+    expect(filterItems(items, { query: 'ttl' }).map((i) => i.id)).toEqual(ids.filter((id) => id.startsWith('TTL_')));
     expect(filterItems(items, { query: 'плашке' }).map((i) => i.id)).toEqual(['TTL_Plate']);
     expect(filterItems(items, { category: 'logo' }).length).toBe(2);
     expect(filterItems(items, { category: 'favorites', favorites: new Set(['LOGO_Mark']) }).map((i) => i.id)).toEqual(['LOGO_Mark']);

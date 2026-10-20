@@ -66,11 +66,16 @@ describe.skipIf(!HAS_DUMPS)('TTL_Plate', async () => {
     const low = plateOf(c, 'PL_POD_3', 4);
     expect(low.y0).toBeCloseTo(1080 - p.layout.podcast.bottom.side - h, 6);
     expect(low.y1 - (1080 - p.layout.podcast.bottom.side)).toBeCloseTo(8.26 - p.layout.podcast.base, 1);
-    // round letters overshoot 0.6 px: under 3 % of the font, the plate keeps its height
-    expect(plateOf(c, 'PL_POD_1', 4).h).toBeCloseTo(h, 6);
-    // SMM: lowercase descenders stay inside the plate (baseline 18.26 px above its bottom)
+    // round letters overshoot 0.6 px: under 3 % of the font, so lines 1 and 2 only reach 1 px into the plate
+    // under them (no seam of two anti-aliased edges in one pixel row)
+    for (const [up, down] of [['PL_POD_1', 'PL_POD_2'], ['PL_POD_2', 'PL_POD_3']]) {
+      expect(plateOf(c, up, 4).y1).toBeCloseTo(plateOf(c, down, 4).y0 + 1, 6);
+    }
+    // SMM: lowercase descenders (р, ф of «видеоконференций») stay inside the plate, its baseline is 18.26 px
+    // above the plate bottom; the line over it reaches 1 px into it
     const s = comp({ w: 1080, h: 1920, ctrl: { Style: 2, Position: 1 }, texts: SMM });
-    expect(plateOf(s, 'PL_SMM_1', 3).h).toBeCloseTo(p.layout.smm.h, 6);
+    expect(plateOf(s, 'PL_SMM_2', 3).h).toBeCloseTo(p.layout.smm.h, 6);
+    expect(plateOf(s, 'PL_SMM_1', 3).y1).toBeCloseTo(plateOf(s, 'PL_SMM_2', 3).y0 + 1, 6);
   });
 
   it('podcast «Авто»: the pack lines on the right, plates within 3 px (4K) of the pack', () => {
@@ -91,7 +96,7 @@ describe.skipIf(!HAS_DUMPS)('TTL_Plate', async () => {
     const b = plateOf(c, 'PL_POD_3', 3);
     expect(plateOf(c, 'PL_POD_2', 3).w).toBe(0);
     expect(b.y1).toBeCloseTo(1080 - p.layout.podcast.bottom.side, 6);
-    expect(b.y1 - a.y1).toBeCloseTo(p.layout.podcast.step, 6);
+    expect(b.y0 - a.y0).toBeCloseTo(p.layout.podcast.step, 6);
     // «Слева» mirrors the right side: the plates start at the frame edge's distance
     expect(a.x0).toBeCloseTo(p.layout.podcast.edge, 6);
     expect(b.x0).toBeCloseTo(p.layout.podcast.edge, 6);

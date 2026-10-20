@@ -106,7 +106,8 @@ describe('live plan', () => {
     const cases = variantCases(catalog(), 'pr');
     expect(cases.map((c) => c.key)).toContain('TTL_LowerThird_1x1');
     expect(cases.map((c) => c.key)).toContain('TTL_Plate_9x16');
-    expect(cases).toHaveLength(14);
+    const t1 = catalog().items.filter((i) => i.tier === 'T1' && i.hosts.includes('pr'));
+    expect(cases).toHaveLength(t1.reduce((n, i) => n + i.variants.length, 0));
     const v = sampleValues(item('TTL_LowerThird'));
     expect(v).toMatchObject({ name: 'Анна-Мария Ёлкина', style: 3, side: 2, speed: 2, size: 2 });
     expect(sampleValues(item('LOGO_Mark')).plate).toBe(false);

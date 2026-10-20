@@ -44,7 +44,7 @@ describe('panel app', () => {
     const { a } = app(new Host(prContext()));
     await a.init();
     expect(a.state.phase).toBe('ready');
-    expect(a.state.items.map((i) => i.id)).toEqual(['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird', 'TTL_Plate']);
+    expect(a.state.items.map((i) => i.id)).toEqual(catalog().items.map((i) => i.id));
     expect(a.categories().map((c) => c.label_ru)).toEqual(['Избранное', 'Логотипы', 'Титры']);
     expect(a.fontSummary()).toEqual({ ok: true, text: 'Шрифты SB Sans на месте' });
     expect(a.versions()).toBe('Pr 26.5.2 · панель 0.1.0 · библиотека 2026.10.05');

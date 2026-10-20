@@ -174,9 +174,11 @@ function blockPre(B, timeMap, size) {
 }
 
 // One line (li from the top): its slot in time (s: 1-based, from the top or the bottom), its plate at rest
-// (x0, w, bottom pb, dsc: how far the plate reaches under pb for the descenders of its text — Д, Ц, Щ, a
-// comma — as the pack's «Подписывайся!» does; more than 3 % of the font below the plate bottom counts), the
-// delays of its in and out, and the plate growth g (0..1) from the outer edge.
+// (x0, w, bottom pb, ext: how far the plate reaches under pb), the delays of its in and out, and the plate
+// growth g (0..1) from the outer edge. A plate reaches under the descenders of its text (Д, Ц, Щ, a comma:
+// more than 3 % of the font below the plate bottom), as the pack's «Подписывайся!» does, and a line with
+// another under it reaches 1 px into that plate: two anti-aliased edges in one pixel row let the video
+// through (TTL_Plate FHD, 2026-10-20: alpha 232 between the lines).
 function lineJs(B, li) {
   const tm = B.timing;
   return [
@@ -185,6 +187,7 @@ function lineJs(B, li) {
     `var s = ${B.fromTop ? 'me + 1' : 'b + 1'};`,
     `var pb = B0 - b * ${B.geo.step} * kt, w = width(e), x0 = left(w), pd = pads(e);`,
     `var over = e.b - ${B.geo.base} * kt, dsc = on && over > ${r6(0.03 * B.textStyle.size)} * kt ? over : 0;`,
+    `var ext = b > 0 ? Math.max(dsc, ${r6(B.geo.step - B.geo.h)} * kt + 1) : dsc;`,
     `var dIn = [${tm.inDelays.join(', ')}][Math.max(0, s - 1)] || 0, dOut = ${tm.outStagger} * (n - s);`,
     `var g = on ? sl("${B.sliders.plateIn}", TT - dIn) * (1 - sl("${B.sliders.plateOut}", TT + dOut)) : 0;`,
     'var gx0 = side == 3 ? x0 + w * (1 - g) : x0, gx1 = side == 3 ? x0 + w : x0 + w * g;',
@@ -213,8 +216,8 @@ export function addPlateBlock(spec, B, timeMap) {
     const plate = B.plates[li];
     const tx = B.texts[li];
     const line = pre + lineJs(B, li);
-    spec.expr(plate, P.rectSize('Plate'), line + `[Math.max(0, gx1 - gx0), ${geo.h} * kt + dsc]`);
-    spec.expr(plate, P.rectPos('Plate'), line + `[(gx0 + gx1) / 2, pb + (dsc - ${geo.h} * kt) / 2]`);
+    spec.expr(plate, P.rectSize('Plate'), line + `[Math.max(0, gx1 - gx0), ${geo.h} * kt + ext]`);
+    spec.expr(plate, P.rectPos('Plate'), line + `[(gx0 + gx1) / 2, pb + (ext - ${geo.h} * kt) / 2]`);
     if (B.source) spec.expr(tx, P.text, `String(thisComp.layer("${B.source[li]}").text.sourceText)`);
     spec.expr(tx, P.pos, line + `[x0 + pd[0] - e.l, pb - ${geo.base} * kt]`);
     const tin = `sl("${B.sliders.textIn}", TT - dIn)`;
