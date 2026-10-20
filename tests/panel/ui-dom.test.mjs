@@ -215,10 +215,26 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     expect(await evaluate(s, `!!document.querySelector('.fit')`)).toBe(false);
   }, 60000);
 
-  it('«Движение» in AE: the brand curves by type; a click puts one on the selected keys', async () => {
+  it('«Движение» in AE: the movements M1–M12 first; a click builds one on the selected layers', async () => {
     await go('?host=ae');
     await evaluate(s, `[...document.querySelectorAll('.tab')].find((t) => t.textContent === 'Движение').click()`);
-    await waitFor(s, `document.querySelectorAll('.curve-group').length > 0`);
+    await waitFor(s, `document.querySelectorAll('.rig-group').length > 0`);
+    expect(await evaluate(s, `[...document.querySelectorAll('.motion .seg button')].map((b) => b.textContent + (b.classList.contains('on') ? ' *' : ''))`)).toEqual(['Движения *', 'Кривые']);
+    const groups = await evaluate(s, `[...document.querySelectorAll('.rig-group h3')].map((e) => e.textContent)`);
+    expect(groups[0]).toBe('Плашка по X (M1): титры');
+    expect(groups).toEqual(expect.arrayContaining(['Подъём текста (M2): подкаст', 'Блочное проявление (M7)', 'Дрейф (M10)', 'Поп куба логотипа (M12)']));
+    expect(await evaluate(s, `[...document.querySelectorAll('.rig-group')].find((g) => g.querySelector('h3').textContent === 'Бегущая штриховка (M11)').querySelector('button').title`)).toBe('Только слои-фигуры с повторителем (Repeater): Offset -100 + time*0.5.');
+    await evaluate(s, `[...document.querySelectorAll('.rig-group')].find((g) => g.querySelector('h3').textContent === 'Поп (M5)').querySelector('button').click()`);
+    await waitFor(s, `!!document.querySelector('.motion .done')`, { timeoutMs: 10000 });
+    expect(await evaluate(s, `document.querySelector('.motion .done').textContent`)).toBe('Движение «Поп (M5), поп» поставлено: Плашка. В каноне — 13 кадр.');
+  }, 60000);
+
+  it('«Движение» in AE, «Кривые»: the brand curves by type; a click puts one on the selected keys', async () => {
+    await go('?host=ae');
+    await evaluate(s, `[...document.querySelectorAll('.tab')].find((t) => t.textContent === 'Движение').click()`);
+    await waitFor(s, `document.querySelectorAll('.motion .seg button').length === 2`);
+    await evaluate(s, `[...document.querySelectorAll('.motion .seg button')].find((b) => b.textContent === 'Кривые').click()`);
+    await waitFor(s, `document.querySelectorAll('.curve-group').length > 0 && !document.querySelector('.rig-group')`);
     const groups = await evaluate(s, `[...document.querySelectorAll('.curve-group h3')].map((e) => e.textContent)`);
     expect(groups[0]).toBe('Плашка по X (M1): титры');
     expect(groups).toContain('Вскрытие маской (M4)');

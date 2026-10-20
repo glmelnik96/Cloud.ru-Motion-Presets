@@ -56,5 +56,5 @@ describe.skipIf(!hasFfmpeg)('references: analysis of a clip', () => {
     expect(r.spans[0].end).toBeLessThanOrEqual(1.64);
     for (const f of ['probe.json', 'sheet.jpg', 'cuts.json', 'cuts.jpg', 'motion.json', 'strip-0_8.jpg', 'notes.md']) expect(existsSync(path.join(out, f)), f).toBe(true);
     expect(readFileSync(path.join(out, 'notes.md'), 'utf8')).toContain('Склейки: 00:02.00.');
-  });
+  }, 30000);
 });

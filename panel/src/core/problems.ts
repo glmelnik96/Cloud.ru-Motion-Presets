@@ -52,6 +52,9 @@ export type ProblemCode =
   | 'STYLE_FAILED'
   | 'EASE_NO_KEYS'
   | 'EASE_SINGLE'
+  | 'RIG_NOTHING'
+  | 'RIG_SKIPPED'
+  | 'RIG_3D'
   | 'INSERT_FAILED'
   | 'READBACK'
   | 'TIMEOUT'
@@ -154,6 +157,12 @@ export const messages = {
     ? `Выделите хотя бы два ключа одного свойства: у ${single.join(', ')} выделен один ключ.`
     : 'Выделите на таймлайне ключи, между которыми поставить кривую: хотя бы два ключа одного свойства.',
   easeSingle: (names: string[]) => `У свойств ${names.join(', ')} выделен один ключ — кривая на них не поставлена.`,
+  rigUnknown: () => 'Такого движения нет в каноне.',
+  rigSelection: () => 'Выделите в композиции слои, на которые поставить движение.',
+  rigWhy: (why?: string) => ({ text: 'нужен текстовый слой', shape: 'нужен слой-фигура', repeater: 'нет повторителя (Repeater)', bounds: 'у слоя нет размера', masks: 'слой не принимает маски' } as Record<string, string>)[why ?? ''] ?? 'не подходит',
+  rigNothing: (skipped: string[]) => `Движение не встало ни на один слой: ${skipped.join(', ')}.`,
+  rigSkipped: (skipped: string[]) => `Пропущены: ${skipped.join(', ')}.`,
+  rig3D: (names: string[]) => `Слоям ${names.join(', ')} включено 3D: без него нет вращения по X и глубины.`,
   styleNone: () => 'В библиотеке нет стиля субтитров.',
   styleFailed: (detail: string) => `Стиль не добавлен в проект: ${detail}.`,
   placement: (what: string[]) => `Файлы встали не так, как задумано (${what.join('; ')}). Отмените вставку и повторите.`,

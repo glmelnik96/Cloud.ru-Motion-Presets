@@ -179,11 +179,15 @@ if (isMain) {
     // Export next to the project — AE through the Render Queue with «CR FullHD», Premiere straight from the .epr.
     const tabs = await evaluate(s, page.tabs);
     check(`tabs: ${tabs.join(', ')}`, JSON.stringify(tabs) === JSON.stringify(host === 'ae' ? ['Каталог', 'Цвета', 'Движение', 'Экспорт'] : ['Каталог', 'Монтаж', 'Экспорт']), tabs);
-    // «Движение» (AE, 0.1.20): the brand curves of the canon are listed
+    // «Движение» (AE): the movements M1–M12 (0.1.22) first, the brand curves of the canon (0.1.20) behind «Кривые»
     if (host === 'ae' && await evaluate(s, page.openTab('Движение'))) {
-      const groups = await waitFor(s, `(() => { const h = [...document.querySelectorAll('.curve-group h3')].map((e) => e.textContent); return h.length ? h : null; })()`, { timeoutMs: 5000 }).catch(() => null);
-      check('motion: the brand curves by type', Array.isArray(groups) && groups.includes('Вскрытие маской (M4)'), groups);
+      const rigs = await waitFor(s, `(() => { const h = [...document.querySelectorAll('.rig-group h3')].map((e) => e.textContent); return h.length ? h : null; })()`, { timeoutMs: 5000 }).catch(() => null);
+      check('motion: the movements M1–M12 by type', Array.isArray(rigs) && rigs.includes('Блочное проявление (M7)') && rigs.includes('Поп куба логотипа (M12)'), rigs);
       await shot('6-motion');
+      await evaluate(s, `[...document.querySelectorAll('.motion .seg button')].find((b) => b.textContent === 'Кривые').click()`);
+      const groups = await waitFor(s, `(() => { const h = [...document.querySelectorAll('.curve-group h3')].map((e) => e.textContent); return h.length && !document.querySelector('.rig-group') ? h : null; })()`, { timeoutMs: 5000 }).catch(() => null);
+      check('motion: the brand curves by type', Array.isArray(groups) && groups.includes('Вскрытие маской (M4)'), groups);
+      await shot('6b-curves');
     }
     // «Монтаж» (Premiere, 0.1.19): both tools are there; the style of the library is offered when the build has it
     if (host === 'pr' && await evaluate(s, page.openTab('Монтаж'))) {

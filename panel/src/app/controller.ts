@@ -2,6 +2,7 @@
 // actions; it never talks to CSInterface or Node itself (spec 6: «Интерфейс знает только API ядра»).
 import { planColor, runColor, type ColorTarget } from '../core/colors';
 import { brandCurves, planEase, runEase, type BrandCurve } from '../core/ease';
+import { brandRigs, planRig, runRig, type BrandRig } from '../core/rigs';
 import { planBlur, planStyle, runBlur, runStyle, textStyles } from '../core/edit';
 import { isPreset, planPreset, runPreset } from '../core/effects';
 import { aomFile, defaultMode, exportFolder, exportNote, exportPresets, MODES, planExport, presetsForFrame, runExport, type ExportFit, type ExportMode, type ExportPlan, type ExportPreset } from '../core/export';
@@ -253,6 +254,35 @@ export class PanelApp {
       return this.finish({ ok: true, problems: out.problems, at: Date.now(), note: `Кривая «${curve.group}, ${curve.label}» поставлена: ${on.join(', ')}.${len}` });
     } catch (e) {
       this.log('error', 'ease.exception', { error: String(e) });
+      return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
+    }
+  }
+
+  // ---- «Движения» (After Effects): the brand movements M1–M12 built on the selected layers, panel/src/core/rigs.ts ----
+
+  rigs(): BrandRig[] {
+    return brandRigs();
+  }
+
+  async applyRig(key: string): Promise<Outcome> {
+    if (this.state.busy) return { ok: false, problems: [], at: Date.now() };
+    this.set({ busy: true, outcome: null });
+    try {
+      const ctx = await this.refreshContext();
+      if (!ctx) return this.finish({ ok: false, problems: [error('NO_TARGET', messages.noTarget(this.state.host))], at: Date.now() });
+      const rig = this.rigs().find((r) => r.key === key);
+      const plan = planRig(ctx, rig);
+      if (!plan.request || !rig) return this.finish({ ok: false, problems: plan.problems, at: Date.now() });
+      const out = await runRig(this.svc.host, plan.request);
+      this.log(out.ok ? 'info' : 'warn', out.ok ? 'rig.done' : 'rig.failed', { rig: key, reply: out.reply, problems: out.problems.map((p) => p.code) });
+      if (!out.ok || !out.reply) return this.finish({ ok: false, problems: out.problems, at: Date.now() });
+      const done = out.reply.layers.filter((l) => l.done);
+      const mattes = done.filter((l) => l.matte).map((l) => l.matte);
+      const len = rig.frames ? ` В каноне — ${rig.frames} кадр.` : '';
+      const matte = mattes.length ? ` Матовые слои: ${mattes.join(', ')}.` : '';
+      return this.finish({ ok: true, problems: out.problems, at: Date.now(), note: `Движение «${rig.group}, ${rig.label}» поставлено: ${done.map((l) => l.name).join(', ')}.${len}${matte}` });
+    } catch (e) {
+      this.log('error', 'rig.exception', { error: String(e) });
       return this.finish({ ok: false, problems: [error('HOST_ERROR', messages.hostError(this.state.host, String(e)))], at: Date.now() });
     }
   }

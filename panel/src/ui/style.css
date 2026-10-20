@@ -641,7 +641,11 @@ select {
   cursor: default;
 }
 
-/* «Движение» (After Effects): the brand curves by type. */
+/* «Движение» (After Effects): the movements and the brand curves by type. */
+.motion .seg {
+  margin-bottom: 8px;
+}
+
 .motion .curve-group {
   border-bottom: 1px solid var(--line);
   padding: 6px 0 8px;

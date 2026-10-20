@@ -1,6 +1,7 @@
 // Joins the host bundle the panel loads into AE and Premiere (spec 6 «Адаптеры»):
 //   panel/host/common.jsx       BK.call, replies, its own JSON (BK.json), shared helpers
 //   panel/host/ae.jsx, pr.jsx   adapters, picked by BridgeTalk.appName at call time
+//   panel/host/ae-rigs.jsx      «Движения» of the AE adapter (panel/src/core/rigs.ts), added to BK.adapters.ae
 // Non-ASCII characters become \uXXXX: ExtendScript may read a file without a BOM in the system code page,
 // and the lint allows non-ASCII only inside strings and comments, where the escape means the same.
 import { readFileSync } from 'node:fs';
@@ -13,7 +14,7 @@ const REPO = path.resolve(here, '../..');
 const require = createRequire(import.meta.url);
 const { lint } = require('../../tools/jsx/lint-jsx.cjs');
 
-export const HOST_FILES = ['panel/host/common.jsx', 'panel/host/ae.jsx', 'panel/host/pr.jsx'];
+export const HOST_FILES = ['panel/host/common.jsx', 'panel/host/ae.jsx', 'panel/host/ae-rigs.jsx', 'panel/host/pr.jsx'];
 
 export function asciiEscape(src) {
   return String(src).replace(/[\u0080-￿]/g, (c) => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));

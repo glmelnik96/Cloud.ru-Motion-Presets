@@ -84,6 +84,7 @@ class DemoHost implements HostCaller {
     }
     // «Движение»: two keys of Position selected on the plate
     if (fn === 'applyEase') return { ok: true, data: { props: [{ name: 'Position', layer: 'Плашка', pairs: 1 }], single: [] } as T };
+    if (fn === 'applyRig') return { ok: true, data: { layers: [{ name: 'Плашка', done: true, keys: 2 }] } as T };
     if (fn === 'importTextStyle') {
       const r = args as { name: string };
       const imported = !this.styles.has(r.name);

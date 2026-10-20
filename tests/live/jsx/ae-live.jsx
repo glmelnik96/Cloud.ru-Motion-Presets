@@ -516,6 +516,179 @@ function lvEaseRead() {
   });
 }
 
+// ---- «Движения» (tests/live/rigs.mjs) ----
+
+// White point text, centred, of the given size in its own font.
+function lvWhiteText(c, text, size) {
+  var l = c.layers.addText(text);
+  var src = l.property('ADBE Text Properties').property('ADBE Text Document');
+  var doc = src.value;
+  doc.fontSize = size;
+  doc.applyFill = true;
+  doc.fillColor = [1, 1, 1];
+  doc.applyStroke = false;
+  doc.justification = ParagraphJustification.CENTER_JUSTIFY;
+  src.setValue(doc);
+  return l;
+}
+
+// Layers of the cases in comp PARAMS.id, by kind: a shape layer with a 300x70 rectangle, a fill and a stroke of 4
+// ('shape'), the same with a Repeater ('hatch'), a point text ('text'), a 240x120 solid ('solid'); 'separated'
+// splits the dimensions of Position; x, y: where the layer stands. Labels (white text) and a dark backdrop at the
+// bottom, so a frame of the comp shows every case in its cell.
+function lvRigLayers() {
+  check('comp ' + PARAMS.id + ': ' + PARAMS.layers.length + ' layers for the movements', function () {
+    var c = lvComp(PARAMS.id);
+    var i, s, l, g, rect, stroke, rep, bg;
+    bg = c.layers.addSolid([0.13, 0.13, 0.13], 'BK Backdrop', c.width, c.height, 1, c.duration);
+    for (i = 0; PARAMS.labels && i < PARAMS.labels.length; i++) {
+      l = lvWhiteText(c, PARAMS.labels[i].text, 22);
+      l.name = 'Label ' + i;
+      l.property('ADBE Transform Group').property('ADBE Position').setValue([PARAMS.labels[i].x, PARAMS.labels[i].y]);
+    }
+    for (i = 0; i < PARAMS.layers.length; i++) {
+      s = PARAMS.layers[i];
+      if (s.kind === 'text') {
+        l = lvWhiteText(c, s.text || 'Анна Проверкина', 40);
+      } else if (s.kind === 'solid') {
+        l = c.layers.addSolid([0.15, 0.82, 0.49], s.name, 240, 120, 1, c.duration);
+      } else {
+        l = c.layers.addShape();
+        g = l.property('ADBE Root Vectors Group').addProperty('ADBE Vector Group');
+        rect = g.property('ADBE Vectors Group').addProperty('ADBE Vector Shape - Rect');
+        rect.property('ADBE Vector Rect Size').setValue([300, 70]);
+        l.property('ADBE Root Vectors Group').property(1).property('ADBE Vectors Group').addProperty('ADBE Vector Graphic - Fill');
+        stroke = l.property('ADBE Root Vectors Group').property(1).property('ADBE Vectors Group').addProperty('ADBE Vector Graphic - Stroke');
+        stroke.property('ADBE Vector Stroke Width').setValue(4);
+        if (s.kind === 'hatch') {
+          rep = l.property('ADBE Root Vectors Group').addProperty('ADBE Vector Filter - Repeater');
+          rep.property('ADBE Vector Repeater Copies').setValue(5);
+        }
+      }
+      l.name = s.name;
+      if (s.x !== undefined) {
+        l.property('ADBE Transform Group').property('ADBE Position').setValue([s.x, s.y]);
+      }
+      if (s.separated) {
+        l.property('ADBE Transform Group').property('ADBE Position').dimensionsSeparated = true;
+      }
+    }
+    bg.moveToEnd();
+    return true;
+  });
+}
+
+function lvInterp(t) {
+  return t === KeyframeInterpolationType.BEZIER ? 'bezier' : (t === KeyframeInterpolationType.LINEAR ? 'linear' : 'hold');
+}
+
+function lvKeysOf(p) {
+  var out = [];
+  var k, v;
+  for (k = 1; k <= p.numKeys; k++) {
+    v = p.keyValue(k);
+    if (v instanceof Shape) {
+      v = v.vertices;
+    }
+    out.push({ t: Math.round(p.keyTime(k) * 10000) / 10000, v: v, inEase: lvEaseList(p.keyInTemporalEase(k)), outEase: lvEaseList(p.keyOutTemporalEase(k)), inI: lvInterp(p.keyInInterpolationType(k)), outI: lvInterp(p.keyOutInterpolationType(k)) });
+  }
+  return out;
+}
+
+function lvPropsByMatch(group, matchName, out, depth) {
+  var i, p;
+  if (!group || depth > 12) {
+    return out;
+  }
+  for (i = 1; i <= group.numProperties; i++) {
+    p = group.property(i);
+    if (p.propertyType === PropertyType.PROPERTY) {
+      if (p.matchName === matchName) {
+        out.push(p);
+      }
+    } else {
+      lvPropsByMatch(p, matchName, out, depth + 1);
+    }
+  }
+  return out;
+}
+
+// What the movements left on the layers PARAMS.names: keyed transform properties, text animators, masks, effects,
+// the matte, stroke widths and Repeater offsets; and the order of the layers of the comp.
+function lvRigRead() {
+  check('movements of ' + PARAMS.names.join(', ') + ' read', function () {
+    var c = lvComp(PARAMS.id);
+    var out = {};
+    var tnames = ['ADBE Position', 'ADBE Position_0', 'ADBE Position_1', 'ADBE Position_2', 'ADBE Scale', 'ADBE Opacity', 'ADBE Rotate X'];
+    var i, j, n, l, tr, p, rec, text, anims, a, sel, masks, m, fx, e, list, r;
+    for (n = 0; n < PARAMS.names.length; n++) {
+      l = c.layer(PARAMS.names[n]);
+      rec = { index: l.index, threeD: l.threeDLayer === true, transform: {}, animators: [], masks: [], effects: [], strokes: [], repeaters: [] };
+      tr = l.property('ADBE Transform Group');
+      for (i = 0; i < tnames.length; i++) {
+        p = null;
+        try { p = tr.property(tnames[i]); } catch (e0) { p = null; }
+        if (p && (p.numKeys > 0 || String(p.expression) !== '')) {
+          rec.transform[tnames[i]] = { keys: lvKeysOf(p), expression: String(p.expression), expressionEnabled: p.expressionEnabled === true, expressionError: String(p.expressionError || '') };
+        }
+      }
+      try { r = l.sourceRectAtTime(c.time, false); rec.rect = { top: r.top, left: r.left, width: r.width, height: r.height }; } catch (e1) { rec.rect = null; }
+      text = l.property('ADBE Text Properties');
+      anims = text ? text.property('ADBE Text Animators') : null;
+      for (i = 1; anims && i <= anims.numProperties; i++) {
+        a = anims.property(i);
+        sel = a.property('ADBE Text Selectors').numProperties ? a.property('ADBE Text Selectors').property(1) : null;
+        p = a.property('ADBE Text Animator Properties').property('ADBE Text Position 3D');
+        rec.animators.push({
+          name: String(a.name),
+          position: p ? (p.numKeys ? lvKeysOf(p) : p.value) : null,
+          basedOn: sel ? sel.property('ADBE Text Range Advanced').property('ADBE Text Range Type2').value : null,
+          start: sel ? lvKeysOf(sel.property('ADBE Text Percent Start')) : null
+        });
+      }
+      masks = l.property('ADBE Mask Parade');
+      for (i = 1; masks && i <= masks.numProperties; i++) {
+        m = masks.property(i);
+        rec.masks.push({ name: String(m.name), mode: m.maskMode === MaskMode.ADD ? 'add' : 'other', keys: lvKeysOf(m.property('ADBE Mask Shape')) });
+      }
+      fx = l.property('ADBE Effect Parade');
+      for (i = 1; fx && i <= fx.numProperties; i++) {
+        e = fx.property(i);
+        list = { matchName: e.matchName, values: {}, expressions: {} };
+        if (e.matchName === 'ADBE Fractal Noise') {
+          for (j = 1; j <= 31; j++) {
+            p = null;
+            try { p = e.property('ADBE Fractal Noise-' + ('000' + j).slice(-4)); } catch (e2) { p = null; }
+            if (p && p.propertyType === PropertyType.PROPERTY && p.propertyValueType !== PropertyValueType.NO_VALUE && p.propertyValueType !== PropertyValueType.CUSTOM_VALUE) {
+              list.values[j] = p.value;
+              if (String(p.expression) !== '') {
+                list.expressions[j] = { text: String(p.expression), enabled: p.expressionEnabled === true, error: String(p.expressionError || '') };
+              }
+            }
+          }
+        }
+        rec.effects.push(list);
+      }
+      list = lvPropsByMatch(l.property('ADBE Root Vectors Group'), 'ADBE Vector Stroke Width', [], 0);
+      for (i = 0; i < list.length; i++) {
+        rec.strokes.push({ value: list[i].value, keys: lvKeysOf(list[i]) });
+      }
+      list = lvPropsByMatch(l.property('ADBE Root Vectors Group'), 'ADBE Vector Repeater Offset', [], 0);
+      for (i = 0; i < list.length; i++) {
+        rec.repeaters.push({ expression: String(list[i].expression), enabled: list[i].expressionEnabled === true, error: String(list[i].expressionError || '') });
+      }
+      rec.matte = { type: l.trackMatteType === TrackMatteType.LUMA ? 'LUMA' : (l.trackMatteType === TrackMatteType.NO_TRACK_MATTE ? 'none' : String(l.trackMatteType)), layer: l.trackMatteLayer ? String(l.trackMatteLayer.name) : null };
+      out[PARAMS.names[n]] = rec;
+    }
+    DATA.layers = out;
+    DATA.order = [];
+    for (i = 1; i <= c.numLayers; i++) {
+      DATA.order.push(String(c.layer(i).name) + (c.layer(i).enabled ? '' : ' (off)'));
+    }
+    return true;
+  });
+}
+
 if (PARAMS.op === 'setup') {
   lvSetup();
 } else if (PARAMS.op === 'activate') {
@@ -550,6 +723,10 @@ if (PARAMS.op === 'setup') {
   lvQueueUser();
 } else if (PARAMS.op === 'rq') {
   lvRq();
+} else if (PARAMS.op === 'rigLayers') {
+  lvRigLayers();
+} else if (PARAMS.op === 'rigRead') {
+  lvRigRead();
 } else if (PARAMS.op === 'easeLayer') {
   lvEaseLayer();
 } else if (PARAMS.op === 'easeRead') {

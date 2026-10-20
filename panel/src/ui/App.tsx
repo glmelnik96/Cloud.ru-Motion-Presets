@@ -78,34 +78,64 @@ function Colors({ app, ui }: { app: PanelApp; ui: UiServices }) {
   );
 }
 
-// «Движение» (AE): the brand curves of D19 by type; a click puts the curve between the selected keys.
+function byGroup<T extends { group: string }>(list: T[]): Array<[string, T[]]> {
+  const groups: Array<[string, T[]]> = [];
+  for (const x of list) {
+    const g = groups.find(([name]) => name === x.group);
+    if (g) g[1].push(x);
+    else groups.push([x.group, [x]]);
+  }
+  return groups;
+}
+
+// «Движение» (AE): «Движения» — the brand movements M1–M12 built on the selected layers from the current time;
+// «Кривые» — the brand curves of D19 between the selected keys. The result shows above the lists.
 function Motion({ app }: { app: PanelApp }) {
   const s = app.state;
-  const groups: Array<[string, ReturnType<PanelApp['curves']>]> = [];
-  for (const c of app.curves()) {
-    const g = groups.find(([name]) => name === c.group);
-    if (g) g[1].push(c);
-    else groups.push([c.group, [c]]);
-  }
+  const [mode, setMode] = useState<'rigs' | 'curves'>('rigs');
   return (
     <div class="motion">
-      <p class="hint">Выделите на таймлайне ключи (хотя бы два у свойства) и нажмите кривую: она встанет между соседними выделенными ключами. Тайминг остаётся вашим, в скобках — длина по канону.</p>
-      {groups.map(([name, list]) => (
-        <section key={name} class="curve-group">
-          <h3>{name}</h3>
-          <div class="curves">
-            {list.map((c) => (
-              <button key={c.key} disabled={s.busy} title={`cubic-bezier(${c.bezier.join(', ')}) · влияние ${sec(c.outInfluence)} / ${sec(c.inInfluence)} %`} onClick={() => void app.brandEase(c.key)}>
-                {c.label}{c.frames ? ` (${c.frames})` : ''}
-              </button>
-            ))}
-          </div>
-        </section>
-      ))}
+      <div class="seg" role="group" aria-label="Что ставить">
+        <button class={mode === 'rigs' ? 'on' : ''} onClick={() => setMode('rigs')}>Движения</button>
+        <button class={mode === 'curves' ? 'on' : ''} onClick={() => setMode('curves')}>Кривые</button>
+      </div>
       <div class="actions">
         <Problems list={s.outcome?.problems ?? []} />
         {s.outcome?.ok && <div class="done">{s.outcome.note}</div>}
       </div>
+      {mode === 'rigs' ? (
+        <>
+          <p class="hint">Выделите слои и нажмите движение: ключи встанут от текущего времени, «вход» придёт в нынешнее состояние слоя, «выход» уйдёт из него. Несколько слоёв идут сверху вниз, лесенкой там, где она есть в каноне. В скобках — длина по канону, в кадрах.</p>
+          {byGroup(app.rigs()).map(([name, list]) => (
+            <section key={name} class="curve-group rig-group">
+              <h3>{name}</h3>
+              <div class="curves">
+                {list.map((r) => (
+                  <button key={r.key} disabled={s.busy} title={r.hint} onClick={() => void app.applyRig(r.key)}>
+                    {r.label}{r.frames ? ` (${r.frames})` : ''}
+                  </button>
+                ))}
+              </div>
+            </section>
+          ))}
+        </>
+      ) : (
+        <>
+          <p class="hint">Выделите на таймлайне ключи (хотя бы два у свойства) и нажмите кривую: она встанет между соседними выделенными ключами. Тайминг остаётся вашим, в скобках — длина по канону.</p>
+          {byGroup(app.curves()).map(([name, list]) => (
+            <section key={name} class="curve-group">
+              <h3>{name}</h3>
+              <div class="curves">
+                {list.map((c) => (
+                  <button key={c.key} disabled={s.busy} title={`cubic-bezier(${c.bezier.join(', ')}) · влияние ${sec(c.outInfluence)} / ${sec(c.inInfluence)} %`} onClick={() => void app.brandEase(c.key)}>
+                    {c.label}{c.frames ? ` (${c.frames})` : ''}
+                  </button>
+                ))}
+              </div>
+            </section>
+          ))}
+        </>
+      )}
     </div>
   );
 }
