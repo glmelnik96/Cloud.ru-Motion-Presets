@@ -12,7 +12,10 @@ export const checker = (x, y) => ((Math.floor(x / CELL) + Math.floor(y / CELL)) 
 
 // Inside: the middle of cells away from the margins; on the margins: points on a border between two cells.
 export const SHARP_POINTS = [[984, 552], [600, 312], [1320, 792], [120, 120], [1800, 960]];
-export const BLURRED_POINTS = [[20, 528], [1900, 528], [960 + 24, 20], [960 + 24, 1062]];
+// On the top and bottom margins the border is a vertical one (x on a multiple of CELL): the first point set, 960 + 24,
+// was the middle of a cell, which a blur of 20 leaves black on the top margin (build PC, 2026-10-20: 0 at 984/20,
+// 187 at 960/20, 195 at 1008/20).
+export const BLURRED_POINTS = [[20, 528], [1900, 528], [960, 20], [960, 1062]];
 
 const near = (a, b, eps) => a !== null && a !== undefined && Math.abs(a - b) <= eps;
 
@@ -53,6 +56,7 @@ export async function runEditLive(o) {
   }
   const item = { id: 'CRS_SubtitleStyle', title_ru: 'Стиль', category: 'courses', tier: 'T3', hosts: ['pr'], version: 1, textStyle: 'CR Субтитры', variants: [{ key: 'style', file: o.style.file, minHostVersion: {} }] };
   const req = planStyle(item, { host: 'pr', version: '', project: { saved: true, path: null }, target: null }, o.style.root).request;
+  R.fromHost('style: reset', await hostRun('styleReset', { name: 'CR Субтитры' }));
   const first = await runStyle(bridge, req);
   R.check('style: imported into the BrandKit bin as «CR Субтитры»', first.ok && first.reply?.imported === true && first.reply.name === 'CR Субтитры', first);
   const again = await runStyle(bridge, req);

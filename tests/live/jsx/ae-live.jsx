@@ -419,6 +419,11 @@ function lvTransferRelease() {
       app.project.save();
     });
     bkNewProject();
+    // AE 26.5 keeps a .mov of the closed project open (build PC, 2026-10-20: handle.exe showed AfterFX on
+    // BG_Arrows_16x9_intro_v1.mov after the release, past the 30 s of rename retries); a purge of the caches lets it go.
+    bkQuiet(function () {
+      app.purge(PurgeTarget.ALL_CACHES);
+    });
     return { pass: !!path, detail: path };
   });
 }

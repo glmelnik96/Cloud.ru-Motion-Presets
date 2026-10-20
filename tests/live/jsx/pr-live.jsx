@@ -315,6 +315,39 @@ function lvEditState() {
   });
 }
 
+// Items named PARAMS.name of an earlier run removed, so the style check imports again: the scratch project is saved and
+// reused, and a rerun of the media suite found the «CR Субтитры» of the first run and imported nothing (build PC,
+// 2026-10-20). ProjectItem has no delete in ExtendScript: the items go into a bin that is then deleted.
+function lvStyleReset() {
+  check('earlier items removed: ' + PARAMS.name, function () {
+    var found = [];
+    var trash, i, left;
+    function walk(item) {
+      var k, c;
+      for (k = 0; k < item.children.numItems; k++) {
+        c = item.children[k];
+        if (c.type === ProjectItemType.BIN) {
+          walk(c);
+        } else if (String(c.name) === PARAMS.name) {
+          found.push(c);
+        }
+      }
+    }
+    walk(app.project.rootItem);
+    if (found.length) {
+      trash = app.project.rootItem.createBin('BK style reset');
+      for (i = 0; i < found.length; i++) {
+        found[i].moveBin(trash);
+      }
+      trash.deleteBin();
+    }
+    found = [];
+    walk(app.project.rootItem);
+    left = found.length;
+    return { pass: left === 0, detail: { left: left } };
+  });
+}
+
 // ---- Перенос проекта (tests/live/transfer.mjs) ----
 
 // The scratch project saved and closed, so its folders can be renamed on disk (Premiere holds media open).
@@ -384,6 +417,8 @@ if (PARAMS.op === 'setup') {
   lvFitPlace();
 } else if (PARAMS.op === 'editState') {
   lvEditState();
+} else if (PARAMS.op === 'styleReset') {
+  lvStyleReset();
 } else if (PARAMS.op === 'transferRelease') {
   lvTransferRelease();
 } else if (PARAMS.op === 'transferOpen') {

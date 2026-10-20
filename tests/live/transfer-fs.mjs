@@ -19,9 +19,14 @@ export const nodeTransferFs = {
   rename: (from, to) => renameSync(from, to),
 };
 
+// handle.exe from PATH, else BRANDKIT_HANDLE, else the Sysinternals folder of the build PC (C:/CRBK/tools/sysinternals).
 export function handleHolders(p) {
-  const r = spawnSync('handle', ['-accepteula', '-nobanner', p.replace(/\//g, '\\')], { encoding: 'utf8' });
-  return r.status === null || r.error ? 'handle.exe not on PATH' : (r.stdout || '').trim().split(/\r?\n/).slice(0, 10).join(' | ') || 'no handle found';
+  const tries = ['handle', process.env.BRANDKIT_HANDLE, 'C:/CRBK/tools/sysinternals/handle.exe'].filter(Boolean);
+  for (const exe of tries) {
+    const r = spawnSync(exe, ['-accepteula', '-nobanner', p.replace(/\//g, '\\')], { encoding: 'utf8' });
+    if (r.status !== null && !r.error) return (r.stdout || '').trim().split(/\r?\n/).slice(0, 10).join(' | ') || 'no handle found';
+  }
+  return 'handle.exe not found (PATH, BRANDKIT_HANDLE, C:/CRBK/tools/sysinternals)';
 }
 
 // A new folder for each copy: Premiere keeps the media of a copy it opened until it quits, so the folder of the
