@@ -111,10 +111,13 @@ export async function runBlur(caller: HostCaller, target: { id: string; w: numbe
   const motion = info.data.motion ?? { position: [frame.w / 2, frame.h / 2] as [number, number], scale: 100, scaleWidth: null, uniform: null };
   const numbers = blurNumbers(frame, clipRect(info.data.src, motion));
   const { motion: _m, ...clip } = info.data;
-  const r = await caller.call<BlurReply>('blurFields', { targetId: target.id, clip, blurriness: numbers.blurriness, crop: numbers.crop, blurNames: FAST_BLUR_NAMES, cropNames: CROP_NAMES }, { mutating: true, timeoutMs: 60000 });
+  // the copy is a video-only subclip of the clip's range, kept in the BrandKit bin under this name
+  const copyName = `${clip.name} · резкая копия`;
+  const r = await caller.call<BlurReply>('blurFields', { targetId: target.id, clip, blurriness: numbers.blurriness, crop: numbers.crop, blurNames: FAST_BLUR_NAMES, cropNames: CROP_NAMES, copyName, bin: BIN_NAME }, { mutating: true, timeoutMs: 60000 });
   if (!r.ok || !r.data) {
     const code = r.error?.code;
     if (code === 'NO_TRACK') return { ok: false, problems: [error('BLUR_NO_TRACK', messages.blurNoTrack(info.data.track + 2))], numbers, reply: null };
+    if (code === 'NO_AUDIO_ROOM') return { ok: false, problems: [error('BLUR_NO_AUDIO_TRACK', messages.blurNoAudioTrack(info.data.track + 2))], numbers, reply: null };
     if (code === 'ALREADY') return { ok: false, problems: [error('BLUR_DONE', messages.blurDone())], numbers, reply: null };
     if (code === 'NO_TARGET') return { ok: false, problems: [error('NO_TARGET', messages.blurSelection('клип сдвинулся'))], numbers, reply: null };
     return { ok: false, problems: [error('BLUR_FAILED', messages.blurFailed(r.error?.message ?? 'нет ответа'), r.error)], numbers, reply: null };

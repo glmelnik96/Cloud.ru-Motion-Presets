@@ -616,6 +616,31 @@ select {
   margin-top: 6px;
 }
 
+/* The tool buttons of «Монтаж» and «Движение» in the dark chrome of the panel: a bare <button> keeps the light
+   face of Chromium under the light text of the panel, and its label all but disappears (Premiere, 2026-10-20). */
+.edit .tool button,
+.motion .curves button {
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  color: var(--text);
+  padding: 7px 9px;
+  cursor: pointer;
+}
+
+.edit .tool button:hover:not(:disabled),
+.edit .tool button:focus-visible,
+.motion .curves button:hover:not(:disabled),
+.motion .curves button:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.edit .tool button:disabled,
+.motion .curves button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
 /* «Движение» (After Effects): the brand curves by type. */
 .motion .curve-group {
   border-bottom: 1px solid var(--line);

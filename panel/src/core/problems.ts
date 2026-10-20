@@ -44,6 +44,7 @@ export type ProblemCode =
   | 'FIT_NO_CROP'
   | 'BLUR_FAILED'
   | 'BLUR_NO_TRACK'
+  | 'BLUR_NO_AUDIO_TRACK'
   | 'BLUR_DONE'
   | 'BLUR_NOT_FULL'
   | 'BLUR_EFFECTS'
@@ -142,6 +143,7 @@ export const messages = {
   fitNoCrop: () => 'Клип больше окна, а Crop добавить не удалось: поставьте клип спикера на дорожку ниже клипа экрана или добавьте Crop вручную.',
   blurSelection: (detail: string) => `Выделите на таймлайне один видеоклип, у которого размыть поля${detail ? ` (${detail})` : ''}.`,
   blurNoTrack: (track: number) => `Над клипом нужна свободная видеодорожка V${track} на всю длину клипа: туда ляжет резкая копия. Добавьте дорожку (Sequence → Add Tracks) или освободите её.`,
+  blurNoAudioTrack: (track: number) => `Premiere не сделал копию клипа без звука (так бывает у вложенной последовательности), а на аудиодорожке A${track} под копией есть звук: копия затёрла бы его. Освободите A${track} на время клипа и повторите.`,
   blurDone: () => 'У клипа поля уже размыты (на нём есть Fast Blur). Чтобы повторить, удалите Fast Blur и копию над клипом.',
   blurNotFull: () => 'Клип не закрывает кадр целиком: поля размыты только там, где он есть.',
   blurEffects: (names: string[]) => `На клипе есть эффекты (${names.join(', ')}): на резкую копию сверху они не перенесены. Скопируйте их на копию: Edit → Copy, затем Paste Attributes.`,

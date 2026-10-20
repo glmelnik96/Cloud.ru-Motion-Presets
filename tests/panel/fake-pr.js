@@ -114,8 +114,10 @@ Track.prototype.overwriteClip = function (item, sec) {
   var tpf = Number(this._seq.timebase);
   var start = Math.round(Number(sec) * TPS / tpf) * tpf;
   var m = __pr.media[item._path];
-  var inT = item._inT || 0;
-  var len = item._outT !== undefined ? item._outT - inT : Math.round((m.still ? 5 : m.sec) * TPS);
+  var sub = item._sub;
+  // a subclip plays its own range from 0 (build PC 2026-10-20: inPoint 0, outPoint = its length)
+  var inT = sub ? 0 : item._inT || 0;
+  var len = sub ? sub.outT - sub.inT : item._outT !== undefined ? item._outT - inT : Math.round((m.still ? 5 : m.sec) * TPS);
   __pr.calls.push('overwrite ' + item.name + ' ' + this.name + ' @' + Math.round(start / tpf));
   this._clips = this._clips.filter(function (c) { return !(c._start < start + len && c._end > start); });
   var clip = new TrackItem(item.name, start, len, { params: [] });
@@ -123,8 +125,9 @@ Track.prototype.overwriteClip = function (item, sec) {
   clip._in = inT;
   clip._out = inT + len;
   this._clips.push(clip);
-  // a video track brings the audio of the media along, onto the audio track of the same index
-  if (m.audio && this.name.charAt(0) === 'V') {
+  // a video track brings the audio of the media along, onto the audio track of the same index, and cuts out
+  // what lies there; a subclip made without audio brings none
+  if (m.audio && (!sub || sub.audio) && this.name.charAt(0) === 'V') {
     var at = this._seq._atracks[Number(this.name.slice(1)) - 1];
     var a = new TrackItem(item.name, start, len, { params: [] });
     a.projectItem = item;
@@ -155,6 +158,23 @@ ProjectItem.prototype.createBin = function (name) {
   return b;
 };
 ProjectItem.prototype.getMediaPath = function () { return this._path; };
+// A subclip of the range start..end (Time) of the source, in the root of the project, with or without its audio;
+// __pr.noSubclip makes Premiere refuse, as for a nested sequence.
+ProjectItem.prototype.createSubClip = function (name, start, end, hard, takeVideo, takeAudio) {
+  __pr.calls.push('createSubClip ' + name + ' video ' + takeVideo + ' audio ' + takeAudio);
+  if (__pr.noSubclip) return null;
+  var s = new ProjectItem(name, ProjectItemType.CLIP, this._path);
+  s._sub = { inT: Number(start.ticks), outT: Number(end.ticks), video: !!takeVideo, audio: !!takeAudio };
+  app.project.rootItem._children.push(s);
+  return s;
+};
+ProjectItem.prototype.moveBin = function (bin) {
+  var self = this;
+  (function drop(b) { b._children = b._children.filter(function (c) { return c !== self; }); b._children.forEach(function (c) { if (c.type === ProjectItemType.BIN) drop(c); }); })(app.project.rootItem);
+  bin._children.push(this);
+  __pr.calls.push('moveBin ' + this.name + ' -> ' + bin.name);
+  return true;
+};
 // The frame size column of the project metadata, as Premiere writes it: «1920 x 1080 (1.0)».
 ProjectItem.prototype.getProjectMetadata = function () {
   var m = __pr.media[this._path];

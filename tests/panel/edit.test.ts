@@ -64,7 +64,7 @@ describe('«Размыть поля»: plan and run', () => {
     const c = caller({ selectedClip: { ok: true, data: clip }, blurFields: { ok: true, data: { ...reply, effects: ['Lumetri Color'], keyed: true } } });
     const out = await runBlur(c, { id: 's1', w: 1920, h: 1080 });
     expect(out.ok).toBe(true);
-    expect(c.calls[1]).toEqual(['blurFields', { targetId: 's1', clip: { track: 0, startTicks: '0', name: 'rec.mp4', src: clip.src }, blurriness: 20, crop: reply.crop, blurNames: ['Fast Blur', 'Быстрое размытие'], cropNames: ['Crop', 'Обрезка', 'Обрезать'] }]);
+    expect(c.calls[1]).toEqual(['blurFields', { targetId: 's1', clip: { track: 0, startTicks: '0', name: 'rec.mp4', src: clip.src }, blurriness: 20, crop: reply.crop, blurNames: ['Fast Blur', 'Быстрое размытие'], cropNames: ['Crop', 'Обрезка', 'Обрезать'], copyName: 'rec.mp4 · резкая копия', bin: 'Cloud.ru BrandKit' }]);
     expect(out.problems.map((p) => [p.code, p.severity])).toEqual([['BLUR_EFFECTS', 'warning'], ['BLUR_KEYED', 'warning']]);
     expect(out.problems[0].message).toContain('Lumetri Color');
   });
@@ -76,6 +76,9 @@ describe('«Размыть поля»: plan and run', () => {
     expect(busy.problems[0]).toMatchObject({ code: 'BLUR_NO_TRACK', message: expect.stringContaining('V2') });
     const done = await runBlur(caller({ selectedClip: { ok: true, data: clip }, blurFields: { ok: false, error: { code: 'ALREADY', message: '' } } }), { id: 's1', w: 1920, h: 1080 });
     expect(done.problems[0].code).toBe('BLUR_DONE');
+    // no subclip from Premiere and sound on the audio track under the copy: refused, that sound would be cut out
+    const audio = await runBlur(caller({ selectedClip: { ok: true, data: clip }, blurFields: { ok: false, error: { code: 'NO_AUDIO_ROOM', message: 'A2' } } }), { id: 's1', w: 1920, h: 1080 });
+    expect(audio.problems[0]).toMatchObject({ code: 'BLUR_NO_AUDIO_TRACK', severity: 'error', message: expect.stringContaining('A2') });
     // a clip that does not cover the frame is blurred with a warning
     const small = await runBlur(caller({ selectedClip: { ok: true, data: { ...clip, motion: { ...clip.motion, scale: 50 } } }, blurFields: { ok: true, data: reply } }), { id: 's1', w: 1920, h: 1080 });
     expect(small.problems.map((p) => p.code)).toEqual(['BLUR_NOT_FULL']);

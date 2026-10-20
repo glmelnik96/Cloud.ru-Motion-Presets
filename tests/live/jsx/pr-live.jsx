@@ -292,7 +292,23 @@ function lvFitPlace() {
 
 // ---- «Монтаж» (tests/live/edit.mjs) ----
 
-// The clips of the video tracks of a sequence: name, start and end in frames, match names of the components.
+// A sound file on an audio track at a time (tests/live/edit.mjs: what the copy of «Размыть поля» must not touch).
+function lvAudioPlace() {
+  check('sound ' + PARAMS.file + ' on A' + (PARAMS.track + 1) + ' at ' + PARAMS.startSec + ' s', function () {
+    var seq = lvSeq(PARAMS.id);
+    var tpf = Number(seq.timebase);
+    var imported = importFile(PARAMS.file, app.project.rootItem, 15000);
+    var placed;
+    if (!imported.item) {
+      return { pass: false, detail: imported };
+    }
+    activateSequence(seq);
+    placed = placeClip(seq.audioTracks[PARAMS.track], imported.item, PARAMS.startSec, tpf);
+    return { pass: !!placed.clip, detail: { startF: placed.startF } };
+  });
+}
+
+// The clips of the video and audio tracks of a sequence: name, start and end in frames, match names of the components.
 function lvEditState() {
   check('the timeline listed', function () {
     var seq = lvSeq(PARAMS.id);
@@ -311,7 +327,15 @@ function lvEditState() {
       }
     }
     DATA.video = video;
-    return { pass: true, detail: { tracks: video.length } };
+    DATA.audio = [];
+    for (t = 0; t < seq.audioTracks.numTracks; t++) {
+      DATA.audio.push([]);
+      for (i = 0; i < seq.audioTracks[t].clips.numItems; i++) {
+        c = seq.audioTracks[t].clips[i];
+        DATA.audio[t].push({ name: String(c.name), start: Math.round(Number(c.start.ticks) / tpf), end: Math.round(Number(c.end.ticks) / tpf) });
+      }
+    }
+    return { pass: true, detail: { tracks: video.length, audioTracks: DATA.audio.length } };
   });
 }
 
@@ -415,6 +439,8 @@ if (PARAMS.op === 'setup') {
   lvExportSetup();
 } else if (PARAMS.op === 'fitPlace') {
   lvFitPlace();
+} else if (PARAMS.op === 'audioPlace') {
+  lvAudioPlace();
 } else if (PARAMS.op === 'editState') {
   lvEditState();
 } else if (PARAMS.op === 'styleReset') {

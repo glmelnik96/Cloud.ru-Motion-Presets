@@ -918,9 +918,28 @@
     return comp.properties.numItems > fallback ? comp.properties[fallback] : null;
   }
 
+  // A video-only subclip of the clip's source range (createSubClip, takeAudio 0), filed in the BrandKit bin; null
+  // when Premiere makes none (a nested sequence and the like).
+  function videoSubclip(clip, item, name, binName) {
+    var sub = null;
+    try {
+      sub = item.createSubClip(name, clip.inPoint, clip.outPoint, 1, 1, 0);
+    } catch (e) {
+      sub = null;
+    }
+    if (sub && binName) {
+      // a subclip Premiere will not move stays in the root of the project, still usable
+      try { sub.moveBin(findBin(binName)); } catch (e1) { sub = sub || null; }
+    }
+    return sub || null;
+  }
+
   // The clip gets Fast Blur; a copy of it over the same time on the track above gets Crop to the inside of the
   // margins and keeps the centre sharp. The copy takes the same source range, the Motion and Opacity of the clip
-  // and no audio. Nothing changes when the track above is busy or the clip is blurred already.
+  // and no audio: it is a video-only subclip. An overwrite of the item itself would bring its audio onto the audio
+  // track of the copy's index and cut out the sound there (a music bed on A2 lost 28 s, build PC 2026-10-20); that
+  // way is left only for items Premiere makes no subclip of, and only over a free audio track. Nothing changes when
+  // the track above is busy or the clip is blurred already.
   A.blurFields = function (req) {
     var seq = targetSeq(req.targetId);
     var clip = clipOf(seq, req.clip);
@@ -929,9 +948,8 @@
     var up = req.clip.track + 1;
     var item = clip.projectItem;
     var sides = ['left', 'top', 'right', 'bottom'];
-    var audio = [];
     var fx = effectNames(clip);
-    var t, i, c, copy, oldIn, oldOut, crop, blur, edge, keyed, ref;
+    var i, c, sub, at, copy, oldIn, oldOut, crop, blur, edge, keyed, ref;
     if (componentByMatch(clip, 'AE.ADBE Fast Blur')) {
       throw fail('ALREADY', 'Fast Blur is on ' + req.clip.name);
     }
@@ -941,19 +959,31 @@
     if (!item) {
       throw fail('INSERT_FAILED', 'no project item of ' + req.clip.name);
     }
-    for (t = 0; t < seq.audioTracks.numTracks; t++) {
-      c = clipAt(seq.audioTracks[t], a);
-      audio.push(c ? String(c.name) : null);
-    }
-    oldIn = item.getInPoint().seconds;
-    oldOut = item.getOutPoint().seconds;
-    item.setInPoint(clip.inPoint.seconds, 4);
-    item.setOutPoint(clip.outPoint.seconds, 4);
-    try {
-      seq.videoTracks[up].overwriteClip(item, clip.start.seconds);
-    } finally {
-      item.setInPoint(oldIn, 4);
-      item.setOutPoint(oldOut, 4);
+    sub = videoSubclip(clip, item, req.copyName || String(clip.name), req.bin);
+    if (sub) {
+      seq.videoTracks[up].overwriteClip(sub, clip.start.seconds);
+    } else {
+      at = up < seq.audioTracks.numTracks ? seq.audioTracks[up] : null;
+      if (!at || !trackFree(at, a, b)) {
+        throw fail('NO_AUDIO_ROOM', 'A' + (up + 1));
+      }
+      oldIn = item.getInPoint().seconds;
+      oldOut = item.getOutPoint().seconds;
+      item.setInPoint(clip.inPoint.seconds, 4);
+      item.setOutPoint(clip.outPoint.seconds, 4);
+      try {
+        seq.videoTracks[up].overwriteClip(item, clip.start.seconds);
+      } finally {
+        item.setInPoint(oldIn, 4);
+        item.setOutPoint(oldOut, 4);
+      }
+      // what the copy brought onto that free audio track goes
+      for (i = at.clips.numItems - 1; i >= 0; i--) {
+        c = at.clips[i];
+        if (Number(c.start.ticks) < b && Number(c.end.ticks) > a) {
+          c.remove(false, false);
+        }
+      }
     }
     copy = clipAt(seq.videoTracks[up], a);
     if (!copy) {
@@ -961,13 +991,6 @@
     }
     if (String(copy.end.ticks) !== String(b)) {
       copy.end = clip.end;
-    }
-    // the copy brings its audio along: what was not at the start of the clip on an audio track goes
-    for (t = 0; t < seq.audioTracks.numTracks; t++) {
-      c = clipAt(seq.audioTracks[t], a);
-      if (c && audio[t] === null) {
-        try { c.remove(false, false); } catch (e2) { audio[t] = 'left'; }
-      }
     }
     keyed = copyLook(clip, copy);
     ref = { track: up, startTicks: String(a), name: String(copy.name) };

@@ -1,7 +1,8 @@
 // Live check of «Монтаж» in Premiere (panel/src/core/edit.ts):
 // - «Размыть поля» (D11): a checkerboard still on V1, selected, through runBlur and the Bridge; then the clip has
 //   Fast Blur, V2 holds the copy of the same time with Crop, and a frame rendered by Premiere is sharp inside the
-//   margins (every pixel as in the source) and blurred on them (a cell border turns grey);
+//   margins (every pixel as in the source) and blurred on them (a cell border turns grey); a tone on A2 under the
+//   copy stays as it was (the copy is a video-only subclip; before 0.1.21 its audio cut out what lay on A2);
 // - «Стиль субтитров» (D25): the .prtextstyle of the build PC imported into the BrandKit bin once, as «CR Субтитры».
 // tests/panel/edit-live.test.mjs runs it dry on the fake.
 import { blurNumbers, planStyle, runBlur, runStyle } from '../../panel/src/core/edit.ts';
@@ -25,6 +26,8 @@ export async function runEditLive(o) {
   const id = setup?.ids?.blur;
   if (id) {
     if (R.fromHost('blur: place', await hostRun('fitPlace', { id, file: o.checker, track: 0, startSec: 0 }))) {
+      if (o.tone) R.fromHost('blur: a tone on A2 under the still', await hostRun('audioPlace', { id, file: o.tone, track: 1, startSec: 0 }));
+      const before = o.tone ? R.fromHost('blur: the timeline before', await hostRun('editState', { id })) : null;
       R.fromHost('blur: activate', await hostRun('activate', { id, time: 1 }));
       const ctx = (await bridge.call('getContext')).data;
       const out = await runBlur(bridge, ctx.target);
@@ -39,6 +42,10 @@ export async function runEditLive(o) {
           const v2 = state.video[1] ?? [];
           R.check('blur: V1 — the clip with Fast Blur, V2 — one copy of the same time with Crop and without Fast Blur',
             v1.length === 1 && v2.length === 1 && v1[0].fx.includes('AE.ADBE Fast Blur') && v2[0].fx.includes('AE.ADBE AECrop') && !v2[0].fx.includes('AE.ADBE Fast Blur') && v1[0].start === v2[0].start && v1[0].end === v2[0].end, state);
+          if (before) {
+            const a2 = (s) => JSON.stringify((s.audio ?? [])[1] ?? []);
+            R.check('blur: the sound on A2 under the copy stays as it was', ((before.audio ?? [])[1] ?? []).length > 0 && a2(state) === a2(before), { before: before.audio, after: state.audio });
+          }
         }
         const frame = await o.frame(id, 25, 'blur');
         if (R.check('blur: frame rendered', !!frame, frame)) {

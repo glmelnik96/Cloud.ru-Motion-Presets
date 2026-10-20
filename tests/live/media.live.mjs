@@ -160,9 +160,11 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
         // «Монтаж» (0.1.19): the margins of a checkerboard blurred, the caption style of the build PC imported.
         const board = path.posix.join(outDir, 'blur-checker.png');
         if (!existsSync(board)) spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', "nullsrc=s=1920x1080,format=gray,geq=lum='if(mod(floor(X/48)+floor(Y/48),2),255,0)'", '-frames:v', '1', board]);
+        const tone = path.posix.join(outDir, 'blur-tone.wav');
+        if (!existsSync(tone)) spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', 'sine=frequency=440:sample_rate=48000:duration=10', '-ac', '2', tone]);
         const styleRoot = workPath('materials', 'premiere').replace(/\\/g, '/');
         await runEditLive({
-          bridge, hostRun, R, checker: board,
+          bridge, hostRun, R, checker: board, tone: existsSync(tone) ? tone : null,
           style: existsSync(path.join(styleRoot, 'CR Субтитры.prtextstyle')) ? { root: styleRoot, file: 'CR Субтитры.prtextstyle' } : null,
           frame: async (id, frame, key) => {
             const r = await hostRun('frames', { id, frames: [{ key, frame }] });
