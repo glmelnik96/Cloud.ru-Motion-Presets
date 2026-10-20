@@ -1,0 +1,61 @@
+{
+ "_note": "Ink of the tag texts of the podcast frame, which the JSX dump does not record: sourceRectAtTime (layer space, [left, top, width, height]) and per-line baselines [x0, y0, x1, y1]. Measured live on AE 26.5 with tools/masters/jsx/text-ink.jsx on the relinked working copy C:/CRBK/packs/podcast/podcast_relinked.aep (closed without saving), 2026-10-20, at 4.0 s, in the copies the render comps use (item ids 2147 «Подкаст», 2172 «Cloud.ru»; the pack holds two copies of each).",
+ "cases": [
+  {
+   "pack": "podcast",
+   "comp": "Подкаст",
+   "id": 2147,
+   "t": 4,
+   "layers": {
+    "ПОДКАСТ": {
+     "text": " ПОДКАСТ",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 190,
+     "tracking": -28,
+     "rect": [
+      -510.8849,
+      -163.5202,
+      942.9216,
+      161.1127
+     ],
+     "lines": [
+      [
+       -570.8466,
+       -27.2824,
+       434.6333,
+       -27.2824
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "podcast",
+   "comp": "Cloud.ru",
+   "id": 2172,
+   "t": 4,
+   "layers": {
+    "CLOUD.RU": {
+     "text": "CLOUD.RU",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 190,
+     "tracking": -28,
+     "rect": [
+      -564.5322,
+      -163.5202,
+      975.3723,
+      138.9166
+     ],
+     "lines": [
+      [
+       -570.8466,
+       -27.2824,
+       424.5634,
+       -27.2824
+      ]
+     ]
+    }
+   }
+  }
+ ]
+}

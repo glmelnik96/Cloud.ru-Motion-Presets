@@ -1,0 +1,57 @@
+{
+  "id": "POD_Frame",
+  "_note": "Golden comparison against the podcast pack «Текст на плашке_1» (the frame and the tags over a still; the plates of TTL_Plate sit in the middle of the window). The 4K variant is compared inside the tag plates: around them the pack shows its still. The line is #D3D3D3 in the pack, #F2F2F2 here (D1), its place and width are tested in Node. The master keeps the pack's intro and ends its exit on the last frame (0.32 s later).",
+  "preview": {
+    "_note": "Card preview: the frame with its tags on a neutral grey.",
+    "variant": "16x9",
+    "ctrl": { "Side": 1 },
+    "text": { "TAG_TOP": "CLOUD.RU", "TAG_BOT": "ПОДКАСТ" },
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "axes": {}
+  },
+  "cases": [
+    {
+      "name": "tags_left",
+      "title": "Теги слева: пакет переносит их на свободную от плашек сторону",
+      "golden": { "slug": "podcast", "compSlug": "tekst_na_plashke_1" },
+      "variant": "16x9_4K",
+      "ctrl": { "Side": 2 },
+      "text": { "TAG_TOP": "CLOUD.RU", "TAG_BOT": "ПОДКАСТ" },
+      "parts": [
+        { "name": "cloud", "x": 120, "y": 108, "w": 840, "h": 120 },
+        { "name": "podcast", "x": 120, "y": 1932, "w": 810, "h": 120 }
+      ],
+      "maxShift": 5,
+      "shift": [
+        { "from": 0, "to": 7.6, "by": 0 },
+        { "from": 7.6, "to": 60, "by": 0.32 }
+      ],
+      "gate": [4000, 5000, 6000],
+      "view": [520, 760, 1000, 1240, 1520, 8000, 8240, 8520],
+      "note": "The pack's tags are precomps with mask wipes (here from the left, at 0.5–1.7 s); the master draws plate, clip and text with one wipe each, on «Контент_1»'s times. Pads are their mean (9.6–10.6 px FHD in the pack)."
+    }
+  ],
+  "premiere": {
+    "_note": "The 16x9 MOGRT in Premiere against the same variant rendered in AE. B is 30 s long, as a frame over a whole talk: the fly-in and the exit keep master speed (exit = the last 2.8 s). C puts the tags on the left at 2×; D has one tag of its own.",
+    "variant": "16x9",
+    "clips": [
+      { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Side": 1 }, "text": {} },
+      { "key": "B", "atSec": 12, "lenSec": 30, "ctrl": { "Side": 1 }, "text": {} },
+      { "key": "C", "atSec": 44, "lenSec": null, "ctrl": { "Side": 2, "Speed": 5 }, "text": {} },
+      { "key": "D", "atSec": 56, "lenSec": null, "ctrl": { "Side": 1 }, "text": { "TAG_TOP": "", "TAG_BOT": "Выпуск 12" } }
+    ],
+    "frames": [
+      { "key": "A_fly", "clip": "A", "sec": 0.4, "master": 0.4 },
+      { "key": "A_tags", "clip": "A", "sec": 1.2, "master": 1.2 },
+      { "key": "A_hold", "clip": "A", "sec": 5, "master": 5 },
+      { "key": "A_exit", "clip": "A", "sec": 9.4, "master": 9.4 },
+      { "key": "B_hold", "clip": "B", "sec": 15, "master": 5 },
+      { "key": "B_exit", "clip": "B", "sec": 29.4, "master": 9.4 },
+      { "key": "C_intro", "clip": "C", "sec": 0.4, "master": 0.4 },
+      { "key": "C_hold", "clip": "C", "sec": 5, "master": 5 },
+      { "key": "C_exit", "clip": "C", "sec": 9.6, "master": 9.6 },
+      { "key": "D_hold", "clip": "D", "sec": 5, "master": 5 }
+    ]
+  }
+}

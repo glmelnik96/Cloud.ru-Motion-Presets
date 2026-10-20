@@ -1123,6 +1123,122 @@
       ]
     },
     {
+      "id": "POD_Frame",
+      "title_ru": "Рамка подкаста",
+      "category": "podcast",
+      "tier": "T1",
+      "hosts": [
+        "ae",
+        "pr"
+      ],
+      "version": 1,
+      "fit": "rdt",
+      "duration": {
+        "introSec": 2.32,
+        "holdSec": 4.88,
+        "outroSec": 2.8
+      },
+      "requiredFonts": [
+        {
+          "postScriptName": "SBSansDisplay-Bold"
+        }
+      ],
+      "fields": [
+        {
+          "key": "tag_top",
+          "label_ru": "Тег сверху",
+          "type": "text",
+          "egpName": "Тег сверху",
+          "egpIndex": 0,
+          "maxLen": 20,
+          "default": "CLOUD.RU"
+        },
+        {
+          "key": "tag_bottom",
+          "label_ru": "Тег снизу",
+          "type": "text",
+          "egpName": "Тег снизу",
+          "egpIndex": 1,
+          "maxLen": 20,
+          "default": "ПОДКАСТ"
+        },
+        {
+          "key": "side",
+          "label_ru": "Сторона тегов",
+          "type": "dropdown",
+          "egpName": "Сторона тегов",
+          "egpIndex": 2,
+          "default": 1,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "Справа"
+            },
+            {
+              "index": 2,
+              "label_ru": "Слева"
+            }
+          ]
+        },
+        {
+          "key": "speed",
+          "label_ru": "Скорость",
+          "type": "dropdown",
+          "egpName": "Скорость",
+          "egpIndex": 3,
+          "default": 2,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "0,75×"
+            },
+            {
+              "index": 2,
+              "label_ru": "1×"
+            },
+            {
+              "index": 3,
+              "label_ru": "1,25×"
+            },
+            {
+              "index": 4,
+              "label_ru": "1,5×"
+            },
+            {
+              "index": 5,
+              "label_ru": "2×"
+            }
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_POD_Frame_16x9",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_POD_Frame_16x9_4K",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
+      ]
+    },
+    {
       "id": "CRS_SubtitleStyle",
       "title_ru": "Стиль субтитров «CR Субтитры»",
       "category": "courses",

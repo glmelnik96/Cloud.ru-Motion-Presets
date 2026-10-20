@@ -1,6 +1,7 @@
 // Ink of the text layers of pack comps, which the JSX dump does not record: sourceRectAtTime (layer space) and
 // the baselines of each line, read from a relinked working copy and closed WITHOUT saving. Composed after
-// check.jsx and ae-project.jsx. PARAMS: workDir, aep (a relinked copy under C:/CRBK), cases: [{ comp, t }].
+// check.jsx and ae-project.jsx. PARAMS: workDir, aep (a relinked copy under C:/CRBK), cases: [{ comp, t, id }];
+// id (the item id of the dump) picks one of two comps with the same name.
 var TI = { cases: [] };
 
 check('ink of ' + PARAMS.cases.length + ' comps', function () {
@@ -8,7 +9,10 @@ check('ink of ' + PARAMS.cases.length + ' comps', function () {
   bkOpenProject(PARAMS.aep);
   for (i = 0; i < PARAMS.cases.length; i++) {
     c = PARAMS.cases[i];
-    comp = bkComp(c.comp);
+    comp = c.id ? app.project.itemByID(c.id) : bkComp(c.comp);
+    if (!(comp instanceof CompItem) || comp.name !== c.comp) {
+      throw new Error('BK_NO_COMP: ' + c.comp + ' #' + c.id);
+    }
     row = { comp: c.comp, t: c.t, layers: [] };
     for (j = 1; j <= comp.numLayers; j++) {
       L = comp.layer(j);
