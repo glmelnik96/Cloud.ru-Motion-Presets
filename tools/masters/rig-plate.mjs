@@ -199,7 +199,8 @@ function lineJs(B, li) {
 // texts, plates (one per line, top first), values, source (texts copied from other layers), textStyle,
 // fill, geo { h, step, base, rise, edge, margin, bottom, padL, padR }, fromTop (the order lines come in),
 // timing { inDelays, outStagger }, sliders { plateIn, textIn, textOut, plateOut }, textOut ('start': Start
-// runs back, 'end': End runs down), rest (a comp time of the hold at every speed). Every text is matted
+// runs back, 'end': End runs down), rest (a comp time of the hold at every speed), upper (capitals by an
+// expression on the field layers instead of All Caps, for a pack that typed its capitals). Every text is matted
 // to its plate, which reaches under its descenders, so words rise inside the plate and no glyph is cut.
 export function addPlateBlock(spec, B, timeMap) {
   const geo = B.geo;
@@ -219,6 +220,9 @@ export function addPlateBlock(spec, B, timeMap) {
     spec.expr(plate, P.rectSize('Plate'), line + `[Math.max(0, gx1 - gx0), ${geo.h} * kt + ext]`);
     spec.expr(plate, P.rectPos('Plate'), line + `[(gx0 + gx1) / 2, pb + (ext - ${geo.h} * kt) / 2]`);
     if (B.source) spec.expr(tx, P.text, `String(thisComp.layer("${B.source[li]}").text.sourceText)`);
+    // capitals by expression keep the font's spacing of typed capitals; All Caps adds its capital spacing
+    // (cpsp, +1.25 % in SB Sans Display Bold)
+    else if (B.upper) spec.expr(tx, P.text, 'String(value).toUpperCase()');
     spec.expr(tx, P.pos, line + `[x0 + pd[0] - e.l, pb - ${geo.base} * kt]`);
     const tin = `sl("${B.sliders.textIn}", TT - dIn)`;
     const tout = `sl("${B.sliders.textOut}", TT + dOut)`;

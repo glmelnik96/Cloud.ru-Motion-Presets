@@ -1,0 +1,67 @@
+{
+  "id": "TTL_Subscribe",
+  "_note": "Golden comparison against the podcast pack «Подписывайся! Ссылки в описании» (4K variant, transparent around the plates). The pack holds 1.84–8.84 s, the master 1.12–5.04 s at 1×: the hold maps to one master moment, 3.0 s (scale 0). gate = static frames; view = moving frames (motion blur in the pack, none in the master, C35).",
+  "preview": {
+    "_note": "Card preview: the default texts on a neutral grey.",
+    "variant": "16x9",
+    "ctrl": { "Position": 1 },
+    "text": { "TXT_1": "Подписывайся!", "TXT_2": "Ссылки в описании" },
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "axes": {}
+  },
+  "cases": [
+    {
+      "name": "subscribe",
+      "title": "«Авто» (по центру), строки пакета",
+      "golden": { "slug": "podcast", "compSlug": "podpisyvaysya_ssylki_v_opisanii" },
+      "variant": "16x9_4K",
+      "ctrl": { "Position": 1 },
+      "text": { "TXT_1": "ПОДПИСЫВАЙСЯ!", "TXT_2": "ССЫЛКИ В ОПИСАНИИ" },
+      "parts": [
+        { "name": "line1", "x": 1170, "y": 1662, "w": 1500, "h": 148 },
+        { "name": "line2", "x": 975, "y": 1814, "w": 1890, "h": 128 }
+      ],
+      "maxShift": 5,
+      "remap": {
+        "from": ["#222222", "#2ADB80"],
+        "to": ["#222222", "#26D07C"],
+        "reason": "the pack renders its plates as 3D layers with the Advanced 3D renderer (default lighting): #26D07C comes out #2ADB80 with ±1 noise; the master's flat plates are the brand green"
+      },
+      "shift": [
+        { "from": 0, "to": 1.84, "by": -0.72 },
+        { "from": 1.84, "to": 8.84, "by": 1.16, "scale": 0 },
+        { "from": 8.84, "to": 60, "by": -3.8 }
+      ],
+      "gate": [3000, 6000],
+      "view": [760, 1000, 1240, 1520, 1760, 9000, 9240, 9520],
+      "note": "The pack placed and scaled each plate by hand: the lines are gated one by one after registration, within 5 px (4K) of the pack's place. Line 2 leaves a frame quicker in the pack than line 1, whose curves the master uses for both."
+    }
+  ],
+  "premiere": {
+    "_note": "The 16x9 MOGRT in Premiere against the same variant rendered in AE. B is 12 s long: its intro and exit keep master speed (exit = the last 1.28 s). C and D add «Позиция», «Скорость» and «Размер текста»: one line on the left at 120 %, a long line on the right at 160 % (fit to the frame) at 2×.",
+    "variant": "16x9",
+    "clips": [
+      { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Position": 1 }, "text": {} },
+      { "key": "B", "atSec": 10, "lenSec": 12, "ctrl": { "Position": 1, "Speed": 4 },
+        "text": { "TXT_1": "Подписывайтесь", "TXT_2": "на канал Cloud.ru" } },
+      { "key": "C", "atSec": 30, "lenSec": null, "ctrl": { "Position": 2, "Size": 3 },
+        "text": { "TXT_1": "Жми на колокольчик", "TXT_2": "" } },
+      { "key": "D", "atSec": 40, "lenSec": null, "ctrl": { "Position": 4, "Speed": 5, "Size": 5 },
+        "text": { "TXT_1": "Ставь лайк", "TXT_2": "и делись выпуском с коллегами по цеху" } }
+    ],
+    "frames": [
+      { "key": "A_intro", "clip": "A", "sec": 0.6, "master": 0.6 },
+      { "key": "A_hold", "clip": "A", "sec": 3, "master": 3 },
+      { "key": "A_exit", "clip": "A", "sec": 5.4, "master": 5.4 },
+      { "key": "B_intro", "clip": "B", "sec": 0.4, "master": 0.4 },
+      { "key": "B_hold", "clip": "B", "sec": 6, "master": 3 },
+      { "key": "B_exit", "clip": "B", "sec": 11.36, "master": 5.36 },
+      { "key": "C_intro", "clip": "C", "sec": 0.6, "master": 0.6 },
+      { "key": "C_hold", "clip": "C", "sec": 3, "master": 3 },
+      { "key": "D_intro", "clip": "D", "sec": 0.32, "master": 0.32 },
+      { "key": "D_hold", "clip": "D", "sec": 3, "master": 3 },
+      { "key": "D_exit", "clip": "D", "sec": 5.72, "master": 5.72 }
+    ]
+  }
+}

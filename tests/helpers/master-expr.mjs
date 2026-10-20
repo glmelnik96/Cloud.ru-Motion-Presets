@@ -19,11 +19,11 @@ export function keyedValue(keys, t) {
 // AE's linear(t, tMin, tMax, value1, value2), clamped.
 const LIB = 'function linear(t, a, b, c, d) { var u = b === a ? 1 : (t - a) / (b - a); u = Math.max(0, Math.min(1, u)); return c + (d - c) * u; }\n';
 
-// The last line of an expression is its value.
+// The last line of an expression is its value; `value` is the property's own (pre-expression) value.
 function compile(src) {
   const lines = src.split('\n');
   const body = LIB + lines.slice(0, -1).join('\n') + '\nreturn (' + lines[lines.length - 1] + ');';
-  return new Function('thisComp', 'time', body);
+  return new Function('thisComp', 'time', 'value', body);
 }
 
 // spec: a built spec (toJSON); ctrl: CTRL values by effect name (1-based, as AE); texts: the field layers'
@@ -49,7 +49,7 @@ export function exprComp(spec, { w = 1920, h = 1080, ctrl = {}, texts = {}, ink 
     if (!statics.has(id(layer, ['effect', name]))) throw new Error(`no effect ${layer} / ${name}`);
     return statics.get(id(layer, ['effect', name]));
   };
-  const textOf = (layer, t) => (exprs.has(id(layer, ['text'])) ? exprs.get(id(layer, ['text']))(comp, t) : statics.get(id(layer, ['text'])));
+  const textOf = (layer, t) => (exprs.has(id(layer, ['text'])) ? exprs.get(id(layer, ['text']))(comp, t, statics.get(id(layer, ['text']))) : statics.get(id(layer, ['text'])));
   let now = 0;
   comp.layer = (name) => {
     if (!spec.layers.some((L) => L.name === name)) throw new Error('no layer ' + name);
@@ -69,7 +69,7 @@ export function exprComp(spec, { w = 1920, h = 1080, ctrl = {}, texts = {}, ink 
     at(layer, path, t) {
       const fn = exprs.get(id(layer, path));
       now = t;
-      if (fn) return fn(comp, t);
+      if (fn) return fn(comp, t, statics.get(id(layer, path)));
       if (keyed.has(id(layer, path))) return keyedValue(keyed.get(id(layer, path)), t);
       throw new Error(`no expression or keys on ${layer} ${path.join('/')}`);
     },

@@ -1,0 +1,52 @@
+{
+ "_note": "Ink of the texts of «Подписывайся! Ссылки в описании», which the JSX dump does not record: sourceRectAtTime (layer space, [left, top, width, height]) and per-line baselines [x0, y0, x1, y1]. Measured live on AE 26.5 with tools/masters/jsx/text-ink.jsx on the relinked working copy C:/CRBK/packs/podcast/podcast_relinked.aep (closed without saving), 2026-10-20, at 4.0 s (both lines at rest). «ПОДПИСАТЬСЯЁ 3» is the second line after 1.84 s (the pack splits that line into two layers at 1.84 s).",
+ "cases": [
+  {
+   "pack": "podcast",
+   "comp": "Подписывайся! Ссылки в описании",
+   "t": 4,
+   "layers": {
+    "ПОДПИСАТЬСЯЁ 2": {
+     "text": "ПОДПИСЫВАЙСЯ!",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 190,
+     "tracking": -28,
+     "rect": [
+      -554.965,
+      -195.6661,
+      1752.0851,
+      193.2587
+     ],
+     "lines": [
+      [
+       -570.8466,
+       -27.2823,
+       1211.9233,
+       -27.2823
+      ]
+     ]
+    },
+    "ПОДПИСАТЬСЯЁ 3": {
+     "text": "ССЫЛКИ В ОПИСАНИИ",
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 190,
+     "tracking": -28,
+     "rect": [
+      -564.5322,
+      -163.5202,
+      2230.6036,
+      138.5339
+     ],
+     "lines": [
+      [
+       -570.8466,
+       -27.2824,
+       1680.8433,
+       -27.2824
+      ]
+     ]
+    }
+   }
+  }
+ ]
+}

@@ -710,6 +710,184 @@
       ]
     },
     {
+      "id": "TTL_Subscribe",
+      "title_ru": "Призыв «Подписывайся»",
+      "category": "titles",
+      "tier": "T1",
+      "hosts": [
+        "ae",
+        "pr"
+      ],
+      "version": 1,
+      "fit": "rdt",
+      "duration": {
+        "introSec": 1.52,
+        "holdSec": 3.2,
+        "outroSec": 1.28
+      },
+      "requiredFonts": [
+        {
+          "postScriptName": "SBSansDisplay-Bold"
+        }
+      ],
+      "fields": [
+        {
+          "key": "line1",
+          "label_ru": "Строка 1",
+          "type": "text",
+          "egpName": "Строка 1",
+          "egpIndex": 0,
+          "maxLen": 30,
+          "default": "Подписывайся!"
+        },
+        {
+          "key": "line2",
+          "label_ru": "Строка 2",
+          "type": "text",
+          "egpName": "Строка 2",
+          "egpIndex": 1,
+          "maxLen": 30,
+          "default": "Ссылки в описании"
+        },
+        {
+          "key": "position",
+          "label_ru": "Позиция",
+          "type": "dropdown",
+          "egpName": "Позиция",
+          "egpIndex": 2,
+          "default": 1,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "Авто"
+            },
+            {
+              "index": 2,
+              "label_ru": "Слева"
+            },
+            {
+              "index": 3,
+              "label_ru": "По центру"
+            },
+            {
+              "index": 4,
+              "label_ru": "Справа"
+            }
+          ]
+        },
+        {
+          "key": "speed",
+          "label_ru": "Скорость",
+          "type": "dropdown",
+          "egpName": "Скорость",
+          "egpIndex": 3,
+          "default": 2,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "0,75×"
+            },
+            {
+              "index": 2,
+              "label_ru": "1×"
+            },
+            {
+              "index": 3,
+              "label_ru": "1,25×"
+            },
+            {
+              "index": 4,
+              "label_ru": "1,5×"
+            },
+            {
+              "index": 5,
+              "label_ru": "2×"
+            }
+          ]
+        },
+        {
+          "key": "size",
+          "label_ru": "Размер текста",
+          "type": "dropdown",
+          "egpName": "Размер текста",
+          "egpIndex": 4,
+          "default": 2,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "80 %"
+            },
+            {
+              "index": 2,
+              "label_ru": "100 %"
+            },
+            {
+              "index": 3,
+              "label_ru": "120 %"
+            },
+            {
+              "index": 4,
+              "label_ru": "140 %"
+            },
+            {
+              "index": 5,
+              "label_ru": "160 %"
+            }
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_TTL_Subscribe_16x9",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_TTL_Subscribe_16x9_4K",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "aeComp": "CR_TTL_Subscribe_9x16",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_TTL_Subscribe_1x1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
+      ]
+    },
+    {
       "id": "CRS_SubtitleStyle",
       "title_ru": "Стиль субтитров «CR Субтитры»",
       "category": "courses",
