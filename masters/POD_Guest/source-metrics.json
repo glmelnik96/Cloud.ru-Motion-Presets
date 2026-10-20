@@ -1,0 +1,128 @@
+{
+ "_note": "Ink of the text of «О_госте» (podcast pack, item 2729, 3840x2160), which the JSX dump does not record: sourceRectAtTime (layer space, [left, top, width, height]), per-line baselines [x0, y0, x1, y1] (null: an empty line) and the style runs by character (the dump keeps only the first character's style). Measured live on AE 26.5 with tools/masters/jsx/text-ink.jsx (runs: true) on the relinked working copy C:/CRBK/packs/podcast/podcast_relinked.aep (closed without saving), 2026-10-21, at 4.0 s (at rest 1.60–7.76 s). The text itself — a real guest's name and bio — is left out: the master reads it from the dump.",
+ "cases": [
+  {
+   "pack": "podcast",
+   "comp": "О_госте",
+   "t": 4,
+   "layers": {
+    "1": {
+     "index": 1,
+     "font": "SBSansDisplay-Semibold",
+     "fontSize": 70,
+     "tracking": -10,
+     "leading": 75,
+     "rect": [
+      -572.8891,
+      -726.1074,
+      1122.1175,
+      749.9008
+     ],
+     "lines": [
+      [
+       -574.1479,
+       -676.7605,
+       52.6321,
+       -676.7605
+      ],
+      [
+       -574.1479,
+       -601.7605,
+       332.702,
+       -601.7605
+      ],
+      null,
+      [
+       -574.1479,
+       -471.7605,
+       454.302,
+       -471.7605
+      ],
+      [
+       -574.1479,
+       -416.7605,
+       439.202,
+       -416.7605
+      ],
+      [
+       -574.1479,
+       -361.7605,
+       -220.7979,
+       -361.7605
+      ],
+      [
+       -574.1479,
+       -306.7605,
+       410.3021,
+       -306.7605
+      ],
+      [
+       -574.1479,
+       -251.7605,
+       6.6021,
+       -251.7605
+      ],
+      [
+       -574.1479,
+       -196.7605,
+       401.6021,
+       -196.7605
+      ],
+      [
+       -574.1479,
+       -141.7605,
+       469.052,
+       -141.7605
+      ],
+      [
+       -574.1479,
+       -86.7605,
+       476.1521,
+       -86.7605
+      ],
+      [
+       -574.1479,
+       -31.7605,
+       551.302,
+       -31.7605
+      ],
+      [
+       -574.1479,
+       23.2395,
+       120.5521,
+       23.2395
+      ]
+     ],
+     "runs": [
+      {
+       "start": 0,
+       "end": 45,
+       "font": "SBSansDisplay-Semibold",
+       "size": 70,
+       "leading": 75,
+       "tracking": -10,
+       "fill": [
+        0.1333,
+        0.1333,
+        0.1333
+       ]
+      },
+      {
+       "start": 45,
+       "end": 398,
+       "font": "SBSansDisplay-Regular",
+       "size": 50,
+       "leading": 55,
+       "tracking": -10,
+       "fill": [
+        0.1333,
+        0.1333,
+        0.1333
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

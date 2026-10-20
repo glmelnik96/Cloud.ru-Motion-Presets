@@ -1,0 +1,55 @@
+{
+  "id": "POD_Guest",
+  "_note": "Golden comparison against the podcast pack «О_госте» (4K variant, the pack's own texts, resolved from the dump: \"text\": \"pack\"). Compared inside the panel: around it the pack shows its frame over a still. The master starts with the card (the pack 0.68 s later, after its frame's fly-in). gate = the card at rest; view = the wipe and the words (motion blur in the pack, none in the master, C35).",
+  "preview": {
+    "_note": "Card preview: the card on a neutral grey, the placeholder texts.",
+    "variant": "16x9",
+    "ctrl": { "Side": 1 },
+    "text": {},
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "axes": {}
+  },
+  "cases": [
+    {
+      "name": "pack",
+      "title": "Тексты пакета, панель справа",
+      "golden": { "slug": "podcast", "compSlug": "o_goste" },
+      "variant": "16x9_4K",
+      "ctrl": { "Side": 1 },
+      "text": "pack",
+      "rect": { "x": 2490, "y": 104, "w": 1243, "h": 880 },
+      "shift": [
+        { "from": 0, "to": 60, "by": -0.68 }
+      ],
+      "gate": [2000, 4000, 6000, 7000],
+      "view": [760, 1000, 1240, 1520, 8000, 8240, 8520],
+      "note": "The pack's text is one box with two styles; the master's two boxes of the same width lay it out on the same baselines with the same line breaks (measured in the build)."
+    }
+  ],
+  "premiere": {
+    "_note": "The 16x9 MOGRT in Premiere against the same variant rendered in AE. B is 19.04 s long: Premiere stretches the hold three times (clip c in the hold is master 1.24 + (c − 1.24) / 3), the card on the left. C plays at 2× with long texts (a name that wraps, three bio paragraphs). D has no bio: the panel ends under the role.",
+    "variant": "16x9",
+    "clips": [
+      { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Side": 1 }, "text": {} },
+      { "key": "B", "atSec": 10, "lenSec": 19.04, "ctrl": { "Side": 2 }, "text": {} },
+      { "key": "C", "atSec": 32, "lenSec": null, "ctrl": { "Side": 1, "Speed": 5 },
+        "text": { "NAME": "Анна-Мария Ёлкина-Константинопольская", "ROLE": "Руководитель направления облачных платформ для машинного обучения",
+          "BIO_1": "- Двадцать лет в разработке распределённых систем хранения", "BIO_2": "- Запустила три облачных сервиса для крупных банков и ритейла", "BIO_3": "- Преподаёт архитектуру высоконагруженных систем" } },
+      { "key": "D", "atSec": 42, "lenSec": null, "ctrl": { "Side": 1 },
+        "text": { "NAME": "Иван Петров", "ROLE": "Основатель студии", "BIO_1": "", "BIO_2": "", "BIO_3": "" } }
+    ],
+    "frames": [
+      { "key": "A_wipe", "clip": "A", "sec": 0.28, "master": 0.28 },
+      { "key": "A_words", "clip": "A", "sec": 0.72, "master": 0.72 },
+      { "key": "A_hold", "clip": "A", "sec": 4, "master": 4 },
+      { "key": "A_out", "clip": "A", "sec": 7.6, "master": 7.6 },
+      { "key": "B_hold", "clip": "B", "sec": 10, "master": 4.16 },
+      { "key": "B_out", "clip": "B", "sec": 18.44, "master": 7.4 },
+      { "key": "C_intro", "clip": "C", "sec": 0.32, "master": 0.32 },
+      { "key": "C_hold", "clip": "C", "sec": 4, "master": 4 },
+      { "key": "C_out", "clip": "C", "sec": 7.8, "master": 7.8 },
+      { "key": "D_hold", "clip": "D", "sec": 4, "master": 4 }
+    ]
+  }
+}
