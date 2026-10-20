@@ -5,7 +5,8 @@
 import { dumpLayer } from '../../tools/masters/dump-keys.mjs';
 import { shapeBoxAt, textBaselineAt } from '../../tools/masters/dump-geometry.mjs';
 import { P, rectGroup, shape, text } from '../../tools/masters/spec.mjs';
-import { FIT, fitExpr, platePre, scaleExpr, SIZE_AT_1, sizeJs, visible } from './style-titles.mjs';
+import { fitExpr, scaleExpr, SIZE_AT_1, sizeJs, visible } from '../../tools/masters/rig-plate.mjs';
+import { FIT, platePre } from './style-titles.mjs';
 
 const REST = 5.0;
 export const WEB = { plates: ['Layer 5 Outlines 2', 'Layer 4 Outlines 3', 'Layer 4 Outlines 4'], textIndex: 1 };

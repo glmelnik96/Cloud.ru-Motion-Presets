@@ -4,6 +4,7 @@
 import { applyPoint } from '../../tools/dump/geometry.mjs';
 import { dumpKeys, dumpLayer, progressSegment, toBuilderKeys } from '../../tools/masters/dump-keys.mjs';
 import { layerToCompAt, shapeBoxAt } from '../../tools/masters/dump-geometry.mjs';
+import { fitExpr, SIZE_AT_1, scaleExpr, sizeJs, visible } from '../../tools/masters/rig-plate.mjs';
 import { P, rectGroup, shape, text } from '../../tools/masters/spec.mjs';
 
 const FPS = 25;
@@ -106,26 +107,8 @@ export function plateExpr(pre, x, w, h, y, inn, out) {
   };
 }
 
-// Size control (user, 2026-10-05: text size anchored to its position): f scales the block; the block keeps
-// its corner (margins stay x k), text layers are scaled by f (their ink is read back x f). The chosen size
-// is an upper bound: the style's Fit slider on RIG holds the f in use, the largest up to the chosen size at
-// which the block stays inside the frame margins (Premiere check 2026-10-05: a 30-letter guest name at
-// 140 % ran off the frame).
-export const SIZES = [0.8, 1, 1.2, 1.4, 1.6];
-export const SIZE_CTRL = { label: 'Размер текста', items: ['80 %', '100 %', '120 %', '140 %', '160 %'], value: 2 };
+// The Fit sliders on RIG of the three styles: the text size in use (tools/masters/rig-plate.mjs).
 export const FIT = { titles: 'FitTitles', podcast: 'FitPodcast', webinar: 'FitWebinar' };
-export const sizeJs = (fit) => `var f = thisComp.layer("RIG").effect("${fit}")(1).value;`;
-export const SIZE_AT_1 = 'var f = 1;';
-
-// The Fit slider: pre1 is the style's geometry at f = 1, wb its block width there, avail the room between
-// the margins. Plates are rounded to whole pixels, so a capped block stops one pixel short of the margin.
-export function fitExpr(pre1, wb, avail) {
-  return pre1 + [
-    `var fu = [${SIZES.join(', ')}][thisComp.layer("CTRL").effect("Size")(1).value - 1] || 1;`,
-    `var Wb = ${wb}, A = ${avail};`,
-    'Wb * fu <= A ? fu : Math.max(0.2, (A - k) / Wb)',
-  ].join('\n');
-}
 
 // Shared head of the plate expressions: k, f, margins, side, the speed map T and sliders read through it.
 export function platePre(timeMap, size) {
@@ -144,9 +127,6 @@ export function platePre(timeMap, size) {
     'function span(x, w, a, b) { return right ? [x + w * (1 - a), x + w * (1 - b)] : [x + w * b, x + w * a]; }',
   ].join('\n') + '\n';
 }
-
-export const visible = (style) => `thisComp.layer("CTRL").effect("Style")(1).value == ${style} ? 100 : 0`;
-export const scaleExpr = (fit) => sizeJs(fit) + '\n[100 * f, 100 * f]';
 
 // Adds the style's layers (bottom first), keys and expressions to the spec.
 export function addTitles(spec, { layout: L, rig, nameStart, text: T, hex, timeMap }) {

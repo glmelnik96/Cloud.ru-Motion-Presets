@@ -7,7 +7,8 @@ import { layerToCompAt, restValueAt, shapeBoxAt } from '../../tools/masters/dump
 import { applyPoint } from '../../tools/dump/geometry.mjs';
 import { layerProp } from '../../tools/dump/model.mjs';
 import { P, pathGroup, rectGroup, shape, text } from '../../tools/masters/spec.mjs';
-import { FIT, fitExpr, scaleExpr, SIZE_AT_1, sizeJs, START, visible } from './style-titles.mjs';
+import { fitExpr, scaleExpr, SIZE_AT_1, sizeJs, visible } from '../../tools/masters/rig-plate.mjs';
+import { FIT, START } from './style-titles.mjs';
 
 const S = 0.5;                 // 4K pack -> FHD
 const REST = 3.0;
