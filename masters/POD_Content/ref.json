@@ -1,0 +1,78 @@
+{
+  "id": "POD_Content",
+  "_note": "Golden comparison against the podcast pack «Контент_1» (left), «Контент_2» (right) and «Контент_3» (centre, with the caption; 4K variant, the slot empty). The pack's windows are grey boxes over a still; the master's window opens on canon M4 (D19), so only the window and the caption at rest are gated, inside the window and inside the caption plates. The master starts with its window (the pack 0.68 s and 1.04 s later).",
+  "preview": {
+    "_note": "Card preview: the empty window on the left, on a neutral grey.",
+    "variant": "16x9",
+    "ctrl": { "Side": 1 },
+    "text": {},
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "axes": {}
+  },
+  "cases": [
+    {
+      "name": "left",
+      "title": "Окно слева, без подписи",
+      "golden": { "slug": "podcast", "compSlug": "kontent_1" },
+      "variant": "16x9_4K",
+      "ctrl": { "Side": 1 },
+      "text": {},
+      "rect": { "x": 109, "y": 106, "w": 1454, "h": 1433 },
+      "shift": [{ "from": 0, "to": 60, "by": -0.68 }],
+      "gate": [3000, 4000, 5000, 6000],
+      "view": [1240, 1520]
+    },
+    {
+      "name": "right",
+      "title": "Окно справа, без подписи",
+      "golden": { "slug": "podcast", "compSlug": "kontent_2" },
+      "variant": "16x9_4K",
+      "ctrl": { "Side": 2 },
+      "text": {},
+      "rect": { "x": 2277, "y": 106, "w": 1454, "h": 1433 },
+      "shift": [{ "from": 0, "to": 60, "by": -0.68 }],
+      "gate": [3000, 4000, 5000, 6000],
+      "view": [1240, 1520]
+    },
+    {
+      "name": "centre",
+      "title": "Окно по центру с подписью «Контента_3»",
+      "golden": { "slug": "podcast", "compSlug": "kontent_3" },
+      "variant": "16x9_4K",
+      "ctrl": { "Side": 3 },
+      "text": "pack",
+      "rect": { "x": 1233, "y": 106, "w": 1374, "h": 1375 },
+      "parts": [
+        { "name": "line1", "x": 1280, "y": 1594, "w": 1276, "h": 80 },
+        { "name": "line2", "x": 1269, "y": 1685, "w": 1300, "h": 80 },
+        { "name": "line3", "x": 1403, "y": 1776, "w": 1030, "h": 80 }
+      ],
+      "maxShift": 5,
+      "shift": [{ "from": 0, "to": 60, "by": -1.04 }],
+      "gate": [3000, 4000, 5000, 6000, 7000],
+      "view": [1520, 2000, 2520],
+      "note": "The caption is «Текст на плашке», style «Подкаст», centred under the window; «Контент_3» scaled its plates by hand (100, 102, 81 %), so its pads are 4–7 px, the master's those of the centred block (10.6 px). The parts lie inside the pack's plates."
+    }
+  ],
+  "premiere": {
+    "_note": "The 16x9 MOGRT in Premiere against the same variant rendered in AE, the slot empty (Premiere does not fill media slots from a script). The template is trim: each clip is cut to its length and «Длительность» says where it ends, so the exit plays at the clip's end. B: centre with a caption at 2×, 20 s; C: right, filling, 8 s.",
+    "variant": "16x9",
+    "clips": [
+      { "key": "A", "atSec": 0, "lenSec": 10, "ctrl": { "Side": 1, "Duration": 10 }, "text": {} },
+      { "key": "B", "atSec": 12, "lenSec": 20, "ctrl": { "Side": 3, "Duration": 20, "Speed": 5 },
+        "text": { "TXT_1": "Схема облачной платформы", "TXT_2": "для машинного обучения", "TXT_3": "" } },
+      { "key": "C", "atSec": 34, "lenSec": 8, "ctrl": { "Side": 2, "Duration": 8, "Fill": 2 }, "text": {} }
+    ],
+    "frames": [
+      { "key": "A_in", "clip": "A", "sec": 0.6, "master": 0.6 },
+      { "key": "A_hold", "clip": "A", "sec": 4, "master": 4 },
+      { "key": "A_out", "clip": "A", "sec": 9.6, "master": 9.6 },
+      { "key": "B_in", "clip": "B", "sec": 0.48, "master": 0.48 },
+      { "key": "B_hold", "clip": "B", "sec": 10, "master": 10 },
+      { "key": "B_out", "clip": "B", "sec": 19.72, "master": 19.72 },
+      { "key": "C_hold", "clip": "C", "sec": 4, "master": 4 },
+      { "key": "C_out", "clip": "C", "sec": 7.76, "master": 7.76 }
+    ]
+  }
+}
