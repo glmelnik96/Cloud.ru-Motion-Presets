@@ -23,6 +23,8 @@ export const text = (name, t, animators = [{ name: 'Rise', basedOn: 3 }]) => ({ 
 export const nul = (name, effects, extra = {}) => ({ name, type: 'null', effects, ...extra });
 // a layer of a comp the builder made from spec.transplant (by name); timeRemap: switched on for an expression
 export const precomp = (name, source, extra = {}) => ({ name, type: 'precomp', source, ...extra });
+// a Media Replacement slot (C28): placeholder { name, w, h } — an empty comp the media fills
+export const slot = (name, placeholder, extra = {}) => ({ name, type: 'slot', placeholder, ...extra });
 
 export class Spec {
   constructor(comp) {

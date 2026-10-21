@@ -22,7 +22,8 @@ import { packagePaths, variantPlan, withDefaults } from './package.mjs';
 
 export const PR_PROJECT = () => workPath('pr', 'CRT_masters.prproj');
 
-// 1-based effect values (AE, library) -> Premiere labels with 0-based values; checkboxes stay 0 / 1.
+// 1-based effect values (AE, library) -> Premiere labels with 0-based values; checkboxes stay 0 / 1, sliders
+// keep their value.
 export function prValues(ctrl, params) {
   const out = {};
   for (const [effect, v] of Object.entries(ctrl)) {
@@ -30,6 +31,11 @@ export function prValues(ctrl, params) {
     if (!spec) throw new Error('unknown control ' + effect);
     if (spec.kind === 'checkbox') {
       out[spec.label] = v ? 1 : 0;
+      continue;
+    }
+    // a slider (the service Duration of a trim template) is written as it is
+    if (spec.kind === 'slider') {
+      out[spec.label] = v;
       continue;
     }
     if (!(v >= 1 && v <= spec.items.length)) throw new Error(`${effect}: ${v} is outside 1..${spec.items.length}`);

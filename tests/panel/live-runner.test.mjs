@@ -43,7 +43,8 @@ function aeDry() {
   const h = vmHost(FAKE_AE);
   const cat = catalog();
   for (const it of cat.items) {
-    const D = it.duration.introSec + it.duration.holdSec + it.duration.outroSec;
+    // a trim template's comp is its longest insert (C23)
+    const D = it.fit === 'trim' ? it.duration.maxSec : it.duration.introSec + it.duration.holdSec + it.duration.outroSec;
     h.ctx.__specComps = it.variants.map((v) => ({ name: v.aeComp, w: v.w, h: v.h, duration: D, fps: v.fps, ep: epOf(it) }));
     h.run(`__ae.template(${JSON.stringify(`${LIB}/${it.aep.file}`)}, __specComps, [])`);
   }

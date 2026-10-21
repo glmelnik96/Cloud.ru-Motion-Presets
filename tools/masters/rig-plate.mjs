@@ -26,9 +26,10 @@ export const SIZE_AT_1 = 'var f = 1;';
 
 // The Fit slider: pre1 is the style's geometry at f = 1, wb its block width there, avail the room between
 // the margins. Plates are rounded to whole pixels, so a capped block stops one pixel short of the margin.
-export function fitExpr(pre1, wb, avail) {
+// size false: a master without «Размер текста» (the block shrinks only to fit).
+export function fitExpr(pre1, wb, avail, { size = true } = {}) {
   return pre1 + [
-    `var fu = [${SIZES.join(', ')}][thisComp.layer("CTRL").effect("Size")(1).value - 1] || 1;`,
+    size ? `var fu = [${SIZES.join(', ')}][thisComp.layer("CTRL").effect("Size")(1).value - 1] || 1;` : 'var fu = 1;',
     `var Wb = ${wb}, A = ${avail};`,
     'Wb * fu <= A ? fu : Math.max(0.2, (A - k) / Wb)',
   ].join('\n');
@@ -157,7 +158,9 @@ function blockPre(B, timeMap, size) {
     size,
     'var kt = k * f;',
     'var W = thisComp.width, H = thisComp.height, vert = H > W;',
-    `var pick = C.effect("Position")(1).value, side = pick == 1 ? ${B.auto} : pick - 1;`,
+    // B.place: a block its master places itself (POD_Content: under the window) — the side, the bottom line
+    // (B0, after n is known) and the left edge of a plate of width w
+    B.place ? B.place.side : `var pick = C.effect("Position")(1).value, side = pick == 1 ? ${B.auto} : pick - 1;`,
     timeMap.trim(),
     'var TT = T(time);',
     'function sl(e, t) { return R.effect(e)(1).valueAtTime(t); }',
@@ -173,10 +176,11 @@ function blockPre(B, timeMap, size) {
     `var n = 0, at = [${B.texts.map(() => -1).join(', ')}];`,
     `for (var j = 0; j < ${N}; j++) { if (I[j].w > 0${B.swap ? ' || I2[j].w > 0' : ''}) { at[j] = n; n++; } }`,
     `var E = (${geo.edge}) * k, M = (${geo.margin}) * k, B0 = H - (${geo.bottom}) * k;`,
+    ...(B.place ? [B.place.bottom] : []),
     // pads from the plate's left edge to the ink and from the ink to its right edge
     `function pads(e) { return [${geo.padL}, ${geo.padR}]; }`,
     'function width(e) { if (e.w <= 0) { return 0; } var p = pads(e); return p[0] + e.w + p[1]; }',
-    'function left(w) { return side == 1 ? E : (side == 3 ? W - E - w : (W - w) / 2); }',
+    B.place ? B.place.left : 'function left(w) { return side == 1 ? E : (side == 3 ? W - E - w : (W - w) / 2); }',
   ].join('\n') + '\n';
 }
 
@@ -241,15 +245,18 @@ function selectorExprs(spec, B, tx, line, tin, out) {
 // timing { inDelays, outStagger }, sliders { plateIn, textIn, textOut, plateOut }, textOut ('start': Start
 // runs back, 'end': End runs down), rest (a comp time of the hold at every speed), upper (capitals by an
 // expression on the field layers instead of All Caps, for a pack that typed its capitals), swap (a second
-// phrase: { texts, values, source, stagger } and the sliders swapOut, resize, swapIn). Every text is
-// matted to its plate, which reaches under its descenders, so words rise inside the plate and no glyph is cut.
+// phrase: { texts, values, source, stagger } and the sliders swapOut, resize, swapIn), place (a block its
+// master places: { side, bottom, left, avail } — expression code for the side, B0 once n is known, left(w)
+// and the room the block fits in), sizeCtrl (false: no «Размер текста» on CTRL). Every text is matted to
+// its plate, which reaches under its descenders, so words rise inside the plate and no glyph is cut.
 export function addPlateBlock(spec, B, timeMap) {
   const geo = B.geo;
   const N = B.texts.length;
   if (!(B.rest > 0)) throw new Error('addPlateBlock: B.rest, a moment of the hold, is needed');
   const pre = blockPre(B, timeMap, sizeJs(B.fit));
   const widths = B.texts.map((_, i) => `width(I[${i}])`).concat(B.swap ? B.texts.map((_, i) => `width(I2[${i}])`) : []);
-  spec.expr('RIG', P.slider(B.fit), fitExpr(blockPre(B, timeMap, SIZE_AT_1), `Math.max(${widths.join(', ')})`, 'side == 2 ? W - 2 * M : W - E - M'));
+  spec.expr('RIG', P.slider(B.fit), fitExpr(blockPre(B, timeMap, SIZE_AT_1), `Math.max(${widths.join(', ')})`,
+    B.place ? B.place.avail : 'side == 2 ? W - 2 * M : W - E - M', { size: B.sizeCtrl !== false }));
   const k = 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n';
   for (let li = N - 1; li >= 0; li -= 1) spec.add(shape(B.plates[li], [rectGroup('Plate', B.fill)]));
   const phrases = [{ texts: B.texts, values: B.values, source: B.source }].concat(B.swap ? [B.swap] : []);

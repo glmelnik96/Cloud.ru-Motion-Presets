@@ -12,22 +12,26 @@ const r6 = (v) => Math.round(v * 1e6) / 1e6;
 
 // Expression code that defines SPEED and T(t) for a master whose intro ends at I and outro starts at O
 // (rig times, seconds); O null: no outro, the hold lasts to the end. Valid in both expression engines (ES3).
-export function timeMapJs({ introEnd: I, outroStart: O }) {
+// A trim master (C23, C24) ends where its clip ends: `end` is the expression of that time (the service
+// slider Duration) and `rigEnd` the rig time its outro ends at; by default both are the comp's length.
+export function timeMapJs({ introEnd: I, outroStart: O, end = 'thisComp.duration', rigEnd = null }) {
+  const RD = rigEnd === null ? 'D' : String(rigEnd);
   return [
     `var SPEED = [${SPEEDS.join(', ')}][thisComp.layer("CTRL").effect("Speed")(1).value - 1] || 1;`,
     'function T(t) {',
-    '  var D = thisComp.duration;',
+    `  var D = ${end};`,
     `  if (t <= ${I} / SPEED) { return t * SPEED; }`,
-    ...(O === null ? [] : [`  if (t >= D - (D - ${O}) / SPEED) { return D - (D - t) * SPEED; }`]),
+    ...(O === null ? [] : [`  if (t >= D - (${RD} - ${O}) / SPEED) { return ${RD} - (D - t) * SPEED; }`]),
     `  return ${I};`,
     '}',
   ].join('\n') + '\n';
 }
 
 // Node twin of the expression, for tests and for picking review frames.
-export function mapTime(t, { introEnd: I, outroStart: O, duration: D, speed: s }) {
+export function mapTime(t, { introEnd: I, outroStart: O, duration: D, speed: s, rigEnd = null }) {
+  const RD = rigEnd === null ? D : rigEnd;
   if (t <= I / s) return t * s;
-  if (O !== null && t >= D - (D - O) / s) return D - (D - t) * s;
+  if (O !== null && t >= D - (RD - O) / s) return RD - (D - t) * s;
   return I;
 }
 

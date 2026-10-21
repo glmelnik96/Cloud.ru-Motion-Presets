@@ -10,11 +10,16 @@ function sameKeys(got, want) {
 export function aeHooks({ wait }) {
   const layer = async (R, hostRun, step, layerId) => R.fromHost(step, await hostRun('layer', { layerId }))?.layer ?? null;
   return {
-    async inspectCase({ c, A, B, D, R, hostRun }) {
+    async inspectCase({ c, item, A, B, D, R, hostRun }) {
       const la = await layer(R, hostRun, `${c.key}: layer A`, A.out.reply.layerId);
       const lb = await layer(R, hostRun, `${c.key}: layer B`, B.out.reply.layerId);
       R.check(`${c.key}: A plays as is (no time remap, ${D} s)`, la && !la.timeRemap && near(la.outPoint - la.inPoint, D), la);
-      R.check(`${c.key}: B has the time-remap keys of contract C27, linear`, lb && lb.timeRemap && sameKeys(lb.keys, B.plan.request.remap), { got: lb?.keys, want: B.plan.request.remap });
+      if (item.fit === 'trim') {
+        // C23: a trim template is cut, never remapped; «Длительность» (read back by the insert) moves its exit
+        R.check(`${c.key}: B is cut to ${D + 4} s, no time remap (trim)`, lb && !lb.timeRemap && near(lb.outPoint - lb.inPoint, D + 4), lb);
+      } else {
+        R.check(`${c.key}: B has the time-remap keys of contract C27, linear`, lb && lb.timeRemap && sameKeys(lb.keys, B.plan.request.remap), { got: lb?.keys, want: B.plan.request.remap });
+      }
       R.check(`${c.key}: B is the selected layer after its insert`, lb?.selected === true, lb, false);
     },
     async inspectScale({ r, R, hostRun, expect }) {

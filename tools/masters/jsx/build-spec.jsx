@@ -264,6 +264,14 @@ function sbMakeLayer(spec) {
     }
     bdSpan(L, SB.comp.duration);
     L.collapseTransformation = false;
+  } else if (spec.type === 'slot') {
+    // a Media Replacement slot (C28): an empty placeholder comp of the slot's frame; an alternate source is
+    // wrapped by AE into a comp of this size and fills it (AE 26.5, checked 2026-10-21)
+    var ph = app.project.items.addComp(spec.placeholder.name, spec.placeholder.w, spec.placeholder.h, 1, SB.comp.duration, SB.comp.frameRate);
+    L = SB.comp.layers.add(ph);
+    L.name = spec.name;
+    bdSpan(L, SB.comp.duration);
+    L.collapseTransformation = false;
   } else {
     throw new Error('BK_LAYER_TYPE: ' + spec.type);
   }
@@ -480,7 +488,8 @@ sbStep('Essential Graphics (' + PARAMS.spec.egp.length + ' controllers; QA left 
   var added = [];
   for (var i = 0; i < PARAMS.spec.egp.length; i++) {
     var e = PARAMS.spec.egp[i];
-    var prop = e.text ? bkSourceText(sbLayer(e.text)) : bkEffect(sbLayer('CTRL'), e.effect, e.matchName).property(1);
+    // a text field, a media slot (the layer itself) or a control on CTRL
+    var prop = e.text ? bkSourceText(sbLayer(e.text)) : (e.slot ? sbLayer(e.slot) : bkEffect(sbLayer('CTRL'), e.effect, e.matchName).property(1));
     added.push(bdEgpAdd(SB.comp, prop, e.label));
   }
   var names = bdEgpNames(SB.comp);

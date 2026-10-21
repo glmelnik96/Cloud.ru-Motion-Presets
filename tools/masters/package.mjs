@@ -23,11 +23,12 @@ export function variantPlan(params) {
 }
 
 // Essential Graphics labels of an item. params.egp lists controllers in the order they are added (newest
-// first in AE): an effect name on CTRL (LOGO_Shot style) or { effect } / { text: layer }.
+// first in AE): an effect name on CTRL (LOGO_Shot style) or { effect } / { text: layer } / { slot: layer }.
 export function egpLabels(params) {
   return params.egp.map((e) => {
     if (typeof e === 'string') return params.ctrl[e].label;
     if (e.effect) return params.ctrl[e.effect].label;
+    if (e.slot) return params.slots[e.slot].label;
     return params.text[e.text].label;
   });
 }

@@ -3,7 +3,7 @@
 // Frames of A and B at the same template time must match: the intro and the outro keep their speed
 // (Premiere: responsive time, S5; AE: time remap of contract C27).
 import { initialValues } from '../../panel/src/core/fields.ts';
-import { templateSec } from '../../panel/src/core/timing.ts';
+import { defaultLengthSec, templateSec } from '../../panel/src/core/timing.ts';
 
 const TEXT = ['Анна-Мария Ёлкина', 'Руководитель облачной платформы', 'Cloud.ru Evolution', 'Москва'];
 
@@ -25,10 +25,11 @@ export const EXTRA_SEC = 4;
 
 const onGrid = (t, fps) => Math.round(t * fps) / fps;
 
-// Template times inside the intro and inside the outro, on the frame grid.
+// Template times inside the intro and inside the outro, on the frame grid. A trim template (C23) is as long as
+// its longest insert; its inserts are the default length and that plus EXTRA_SEC, the outro at each clip's end.
 export function probeTimes(item, fps) {
   const d = item.duration;
-  const D = templateSec(item);
+  const D = item.fit === 'trim' ? defaultLengthSec(item) : templateSec(item);
   return { D, intro: onGrid(d.introSec / 2, fps), outro: onGrid(D - d.outroSec / 2, fps) };
 }
 
