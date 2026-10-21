@@ -40,6 +40,12 @@ function bkReleaseProject() {
     return 'clean';
   }
   var p = bkProjectPath();
+  // an untitled project without a single item holds no work (AE leaves one dirty after a probe or a live run
+  // adds and removes an item): closed like our own
+  if (p === '' && cur.numItems === 0) {
+    cur.close(CloseOptions.DO_NOT_SAVE_CHANGES);
+    return 'closed empty';
+  }
   if (p === '' || !bkIsWorkPath(p)) {
     throw new Error('BK_DIRTY_USER_PROJECT: save or close the open project first (' + (p || 'untitled') + ')');
   }

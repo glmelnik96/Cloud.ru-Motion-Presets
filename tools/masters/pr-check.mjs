@@ -155,6 +155,8 @@ if (isMain) {
     }
   } catch (e) {
     console.error('ERROR: ' + e.message);
+    // a stage that threw is a failed acceptance, whatever the frames before it said
+    failed += 1;
     process.exitCode = 1;
   } finally {
     await aeClose(params).catch(() => {});

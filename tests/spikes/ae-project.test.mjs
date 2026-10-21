@@ -57,9 +57,15 @@ describe('ae-project.jsx', () => {
   });
 
   it('refuses a dirty untitled project too', () => {
-    const { ctx, calls } = host({ dirty: true, existing: [FIXTURE] });
+    const { ctx, calls } = host({ dirty: true, items: [{ name: 'Comp 1' }], existing: [FIXTURE] });
     expect(() => ctx.bkNewProject()).toThrow(/untitled/);
     expect(calls).toEqual([]);
+  });
+
+  it('closes an empty dirty untitled project: there is no work in it', () => {
+    const { ctx, calls } = host({ dirty: true, existing: [FIXTURE] });
+    expect(ctx.bkOpenProject(FIXTURE)).toEqual({ opened: FIXTURE });
+    expect(calls).toEqual([['close', 'no-save'], ['open', FIXTURE]]);
   });
 
   it('closes its own dirty project without saving, then opens the fixture', () => {
