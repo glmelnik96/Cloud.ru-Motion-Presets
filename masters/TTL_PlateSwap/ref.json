@@ -5,7 +5,7 @@
     "_note": "Card preview: one per style, two lines changing to one on a neutral grey.",
     "variant": "16x9",
     "ctrl": { "Style": 1, "Position": 1 },
-    "text": { "TXT_1": "Облако для бизнеса", "TXT_2": "за пять минут", "TXT_3": "", "TXT2_1": "Cloud.ru Evolution", "TXT2_2": "", "TXT2_3": "" },
+    "text": { "TXT_LINE1": "Облако для бизнеса", "TXT_LINE2": "за пять минут", "TXT_LINE3": "", "TXT_PHRASE2_LINE1": "Cloud.ru Evolution", "TXT_PHRASE2_LINE2": "", "TXT_PHRASE2_LINE3": "" },
     "backdrop": "#5A5A5A",
     "fps": 12.5,
     "axes": { "style": "Style" }
@@ -17,7 +17,7 @@
       "golden": { "slug": "smm", "compSlug": "plashki_9x16" },
       "variant": "9x16",
       "ctrl": { "Style": 2, "Position": 1 },
-      "text": { "TXT_1": "Разверните свой сервис", "TXT_2": "видеоконференций", "TXT_3": "", "TXT2_1": "На виртуальной машине", "TXT2_2": "Cloud.ru Evolution", "TXT2_3": "" },
+      "text": { "TXT_LINE1": "Разверните свой сервис", "TXT_LINE2": "видеоконференций", "TXT_LINE3": "", "TXT_PHRASE2_LINE1": "На виртуальной машине", "TXT_PHRASE2_LINE2": "Cloud.ru Evolution", "TXT_PHRASE2_LINE3": "" },
       "shift": [
         { "from": 0, "to": 4.4, "by": 0 },
         { "from": 4.4, "to": 6.4, "by": -0.4 },
@@ -33,13 +33,13 @@
     "variant": "16x9",
     "clips": [
       { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Style": 2, "Position": 1 },
-        "text": { "TXT_1": "Разверните свой сервис", "TXT_2": "видеоконференций", "TXT_3": "", "TXT2_1": "На виртуальной машине", "TXT2_2": "Cloud.ru Evolution", "TXT2_3": "" } },
+        "text": { "TXT_LINE1": "Разверните свой сервис", "TXT_LINE2": "видеоконференций", "TXT_LINE3": "", "TXT_PHRASE2_LINE1": "На виртуальной машине", "TXT_PHRASE2_LINE2": "Cloud.ru Evolution", "TXT_PHRASE2_LINE3": "" } },
       { "key": "B", "atSec": 14, "lenSec": 16, "ctrl": { "Style": 1, "Position": 1 },
-        "text": { "TXT_1": "текст появляется тут", "TXT_2": "Затем появляется тут", "TXT_3": "И тут, и так далее", "TXT2_1": "А потом другая фраза", "TXT2_2": "в две строки", "TXT2_3": "" } },
+        "text": { "TXT_LINE1": "текст появляется тут", "TXT_LINE2": "Затем появляется тут", "TXT_LINE3": "И тут, и так далее", "TXT_PHRASE2_LINE1": "А потом другая фраза", "TXT_PHRASE2_LINE2": "в две строки", "TXT_PHRASE2_LINE3": "" } },
       { "key": "C", "atSec": 32, "lenSec": null, "ctrl": { "Style": 1, "Position": 3, "Speed": 4, "Size": 3 },
-        "text": { "TXT_1": "Одна строка", "TXT_2": "", "TXT_3": "", "TXT2_1": "Две строки", "TXT2_2": "во второй фразе", "TXT2_3": "" } },
+        "text": { "TXT_LINE1": "Одна строка", "TXT_LINE2": "", "TXT_LINE3": "", "TXT_PHRASE2_LINE1": "Две строки", "TXT_PHRASE2_LINE2": "во второй фразе", "TXT_PHRASE2_LINE3": "" } },
       { "key": "D", "atSec": 46, "lenSec": null, "ctrl": { "Style": 2, "Position": 4, "Speed": 5 },
-        "text": { "TXT_1": "Ёмкое облако", "TXT_2": "без второй фразы", "TXT_3": "", "TXT2_1": "", "TXT2_2": "", "TXT2_3": "" } }
+        "text": { "TXT_LINE1": "Ёмкое облако", "TXT_LINE2": "без второй фразы", "TXT_LINE3": "", "TXT_PHRASE2_LINE1": "", "TXT_PHRASE2_LINE2": "", "TXT_PHRASE2_LINE3": "" } }
     ],
     "frames": [
       { "key": "A_phrase1", "clip": "A", "sec": 3, "master": 3 },

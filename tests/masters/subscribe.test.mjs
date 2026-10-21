@@ -51,13 +51,13 @@ describe.skipIf(!HAS_DUMPS)('TTL_Subscribe', async () => {
   });
 
   it('capitals by expression, as the pack typed them: All Caps would space them 1.25 % wider', () => {
-    expect(p.text.TXT_1.style.allCaps).toBeUndefined();
-    const c = comp({ ctrl: { Position: 1 }, texts: { TXT_1: 'Подписывайся, ёлки!', TXT_2: 'ссылки в описании' } });
-    expect([c.at('TXT_1', ['text'], 3), c.at('TXT_2', ['text'], 3)]).toEqual(['ПОДПИСЫВАЙСЯ, ЁЛКИ!', 'ССЫЛКИ В ОПИСАНИИ']);
+    expect(p.text.TXT_LINE1.style.allCaps).toBeUndefined();
+    const c = comp({ ctrl: { Position: 1 }, texts: { TXT_LINE1: 'Подписывайся, ёлки!', TXT_LINE2: 'ссылки в описании' } });
+    expect([c.at('TXT_LINE1', ['text'], 3), c.at('TXT_LINE2', ['text'], 3)]).toEqual(['ПОДПИСЫВАЙСЯ, ЁЛКИ!', 'ССЫЛКИ В ОПИСАНИИ']);
   });
 
   it('«Авто»: both lines centred low, line 1 reaches under its Д into line 2, as the pack', () => {
-    const c = comp({ w: 3840, h: 2160, ctrl: { Position: 1 }, texts: { TXT_1: 'ПОДПИСЫВАЙСЯ!', TXT_2: 'ССЫЛКИ В ОПИСАНИИ' } });
+    const c = comp({ w: 3840, h: 2160, ctrl: { Position: 1 }, texts: { TXT_LINE1: 'ПОДПИСЫВАЙСЯ!', TXT_LINE2: 'ССЫЛКИ В ОПИСАНИИ' } });
     const a = plateOf(c, 'PL_1', 3);
     const b = plateOf(c, 'PL_2', 3);
     // the pack (4K): line 1 x 1150.5–2686.0 y 1659.5–1813.0, line 2 x 954.5–2884.8 y 1811.5–1943.5; its plates
@@ -71,11 +71,11 @@ describe.skipIf(!HAS_DUMPS)('TTL_Subscribe', async () => {
   });
 
   it('one line stands on the bottom; the sides keep the podcast frame edge; 160 % fits', () => {
-    const one = comp({ ctrl: { Position: 2 }, texts: { TXT_1: 'Жми на колокольчик', TXT_2: '' } });
+    const one = comp({ ctrl: { Position: 2 }, texts: { TXT_LINE1: 'Жми на колокольчик', TXT_LINE2: '' } });
     expect(plateOf(one, 'PL_2', 3).w).toBe(0);
     expect(plateOf(one, 'PL_1', 3).y1).toBeCloseTo(1080 - p.layout.bottom, 6);
     expect(plateOf(one, 'PL_1', 3).x0).toBeCloseTo(p.layout.edge, 6);
-    const big = comp({ ctrl: { Position: 4, Size: 5 }, texts: { TXT_1: 'Ставь лайк', TXT_2: 'и делись выпуском с коллегами по цеху' } });
+    const big = comp({ ctrl: { Position: 4, Size: 5 }, texts: { TXT_LINE1: 'Ставь лайк', TXT_LINE2: 'и делись выпуском с коллегами по цеху' } });
     const f = big.at('RIG', ['effect', 'FitSub', 'ADBE Slider Control', 1], 3);
     expect(f).toBeLessThan(1.6);
     expect(plateOf(big, 'PL_2', 3).x1).toBeCloseTo(1920 - p.layout.edge, 6);
@@ -87,9 +87,9 @@ describe.skipIf(!HAS_DUMPS)('TTL_Subscribe', async () => {
     expect(plateOf(c, 'PL_1', 0.2).w).toBeGreaterThan(0);
     expect(plateOf(c, 'PL_2', 0.2).w).toBe(0);
     const start = (n, t) => c.at(n, ['selector', 'Rise', 'ADBE Text Percent Start'], t);
-    expect([start('TXT_1', 0.4), start('TXT_1', 0.76), start('TXT_2', 0.76), start('TXT_2', 1.12)]).toEqual([0, 100, 0, 100]);
+    expect([start('TXT_LINE1', 0.4), start('TXT_LINE1', 0.76), start('TXT_LINE2', 0.76), start('TXT_LINE2', 1.12)]).toEqual([0, 100, 0, 100]);
     expect([plateOf(c, 'PL_1', 5.96).w, plateOf(c, 'PL_2', 5.96).w]).toEqual([0, 0]);
-    expect(start('TXT_1', 5.04)).toBe(100);
-    expect(start('TXT_1', 5.36)).toBe(0);
+    expect(start('TXT_LINE1', 5.04)).toBe(100);
+    expect(start('TXT_LINE1', 5.36)).toBe(0);
   });
 });

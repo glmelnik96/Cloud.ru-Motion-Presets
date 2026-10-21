@@ -54,7 +54,7 @@ describe.skipIf(!HAS_DUMPS)('POD_Frame', async () => {
     }
     // the clip of the text reaches 12.5 px under the plate (the Д of «ПОДКАСТ»)
     expect(rectOf(c, 'CL_BOT', 'Clip', 4).y1).toBeCloseTo(b.y1 + 12.5, 6);
-    expect(c.at('TAG_TOP', ['text'], 4)).toBe('CLOUD.RU');
+    expect(c.at('TXT_TAG_TOP', ['text'], 4)).toBe('CLOUD.RU');
   });
 
   it('the fly: 1.32 at the start, landed at 0.92 s, out of the picture on the last frame; the line thins', () => {
@@ -73,11 +73,11 @@ describe.skipIf(!HAS_DUMPS)('POD_Frame', async () => {
   });
 
   it('tags on the left mirror the right; an empty tag has no plate', () => {
-    const c = comp({ ctrl: { Side: 2 }, texts: { TAG_TOP: '', TAG_BOT: 'Выпуск 12' } });
+    const c = comp({ ctrl: { Side: 2 }, texts: { TXT_TAG_TOP: '', TXT_TAG_BOTTOM: 'Выпуск 12' } });
     expect(rectOf(c, 'PL_TOP', 'Plate', 4).w).toBe(0);
     const b = rectOf(c, 'PL_BOT', 'Plate', 4);
     expect(b.x0).toBeCloseTo(52.5, 6);
     expect(b.w).toBeCloseTo('ВЫПУСК 12'.length * 40 + 2 * p.layout.tags.pad, 6);
-    expect(c.at('TAG_BOT', ['text'], 4)).toBe('ВЫПУСК 12');
+    expect(c.at('TXT_TAG_BOTTOM', ['text'], 4)).toBe('ВЫПУСК 12');
   });
 });

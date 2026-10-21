@@ -7,14 +7,14 @@ import { prValues, unmatte } from '../../tools/masters/pr-check.mjs';
 
 const PARAMS = {
   ctrl: { Style: { label: 'Стиль', items: ['Подкаст', 'SMM'], value: 1 }, Size: { label: 'Размер текста', items: ['80 %', '100 %'], value: 2 } },
-  text: { TXT_1: { value: 'Текст на плашке', label: 'Строка 1' }, TXT_2: { value: '', label: 'Строка 2' } },
+  text: { TXT_LINE1: { value: 'Текст на плашке', label: 'Строка 1' }, TXT_LINE2: { value: '', label: 'Строка 2' } },
 };
 
 describe('Premiere acceptance', () => {
   it('a clip that leaves a control out renders it at the default, not at the previous clip value', () => {
-    expect(withDefaults(PARAMS, { Style: 2 }, { TXT_2: 'Вторая' })).toEqual({
+    expect(withDefaults(PARAMS, { Style: 2 }, { TXT_LINE2: 'Вторая' })).toEqual({
       ctrl: { Style: 2, Size: 2 },
-      text: { TXT_1: 'Текст на плашке', TXT_2: 'Вторая' },
+      text: { TXT_LINE1: 'Текст на плашке', TXT_LINE2: 'Вторая' },
     });
     expect(prValues({ Style: 2, Size: 2 }, PARAMS)).toEqual({ 'Стиль': 1, 'Размер текста': 1 });
   });

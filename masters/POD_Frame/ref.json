@@ -5,7 +5,7 @@
     "_note": "Card preview: the frame with its tags on a neutral grey.",
     "variant": "16x9",
     "ctrl": { "Side": 1 },
-    "text": { "TAG_TOP": "CLOUD.RU", "TAG_BOT": "ПОДКАСТ" },
+    "text": { "TXT_TAG_TOP": "CLOUD.RU", "TXT_TAG_BOTTOM": "ПОДКАСТ" },
     "backdrop": "#5A5A5A",
     "fps": 12.5,
     "axes": {}
@@ -17,7 +17,7 @@
       "golden": { "slug": "podcast", "compSlug": "tekst_na_plashke_1" },
       "variant": "16x9_4K",
       "ctrl": { "Side": 2 },
-      "text": { "TAG_TOP": "CLOUD.RU", "TAG_BOT": "ПОДКАСТ" },
+      "text": { "TXT_TAG_TOP": "CLOUD.RU", "TXT_TAG_BOTTOM": "ПОДКАСТ" },
       "parts": [
         { "name": "cloud", "x": 120, "y": 108, "w": 840, "h": 120 },
         { "name": "podcast", "x": 120, "y": 1932, "w": 810, "h": 120 }
@@ -39,7 +39,7 @@
       { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Side": 1 }, "text": {} },
       { "key": "B", "atSec": 12, "lenSec": 30, "ctrl": { "Side": 1 }, "text": {} },
       { "key": "C", "atSec": 44, "lenSec": null, "ctrl": { "Side": 2, "Speed": 5 }, "text": {} },
-      { "key": "D", "atSec": 56, "lenSec": null, "ctrl": { "Side": 1 }, "text": { "TAG_TOP": "", "TAG_BOT": "Выпуск 12" } }
+      { "key": "D", "atSec": 56, "lenSec": null, "ctrl": { "Side": 1 }, "text": { "TXT_TAG_TOP": "", "TXT_TAG_BOTTOM": "Выпуск 12" } }
     ],
     "frames": [
       { "key": "A_fly", "clip": "A", "sec": 0.4, "master": 0.4 },

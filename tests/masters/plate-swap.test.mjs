@@ -11,7 +11,7 @@ const REPO = path.resolve(import.meta.dirname, '../..');
 const HAS_DUMPS = existsSync('C:/CRBK/work/dumps/podcast/tekst_na_plashke_1.json') && existsSync('C:/CRBK/work/dumps/smm/plashki_9x16.json');
 const metrics = JSON.parse(readFileSync(path.join(REPO, 'masters/TTL_Plate/source-metrics.json'), 'utf8'));
 // the 9x16 pack: phrase 1, then phrase 2
-const PHRASES = { TXT_1: 'Разверните свой сервис', TXT_2: 'видеоконференций', TXT_3: '', TXT2_1: 'На виртуальной машине', TXT2_2: 'Cloud.ru Evolution', TXT2_3: '' };
+const PHRASES = { TXT_LINE1: 'Разверните свой сервис', TXT_LINE2: 'видеоконференций', TXT_LINE3: '', TXT_PHRASE2_LINE1: 'На виртуальной машине', TXT_PHRASE2_LINE2: 'Cloud.ru Evolution', TXT_PHRASE2_LINE3: '' };
 
 describe.skipIf(!HAS_DUMPS)('TTL_PlateSwap', async () => {
   const { resolve } = await import('../../masters/TTL_PlateSwap/resolve.mjs');
@@ -30,8 +30,8 @@ describe.skipIf(!HAS_DUMPS)('TTL_PlateSwap', async () => {
 
   it('SMM 9x16: the plates of phrase 1 change to the widths of phrase 2, the pack\'s texts swap', () => {
     const c = comp(p.spec, { w: 1080, h: 1920, ctrl: { Style: 2, Position: 1 }, texts: PHRASES });
-    const one = comp(plate.spec, { w: 1080, h: 1920, ctrl: { Style: 2, Position: 1 }, texts: { TXT_1: PHRASES.TXT_1, TXT_2: PHRASES.TXT_2, TXT_3: '' } });
-    const two = comp(plate.spec, { w: 1080, h: 1920, ctrl: { Style: 2, Position: 1 }, texts: { TXT_1: PHRASES.TXT2_1, TXT_2: PHRASES.TXT2_2, TXT_3: '' } });
+    const one = comp(plate.spec, { w: 1080, h: 1920, ctrl: { Style: 2, Position: 1 }, texts: { TXT_LINE1: PHRASES.TXT_LINE1, TXT_LINE2: PHRASES.TXT_LINE2, TXT_LINE3: '' } });
+    const two = comp(plate.spec, { w: 1080, h: 1920, ctrl: { Style: 2, Position: 1 }, texts: { TXT_LINE1: PHRASES.TXT_PHRASE2_LINE1, TXT_LINE2: PHRASES.TXT_PHRASE2_LINE2, TXT_LINE3: '' } });
     for (const n of ['PL_SMM_1', 'PL_SMM_2']) {
       // phrase 1 at rest as in TTL_Plate; phrase 2 at rest as TTL_Plate with its lines
       expect(plateOf(c, n, 3).w).toBeCloseTo(plateOf(one, n, 3).w, 6);
@@ -48,18 +48,18 @@ describe.skipIf(!HAS_DUMPS)('TTL_PlateSwap', async () => {
     expect(plateOf(c, 'PL_SMM_2', 4.8).w).toBeCloseTo(plateOf(one, 'PL_SMM_2', 3).w, 6);
     expect(plateOf(c, 'PL_SMM_1', 5.2).w).toBeCloseTo(plateOf(one, 'PL_SMM_1', 3).w, 6);
     expect(Math.abs(plateOf(c, 'PL_SMM_2', 5.4).w - plateOf(one, 'PL_SMM_2', 3).w)).toBeGreaterThan(1);
-    expect(c.at('SMM2_1', ['text'], 3)).toBe(PHRASES.TXT2_1);
+    expect(c.at('SMM2_1', ['text'], 3)).toBe(PHRASES.TXT_PHRASE2_LINE1);
   });
 
   it('no phrase 2: nothing changes, phrase 1 stays until the exit', () => {
-    const c = comp(p.spec, { ctrl: { Style: 2, Position: 1 }, texts: { TXT_1: PHRASES.TXT_1, TXT_2: PHRASES.TXT_2, TXT2_1: '', TXT2_2: '', TXT2_3: '' } });
+    const c = comp(p.spec, { ctrl: { Style: 2, Position: 1 }, texts: { TXT_LINE1: PHRASES.TXT_LINE1, TXT_LINE2: PHRASES.TXT_LINE2, TXT_PHRASE2_LINE1: '', TXT_PHRASE2_LINE2: '', TXT_PHRASE2_LINE3: '' } });
     expect(plateOf(c, 'PL_SMM_1', 8.8).w).toBeCloseTo(plateOf(c, 'PL_SMM_1', 3).w, 6);
     expect(c.at('SMM_1', ['selector', 'Rise', 'ADBE Text Percent End'], 8.8)).toBe(100);
     expect(c.at('SMM_1', ['selector', 'Rise', 'ADBE Text Percent End'], 11.96)).toBe(0);
   });
 
   it('lines of either phrase keep their places: one line, then two', () => {
-    const c = comp(p.spec, { ctrl: { Style: 1, Position: 1 }, texts: { TXT_1: '', TXT_2: 'Одна строка', TXT_3: '', TXT2_1: 'Первая из двух', TXT2_2: 'вторая из двух', TXT2_3: '' } });
+    const c = comp(p.spec, { ctrl: { Style: 1, Position: 1 }, texts: { TXT_LINE1: '', TXT_LINE2: 'Одна строка', TXT_LINE3: '', TXT_PHRASE2_LINE1: 'Первая из двух', TXT_PHRASE2_LINE2: 'вторая из двух', TXT_PHRASE2_LINE3: '' } });
     // line 1 has phrase 2 only: no plate until the change, then it grows
     expect(plateOf(c, 'PL_POD_1', 3).w).toBe(0);
     expect(plateOf(c, 'PL_POD_1', 8.8).w).toBeGreaterThan(0);
@@ -69,7 +69,7 @@ describe.skipIf(!HAS_DUMPS)('TTL_PlateSwap', async () => {
   });
 
   it('the descenders of phrase 1 are measured at rest though it has left by the moment of measure', () => {
-    const c = comp(p.spec, { ctrl: { Style: 1, Position: 1 }, texts: { TXT_1: 'И тут, и так далее', TXT_2: '', TXT_3: '', TXT2_1: 'Вторая фраза', TXT2_2: '', TXT2_3: '' } });
+    const c = comp(p.spec, { ctrl: { Style: 1, Position: 1 }, texts: { TXT_LINE1: 'И тут, и так далее', TXT_LINE2: '', TXT_LINE3: '', TXT_PHRASE2_LINE1: 'Вторая фраза', TXT_PHRASE2_LINE2: '', TXT_PHRASE2_LINE3: '' } });
     const h = p.layout.podcast.h;
     // one line: the plate reaches 8.3 px under the comma and Д with phrase 1, not 95 px more
     expect(plateOf(c, 'PL_POD_1', 3).h - h).toBeCloseTo(8.26 - p.layout.podcast.base, 1);

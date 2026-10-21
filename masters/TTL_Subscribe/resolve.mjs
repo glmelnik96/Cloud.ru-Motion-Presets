@@ -107,8 +107,8 @@ export function resolveSubscribe(sources = loadSources()) {
   // the pack typed its capitals: capitals by expression (block.upper), not All Caps, which spaces them wider
   const lineStyle = { font: L.font, size: L.size, fill: hex.black, tracking: L.tracking, justify: 'LEFT' };
   const text = {
-    TXT_1: { value: 'Подписывайся!', label: 'Строка 1', style: lineStyle },
-    TXT_2: { value: 'Ссылки в описании', label: 'Строка 2', style: lineStyle },
+    TXT_LINE1: { value: 'Подписывайся!', label: 'Строка 1', style: lineStyle },
+    TXT_LINE2: { value: 'Ссылки в описании', label: 'Строка 2', style: lineStyle },
   };
   const ctrl = {
     Position: { label: 'Позиция', items: ['Авто', 'Слева', 'По центру', 'Справа'], value: 1 },
@@ -117,7 +117,7 @@ export function resolveSubscribe(sources = loadSources()) {
   };
   const pad = `${L.pad} * kt`;
   const block = {
-    auto: 2, fit: FIT, texts: ['TXT_1', 'TXT_2'], plates: ['PL_1', 'PL_2'], values: [text.TXT_1.value, text.TXT_2.value],
+    auto: 2, fit: FIT, texts: ['TXT_LINE1', 'TXT_LINE2'], plates: ['PL_1', 'PL_2'], values: [text.TXT_LINE1.value, text.TXT_LINE2.value],
     textStyle: lineStyle, fill: hex.green, rest: REST, upper: true,
     geo: { h: L.h, step: L.step, base: L.base, rise: L.rise, edge: String(L.edge), margin: String(L.edge), bottom: String(L.bottom), padL: pad, padR: pad },
     fromTop: true, timing: tm, sliders: SLIDERS, textOut: 'start',
@@ -139,8 +139,8 @@ export function resolveSubscribe(sources = loadSources()) {
   ]));
 
   // AE lists the newest controller first: added in reverse of Строка 1, Строка 2, Позиция, Скорость, Размер текста
-  const egp = [{ effect: 'Size' }, { effect: 'Speed' }, { effect: 'Position' }, { text: 'TXT_2' }, { text: 'TXT_1' }];
-  const pack = { TXT_1: 'ПОДПИСЫВАЙСЯ!', TXT_2: 'ССЫЛКИ В ОПИСАНИИ' };
+  const egp = [{ effect: 'Size' }, { effect: 'Speed' }, { effect: 'Position' }, { text: 'TXT_LINE2' }, { text: 'TXT_LINE1' }];
+  const pack = { TXT_LINE1: 'ПОДПИСЫВАЙСЯ!', TXT_LINE2: 'ССЫЛКИ В ОПИСАНИИ' };
   const built = spec.toJSON();
   return {
     id: ID,
@@ -161,9 +161,9 @@ export function resolveSubscribe(sources = loadSources()) {
       fonts: [L.font],
       markers: reg.markers,
       egp: egp.map((e) => (e.text ? { text: e.text, label: text[e.text].label } : { effect: e.effect, matchName: 'ADBE Dropdown Control', label: ctrl[e.effect].label })),
-      egpNames: [text.TXT_1.label, text.TXT_2.label, ctrl.Position.label, ctrl.Speed.label, ctrl.Size.label],
-      measure: [{ name: 'pack', t: REST, ctrl: { Position: 1 }, text: pack, layers: ['PL_1', 'PL_2', 'TXT_1', 'TXT_2'] }],
-      defaults: { text: { TXT_1: text.TXT_1.value, TXT_2: text.TXT_2.value }, ctrl: { Position: 1, Speed: 2, Size: 2 } },
+      egpNames: [text.TXT_LINE1.label, text.TXT_LINE2.label, ctrl.Position.label, ctrl.Speed.label, ctrl.Size.label],
+      measure: [{ name: 'pack', t: REST, ctrl: { Position: 1 }, text: pack, layers: ['PL_1', 'PL_2', 'TXT_LINE1', 'TXT_LINE2'] }],
+      defaults: { text: { TXT_LINE1: text.TXT_LINE1.value, TXT_LINE2: text.TXT_LINE2.value }, ctrl: { Position: 1, Speed: 2, Size: 2 } },
     },
     check: pack,
     version: 1,

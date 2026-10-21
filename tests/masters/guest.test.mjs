@@ -49,8 +49,8 @@ describe.skipIf(!HAS_DUMPS)('POD_Guest', async () => {
     expect(p.duration).toEqual({ introSec: 1.24, holdSec: 5.52, outroSec: 1.24 });
     expect(p.spec.egpNames).toEqual(['Имя', 'Должность', 'Био, абзац 1', 'Био, абзац 2', 'Био, абзац 3', 'Сторона', 'Скорость']);
     // the pack's texts are resolved for the comparison, not kept in the repo
-    expect(Object.keys(p.pack)).toEqual(['NAME', 'ROLE', 'BIO_1', 'BIO_2', 'BIO_3']);
-    expect(p.text.NAME.value).toBe('Имя Фамилия');
+    expect(Object.keys(p.pack)).toEqual(['TXT_NAME', 'TXT_ROLE', 'TXT_BIO1', 'TXT_BIO2', 'TXT_BIO3']);
+    expect(p.text.TXT_NAME.value).toBe('Имя Фамилия');
   });
 
   it('at rest, the pack texts: the head and the bio on the pack baselines, the panel the pack panel', () => {
@@ -64,12 +64,12 @@ describe.skipIf(!HAS_DUMPS)('POD_Guest', async () => {
     const r = rectOf(c, 'PANEL', 'Panel', 4);
     const pk = p.layout.panel.pack;
     for (const [v, want] of [[r.x0, pk.x0], [r.x1, pk.x1], [r.y0, pk.y0], [r.y1, pk.y1]]) expect(v).toBeCloseTo(want, 4);
-    expect(c.at('HEAD', ['text'], 4)).toBe(`${p.pack.NAME} - \r${p.pack.ROLE}`);
+    expect(c.at('HEAD', ['text'], 4)).toBe(`${p.pack.TXT_NAME} - \r${p.pack.TXT_ROLE}`);
     expect(c.at('BIO', ['text'], 4).split('\r- ')).toHaveLength(3);
   });
 
   it('on the left: the mirror of the right; without a bio the panel ends under the head', () => {
-    const c = comp({ HEAD: 3, BIO: 1 }, { ctrl: { Side: 2 }, texts: { NAME: 'Иван Петров', ROLE: 'Основатель студии', BIO_1: '', BIO_2: '', BIO_3: '' } });
+    const c = comp({ HEAD: 3, BIO: 1 }, { ctrl: { Side: 2 }, texts: { TXT_NAME: 'Иван Петров', TXT_ROLE: 'Основатель студии', TXT_BIO1: '', TXT_BIO2: '', TXT_BIO3: '' } });
     const X = p.layout.text;
     const r = rectOf(c, 'PANEL', 'Panel', 4);
     expect(r.x0).toBeCloseTo(52.5, 6);

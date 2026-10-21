@@ -61,7 +61,7 @@
     "clips": [
       { "key": "A", "atSec": 0, "lenSec": 10, "ctrl": { "Side": 1, "Duration": 10 }, "text": {} },
       { "key": "B", "atSec": 12, "lenSec": 20, "ctrl": { "Side": 3, "Duration": 20, "Speed": 5 },
-        "text": { "TXT_1": "Схема облачной платформы", "TXT_2": "для машинного обучения", "TXT_3": "" } },
+        "text": { "TXT_CAPTION1": "Схема облачной платформы", "TXT_CAPTION2": "для машинного обучения", "TXT_CAPTION3": "" } },
       { "key": "C", "atSec": 34, "lenSec": 8, "ctrl": { "Side": 2, "Duration": 8, "Fill": 2 }, "text": {} }
     ],
     "frames": [

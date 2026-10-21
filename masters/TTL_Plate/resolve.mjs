@@ -2,7 +2,7 @@
 // «Стиль»: 1 «Подкаст» (the podcast pack «Текст на плашке_1», «Булит») and 2 «SMM» (the SMM pack «Плашки»),
 // placed by «Позиция» (Авто: the pack's side of the style; Слева / По центру / Справа). The second master on
 // the plate rig of the speaker title (tools/masters/rig-plate.mjs): «Скорость» and «Размер текста» as there.
-// The text fields (TXT_1..TXT_3) are the podcast style's own lines; the SMM lines copy them. Built from a
+// The text fields (TXT_LINE1..TXT_LINE3) are the podcast style's own lines; the SMM lines copy them. Built from a
 // declarative spec (tools/masters/jsx/build-spec.jsx); provisional choices: masters/TTL_Plate/README.md.
 // buildPlate also makes TTL_PlateSwap, the same plates with a change of phrase (masters/TTL_PlateSwap).
 import { readFileSync } from 'node:fs';
@@ -104,13 +104,13 @@ export function buildPlate(sources, { id = ID, comp = COMP, duration = DURATION,
   const lineStyle = { font: podL.font, size: podL.size, fill: hex.black, tracking: podL.tracking, justify: 'LEFT', allCaps: true };
   const label = (phrase, i) => (change ? `Фраза ${phrase}: строка ${i}` : `Строка ${i}`);
   const text = {
-    TXT_1: { value: change ? 'Первая фраза' : 'Текст на плашке', label: label(1, 1), style: lineStyle },
-    TXT_2: { value: '', label: label(1, 2), style: lineStyle },
-    TXT_3: { value: '', label: label(1, 3), style: lineStyle },
+    TXT_LINE1: { value: change ? 'Первая фраза' : 'Текст на плашке', label: label(1, 1), style: lineStyle },
+    TXT_LINE2: { value: '', label: label(1, 2), style: lineStyle },
+    TXT_LINE3: { value: '', label: label(1, 3), style: lineStyle },
     ...(change ? {
-      TXT2_1: { value: 'Вторая фраза', label: label(2, 1), style: lineStyle },
-      TXT2_2: { value: '', label: label(2, 2), style: lineStyle },
-      TXT2_3: { value: '', label: label(2, 3), style: lineStyle },
+      TXT_PHRASE2_LINE1: { value: 'Вторая фраза', label: label(2, 1), style: lineStyle },
+      TXT_PHRASE2_LINE2: { value: '', label: label(2, 2), style: lineStyle },
+      TXT_PHRASE2_LINE3: { value: '', label: label(2, 3), style: lineStyle },
     } : {}),
   };
   const ctrl = {
@@ -122,8 +122,8 @@ export function buildPlate(sources, { id = ID, comp = COMP, duration = DURATION,
   const P0 = podL.pads;
   const blocks = {
     podcast: {
-      style: 1, auto: 3, fit: FIT.podcast, texts: ['TXT_1', 'TXT_2', 'TXT_3'], plates: ['PL_POD_1', 'PL_POD_2', 'PL_POD_3'],
-      values: [text.TXT_1.value, text.TXT_2.value, text.TXT_3.value], textStyle: lineStyle, fill: hex.green, rest,
+      style: 1, auto: 3, fit: FIT.podcast, texts: ['TXT_LINE1', 'TXT_LINE2', 'TXT_LINE3'], plates: ['PL_POD_1', 'PL_POD_2', 'PL_POD_3'],
+      values: [text.TXT_LINE1.value, text.TXT_LINE2.value, text.TXT_LINE3.value], textStyle: lineStyle, fill: hex.green, rest,
       geo: {
         h: podL.h, step: podL.step, base: podL.base, rise: podL.rise,
         edge: String(podL.edge), margin: String(podL.edge), bottom: `side == 2 ? ${podL.bottom.center} : ${podL.bottom.side}`,
@@ -135,7 +135,7 @@ export function buildPlate(sources, { id = ID, comp = COMP, duration = DURATION,
     },
     smm: {
       style: 2, auto: 1, fit: FIT.smm, texts: ['SMM_1', 'SMM_2', 'SMM_3'], plates: ['PL_SMM_1', 'PL_SMM_2', 'PL_SMM_3'],
-      source: ['TXT_1', 'TXT_2', 'TXT_3'],
+      source: ['TXT_LINE1', 'TXT_LINE2', 'TXT_LINE3'],
       textStyle: { font: smmL.font, size: smmL.size, fill: hex.yellow, tracking: smmL.tracking, justify: 'LEFT' },
       fill: hex.black, rest,
       geo: {
@@ -150,10 +150,10 @@ export function buildPlate(sources, { id = ID, comp = COMP, duration = DURATION,
     },
   };
   if (change) {
-    blocks.podcast.swap = { texts: ['TXT2_1', 'TXT2_2', 'TXT2_3'], values: [text.TXT2_1.value, '', ''], stagger: podT.outStagger };
+    blocks.podcast.swap = { texts: ['TXT_PHRASE2_LINE1', 'TXT_PHRASE2_LINE2', 'TXT_PHRASE2_LINE3'], values: [text.TXT_PHRASE2_LINE1.value, '', ''], stagger: podT.outStagger };
     blocks.podcast.sliders = { ...SLIDERS.podcast, ...SWAP_SLIDERS.podcast };
     // pads(e) of SMM reads e.l of the line: phrase 2 lines bring their own
-    blocks.smm.swap = { texts: ['SMM2_1', 'SMM2_2', 'SMM2_3'], source: ['TXT2_1', 'TXT2_2', 'TXT2_3'], stagger: smmT.outStagger };
+    blocks.smm.swap = { texts: ['SMM2_1', 'SMM2_2', 'SMM2_3'], source: ['TXT_PHRASE2_LINE1', 'TXT_PHRASE2_LINE2', 'TXT_PHRASE2_LINE3'], stagger: smmT.outStagger };
     blocks.smm.sliders = { ...SLIDERS.smm, ...SWAP_SLIDERS.smm };
   }
 
@@ -177,15 +177,15 @@ export function buildPlate(sources, { id = ID, comp = COMP, duration = DURATION,
 
   // AE lists the newest controller first: added in reverse of the lines (phrase 1, then phrase 2), Стиль,
   // Позиция, Скорость, Размер текста
-  const fields = change ? ['TXT_1', 'TXT_2', 'TXT_3', 'TXT2_1', 'TXT2_2', 'TXT2_3'] : ['TXT_1', 'TXT_2', 'TXT_3'];
+  const fields = change ? ['TXT_LINE1', 'TXT_LINE2', 'TXT_LINE3', 'TXT_PHRASE2_LINE1', 'TXT_PHRASE2_LINE2', 'TXT_PHRASE2_LINE3'] : ['TXT_LINE1', 'TXT_LINE2', 'TXT_LINE3'];
   const egp = [{ effect: 'Size' }, { effect: 'Speed' }, { effect: 'Position' }, { effect: 'Style' }, ...fields.slice().reverse().map((t) => ({ text: t }))];
   const pack = {
-    podcast: { TXT_1: 'текст появляется тут', TXT_2: 'Затем появляется тут', TXT_3: 'И тут, и так далее' },
-    bulit: { TXT_1: 'Через несколько лет знание синтаксиса', TXT_2: 'Перестанет быть нужным', TXT_3: '' },
-    smm: { TXT_1: 'Разверните свой сервис', TXT_2: 'видеоконференций', TXT_3: '' },
-    ...(change ? { smm2: { TXT2_1: 'На виртуальной машине', TXT2_2: 'Cloud.ru Evolution', TXT2_3: '' } } : {}),
+    podcast: { TXT_LINE1: 'текст появляется тут', TXT_LINE2: 'Затем появляется тут', TXT_LINE3: 'И тут, и так далее' },
+    bulit: { TXT_LINE1: 'Через несколько лет знание синтаксиса', TXT_LINE2: 'Перестанет быть нужным', TXT_LINE3: '' },
+    smm: { TXT_LINE1: 'Разверните свой сервис', TXT_LINE2: 'видеоконференций', TXT_LINE3: '' },
+    ...(change ? { smm2: { TXT_PHRASE2_LINE1: 'На виртуальной машине', TXT_PHRASE2_LINE2: 'Cloud.ru Evolution', TXT_PHRASE2_LINE3: '' } } : {}),
   };
-  const empty2 = change ? { TXT2_1: '', TXT2_2: '', TXT2_3: '' } : {};
+  const empty2 = change ? { TXT_PHRASE2_LINE1: '', TXT_PHRASE2_LINE2: '', TXT_PHRASE2_LINE3: '' } : {};
   const built = spec.toJSON();
   return {
     id,
@@ -209,8 +209,8 @@ export function buildPlate(sources, { id = ID, comp = COMP, duration = DURATION,
       egpNames: [...fields.map((t) => text[t].label), ctrl.Style.label, ctrl.Position.label, ctrl.Speed.label, ctrl.Size.label],
       // the pack texts in both styles (FHD master), for the README; phrase 1 is at rest at 3 s
       measure: [
-        { name: 'podcast_right', t: 3.0, ctrl: { Style: 1, Position: 1 }, text: { ...pack.podcast, ...empty2 }, layers: ['PL_POD_1', 'PL_POD_2', 'PL_POD_3', 'TXT_1', 'TXT_2', 'TXT_3'] },
-        { name: 'podcast_centre', t: 3.0, ctrl: { Style: 1, Position: 3 }, text: { ...pack.bulit, ...empty2 }, layers: ['PL_POD_1', 'PL_POD_2', 'TXT_1', 'TXT_2'] },
+        { name: 'podcast_right', t: 3.0, ctrl: { Style: 1, Position: 1 }, text: { ...pack.podcast, ...empty2 }, layers: ['PL_POD_1', 'PL_POD_2', 'PL_POD_3', 'TXT_LINE1', 'TXT_LINE2', 'TXT_LINE3'] },
+        { name: 'podcast_centre', t: 3.0, ctrl: { Style: 1, Position: 3 }, text: { ...pack.bulit, ...empty2 }, layers: ['PL_POD_1', 'PL_POD_2', 'TXT_LINE1', 'TXT_LINE2'] },
         { name: 'smm_left', t: 3.0, ctrl: { Style: 2, Position: 1 }, text: { ...pack.smm, ...empty2 }, layers: ['PL_SMM_1', 'PL_SMM_2', 'SMM_1', 'SMM_2'] },
       ],
       defaults: { text: Object.fromEntries(fields.map((t) => [t, text[t].value])), ctrl: { Style: 1, Position: 1, Speed: 2, Size: 2 } },

@@ -10,12 +10,12 @@ import { exprComp } from '../helpers/master-expr.mjs';
 const REPO = path.resolve(import.meta.dirname, '../..');
 const HAS_DUMPS = existsSync('C:/CRBK/work/dumps/podcast/diskleymer.json');
 const metrics = JSON.parse(readFileSync(path.join(REPO, 'masters/TTL_Disclaimer/source-metrics.json'), 'utf8'));
-const TXT = ['TXT_1', 'TXT_2', 'TXT_3', 'TXT_4', 'TXT_5'];
+const TXT = ['TXT_LINE1', 'TXT_LINE2', 'TXT_LINE3', 'TXT_LINE4', 'TXT_LINE5'];
 
 // the ink of the pack's texts as the master measured it (FHD); other texts 30 px per character
 function packInk(p) {
   const by = new Map(TXT.map((t, i) => [p.text[t].value.toUpperCase(), metrics.master.lines[i]]));
-  by.set(p.text.TITLE.value.toUpperCase(), metrics.master.title);
+  by.set(p.text.TXT_TITLE.value.toUpperCase(), metrics.master.title);
   return (layer, s) => {
     if (!s) return { l: 0, w: 0, b: 0 };
     const r = by.get(s);
@@ -67,7 +67,7 @@ describe.skipIf(!HAS_DUMPS)('TTL_Disclaimer', async () => {
     // over the title and under it, as in the pack
     const order = p.spec.order;
     expect(order.indexOf('DECOR_HIGH')).toBeGreaterThan(order.indexOf('PL_5'));
-    expect(order.indexOf('DECOR_HIGH')).toBeLessThan(order.indexOf('TITLE'));
+    expect(order.indexOf('DECOR_HIGH')).toBeLessThan(order.indexOf('TXT_TITLE'));
     expect(order[order.length - 1]).toBe('DECOR_LOW');
     for (const [w, h, s] of [[1920, 1080, 50], [3840, 2160, 100]]) {
       const c = comp({ w, h });
@@ -115,9 +115,9 @@ describe.skipIf(!HAS_DUMPS)('TTL_Disclaimer', async () => {
 
   it('empty lines have no plate; a long line fits the block in the pack box; texts in capitals', () => {
     const long = 'она может не совпадать с позицией компании и её партнёров по рынку';
-    const c = comp({ texts: { TITLE: 'Важно', TXT_1: 'Мнение гостя', TXT_2: long, TXT_3: '', TXT_4: '', TXT_5: '' } });
+    const c = comp({ texts: { TXT_TITLE: 'Важно', TXT_LINE1: 'Мнение гостя', TXT_LINE2: long, TXT_LINE3: '', TXT_LINE4: '', TXT_LINE5: '' } });
     const B = p.layout.body;
-    expect(c.at('TXT_1', ['text'], 4)).toBe('МНЕНИЕ ГОСТЯ');
+    expect(c.at('TXT_LINE1', ['text'], 4)).toBe('МНЕНИЕ ГОСТЯ');
     expect(rectOf(c, 'PL_3', 'Plate', 4).w).toBe(0);
     // the longest line ends at the pack box end: its plate no further than the box end and its pad
     const f = c.at('RIG', ['effect', 'Fit', 'ADBE Slider Control', 1], 4);

@@ -174,8 +174,8 @@ export function resolveFrame(sources = loadSources()) {
 
   const tagStyle = { font: L.tags.font, size: L.tags.size, fill: hex.black, tracking: L.tags.tracking, justify: 'LEFT' };
   const text = {
-    TAG_TOP: { value: 'CLOUD.RU', label: 'Тег сверху', style: tagStyle },
-    TAG_BOT: { value: 'ПОДКАСТ', label: 'Тег снизу', style: tagStyle },
+    TXT_TAG_TOP: { value: 'CLOUD.RU', label: 'Тег сверху', style: tagStyle },
+    TXT_TAG_BOTTOM: { value: 'ПОДКАСТ', label: 'Тег снизу', style: tagStyle },
   };
   const ctrl = {
     Side: { label: 'Сторона тегов', items: ['Справа', 'Слева'], value: 1 },
@@ -220,9 +220,9 @@ export function resolveFrame(sources = loadSources()) {
     spec.expr('LINE', P.rectSize(b), lineJs + `[(${w}) * s, (${h}) * s]`);
     spec.expr('LINE', P.rectPos(b), lineJs + `F(${x}, ${y})`);
   }
-  for (const [tag, top, wipe, rise] of [['TAG_BOT', false, 'BotWipe', 'BotRise'], ['TAG_TOP', true, 'TopWipe', 'TopRise']]) {
-    const plate = `PL_${tag.slice(4)}`;
-    const clip = `CL_${tag.slice(4)}`;
+  for (const [tag, top, wipe, rise, name] of [['TXT_TAG_BOTTOM', false, 'BotWipe', 'BotRise', 'BOT'], ['TXT_TAG_TOP', true, 'TopWipe', 'TopRise', 'TOP']]) {
+    const plate = `PL_${name}`;
+    const clip = `CL_${name}`;
     spec.add(shape(clip, [rectGroup('Clip', hex.green)]), shape(plate, [rectGroup('Plate', hex.green)]));
     spec.add(textLayer(tag, { ...tagStyle, value: text[tag].value }, [{ name: 'Rise', basedOn: 1 }]));
     const js = tagJs(tag, top, wipe);
@@ -249,7 +249,7 @@ export function resolveFrame(sources = loadSources()) {
   ]));
 
   // AE lists the newest controller first: added in reverse of Тег сверху, Тег снизу, Сторона тегов, Скорость
-  const egp = [{ effect: 'Speed' }, { effect: 'Side' }, { text: 'TAG_BOT' }, { text: 'TAG_TOP' }];
+  const egp = [{ effect: 'Speed' }, { effect: 'Side' }, { text: 'TXT_TAG_BOTTOM' }, { text: 'TXT_TAG_TOP' }];
   const built = spec.toJSON();
   return {
     id: ID,
@@ -270,11 +270,11 @@ export function resolveFrame(sources = loadSources()) {
       fonts: [L.tags.font],
       markers: reg.markers,
       egp: egp.map((e) => (e.text ? { text: e.text, label: text[e.text].label } : { effect: e.effect, matchName: 'ADBE Dropdown Control', label: ctrl[e.effect].label })),
-      egpNames: [text.TAG_TOP.label, text.TAG_BOT.label, ctrl.Side.label, ctrl.Speed.label],
-      measure: [{ name: 'pack', t: REST, ctrl: { Side: 1 }, text: { TAG_TOP: 'CLOUD.RU', TAG_BOT: 'ПОДКАСТ' }, layers: ['PL_TOP', 'PL_BOT', 'TAG_TOP', 'TAG_BOT'] }],
-      defaults: { text: { TAG_TOP: text.TAG_TOP.value, TAG_BOT: text.TAG_BOT.value }, ctrl: { Side: 1, Speed: 2 } },
+      egpNames: [text.TXT_TAG_TOP.label, text.TXT_TAG_BOTTOM.label, ctrl.Side.label, ctrl.Speed.label],
+      measure: [{ name: 'pack', t: REST, ctrl: { Side: 1 }, text: { TXT_TAG_TOP: 'CLOUD.RU', TXT_TAG_BOTTOM: 'ПОДКАСТ' }, layers: ['PL_TOP', 'PL_BOT', 'TXT_TAG_TOP', 'TXT_TAG_BOTTOM'] }],
+      defaults: { text: { TXT_TAG_TOP: text.TXT_TAG_TOP.value, TXT_TAG_BOTTOM: text.TXT_TAG_BOTTOM.value }, ctrl: { Side: 1, Speed: 2 } },
     },
-    check: { TAG_TOP: 'CLOUD.RU', TAG_BOT: 'ПОДКАСТ' },
+    check: { TXT_TAG_TOP: 'CLOUD.RU', TXT_TAG_BOTTOM: 'ПОДКАСТ' },
     version: 1,
     variants: ['16x9', '16x9_4K'].map((key) => ({ key, ...tokens.video.formats[key] })),
     sweepTimes: [0, 0.2, 0.4, 0.6, 0.9, 1.2, 1.5, 1.7, 4.0, 8.0, 8.4, 8.8, 9.2, 9.6, 9.96],

@@ -32,7 +32,7 @@ const T = ['ADBE Transform Group'];
 const PACK = { comp: 'О_госте', text: 1, panel: 'Shape Layer 1', line: 'LIne Comp 1' };
 // box heights of the two texts: generous, AE hides the lines a box cannot hold
 const BOX_H = { HEAD: 300, BIO: 1000 };
-export const BIO = ['BIO_1', 'BIO_2', 'BIO_3'];
+export const BIO_FIELDS = ['TXT_BIO1', 'TXT_BIO2', 'TXT_BIO3'];
 
 const r6 = (v) => Math.round(v * 1e6) / 1e6;
 const near = (a, b, label, tol = 0.02) => {
@@ -126,10 +126,10 @@ export function guestLayout({ guest, metrics }) {
     pack: (() => {
       const bioText = paras.slice(blank + 1).join('\r');
       const parts = bioText.split(/\r(?=- )/);
-      if (parts.length > BIO.length) throw new Error(`О_госте: ${parts.length} bio paragraphs`);
+      if (parts.length > BIO_FIELDS.length) throw new Error(`О_госте: ${parts.length} bio paragraphs`);
       return {
-        NAME: paras[0].replace(/\s*-\s*$/, ''), ROLE: paras.slice(1, blank).join(' '),
-        ...Object.fromEntries(BIO.map((b, i) => [b, parts[i] || ''])),
+        TXT_NAME: paras[0].replace(/\s*-\s*$/, ''), TXT_ROLE: paras.slice(1, blank).join(' '),
+        ...Object.fromEntries(BIO_FIELDS.map((b, i) => [b, parts[i] || ''])),
       };
     })(),
   };
@@ -178,11 +178,11 @@ export function resolveGuest(sources = loadSources()) {
   const headStyle = style(X.head, [X.boxW, BOX_H.HEAD]);
   const bioStyle = style(X.bio, [X.boxW, BOX_H.BIO]);
   const text = {
-    NAME: { value: 'Имя Фамилия', label: 'Имя', style: { ...headStyle, box: undefined } },
-    ROLE: { value: 'Должность, компания', label: 'Должность', style: { ...headStyle, box: undefined } },
-    BIO_1: { value: '- Где работал и чем руководил', label: 'Био, абзац 1', style: { ...bioStyle, box: undefined } },
-    BIO_2: { value: '- Чем занимается сейчас', label: 'Био, абзац 2', style: { ...bioStyle, box: undefined } },
-    BIO_3: { value: '', label: 'Био, абзац 3', style: { ...bioStyle, box: undefined } },
+    TXT_NAME: { value: 'Имя Фамилия', label: 'Имя', style: { ...headStyle, box: undefined } },
+    TXT_ROLE: { value: 'Должность, компания', label: 'Должность', style: { ...headStyle, box: undefined } },
+    TXT_BIO1: { value: '- Где работал и чем руководил', label: 'Био, абзац 1', style: { ...bioStyle, box: undefined } },
+    TXT_BIO2: { value: '- Чем занимается сейчас', label: 'Био, абзац 2', style: { ...bioStyle, box: undefined } },
+    TXT_BIO3: { value: '', label: 'Био, абзац 3', style: { ...bioStyle, box: undefined } },
   };
   const ctrl = {
     Side: { label: 'Сторона', items: ['Справа', 'Слева'], value: 1 },
@@ -216,7 +216,7 @@ export function resolveGuest(sources = loadSources()) {
 
   const spec = new Spec({ name: COMP, w: 1920, h: 1080, fps: FPS, duration: DURATION });
   // the fields: hidden layers the card's two texts are made of
-  for (const t of ['BIO_3', 'BIO_2', 'BIO_1', 'ROLE', 'NAME']) {
+  for (const t of ['TXT_BIO3', 'TXT_BIO2', 'TXT_BIO1', 'TXT_ROLE', 'TXT_NAME']) {
     spec.add(textLayer(t, { ...text[t].style, value: text[t].value }, []));
     spec.expr(t, P.opacity, '0');
   }
@@ -226,8 +226,8 @@ export function resolveGuest(sources = loadSources()) {
   spec.expr('PANEL', P.rectSize('Panel'), pre + '[vis, Y1 - Y0]');
   spec.expr('PANEL', P.rectPos('Panel'), pre + '[(px0 + px1) / 2, (Y0 + Y1) / 2]');
   // the head: the name, « - » and the role on the next line, as the pack typed them
-  spec.expr('HEAD', P.text, 'var n = String(thisComp.layer("NAME").text.sourceText), r = String(thisComp.layer("ROLE").text.sourceText);\nn.length && r.length ? n + " - \\r" + r : n + r');
-  spec.expr('BIO', P.text, `var s = [], b;\nfor (var i = 1; i <= ${BIO.length}; i++) { b = String(thisComp.layer("BIO_" + i).text.sourceText); if (b.length) { s.push(b); } }\ns.join("\\r")`);
+  spec.expr('HEAD', P.text, 'var n = String(thisComp.layer("TXT_NAME").text.sourceText), r = String(thisComp.layer("TXT_ROLE").text.sourceText);\nn.length && r.length ? n + " - \\r" + r : n + r');
+  spec.expr('BIO', P.text, `var s = [], b;\nfor (var i = 1; i <= ${BIO_FIELDS.length}; i++) { b = String(thisComp.layer("TXT_BIO" + i).text.sourceText); if (b.length) { s.push(b); } }\ns.join("\\r")`);
   spec.expr('HEAD', P.pos, pre + `[X0 + ${X.padL} * k, hTop]`);
   spec.expr('BIO', P.pos, pre + `[X0 + ${X.padL} * k, bTop]`);
   for (const t of ['HEAD', 'BIO']) {
@@ -246,7 +246,7 @@ export function resolveGuest(sources = loadSources()) {
   ]));
 
   // AE lists the newest controller first: added in reverse of Имя, Должность, Био 1–3, Сторона, Скорость
-  const fields = ['NAME', 'ROLE', ...BIO];
+  const fields = ['TXT_NAME', 'TXT_ROLE', ...BIO_FIELDS];
   const egp = [{ effect: 'Speed' }, { effect: 'Side' }, ...[...fields].reverse().map((t) => ({ text: t }))];
   const built = spec.toJSON();
   return {

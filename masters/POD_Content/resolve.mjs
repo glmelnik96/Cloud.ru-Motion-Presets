@@ -32,7 +32,7 @@ const RIG_END = 10;
 const PACK_REST = 4.0;         // «Контент_1–3»: the window at rest 2.2–7.0 s
 const REST = 4.0;              // a moment of the hold at every speed: the ink of the caption is read there
 const SLOT = { name: 'CR_POD_Content_media', w: 3840, h: 2160 };
-const CAPTION = ['TXT_1', 'TXT_2', 'TXT_3'];
+const CAPTION = ['TXT_CAPTION1', 'TXT_CAPTION2', 'TXT_CAPTION3'];
 const SLIDERS = { plateIn: 'CapPlateIn', textIn: 'CapTextIn', textOut: 'CapTextOut', plateOut: 'CapPlateOut' };
 const FIT = 'FitCap';
 
@@ -117,9 +117,9 @@ export function resolveContent(sources = loadSources()) {
 
   const lineStyle = { font: podL.font, size: podL.size, fill: hex.black, tracking: podL.tracking, justify: 'LEFT', allCaps: true };
   const text = {
-    TXT_1: { value: '', label: 'Подпись, строка 1', style: lineStyle },
-    TXT_2: { value: '', label: 'Подпись, строка 2', style: lineStyle },
-    TXT_3: { value: '', label: 'Подпись, строка 3', style: lineStyle },
+    TXT_CAPTION1: { value: '', label: 'Подпись, строка 1', style: lineStyle },
+    TXT_CAPTION2: { value: '', label: 'Подпись, строка 2', style: lineStyle },
+    TXT_CAPTION3: { value: '', label: 'Подпись, строка 3', style: lineStyle },
   };
   const ctrl = {
     Side: { label: 'Сторона', items: ['Слева', 'Справа', 'По центру'], value: 1 },
@@ -193,7 +193,7 @@ export function resolveContent(sources = loadSources()) {
     ...[...CAPTION].reverse().map((t) => ({ text: t })), { slot: 'SLOT_MEDIA' }];
   const built = spec.toJSON();
   // the caption of «Контент_3» (the pack's placeholder words), for the comparison
-  const pack = { TXT_1: 'текст появляется тут', TXT_2: 'Затем появляется тут', TXT_3: 'И тут, и так далее' };
+  const pack = { TXT_CAPTION1: 'текст появляется тут', TXT_CAPTION2: 'Затем появляется тут', TXT_CAPTION3: 'И тут, и так далее' };
   return {
     id: ID,
     workDir: workDir(),
@@ -219,7 +219,7 @@ export function resolveContent(sources = loadSources()) {
           : { effect: e.effect, matchName: e.matchName || 'ADBE Dropdown Control', label: ctrl[e.effect].label })),
       egpNames: [slots.SLOT_MEDIA.label, ...CAPTION.map((t) => text[t].label), ctrl.Side.label, ctrl.Fill.label, ctrl.Speed.label, ctrl.Duration.label],
       measure: [{ name: 'caption', t: REST, ctrl: { Side: 3 }, text: pack, layers: [...CAPTION, 'PL_1', 'PL_2', 'PL_3', 'PANEL'] }],
-      defaults: { text: { TXT_1: '', TXT_2: '', TXT_3: '' }, ctrl: { Side: 1, Fill: 1, Speed: 2, Duration: RIG_END } },
+      defaults: { text: { TXT_CAPTION1: '', TXT_CAPTION2: '', TXT_CAPTION3: '' }, ctrl: { Side: 1, Fill: 1, Speed: 2, Duration: RIG_END } },
     },
     check: {},
     version: 1,

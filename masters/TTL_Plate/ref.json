@@ -5,7 +5,7 @@
     "_note": "Card preview: one per style, two lines on a neutral grey.",
     "variant": "16x9",
     "ctrl": { "Style": 1, "Position": 1 },
-    "text": { "TXT_1": "Облако для бизнеса", "TXT_2": "за пять минут", "TXT_3": "" },
+    "text": { "TXT_LINE1": "Облако для бизнеса", "TXT_LINE2": "за пять минут", "TXT_LINE3": "" },
     "backdrop": "#5A5A5A",
     "fps": 12.5,
     "axes": { "style": "Style" }
@@ -17,7 +17,7 @@
       "golden": { "slug": "podcast", "compSlug": "tekst_na_plashke_1" },
       "variant": "16x9_4K",
       "ctrl": { "Style": 1, "Position": 1 },
-      "text": { "TXT_1": "текст появляется тут", "TXT_2": "Затем появляется тут", "TXT_3": "И тут, и так далее" },
+      "text": { "TXT_LINE1": "текст появляется тут", "TXT_LINE2": "Затем появляется тут", "TXT_LINE3": "И тут, и так далее" },
       "rect": { "x": 2700, "y": 1446, "w": 1020, "h": 273 },
       "parts": [
         { "name": "line1", "x": 2700, "y": 1446, "w": 1020, "h": 90 },
@@ -39,7 +39,7 @@
       "golden": { "slug": "podcast", "compSlug": "bulit" },
       "variant": "16x9_4K",
       "ctrl": { "Style": 1, "Position": 3 },
-      "text": { "TXT_1": "Через несколько лет знание синтаксиса", "TXT_2": "Перестанет быть нужным", "TXT_3": "" },
+      "text": { "TXT_LINE1": "Через несколько лет знание синтаксиса", "TXT_LINE2": "Перестанет быть нужным", "TXT_LINE3": "" },
       "rect": { "x": 1150, "y": 1761, "w": 1535, "h": 186 },
       "parts": [
         { "name": "line1", "x": 700, "y": 1762, "w": 1800, "h": 90 },
@@ -59,7 +59,7 @@
       "golden": { "slug": "smm", "compSlug": "plashki_9x16" },
       "variant": "9x16",
       "ctrl": { "Style": 2, "Position": 1 },
-      "text": { "TXT_1": "Разверните свой сервис", "TXT_2": "видеоконференций", "TXT_3": "" },
+      "text": { "TXT_LINE1": "Разверните свой сервис", "TXT_LINE2": "видеоконференций", "TXT_LINE3": "" },
       "shift": [],
       "gate": [1520, 2000, 3000, 4000],
       "view": [0, 240, 520, 760, 1000, 1240],
@@ -71,15 +71,15 @@
     "variant": "16x9",
     "clips": [
       { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Style": 1, "Position": 1 },
-        "text": { "TXT_1": "текст появляется тут", "TXT_2": "Затем появляется тут", "TXT_3": "И тут, и так далее" } },
+        "text": { "TXT_LINE1": "текст появляется тут", "TXT_LINE2": "Затем появляется тут", "TXT_LINE3": "И тут, и так далее" } },
       { "key": "B", "atSec": 10, "lenSec": 12, "ctrl": { "Style": 2, "Position": 1 },
-        "text": { "TXT_1": "Разверните свой сервис", "TXT_2": "видеоконференций", "TXT_3": "" } },
+        "text": { "TXT_LINE1": "Разверните свой сервис", "TXT_LINE2": "видеоконференций", "TXT_LINE3": "" } },
       { "key": "C", "atSec": 30, "lenSec": null, "ctrl": { "Style": 1, "Position": 3, "Speed": 4, "Size": 3 },
-        "text": { "TXT_1": "Через несколько лет знание синтаксиса", "TXT_2": "перестанет быть нужным", "TXT_3": "" } },
+        "text": { "TXT_LINE1": "Через несколько лет знание синтаксиса", "TXT_LINE2": "перестанет быть нужным", "TXT_LINE3": "" } },
       { "key": "D", "atSec": 40, "lenSec": null, "ctrl": { "Style": 2, "Position": 4, "Size": 5 },
-        "text": { "TXT_1": "Ёмкое облако", "TXT_2": "для команд разработки и машинного обучения", "TXT_3": "Cloud.ru Evolution" } },
+        "text": { "TXT_LINE1": "Ёмкое облако", "TXT_LINE2": "для команд разработки и машинного обучения", "TXT_LINE3": "Cloud.ru Evolution" } },
       { "key": "E", "atSec": 50, "lenSec": null, "ctrl": { "Style": 1, "Position": 2, "Speed": 5 },
-        "text": { "TXT_1": "", "TXT_2": "Одна строка", "TXT_3": "" } }
+        "text": { "TXT_LINE1": "", "TXT_LINE2": "Одна строка", "TXT_LINE3": "" } }
     ],
     "frames": [
       { "key": "A_intro", "clip": "A", "sec": 0.8, "master": 0.8 },

@@ -10,8 +10,8 @@ import { packInk, plateOf } from '../helpers/plate-ink.mjs';
 const REPO = path.resolve(import.meta.dirname, '../..');
 const HAS_DUMPS = existsSync('C:/CRBK/work/dumps/podcast/tekst_na_plashke_1.json') && existsSync('C:/CRBK/work/dumps/smm/plashki_9x16.json');
 const metrics = JSON.parse(readFileSync(path.join(REPO, 'masters/TTL_Plate/source-metrics.json'), 'utf8'));
-const PACK = { TXT_1: 'текст появляется тут', TXT_2: 'Затем появляется тут', TXT_3: 'И тут, и так далее' };
-const SMM = { TXT_1: 'Разверните свой сервис', TXT_2: 'видеоконференций', TXT_3: '' };
+const PACK = { TXT_LINE1: 'текст появляется тут', TXT_LINE2: 'Затем появляется тут', TXT_LINE3: 'И тут, и так далее' };
+const SMM = { TXT_LINE1: 'Разверните свой сервис', TXT_LINE2: 'видеоконференций', TXT_LINE3: '' };
 
 describe.skipIf(!HAS_DUMPS)('TTL_Plate', async () => {
   const { resolve } = await import('../../masters/TTL_Plate/resolve.mjs');
@@ -36,7 +36,7 @@ describe.skipIf(!HAS_DUMPS)('TTL_Plate', async () => {
     expect([t.introEnd, t.outroStart]).toEqual([2.12, 5.8]);
     expect(p.duration).toEqual({ introSec: 2.84, holdSec: 2.2, outroSec: 2.96 });
     expect(p.spec.egpNames).toEqual(['Строка 1', 'Строка 2', 'Строка 3', 'Стиль', 'Позиция', 'Скорость', 'Размер текста']);
-    expect(p.spec.mattes.map((m) => `${m.layer}<${m.matte}`)).toEqual(['TXT_1<PL_POD_1', 'TXT_2<PL_POD_2', 'TXT_3<PL_POD_3', 'SMM_1<PL_SMM_1', 'SMM_2<PL_SMM_2', 'SMM_3<PL_SMM_3']);
+    expect(p.spec.mattes.map((m) => `${m.layer}<${m.matte}`)).toEqual(['TXT_LINE1<PL_POD_1', 'TXT_LINE2<PL_POD_2', 'TXT_LINE3<PL_POD_3', 'SMM_1<PL_SMM_1', 'SMM_2<PL_SMM_2', 'SMM_3<PL_SMM_3']);
   });
 
   it('a plate reaches under the descenders of its line (Д, comma): no glyph is cut, the others keep the pack height', () => {
@@ -66,12 +66,12 @@ describe.skipIf(!HAS_DUMPS)('TTL_Plate', async () => {
       // line 3 reaches 16.6 px (4K) lower than the pack's plate, under its comma and Д (the next test)
       for (const [a, b] of [[pl.x0, x0], [pl.x1, x1], [pl.y0, y0]].concat(i < 2 ? [[pl.y1, y1]] : [])) expect(Math.abs(a - b)).toBeLessThan(3);
     });
-    expect(c.at('TXT_1', ['transform', 'ADBE Opacity'], 3)).toBe(100);
+    expect(c.at('TXT_LINE1', ['transform', 'ADBE Opacity'], 3)).toBe(100);
     expect(c.at('SMM_1', ['transform', 'ADBE Opacity'], 3)).toBe(0);
   });
 
   it('an empty line collapses: the others stack from the bottom', () => {
-    const c = comp({ ctrl: { Style: 1, Position: 2 }, texts: { TXT_1: 'Первая', TXT_2: '', TXT_3: 'Третья' } });
+    const c = comp({ ctrl: { Style: 1, Position: 2 }, texts: { TXT_LINE1: 'Первая', TXT_LINE2: '', TXT_LINE3: 'Третья' } });
     const a = plateOf(c, 'PL_POD_1', 3);
     const b = plateOf(c, 'PL_POD_3', 3);
     expect(plateOf(c, 'PL_POD_2', 3).w).toBe(0);
@@ -94,13 +94,13 @@ describe.skipIf(!HAS_DUMPS)('TTL_Plate', async () => {
     expect(Math.abs(bottom.x1 - 793.35)).toBeLessThan(5.5);
     const [ox] = c.at('SMM_1', ['transform', 'ADBE Position'], 3);
     expect(ox - top.x0).toBeCloseTo(p.layout.smm.origin, 6);
-    expect(c.at('SMM_1', ['text'], 3)).toBe(SMM.TXT_1);
+    expect(c.at('SMM_1', ['text'], 3)).toBe(SMM.TXT_LINE1);
   });
 
   it('sides: SMM on the right keeps the vertical edge, the centre is centred', () => {
     const r = comp({ w: 1080, h: 1920, ctrl: { Style: 2, Position: 4 }, texts: SMM });
     expect(plateOf(r, 'PL_SMM_1', 3).x1).toBeCloseTo(1080 - p.layout.smm.edge.vertical, 6);
-    const m = comp({ ctrl: { Style: 1, Position: 3 }, texts: { TXT_1: 'Через несколько лет знание синтаксиса', TXT_2: 'Перестанет быть нужным', TXT_3: '' } });
+    const m = comp({ ctrl: { Style: 1, Position: 3 }, texts: { TXT_LINE1: 'Через несколько лет знание синтаксиса', TXT_LINE2: 'Перестанет быть нужным', TXT_LINE3: '' } });
     const pl = plateOf(m, 'PL_POD_1', 3);
     expect((pl.x0 + pl.x1) / 2).toBeCloseTo(960, 6);
     expect(plateOf(m, 'PL_POD_2', 3).y1).toBeCloseTo(1080 - p.layout.podcast.bottom.center, 6);
@@ -119,7 +119,7 @@ describe.skipIf(!HAS_DUMPS)('TTL_Plate', async () => {
     expect(w('PL_POD_3', 6.96 + 0.28)).toBeCloseTo(full[2], 6);
     expect([1, 2, 3].map((i) => w(`PL_POD_${i}`, 7.96))).toEqual([0, 0, 0]);
     const start = (n, t) => c.at(n, ['selector', 'Rise', 'ADBE Text Percent Start'], t);
-    expect([start('TXT_1', 0.4), start('TXT_1', 1.44), start('TXT_3', 2.12), start('TXT_1', 7.96)]).toEqual([0, 100, 100, 0]);
+    expect([start('TXT_LINE1', 0.4), start('TXT_LINE1', 1.44), start('TXT_LINE3', 2.12), start('TXT_LINE1', 7.96)]).toEqual([0, 100, 100, 0]);
     const s = comp({ w: 1080, h: 1920, ctrl: { Style: 2, Position: 1 }, texts: SMM });
     expect(plateOf(s, 'PL_SMM_2', 0.2).w).toBeGreaterThan(0);
     expect(plateOf(s, 'PL_SMM_1', 0.2).w).toBe(0);
@@ -136,7 +136,7 @@ describe.skipIf(!HAS_DUMPS)('TTL_Plate', async () => {
     const c = comp({ ctrl: { Style: 1, Position: 1, Speed: 5 }, texts: PACK });
     const rest = plateOf(comp({ ctrl: { Style: 1, Position: 1 }, texts: PACK }), 'PL_POD_3', 4).w;
     expect(plateOf(c, 'PL_POD_3', 1.06).w).toBeCloseTo(rest, 6);
-    const long = { TXT_1: 'Ёмкое облако', TXT_2: 'для команд разработки и машинного обучения', TXT_3: 'Cloud.ru Evolution' };
+    const long = { TXT_LINE1: 'Ёмкое облако', TXT_LINE2: 'для команд разработки и машинного обучения', TXT_LINE3: 'Cloud.ru Evolution' };
     const big = comp({ w: 1080, h: 1920, ctrl: { Style: 2, Position: 4, Size: 5 }, texts: long });
     const f = big.at('RIG', ['effect', 'FitSmm', 'ADBE Slider Control', 1], 3);
     expect(f).toBeLessThan(1.6);

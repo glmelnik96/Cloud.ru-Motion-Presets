@@ -44,7 +44,7 @@ const EXTEND = ['Vert_lines_1 Comp 1', 'Verts_lines_2 Comp 1'];
 const BODY_PLATES = ['Shape Layer 1', 'Shape Layer 2', 'Shape Layer 3', 'Shape Layer 4', 'Shape Layer 5'];
 const TITLE = { text: 'ДИСКЛЕЙМЕР', plate: 'Green_cube_1', clip: 'Green_cube_2' };
 export const LINES = 5;
-const TXT = Array.from({ length: LINES }, (_, i) => `TXT_${i + 1}`);
+const TXT = Array.from({ length: LINES }, (_, i) => `TXT_LINE${i + 1}`);
 const PL = Array.from({ length: LINES }, (_, i) => `PL_${i + 1}`);
 
 const r6 = (v) => Math.round(v * 1e6) / 1e6;
@@ -202,7 +202,7 @@ export function resolveDisclaimer(sources = loadSources()) {
   const bodyStyle = { font: B.font, size: B.size, fill: B.fill, tracking: B.tracking, justify: 'LEFT' };
   const titleStyle = { font: L.title.font, size: L.title.size, fill: hex.black, tracking: L.title.tracking, justify: 'LEFT' };
   const text = {
-    TITLE: { value: L.title.text, label: 'Заголовок', style: titleStyle },
+    TXT_TITLE: { value: L.title.text, label: 'Заголовок', style: titleStyle },
     ...Object.fromEntries(TXT.map((t, i) => [t, { value: B.text[i], label: `Строка ${i + 1}`, style: bodyStyle }])),
   };
   const ctrl = { Speed: SPEED_CTRL };
@@ -230,7 +230,7 @@ export function resolveDisclaimer(sources = loadSources()) {
   // bottom first: the card and its stripes, the title, the decoration over it, the plates, the lines
   spec.add(precomp('DECOR_LOW', 'DECOR_LOW', { timeRemap: true }));
   spec.add(shape('PL_TITLE', [rectGroup('Plate', hex.green)]), shape('CL_TITLE', [rectGroup('Clip', hex.green)]));
-  spec.add(textLayer('TITLE', { ...titleStyle, value: text.TITLE.value }, [{ name: 'Rise', basedOn: 3 }]));
+  spec.add(textLayer('TXT_TITLE', { ...titleStyle, value: text.TXT_TITLE.value }, [{ name: 'Rise', basedOn: 3 }]));
   spec.add(precomp('DECOR_HIGH', 'DECOR_HIGH', { timeRemap: true }));
   for (let i = LINES - 1; i >= 0; i -= 1) spec.add(shape(PL[i], [rectGroup('Plate', hex.white)]));
   for (let i = LINES - 1; i >= 0; i -= 1) spec.add(textLayer(TXT[i], { ...bodyStyle, value: text[TXT[i]].value }, [{ name: 'Rise', basedOn: 3, opacity: B.opacity }]));
@@ -277,7 +277,7 @@ export function resolveDisclaimer(sources = loadSources()) {
   // word rises out of the clip, which drops at the end to let the descenders out under the plate
   const Tt = L.title;
   const titleJs = pre + [
-    'var e = ink("TITLE");',
+    'var e = ink("TXT_TITLE");',
     `var x1 = ${Tt.plate.x1} * k, w = e ? e.r - e.l + ${r6(Tt.padL + Tt.padR)} * k : 0, y0 = ${Tt.plate.y0} * k, y1 = ${Tt.plate.y1} * k;`,
     'var g = sl("TitlePlate", TT), d = sl("TitleClip", TT);',
   ].join('\n') + '\n';
@@ -286,11 +286,11 @@ export function resolveDisclaimer(sources = loadSources()) {
   const clipJs = titleJs + `var cx0 = x1 - w + ${Tt.clip.dx0} * k, cx1 = x1 + ${Tt.clip.dx1} * k, cy0 = (${Tt.clip.top} + ${Tt.clip.drop} * d) * k, cy1 = (${Tt.clip.bottom} + ${Tt.clip.drop} * d) * k;\n`;
   spec.expr('CL_TITLE', P.rectSize('Clip'), clipJs + '[Math.max(0, cx1 - cx0), cy1 - cy0]');
   spec.expr('CL_TITLE', P.rectPos('Clip'), clipJs + '[(cx0 + cx1) / 2, (cy0 + cy1) / 2]');
-  spec.expr('TITLE', P.text, 'String(value).toUpperCase()');
-  spec.expr('TITLE', P.pos, titleJs + `[x1 - ${Tt.padR} * k - (e ? e.r : 0), y1 - ${Tt.base} * k]`);
-  spec.expr('TITLE', P.rise(), 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n' + `[0, ${Tt.rise} * k, 0]`);
-  spec.expr('TITLE', P.start(), pre + '100 * sl("TitleRise", TT)');
-  spec.matte('TITLE', 'CL_TITLE', 'ALPHA', { keepVisible: false });
+  spec.expr('TXT_TITLE', P.text, 'String(value).toUpperCase()');
+  spec.expr('TXT_TITLE', P.pos, titleJs + `[x1 - ${Tt.padR} * k - (e ? e.r : 0), y1 - ${Tt.base} * k]`);
+  spec.expr('TXT_TITLE', P.rise(), 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n' + `[0, ${Tt.rise} * k, 0]`);
+  spec.expr('TXT_TITLE', P.start(), pre + '100 * sl("TitleRise", TT)');
+  spec.matte('TXT_TITLE', 'CL_TITLE', 'ALPHA', { keepVisible: false });
 
   addQaPatch(spec, hex.green);
   spec.add(nul('RIG', [...Object.keys(rig).map((name) => ({ kind: 'slider', name })), { kind: 'slider', name: 'Fit', value: 1 }], { shy: true }));
@@ -301,8 +301,8 @@ export function resolveDisclaimer(sources = loadSources()) {
   ]));
 
   // AE lists the newest controller first: added in reverse of Заголовок, Строка 1–5, Скорость
-  const egp = [{ effect: 'Speed' }, ...[...TXT].reverse().map((t) => ({ text: t })), { text: 'TITLE' }];
-  const pack = Object.fromEntries([['TITLE', Tt.text], ...TXT.map((t, i) => [t, B.text[i]])]);
+  const egp = [{ effect: 'Speed' }, ...[...TXT].reverse().map((t) => ({ text: t })), { text: 'TXT_TITLE' }];
+  const pack = Object.fromEntries([['TXT_TITLE', Tt.text], ...TXT.map((t, i) => [t, B.text[i]])]);
   const built = spec.toJSON();
   const keep = (names) => names.map((name) => {
     const hits = disc.layers.filter((l) => l.name === name);
@@ -336,8 +336,8 @@ export function resolveDisclaimer(sources = loadSources()) {
         extend: EXTEND.map((comp) => ({ comp, duration: DECOR_SEC })),
       },
       egp: egp.map((e) => (e.text ? { text: e.text, label: text[e.text].label } : { effect: e.effect, matchName: 'ADBE Dropdown Control', label: ctrl[e.effect].label })),
-      egpNames: [text.TITLE.label, ...TXT.map((t) => text[t].label), ctrl.Speed.label],
-      measure: [{ name: 'pack', t: REST, ctrl: {}, text: pack, layers: [...TXT, 'TITLE', ...PL, 'PL_TITLE'] }],
+      egpNames: [text.TXT_TITLE.label, ...TXT.map((t) => text[t].label), ctrl.Speed.label],
+      measure: [{ name: 'pack', t: REST, ctrl: {}, text: pack, layers: [...TXT, 'TXT_TITLE', ...PL, 'PL_TITLE'] }],
       defaults: { text: Object.fromEntries(Object.entries(text).map(([k, v]) => [k, v.value])), ctrl: { Speed: 2 } },
     },
     check: pack,
