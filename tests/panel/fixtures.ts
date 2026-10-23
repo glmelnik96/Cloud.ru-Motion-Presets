@@ -13,12 +13,15 @@ const BUILDS: Record<string, string> = {
 };
 
 // The file a variant gets in the catalog, by tier and kind the way build-catalog.mjs names them.
-function mediaExt(it: Item, key: string): string {
+function mediaExt(it: Item, v: { key: string; options?: Record<string, number | boolean> }): string {
+  const key = v.key;
   if (it.category === 'sounds') return 'wav';
   if (key === 'svg') return 'svg';
   if (key === 'ffx') return 'ffx';
   if (key === 'epr' || key === 'aom') return key;
   if (it.textStyle) return 'prtextstyle';
+  // a frame of files (CRS_LectureFrame): the still of a layout without the drift, the loop with it
+  if (v.options && v.options.drift === false) return 'png';
   return it.tier === 'T3' ? 'png' : 'mov';
 }
 
@@ -39,7 +42,7 @@ export function toCatalogItem(raw: unknown, keepCompanions = false): Item {
     else if (v.parts) {
       const src = v.parts as unknown as Record<string, [number, number]>;
       out.parts = Object.fromEntries(Object.entries(src).map(([p, r]) => [p, { file: `${base}_${p}_v${it.version}.mov`, sha256: SHA, bytes: 1000, frames: r[1] - r[0] }]));
-    } else out.file = `${base}_v${it.version}.${mediaExt(it, v.key)}`;
+    } else out.file = `${base}_v${it.version}.${mediaExt(it, v)}`;
     return out;
   });
   if (it.tier === 'T1') it.aep = { file: `${dir}/${it.id}_v${it.version}.aep`, sha256: SHA, bytes: 2000 };
@@ -47,14 +50,14 @@ export function toCatalogItem(raw: unknown, keepCompanions = false): Item {
   return it;
 }
 
-// The templates of the first pack; the export presets of library.src.json are in export.test.ts and
-// tests/tools/export-pack.test.mjs.
+// The T1 templates of library.src.json; its export presets are in export.test.ts and tests/tools/export-pack.test.mjs,
+// its frame of files (CRS_LectureFrame) in frame-files.test.ts.
 export function catalog(): Catalog {
   return {
     schemaVersion: 1,
     libraryVersion: '2026.10.05',
     minPluginVersion: '0.1.0',
-    items: (src.items as unknown[]).filter((i) => (i as Item).category !== 'export' && !(i as Item).textStyle).map((i) => toCatalogItem(i)),
+    items: (src.items as unknown[]).filter((i) => (i as Item).tier === 'T1' && (i as Item).category !== 'export' && !(i as Item).textStyle).map((i) => toCatalogItem(i)),
   };
 }
 

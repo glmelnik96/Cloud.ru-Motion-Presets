@@ -7,7 +7,7 @@
 import { error, messages, warning, type Problem } from './problems';
 import { basename, BIN_NAME, dirname, joinPath, libraryFile, projectAssetDir } from './paths';
 import { fromFrames, toFrames } from './timing';
-import type { Companion, Host, HostTarget, Item, Variant } from './types';
+import type { Companion, Host, HostTarget, Item, Values, Variant } from './types';
 import { pickVariant, type VariantPick } from './variant';
 
 export type MediaKind = 'loop' | 'transition' | 'still' | 'sound' | 'clip';
@@ -106,9 +106,10 @@ export function insertable(item: Item, host: Host): boolean {
   return item.variants.some(placeable);
 }
 
-// Media variants the panel may pick: placeable ones only, so a .png wins over its .svg twin.
-export function pickMediaVariant(item: Item, frame: { w: number; h: number }, manualKey?: string | null): VariantPick {
-  return pickVariant({ ...item, variants: item.variants.filter(placeable) }, frame, {}, manualKey);
+// Media variants the panel may pick: placeable ones only, so a .png wins over its .svg twin. The values of the
+// form choose among prerendered looks by the variants' options (CRS_LectureFrame: layout and drift).
+export function pickMediaVariant(item: Item, frame: { w: number; h: number }, manualKey?: string | null, values: Values = {}): VariantPick {
+  return pickVariant({ ...item, variants: item.variants.filter(placeable) }, frame, values, manualKey);
 }
 
 function parts(v: Variant) {
@@ -128,7 +129,14 @@ export function loopPeriodSec(item: Item, v: Variant): number {
 export function defaultMediaLengthSec(item: Item, v: Variant | null, target: HostTarget | null): number | null {
   if (!v) return null;
   const kind = mediaKind(item, v);
-  if (kind === 'still') return item.duration?.holdSec ?? STILL_DEFAULT_SEC;
+  if (kind === 'still') {
+    // a still (a frame for a lecture, a pattern) covers the range after the playhead as a loop does
+    if (target && typeof target.rangeEndSec === 'number') {
+      const left = r6(target.rangeEndSec - target.timeSec);
+      if (left >= 1 / target.fps) return left;
+    }
+    return item.duration?.holdSec ?? STILL_DEFAULT_SEC;
+  }
   if (kind !== 'loop') return null;
   const p = parts(v);
   const one = r6(p.introSec + loopPeriodSec(item, v) + p.outroSec);
@@ -196,6 +204,8 @@ export interface MediaPlanInput {
   backdrop?: boolean | null;
   // Premiere: edges of the clips around the playhead (getCuts), for transitions.
   cuts?: number[] | null;
+  // The form: picks among the prerendered looks of the item (variant options).
+  values?: Values;
 }
 
 export interface MediaLayoutPlan {
@@ -221,7 +231,7 @@ export function backdropPath(projectPath: string, w: number, h: number): string 
 export function planMediaLayout(input: MediaPlanInput): MediaLayoutPlan {
   const { item, host, target } = input;
   const problems: Problem[] = [];
-  const pick = pickMediaVariant(item, target, input.variantKey);
+  const pick = pickMediaVariant(item, target, input.variantKey, input.values);
   const v = pick.variant;
   const none = (kind: MediaKind | null = null): MediaLayoutPlan => ({ kind, pick, layout: null, startSec: target.timeSec, lengthSec: null, problems });
   if (!v) {

@@ -19,7 +19,7 @@ import { dirname, type Platform } from '../core/paths';
 import { error, messages, sec, type Problem } from '../core/problems';
 import { defaultLengthSec } from '../core/timing';
 import type { Catalog, Category, FieldValue, FontStatus, Host, HostContext, Item, Values, Variant } from '../core/types';
-import { pickVariant, variantLabel, type VariantPick } from '../core/variant';
+import { pickVariant, variantLabel, variantsForValues, type VariantPick } from '../core/variant';
 import { shortVersion } from '../core/version';
 import { aerenderProblem, type AerenderJob, type AerenderResult } from '../services/export';
 
@@ -488,7 +488,12 @@ export class PanelApp {
   }
 
   setValue(key: string, value: FieldValue): void {
-    this.set({ values: { ...this.state.values, [key]: value }, consent: null });
+    const values = { ...this.state.values, [key]: value };
+    // a format chosen by hand that the new look of a prerendered file does not have goes back to «Авто»
+    const item = this.selected();
+    const m = this.state.manualVariant;
+    const lost = Boolean(m && item && item.tier !== 'T1' && !variantsForValues(item, values).some((v) => v.key === m));
+    this.set({ values, consent: null, ...(lost ? { manualVariant: null } : {}) });
     this.replan();
   }
 
@@ -543,16 +548,17 @@ export class PanelApp {
     return this.state.backdrop ?? backdropDefault(item);
   }
 
-  // Variants of the format switch: for files only the ones the panel places (a .png, not its .svg twin).
+  // Variants of the format switch: for files only the ones the panel places (a .png, not its .svg twin), of
+  // the look the form chose (the options of a prerendered file).
   formatVariants(item: Item): Variant[] {
-    return item.tier === 'T1' ? item.variants : item.variants.filter(placeable);
+    return item.tier === 'T1' ? item.variants : variantsForValues(item, this.state.values).filter(placeable);
   }
 
   // The variant for the format chip: manual or by the frame of the active comp or sequence.
   pick(item: Item | null = this.selected()): VariantPick | null {
     const t = this.state.context?.target;
     if (!item || !t) return null;
-    if (item.tier !== 'T1') return pickMediaVariant(item, t, this.state.manualVariant);
+    if (item.tier !== 'T1') return pickMediaVariant(item, t, this.state.manualVariant, this.state.values);
     return pickVariant(item, t, this.state.values, this.state.manualVariant);
   }
 
@@ -687,9 +693,10 @@ export class PanelApp {
 
   // ---- «Вписать в окно» (Premiere, spec 6.1) ----
 
-  // The windows of the frame template in the format the form would insert.
+  // The windows of the frame in the format and look the form would insert: a T1 template or a prerendered
+  // frame of files (CRS_LectureFrame).
   fitWindows(item: Item): FitWindow[] {
-    if (this.state.host !== 'pr' || item.tier !== 'T1') return [];
+    if (this.state.host !== 'pr') return [];
     const v = this.pick(item)?.variant;
     return v ? windowsFor(item, v, this.state.values) : [];
   }

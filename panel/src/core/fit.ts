@@ -8,6 +8,7 @@
 import type { HostCaller } from './host';
 import { error, messages, warning, type Problem } from './problems';
 import type { HostContext, Item, Values, Variant } from './types';
+import { pickMediaVariant } from './media';
 import { pickVariant } from './variant';
 
 export interface Rect {
@@ -108,7 +109,8 @@ export function planFit(item: Item, ctx: HostContext, values: Values, windowKey:
   if (ctx.host !== 'pr') return { ok: false, problems: [error('NOT_SUPPORTED', messages.notSupported(ctx.host))], request: null };
   const t = ctx.target;
   if (!t) return { ok: false, problems: [error('NO_TARGET', messages.noTarget('pr'))], request: null };
-  const pick = pickVariant(item, t, values, manualVariant);
+  // a frame of files (CRS_LectureFrame) picks among its placeable files as the insert does
+  const pick = item.tier === 'T1' ? pickVariant(item, t, values, manualVariant) : pickMediaVariant(item, t, manualVariant, values);
   const v = pick.variant;
   if (!v || !v.w || !v.h) return { ok: false, problems: [error('NO_VARIANT', messages.noVariant(t.w, t.h))], request: null };
   const win = windowsFor(item, v, values).find((w) => w.key === windowKey);

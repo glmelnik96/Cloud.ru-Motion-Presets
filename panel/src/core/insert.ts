@@ -127,7 +127,7 @@ export function planItem(input: InsertInput): InsertPlan {
   return input.item.tier === 'T1' ? planInsert(input) : planMedia(input);
 }
 
-export function planMedia({ item, ctx, options = {}, env }: InsertInput): InsertPlan {
+export function planMedia({ item, ctx, values, options = {}, env }: InsertInput): InsertPlan {
   const host = ctx.host;
   const problems: Problem[] = [];
   const done = (pick: VariantPick | null = null): InsertPlan => ({ ok: false, problems, pick, request: null, media: null });
@@ -139,7 +139,7 @@ export function planMedia({ item, ctx, options = {}, env }: InsertInput): Insert
   if (!target) return done();
   const plan = planMediaLayout({
     item, host, target, projectPath: ctx.project.path ?? '', libraryRoot: env.libraryRoot,
-    lengthSec: options.lengthSec, variantKey: options.variantKey, backdrop: options.backdrop, cuts: options.cuts,
+    lengthSec: options.lengthSec, variantKey: options.variantKey, backdrop: options.backdrop, cuts: options.cuts, values,
   });
   const v = plan.pick.variant;
   if (v && plan.kind) variantProblems(plan.pick, v, ctx, target, options.acceptNearest, problems);
