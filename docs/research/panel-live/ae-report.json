@@ -1,7 +1,7 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-23T15:50:46.074Z",
-  "finishedAt": "2026-10-23T15:55:38.295Z",
+  "startedAt": "2026-10-23T16:38:15.032Z",
+  "finishedAt": "2026-10-23T16:42:37.812Z",
   "summary": {
     "checks": 609,
     "passed": 609,
@@ -10,7 +10,7 @@
   "failed": [],
   "checks": [
     {
-      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap, TTL_Disclaimer, POD_Frame, POD_Guest, POD_Content, POD_QR, SMM_ShortsIntro, CRS_Cover, CRS_Subtitles",
+      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap, TTL_Disclaimer, POD_Frame, POD_Guest, POD_Content, POD_QR, SMM_ShortsIntro, CRS_Cover, CRS_LectureFrame, CRS_Subtitles",
       "pass": true,
       "required": true,
       "detail": []
@@ -30,7 +30,7 @@
         "data": {
           "app": "ae",
           "version": "26.5x89",
-          "bk": "0.1.23"
+          "bk": "0.1.24"
         }
       }
     },
