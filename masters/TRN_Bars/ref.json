@@ -1,0 +1,107 @@
+{
+  "id": "TRN_Bars",
+  "_note": "Golden comparison against the SMM pack's bar transitions (1080x1920 at 24 fps, nested comps): their frames are rendered at the master's 25 fps with motion blur off (tools/golden/comp-frames.mjs --fps 25 --no-motion-blur, contract C35), into <comp>_25fps. The master starts at the pack's first shown frame (1 at 25 fps) and holds the first full cover (10) a frame more (spec 5): golden 0.04–0.40 s is master 0–0.36 s, golden 0.44–0.80 s is master 0.44–0.80 s, and the hold frame (master 0.40 s) is golden 0.40 s. The dark bars are «Transition_gray», green and white the pack's own comps; the logo case is «Transition with Logo» against the master logo (D18) on the dark bars. 1:1 is the middle square of the 9:16. 16:9 and 4K turn the bars a quarter and the logo on green and white has no pack frame: they are approved by eye (README).",
+  "preview": {
+    "_note": "Card preview per proportion, colour and logo: the clip over a neutral grey; named after the item's variants (the form matches previews by proportion and values). The poster: the bars half across.",
+    "variant": "9x16",
+    "as": {
+      "9x16": "9x16_dark",
+      "16x9": "16x9_dark",
+      "1x1": "1x1_dark"
+    },
+    "ctrl": {
+      "Colour": 2,
+      "Logo": 0
+    },
+    "text": {},
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "durationSec": 0.84,
+    "posterSec": 0.24,
+    "axes": {
+      "colour": "Colour",
+      "logo": "Logo"
+    }
+  },
+  "cases": [
+    {
+      "name": "dark916",
+      "title": "Тёмная 9:16 против «Transition_gray»",
+      "golden": { "slug": "smm", "compSlug": "transition_gray_25fps" },
+      "variant": "9x16",
+      "ctrl": { "Colour": 2, "Logo": 0 },
+      "text": {},
+      "shift": [
+        { "from": 0.04, "to": 0.4, "by": -0.04 },
+        { "from": 0.44, "to": 0.8, "by": 0 }
+      ],
+      "gate": [80, 160, 240, 320, 400, 440, 480, 560, 640, 720, 800],
+      "view": [40]
+    },
+    {
+      "name": "hold916",
+      "title": "Кадр удержания против первого кадра полного перекрытия",
+      "golden": { "slug": "smm", "compSlug": "transition_gray_25fps" },
+      "variant": "9x16",
+      "ctrl": { "Colour": 2, "Logo": 0 },
+      "text": {},
+      "shift": [
+        { "from": 0.4, "to": 0.4, "by": 0 }
+      ],
+      "gate": [400]
+    },
+    {
+      "name": "green916",
+      "title": "Зелёная 9:16 против «Transition_green»",
+      "golden": { "slug": "smm", "compSlug": "transition_green_25fps" },
+      "variant": "9x16",
+      "ctrl": { "Colour": 1, "Logo": 0 },
+      "text": {},
+      "shift": [
+        { "from": 0.04, "to": 0.4, "by": -0.04 },
+        { "from": 0.44, "to": 0.8, "by": 0 }
+      ],
+      "gate": [160, 320, 400, 560, 720]
+    },
+    {
+      "name": "white916",
+      "title": "Белая 9:16 против «Transition_white»",
+      "golden": { "slug": "smm", "compSlug": "transition_white_25fps" },
+      "variant": "9x16",
+      "ctrl": { "Colour": 3, "Logo": 0 },
+      "text": {},
+      "shift": [
+        { "from": 0.04, "to": 0.4, "by": -0.04 },
+        { "from": 0.44, "to": 0.8, "by": 0 }
+      ],
+      "gate": [160, 320, 400, 560, 720]
+    },
+    {
+      "name": "darklogo916",
+      "title": "Тёмная с логотипом против «Transition with Logo»",
+      "golden": { "slug": "smm", "compSlug": "transition_with_logo_25fps" },
+      "variant": "9x16",
+      "ctrl": { "Colour": 2, "Logo": 1 },
+      "text": {},
+      "shift": [
+        { "from": 0.04, "to": 0.4, "by": -0.04 },
+        { "from": 0.44, "to": 0.8, "by": 0 }
+      ],
+      "gate": [240, 320, 400, 480, 560]
+    },
+    {
+      "name": "dark11",
+      "title": "1:1 против середины «Transition_gray»",
+      "golden": { "slug": "smm", "compSlug": "transition_gray_25fps" },
+      "variant": "1x1",
+      "ctrl": { "Colour": 2, "Logo": 0 },
+      "text": {},
+      "crop": { "golden": { "x": 0, "y": 420, "w": 1080, "h": 1080 }, "offset": [0, 0], "fixed": true },
+      "shift": [
+        { "from": 0.04, "to": 0.4, "by": -0.04 },
+        { "from": 0.44, "to": 0.8, "by": 0 }
+      ],
+      "gate": [160, 320, 400, 560, 720]
+    }
+  ]
+}

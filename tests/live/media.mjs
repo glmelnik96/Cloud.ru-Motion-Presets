@@ -18,6 +18,8 @@ export const MEDIA_CASES = [
   // the stepped wipe: its frame of full cover on the cut (Premiere: the nearest one, 10 s; AE: the current time), the
   // colour picking the file
   { key: 'transition', id: 'TRN_StepWipe', time: 12, edges: [0, 10, 20], values: { colour: 2 }, expect: { cutAt: { pr: 10, ae: 12 }, variant: '16x9_dark', kind: 'transition' } },
+  // the bar wipe: two fields pick the file (white, with the logo)
+  { key: 'bars', id: 'TRN_Bars', time: 12, edges: [0, 10, 20], values: { colour: 3, logo: true }, expect: { cutAt: { pr: 10, ae: 12 }, variant: '16x9_white_logo', kind: 'transition' } },
   { key: 'still', id: 'BG_DotGrid', time: 2, options: { lengthSec: 8, backdrop: false }, expect: { lengthSec: 8 } },
   { key: 'sound', id: 'SFX_WhooshIn', time: 5, expect: { lengthSec: 0.8 } },
   { key: 'companions', id: 'TTL_LowerThird', time: 2, sound: { music: false, sfx: true }, expect: { companions: ['intro', 'loop', 'outro', 'sound'], soundStart: 7.2 } },
