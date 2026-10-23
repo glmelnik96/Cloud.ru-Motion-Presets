@@ -45,7 +45,7 @@ describe('panel app', () => {
     await a.init();
     expect(a.state.phase).toBe('ready');
     expect(a.state.items.map((i) => i.id)).toEqual(catalog().items.map((i) => i.id));
-    expect(a.categories().map((c) => c.label_ru)).toEqual(['Избранное', 'Логотипы', 'Титры', 'Подкаст']);
+    expect(a.categories().map((c) => c.label_ru)).toEqual(['Избранное', 'Логотипы', 'Титры', 'SMM', 'Подкаст']);
     expect(a.fontSummary()).toEqual({ ok: true, text: 'Шрифты SB Sans на месте' });
     expect(a.versions()).toBe('Pr 26.5.2 · панель 0.1.0 · библиотека 2026.10.05');
     expect(a.formatChip()).toBe('Авто 1920×1080 · 25p');
