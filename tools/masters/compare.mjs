@@ -33,9 +33,14 @@ export function caseFrames(c, dir) {
   return list.map((ms) => ({ ms, t: masterTime(ms, c.shift || []), file: path.posix.join(dir, `m${ms}.png`), gate: (c.gate || []).includes(ms) }));
 }
 
-// The texts of a case; "pack": the pack's own, which the master resolves from the dump at build time (a real
-// guest's name and bio stay out of the repository).
+// The texts of a case; "pack" (or "pack:<key>" for one of several scenes): the pack's own, which the master
+// resolves from the dump at build time (a real guest's name, bio or handle stays out of the repository).
 export function caseText(params, c) {
+  if (typeof c.text === 'string' && c.text.startsWith('pack:')) {
+    const key = c.text.slice(5);
+    if (!params.packs || !params.packs[key]) throw new Error(`${c.name}: the master has no pack texts ${key} (params.packs)`);
+    return params.packs[key];
+  }
   if (c.text !== 'pack') return c.text;
   if (!params.pack) throw new Error(`${c.name}: the master has no pack texts (params.pack)`);
   return params.pack;

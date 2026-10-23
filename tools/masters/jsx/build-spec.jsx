@@ -265,9 +265,25 @@ function sbMakeLayer(spec) {
     bdSpan(L, SB.comp.duration);
     L.collapseTransformation = false;
   } else if (spec.type === 'slot') {
-    // a Media Replacement slot (C28): an empty placeholder comp of the slot's frame; an alternate source is
-    // wrapped by AE into a comp of this size and fills it (AE 26.5, checked 2026-10-21)
-    var ph = app.project.items.addComp(spec.placeholder.name, spec.placeholder.w, spec.placeholder.h, 1, SB.comp.duration, SB.comp.frameRate);
+    // a Media Replacement slot (C28): a placeholder comp of the slot's frame, empty or with the default content
+    // (placeholder.layers, built inside it the same way); an alternate source is wrapped by AE into a comp of
+    // this size and fills it (AE 26.5, checked 2026-10-21). Slots that share a placeholder share its comp.
+    var ph = SB.placeholders[spec.placeholder.name];
+    if (!ph) {
+      ph = app.project.items.addComp(spec.placeholder.name, spec.placeholder.w, spec.placeholder.h, 1, SB.comp.duration, SB.comp.frameRate);
+      ph.bgColor = [0, 0, 0];
+      SB.placeholders[spec.placeholder.name] = ph;
+      var inner = spec.placeholder.layers || [];
+      var host = SB.comp;
+      SB.comp = ph;
+      try {
+        for (i = 0; i < inner.length; i++) {
+          sbMakeLayer(inner[i]);
+        }
+      } finally {
+        SB.comp = host;
+      }
+    }
     L = SB.comp.layers.add(ph);
     L.name = spec.name;
     bdSpan(L, SB.comp.duration);
@@ -340,6 +356,7 @@ sbStep('comp ' + PARAMS.spec.comp.name, true, function () {
 });
 
 SB.decor = {};
+SB.placeholders = {};
 if (PARAMS.spec.transplant) {
   sbStep('transplant: ' + PARAMS.spec.transplant.source.name + ' -> ' + PARAMS.spec.transplant.comps.length + ' comps', true, function () {
     return sbTransplant(PARAMS.spec.transplant);
