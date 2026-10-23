@@ -1,0 +1,39 @@
+{
+  "id": "BG_Plus",
+  "_note": "Golden comparison against the SMM pack's «BG_pattern_9x16_2» and «BG_pattern_1x1_2» (1440, scaled to 1080). The grid of pluses is the pack's; the noise that flickers it runs on M9 (40° a second, the pack 50) and cycles (seamless 9 s), so its frames differ from the pack's but at 0 s, where both evolutions are 0 — if the cycled noise starts where the pack's does.",
+  "preview": {
+    "_note": "Card preview per proportion: 6 s of the flicker over #222222 (the panel's backdrop).",
+    "variant": "9x16",
+    "ctrl": {},
+    "text": {},
+    "backdrop": "#222222",
+    "fps": 12.5,
+    "durationSec": 6,
+    "posterSec": 0,
+    "axes": {}
+  },
+  "cases": [
+    {
+      "name": "tall",
+      "title": "9:16 против «BG_pattern_9x16_2»",
+      "golden": { "slug": "smm", "compSlug": "bg_pattern_9x16_2" },
+      "variant": "9x16",
+      "ctrl": {},
+      "text": {},
+      "shift": [],
+      "gate": [],
+      "view": [0, 5000]
+    },
+    {
+      "name": "square",
+      "title": "1:1 против «BG_pattern_1x1_2» (1440 → 1080)",
+      "golden": { "slug": "smm", "compSlug": "bg_pattern_1x1_2", "scale": 0.75 },
+      "variant": "1x1",
+      "ctrl": {},
+      "text": {},
+      "shift": [],
+      "gate": [],
+      "view": [0]
+    }
+  ]
+}

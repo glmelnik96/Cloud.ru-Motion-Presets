@@ -36,9 +36,10 @@ function fakeBuild(ids, opts = {}) {
       if (f.optional) continue;
       // a file of any extension (T2/T3): the export presets are .epr and .aom, by the variant key; the caption
       // style is .prtextstyle; the lecture frame has a still (.png) per layout and its drift loop (.mov); a transition
-      // a clip (.mov) per format and colour
+      // a clip (.mov) per format and colour; a background loop a .mov per format
       const v = item.variants.find((x) => x.key === f.key);
-      const ext = item.textStyle ? 'prtextstyle' : item.cutFrame !== undefined ? 'mov' : v && v.options && 'drift' in v.options ? (v.options.drift ? 'mov' : 'png') : f.key;
+      const drift = v && v.options && 'drift' in v.options;
+      const ext = item.textStyle ? 'prtextstyle' : item.cutFrame !== undefined ? 'mov' : drift ? (v.options.drift ? 'mov' : 'png') : item.loop ? 'mov' : f.key;
       const p = path.join(build, f.anyExt ? `${f.from}.${ext}` : f.from);
       if (f.from.endsWith('.mogrt')) mogrtFor(item, p, opts);
       else {

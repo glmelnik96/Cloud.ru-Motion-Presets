@@ -20,8 +20,9 @@ const readJson = (p) => JSON.parse(readFileSync(p, 'utf8').replace(/^﻿/, ''));
 export const MEDIA_IDS = ['TRN_StepWipe', 'BG_Arrows', 'BG_DotGrid', 'SFX_WhooshIn'];
 export const T1_ID = 'TTL_LowerThird';
 // Items of the real library delivered as rendered files (tools/masters/render-files.mjs): the lecture frame (D9), the
-// two transitions and the SMM frame. Each comes in as built when its build folder is there, and replaces its stand-in.
-export const REAL_IDS = ['CRS_LectureFrame', 'TRN_StepWipe', 'TRN_Bars', 'SMM_FrameNotched'];
+// two transitions, the SMM frame and the rack background. Each comes in as built when its build folder is there, and
+// replaces its stand-in. The arrows background stays the example's: its intro, loop and outro test the parts.
+export const REAL_IDS = ['CRS_LectureFrame', 'TRN_StepWipe', 'TRN_Bars', 'SMM_FrameNotched', 'BG_Rack'];
 // Stand-ins for the brand .ffx (spec 5 «Пресеты .ffx»), from the presets AE installs, as in S4.
 export const FX_STANDINS = {
   FX_TextRise: ['Text', 'Animate In', 'Fade Up Characters.ffx'],

@@ -26,6 +26,8 @@ export const MEDIA_CASES = [
   // the lecture frame (D9): the form picks the file — a still up to the end of the range, the drift loop repeated
   { key: 'frame', id: 'CRS_LectureFrame', time: 2, range: 30, values: { layout: 3 }, expect: { lengthSec: 28, variant: '16x9_spkL', kind: 'still' } },
   { key: 'frame_drift', id: 'CRS_LectureFrame', time: 2, values: { layout: 1, drift: true }, options: { lengthSec: 90 }, expect: { lengthSec: 90, variant: '16x9_s169_drift', kind: 'loop', loops: 2 } },
+  // the rack background: the dark arrows (for a light picture: no backdrop), repeated to the length
+  { key: 'rack', id: 'BG_Rack', time: 2, values: { colour: 2 }, options: { lengthSec: 20, backdrop: false }, expect: { lengthSec: 20, variant: '16x9_dark', kind: 'loop', loops: 3, backdrop: false } },
   // the SMM frame: the green one drifting, as long as asked
   { key: 'notched', id: 'SMM_FrameNotched', time: 2, values: { colour: 1, drift: true }, options: { lengthSec: 75 }, expect: { lengthSec: 75, variant: '16x9_green_drift', kind: 'loop', loops: 2 } },
 ];

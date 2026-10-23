@@ -1,0 +1,37 @@
+{
+  "id": "BG_Rack",
+  "_note": "Golden comparison against the webinars pack's «PATTERN RACK_Animation» (4K, a nested comp: frames by tools/golden/comp-frames.mjs), scaled to FHD: the grid is the pack's; the noise that shows it cycles its evolution (seamless 9 s), so its blocks differ from the pack's even at 0 s (view). The dark arrows are the pack's colour; the light ones have no pack frame.",
+  "preview": {
+    "_note": "Card preview per proportion and colour: 6 s of the flicker over #222222 (the panel's backdrop); the dark arrows over the webinars' mint, as they are meant to be seen.",
+    "variant": "16x9",
+    "as": {
+      "16x9": "16x9_light",
+      "9x16": "9x16_light",
+      "1x1": "1x1_light"
+    },
+    "ctrl": {
+      "Colour": 1
+    },
+    "text": {},
+    "backdrop": "#222222",
+    "fps": 12.5,
+    "durationSec": 6,
+    "posterSec": 0,
+    "axes": {
+      "colour": "Colour"
+    }
+  },
+  "cases": [
+    {
+      "name": "dark169",
+      "title": "Тёмные 16:9 против «PATTERN RACK_Animation»",
+      "golden": { "slug": "webinars", "compSlug": "pattern_rack_animation", "scale": 0.5 },
+      "variant": "16x9",
+      "ctrl": { "Colour": 2 },
+      "text": {},
+      "shift": [],
+      "gate": [],
+      "view": [0, 5000]
+    }
+  ]
+}

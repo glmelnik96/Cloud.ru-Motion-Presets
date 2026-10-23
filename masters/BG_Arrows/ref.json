@@ -1,0 +1,38 @@
+{
+  "id": "BG_Arrows",
+  "_note": "Golden comparison against the SMM pack's «BG_pattern_9x16_1» and «BG_pattern_1x1_1» (1440, scaled to 1080). At 0 s the wandering point is where the pack's is (the loop's wiggle starts as the pack's), so the frame is the pack's; later the master's point loops and the frames differ (view).",
+  "preview": {
+    "_note": "Card preview per proportion: 6 s of the loop over #222222 (the panel's backdrop).",
+    "variant": "9x16",
+    "ctrl": {},
+    "text": {},
+    "backdrop": "#222222",
+    "fps": 12.5,
+    "durationSec": 6,
+    "posterSec": 0,
+    "axes": {}
+  },
+  "cases": [
+    {
+      "name": "tall",
+      "title": "9:16 против «BG_pattern_9x16_1»",
+      "golden": { "slug": "smm", "compSlug": "bg_pattern_9x16_1" },
+      "variant": "9x16",
+      "ctrl": {},
+      "text": {},
+      "shift": [],
+      "gate": [0],
+      "view": [5000]
+    },
+    {
+      "name": "square",
+      "title": "1:1 против «BG_pattern_1x1_1» (1440 → 1080)",
+      "golden": { "slug": "smm", "compSlug": "bg_pattern_1x1_1", "scale": 0.75 },
+      "variant": "1x1",
+      "ctrl": {},
+      "text": {},
+      "shift": [],
+      "gate": [0]
+    }
+  ]
+}
