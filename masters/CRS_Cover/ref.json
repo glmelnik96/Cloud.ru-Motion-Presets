@@ -1,0 +1,207 @@
+{
+  "id": "CRS_Cover",
+  "_note": "Golden comparison against the three covers of the courses pack («Обложка #1–#3», 2560x1440: the goldens are area-scaled by 0.75 to FHD, golden.scale), the pack's own title and label. The visual is a photo slot, empty in the master and the pack's 3D render in the goldens, so the comparison is by parts away from it: the title lines, the label, the header (logo, hatching, descriptor), the card's edge (#1), the bars (#2), the corners of the green card and of the white window (#3). «Длительность» 7 puts the wipe where #1 has it (4.96 s), 7.04 where #2 and #3 do (5.0 s). The rise, the wipe and the moving paths are moving frames: motion blur in the pack, none in the master (C35). Not gated: the logo (D18: the master logo, whiter and drawn from the brand master, not the pack's; compared by eye on the cmp pictures). Placement: the pack's #2 and #3 move lines 2 and 3 by 3 pack px (2.25 FHD) right of line 1 by hand, #1 does not; the master sets every line on one origin, so those parts may stand 3 px off. The bottom bar's part has only horizontal edges (the render lies over its step), so its place along x is not gated.",
+  "preview": {
+    "_note": "Card preview per variant: the default title, the empty visual, at the default length.",
+    "variant": "16x9",
+    "ctrl": {},
+    "text": {},
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "axes": {
+      "variant": "Variant"
+    }
+  },
+  "cases": [
+    {
+      "name": "one",
+      "title": "Вариант 1 «Тёмная карточка» против «Обложки #1»",
+      "golden": {
+        "slug": "courses",
+        "compSlug": "oblozhka_1",
+        "scale": 0.75
+      },
+      "variant": "16x9",
+      "ctrl": {
+        "Variant": 1,
+        "Duration": 7
+      },
+      "text": "pack",
+      "parts": [
+        { "name": "line1", "x": 120, "y": 284, "w": 710, "h": 94 },
+        { "name": "line2", "x": 120, "y": 392, "w": 680, "h": 80 },
+        { "name": "line3", "x": 120, "y": 482, "w": 785, "h": 80 },
+        { "name": "label", "x": 126, "y": 900, "w": 220, "h": 36 },
+        { "name": "hatching", "x": 400, "y": 30, "w": 1200, "h": 50 },
+        { "name": "descriptor", "x": 1700, "y": 25, "w": 210, "h": 62 },
+        { "name": "card", "x": 30, "y": 150, "w": 90, "h": 300 }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        2520,
+        3000,
+        4000,
+        4520
+      ],
+      "view": [
+        240,
+        520,
+        760,
+        1000,
+        1520,
+        5520,
+        6000,
+        6440
+      ]
+    },
+    {
+      "name": "two",
+      "title": "Вариант 2 «Зелёные полосы» против «Обложки #2»",
+      "golden": {
+        "slug": "courses",
+        "compSlug": "oblozhka_2",
+        "scale": 0.75
+      },
+      "variant": "16x9",
+      "ctrl": {
+        "Variant": 2,
+        "Duration": 7.04
+      },
+      "text": "pack",
+      "parts": [
+        { "name": "line1", "x": 92, "y": 284, "w": 710, "h": 94 },
+        { "name": "line2", "x": 92, "y": 392, "w": 680, "h": 80, "maxShift": 3 },
+        { "name": "line3", "x": 92, "y": 482, "w": 785, "h": 80, "maxShift": 3 },
+        { "name": "label", "x": 126, "y": 900, "w": 220, "h": 36 },
+        { "name": "hatching", "x": 400, "y": 30, "w": 1200, "h": 50 },
+        { "name": "descriptor", "x": 1700, "y": 25, "w": 210, "h": 62 },
+        { "name": "bar_top", "x": 1140, "y": 145, "w": 380, "h": 85 },
+        { "name": "bar_bottom", "x": 200, "y": 955, "w": 600, "h": 125, "maxShift": 10 }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        2520,
+        3000,
+        4000,
+        4520
+      ],
+      "view": [
+        240,
+        520,
+        1000,
+        5520,
+        6000,
+        6440
+      ]
+    },
+    {
+      "name": "three",
+      "title": "Вариант 3 «Зелёная карточка» против «Обложки #3»",
+      "golden": {
+        "slug": "courses",
+        "compSlug": "oblozhka_3",
+        "scale": 0.75
+      },
+      "variant": "16x9",
+      "ctrl": {
+        "Variant": 3,
+        "Duration": 7.04
+      },
+      "text": "pack",
+      "parts": [
+        { "name": "line1", "x": 92, "y": 266, "w": 710, "h": 94 },
+        { "name": "line2", "x": 92, "y": 374, "w": 680, "h": 80, "maxShift": 3 },
+        { "name": "line3", "x": 92, "y": 464, "w": 785, "h": 80, "maxShift": 3 },
+        { "name": "label", "x": 96, "y": 850, "w": 220, "h": 40 },
+        { "name": "hatching", "x": 400, "y": 30, "w": 1200, "h": 50 },
+        { "name": "descriptor", "x": 1700, "y": 25, "w": 210, "h": 62 },
+        { "name": "portal", "x": 30, "y": 160, "w": 140, "h": 120 },
+        { "name": "window", "x": 975, "y": 300, "w": 140, "h": 120 }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        2520,
+        3000,
+        4000,
+        4520
+      ],
+      "view": [
+        240,
+        520,
+        1000,
+        5520,
+        6000,
+        6440
+      ]
+    }
+  ],
+  "premiere": {
+    "_note": "The 16x9 MOGRT in Premiere against the same variant rendered in AE, the slot at its default (Premiere does not fill media slots from a script). The template is trim: each clip is cut to its length and «Длительность» says where it ends, so the wipe plays at the clip's end. B is 12 s on the green card with the pack's title; C plays the bars at 2×; D has one line longer than the room (the block shrinks).",
+    "variant": "16x9",
+    "clips": [
+      {
+        "key": "A",
+        "atSec": 0,
+        "lenSec": 7,
+        "ctrl": {
+          "Duration": 7
+        },
+        "text": {}
+      },
+      {
+        "key": "B",
+        "atSec": 9,
+        "lenSec": 12,
+        "ctrl": {
+          "Duration": 12,
+          "Variant": 3
+        },
+        "text": {
+          "TXT_LINE1": "Первая строчка",
+          "TXT_LINE2": "вторая строчка",
+          "TXT_LINE3": "третья последняя",
+          "TXT_PRODUCT": "Cloud.ru Advanced"
+        }
+      },
+      {
+        "key": "C",
+        "atSec": 23,
+        "lenSec": 7,
+        "ctrl": {
+          "Duration": 7,
+          "Variant": 2,
+          "Speed": 5
+        },
+        "text": {}
+      },
+      {
+        "key": "D",
+        "atSec": 32,
+        "lenSec": 7,
+        "ctrl": {
+          "Duration": 7
+        },
+        "text": {
+          "TXT_LINE1": "Облачная платформа для машинного обучения и анализа",
+          "TXT_LINE2": "",
+          "TXT_LINE3": ""
+        }
+      }
+    ],
+    "frames": [
+      { "key": "A_rise", "clip": "A", "sec": 0.6, "master": 0.6 },
+      { "key": "A_hold", "clip": "A", "sec": 3, "master": 3 },
+      { "key": "A_wipe", "clip": "A", "sec": 5.52, "master": 5.52 },
+      { "key": "A_end", "clip": "A", "sec": 6.52, "master": 6.52 },
+      { "key": "B_hold", "clip": "B", "sec": 6, "master": 6 },
+      { "key": "B_wipe", "clip": "B", "sec": 10.52, "master": 10.52 },
+      { "key": "C_rise", "clip": "C", "sec": 0.4, "master": 0.4 },
+      { "key": "C_hold", "clip": "C", "sec": 3, "master": 3 },
+      { "key": "C_wipe", "clip": "C", "sec": 6.4, "master": 6.4 },
+      { "key": "D_hold", "clip": "D", "sec": 3, "master": 3 }
+    ]
+  }
+}
