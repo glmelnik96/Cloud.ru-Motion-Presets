@@ -13,7 +13,7 @@ import { layerProp, readJson } from '../../tools/dump/model.mjs';
 import { workDir, workPath } from '../../tools/lib/work.mjs';
 import { restValueAt, shapeBoxAt } from '../../tools/masters/dump-geometry.mjs';
 import { dumpKeys, dumpLayer } from '../../tools/masters/dump-keys.mjs';
-import { addQaPatch, canonProgress, checkCanon, lineAt } from '../../tools/masters/rig-plate.mjs';
+import { addQaPatch, canonProgress, checkCanon, clearOffset, lineAt } from '../../tools/masters/rig-plate.mjs';
 import { nul, P, rectGroup, shape, Spec, text as textLayer } from '../../tools/masters/spec.mjs';
 import { regions, SPEED_CTRL, timeMapJs } from '../../tools/masters/speed.mjs';
 
@@ -234,9 +234,11 @@ export function resolveFrame(sources = loadSources()) {
     spec.expr(tag, P.text, 'String(value).toUpperCase()');
     spec.expr(tag, P.pos, js + `F(x0 + ${L.tags.pad} * k - r.left, y1 - ${L.tags.base} * k)`);
     spec.expr(tag, P.scale, js + '[100 * s, 100 * s]');
-    // the whole text rises (the pack's Position animator), in layer units
+    // the whole text rises (the pack's Position animator), in layer units; it waits out of the clip, which
+    // opens before the rise: the pack's 72–77 px left the tops of Й, Ё and Å 8–12 px in it (2026-10-23)
     const k = 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n';
-    spec.expr(tag, P.rise(), k + timeMap + `var p = thisComp.layer("RIG").effect("${rise}")(1).valueAtTime(T(time));\n[0, ${L.tags.rise[top ? 'top' : 'bot']} * k * (1 - p), 0]`);
+    const hide = Math.max(L.tags.rise[top ? 'top' : 'bot'], clearOffset(L.tags.band + L.tags.base, tagStyle));
+    spec.expr(tag, P.rise(), k + timeMap + `var p = thisComp.layer("RIG").effect("${rise}")(1).valueAtTime(T(time));\n[0, ${hide} * k * (1 - p), 0]`);
     spec.matte(tag, clip, 'ALPHA', { keepVisible: false });
   }
   addQaPatch(spec, hex.green);

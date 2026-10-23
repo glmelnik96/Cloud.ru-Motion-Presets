@@ -4,6 +4,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { GLYPHS } from '../../tools/masters/rig-plate.mjs';
+import { P } from '../../tools/masters/spec.mjs';
 import { exprComp } from '../helpers/master-expr.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '../..');
@@ -55,6 +57,20 @@ describe.skipIf(!HAS_DUMPS)('POD_Frame', async () => {
     // the clip of the text reaches 12.5 px under the plate (the Д of «ПОДКАСТ»)
     expect(rectOf(c, 'CL_BOT', 'Clip', 4).y1).toBeCloseTo(b.y1 + 12.5, 6);
     expect(c.at('TXT_TAG_TOP', ['text'], 4)).toBe('CLOUD.RU');
+  });
+
+  it('the tags wait out of their clips, which open before the rise: no Й, Ё or Å in them', () => {
+    const c = comp({ ctrl: { Side: 1 } });
+    const top = GLYPHS['SBSansDisplay-Bold'].top * p.layout.tags.size;
+    // 0.6 s: both clips open, neither text has begun to rise (the pack's 72–77 px left 8–12 px of Й in them);
+    // the frame still flies in, so the tags and their clips are scaled by s
+    for (const [tag, clip] of [['TXT_TAG_TOP', 'CL_TOP'], ['TXT_TAG_BOTTOM', 'CL_BOT']]) {
+      expect(rectOf(c, clip, 'Clip', 0.6).w).toBeGreaterThan(0);
+      const hide = c.at(tag, P.rise(), 0.6)[1];
+      const s = c.at(tag, P.scale, 0.6)[0] / 100;
+      expect(hide).toBeCloseTo(85.68, 2);
+      expect((c.at(tag, P.pos, 0.6)[1] + (hide - top) * s - rectOf(c, clip, 'Clip', 0.6).y1) / s).toBeCloseTo(1, 6);
+    }
   });
 
   it('the fly: 1.32 at the start, landed at 0.92 s, out of the picture on the last frame; the line thins', () => {
