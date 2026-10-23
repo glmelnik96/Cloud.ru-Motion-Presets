@@ -20,7 +20,11 @@ function sbLayer(name) {
 }
 
 function sbProp(layerName, path) {
-  var L = sbLayer(layerName);
+  return sbLayerProp(sbLayer(layerName), path);
+}
+
+// A property of a layer by a spec path (also of a layer in a transplanted comp: spec.transplant comps[].set).
+function sbLayerProp(L, path) {
   var kind = path[0];
   if (kind === 'transform') {
     return bdXform(L, path[1]);
@@ -180,6 +184,35 @@ function sbTransplant(tp) {
         if (dup.layer(j).threeDLayer) {
           dup.layer(j).threeDLayer = false;
         }
+      }
+    }
+    // set: what the master changes in the pack's layers, a value or an expression by spec path (BG_Arrows: the
+    // wandering point's wiggle made a loop; BG_Rack: the noise cycles its evolution)
+    var sets = c.set || [];
+    for (j = 0; j < sets.length; j++) {
+      var sl = null;
+      for (var sq = 1; sq <= dup.numLayers; sq++) {
+        if (dup.layer(sq).name === sets[j].layer) {
+          if (sl) {
+            throw new Error('BK_TRANSPLANT_SET: two layers named ' + sets[j].layer + ' in ' + c.name);
+          }
+          sl = dup.layer(sq);
+        }
+      }
+      if (!sl) {
+        throw new Error('BK_TRANSPLANT_SET: no layer ' + sets[j].layer + ' in ' + c.name);
+      }
+      var sp = sbLayerProp(sl, sets[j].path);
+      if (sets[j].expr !== undefined) {
+        sp.expression = sets[j].expr;
+        if (!sp.expressionEnabled) {
+          throw new Error('BK_TRANSPLANT_SET: the expression on ' + sets[j].layer + ' ' + sets[j].path.join('/') + ' is disabled: ' + sp.expressionError);
+        }
+      } else {
+        if (sp.expressionEnabled) {
+          sp.expressionEnabled = false;
+        }
+        sp.setValue(sets[j].value);
       }
     }
     while (dup.markerProperty.numKeys > 0) {
@@ -349,7 +382,14 @@ function sbMakeLayer(spec) {
         throw new Error('BK_DROPDOWN_ITEMS: ' + fx[i].name);
       }
     } else {
-      bdAddEffect(L, fx[i].matchName, fx[i].name);
+      var made = bdAddEffect(L, fx[i].matchName, fx[i].name);
+      // values: the effect's parameters by match name (BG_Plus: the noise of the pack, the tiling of its grid)
+      var vals = fx[i].values || {};
+      for (var vk in vals) {
+        if (vals.hasOwnProperty(vk)) {
+          made.property(vk).setValue(vals[vk]);
+        }
+      }
     }
   }
   if (spec.shy) {
@@ -449,7 +489,7 @@ sbStep('mattes (' + PARAMS.spec.mattes.length + ')', true, function () {
   for (var i = 0; i < PARAMS.spec.mattes.length; i++) {
     var m = PARAMS.spec.mattes[i];
     var res = bdMatte(sbLayer(m.layer), sbLayer(m.matte), m.type);
-    ok = ok && res.matte === m.matte;
+    ok = ok && res.ok === true;
     r.push(res);
   }
   // setTrackMatte hides the matte layer; plates are mattes and visible at the same time

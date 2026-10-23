@@ -229,10 +229,16 @@ function bdExpr(prop, src) {
 }
 
 // AE 23.0+: any layer can be the matte, and it stays visible (both plates of the logoshot are visible
-// and are mattes at the same time, as in the pack).
+// and are mattes at the same time, as in the pack). type: ALPHA, ALPHA_INVERTED, LUMA (BG_Plus: the pluses under their
+// noise), LUMA_INVERTED; ok: the matte and its type are what was asked (an unknown type was ALPHA before 2026-10-23).
 function bdMatte(L, matte, type) {
-  L.setTrackMatte(matte, type === 'ALPHA_INVERTED' ? TrackMatteType.ALPHA_INVERTED : TrackMatteType.ALPHA);
-  return { layer: L.name, matte: L.trackMatteLayer ? L.trackMatteLayer.name : null, type: String(L.trackMatteType) };
+  var want = { ALPHA: TrackMatteType.ALPHA, ALPHA_INVERTED: TrackMatteType.ALPHA_INVERTED, LUMA: TrackMatteType.LUMA, LUMA_INVERTED: TrackMatteType.LUMA_INVERTED }[type];
+  if (want === undefined) {
+    throw new Error('BK_MATTE_TYPE: ' + type);
+  }
+  L.setTrackMatte(matte, want);
+  var name = L.trackMatteLayer ? L.trackMatteLayer.name : null;
+  return { layer: L.name, matte: name, type: String(L.trackMatteType), ok: name === matte.name && L.trackMatteType === want };
 }
 
 function bdMarkers(comp, markers) {
