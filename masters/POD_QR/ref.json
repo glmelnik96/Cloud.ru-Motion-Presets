@@ -1,0 +1,103 @@
+{
+  "id": "POD_QR",
+  "_note": "Golden comparison against the podcast pack's QR scenes (4K variant). The centre scene «Подписывайтесь на канал CLOUD.RU» has the master's defaults (the Cloud.ru channel QR, @CLOUDRUPROVIDER, ПОДПИСАТЬСЯ), so its QR is compared too; the other scenes show the guests' QR codes, which the slots do not have, so there only the handles and the call are compared, on the pack's handles (\"text\": \"pack:<key>\", read from the dumps at build time). Parts lie inside the plates: around them the pack shows its frame over a still. The master starts with its QR (the pack 0.48–0.64 s later); its exit ends on its last frame, so only the hold is gated.",
+  "preview": {
+    "_note": "Card preview: the default, the Cloud.ru QR in the centre, on a neutral grey.",
+    "variant": "16x9",
+    "ctrl": { "Layout": 3 },
+    "text": {},
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "axes": {}
+  },
+  "cases": [
+    {
+      "name": "centre",
+      "title": "По центру: QR канала Cloud.ru, @CLOUDRUPROVIDER",
+      "golden": { "slug": "podcast", "compSlug": "podpisyvaytes_na_kanal_cloud_ru" },
+      "variant": "16x9_4K",
+      "ctrl": { "Layout": 3 },
+      "text": {},
+      "parts": [
+        { "name": "qr", "x": 1412, "y": 106, "w": 1016, "h": 1016 },
+        { "name": "handle", "x": 1412, "y": 1130, "w": 1016, "h": 74 },
+        { "name": "call", "x": 2462, "y": 1930, "w": 1268, "h": 124 }
+      ],
+      "maxShift": 4,
+      "shift": [{ "from": 0, "to": 60, "by": -0.52 }],
+      "gate": [3000, 4000, 5000, 6000, 7000],
+      "view": [760, 1000, 1240, 1520, 2000]
+    },
+    {
+      "name": "left",
+      "title": "Слева: хэндл гостя «QR_кода_1»",
+      "golden": { "slug": "podcast", "compSlug": "qr_kod_1" },
+      "variant": "16x9_4K",
+      "ctrl": { "Layout": 1 },
+      "text": "pack:left",
+      "parts": [
+        { "name": "handle", "x": 112, "y": 1130, "w": 500, "h": 74 },
+        { "name": "call", "x": 110, "y": 1930, "w": 1268, "h": 124 }
+      ],
+      "maxShift": 4,
+      "shift": [{ "from": 0, "to": 60, "by": -0.64 }],
+      "gate": [3000, 4000, 5000, 6000, 7000],
+      "view": [1000, 1520, 2000]
+    },
+    {
+      "name": "right",
+      "title": "Справа: хэндл гостя «QR_кода_2»",
+      "golden": { "slug": "podcast", "compSlug": "qr_kod_2" },
+      "variant": "16x9_4K",
+      "ctrl": { "Layout": 2 },
+      "text": "pack:right",
+      "parts": [
+        { "name": "handle", "x": 1944, "y": 1130, "w": 1786, "h": 74 },
+        { "name": "call", "x": 2462, "y": 1930, "w": 1268, "h": 124 }
+      ],
+      "maxShift": 4,
+      "shift": [{ "from": 0, "to": 60, "by": -0.48 }],
+      "gate": [3000, 4000, 5000, 6000, 7000],
+      "view": [1000, 1520, 2000]
+    },
+    {
+      "name": "two",
+      "title": "Два QR: хэндлы гостей «QR_кода_3»",
+      "golden": { "slug": "podcast", "compSlug": "qr_kod_3" },
+      "variant": "16x9_4K",
+      "ctrl": { "Layout": 4 },
+      "text": "pack:two",
+      "parts": [
+        { "name": "handle1", "x": 112, "y": 1674, "w": 1786, "h": 74 },
+        { "name": "handle2", "x": 3222, "y": 1674, "w": 508, "h": 74 },
+        { "name": "call", "x": 2462, "y": 1930, "w": 1268, "h": 124 }
+      ],
+      "maxShift": 4,
+      "shift": [{ "from": 0, "to": 60, "by": -0.6 }],
+      "gate": [3000, 4000, 5000, 6000, 7000],
+      "view": [1000, 1520, 2000]
+    }
+  ],
+  "premiere": {
+    "_note": "The 16x9 MOGRT in Premiere against the same variant rendered in AE, the slots at their default (Premiere does not fill media slots from a script). B is 16.4 s long: Premiere stretches the hold (2.2–6.4 s) three times, so clip c in the hold is master 2.2 + (c − 2.2) / 3. C: two QRs at 2× with two handles; D: on the right, a long handle and no call.",
+    "variant": "16x9",
+    "clips": [
+      { "key": "A", "atSec": 0, "lenSec": null, "ctrl": { "Layout": 3 }, "text": {} },
+      { "key": "B", "atSec": 10, "lenSec": 16.4, "ctrl": { "Layout": 1 }, "text": { "TXT_HANDLE1": "@cloudru_guest" } },
+      { "key": "C", "atSec": 30, "lenSec": null, "ctrl": { "Layout": 4, "Speed": 5 }, "text": { "TXT_HANDLE1": "@CLOUDRUPROVIDER", "TXT_HANDLE2": "@guest_channel" } },
+      { "key": "D", "atSec": 40, "lenSec": null, "ctrl": { "Layout": 2 }, "text": { "TXT_HANDLE1": "@a_very_long_handle_of_the_guest_channel_on_telegram", "TXT_CALL": "" } }
+    ],
+    "frames": [
+      { "key": "A_in", "clip": "A", "sec": 0.4, "master": 0.4 },
+      { "key": "A_call", "clip": "A", "sec": 1.0, "master": 1.0 },
+      { "key": "A_hold", "clip": "A", "sec": 4, "master": 4 },
+      { "key": "A_out", "clip": "A", "sec": 7.4, "master": 7.4 },
+      { "key": "B_hold", "clip": "B", "sec": 7.6, "master": 4 },
+      { "key": "B_out", "clip": "B", "sec": 15.8, "master": 7.4 },
+      { "key": "C_in", "clip": "C", "sec": 0.4, "master": 0.4 },
+      { "key": "C_hold", "clip": "C", "sec": 3, "master": 3 },
+      { "key": "C_out", "clip": "C", "sec": 7.8, "master": 7.8 },
+      { "key": "D_hold", "clip": "D", "sec": 4, "master": 4 }
+    ]
+  }
+}

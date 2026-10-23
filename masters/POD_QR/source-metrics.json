@@ -1,0 +1,186 @@
+{
+ "_note": "From the podcast pack (3840x2160), measured 2026-10-23. qr: the module grid of «ТК канал Cloud.ru.png» (the Cloud.ru channel QR of «Подписывайтесь на канал CLOUD.RU», 1024x1024 px: version 3, 29 x 29 modules of 896 / 29 px from 64 px), read at the module centres; every pixel away from the module edges agrees with it. cases: the ink of the texts of the handle and call precomps (tools/masters/jsx/text-ink.jsx on the relinked copy C:/CRBK/packs/podcast/podcast_relinked.aep, closed without saving, at 4.0 s): sourceRectAtTime [left, top, width, height] and baselines [x0, y0, x1, y1] in layer space. The guests' handles are left out (their layer index stands for them); the master reads them from the dump.",
+ "qr": {
+  "file": "ТК канал Cloud.ru.png",
+  "size": 1024,
+  "x0": 64,
+  "module": 30.8966,
+  "n": 29,
+  "grid": [
+   "11111110111001100100101111111",
+   "10000010000001111100101000001",
+   "10111010011001010000101011101",
+   "10111010001001101100001011101",
+   "10111010110011110001101011101",
+   "10000010001111101110001000001",
+   "11111110101010101010101111111",
+   "00000000101110000100000000000",
+   "10011111101010101100111010001",
+   "01000101100000101010111001101",
+   "01101010101000100011100110011",
+   "01111101101111110100100011111",
+   "10000110111000110110101011011",
+   "00101100101111001011110011101",
+   "00011111101001011010010110000",
+   "00110100101100001011000010110",
+   "01111010100101101001011010010",
+   "11100101111110111011100101000",
+   "10110010010101100111000011100",
+   "01100100100010011000111110110",
+   "01010110001100000001111111011",
+   "00000000100010101001100011101",
+   "11111110110001100101101010001",
+   "10000010100001000110100010111",
+   "10111010110001010111111110001",
+   "10111010110101100100101010110",
+   "10111010010001100010001000100",
+   "10000010010111011101000111111",
+   "11111110111101110111111110110"
+  ]
+ },
+ "cases": [
+  {
+   "pack": "podcast",
+   "comp": "Подпись_QR_1",
+   "t": 4,
+   "layers": {
+    "#1": {
+     "index": 1,
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 100,
+     "tracking": -28,
+     "leading": 100,
+     "rect": [
+      -503.9575,
+      -69.2041,
+      488.4312,
+      84.7961
+     ],
+     "lines": [
+      [
+       -510,
+       2.5,
+       -12.1,
+       2.5
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "podcast",
+   "comp": "Подпись_QR_2",
+   "t": 4,
+   "layers": {
+    "#1": {
+     "index": 1,
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 100,
+     "tracking": -28,
+     "leading": 100,
+     "rect": [
+      -1265.6575,
+      -69.2041,
+      1769.9446,
+      89.8315
+     ],
+     "lines": [
+      [
+       -1271.7,
+       2.5,
+       510,
+       2.5
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "podcast",
+   "comp": "  QR_3",
+   "t": 4,
+   "layers": {
+    "@CLOUDRUPROVIDER": {
+     "text": "@CLOUDRUPROVIDER",
+     "index": 2,
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 91.1999969482422,
+     "tracking": -28,
+     "leading": 100,
+     "rect": [
+      -504.4893,
+      -69.4941,
+      993.0121,
+      77.3341
+     ],
+     "lines": [
+      [
+       -510,
+       -4.1,
+       490.8287,
+       -4.1
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "podcast",
+   "comp": "Pre-comp 3",
+   "t": 4,
+   "layers": {
+    "ПОДПИСАТЬСЯЁ": {
+     "text": "ПОДПИСАТЬСЯ",
+     "index": 1,
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 190,
+     "tracking": -28,
+     "leading": 190,
+     "rect": [
+      -554.965,
+      -163.5202,
+      1460.1271,
+      161.1127
+     ],
+     "lines": [
+      [
+       -570.8466,
+       -27.2824,
+       920.0833,
+       -27.2824
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "podcast",
+   "comp": "Pre-comp 4",
+   "t": 4,
+   "layers": {
+    "ПОДПИСАТЬСЯЁ": {
+     "text": "ПОДПИСАТЬСЯ",
+     "index": 1,
+     "font": "SBSansDisplay-Bold",
+     "fontSize": 190,
+     "tracking": -28,
+     "leading": 190,
+     "rect": [
+      -554.965,
+      -163.5202,
+      1460.1271,
+      161.1127
+     ],
+     "lines": [
+      [
+       -570.8466,
+       -27.2824,
+       920.0833,
+       -27.2824
+      ]
+     ]
+    }
+   }
+  }
+ ]
+}
