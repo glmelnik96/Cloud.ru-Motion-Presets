@@ -1,0 +1,31 @@
+{
+  "slug": "webinars",
+  "comps": [
+    {
+      "id": 834,
+      "name": "PATTERN RACK_Animation",
+      "compSlug": "pattern_rack_animation",
+      "width": 3840,
+      "height": 2160,
+      "fps": 25,
+      "duration": 300,
+      "motionBlur": "off (C35)",
+      "aeVersion": "26.5x89",
+      "date": "2026-10-23",
+      "frames": [
+        {
+          "f": 0,
+          "ms": 0,
+          "bytes": 335399,
+          "sha256": "6b03ffb45df7b97646560278e0c103efa4cbc6aaf676c3fdda401dc07b453f43"
+        },
+        {
+          "f": 125,
+          "ms": 5000,
+          "bytes": 366387,
+          "sha256": "5a8a2a144c390205b8d0b0acfa09323efe0d9d7bb22cc561277775ddf246caa8"
+        }
+      ]
+    }
+  ]
+}

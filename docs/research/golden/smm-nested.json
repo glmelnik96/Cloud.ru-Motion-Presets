@@ -2,6 +2,32 @@
   "slug": "smm",
   "comps": [
     {
+      "id": 100,
+      "name": "PATTERN_EDIT",
+      "compSlug": "pattern_edit_2",
+      "width": 3840,
+      "height": 2160,
+      "fps": 25,
+      "duration": 30,
+      "motionBlur": "off (C35)",
+      "aeVersion": "26.5x89",
+      "date": "2026-10-23",
+      "frames": [
+        {
+          "f": 0,
+          "ms": 0,
+          "bytes": 207222,
+          "sha256": "77553c0d2069b12fa8fae5a284282cb35a77161cdfb890bcc55058d3d67a27a0"
+        },
+        {
+          "f": 250,
+          "ms": 10000,
+          "bytes": 261180,
+          "sha256": "57f3702056ce49c6750dc6eed7f8685f2e73739078f645e7fa0e0553b3797b34"
+        }
+      ]
+    },
+    {
       "id": 4059,
       "name": "Transition_gray",
       "compSlug": "transition_gray_25fps",
