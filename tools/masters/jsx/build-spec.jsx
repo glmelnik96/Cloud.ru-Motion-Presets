@@ -157,6 +157,23 @@ function sbTransplantSet(comp, s) {
   }
 }
 
+// The one layer of a comp with that name; two or none stop the build.
+function sbUniqueLayer(comp, name, code) {
+  var hit = null;
+  for (var q = 1; q <= comp.numLayers; q++) {
+    if (comp.layer(q).name === name) {
+      if (hit) {
+        throw new Error(code + ': two layers named ' + name + ' in ' + comp.name);
+      }
+      hit = comp.layer(q);
+    }
+  }
+  if (!hit) {
+    throw new Error(code + ': no layer ' + name + ' in ' + comp.name);
+  }
+  return hit;
+}
+
 function sbTransplant(tp) {
   var i, j, c, it;
   var f = new File(tp.aep);
@@ -194,6 +211,17 @@ function sbTransplant(tp) {
         dup.layer(j).remove();
       }
     }
+    // size: the comp made another frame, its layers left where they were for set to place (POD_Intro: the 16:9 intro
+    // re-laid out in 2160x3840, as the pack's vertical render has it)
+    if (c.size) {
+      dup.width = c.size[0];
+      dup.height = c.size[1];
+    }
+    // copies: a kept layer duplicated under a new name, right above it (POD_Intro: one more arrow of a kind)
+    var copies = c.copies || [];
+    for (j = 0; j < copies.length; j++) {
+      sbUniqueLayer(dup, copies[j].layer, 'BK_TRANSPLANT_COPY').duplicate().name = copies[j].name;
+    }
     // kept for their children only (a parent whose picture the master draws itself): no video
     var hide = c.hide || [];
     for (j = 0; j < hide.length; j++) {
@@ -228,6 +256,18 @@ function sbTransplant(tp) {
       if (sets[j].comp === undefined) {
         sbTransplantSet(dup, sets[j]);
       }
+    }
+    // span: when a layer shows (POD_Intro: the vertical arrows come in on frames of their own)
+    var spans = c.span || [];
+    for (j = 0; j < spans.length; j++) {
+      var sl = sbUniqueLayer(dup, spans[j].layer, 'BK_TRANSPLANT_SPAN');
+      // AE keeps a layer's length when its in point moves (AE 26.5: an arrow brought in 0.24 s earlier left 0.24 s
+      // early): the out point is put back, or set
+      var out = spans[j].outPoint !== undefined ? spans[j].outPoint : sl.outPoint;
+      if (spans[j].inPoint !== undefined) {
+        sl.inPoint = spans[j].inPoint;
+      }
+      sl.outPoint = out;
     }
     while (dup.markerProperty.numKeys > 0) {
       dup.markerProperty.removeKey(1);
@@ -301,6 +341,16 @@ function sbTransplant(tp) {
     var want = [];
     for (j = 0; j < tp.comps[i].keep.length; j++) {
       want.push(tp.comps[i].keep[j].name);
+    }
+    // a copy stands right above its layer
+    var cps = tp.comps[i].copies || [];
+    for (j = 0; j < cps.length; j++) {
+      for (var w = 0; w < want.length; w++) {
+        if (want[w] === cps[j].layer) {
+          want.splice(w, 0, cps[j].name);
+          break;
+        }
+      }
     }
     ok = ok && names.join('|') === want.join('|');
     out.comps.push({ name: made[i].name, size: made[i].width + 'x' + made[i].height, duration: made[i].duration, renderer: made[i].renderer, layers: names });
