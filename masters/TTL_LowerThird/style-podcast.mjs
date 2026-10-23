@@ -179,9 +179,12 @@ export function addPodcast(spec, { layout: L, arrows, keys, hex, pads, timeMap }
   }
   spec.expr('PL_POD', P.rectSize('Plate'), pre + '[Math.max(0, px1 - px0), Math.max(0, yb - py0)]');
   spec.expr('PL_POD', P.rectPos('Plate'), pre + '[(px0 + px1) / 2, (py0 + yb) / 2]');
-  spec.expr('POD_NAME', P.text, 'String(thisComp.layer("TXT_NAME").text.sourceText)');
-  spec.expr('POD_ROLE1', P.text, 'String(thisComp.layer("TXT_ROLE1").text.sourceText)');
-  spec.expr('POD_ROLE2', P.text, 'String(thisComp.layer("TXT_ROLE2").text.sourceText)');
+  // capitals by expression as well as All Caps: in AE 26.5 on the build PC (2026-10-23) All Caps left н, л, о,
+  // т, ь, с of SB Sans Display Semibold lowercase («ТЕХнИЧЕсКИЙ лИДЕР»; typed capitals, the other faces and
+  // Premiere are fine; on 2026-10-05 it rendered right). All Caps stays for the pack's capital spacing (cpsp).
+  spec.expr('POD_NAME', P.text, 'String(thisComp.layer("TXT_NAME").text.sourceText).toUpperCase()');
+  spec.expr('POD_ROLE1', P.text, 'String(thisComp.layer("TXT_ROLE1").text.sourceText).toUpperCase()');
+  spec.expr('POD_ROLE2', P.text, 'String(thisComp.layer("TXT_ROLE2").text.sourceText).toUpperCase()');
   spec.expr('POD_NAME', P.pos, pre + `[right ? x1 - GR - (nm.l + nm.w) : x0 + GR - nm.l, yb - ${L.nameBaseline} * kt]`);
   // one role line stands on the lower slot (b1 = b2 then)
   spec.expr('POD_ROLE1', P.pos, pre + '[roleX(r1), b1]');
