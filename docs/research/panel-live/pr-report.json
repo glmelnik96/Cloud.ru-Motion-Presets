@@ -1,16 +1,16 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-23T10:54:46.445Z",
-  "finishedAt": "2026-10-23T11:00:57.008Z",
+  "startedAt": "2026-10-23T15:55:39.151Z",
+  "finishedAt": "2026-10-23T16:04:56.792Z",
   "summary": {
-    "checks": 621,
-    "passed": 621,
+    "checks": 657,
+    "passed": 657,
     "failed": 0
   },
   "failed": [],
   "checks": [
     {
-      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap, TTL_Disclaimer, POD_Frame, POD_Guest, POD_Content, POD_QR, SMM_ShortsIntro, CRS_Subtitles",
+      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap, TTL_Disclaimer, POD_Frame, POD_Guest, POD_Content, POD_QR, SMM_ShortsIntro, CRS_Cover, CRS_Subtitles",
       "pass": true,
       "required": true,
       "detail": []
@@ -39,53 +39,55 @@
       "pass": true,
       "required": true,
       "detail": {
-        "how": "opened",
+        "how": "active",
         "path": "C:\\CRBK\\work\\panel-live\\pr\\panel_live.prproj",
         "ok": true
       }
     },
     {
-      "name": "setup: sequences created: 37",
+      "name": "setup: sequences created: 39",
       "pass": true,
       "required": true,
       "detail": {
-        "LOGO_Shot_16x9": "a3f7c3a5-415d-4f9a-956f-eae226efabc3",
-        "LOGO_Shot_16x9_4K": "ab7693de-1bd9-488c-9855-406efe8cafff",
-        "LOGO_Shot_9x16": "22d95093-7012-4a6c-b8db-ebf24537a3cb",
-        "LOGO_Mark_16x9": "19d75514-cff6-4c98-bdaa-f0732686fcb5",
-        "LOGO_Mark_16x9_4K": "81bf8dbb-0ed5-4eab-8761-31e041bffae2",
-        "LOGO_Mark_9x16": "e83f65da-3a62-46d2-81ea-7ef84fb8b082",
-        "TTL_LowerThird_16x9": "009fd428-c3ad-4877-ac79-ac8fc6bd9fe3",
-        "TTL_LowerThird_16x9_4K": "ca1ed864-e683-4607-bfdd-1d91dfae5f18",
-        "TTL_LowerThird_9x16": "ee9217e1-b3d3-443a-af60-17783422b815",
-        "TTL_LowerThird_1x1": "36ab3d11-d9e0-40e9-8e39-d062e404155b",
-        "TTL_Plate_16x9": "8052a619-943a-4589-8fce-137fe71a30eb",
-        "TTL_Plate_16x9_4K": "e86e644a-5c1c-4c1d-9892-fd5dc8047fcf",
-        "TTL_Plate_9x16": "df021a36-2af6-4029-bc40-83bd9afcdadd",
-        "TTL_Plate_1x1": "71f8b364-ce52-4018-9dc0-9e2061be0937",
-        "TTL_Subscribe_16x9": "68a874c7-abd9-4aac-b7ec-866d97e207d4",
-        "TTL_Subscribe_16x9_4K": "15e732c4-960c-4418-9643-346e699782b0",
-        "TTL_Subscribe_9x16": "c4abb903-2ceb-4baa-96d8-2ab553cec324",
-        "TTL_Subscribe_1x1": "0e8102f0-5c27-4119-84ef-1e8b82d84d71",
-        "TTL_PlateSwap_16x9": "10ab33a9-5ded-48a1-8237-05269229cee3",
-        "TTL_PlateSwap_16x9_4K": "86901a11-4999-455a-97ac-f694d85e45d4",
-        "TTL_PlateSwap_9x16": "071664e9-4da8-41e9-894e-cbdf1b8f736d",
-        "TTL_PlateSwap_1x1": "73562bce-bc28-43f6-a7de-200ca9f5d746",
-        "TTL_Disclaimer_16x9": "56d25aca-2df2-4d9b-a3b1-fa8afa14d43f",
-        "TTL_Disclaimer_16x9_4K": "9312a6c5-03e8-4723-a977-e9cde91b80b0",
-        "POD_Frame_16x9": "5cab49d1-b956-4049-87bd-5af5c956c058",
-        "POD_Frame_16x9_4K": "5acfd772-d1de-4539-b4b2-986c2c9b85a1",
-        "POD_Guest_16x9": "c4e0005a-eef5-4641-be44-6adc6eee45ee",
-        "POD_Guest_16x9_4K": "13d834b2-5fd2-4427-a3e8-e8d6be0ae8d6",
-        "POD_Content_16x9": "a5266e6c-2fb2-4b15-91a7-3605195290d1",
-        "POD_Content_16x9_4K": "411f49f8-6b58-4b23-afba-bdb5ec900559",
-        "POD_QR_16x9": "7d671edc-5cbc-436e-9d49-1077be69778d",
-        "POD_QR_16x9_4K": "db84604e-121d-48d1-a2ae-0e3e9f85f7ad",
-        "SMM_ShortsIntro_9x16": "c502b5bc-7f70-498e-9e87-0bbdc19474df",
-        "nearest": "54d869fc-d53f-490e-9574-20577af94265",
-        "tracks": "cdb998aa-31f8-46f8-b656-2a3a76c4c2e2",
-        "undo": "9b2f1635-57ae-4ef9-9b80-6292591da95e",
-        "other": "c2086a5b-cd8f-4265-be73-bcdb9d0c07c4"
+        "LOGO_Shot_16x9": "88b47a20-33ab-44c0-8370-d84bf6e80967",
+        "LOGO_Shot_16x9_4K": "a67b0452-c5c5-47f8-9720-5ed57cb4b018",
+        "LOGO_Shot_9x16": "a1856564-36b1-4b98-926c-c7f811f22f91",
+        "LOGO_Mark_16x9": "9bc1e0d3-fdf4-4e80-a4aa-8314ecdaed5d",
+        "LOGO_Mark_16x9_4K": "fe8da2fe-cfe9-40a9-8f42-ea5e5289eca8",
+        "LOGO_Mark_9x16": "f4f09c41-b799-48d5-b2ba-0b9ca5d2a012",
+        "TTL_LowerThird_16x9": "d9cafa2a-e9f1-4528-b489-85387f5d017e",
+        "TTL_LowerThird_16x9_4K": "2557a698-615c-45cb-9a4e-571ab8468168",
+        "TTL_LowerThird_9x16": "5e7d5c59-7909-4f5b-8663-4e79e881d74f",
+        "TTL_LowerThird_1x1": "69df68f0-47de-4adb-9b71-f483900631df",
+        "TTL_Plate_16x9": "a192e8f0-c6fc-43a5-9755-b0edd123a2e7",
+        "TTL_Plate_16x9_4K": "aef99be4-90fb-467b-b859-12beb302cf55",
+        "TTL_Plate_9x16": "418c8c3a-14be-443e-8ca8-62494f11f79c",
+        "TTL_Plate_1x1": "1365ce65-9fea-4b50-94f7-3dbb0630b54d",
+        "TTL_Subscribe_16x9": "3001dc4a-6661-4282-b1a1-1134d16bcc08",
+        "TTL_Subscribe_16x9_4K": "7a006339-0e85-445d-8d19-1e1a6ec0f21f",
+        "TTL_Subscribe_9x16": "16850c01-c6f1-4c67-abdc-3f01b084bb6c",
+        "TTL_Subscribe_1x1": "41901614-0060-4b1d-825d-fa8ad7f32db7",
+        "TTL_PlateSwap_16x9": "c2b49dec-bc8f-42c1-8cde-f908be96244e",
+        "TTL_PlateSwap_16x9_4K": "73b64c40-1e5e-4901-8c60-da68e9c06b3c",
+        "TTL_PlateSwap_9x16": "01e42858-8c61-4b7b-8f5c-9917b0d43e48",
+        "TTL_PlateSwap_1x1": "b8e52d59-5949-4154-9d3f-17b0fef22a7c",
+        "TTL_Disclaimer_16x9": "94830e6a-7467-4e2c-a8df-e456827d7868",
+        "TTL_Disclaimer_16x9_4K": "7f04dcb9-85c2-47e8-97bb-19ca02904015",
+        "POD_Frame_16x9": "98836b1c-df21-4ee3-aa6f-1a8c75e408b6",
+        "POD_Frame_16x9_4K": "74462421-1b63-4734-a7ce-6ce391182b07",
+        "POD_Guest_16x9": "4190f6cc-9879-40ac-abe7-2fa07ede3565",
+        "POD_Guest_16x9_4K": "f7104906-5782-4fd0-9cb0-9572a41be346",
+        "POD_Content_16x9": "a4e63875-1890-4b1a-b34b-3ed31a5aac97",
+        "POD_Content_16x9_4K": "8515299a-a572-4ac8-9b37-cfffa44fd6a3",
+        "POD_QR_16x9": "08573228-9c4e-4259-9864-87abb7157d4f",
+        "POD_QR_16x9_4K": "414efe61-d916-4778-aef4-d936ba741f61",
+        "SMM_ShortsIntro_9x16": "cb9511fc-1fde-47a9-8555-d911aef99ea0",
+        "CRS_Cover_16x9": "e8abf6e3-7eae-4f20-b718-175c60379b92",
+        "CRS_Cover_16x9_4K": "fd9dd342-f949-413e-8112-b5685f6bbfd4",
+        "nearest": "0089325d-ef2b-488c-a4e4-d94d6461bba3",
+        "tracks": "bca8a27e-88e8-4984-b2d5-874b48008a9a",
+        "undo": "cb83aa18-13c9-4b44-8310-12545740032a",
+        "other": "e18345ba-0426-4410-acd2-7cff4c2e5ac7"
       }
     },
     {
@@ -112,20 +114,20 @@
       }
     },
     {
-      "name": "activate LOGO_Shot_16x9 at 2 s: sequence a3f7c3a5-415d-4f9a-956f-eae226efabc3 active, playhead at 2 s",
+      "name": "activate LOGO_Shot_16x9 at 2 s: sequence 88b47a20-33ab-44c0-8370-d84bf6e80967 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Shot_16x9_3",
+        "name": "LIVE_LOGO_Shot_16x9_6",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Shot_16x9 at 20 s: sequence a3f7c3a5-415d-4f9a-956f-eae226efabc3 active, playhead at 20 s",
+      "name": "activate LOGO_Shot_16x9 at 20 s: sequence 88b47a20-33ab-44c0-8370-d84bf6e80967 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Shot_16x9_3",
+        "name": "LIVE_LOGO_Shot_16x9_6",
         "player": 20
       }
     },
@@ -253,7 +255,7 @@
       }
     },
     {
-      "name": "LOGO_Shot_16x9: clips: clips of sequence a3f7c3a5-415d-4f9a-956f-eae226efabc3 listed",
+      "name": "LOGO_Shot_16x9: clips: clips of sequence 88b47a20-33ab-44c0-8370-d84bf6e80967 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -372,20 +374,20 @@
       }
     },
     {
-      "name": "activate LOGO_Shot_16x9_4K at 2 s: sequence ab7693de-1bd9-488c-9855-406efe8cafff active, playhead at 2 s",
+      "name": "activate LOGO_Shot_16x9_4K at 2 s: sequence a67b0452-c5c5-47f8-9720-5ed57cb4b018 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Shot_16x9_4K_3",
+        "name": "LIVE_LOGO_Shot_16x9_4K_6",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Shot_16x9_4K at 20 s: sequence ab7693de-1bd9-488c-9855-406efe8cafff active, playhead at 20 s",
+      "name": "activate LOGO_Shot_16x9_4K at 20 s: sequence a67b0452-c5c5-47f8-9720-5ed57cb4b018 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Shot_16x9_4K_3",
+        "name": "LIVE_LOGO_Shot_16x9_4K_6",
         "player": 20
       }
     },
@@ -513,7 +515,7 @@
       }
     },
     {
-      "name": "LOGO_Shot_16x9_4K: clips: clips of sequence ab7693de-1bd9-488c-9855-406efe8cafff listed",
+      "name": "LOGO_Shot_16x9_4K: clips: clips of sequence a67b0452-c5c5-47f8-9720-5ed57cb4b018 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -632,20 +634,20 @@
       }
     },
     {
-      "name": "activate LOGO_Shot_9x16 at 2 s: sequence 22d95093-7012-4a6c-b8db-ebf24537a3cb active, playhead at 2 s",
+      "name": "activate LOGO_Shot_9x16 at 2 s: sequence a1856564-36b1-4b98-926c-c7f811f22f91 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Shot_9x16_3",
+        "name": "LIVE_LOGO_Shot_9x16_6",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Shot_9x16 at 20 s: sequence 22d95093-7012-4a6c-b8db-ebf24537a3cb active, playhead at 20 s",
+      "name": "activate LOGO_Shot_9x16 at 20 s: sequence a1856564-36b1-4b98-926c-c7f811f22f91 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Shot_9x16_3",
+        "name": "LIVE_LOGO_Shot_9x16_6",
         "player": 20
       }
     },
@@ -773,7 +775,7 @@
       }
     },
     {
-      "name": "LOGO_Shot_9x16: clips: clips of sequence 22d95093-7012-4a6c-b8db-ebf24537a3cb listed",
+      "name": "LOGO_Shot_9x16: clips: clips of sequence a1856564-36b1-4b98-926c-c7f811f22f91 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -892,20 +894,20 @@
       }
     },
     {
-      "name": "activate LOGO_Mark_16x9 at 2 s: sequence 19d75514-cff6-4c98-bdaa-f0732686fcb5 active, playhead at 2 s",
+      "name": "activate LOGO_Mark_16x9 at 2 s: sequence 9bc1e0d3-fdf4-4e80-a4aa-8314ecdaed5d active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Mark_16x9_3",
+        "name": "LIVE_LOGO_Mark_16x9_6",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Mark_16x9 at 20 s: sequence 19d75514-cff6-4c98-bdaa-f0732686fcb5 active, playhead at 20 s",
+      "name": "activate LOGO_Mark_16x9 at 20 s: sequence 9bc1e0d3-fdf4-4e80-a4aa-8314ecdaed5d active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Mark_16x9_3",
+        "name": "LIVE_LOGO_Mark_16x9_6",
         "player": 20
       }
     },
@@ -1033,7 +1035,7 @@
       }
     },
     {
-      "name": "LOGO_Mark_16x9: clips: clips of sequence 19d75514-cff6-4c98-bdaa-f0732686fcb5 listed",
+      "name": "LOGO_Mark_16x9: clips: clips of sequence 9bc1e0d3-fdf4-4e80-a4aa-8314ecdaed5d listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1152,20 +1154,20 @@
       }
     },
     {
-      "name": "activate LOGO_Mark_16x9_4K at 2 s: sequence 81bf8dbb-0ed5-4eab-8761-31e041bffae2 active, playhead at 2 s",
+      "name": "activate LOGO_Mark_16x9_4K at 2 s: sequence fe8da2fe-cfe9-40a9-8f42-ea5e5289eca8 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Mark_16x9_4K_3",
+        "name": "LIVE_LOGO_Mark_16x9_4K_6",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Mark_16x9_4K at 20 s: sequence 81bf8dbb-0ed5-4eab-8761-31e041bffae2 active, playhead at 20 s",
+      "name": "activate LOGO_Mark_16x9_4K at 20 s: sequence fe8da2fe-cfe9-40a9-8f42-ea5e5289eca8 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Mark_16x9_4K_3",
+        "name": "LIVE_LOGO_Mark_16x9_4K_6",
         "player": 20
       }
     },
@@ -1293,7 +1295,7 @@
       }
     },
     {
-      "name": "LOGO_Mark_16x9_4K: clips: clips of sequence 81bf8dbb-0ed5-4eab-8761-31e041bffae2 listed",
+      "name": "LOGO_Mark_16x9_4K: clips: clips of sequence fe8da2fe-cfe9-40a9-8f42-ea5e5289eca8 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1412,20 +1414,20 @@
       }
     },
     {
-      "name": "activate LOGO_Mark_9x16 at 2 s: sequence e83f65da-3a62-46d2-81ea-7ef84fb8b082 active, playhead at 2 s",
+      "name": "activate LOGO_Mark_9x16 at 2 s: sequence f4f09c41-b799-48d5-b2ba-0b9ca5d2a012 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Mark_9x16_3",
+        "name": "LIVE_LOGO_Mark_9x16_6",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Mark_9x16 at 20 s: sequence e83f65da-3a62-46d2-81ea-7ef84fb8b082 active, playhead at 20 s",
+      "name": "activate LOGO_Mark_9x16 at 20 s: sequence f4f09c41-b799-48d5-b2ba-0b9ca5d2a012 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Mark_9x16_3",
+        "name": "LIVE_LOGO_Mark_9x16_6",
         "player": 20
       }
     },
@@ -1553,7 +1555,7 @@
       }
     },
     {
-      "name": "LOGO_Mark_9x16: clips: clips of sequence e83f65da-3a62-46d2-81ea-7ef84fb8b082 listed",
+      "name": "LOGO_Mark_9x16: clips: clips of sequence f4f09c41-b799-48d5-b2ba-0b9ca5d2a012 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1672,20 +1674,20 @@
       }
     },
     {
-      "name": "activate TTL_LowerThird_16x9 at 2 s: sequence 009fd428-c3ad-4877-ac79-ac8fc6bd9fe3 active, playhead at 2 s",
+      "name": "activate TTL_LowerThird_16x9 at 2 s: sequence d9cafa2a-e9f1-4528-b489-85387f5d017e active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_16x9_3",
+        "name": "LIVE_TTL_LowerThird_16x9_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_LowerThird_16x9 at 20 s: sequence 009fd428-c3ad-4877-ac79-ac8fc6bd9fe3 active, playhead at 20 s",
+      "name": "activate TTL_LowerThird_16x9 at 20 s: sequence d9cafa2a-e9f1-4528-b489-85387f5d017e active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_16x9_3",
+        "name": "LIVE_TTL_LowerThird_16x9_6",
         "player": 20
       }
     },
@@ -1762,8 +1764,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_LowerThird/TTL_LowerThird_16x9_v1.mogrt",
-          "sha256": "d90418b380e5ca138a4d3f1bae23c9e575692d6654fda61ec2986fa5e29f70db",
-          "bytes": 56387
+          "sha256": "c6230e32fe17049e181c73e07502aae9d364bcd80762842e8214e11e804175f0",
+          "bytes": 56992
         },
         "reason": "exact",
         "scale": 1,
@@ -1825,7 +1827,7 @@
       }
     },
     {
-      "name": "TTL_LowerThird_16x9: clips: clips of sequence 009fd428-c3ad-4877-ac79-ac8fc6bd9fe3 listed",
+      "name": "TTL_LowerThird_16x9: clips: clips of sequence d9cafa2a-e9f1-4528-b489-85387f5d017e listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1944,20 +1946,20 @@
       }
     },
     {
-      "name": "activate TTL_LowerThird_16x9_4K at 2 s: sequence ca1ed864-e683-4607-bfdd-1d91dfae5f18 active, playhead at 2 s",
+      "name": "activate TTL_LowerThird_16x9_4K at 2 s: sequence 2557a698-615c-45cb-9a4e-571ab8468168 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_16x9_4K_3",
+        "name": "LIVE_TTL_LowerThird_16x9_4K_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_LowerThird_16x9_4K at 20 s: sequence ca1ed864-e683-4607-bfdd-1d91dfae5f18 active, playhead at 20 s",
+      "name": "activate TTL_LowerThird_16x9_4K at 20 s: sequence 2557a698-615c-45cb-9a4e-571ab8468168 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_16x9_4K_3",
+        "name": "LIVE_TTL_LowerThird_16x9_4K_6",
         "player": 20
       }
     },
@@ -2034,8 +2036,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_LowerThird/TTL_LowerThird_16x9_4K_v1.mogrt",
-          "sha256": "1cb6476ae3a87d52bc9a531a29f9f92a899cd8f09c7c0953343869103dab12db",
-          "bytes": 56691
+          "sha256": "2f2ce28cc9cdf088e62a82354e15f03e4982e74a49408f8b010809f189bf8508",
+          "bytes": 56440
         },
         "reason": "exact",
         "scale": 1,
@@ -2097,7 +2099,7 @@
       }
     },
     {
-      "name": "TTL_LowerThird_16x9_4K: clips: clips of sequence ca1ed864-e683-4607-bfdd-1d91dfae5f18 listed",
+      "name": "TTL_LowerThird_16x9_4K: clips: clips of sequence 2557a698-615c-45cb-9a4e-571ab8468168 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2216,20 +2218,20 @@
       }
     },
     {
-      "name": "activate TTL_LowerThird_9x16 at 2 s: sequence ee9217e1-b3d3-443a-af60-17783422b815 active, playhead at 2 s",
+      "name": "activate TTL_LowerThird_9x16 at 2 s: sequence 5e7d5c59-7909-4f5b-8663-4e79e881d74f active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_9x16_3",
+        "name": "LIVE_TTL_LowerThird_9x16_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_LowerThird_9x16 at 20 s: sequence ee9217e1-b3d3-443a-af60-17783422b815 active, playhead at 20 s",
+      "name": "activate TTL_LowerThird_9x16 at 20 s: sequence 5e7d5c59-7909-4f5b-8663-4e79e881d74f active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_9x16_3",
+        "name": "LIVE_TTL_LowerThird_9x16_6",
         "player": 20
       }
     },
@@ -2306,8 +2308,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_LowerThird/TTL_LowerThird_9x16_v1.mogrt",
-          "sha256": "30d1a461ca23931c292f00c0afe41f3632bf2bdaa74980a1b0b2cba0cc2913bd",
-          "bytes": 46469
+          "sha256": "1ac6e5a52a94596d84bfb9e3e530312da77c73e75c57bf9c5457c61c1751dbe5",
+          "bytes": 46477
         },
         "reason": "exact",
         "scale": 1,
@@ -2369,7 +2371,7 @@
       }
     },
     {
-      "name": "TTL_LowerThird_9x16: clips: clips of sequence ee9217e1-b3d3-443a-af60-17783422b815 listed",
+      "name": "TTL_LowerThird_9x16: clips: clips of sequence 5e7d5c59-7909-4f5b-8663-4e79e881d74f listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2488,20 +2490,20 @@
       }
     },
     {
-      "name": "activate TTL_LowerThird_1x1 at 2 s: sequence 36ab3d11-d9e0-40e9-8e39-d062e404155b active, playhead at 2 s",
+      "name": "activate TTL_LowerThird_1x1 at 2 s: sequence 69df68f0-47de-4adb-9b71-f483900631df active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_1x1_3",
+        "name": "LIVE_TTL_LowerThird_1x1_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_LowerThird_1x1 at 20 s: sequence 36ab3d11-d9e0-40e9-8e39-d062e404155b active, playhead at 20 s",
+      "name": "activate TTL_LowerThird_1x1 at 20 s: sequence 69df68f0-47de-4adb-9b71-f483900631df active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_1x1_3",
+        "name": "LIVE_TTL_LowerThird_1x1_6",
         "player": 20
       }
     },
@@ -2578,8 +2580,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_LowerThird/TTL_LowerThird_1x1_v1.mogrt",
-          "sha256": "e188fac5dc590f9c5b7b3d4c2e5c6982ffb3f57954f28c6a8980ce0721042407",
-          "bytes": 56374
+          "sha256": "571bc77766f121bb307f4a80dea663ca37732d094899563e11612baba9182bb0",
+          "bytes": 56265
         },
         "reason": "exact",
         "scale": 1,
@@ -2641,7 +2643,7 @@
       }
     },
     {
-      "name": "TTL_LowerThird_1x1: clips: clips of sequence 36ab3d11-d9e0-40e9-8e39-d062e404155b listed",
+      "name": "TTL_LowerThird_1x1: clips: clips of sequence 69df68f0-47de-4adb-9b71-f483900631df listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2760,20 +2762,20 @@
       }
     },
     {
-      "name": "activate TTL_Plate_16x9 at 2 s: sequence 8052a619-943a-4589-8fce-137fe71a30eb active, playhead at 2 s",
+      "name": "activate TTL_Plate_16x9 at 2 s: sequence a192e8f0-c6fc-43a5-9755-b0edd123a2e7 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_16x9_3",
+        "name": "LIVE_TTL_Plate_16x9_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Plate_16x9 at 20 s: sequence 8052a619-943a-4589-8fce-137fe71a30eb active, playhead at 20 s",
+      "name": "activate TTL_Plate_16x9 at 20 s: sequence a192e8f0-c6fc-43a5-9755-b0edd123a2e7 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_16x9_3",
+        "name": "LIVE_TTL_Plate_16x9_6",
         "player": 20
       }
     },
@@ -2850,8 +2852,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_Plate/TTL_Plate_16x9_v1.mogrt",
-          "sha256": "0bc3034f479c9e8690489f383e03068e3d6fec493d44c80f3af15897ecccf802",
-          "bytes": 54953
+          "sha256": "be662c5324c53b9f8a1570cf548425f29e9b13c3907531f06258d2a916e7e42c",
+          "bytes": 54628
         },
         "reason": "exact",
         "scale": 1,
@@ -2913,7 +2915,7 @@
       }
     },
     {
-      "name": "TTL_Plate_16x9: clips: clips of sequence 8052a619-943a-4589-8fce-137fe71a30eb listed",
+      "name": "TTL_Plate_16x9: clips: clips of sequence a192e8f0-c6fc-43a5-9755-b0edd123a2e7 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3032,20 +3034,20 @@
       }
     },
     {
-      "name": "activate TTL_Plate_16x9_4K at 2 s: sequence e86e644a-5c1c-4c1d-9892-fd5dc8047fcf active, playhead at 2 s",
+      "name": "activate TTL_Plate_16x9_4K at 2 s: sequence aef99be4-90fb-467b-b859-12beb302cf55 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_16x9_4K_3",
+        "name": "LIVE_TTL_Plate_16x9_4K_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Plate_16x9_4K at 20 s: sequence e86e644a-5c1c-4c1d-9892-fd5dc8047fcf active, playhead at 20 s",
+      "name": "activate TTL_Plate_16x9_4K at 20 s: sequence aef99be4-90fb-467b-b859-12beb302cf55 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_16x9_4K_3",
+        "name": "LIVE_TTL_Plate_16x9_4K_6",
         "player": 20
       }
     },
@@ -3122,8 +3124,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_Plate/TTL_Plate_16x9_4K_v1.mogrt",
-          "sha256": "a46458617385f565f1f5b9d9eecf139011b39071c14e2ff23b1594d515d42da9",
-          "bytes": 55050
+          "sha256": "9ed285e034bca74b8a648bac54d164a97b0442a66fe7da6e6c000158e0604694",
+          "bytes": 54964
         },
         "reason": "exact",
         "scale": 1,
@@ -3185,7 +3187,7 @@
       }
     },
     {
-      "name": "TTL_Plate_16x9_4K: clips: clips of sequence e86e644a-5c1c-4c1d-9892-fd5dc8047fcf listed",
+      "name": "TTL_Plate_16x9_4K: clips: clips of sequence aef99be4-90fb-467b-b859-12beb302cf55 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3304,20 +3306,20 @@
       }
     },
     {
-      "name": "activate TTL_Plate_9x16 at 2 s: sequence df021a36-2af6-4029-bc40-83bd9afcdadd active, playhead at 2 s",
+      "name": "activate TTL_Plate_9x16 at 2 s: sequence 418c8c3a-14be-443e-8ca8-62494f11f79c active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_9x16_3",
+        "name": "LIVE_TTL_Plate_9x16_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Plate_9x16 at 20 s: sequence df021a36-2af6-4029-bc40-83bd9afcdadd active, playhead at 20 s",
+      "name": "activate TTL_Plate_9x16 at 20 s: sequence 418c8c3a-14be-443e-8ca8-62494f11f79c active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_9x16_3",
+        "name": "LIVE_TTL_Plate_9x16_6",
         "player": 20
       }
     },
@@ -3394,8 +3396,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_Plate/TTL_Plate_9x16_v1.mogrt",
-          "sha256": "57fd256abed97b4c1d9a4ae640da8b4922de78882b2c9fa867658a364b5914c9",
-          "bytes": 38835
+          "sha256": "962c568d0ab1bb845e94971a97c86a2a68dbb527a61257e1c943237e9a486a75",
+          "bytes": 39317
         },
         "reason": "exact",
         "scale": 1,
@@ -3457,7 +3459,7 @@
       }
     },
     {
-      "name": "TTL_Plate_9x16: clips: clips of sequence df021a36-2af6-4029-bc40-83bd9afcdadd listed",
+      "name": "TTL_Plate_9x16: clips: clips of sequence 418c8c3a-14be-443e-8ca8-62494f11f79c listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3576,20 +3578,20 @@
       }
     },
     {
-      "name": "activate TTL_Plate_1x1 at 2 s: sequence 71f8b364-ce52-4018-9dc0-9e2061be0937 active, playhead at 2 s",
+      "name": "activate TTL_Plate_1x1 at 2 s: sequence 1365ce65-9fea-4b50-94f7-3dbb0630b54d active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_1x1_3",
+        "name": "LIVE_TTL_Plate_1x1_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Plate_1x1 at 20 s: sequence 71f8b364-ce52-4018-9dc0-9e2061be0937 active, playhead at 20 s",
+      "name": "activate TTL_Plate_1x1 at 20 s: sequence 1365ce65-9fea-4b50-94f7-3dbb0630b54d active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_1x1_3",
+        "name": "LIVE_TTL_Plate_1x1_6",
         "player": 20
       }
     },
@@ -3666,8 +3668,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_Plate/TTL_Plate_1x1_v1.mogrt",
-          "sha256": "f50c47467648ad87d7bc38f279d2c236051f4511342ea31a2fbd9b376677aa57",
-          "bytes": 55339
+          "sha256": "b6f64f86106c7a64837c60819502e66548a1c625d53a1963e975a9be1f023190",
+          "bytes": 55854
         },
         "reason": "exact",
         "scale": 1,
@@ -3729,7 +3731,7 @@
       }
     },
     {
-      "name": "TTL_Plate_1x1: clips: clips of sequence 71f8b364-ce52-4018-9dc0-9e2061be0937 listed",
+      "name": "TTL_Plate_1x1: clips: clips of sequence 1365ce65-9fea-4b50-94f7-3dbb0630b54d listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3848,20 +3850,20 @@
       }
     },
     {
-      "name": "activate TTL_Subscribe_16x9 at 2 s: sequence 68a874c7-abd9-4aac-b7ec-866d97e207d4 active, playhead at 2 s",
+      "name": "activate TTL_Subscribe_16x9 at 2 s: sequence 3001dc4a-6661-4282-b1a1-1134d16bcc08 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_16x9_3",
+        "name": "LIVE_TTL_Subscribe_16x9_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Subscribe_16x9 at 20 s: sequence 68a874c7-abd9-4aac-b7ec-866d97e207d4 active, playhead at 20 s",
+      "name": "activate TTL_Subscribe_16x9 at 20 s: sequence 3001dc4a-6661-4282-b1a1-1134d16bcc08 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_16x9_3",
+        "name": "LIVE_TTL_Subscribe_16x9_6",
         "player": 20
       }
     },
@@ -3934,8 +3936,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_Subscribe/TTL_Subscribe_16x9_v1.mogrt",
-          "sha256": "dd475b51d399825703147b42d90d7ff562191cd74b249580663d10cac5ef0d08",
-          "bytes": 178240
+          "sha256": "c612de736c9b29fa3b12bd7cde6ccb7df7b64c8538cce6e71377e2cc9672bb2d",
+          "bytes": 178359
         },
         "reason": "exact",
         "scale": 1,
@@ -3993,7 +3995,7 @@
       }
     },
     {
-      "name": "TTL_Subscribe_16x9: clips: clips of sequence 68a874c7-abd9-4aac-b7ec-866d97e207d4 listed",
+      "name": "TTL_Subscribe_16x9: clips: clips of sequence 3001dc4a-6661-4282-b1a1-1134d16bcc08 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4112,20 +4114,20 @@
       }
     },
     {
-      "name": "activate TTL_Subscribe_16x9_4K at 2 s: sequence 15e732c4-960c-4418-9643-346e699782b0 active, playhead at 2 s",
+      "name": "activate TTL_Subscribe_16x9_4K at 2 s: sequence 7a006339-0e85-445d-8d19-1e1a6ec0f21f active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_16x9_4K_3",
+        "name": "LIVE_TTL_Subscribe_16x9_4K_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Subscribe_16x9_4K at 20 s: sequence 15e732c4-960c-4418-9643-346e699782b0 active, playhead at 20 s",
+      "name": "activate TTL_Subscribe_16x9_4K at 20 s: sequence 7a006339-0e85-445d-8d19-1e1a6ec0f21f active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_16x9_4K_3",
+        "name": "LIVE_TTL_Subscribe_16x9_4K_6",
         "player": 20
       }
     },
@@ -4198,8 +4200,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_Subscribe/TTL_Subscribe_16x9_4K_v1.mogrt",
-          "sha256": "ea6803099011df45c779cf41d132fa7076f4759f84a987872aac45d4c3222387",
-          "bytes": 178016
+          "sha256": "0423db5308a3f184127a909a3df61516e1079dbdd27b8d49b4e20e2676d8a914",
+          "bytes": 178232
         },
         "reason": "exact",
         "scale": 1,
@@ -4257,7 +4259,7 @@
       }
     },
     {
-      "name": "TTL_Subscribe_16x9_4K: clips: clips of sequence 15e732c4-960c-4418-9643-346e699782b0 listed",
+      "name": "TTL_Subscribe_16x9_4K: clips: clips of sequence 7a006339-0e85-445d-8d19-1e1a6ec0f21f listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4376,20 +4378,20 @@
       }
     },
     {
-      "name": "activate TTL_Subscribe_9x16 at 2 s: sequence c4abb903-2ceb-4baa-96d8-2ab553cec324 active, playhead at 2 s",
+      "name": "activate TTL_Subscribe_9x16 at 2 s: sequence 16850c01-c6f1-4c67-abdc-3f01b084bb6c active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_9x16_3",
+        "name": "LIVE_TTL_Subscribe_9x16_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Subscribe_9x16 at 20 s: sequence c4abb903-2ceb-4baa-96d8-2ab553cec324 active, playhead at 20 s",
+      "name": "activate TTL_Subscribe_9x16 at 20 s: sequence 16850c01-c6f1-4c67-abdc-3f01b084bb6c active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_9x16_3",
+        "name": "LIVE_TTL_Subscribe_9x16_6",
         "player": 20
       }
     },
@@ -4462,8 +4464,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_Subscribe/TTL_Subscribe_9x16_v1.mogrt",
-          "sha256": "7ff3b7d3132d0c4ce9642d2c6ccfbbc06959f5ca5f7d36db96ea974898113019",
-          "bytes": 83825
+          "sha256": "d8250e3dbf43712ea34c59bfff6e049162cf27c3f020f1d54a994067e3f697ba",
+          "bytes": 83897
         },
         "reason": "exact",
         "scale": 1,
@@ -4521,7 +4523,7 @@
       }
     },
     {
-      "name": "TTL_Subscribe_9x16: clips: clips of sequence c4abb903-2ceb-4baa-96d8-2ab553cec324 listed",
+      "name": "TTL_Subscribe_9x16: clips: clips of sequence 16850c01-c6f1-4c67-abdc-3f01b084bb6c listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4640,20 +4642,20 @@
       }
     },
     {
-      "name": "activate TTL_Subscribe_1x1 at 2 s: sequence 0e8102f0-5c27-4119-84ef-1e8b82d84d71 active, playhead at 2 s",
+      "name": "activate TTL_Subscribe_1x1 at 2 s: sequence 41901614-0060-4b1d-825d-fa8ad7f32db7 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_1x1_3",
+        "name": "LIVE_TTL_Subscribe_1x1_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Subscribe_1x1 at 20 s: sequence 0e8102f0-5c27-4119-84ef-1e8b82d84d71 active, playhead at 20 s",
+      "name": "activate TTL_Subscribe_1x1 at 20 s: sequence 41901614-0060-4b1d-825d-fa8ad7f32db7 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_1x1_3",
+        "name": "LIVE_TTL_Subscribe_1x1_6",
         "player": 20
       }
     },
@@ -4726,8 +4728,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_Subscribe/TTL_Subscribe_1x1_v1.mogrt",
-          "sha256": "a9ee2cd171df8f1c7718cef6e5e2cda0585522b5c847c72921a6e9b95926fd87",
-          "bytes": 178410
+          "sha256": "ef2c6a0ffb5599e7ea37296614edb1196383f7ccaddbbf1da00721bdd943261a",
+          "bytes": 178484
         },
         "reason": "exact",
         "scale": 1,
@@ -4785,7 +4787,7 @@
       }
     },
     {
-      "name": "TTL_Subscribe_1x1: clips: clips of sequence 0e8102f0-5c27-4119-84ef-1e8b82d84d71 listed",
+      "name": "TTL_Subscribe_1x1: clips: clips of sequence 41901614-0060-4b1d-825d-fa8ad7f32db7 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4904,20 +4906,20 @@
       }
     },
     {
-      "name": "activate TTL_PlateSwap_16x9 at 2 s: sequence 10ab33a9-5ded-48a1-8237-05269229cee3 active, playhead at 2 s",
+      "name": "activate TTL_PlateSwap_16x9 at 2 s: sequence c2b49dec-bc8f-42c1-8cde-f908be96244e active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_16x9_3",
+        "name": "LIVE_TTL_PlateSwap_16x9_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_PlateSwap_16x9 at 20 s: sequence 10ab33a9-5ded-48a1-8237-05269229cee3 active, playhead at 20 s",
+      "name": "activate TTL_PlateSwap_16x9 at 20 s: sequence c2b49dec-bc8f-42c1-8cde-f908be96244e active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_16x9_3",
+        "name": "LIVE_TTL_PlateSwap_16x9_6",
         "player": 20
       }
     },
@@ -5000,8 +5002,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_PlateSwap/TTL_PlateSwap_16x9_v1.mogrt",
-          "sha256": "e4940c71aebaaed2fa5213aec607fa0f52218b99dca1874f791b349e0ebd19b6",
-          "bytes": 81945
+          "sha256": "3dd8ac98506360455f76f7c1c9d2677a1ccd02c91cb1ace287680808e581644e",
+          "bytes": 82208
         },
         "reason": "exact",
         "scale": 1,
@@ -5069,7 +5071,7 @@
       }
     },
     {
-      "name": "TTL_PlateSwap_16x9: clips: clips of sequence 10ab33a9-5ded-48a1-8237-05269229cee3 listed",
+      "name": "TTL_PlateSwap_16x9: clips: clips of sequence c2b49dec-bc8f-42c1-8cde-f908be96244e listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5188,20 +5190,20 @@
       }
     },
     {
-      "name": "activate TTL_PlateSwap_16x9_4K at 2 s: sequence 86901a11-4999-455a-97ac-f694d85e45d4 active, playhead at 2 s",
+      "name": "activate TTL_PlateSwap_16x9_4K at 2 s: sequence 73b64c40-1e5e-4901-8c60-da68e9c06b3c active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_16x9_4K_3",
+        "name": "LIVE_TTL_PlateSwap_16x9_4K_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_PlateSwap_16x9_4K at 20 s: sequence 86901a11-4999-455a-97ac-f694d85e45d4 active, playhead at 20 s",
+      "name": "activate TTL_PlateSwap_16x9_4K at 20 s: sequence 73b64c40-1e5e-4901-8c60-da68e9c06b3c active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_16x9_4K_3",
+        "name": "LIVE_TTL_PlateSwap_16x9_4K_6",
         "player": 20
       }
     },
@@ -5284,8 +5286,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_PlateSwap/TTL_PlateSwap_16x9_4K_v1.mogrt",
-          "sha256": "8c131e8685082842f29112f80beeb85289b33f55dd6ce5a6dbb82e9665498216",
-          "bytes": 81950
+          "sha256": "e1d2d8efad5bd380dc44f321367a5e17504545320d76a0270dae01c78082ccb8",
+          "bytes": 81671
         },
         "reason": "exact",
         "scale": 1,
@@ -5353,7 +5355,7 @@
       }
     },
     {
-      "name": "TTL_PlateSwap_16x9_4K: clips: clips of sequence 86901a11-4999-455a-97ac-f694d85e45d4 listed",
+      "name": "TTL_PlateSwap_16x9_4K: clips: clips of sequence 73b64c40-1e5e-4901-8c60-da68e9c06b3c listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5472,20 +5474,20 @@
       }
     },
     {
-      "name": "activate TTL_PlateSwap_9x16 at 2 s: sequence 071664e9-4da8-41e9-894e-cbdf1b8f736d active, playhead at 2 s",
+      "name": "activate TTL_PlateSwap_9x16 at 2 s: sequence 01e42858-8c61-4b7b-8f5c-9917b0d43e48 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_9x16_3",
+        "name": "LIVE_TTL_PlateSwap_9x16_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_PlateSwap_9x16 at 20 s: sequence 071664e9-4da8-41e9-894e-cbdf1b8f736d active, playhead at 20 s",
+      "name": "activate TTL_PlateSwap_9x16 at 20 s: sequence 01e42858-8c61-4b7b-8f5c-9917b0d43e48 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_9x16_3",
+        "name": "LIVE_TTL_PlateSwap_9x16_6",
         "player": 20
       }
     },
@@ -5568,8 +5570,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_PlateSwap/TTL_PlateSwap_9x16_v1.mogrt",
-          "sha256": "63bc4ffa2d91517376704f23fce885610821aab3cc1390562147adfbbda147b2",
-          "bytes": 53761
+          "sha256": "a9b8d3549041cee1baa26c6b264de6b4740820de1808056e55f811cf49519ff0",
+          "bytes": 53878
         },
         "reason": "exact",
         "scale": 1,
@@ -5637,7 +5639,7 @@
       }
     },
     {
-      "name": "TTL_PlateSwap_9x16: clips: clips of sequence 071664e9-4da8-41e9-894e-cbdf1b8f736d listed",
+      "name": "TTL_PlateSwap_9x16: clips: clips of sequence 01e42858-8c61-4b7b-8f5c-9917b0d43e48 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5756,20 +5758,20 @@
       }
     },
     {
-      "name": "activate TTL_PlateSwap_1x1 at 2 s: sequence 73562bce-bc28-43f6-a7de-200ca9f5d746 active, playhead at 2 s",
+      "name": "activate TTL_PlateSwap_1x1 at 2 s: sequence b8e52d59-5949-4154-9d3f-17b0fef22a7c active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_1x1_3",
+        "name": "LIVE_TTL_PlateSwap_1x1_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_PlateSwap_1x1 at 20 s: sequence 73562bce-bc28-43f6-a7de-200ca9f5d746 active, playhead at 20 s",
+      "name": "activate TTL_PlateSwap_1x1 at 20 s: sequence b8e52d59-5949-4154-9d3f-17b0fef22a7c active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_1x1_3",
+        "name": "LIVE_TTL_PlateSwap_1x1_6",
         "player": 20
       }
     },
@@ -5852,8 +5854,8 @@
             "pr": "26.0"
           },
           "file": "items/TTL_PlateSwap/TTL_PlateSwap_1x1_v1.mogrt",
-          "sha256": "fb51f94274fe9c22b1cf23b99dc9079f644f06827bad1e0cd27f14dc6eb3d0ef",
-          "bytes": 83286
+          "sha256": "96ad281af16ff233ca31da63969644a61e5dece1d79db81cac2a48b4667d54a3",
+          "bytes": 83394
         },
         "reason": "exact",
         "scale": 1,
@@ -5921,7 +5923,7 @@
       }
     },
     {
-      "name": "TTL_PlateSwap_1x1: clips: clips of sequence 73562bce-bc28-43f6-a7de-200ca9f5d746 listed",
+      "name": "TTL_PlateSwap_1x1: clips: clips of sequence b8e52d59-5949-4154-9d3f-17b0fef22a7c listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -6040,20 +6042,20 @@
       }
     },
     {
-      "name": "activate TTL_Disclaimer_16x9 at 2 s: sequence 56d25aca-2df2-4d9b-a3b1-fa8afa14d43f active, playhead at 2 s",
+      "name": "activate TTL_Disclaimer_16x9 at 2 s: sequence 94830e6a-7467-4e2c-a8df-e456827d7868 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Disclaimer_16x9_3",
+        "name": "LIVE_TTL_Disclaimer_16x9_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Disclaimer_16x9 at 20 s: sequence 56d25aca-2df2-4d9b-a3b1-fa8afa14d43f active, playhead at 20 s",
+      "name": "activate TTL_Disclaimer_16x9 at 20 s: sequence 94830e6a-7467-4e2c-a8df-e456827d7868 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Disclaimer_16x9_3",
+        "name": "LIVE_TTL_Disclaimer_16x9_6",
         "player": 20
       }
     },
@@ -6193,7 +6195,7 @@
       }
     },
     {
-      "name": "TTL_Disclaimer_16x9: clips: clips of sequence 56d25aca-2df2-4d9b-a3b1-fa8afa14d43f listed",
+      "name": "TTL_Disclaimer_16x9: clips: clips of sequence 94830e6a-7467-4e2c-a8df-e456827d7868 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -6312,20 +6314,20 @@
       }
     },
     {
-      "name": "activate TTL_Disclaimer_16x9_4K at 2 s: sequence 9312a6c5-03e8-4723-a977-e9cde91b80b0 active, playhead at 2 s",
+      "name": "activate TTL_Disclaimer_16x9_4K at 2 s: sequence 7f04dcb9-85c2-47e8-97bb-19ca02904015 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Disclaimer_16x9_4K_3",
+        "name": "LIVE_TTL_Disclaimer_16x9_4K_6",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Disclaimer_16x9_4K at 20 s: sequence 9312a6c5-03e8-4723-a977-e9cde91b80b0 active, playhead at 20 s",
+      "name": "activate TTL_Disclaimer_16x9_4K at 20 s: sequence 7f04dcb9-85c2-47e8-97bb-19ca02904015 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Disclaimer_16x9_4K_3",
+        "name": "LIVE_TTL_Disclaimer_16x9_4K_6",
         "player": 20
       }
     },
@@ -6465,7 +6467,7 @@
       }
     },
     {
-      "name": "TTL_Disclaimer_16x9_4K: clips: clips of sequence 9312a6c5-03e8-4723-a977-e9cde91b80b0 listed",
+      "name": "TTL_Disclaimer_16x9_4K: clips: clips of sequence 7f04dcb9-85c2-47e8-97bb-19ca02904015 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -6584,20 +6586,20 @@
       }
     },
     {
-      "name": "activate POD_Frame_16x9 at 2 s: sequence 5cab49d1-b956-4049-87bd-5af5c956c058 active, playhead at 2 s",
+      "name": "activate POD_Frame_16x9 at 2 s: sequence 98836b1c-df21-4ee3-aa6f-1a8c75e408b6 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Frame_16x9_3",
+        "name": "LIVE_POD_Frame_16x9_6",
         "player": 2
       }
     },
     {
-      "name": "activate POD_Frame_16x9 at 20 s: sequence 5cab49d1-b956-4049-87bd-5af5c956c058 active, playhead at 20 s",
+      "name": "activate POD_Frame_16x9 at 20 s: sequence 98836b1c-df21-4ee3-aa6f-1a8c75e408b6 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Frame_16x9_3",
+        "name": "LIVE_POD_Frame_16x9_6",
         "player": 20
       }
     },
@@ -6725,7 +6727,7 @@
       }
     },
     {
-      "name": "POD_Frame_16x9: clips: clips of sequence 5cab49d1-b956-4049-87bd-5af5c956c058 listed",
+      "name": "POD_Frame_16x9: clips: clips of sequence 98836b1c-df21-4ee3-aa6f-1a8c75e408b6 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -6844,20 +6846,20 @@
       }
     },
     {
-      "name": "activate POD_Frame_16x9_4K at 2 s: sequence 5acfd772-d1de-4539-b4b2-986c2c9b85a1 active, playhead at 2 s",
+      "name": "activate POD_Frame_16x9_4K at 2 s: sequence 74462421-1b63-4734-a7ce-6ce391182b07 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Frame_16x9_4K_3",
+        "name": "LIVE_POD_Frame_16x9_4K_6",
         "player": 2
       }
     },
     {
-      "name": "activate POD_Frame_16x9_4K at 20 s: sequence 5acfd772-d1de-4539-b4b2-986c2c9b85a1 active, playhead at 20 s",
+      "name": "activate POD_Frame_16x9_4K at 20 s: sequence 74462421-1b63-4734-a7ce-6ce391182b07 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Frame_16x9_4K_3",
+        "name": "LIVE_POD_Frame_16x9_4K_6",
         "player": 20
       }
     },
@@ -6985,7 +6987,7 @@
       }
     },
     {
-      "name": "POD_Frame_16x9_4K: clips: clips of sequence 5acfd772-d1de-4539-b4b2-986c2c9b85a1 listed",
+      "name": "POD_Frame_16x9_4K: clips: clips of sequence 74462421-1b63-4734-a7ce-6ce391182b07 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -7104,20 +7106,20 @@
       }
     },
     {
-      "name": "activate POD_Guest_16x9 at 2 s: sequence c4e0005a-eef5-4641-be44-6adc6eee45ee active, playhead at 2 s",
+      "name": "activate POD_Guest_16x9 at 2 s: sequence 4190f6cc-9879-40ac-abe7-2fa07ede3565 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Guest_16x9_3",
+        "name": "LIVE_POD_Guest_16x9_6",
         "player": 2
       }
     },
     {
-      "name": "activate POD_Guest_16x9 at 20 s: sequence c4e0005a-eef5-4641-be44-6adc6eee45ee active, playhead at 20 s",
+      "name": "activate POD_Guest_16x9 at 20 s: sequence 4190f6cc-9879-40ac-abe7-2fa07ede3565 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Guest_16x9_3",
+        "name": "LIVE_POD_Guest_16x9_6",
         "player": 20
       }
     },
@@ -7194,8 +7196,8 @@
             "pr": "26.0"
           },
           "file": "items/POD_Guest/POD_Guest_16x9_v1.mogrt",
-          "sha256": "efe1a7b69187c943321542641ecf2fd8198f45d4db7618d9f5cd932eaa74c923",
-          "bytes": 41605
+          "sha256": "2c32169461f70b79bd3343922a8a82a4f7d2b7d0b69df163b72dcea479c768ab",
+          "bytes": 41729
         },
         "reason": "exact",
         "scale": 1,
@@ -7257,7 +7259,7 @@
       }
     },
     {
-      "name": "POD_Guest_16x9: clips: clips of sequence c4e0005a-eef5-4641-be44-6adc6eee45ee listed",
+      "name": "POD_Guest_16x9: clips: clips of sequence 4190f6cc-9879-40ac-abe7-2fa07ede3565 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -7376,20 +7378,20 @@
       }
     },
     {
-      "name": "activate POD_Guest_16x9_4K at 2 s: sequence 13d834b2-5fd2-4427-a3e8-e8d6be0ae8d6 active, playhead at 2 s",
+      "name": "activate POD_Guest_16x9_4K at 2 s: sequence f7104906-5782-4fd0-9cb0-9572a41be346 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Guest_16x9_4K_3",
+        "name": "LIVE_POD_Guest_16x9_4K_6",
         "player": 2
       }
     },
     {
-      "name": "activate POD_Guest_16x9_4K at 20 s: sequence 13d834b2-5fd2-4427-a3e8-e8d6be0ae8d6 active, playhead at 20 s",
+      "name": "activate POD_Guest_16x9_4K at 20 s: sequence f7104906-5782-4fd0-9cb0-9572a41be346 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Guest_16x9_4K_3",
+        "name": "LIVE_POD_Guest_16x9_4K_6",
         "player": 20
       }
     },
@@ -7466,8 +7468,8 @@
             "pr": "26.0"
           },
           "file": "items/POD_Guest/POD_Guest_16x9_4K_v1.mogrt",
-          "sha256": "a0c008fd2215ee860c63a525c2b05c7d2576feefb6b15219be7b4a48dcd41b47",
-          "bytes": 41825
+          "sha256": "a09caaffe5828c921f97c6fca63354eb053dfa45afda9f37781a862f8c9e1218",
+          "bytes": 41584
         },
         "reason": "exact",
         "scale": 1,
@@ -7529,7 +7531,7 @@
       }
     },
     {
-      "name": "POD_Guest_16x9_4K: clips: clips of sequence 13d834b2-5fd2-4427-a3e8-e8d6be0ae8d6 listed",
+      "name": "POD_Guest_16x9_4K: clips: clips of sequence f7104906-5782-4fd0-9cb0-9572a41be346 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -7648,20 +7650,20 @@
       }
     },
     {
-      "name": "activate POD_Content_16x9 at 2 s: sequence a5266e6c-2fb2-4b15-91a7-3605195290d1 active, playhead at 2 s",
+      "name": "activate POD_Content_16x9 at 2 s: sequence a4e63875-1890-4b1a-b34b-3ed31a5aac97 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Content_16x9_3",
+        "name": "LIVE_POD_Content_16x9_6",
         "player": 2
       }
     },
     {
-      "name": "activate POD_Content_16x9 at 20 s: sequence a5266e6c-2fb2-4b15-91a7-3605195290d1 active, playhead at 20 s",
+      "name": "activate POD_Content_16x9 at 20 s: sequence a4e63875-1890-4b1a-b34b-3ed31a5aac97 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Content_16x9_3",
+        "name": "LIVE_POD_Content_16x9_6",
         "player": 20
       }
     },
@@ -7738,8 +7740,8 @@
             "pr": "26.0"
           },
           "file": "items/POD_Content/POD_Content_16x9_v1.mogrt",
-          "sha256": "b9dc72c7d3a19208145efcee8f785c2698a5d3f41939aa6bc87ab4fe932005af",
-          "bytes": 78265
+          "sha256": "cfae866d0171f98e1ca36268c4852655f65a79d7442b21aa9f24c41fb2e6c4ee",
+          "bytes": 78270
         },
         "reason": "exact",
         "scale": 1,
@@ -7799,7 +7801,7 @@
       }
     },
     {
-      "name": "POD_Content_16x9: clips: clips of sequence a5266e6c-2fb2-4b15-91a7-3605195290d1 listed",
+      "name": "POD_Content_16x9: clips: clips of sequence a4e63875-1890-4b1a-b34b-3ed31a5aac97 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -7918,20 +7920,20 @@
       }
     },
     {
-      "name": "activate POD_Content_16x9_4K at 2 s: sequence 411f49f8-6b58-4b23-afba-bdb5ec900559 active, playhead at 2 s",
+      "name": "activate POD_Content_16x9_4K at 2 s: sequence 8515299a-a572-4ac8-9b37-cfffa44fd6a3 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Content_16x9_4K_3",
+        "name": "LIVE_POD_Content_16x9_4K_6",
         "player": 2
       }
     },
     {
-      "name": "activate POD_Content_16x9_4K at 20 s: sequence 411f49f8-6b58-4b23-afba-bdb5ec900559 active, playhead at 20 s",
+      "name": "activate POD_Content_16x9_4K at 20 s: sequence 8515299a-a572-4ac8-9b37-cfffa44fd6a3 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Content_16x9_4K_3",
+        "name": "LIVE_POD_Content_16x9_4K_6",
         "player": 20
       }
     },
@@ -8008,8 +8010,8 @@
             "pr": "26.0"
           },
           "file": "items/POD_Content/POD_Content_16x9_4K_v1.mogrt",
-          "sha256": "d2165740203610efdc7a0b9eb02fad8bff39fa9c838fdd9e27dadda39088addf",
-          "bytes": 78411
+          "sha256": "ff475c2140337d3a7954a06f53dd7ace0209fe10ca780874b564df9a82308a72",
+          "bytes": 78347
         },
         "reason": "exact",
         "scale": 1,
@@ -8069,7 +8071,7 @@
       }
     },
     {
-      "name": "POD_Content_16x9_4K: clips: clips of sequence 411f49f8-6b58-4b23-afba-bdb5ec900559 listed",
+      "name": "POD_Content_16x9_4K: clips: clips of sequence 8515299a-a572-4ac8-9b37-cfffa44fd6a3 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -8188,20 +8190,20 @@
       }
     },
     {
-      "name": "activate POD_QR_16x9 at 2 s: sequence 7d671edc-5cbc-436e-9d49-1077be69778d active, playhead at 2 s",
+      "name": "activate POD_QR_16x9 at 2 s: sequence 08573228-9c4e-4259-9864-87abb7157d4f active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_QR_16x9_3",
+        "name": "LIVE_POD_QR_16x9_6",
         "player": 2
       }
     },
     {
-      "name": "activate POD_QR_16x9 at 20 s: sequence 7d671edc-5cbc-436e-9d49-1077be69778d active, playhead at 20 s",
+      "name": "activate POD_QR_16x9 at 20 s: sequence 08573228-9c4e-4259-9864-87abb7157d4f active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_QR_16x9_3",
+        "name": "LIVE_POD_QR_16x9_6",
         "player": 20
       }
     },
@@ -8333,7 +8335,7 @@
       }
     },
     {
-      "name": "POD_QR_16x9: clips: clips of sequence 7d671edc-5cbc-436e-9d49-1077be69778d listed",
+      "name": "POD_QR_16x9: clips: clips of sequence 08573228-9c4e-4259-9864-87abb7157d4f listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -8452,20 +8454,20 @@
       }
     },
     {
-      "name": "activate POD_QR_16x9_4K at 2 s: sequence db84604e-121d-48d1-a2ae-0e3e9f85f7ad active, playhead at 2 s",
+      "name": "activate POD_QR_16x9_4K at 2 s: sequence 414efe61-d916-4778-aef4-d936ba741f61 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_QR_16x9_4K_3",
+        "name": "LIVE_POD_QR_16x9_4K_6",
         "player": 2
       }
     },
     {
-      "name": "activate POD_QR_16x9_4K at 20 s: sequence db84604e-121d-48d1-a2ae-0e3e9f85f7ad active, playhead at 20 s",
+      "name": "activate POD_QR_16x9_4K at 20 s: sequence 414efe61-d916-4778-aef4-d936ba741f61 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_QR_16x9_4K_3",
+        "name": "LIVE_POD_QR_16x9_4K_6",
         "player": 20
       }
     },
@@ -8597,7 +8599,7 @@
       }
     },
     {
-      "name": "POD_QR_16x9_4K: clips: clips of sequence db84604e-121d-48d1-a2ae-0e3e9f85f7ad listed",
+      "name": "POD_QR_16x9_4K: clips: clips of sequence 414efe61-d916-4778-aef4-d936ba741f61 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -8716,20 +8718,20 @@
       }
     },
     {
-      "name": "activate SMM_ShortsIntro_9x16 at 2 s: sequence c502b5bc-7f70-498e-9e87-0bbdc19474df active, playhead at 2 s",
+      "name": "activate SMM_ShortsIntro_9x16 at 2 s: sequence cb9511fc-1fde-47a9-8555-d911aef99ea0 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_SMM_ShortsIntro_9x16_2",
+        "name": "LIVE_SMM_ShortsIntro_9x16_5",
         "player": 2
       }
     },
     {
-      "name": "activate SMM_ShortsIntro_9x16 at 20 s: sequence c502b5bc-7f70-498e-9e87-0bbdc19474df active, playhead at 20 s",
+      "name": "activate SMM_ShortsIntro_9x16 at 20 s: sequence cb9511fc-1fde-47a9-8555-d911aef99ea0 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_SMM_ShortsIntro_9x16_2",
+        "name": "LIVE_SMM_ShortsIntro_9x16_5",
         "player": 20
       }
     },
@@ -8804,8 +8806,8 @@
             "pr": "26.0"
           },
           "file": "items/SMM_ShortsIntro/SMM_ShortsIntro_9x16_v1.mogrt",
-          "sha256": "cc617486d055bd0e5f02d09b792fd520d0f2898f9a57246db75fc86434cc30b7",
-          "bytes": 67033
+          "sha256": "6d05b5ed0c47f91d654f44790c398856ac27fda1f98ac01581384541b0bf5dea",
+          "bytes": 67872
         },
         "reason": "exact",
         "scale": 1,
@@ -8863,7 +8865,7 @@
       }
     },
     {
-      "name": "SMM_ShortsIntro_9x16: clips: clips of sequence c502b5bc-7f70-498e-9e87-0bbdc19474df listed",
+      "name": "SMM_ShortsIntro_9x16: clips: clips of sequence cb9511fc-1fde-47a9-8555-d911aef99ea0 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -8976,17 +8978,557 @@
       "pass": true,
       "required": true,
       "detail": {
-        "ssim": 0.99655681001899,
+        "ssim": 1,
         "a": "C:/CRBK/work/panel-live/pr/frames/SMM_ShortsIntro_9x16_a_outro.png",
         "b": "C:/CRBK/work/panel-live/pr/frames/SMM_ShortsIntro_9x16_b_outro.png"
       }
     },
     {
-      "name": "activate nearest at 2 s: sequence 54d869fc-d53f-490e-9574-20577af94265 active, playhead at 2 s",
+      "name": "activate CRS_Cover_16x9 at 2 s: sequence e8abf6e3-7eae-4f20-b718-175c60379b92 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_nearest_2560x1440_3",
+        "name": "LIVE_CRS_Cover_16x9_3",
+        "player": 2
+      }
+    },
+    {
+      "name": "activate CRS_Cover_16x9 at 20 s: sequence e8abf6e3-7eae-4f20-b718-175c60379b92 active, playhead at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "LIVE_CRS_Cover_16x9_3",
+        "player": 20
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: A inserted at 2 s, 7 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CRS_Cover_16x9_v1",
+          "track": 2,
+          "companions": [],
+          "startSec": 2,
+          "lengthSec": 7,
+          "readback": {
+            "Заголовок, строка 1": "Анна-Мария Ёлкина",
+            "Заголовок, строка 2": "Руководитель облачной платформы",
+            "Заголовок, строка 3": "Cloud.ru Evolution",
+            "Продукт": "Москва",
+            "Вариант": 2,
+            "Скорость": 1,
+            "Длительность (служебное, не менять)": 7
+          },
+          "retried": false,
+          "addedTracks": 0,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: B inserted at 20 s, 11 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CRS_Cover_16x9_v1",
+          "track": 2,
+          "companions": [],
+          "startSec": 20,
+          "lengthSec": 11,
+          "readback": {
+            "Заголовок, строка 1": "Анна-Мария Ёлкина",
+            "Заголовок, строка 2": "Руководитель облачной платформы",
+            "Заголовок, строка 3": "Cloud.ru Evolution",
+            "Продукт": "Москва",
+            "Вариант": 2,
+            "Скорость": 1,
+            "Длительность (служебное, не менять)": 11
+          },
+          "retried": false,
+          "addedTracks": 0,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: variant 16x9 chosen for 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_CRS_Cover_16x9_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/CRS_Cover/CRS_Cover_16x9_v1.mogrt",
+          "sha256": "80404a9e83cc930ef6c82425397d943cef76b5cec0cfdad29ed06abc17b9ab47",
+          "bytes": 361605
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Заголовок, строка 1": "Анна-Мария Ёлкина",
+            "Заголовок, строка 2": "Руководитель облачной платформы",
+            "Заголовок, строка 3": "Cloud.ru Evolution",
+            "Продукт": "Москва",
+            "Вариант": 2,
+            "Скорость": 1
+          },
+          "track": 2,
+          "startSec": 2,
+          "lengthSec": 7
+        }
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Заголовок, строка 1": "Анна-Мария Ёлкина",
+            "Заголовок, строка 2": "Руководитель облачной платформы",
+            "Заголовок, строка 3": "Cloud.ru Evolution",
+            "Продукт": "Москва",
+            "Вариант": 2,
+            "Скорость": 1
+          },
+          "track": 2,
+          "startSec": 20,
+          "lengthSec": 11
+        }
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CRS_Cover_16x9_v1",
+        "track": 2
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: clips: clips of sequence e8abf6e3-7eae-4f20-b718-175c60379b92 listed",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "CRS_Cover_16x9: A on V2 from 2 s for 7 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "track": 2,
+        "name": "CRS_Cover_16x9_v1",
+        "startSec": 2,
+        "endSec": 9,
+        "scale": 100,
+        "selected": false
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: B on V2 from 20 s for 11 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "track": 2,
+        "name": "CRS_Cover_16x9_v1",
+        "startSec": 20,
+        "endSec": 31,
+        "scale": 100,
+        "selected": true
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: B is the selected clip after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "a": {
+          "track": 2,
+          "name": "CRS_Cover_16x9_v1",
+          "startSec": 2,
+          "endSec": 9,
+          "scale": 100,
+          "selected": false
+        },
+        "b": {
+          "track": 2,
+          "name": "CRS_Cover_16x9_v1",
+          "startSec": 20,
+          "endSec": 31,
+          "scale": 100,
+          "selected": true
+        }
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: frames: frame CRS_Cover_16x9_a_intro (89) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:00:03:14",
+        "playhead": "904296960000",
+        "attempts": []
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: frames: frame CRS_Cover_16x9_b_intro (539) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:00:21:14",
+        "playhead": "5476584960000",
+        "attempts": []
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: frames: frame CRS_Cover_16x9_a_outro (191) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:00:07:16",
+        "playhead": "1940682240000",
+        "attempts": []
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: frames: frame CRS_Cover_16x9_b_outro (741) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:00:29:16",
+        "playhead": "7529034240000",
+        "attempts": []
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_b_intro.png"
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_b_outro.png"
+      }
+    },
+    {
+      "name": "activate CRS_Cover_16x9_4K at 2 s: sequence fd9dd342-f949-413e-8112-b5685f6bbfd4 active, playhead at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "LIVE_CRS_Cover_16x9_4K_3",
+        "player": 2
+      }
+    },
+    {
+      "name": "activate CRS_Cover_16x9_4K at 20 s: sequence fd9dd342-f949-413e-8112-b5685f6bbfd4 active, playhead at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "LIVE_CRS_Cover_16x9_4K_3",
+        "player": 20
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: A inserted at 2 s, 7 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CRS_Cover_16x9_4K_v1",
+          "track": 2,
+          "companions": [],
+          "startSec": 2,
+          "lengthSec": 7,
+          "readback": {
+            "Заголовок, строка 1": "Анна-Мария Ёлкина",
+            "Заголовок, строка 2": "Руководитель облачной платформы",
+            "Заголовок, строка 3": "Cloud.ru Evolution",
+            "Продукт": "Москва",
+            "Вариант": 2,
+            "Скорость": 1,
+            "Длительность (служебное, не менять)": 7
+          },
+          "retried": false,
+          "addedTracks": 0,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: B inserted at 20 s, 11 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CRS_Cover_16x9_4K_v1",
+          "track": 2,
+          "companions": [],
+          "startSec": 20,
+          "lengthSec": 11,
+          "readback": {
+            "Заголовок, строка 1": "Анна-Мария Ёлкина",
+            "Заголовок, строка 2": "Руководитель облачной платформы",
+            "Заголовок, строка 3": "Cloud.ru Evolution",
+            "Продукт": "Москва",
+            "Вариант": 2,
+            "Скорость": 1,
+            "Длительность (служебное, не менять)": 11
+          },
+          "retried": false,
+          "addedTracks": 0,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: variant 16x9_4K chosen for 3840x2160",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_CRS_Cover_16x9_4K_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/CRS_Cover/CRS_Cover_16x9_4K_v1.mogrt",
+          "sha256": "1d3c57d2c5143804332474a9fc3bf9a08a5371736219292ea104240c34916c05",
+          "bytes": 379665
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Заголовок, строка 1": "Анна-Мария Ёлкина",
+            "Заголовок, строка 2": "Руководитель облачной платформы",
+            "Заголовок, строка 3": "Cloud.ru Evolution",
+            "Продукт": "Москва",
+            "Вариант": 2,
+            "Скорость": 1
+          },
+          "track": 2,
+          "startSec": 2,
+          "lengthSec": 7
+        }
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Заголовок, строка 1": "Анна-Мария Ёлкина",
+            "Заголовок, строка 2": "Руководитель облачной платформы",
+            "Заголовок, строка 3": "Cloud.ru Evolution",
+            "Продукт": "Москва",
+            "Вариант": 2,
+            "Скорость": 1
+          },
+          "track": 2,
+          "startSec": 20,
+          "lengthSec": 11
+        }
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CRS_Cover_16x9_4K_v1",
+        "track": 2
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: clips: clips of sequence fd9dd342-f949-413e-8112-b5685f6bbfd4 listed",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: A on V2 from 2 s for 7 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "track": 2,
+        "name": "CRS_Cover_16x9_4K_v1",
+        "startSec": 2,
+        "endSec": 9,
+        "scale": 100,
+        "selected": false
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: B on V2 from 20 s for 11 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "track": 2,
+        "name": "CRS_Cover_16x9_4K_v1",
+        "startSec": 20,
+        "endSec": 31,
+        "scale": 100,
+        "selected": true
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: B is the selected clip after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "a": {
+          "track": 2,
+          "name": "CRS_Cover_16x9_4K_v1",
+          "startSec": 2,
+          "endSec": 9,
+          "scale": 100,
+          "selected": false
+        },
+        "b": {
+          "track": 2,
+          "name": "CRS_Cover_16x9_4K_v1",
+          "startSec": 20,
+          "endSec": 31,
+          "scale": 100,
+          "selected": true
+        }
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: frames: frame CRS_Cover_16x9_4K_a_intro (89) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:00:03:14",
+        "playhead": "904296960000",
+        "attempts": []
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: frames: frame CRS_Cover_16x9_4K_b_intro (539) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:00:21:14",
+        "playhead": "5476584960000",
+        "attempts": []
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: frames: frame CRS_Cover_16x9_4K_a_outro (191) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:00:07:16",
+        "playhead": "1940682240000",
+        "attempts": []
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: frames: frame CRS_Cover_16x9_4K_b_outro (741) exported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "method": "qe",
+        "tc": "00:00:29:16",
+        "playhead": "7529034240000",
+        "attempts": []
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_4K_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_4K_b_intro.png"
+      }
+    },
+    {
+      "name": "CRS_Cover_16x9_4K: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_4K_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_4K_b_outro.png"
+      }
+    },
+    {
+      "name": "activate nearest at 2 s: sequence 0089325d-ef2b-488c-a4e4-d94d6461bba3 active, playhead at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "LIVE_nearest_2560x1440_6",
         "player": 2
       }
     },
@@ -9007,11 +9549,11 @@
       ]
     },
     {
-      "name": "activate nearest at 2 s: sequence 54d869fc-d53f-490e-9574-20577af94265 active, playhead at 2 s",
+      "name": "activate nearest at 2 s: sequence 0089325d-ef2b-488c-a4e4-d94d6461bba3 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_nearest_2560x1440_3",
+        "name": "LIVE_nearest_2560x1440_6",
         "player": 2
       }
     },
@@ -9043,7 +9585,7 @@
       }
     },
     {
-      "name": "nearest: clips: clips of sequence 54d869fc-d53f-490e-9574-20577af94265 listed",
+      "name": "nearest: clips: clips of sequence 0089325d-ef2b-488c-a4e4-d94d6461bba3 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -9062,31 +9604,31 @@
       }
     },
     {
-      "name": "activate other at 2 s: sequence c2086a5b-cd8f-4265-be73-bcdb9d0c07c4 active, playhead at 2 s",
+      "name": "activate other at 2 s: sequence e18345ba-0426-4410-acd2-7cff4c2e5ac7 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_other_3",
+        "name": "LIVE_other_6",
         "player": 2
       }
     },
     {
-      "name": "activate undo at 2 s: sequence 9b2f1635-57ae-4ef9-9b80-6292591da95e active, playhead at 2 s",
+      "name": "activate undo at 2 s: sequence cb83aa18-13c9-4b44-8310-12545740032a active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_undo_3",
+        "name": "LIVE_undo_6",
         "player": 2
       }
     },
     {
-      "name": "count: clips of sequence 9b2f1635-57ae-4ef9-9b80-6292591da95e listed",
+      "name": "count: clips of sequence cb83aa18-13c9-4b44-8310-12545740032a listed",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "count: clips of sequence 9b2f1635-57ae-4ef9-9b80-6292591da95e listed",
+      "name": "count: clips of sequence cb83aa18-13c9-4b44-8310-12545740032a listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -9108,16 +9650,16 @@
       }
     },
     {
-      "name": "activate undo at 2 s: sequence 9b2f1635-57ae-4ef9-9b80-6292591da95e active, playhead at 2 s",
+      "name": "activate undo at 2 s: sequence cb83aa18-13c9-4b44-8310-12545740032a active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_undo_3",
+        "name": "LIVE_undo_6",
         "player": 2
       }
     },
     {
-      "name": "count: clips of sequence 9b2f1635-57ae-4ef9-9b80-6292591da95e listed",
+      "name": "count: clips of sequence cb83aa18-13c9-4b44-8310-12545740032a listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -9129,7 +9671,7 @@
       "detail": ""
     },
     {
-      "name": "count: clips of sequence 9b2f1635-57ae-4ef9-9b80-6292591da95e listed",
+      "name": "count: clips of sequence cb83aa18-13c9-4b44-8310-12545740032a listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -9145,29 +9687,29 @@
       }
     },
     {
-      "name": "activate tracks at 40 s: sequence cdb998aa-31f8-46f8-b656-2a3a76c4c2e2 active, playhead at 40 s",
+      "name": "activate tracks at 40 s: sequence bca8a27e-88e8-4984-b2d5-874b48008a9a active, playhead at 40 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_tracks_3",
+        "name": "LIVE_tracks_6",
         "player": 40
       }
     },
     {
-      "name": "activate tracks at 41 s: sequence cdb998aa-31f8-46f8-b656-2a3a76c4c2e2 active, playhead at 41 s",
+      "name": "activate tracks at 41 s: sequence bca8a27e-88e8-4984-b2d5-874b48008a9a active, playhead at 41 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_tracks_3",
+        "name": "LIVE_tracks_6",
         "player": 41
       }
     },
     {
-      "name": "activate tracks at 42 s: sequence cdb998aa-31f8-46f8-b656-2a3a76c4c2e2 active, playhead at 42 s",
+      "name": "activate tracks at 42 s: sequence bca8a27e-88e8-4984-b2d5-874b48008a9a active, playhead at 42 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_tracks_3",
+        "name": "LIVE_tracks_6",
         "player": 42
       }
     },
