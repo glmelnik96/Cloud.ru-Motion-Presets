@@ -1,10 +1,10 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-23T20:06:36.101Z",
-  "finishedAt": "2026-10-23T20:06:48.710Z",
+  "startedAt": "2026-10-23T23:23:19.259Z",
+  "finishedAt": "2026-10-23T23:23:33.546Z",
   "summary": {
-    "checks": 365,
-    "passed": 365,
+    "checks": 390,
+    "passed": 390,
     "failed": 0
   },
   "failed": [],
@@ -39,7 +39,7 @@
       "pass": true,
       "required": true,
       "detail": {
-        "comps": 11,
+        "comps": 13,
         "path": "C:\\CRBK\\work\\panel-live\\ae\\media_live.aep"
       }
     },
@@ -114,28 +114,28 @@
             {
               "role": "intro",
               "name": "BG_Arrows_16x9_intro_v1.mov",
-              "layerId": 137,
+              "layerId": 161,
               "startSec": 2,
               "lengthSec": 1
             },
             {
               "role": "loop",
               "name": "BG_Arrows_16x9_loop_v1.mov",
-              "layerId": 138,
+              "layerId": 162,
               "startSec": 3,
               "lengthSec": 16
             },
             {
               "role": "outro",
               "name": "BG_Arrows_16x9_outro_v1.mov",
-              "layerId": 139,
+              "layerId": 163,
               "startSec": 19,
               "lengthSec": 1
             },
             {
               "role": "backdrop",
               "name": "BrandKit #222222",
-              "layerId": 142,
+              "layerId": 166,
               "startSec": 2,
               "lengthSec": 18
             }
@@ -159,7 +159,7 @@
         "placed": {
           "role": "intro",
           "name": "BG_Arrows_16x9_intro_v1.mov",
-          "layerId": 137,
+          "layerId": 161,
           "startSec": 2,
           "lengthSec": 1
         },
@@ -234,7 +234,7 @@
         "p": {
           "role": "intro",
           "name": "BG_Arrows_16x9_intro_v1.mov",
-          "layerId": 137,
+          "layerId": 161,
           "startSec": 2,
           "lengthSec": 1
         }
@@ -254,7 +254,7 @@
         "placed": {
           "role": "loop",
           "name": "BG_Arrows_16x9_loop_v1.mov",
-          "layerId": 138,
+          "layerId": 162,
           "startSec": 3,
           "lengthSec": 16
         },
@@ -329,7 +329,7 @@
         "p": {
           "role": "loop",
           "name": "BG_Arrows_16x9_loop_v1.mov",
-          "layerId": 138,
+          "layerId": 162,
           "startSec": 3,
           "lengthSec": 16
         }
@@ -349,7 +349,7 @@
         "placed": {
           "role": "outro",
           "name": "BG_Arrows_16x9_outro_v1.mov",
-          "layerId": 139,
+          "layerId": 163,
           "startSec": 19,
           "lengthSec": 1
         },
@@ -424,7 +424,7 @@
         "p": {
           "role": "outro",
           "name": "BG_Arrows_16x9_outro_v1.mov",
-          "layerId": 139,
+          "layerId": 163,
           "startSec": 19,
           "lengthSec": 1
         }
@@ -444,7 +444,7 @@
         "placed": {
           "role": "backdrop",
           "name": "BrandKit #222222",
-          "layerId": 142,
+          "layerId": 166,
           "startSec": 2,
           "lengthSec": 18
         },
@@ -512,28 +512,28 @@
           {
             "role": "intro",
             "name": "BG_Arrows_16x9_intro_v1.mov",
-            "layerId": 137,
+            "layerId": 161,
             "startSec": 2,
             "lengthSec": 1
           },
           {
             "role": "loop",
             "name": "BG_Arrows_16x9_loop_v1.mov",
-            "layerId": 138,
+            "layerId": 162,
             "startSec": 3,
             "lengthSec": 16
           },
           {
             "role": "outro",
             "name": "BG_Arrows_16x9_outro_v1.mov",
-            "layerId": 139,
+            "layerId": 163,
             "startSec": 19,
             "lengthSec": 1
           },
           {
             "role": "backdrop",
             "name": "BrandKit #222222",
-            "layerId": 142,
+            "layerId": 166,
             "startSec": 2,
             "lengthSec": 18
           }
@@ -550,28 +550,28 @@
         {
           "role": "intro",
           "name": "BG_Arrows_16x9_intro_v1.mov",
-          "layerId": 137,
+          "layerId": 161,
           "startSec": 2,
           "lengthSec": 1
         },
         {
           "role": "loop",
           "name": "BG_Arrows_16x9_loop_v1.mov",
-          "layerId": 138,
+          "layerId": 162,
           "startSec": 3,
           "lengthSec": 16
         },
         {
           "role": "outro",
           "name": "BG_Arrows_16x9_outro_v1.mov",
-          "layerId": 139,
+          "layerId": 163,
           "startSec": 19,
           "lengthSec": 1
         },
         {
           "role": "backdrop",
           "name": "BrandKit #222222",
-          "layerId": 142,
+          "layerId": 166,
           "startSec": 2,
           "lengthSec": 18
         }
@@ -646,7 +646,7 @@
         "data": {
           "found": true,
           "name": "BG_Arrows_16x9_intro_v1.mov",
-          "layerId": 137
+          "layerId": 161
         }
       }
     },
@@ -699,21 +699,21 @@
             {
               "role": "intro",
               "name": "BG_Arrows_16x9_intro_v1.mov",
-              "layerId": 143,
+              "layerId": 167,
               "startSec": 30,
               "lengthSec": 1
             },
             {
               "role": "loop",
               "name": "BG_Arrows_16x9_loop_v1.mov",
-              "layerId": 144,
+              "layerId": 168,
               "startSec": 31,
               "lengthSec": 10
             },
             {
               "role": "outro",
               "name": "BG_Arrows_16x9_outro_v1.mov",
-              "layerId": 145,
+              "layerId": 169,
               "startSec": 41,
               "lengthSec": 1
             }
@@ -737,7 +737,7 @@
         "placed": {
           "role": "intro",
           "name": "BG_Arrows_16x9_intro_v1.mov",
-          "layerId": 143,
+          "layerId": 167,
           "startSec": 30,
           "lengthSec": 1
         },
@@ -845,7 +845,7 @@
         "p": {
           "role": "intro",
           "name": "BG_Arrows_16x9_intro_v1.mov",
-          "layerId": 143,
+          "layerId": 167,
           "startSec": 30,
           "lengthSec": 1
         }
@@ -865,7 +865,7 @@
         "placed": {
           "role": "loop",
           "name": "BG_Arrows_16x9_loop_v1.mov",
-          "layerId": 144,
+          "layerId": 168,
           "startSec": 31,
           "lengthSec": 10
         },
@@ -973,7 +973,7 @@
         "p": {
           "role": "loop",
           "name": "BG_Arrows_16x9_loop_v1.mov",
-          "layerId": 144,
+          "layerId": 168,
           "startSec": 31,
           "lengthSec": 10
         }
@@ -993,7 +993,7 @@
         "placed": {
           "role": "outro",
           "name": "BG_Arrows_16x9_outro_v1.mov",
-          "layerId": 145,
+          "layerId": 169,
           "startSec": 41,
           "lengthSec": 1
         },
@@ -1101,7 +1101,7 @@
         "p": {
           "role": "outro",
           "name": "BG_Arrows_16x9_outro_v1.mov",
-          "layerId": 145,
+          "layerId": 169,
           "startSec": 41,
           "lengthSec": 1
         }
@@ -1125,21 +1125,21 @@
           {
             "role": "intro",
             "name": "BG_Arrows_16x9_intro_v1.mov",
-            "layerId": 143,
+            "layerId": 167,
             "startSec": 30,
             "lengthSec": 1
           },
           {
             "role": "loop",
             "name": "BG_Arrows_16x9_loop_v1.mov",
-            "layerId": 144,
+            "layerId": 168,
             "startSec": 31,
             "lengthSec": 10
           },
           {
             "role": "outro",
             "name": "BG_Arrows_16x9_outro_v1.mov",
-            "layerId": 145,
+            "layerId": 169,
             "startSec": 41,
             "lengthSec": 1
           }
@@ -1156,21 +1156,21 @@
         {
           "role": "intro",
           "name": "BG_Arrows_16x9_intro_v1.mov",
-          "layerId": 143,
+          "layerId": 167,
           "startSec": 30,
           "lengthSec": 1
         },
         {
           "role": "loop",
           "name": "BG_Arrows_16x9_loop_v1.mov",
-          "layerId": 144,
+          "layerId": 168,
           "startSec": 31,
           "lengthSec": 10
         },
         {
           "role": "outro",
           "name": "BG_Arrows_16x9_outro_v1.mov",
-          "layerId": 145,
+          "layerId": 169,
           "startSec": 41,
           "lengthSec": 1
         }
@@ -1194,7 +1194,7 @@
         "data": {
           "found": true,
           "name": "BG_Arrows_16x9_intro_v1.mov",
-          "layerId": 143
+          "layerId": 167
         }
       }
     },
@@ -1245,7 +1245,7 @@
             {
               "role": "transition",
               "name": "TRN_StepWipe_16x9_dark_v1.mov",
-              "layerId": 147,
+              "layerId": 171,
               "startSec": 11.16,
               "lengthSec": 1.68
             }
@@ -1269,7 +1269,7 @@
         "placed": {
           "role": "transition",
           "name": "TRN_StepWipe_16x9_dark_v1.mov",
-          "layerId": 147,
+          "layerId": 171,
           "startSec": 11.16,
           "lengthSec": 1.68
         },
@@ -1307,7 +1307,7 @@
         "p": {
           "role": "transition",
           "name": "TRN_StepWipe_16x9_dark_v1.mov",
-          "layerId": 147,
+          "layerId": 171,
           "startSec": 11.16,
           "lengthSec": 1.68
         }
@@ -1341,7 +1341,7 @@
         {
           "role": "transition",
           "name": "TRN_StepWipe_16x9_dark_v1.mov",
-          "layerId": 147,
+          "layerId": 171,
           "startSec": 11.16,
           "lengthSec": 1.68
         }
@@ -1356,7 +1356,7 @@
         "data": {
           "found": true,
           "name": "TRN_StepWipe_16x9_dark_v1.mov",
-          "layerId": 147
+          "layerId": 171
         }
       }
     },
@@ -1407,7 +1407,7 @@
             {
               "role": "transition",
               "name": "TRN_Bars_16x9_white_logo_v1.mov",
-              "layerId": 149,
+              "layerId": 173,
               "startSec": 11.64,
               "lengthSec": 0.84
             }
@@ -1431,7 +1431,7 @@
         "placed": {
           "role": "transition",
           "name": "TRN_Bars_16x9_white_logo_v1.mov",
-          "layerId": 149,
+          "layerId": 173,
           "startSec": 11.64,
           "lengthSec": 0.84
         },
@@ -1469,7 +1469,7 @@
         "p": {
           "role": "transition",
           "name": "TRN_Bars_16x9_white_logo_v1.mov",
-          "layerId": 149,
+          "layerId": 173,
           "startSec": 11.64,
           "lengthSec": 0.84
         }
@@ -1503,7 +1503,7 @@
         {
           "role": "transition",
           "name": "TRN_Bars_16x9_white_logo_v1.mov",
-          "layerId": 149,
+          "layerId": 173,
           "startSec": 11.64,
           "lengthSec": 0.84
         }
@@ -1518,7 +1518,7 @@
         "data": {
           "found": true,
           "name": "TRN_Bars_16x9_white_logo_v1.mov",
-          "layerId": 149
+          "layerId": 173
         }
       }
     },
@@ -1569,7 +1569,7 @@
             {
               "role": "still",
               "name": "BG_DotGrid_16x9_v1.png",
-              "layerId": 151,
+              "layerId": 175,
               "startSec": 2,
               "lengthSec": 8
             }
@@ -1593,7 +1593,7 @@
         "placed": {
           "role": "still",
           "name": "BG_DotGrid_16x9_v1.png",
-          "layerId": 151,
+          "layerId": 175,
           "startSec": 2,
           "lengthSec": 8
         },
@@ -1631,7 +1631,7 @@
         "p": {
           "role": "still",
           "name": "BG_DotGrid_16x9_v1.png",
-          "layerId": 151,
+          "layerId": 175,
           "startSec": 2,
           "lengthSec": 8
         }
@@ -1655,7 +1655,7 @@
           {
             "role": "still",
             "name": "BG_DotGrid_16x9_v1.png",
-            "layerId": 151,
+            "layerId": 175,
             "startSec": 2,
             "lengthSec": 8
           }
@@ -1673,7 +1673,7 @@
         "data": {
           "found": true,
           "name": "BG_DotGrid_16x9_v1.png",
-          "layerId": 151
+          "layerId": 175
         }
       }
     },
@@ -1724,7 +1724,7 @@
             {
               "role": "sound",
               "name": "SFX_WhooshIn_wav_v1.wav",
-              "layerId": 153,
+              "layerId": 177,
               "startSec": 5,
               "lengthSec": 0.8
             }
@@ -1748,7 +1748,7 @@
         "placed": {
           "role": "sound",
           "name": "SFX_WhooshIn_wav_v1.wav",
-          "layerId": 153,
+          "layerId": 177,
           "startSec": 5,
           "lengthSec": 0.8
         },
@@ -1786,7 +1786,7 @@
         "p": {
           "role": "sound",
           "name": "SFX_WhooshIn_wav_v1.wav",
-          "layerId": 153,
+          "layerId": 177,
           "startSec": 5,
           "lengthSec": 0.8
         }
@@ -1810,7 +1810,7 @@
           {
             "role": "sound",
             "name": "SFX_WhooshIn_wav_v1.wav",
-            "layerId": 153,
+            "layerId": 177,
             "startSec": 5,
             "lengthSec": 0.8
           }
@@ -1828,7 +1828,7 @@
         "data": {
           "found": true,
           "name": "SFX_WhooshIn_wav_v1.wav",
-          "layerId": 153
+          "layerId": 177
         }
       }
     },
@@ -1876,7 +1876,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_16x9_v1",
-          "layerId": 303,
+          "layerId": 327,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -1897,28 +1897,28 @@
             {
               "role": "intro",
               "name": "BG_Arrows_16x9_intro_v1.mov",
-              "layerId": 304,
+              "layerId": 328,
               "startSec": 2,
               "lengthSec": 1
             },
             {
               "role": "loop",
               "name": "BG_Arrows_16x9_loop_v1.mov",
-              "layerId": 305,
+              "layerId": 329,
               "startSec": 3,
               "lengthSec": 4
             },
             {
               "role": "outro",
               "name": "BG_Arrows_16x9_outro_v1.mov",
-              "layerId": 306,
+              "layerId": 330,
               "startSec": 7,
               "lengthSec": 1
             },
             {
               "role": "sound",
               "name": "SFX_WhooshIn_wav_v1.wav",
-              "layerId": 307,
+              "layerId": 331,
               "startSec": 7.2,
               "lengthSec": 0.8
             }
@@ -1940,7 +1940,7 @@
         "placed": {
           "role": "intro",
           "name": "BG_Arrows_16x9_intro_v1.mov",
-          "layerId": 304,
+          "layerId": 328,
           "startSec": 2,
           "lengthSec": 1
         },
@@ -2022,7 +2022,7 @@
         "p": {
           "role": "intro",
           "name": "BG_Arrows_16x9_intro_v1.mov",
-          "layerId": 304,
+          "layerId": 328,
           "startSec": 2,
           "lengthSec": 1
         }
@@ -2042,7 +2042,7 @@
         "placed": {
           "role": "loop",
           "name": "BG_Arrows_16x9_loop_v1.mov",
-          "layerId": 305,
+          "layerId": 329,
           "startSec": 3,
           "lengthSec": 4
         },
@@ -2124,7 +2124,7 @@
         "p": {
           "role": "loop",
           "name": "BG_Arrows_16x9_loop_v1.mov",
-          "layerId": 305,
+          "layerId": 329,
           "startSec": 3,
           "lengthSec": 4
         }
@@ -2144,7 +2144,7 @@
         "placed": {
           "role": "outro",
           "name": "BG_Arrows_16x9_outro_v1.mov",
-          "layerId": 306,
+          "layerId": 330,
           "startSec": 7,
           "lengthSec": 1
         },
@@ -2226,7 +2226,7 @@
         "p": {
           "role": "outro",
           "name": "BG_Arrows_16x9_outro_v1.mov",
-          "layerId": 306,
+          "layerId": 330,
           "startSec": 7,
           "lengthSec": 1
         }
@@ -2246,7 +2246,7 @@
         "placed": {
           "role": "sound",
           "name": "SFX_WhooshIn_wav_v1.wav",
-          "layerId": 307,
+          "layerId": 331,
           "startSec": 7.2,
           "lengthSec": 0.8
         },
@@ -2328,7 +2328,7 @@
         "p": {
           "role": "sound",
           "name": "SFX_WhooshIn_wav_v1.wav",
-          "layerId": 307,
+          "layerId": 331,
           "startSec": 7.2,
           "lengthSec": 0.8
         }
@@ -2348,28 +2348,28 @@
         {
           "role": "intro",
           "name": "BG_Arrows_16x9_intro_v1.mov",
-          "layerId": 304,
+          "layerId": 328,
           "startSec": 2,
           "lengthSec": 1
         },
         {
           "role": "loop",
           "name": "BG_Arrows_16x9_loop_v1.mov",
-          "layerId": 305,
+          "layerId": 329,
           "startSec": 3,
           "lengthSec": 4
         },
         {
           "role": "outro",
           "name": "BG_Arrows_16x9_outro_v1.mov",
-          "layerId": 306,
+          "layerId": 330,
           "startSec": 7,
           "lengthSec": 1
         },
         {
           "role": "sound",
           "name": "SFX_WhooshIn_wav_v1.wav",
-          "layerId": 307,
+          "layerId": 331,
           "startSec": 7.2,
           "lengthSec": 0.8
         }
@@ -2382,7 +2382,7 @@
       "detail": {
         "role": "sound",
         "name": "SFX_WhooshIn_wav_v1.wav",
-        "layerId": 307,
+        "layerId": 331,
         "startSec": 7.2,
         "lengthSec": 0.8
       }
@@ -2509,7 +2509,7 @@
             {
               "role": "still",
               "name": "CRS_LectureFrame_16x9_spkL_v1.png",
-              "layerId": 309,
+              "layerId": 333,
               "startSec": 2,
               "lengthSec": 28
             }
@@ -2533,7 +2533,7 @@
         "placed": {
           "role": "still",
           "name": "CRS_LectureFrame_16x9_spkL_v1.png",
-          "layerId": 309,
+          "layerId": 333,
           "startSec": 2,
           "lengthSec": 28
         },
@@ -2571,7 +2571,7 @@
         "p": {
           "role": "still",
           "name": "CRS_LectureFrame_16x9_spkL_v1.png",
-          "layerId": 309,
+          "layerId": 333,
           "startSec": 2,
           "lengthSec": 28
         }
@@ -2595,7 +2595,7 @@
           {
             "role": "still",
             "name": "CRS_LectureFrame_16x9_spkL_v1.png",
-            "layerId": 309,
+            "layerId": 333,
             "startSec": 2,
             "lengthSec": 28
           }
@@ -2627,7 +2627,7 @@
         "data": {
           "found": true,
           "name": "CRS_LectureFrame_16x9_spkL_v1.png",
-          "layerId": 309
+          "layerId": 333
         }
       }
     },
@@ -2678,7 +2678,7 @@
             {
               "role": "loop",
               "name": "CRS_LectureFrame_16x9_s169_drift_v1.mov",
-              "layerId": 311,
+              "layerId": 335,
               "startSec": 2,
               "lengthSec": 90
             }
@@ -2702,7 +2702,7 @@
         "placed": {
           "role": "loop",
           "name": "CRS_LectureFrame_16x9_s169_drift_v1.mov",
-          "layerId": 311,
+          "layerId": 335,
           "startSec": 2,
           "lengthSec": 90
         },
@@ -2740,7 +2740,7 @@
         "p": {
           "role": "loop",
           "name": "CRS_LectureFrame_16x9_s169_drift_v1.mov",
-          "layerId": 311,
+          "layerId": 335,
           "startSec": 2,
           "lengthSec": 90
         }
@@ -2764,7 +2764,7 @@
           {
             "role": "loop",
             "name": "CRS_LectureFrame_16x9_s169_drift_v1.mov",
-            "layerId": 311,
+            "layerId": 335,
             "startSec": 2,
             "lengthSec": 90
           }
@@ -2812,7 +2812,7 @@
         "data": {
           "found": true,
           "name": "CRS_LectureFrame_16x9_s169_drift_v1.mov",
-          "layerId": 311
+          "layerId": 335
         }
       }
     },
@@ -2863,7 +2863,7 @@
             {
               "role": "loop",
               "name": "BG_Rack_16x9_dark_v1.mov",
-              "layerId": 313,
+              "layerId": 337,
               "startSec": 2,
               "lengthSec": 20
             }
@@ -2887,7 +2887,7 @@
         "placed": {
           "role": "loop",
           "name": "BG_Rack_16x9_dark_v1.mov",
-          "layerId": 313,
+          "layerId": 337,
           "startSec": 2,
           "lengthSec": 20
         },
@@ -2925,7 +2925,7 @@
         "p": {
           "role": "loop",
           "name": "BG_Rack_16x9_dark_v1.mov",
-          "layerId": 313,
+          "layerId": 337,
           "startSec": 2,
           "lengthSec": 20
         }
@@ -2949,7 +2949,7 @@
           {
             "role": "loop",
             "name": "BG_Rack_16x9_dark_v1.mov",
-            "layerId": 313,
+            "layerId": 337,
             "startSec": 2,
             "lengthSec": 20
           }
@@ -2980,7 +2980,7 @@
         {
           "role": "loop",
           "name": "BG_Rack_16x9_dark_v1.mov",
-          "layerId": 313,
+          "layerId": 337,
           "startSec": 2,
           "lengthSec": 20
         }
@@ -3011,7 +3011,7 @@
         "data": {
           "found": true,
           "name": "BG_Rack_16x9_dark_v1.mov",
-          "layerId": 313
+          "layerId": 337
         }
       }
     },
@@ -3036,14 +3036,14 @@
       "detail": []
     },
     {
-      "name": "portal: files copied next to the project (1 copied, 0 reused, 0 written)",
+      "name": "portal: files copied next to the project (0 copied, 1 reused, 0 written)",
       "pass": true,
       "required": true,
       "detail": {
-        "copied": [
+        "copied": [],
+        "reused": [
           "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov"
         ],
-        "reused": [],
         "written": []
       }
     },
@@ -3062,7 +3062,7 @@
             {
               "role": "loop",
               "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
-              "layerId": 315,
+              "layerId": 339,
               "startSec": 2,
               "lengthSec": 30
             }
@@ -3086,7 +3086,7 @@
         "placed": {
           "role": "loop",
           "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
-          "layerId": 315,
+          "layerId": 339,
           "startSec": 2,
           "lengthSec": 30
         },
@@ -3124,7 +3124,7 @@
         "p": {
           "role": "loop",
           "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
-          "layerId": 315,
+          "layerId": 339,
           "startSec": 2,
           "lengthSec": 30
         }
@@ -3148,7 +3148,7 @@
           {
             "role": "loop",
             "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
-            "layerId": 315,
+            "layerId": 339,
             "startSec": 2,
             "lengthSec": 30
           }
@@ -3196,7 +3196,7 @@
         "data": {
           "found": true,
           "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
-          "layerId": 315
+          "layerId": 339
         }
       }
     },
@@ -3247,7 +3247,7 @@
             {
               "role": "loop",
               "name": "SMM_FrameNotched_16x9_green_drift_v1.mov",
-              "layerId": 317,
+              "layerId": 341,
               "startSec": 2,
               "lengthSec": 75
             }
@@ -3271,7 +3271,7 @@
         "placed": {
           "role": "loop",
           "name": "SMM_FrameNotched_16x9_green_drift_v1.mov",
-          "layerId": 317,
+          "layerId": 341,
           "startSec": 2,
           "lengthSec": 75
         },
@@ -3309,7 +3309,7 @@
         "p": {
           "role": "loop",
           "name": "SMM_FrameNotched_16x9_green_drift_v1.mov",
-          "layerId": 317,
+          "layerId": 341,
           "startSec": 2,
           "lengthSec": 75
         }
@@ -3333,7 +3333,7 @@
           {
             "role": "loop",
             "name": "SMM_FrameNotched_16x9_green_drift_v1.mov",
-            "layerId": 317,
+            "layerId": 341,
             "startSec": 2,
             "lengthSec": 75
           }
@@ -3381,7 +3381,359 @@
         "data": {
           "found": true,
           "name": "SMM_FrameNotched_16x9_green_drift_v1.mov",
-          "layerId": 317
+          "layerId": 341
+        }
+      }
+    },
+    {
+      "name": "intro: POD_Intro is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "POD_Intro"
+    },
+    {
+      "name": "intro: activate: comp 133 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "BK media intro"
+      }
+    },
+    {
+      "name": "intro: planned without errors",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "intro: files copied next to the project (1 copied, 0 reused, 0 written)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "copied": [
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov"
+        ],
+        "reused": [],
+        "written": []
+      }
+    },
+    {
+      "name": "intro: inserted, every piece where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "POD_Intro_16x9_v1.mov",
+          "startSec": 2,
+          "lengthSec": 7,
+          "placed": [
+            {
+              "role": "clip",
+              "name": "POD_Intro_16x9_v1.mov",
+              "layerId": 343,
+              "startSec": 2,
+              "lengthSec": 7
+            }
+          ],
+          "imported": 1,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "intro: timeline: layers of comp 133 listed",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "intro: clip on the timeline as reported (2 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "clip",
+          "name": "POD_Intro_16x9_v1.mov",
+          "layerId": 343,
+          "startSec": 2,
+          "lengthSec": 7
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "POD_Intro_16x9_v1.mov",
+            "startSec": 2,
+            "endSec": 9,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "intro: clip ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 1,
+          "name": "POD_Intro_16x9_v1.mov",
+          "startSec": 2,
+          "endSec": 9,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": false,
+          "selected": true
+        },
+        "p": {
+          "role": "clip",
+          "name": "POD_Intro_16x9_v1.mov",
+          "layerId": 343,
+          "startSec": 2,
+          "lengthSec": 7
+        }
+      }
+    },
+    {
+      "name": "intro: clip plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov"
+    },
+    {
+      "name": "intro: length 7 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "POD_Intro_16x9_v1.mov",
+        "startSec": 2,
+        "lengthSec": 7,
+        "placed": [
+          {
+            "role": "clip",
+            "name": "POD_Intro_16x9_v1.mov",
+            "layerId": 343,
+            "startSec": 2,
+            "lengthSec": 7
+          }
+        ],
+        "imported": 1,
+        "notes": []
+      }
+    },
+    {
+      "name": "intro: the form picked 16x9 (clip)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25
+        },
+        "kind": "clip"
+      }
+    },
+    {
+      "name": "intro: backdrop #222222 left out",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "role": "clip",
+          "name": "POD_Intro_16x9_v1.mov",
+          "layerId": 343,
+          "startSec": 2,
+          "lengthSec": 7
+        }
+      ]
+    },
+    {
+      "name": "intro: probeInsert finds the file after the fact (what a timeout would read)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "data": {
+          "found": true,
+          "name": "POD_Intro_16x9_v1.mov",
+          "layerId": 343
+        }
+      }
+    },
+    {
+      "name": "outro: POD_Outro is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "POD_Outro"
+    },
+    {
+      "name": "outro: activate: comp 145 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "BK media outro"
+      }
+    },
+    {
+      "name": "outro: planned without errors",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "outro: files copied next to the project (1 copied, 0 reused, 0 written)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "copied": [
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov"
+        ],
+        "reused": [],
+        "written": []
+      }
+    },
+    {
+      "name": "outro: inserted, every piece where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "POD_Outro_16x9_v1.mov",
+          "startSec": 2,
+          "lengthSec": 10,
+          "placed": [
+            {
+              "role": "clip",
+              "name": "POD_Outro_16x9_v1.mov",
+              "layerId": 345,
+              "startSec": 2,
+              "lengthSec": 10
+            }
+          ],
+          "imported": 1,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "outro: timeline: layers of comp 145 listed",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "outro: clip on the timeline as reported (2 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "clip",
+          "name": "POD_Outro_16x9_v1.mov",
+          "layerId": 345,
+          "startSec": 2,
+          "lengthSec": 10
+        },
+        "rows": [
+          {
+            "index": 1,
+            "name": "POD_Outro_16x9_v1.mov",
+            "startSec": 2,
+            "endSec": 12,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov",
+            "loop": 1,
+            "solid": null,
+            "audioOnly": false,
+            "selected": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "outro: clip ends where reported",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "hit": {
+          "index": 1,
+          "name": "POD_Outro_16x9_v1.mov",
+          "startSec": 2,
+          "endSec": 12,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": false,
+          "selected": true
+        },
+        "p": {
+          "role": "clip",
+          "name": "POD_Outro_16x9_v1.mov",
+          "layerId": 345,
+          "startSec": 2,
+          "lengthSec": 10
+        }
+      }
+    },
+    {
+      "name": "outro: clip plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov"
+    },
+    {
+      "name": "outro: length 10 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "POD_Outro_16x9_v1.mov",
+        "startSec": 2,
+        "lengthSec": 10,
+        "placed": [
+          {
+            "role": "clip",
+            "name": "POD_Outro_16x9_v1.mov",
+            "layerId": 345,
+            "startSec": 2,
+            "lengthSec": 10
+          }
+        ],
+        "imported": 1,
+        "notes": []
+      }
+    },
+    {
+      "name": "outro: the form picked 16x9 (clip)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25
+        },
+        "kind": "clip"
+      }
+    },
+    {
+      "name": "outro: probeInsert finds the file after the fact (what a timeout would read)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "data": {
+          "found": true,
+          "name": "POD_Outro_16x9_v1.mov",
+          "layerId": 345
         }
       }
     },
@@ -3398,7 +3750,7 @@
       "detail": "C:\\CRBK\\work\\panel-live\\ae\\media_live.aep"
     },
     {
-      "name": "transfer: copied the project and Cloud.ru BrandKit to C:/CRBK/work/panel-live/ae-moved-20261023T200643",
+      "name": "transfer: copied the project and Cloud.ru BrandKit to C:/CRBK/work/panel-live/ae-moved-20261023T232327",
       "pass": true,
       "required": true,
       "detail": [
@@ -3421,22 +3773,22 @@
       }
     },
     {
-      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/ae-moved-20261023T200643/media_live.aep",
+      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/ae-moved-20261023T232327/media_live.aep",
       "pass": true,
       "required": true,
       "detail": {
-        "path": "C:/CRBK/work/panel-live/ae-moved-20261023T200643/media_live.aep",
-        "footage": 12
+        "path": "C:/CRBK/work/panel-live/ae-moved-20261023T232327/media_live.aep",
+        "footage": 14
       }
     },
     {
-      "name": "transfer: no missing files after the move (12 listed)",
+      "name": "transfer: no missing files after the move (14 listed)",
       "pass": true,
       "required": true,
       "detail": []
     },
     {
-      "name": "transfer: every file the panel put next to the project found inside the moved copy (12)",
+      "name": "transfer: every file the panel put next to the project found inside the moved copy (14)",
       "pass": true,
       "required": true,
       "detail": []
