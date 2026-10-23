@@ -36,6 +36,14 @@ export function fitExpr(pre1, wb, avail, { size = true } = {}) {
 }
 
 export const visible = (style) => `thisComp.layer("CTRL").effect("Style")(1).value == ${style} ? 100 : 0`;
+
+// Whether a text layer has words, from its source text. Text selectors read this and never sourceRectAtTime:
+// a selector that measures its own layer, or a layer whose selector measures it back, is a loop that AE breaks
+// when it evaluates a frame of the hold first (Premiere, a scrub, a single render). The selector then falls back
+// to its static Start 0 and the line stays hidden under its plate or band (2026-10-23: the last line of
+// CRS_Cover and SMM_ShortsIntro missing in Premiere; rendering from the start hid it, so the goldens passed).
+// The ink of a whitespace-only text counts as none in the transforms as well, so both sides agree.
+export const HAS_TEXT_JS = 'function hasText(n) { return String(thisComp.layer(n).text.sourceText).replace(/\\s/g, "") !== ""; }';
 export const scaleExpr = (fit) => sizeJs(fit) + '\n[100 * f, 100 * f]';
 
 // A brand-green square in the top right corner, shown by the QA checkbox (colour checks of the renders).
@@ -196,7 +204,8 @@ function blockPre(B, timeMap, size) {
     timeMap.trim(),
     'var TT = T(time);',
     'function sl(e, t) { return R.effect(e)(1).valueAtTime(t); }',
-    `function ink(n) { var r = thisComp.layer(n).sourceRectAtTime(${B.rest}, false); return r.width > 0 ? { l: r.left * f, w: r.width * f, b: (r.top + r.height) * f } : { l: 0, w: 0, b: 0 }; }`,
+    HAS_TEXT_JS,
+    `function ink(n) { if (!hasText(n)) { return { l: 0, w: 0, b: 0 }; } var r = thisComp.layer(n).sourceRectAtTime(${B.rest}, false); return r.width > 0 ? { l: r.left * f, w: r.width * f, b: (r.top + r.height) * f } : { l: 0, w: 0, b: 0 }; }`,
     `var I = [${B.texts.map((t) => `ink("${t}")`).join(', ')}];`,
     // with a second phrase: its ink, whether it is there at all, and the lines of either phrase. At B.rest
     // phrase 1 has left when there is a phrase 2: its words hang hideOffset lower than at rest
@@ -260,6 +269,31 @@ function lineJsSwap(B, li) {
   ].join('\n') + '\n';
 }
 
+// What the selectors of line li read: the speed map, the sliders, and the slots of the non-empty lines from the
+// source texts (hasText), never their ink; the same at, n, s, delays and swap as blockPre and lineJs.
+function selectorJs(B, timeMap, li) {
+  const N = B.texts.length;
+  const tm = B.timing;
+  return [
+    'var R = thisComp.layer("RIG");',
+    timeMap.trim(),
+    'var TT = T(time);',
+    'function sl(e, t) { return R.effect(e)(1).valueAtTime(t); }',
+    HAS_TEXT_JS,
+    `var H1 = [${B.texts.map((t) => `hasText("${t}")`).join(', ')}];`,
+    ...(B.swap ? [
+      `var H2 = [${B.swap.texts.map((t) => `hasText("${t}")`).join(', ')}];`,
+      `var swap = false; for (var q = 0; q < ${N}; q++) { if (H2[q]) { swap = true; } }`,
+    ] : []),
+    `var n = 0, at = [${B.texts.map(() => -1).join(', ')}];`,
+    `for (var j = 0; j < ${N}; j++) { if (H1[j]${B.swap ? ' || H2[j]' : ''}) { at[j] = n; n++; } }`,
+    `var me = at[${li}], b = n - 1 - me;`,
+    `var s = ${B.fromTop ? 'me + 1' : 'b + 1'};`,
+    `var dIn = [${tm.inDelays.join(', ')}][Math.max(0, s - 1)] || 0, dOut = ${tm.outStagger} * (n - s);`,
+    ...(B.swap ? [`var dS = ${B.swap.stagger} * (s - 1);`] : []),
+  ].join('\n') + '\n';
+}
+
 // Text of one phrase on a line: Start (and End) of its selector; out is the progress of its exit.
 function selectorExprs(spec, B, tx, line, tin, out) {
   if (B.textOut === 'start') {
@@ -317,7 +351,7 @@ export function addPlateBlock(spec, B, timeMap) {
       // (cpsp, +1.25 % in SB Sans Display Bold)
       else if (B.upper) spec.expr(t.tx, P.text, 'String(value).toUpperCase()');
       spec.expr(t.tx, P.pos, line + `[${t.x}, pb - ${geo.base} * kt]`);
-      selectorExprs(spec, B, t.tx, line, t.tin, t.out);
+      selectorExprs(spec, B, t.tx, selectorJs(B, timeMap, li), t.tin, t.out);
       // rise in layer units: the layer scale f carries it with the text
       spec.expr(t.tx, P.rise(), k + `[0, ${hide} * k, 0]`);
       spec.expr(t.tx, P.scale, scaleExpr(B.fit));

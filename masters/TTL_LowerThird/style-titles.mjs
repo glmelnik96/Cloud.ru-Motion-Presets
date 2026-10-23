@@ -4,7 +4,7 @@
 import { applyPoint } from '../../tools/dump/geometry.mjs';
 import { dumpKeys, dumpLayer, progressSegment, toBuilderKeys } from '../../tools/masters/dump-keys.mjs';
 import { layerToCompAt, shapeBoxAt } from '../../tools/masters/dump-geometry.mjs';
-import { clearOffset, fitExpr, SIZE_AT_1, scaleExpr, sizeJs, visible } from '../../tools/masters/rig-plate.mjs';
+import { clearOffset, fitExpr, HAS_TEXT_JS, SIZE_AT_1, scaleExpr, sizeJs, visible } from '../../tools/masters/rig-plate.mjs';
 import { P, rectGroup, shape, text } from '../../tools/masters/spec.mjs';
 
 const FPS = 25;
@@ -195,7 +195,7 @@ export function addTitles(spec, { layout: L, rig, nameStart, text: T, hex, timeM
   const roleS = timeMap + 'var S = thisComp.layer("RIG").effect("RoleStart")(1).valueAtTime(T(time));\n';
   spec.expr('TXT_ROLE1', P.start(), roleS + 'linear(S, 100 / 3, 200 / 3, 0, 100)');
   spec.expr('TXT_ROLE2', P.start(), roleS +
-    'var first = thisComp.layer("TXT_ROLE1").sourceRectAtTime(0, false).width <= 0;\n' +
+    HAS_TEXT_JS + '\nvar first = !hasText("TXT_ROLE1");\n' +
     'first ? linear(S, 100 / 3, 200 / 3, 0, 100) : linear(S, 200 / 3, 100, 0, 100)');
   for (const layer of ['PL_ROLE', 'PL_NAME', 'TXT_ROLE2', 'TXT_ROLE1', 'TXT_NAME', 'EDGE_ROLE', 'EDGE_NAME']) spec.expr(layer, P.opacity, visible(1));
   spec.matte('TXT_NAME', 'PL_NAME').matte('TXT_ROLE1', 'PL_ROLE').matte('TXT_ROLE2', 'PL_ROLE');

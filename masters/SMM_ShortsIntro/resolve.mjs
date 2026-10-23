@@ -17,7 +17,7 @@ import { workDir, workPath } from '../../tools/lib/work.mjs';
 import { layerToCompAt, restValueAt, shapeBoxAt } from '../../tools/masters/dump-geometry.mjs';
 import { dumpLayer } from '../../tools/masters/dump-keys.mjs';
 import { fitCube, masterLockup } from '../../tools/masters/logo.mjs';
-import { addQaPatch, canonProgress, dumpSegment, START } from '../../tools/masters/rig-plate.mjs';
+import { addQaPatch, canonProgress, dumpSegment, HAS_TEXT_JS, START } from '../../tools/masters/rig-plate.mjs';
 import { nul, P, pathGroup, precomp, rectGroup, shape, slot, Spec, text as textLayer } from '../../tools/masters/spec.mjs';
 import { SPEED_CTRL, SPEEDS, timeMapJs } from '../../tools/masters/speed.mjs';
 
@@ -174,12 +174,15 @@ export function resolveIntro(sources = loadSources()) {
   // the lines: empty ones collapse, the block shrinks to the card's room; each line rises into its band
   const linesPre = pre + [
     `var N = ${lineSlots};`,
-    `function ink(n) { var r = thisComp.layer(n).sourceRectAtTime(${REST}, false); return r.width > 0 ? { l: r.left / k, w: r.width / k } : null; }`,
+    HAS_TEXT_JS,
+    `function ink(n) { if (!hasText(n)) { return null; } var r = thisComp.layer(n).sourceRectAtTime(${REST}, false); return r.width > 0 ? { l: r.left / k, w: r.width / k } : null; }`,
     'var at = [], n = 0, m = 0;',
     'for (var i = 0; i < N.length; i++) { var e = ink(N[i]); at.push(e ? n : -1); if (e) { n++; m = Math.max(m, e.l + e.w); } }',
     `var f = m > ${Ln.room} ? ${Ln.room} / m : 1;`,
   ].join('\n') + '\n';
   const lineJs = (i) => linesPre + `var me = at[${i}], b = (${Ln.first} + Math.max(0, me) * ${Ln.step} * f) * k;\n`;
+  // the selectors: the line's slot from the source texts, never their ink (rig-plate HAS_TEXT_JS)
+  const slotJs = (i) => pre + HAS_TEXT_JS + '\n' + `var N = ${lineSlots}, me = -1, n = 0;\nfor (var i = 0; i < N.length; i++) { if (hasText(N[i])) { if (i == ${i}) { me = n; } n++; } }\n`;
 
   const spec = new Spec({ name: COMP, w: L.W, h: L.H, fps: FPS, duration: MAX_SEC });
   // bottom first: the ground, the green card, the video in the white card, the lines, the wipe, the logo on it
@@ -207,7 +210,7 @@ export function resolveIntro(sources = loadSources()) {
     spec.expr(t, P.scale, j + '[100 * f, 100 * f]');
     spec.expr(t, P.rise(), 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n' + `[0, ${Ln.rise} * k, 0]`);
     // the pack's Start 0 -> 100 over the line: the whole line comes up; two frames after the line above
-    spec.expr(t, P.start(), j + `me < 0 ? 100 : 100 * sl("LineRise", TT - me * ${tm.stagger})`);
+    spec.expr(t, P.start(), slotJs(i) + `me < 0 ? 100 : 100 * sl("LineRise", TT - me * ${tm.stagger})`);
     spec.expr(t, P.opacity, cut);
     // the band: from a leading above the baseline (any capital fits) to the pack's band bottom under it
     spec.expr(`CL_LINE${i + 1}`, P.rectSize('Band'), j + `me < 0 ? [0, 0] : [${r6(L.green.x1 - L.green.x0)} * k, (${Ln.step} + ${Ln.below}) * f * k]`);

@@ -211,6 +211,14 @@ export function resolveGuest(sources = loadSources()) {
     `var vis = last >= 0 ? Math.max(0, W - ${L.panel.off} * k * (1 - sl("PanelIn", TT) + sl("PanelOut", TT))) : 0;`,
     'var px0 = left ? X0 : X0 + W - vis, px1 = px0 + vis;',
   ].join('\n') + '\n';
+  // the selectors read only the sliders and the word counts: the geometry above measures HEAD and BIO, and a
+  // selector must not measure its own layer (rig-plate HAS_TEXT_JS)
+  const selPre = [
+    'var R = thisComp.layer("RIG");',
+    timeMap.trim(),
+    'var TT = T(time);',
+    'function sl(e, t) { return R.effect(e)(1).valueAtTime(t); }',
+  ].join('\n') + '\n';
   const wordsJs = 'function words(n) { var s = String(thisComp.layer(n).text.sourceText).split(/\\s+/), c = 0; for (var i = 0; i < s.length; i++) { if (s[i].length) { c++; } } return c; }\n' +
     'var nH = words("HEAD"), nB = words("BIO"), s = sl("Words", TT) * (nH + nB);\n';
 
@@ -233,7 +241,7 @@ export function resolveGuest(sources = loadSources()) {
   for (const t of ['HEAD', 'BIO']) {
     spec.expr(t, P.rise(), 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n' + `[0, ${X.rise} * k, 0]`);
     // one sweep over the words of both texts, the bio after the head
-    spec.expr(t, P.start(), pre + wordsJs + (t === 'HEAD' ? 'nH > 0 ? 100 * Math.min(1, Math.max(0, s / nH)) : 100' : 'nB > 0 ? 100 * Math.min(1, Math.max(0, (s - nH) / nB)) : 100'));
+    spec.expr(t, P.start(), selPre + wordsJs + (t === 'HEAD' ? 'nH > 0 ? 100 * Math.min(1, Math.max(0, s / nH)) : 100' : 'nB > 0 ? 100 * Math.min(1, Math.max(0, (s - nH) / nB)) : 100'));
     spec.matte(t, 'PANEL');
   }
   addQaPatch(spec, hex.green);
