@@ -46,6 +46,11 @@ try {
       if (comp.resolutionFactor[0] !== 1 || comp.resolutionFactor[1] !== 1) {
         comp.resolutionFactor = [1, 1];
       }
+      // a nested comp's golden without motion blur (tools/golden/comp-frames.mjs --no-motion-blur, contract C35);
+      // not restored either: the working copy is closed without saving
+      if (PARAMS.motionBlur === false) {
+        comp.motionBlur = false;
+      }
       for (var k = 0; k < PARAMS.frames.length; k++) {
         var fr = PARAMS.frames[k];
         comp.saveFrameToPng(fr.f * comp.frameDuration, new File(PARAMS.outDir + '/t' + fr.ms + '.png'));
