@@ -4,15 +4,30 @@
 var DATA = { op: PARAMS.op };
 var TPS = TICKS_PER_SECOND;
 
+// Premiere throws «Unknown error exception» from save, close and open while it still digests media just
+// imported (a 60 s PNG in MOV loop of CRS_LectureFrame, 2026-10-23): the call is tried again after a pause.
+function lvRetry(fn) {
+  var last = null;
+  for (var i = 0; i < 4; i++) {
+    try {
+      return fn();
+    } catch (e) {
+      last = e;
+      $.sleep(3000);
+    }
+  }
+  throw last;
+}
+
 function lvProject() {
   var f = new File(PARAMS.project);
   var how = 'active';
   if (!sameFsPath(String(app.project.path), f.fsName)) {
     if (f.exists) {
-      app.openDocument(f.fsName, true, true, true);
+      lvRetry(function () { app.openDocument(f.fsName, true, true, true); });
       how = 'opened';
     } else {
-      app.newProject(f.fsName);
+      lvRetry(function () { app.newProject(f.fsName); });
       how = 'created';
     }
   }
@@ -378,8 +393,8 @@ function lvStyleReset() {
 function lvTransferRelease() {
   check('project saved and closed', function () {
     var path = String(app.project.path);
-    app.project.save();
-    app.project.closeDocument(1, 0);
+    lvRetry(function () { app.project.save(); });
+    lvRetry(function () { app.project.closeDocument(1, 0); });
     return { pass: !!path, detail: path };
   });
 }
