@@ -28,6 +28,8 @@ export const MEDIA_CASES = [
   { key: 'frame_drift', id: 'CRS_LectureFrame', time: 2, values: { layout: 1, drift: true }, options: { lengthSec: 90 }, expect: { lengthSec: 90, variant: '16x9_s169_drift', kind: 'loop', loops: 2 } },
   // the rack background: the dark arrows (for a light picture: no backdrop), repeated to the length
   { key: 'rack', id: 'BG_Rack', time: 2, values: { colour: 2 }, options: { lengthSec: 20, backdrop: false }, expect: { lengthSec: 20, variant: '16x9_dark', kind: 'loop', loops: 3, backdrop: false } },
+  // the webinar screen's background: the speaker's with the timer, half its 60 s loop (opaque: no backdrop)
+  { key: 'portal', id: 'BG_WebinarPortal', time: 2, values: { layout: 2, timer: true }, options: { lengthSec: 30 }, expect: { lengthSec: 30, variant: '16x9_speaker_timer', kind: 'loop', loops: 1 } },
   // the SMM frame: the green one drifting, as long as asked
   { key: 'notched', id: 'SMM_FrameNotched', time: 2, values: { colour: 1, drift: true }, options: { lengthSec: 75 }, expect: { lengthSec: 75, variant: '16x9_green_drift', kind: 'loop', loops: 2 } },
 ];

@@ -86,6 +86,8 @@ const r1 = (v) => Math.round(v * 10) / 10;
 // that place in every frame of the case. The look is gated there, the placement by maxShift (frame px).
 export function registerParts(golden, master, parts, { search = 6 } = {}) {
   return parts.map((p) => {
+    // fixed: compared where it is (a flat patch of ground registers anywhere and drags an edge in: BG_WebinarPortal)
+    if (p.fixed) return { ...p, origin: [p.x, p.y], shift: [0, 0] };
     const reg = registerWindow(sampleWindow(golden, p.x, p.y, p.w, p.h), master, { offset: [p.x, p.y], search: p.search || search });
     return { ...p, origin: reg.origin, shift: [r1(reg.origin[0] - p.x), r1(reg.origin[1] - p.y)] };
   });

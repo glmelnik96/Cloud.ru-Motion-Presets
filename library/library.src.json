@@ -3752,6 +3752,111 @@
       ]
     },
     {
+      "id": "BG_WebinarPortal",
+      "title_ru": "Фон экрана вебинара",
+      "category": "webinars",
+      "tier": "T2",
+      "hosts": [
+        "ae",
+        "pr"
+      ],
+      "version": 1,
+      "loop": {
+        "periodFrames": 1500
+      },
+      "duration": {
+        "introSec": 0,
+        "holdSec": 60,
+        "outroSec": 0
+      },
+      "fields": [
+        {
+          "key": "layout",
+          "label_ru": "Раскладка",
+          "type": "dropdown",
+          "default": 1,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "С визуалом"
+            },
+            {
+              "index": 2,
+              "label_ru": "Со спикером"
+            }
+          ]
+        },
+        {
+          "key": "timer",
+          "label_ru": "С таймером",
+          "type": "checkbox",
+          "default": false
+        }
+      ],
+      "variants": [
+        {
+          "key": "16x9_visual",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "layout": 1,
+            "timer": false
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_visual_timer",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "layout": 1,
+            "timer": true
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_speaker",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "layout": 2,
+            "timer": false
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_speaker_timer",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "layout": 2,
+            "timer": true
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
+      ]
+    },
+    {
       "id": "AME_4K",
       "title_ru": "4K, 3840×2160",
       "category": "export",

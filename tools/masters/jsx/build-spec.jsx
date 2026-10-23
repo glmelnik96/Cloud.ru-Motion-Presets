@@ -47,6 +47,10 @@ function sbLayerProp(L, path) {
   if (kind === 'timeRemap') {
     return L.property('ADBE Time Remapping');
   }
+  if (kind === 'mask') {
+    // ['mask', maskName, matchName] — a mask of a transplanted layer (BG_WebinarPortal: the portal's moving edge)
+    return L.property('ADBE Mask Parade').property(path[1]).property(path[2]);
+  }
   throw new Error('BK_PATH: ' + path.join('/'));
 }
 
@@ -124,6 +128,35 @@ function sbLayerNames(comp) {
   return names;
 }
 
+// One change in a transplanted comp: the layer by its (unique) name, the property by spec path, a value or an
+// expression (checked: a disabled expression stops the build).
+function sbTransplantSet(comp, s) {
+  var sl = null;
+  for (var q = 1; q <= comp.numLayers; q++) {
+    if (comp.layer(q).name === s.layer) {
+      if (sl) {
+        throw new Error('BK_TRANSPLANT_SET: two layers named ' + s.layer + ' in ' + comp.name);
+      }
+      sl = comp.layer(q);
+    }
+  }
+  if (!sl) {
+    throw new Error('BK_TRANSPLANT_SET: no layer ' + s.layer + ' in ' + comp.name);
+  }
+  var sp = sbLayerProp(sl, s.path);
+  if (s.expr !== undefined) {
+    sp.expression = s.expr;
+    if (!sp.expressionEnabled) {
+      throw new Error('BK_TRANSPLANT_SET: the expression on ' + s.layer + ' ' + s.path.join('/') + ' is disabled: ' + sp.expressionError);
+    }
+  } else {
+    if (sp.expressionEnabled) {
+      sp.expressionEnabled = false;
+    }
+    sp.setValue(s.value);
+  }
+}
+
 function sbTransplant(tp) {
   var i, j, c, it;
   var f = new File(tp.aep);
@@ -154,9 +187,10 @@ function sbTransplant(tp) {
     var dup = src.duplicate();
     dup.name = c.name;
     for (j = dup.numLayers; j >= 1; j--) {
+      // a locked layer of the pack (the BG of «Оверлей со спикером», the ground of the webinar screens) can be neither
+      // removed nor lengthened nor changed locked; the master's copy keeps no locks
+      dup.layer(j).locked = false;
       if (!keep[j]) {
-        // a locked layer of the pack (the BG of «Оверлей со спикером») cannot be removed locked
-        dup.layer(j).locked = false;
         dup.layer(j).remove();
       }
     }
@@ -187,32 +221,12 @@ function sbTransplant(tp) {
       }
     }
     // set: what the master changes in the pack's layers, a value or an expression by spec path (BG_Arrows: the
-    // wandering point's wiggle made a loop; BG_Rack: the noise cycles its evolution)
+    // wandering point's wiggle made a loop; BG_Rack: the noise cycles its evolution); an entry with `comp` changes a
+    // nested comp the target uses, once all of them are known
     var sets = c.set || [];
     for (j = 0; j < sets.length; j++) {
-      var sl = null;
-      for (var sq = 1; sq <= dup.numLayers; sq++) {
-        if (dup.layer(sq).name === sets[j].layer) {
-          if (sl) {
-            throw new Error('BK_TRANSPLANT_SET: two layers named ' + sets[j].layer + ' in ' + c.name);
-          }
-          sl = dup.layer(sq);
-        }
-      }
-      if (!sl) {
-        throw new Error('BK_TRANSPLANT_SET: no layer ' + sets[j].layer + ' in ' + c.name);
-      }
-      var sp = sbLayerProp(sl, sets[j].path);
-      if (sets[j].expr !== undefined) {
-        sp.expression = sets[j].expr;
-        if (!sp.expressionEnabled) {
-          throw new Error('BK_TRANSPLANT_SET: the expression on ' + sets[j].layer + ' ' + sets[j].path.join('/') + ' is disabled: ' + sp.expressionError);
-        }
-      } else {
-        if (sp.expressionEnabled) {
-          sp.expressionEnabled = false;
-        }
-        sp.setValue(sets[j].value);
+      if (sets[j].comp === undefined) {
+        sbTransplantSet(dup, sets[j]);
       }
     }
     while (dup.markerProperty.numKeys > 0) {
@@ -227,6 +241,28 @@ function sbTransplant(tp) {
   var uses = [];
   for (i = 0; i < made.length; i++) {
     sbUses(made[i], seen, uses);
+  }
+  // changes in the nested comps (set entries with `comp`, BG_WebinarPortal: the rack's noise inside its animation)
+  for (i = 0; i < tp.comps.length; i++) {
+    var nested = tp.comps[i].set || [];
+    for (j = 0; j < nested.length; j++) {
+      if (nested[j].comp === undefined) {
+        continue;
+      }
+      var inner = null;
+      for (var u = 0; u < uses.length; u++) {
+        if (uses[u] instanceof CompItem && uses[u].name === nested[j].comp) {
+          if (inner && inner !== uses[u]) {
+            throw new Error('BK_TRANSPLANT_SET: two nested comps named ' + nested[j].comp);
+          }
+          inner = uses[u];
+        }
+      }
+      if (!inner) {
+        throw new Error('BK_TRANSPLANT_SET: no nested comp ' + nested[j].comp + ' in ' + tp.comps[i].name);
+      }
+      sbTransplantSet(inner, nested[j]);
+    }
   }
   var log = [];
   var ext = tp.extend || [];

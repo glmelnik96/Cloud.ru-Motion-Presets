@@ -1,0 +1,211 @@
+{
+  "id": "BG_WebinarPortal",
+  "_note": "Golden comparison against the webinars pack's four screens at 0 s, where the portal's edge stands where the pack's does. The screens carry the template's layers on top (titles, the logo block, the visual or the speaker, the QR, the timer), so only parts of the background are compared: the ground under the logo block, the gap between the left card and the QR, the ground right of the right card, the still arrow strip of the visual screens, the dots of the speaker's screen saver. The speaker's rack flickers on a cycled noise and is approved by eye.",
+  "preview": {
+    "_note": "Card preview per layout and timer: 6 s of the loop (opaque, no backdrop).",
+    "variant": "16x9",
+    "as": {
+      "16x9": "16x9_visual"
+    },
+    "ctrl": {
+      "Layout": 1,
+      "Timer": 0
+    },
+    "text": {},
+    "backdrop": "#222222",
+    "fps": 12.5,
+    "durationSec": 6,
+    "posterSec": 0,
+    "axes": {
+      "layout": "Layout",
+      "timer": "Timer"
+    }
+  },
+  "cases": [
+    {
+      "name": "visual",
+      "title": "С визуалом против «Заставки с вижуалом»",
+      "golden": {
+        "slug": "webinars",
+        "compSlug": "zastavka_s_vizhualom"
+      },
+      "variant": "16x9",
+      "ctrl": {
+        "Layout": 1,
+        "Timer": 0
+      },
+      "text": {},
+      "parts": [
+        {
+          "name": "under_header",
+          "x": 0,
+          "y": 120,
+          "w": 1920,
+          "h": 60,
+          "fixed": true
+        },
+        {
+          "name": "left_gap",
+          "x": 0,
+          "y": 812,
+          "w": 1000,
+          "h": 56,
+          "fixed": true
+        },
+        {
+          "name": "right_ground",
+          "x": 1846,
+          "y": 240,
+          "w": 74,
+          "h": 760,
+          "fixed": true
+        },
+        {
+          "name": "strip",
+          "x": 101,
+          "y": 561,
+          "w": 868,
+          "h": 214
+        }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        0
+      ]
+    },
+    {
+      "name": "visual_timer",
+      "title": "С визуалом и таймером против «Таймера с вижуалом»",
+      "golden": {
+        "slug": "webinars",
+        "compSlug": "taymer_s_vizhualom"
+      },
+      "variant": "16x9",
+      "ctrl": {
+        "Layout": 1,
+        "Timer": 1
+      },
+      "text": {},
+      "parts": [
+        {
+          "name": "under_header",
+          "x": 0,
+          "y": 120,
+          "w": 1920,
+          "h": 60,
+          "fixed": true
+        },
+        {
+          "name": "left_gap",
+          "x": 0,
+          "y": 812,
+          "w": 1000,
+          "h": 56,
+          "fixed": true
+        },
+        {
+          "name": "right_ground",
+          "x": 1846,
+          "y": 240,
+          "w": 74,
+          "h": 760,
+          "fixed": true
+        },
+        {
+          "name": "strip",
+          "x": 520,
+          "y": 561,
+          "w": 530,
+          "h": 214
+        }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        0
+      ]
+    },
+    {
+      "name": "speaker",
+      "title": "Со спикером против «Заставки со спикером»",
+      "golden": {
+        "slug": "webinars",
+        "compSlug": "zastavka_so_spikerom"
+      },
+      "variant": "16x9",
+      "ctrl": {
+        "Layout": 2,
+        "Timer": 0
+      },
+      "text": {},
+      "parts": [
+        {
+          "name": "under_header",
+          "x": 0,
+          "y": 120,
+          "w": 1000,
+          "h": 60,
+          "fixed": true
+        },
+        {
+          "name": "left_gap",
+          "x": 0,
+          "y": 812,
+          "w": 1000,
+          "h": 56,
+          "fixed": true
+        },
+        {
+          "name": "dots",
+          "x": 130,
+          "y": 660,
+          "w": 320,
+          "h": 110
+        }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        0
+      ]
+    },
+    {
+      "name": "speaker_timer",
+      "title": "Со спикером и таймером против «Таймера со спикером»",
+      "golden": {
+        "slug": "webinars",
+        "compSlug": "taymer_so_spikerom"
+      },
+      "variant": "16x9",
+      "ctrl": {
+        "Layout": 2,
+        "Timer": 1
+      },
+      "text": {},
+      "parts": [
+        {
+          "name": "under_header",
+          "x": 0,
+          "y": 120,
+          "w": 1000,
+          "h": 60,
+          "fixed": true
+        },
+        {
+          "name": "left_gap",
+          "x": 0,
+          "y": 812,
+          "w": 1000,
+          "h": 56,
+          "fixed": true
+        }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        0
+      ]
+    }
+  ]
+}
