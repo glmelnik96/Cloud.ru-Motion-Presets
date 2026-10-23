@@ -1,6 +1,6 @@
 {
   "id": "CRS_Cover",
-  "_note": "Golden comparison against the three covers of the courses pack («Обложка #1–#3», 2560x1440: the goldens are area-scaled by 0.75 to FHD, golden.scale), the pack's own title and label. The visual is a photo slot, empty in the master and the pack's 3D render in the goldens, so the comparison is by parts away from it: the title lines, the label, the header (logo, hatching, descriptor), the card's edge (#1), the bars (#2), the corners of the green card and of the white window (#3). «Длительность» 7 puts the wipe where #1 has it (4.96 s), 7.04 where #2 and #3 do (5.0 s). The rise, the wipe and the moving paths are moving frames: motion blur in the pack, none in the master (C35). Not gated: the logo (D18: the master logo, whiter and drawn from the brand master, not the pack's; compared by eye on the cmp pictures). Placement: the pack's #2 and #3 move lines 2 and 3 by 3 pack px (2.25 FHD) right of line 1 by hand, #1 does not; the master sets every line on one origin, so those parts may stand 3 px off. The bottom bar's part has only horizontal edges (the render lies over its step), so its place along x is not gated.",
+  "_note": "Golden comparison against the three covers of the courses pack («Обложка #1–#3», 2560x1440: the goldens are area-scaled by 0.75 to FHD, golden.scale), the pack's own title and label. The visual is a photo slot, empty in the master and the pack's 3D render in the goldens, so the comparison is by parts away from it: the title lines, the label, the header (logo, hatching, descriptor), the card's edge (#1), the bars (#2), the corners of the green card and of the white window (#3). «Длительность» 7 puts the wipe where #1 has it (4.96 s; #2 and #3 start theirs at 5.0 s) and the cover's cut at 6.0 s, where the background moves of all three end: at that length the master plays the pack's time. The rise, the wipe and the moving paths are moving frames: motion blur in the pack, none in the master (C35). Not gated: the logo (D18: the master logo, whiter and drawn from the brand master, not the pack's; compared by eye on the cmp pictures). Placement: the pack's #2 and #3 move lines 2 and 3 by 3 pack px (2.25 FHD) right of line 1 by hand, #1 does not; the master sets every line on one origin, so those parts may stand 3 px off. The bottom bar's part has only horizontal edges (the render lies over its step), so its place along x is not gated.",
   "preview": {
     "_note": "Card preview per variant: the default title, the empty visual, at the default length.",
     "variant": "16x9",
@@ -66,7 +66,7 @@
       "variant": "16x9",
       "ctrl": {
         "Variant": 2,
-        "Duration": 7.04
+        "Duration": 7
       },
       "text": "pack",
       "parts": [
@@ -107,7 +107,7 @@
       "variant": "16x9",
       "ctrl": {
         "Variant": 3,
-        "Duration": 7.04
+        "Duration": 7
       },
       "text": "pack",
       "parts": [

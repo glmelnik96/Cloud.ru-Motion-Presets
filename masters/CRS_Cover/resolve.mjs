@@ -102,14 +102,26 @@ function moveKeys(keys) {
   }));
 }
 
-// expression: the path of key vertices K mixed by a RIG slider read at real time (FHD -> comp px by k)
-function pathJs(K, slider) {
+// expression: the path of key vertices K mixed by a RIG slider (FHD -> comp px by k), read through BG with the
+// time of the path's middle key t1 (the background's second move ends at the cut, see resolveCover)
+function pathJs(K, slider, t1) {
   return [
     `var K = ${js(K)};`,
-    `var p = thisComp.layer("RIG").effect("${slider}")(1).valueAtTime(time);`,
+    `var p = thisComp.layer("RIG").effect("${slider}")(1).valueAtTime(BG(time, ${t1}));`,
     'var i = Math.min(K.length - 2, Math.max(0, Math.floor(p))), u = Math.min(1, p - i);',
     'var pts = []; for (var j = 0; j < K[i].length; j++) { pts.push([(K[i][j][0] + (K[i + 1][j][0] - K[i][j][0]) * u) * k, (K[i][j][1] + (K[i + 1][j][1] - K[i][j][1]) * u) * k]); }',
   ].join('\n');
+}
+
+// The middle key of the bars of «Обложка #2» (Position, X / Y Position and Scale of Shape Layer 6–8: 0, t1, the end).
+function barsMiddle(c2) {
+  const times = new Set();
+  for (const name of ['Shape Layer 6', 'Shape Layer 7', 'Shape Layer 8']) {
+    const walk = (p) => { if (p.keys && p.keys.length) { if (p.keys.length !== 3) throw new Error(`${name} ${p.name}: ${p.keys.length} keys`); times.add(r6(p.keys[1].time)); } for (const c of p.children || []) walk(c); };
+    for (const p of dumpLayer(c2, name).props) walk(p);
+  }
+  if (times.size !== 1) throw new Error(`Обложка #2: the bars have middle keys at ${[...times].join(', ')}`);
+  return [...times][0];
 }
 
 // The covers at rest, in FHD px.
@@ -189,6 +201,8 @@ export function coverLayout({ covers, logo, visual, visualBg }) {
     window: pathKeys(c3, 'портал маленький'),
     logo: { cube: { x0: fhd(ca[0]), y0: fhd(ca[1]), w: fhd(cz[0] - ca[0]) } },
     descriptor: { font: docOf(dumpLayer(c1, 'облачные и ИИ-сервисы')).font, text: docOf(dumpLayer(c1, 'облачные и ИИ-сервисы')).text },
+    // the bars of #2 move 0 -> t1 -> about the cut, all three on the same keys
+    bars: { t1: barsMiddle(c2) },
   };
 }
 
@@ -225,6 +239,8 @@ export function resolveCover(sources = loadSources()) {
     if (got !== want) throw new Error(`courses: ${what} ${got}, expected ${want}`);
   }
   const timeMap = timeMapJs({ introEnd: tm.introEnd, outroStart: null });
+  // where the cover is cut at the default length, at 1x: the pack's cut (#1: 6.0 s)
+  const cut0 = r6(DEFAULT_SEC - tm.wipe.length + tm.wipe.cover);
   const rig = {
     Rise1: canonProgress(tm.rises[0], tm.rises[0].t0),
     Rise2: canonProgress(tm.rises[1], tm.rises[1].t0),
@@ -269,6 +285,12 @@ export function resolveCover(sources = loadSources()) {
     'function sl(e, t) { return R.effect(e)(1).valueAtTime(t); }',
     // the clip's end (the panel writes it), the wipe at the chosen speed before it, the cover cut under it
     `var D = C.effect("Duration")(1).value, t0 = D - ${tm.wipe.length} / SPEED, cut = t0 + ${tm.wipe.cover} / SPEED;`,
+    // the background moves (card, portals, bars) as the pack's: the first one from the start; the second one in the
+    // last CUT0 - t1 seconds before the cut, where the pack plays it (a longer clip holds in between, so its start and
+    // its end look as the pack's at any length); a shorter clip squeezes the second move in. At the default length
+    // this is exactly the pack's time
+    `var CUT0 = ${cut0};`,
+    'function BG(t, t1) { if (t <= t1) { return t; } var L2 = CUT0 - t1; if (cut - t1 <= L2) { return t1 + (t - t1) * L2 / Math.max(0.001, cut - t1); } return t < cut - L2 ? t1 : CUT0 - (cut - t); }',
   ].join('\n') + '\n';
   const cut = pre + 'time < cut ? 100 : 0';
   const only = (vs) => pre + `time < cut && (${vs.map((x) => `v == ${x}`).join(' || ')}) ? 100 : 0`;
@@ -296,18 +318,18 @@ export function resolveCover(sources = loadSources()) {
   const square = (h) => [{ vertices: [[0, 0], [h, 0], [h, h], [0, h]], inTangents: [[0, 0], [0, 0], [0, 0], [0, 0]], outTangents: [[0, 0], [0, 0], [0, 0], [0, 0]], closed: true }];
   // the card of #1 (#333333) or the big portal of #3 (green); none on #2
   spec.add(shape('CARD', [pathGroup('Card', colors.card, square(100))]));
-  spec.expr('CARD', ['group', 'Card', 'Path 1', 'ADBE Vector Shape'], pre + 'var A = (function () {\n' + pathJs(L.card.keys.map((x) => x.v), 'CardMove') + '\nreturn pts; })();\n'
-    + 'var B = (function () {\n' + pathJs(L.portal.keys.map((x) => x.v), 'PortalMove') + '\nreturn pts; })();\ncreatePath(v == 3 ? B : A, [], [], true)');
+  spec.expr('CARD', ['group', 'Card', 'Path 1', 'ADBE Vector Shape'], pre + 'var A = (function () {\n' + pathJs(L.card.keys.map((x) => x.v), 'CardMove', L.card.keys[1].t) + '\nreturn pts; })();\n'
+    + 'var B = (function () {\n' + pathJs(L.portal.keys.map((x) => x.v), 'PortalMove', L.portal.keys[1].t) + '\nreturn pts; })();\ncreatePath(v == 3 ? B : A, [], [], true)');
   spec.expr('CARD', P.fill('Card'), pre + `v == 3 ? ${js(rgb(colors.green))} : ${js(rgb(colors.card))}`);
   spec.expr('CARD', P.opacity, only([1, 3]));
   // the white window of #3 (the pack's «Visual with background» is white under its matte)
   spec.add(shape('WINDOW', [pathGroup('Window', colors.white, square(100))]));
-  spec.expr('WINDOW', ['group', 'Window', 'Path 1', 'ADBE Vector Shape'], pre + pathJs(L.window.keys.map((x) => x.v), 'WindowMove') + '\ncreatePath(pts, [], [], true)');
+  spec.expr('WINDOW', ['group', 'Window', 'Path 1', 'ADBE Vector Shape'], pre + pathJs(L.window.keys.map((x) => x.v), 'WindowMove', L.window.keys[1].t) + '\ncreatePath(pts, [], [], true)');
   spec.expr('WINDOW', P.opacity, only([3]));
   // the visual's matte: the card (#1), the window (#3), the whole frame (#2)
   spec.add(shape('VMATTE', [pathGroup('Matte', colors.white, square(100))]));
-  spec.expr('VMATTE', ['group', 'Matte', 'Path 1', 'ADBE Vector Shape'], pre + 'var A = (function () {\n' + pathJs(L.card.keys.map((x) => x.v), 'CardMove') + '\nreturn pts; })();\n'
-    + 'var B = (function () {\n' + pathJs(L.window.keys.map((x) => x.v), 'WindowMove') + '\nreturn pts; })();\n'
+  spec.expr('VMATTE', ['group', 'Matte', 'Path 1', 'ADBE Vector Shape'], pre + 'var A = (function () {\n' + pathJs(L.card.keys.map((x) => x.v), 'CardMove', L.card.keys[1].t) + '\nreturn pts; })();\n'
+    + 'var B = (function () {\n' + pathJs(L.window.keys.map((x) => x.v), 'WindowMove', L.window.keys[1].t) + '\nreturn pts; })();\n'
     + 'var W = thisComp.width, H = thisComp.height;\ncreatePath(v == 1 ? A : (v == 3 ? B : [[0, 0], [W, 0], [W, H], [0, H]]), [], [], true)');
   // the visual: a photo slot the size of the pack's image, where each cover has it; #1 and #2 push in slowly
   const ph = { name: 'CR_CRS_Cover_visual', w: L.visual.img.w, h: L.visual.img.h };
@@ -315,16 +337,17 @@ export function resolveCover(sources = loadSources()) {
   const vp = L.visual.places;
   const Z = L.visual.zoom;
   spec.expr('SLOT_VISUAL', P.pos, pre + `var c = ${js(vp.map((x) => x.centre))}[v - 1];\n[c[0] * k, c[1] * k]`);
-  spec.expr('SLOT_VISUAL', P.scale, pre + `var s = ${js(vp.map((x) => x.scale))}[v - 1] * (v == 3 ? 1 : (${Z.from} + ${Z.rate} * Math.min(time, ${Z.until})) / ${Z.from});\n[100 * s * k, 100 * s * k]`);
+  spec.expr('SLOT_VISUAL', P.scale, pre + `var s = ${js(vp.map((x) => x.scale))}[v - 1] * (v == 3 ? 1 : (${Z.from} + ${Z.rate} * Math.min(time * CUT0 / cut, ${Z.until})) / ${Z.from});\n[100 * s * k, 100 * s * k]`);
   spec.expr('SLOT_VISUAL', P.opacity, cut);
   spec.matte('SLOT_VISUAL', 'VMATTE', 'ALPHA', { keepVisible: false });
   // the bars of #2: the pack's layers in their comp, in real time
-  spec.add(precomp('DECOR_BARS', 'DECOR_BARS', { collapse: true }));
+  spec.add(precomp('DECOR_BARS', 'DECOR_BARS', { collapse: true, timeRemap: true }));
   for (const d of ['DECOR_BARS']) {
     spec.expr(d, P.pos, '[thisComp.width / 2, thisComp.height / 2]');
     spec.expr(d, P.scale, 'var s = 100 * Math.min(thisComp.width, thisComp.height) / 1440;\n[s, s]');
   }
   spec.expr('DECOR_BARS', P.opacity, only([2]));
+  spec.expr('DECOR_BARS', P.timeRemap, pre + `BG(time, ${L.bars.t1})`);
   // the lines: the m-th one rises with the pack's m-th line, into its band
   for (let i = TXT.length - 1; i >= 0; i -= 1) {
     spec.add(shape(`CL_LINE${i + 1}`, [rectGroup('Band', colors.white)]));
@@ -348,7 +371,7 @@ export function resolveCover(sources = loadSources()) {
   const corner = L.portal.keys.map((x) => x.v[LABEL_CORNER]);
   spec.expr('TXT_PRODUCT', P.pos, pre + [
     `var K = ${js(corner)};`,
-    'var p = sl("PortalMove", time), i = Math.min(K.length - 2, Math.max(0, Math.floor(p))), u = Math.min(1, p - i);',
+    `var p = sl("PortalMove", BG(time, ${L.portal.keys[1].t})), i = Math.min(K.length - 2, Math.max(0, Math.floor(p))), u = Math.min(1, p - i);`,
     'var cx = K[i][0] + (K[i + 1][0] - K[i][0]) * u, cy = K[i][1] + (K[i + 1][1] - K[i][1]) * u;',
     `v == 3 ? [(cx + ${L.label.corner[0]}) * k, (cy + ${L.label.corner[1]}) * k] : [${L.label.at[0]} * k, ${L.label.at[1]} * k]`,
   ].join('\n'));

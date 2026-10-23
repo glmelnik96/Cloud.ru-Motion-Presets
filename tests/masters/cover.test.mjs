@@ -169,6 +169,31 @@ describe.skipIf(!HAS_DUMPS)('CRS_Cover', async () => {
     expect([fast.at('GROUND', P.opacity, 6.49), fast.at('GROUND', P.opacity, 6.51)]).toEqual([100, 0]);
   });
 
+  it('the background moves as the pack\'s at the start and before the cut, whatever the length; holds between', () => {
+    for (const v of [1, 2, 3]) {
+      const seven = comp({ ctrl: { Variant: v, Duration: 7 } });
+      const twenty = comp({ ctrl: { Variant: v, Duration: 20 } });
+      // the cut: 7 - 2.04 + 1.04 = 6.0 s and 19.0 s; the intro, one second before the cut, the last frame before it
+      for (const [a, b] of [[1.5, 1.5], [5, 18], [5.96, 18.96]]) {
+        expect(pathOf(twenty, 'CARD', 'Card', b)).toEqual(close(pathOf(seven, 'CARD', 'Card', a)));
+        expect(pathOf(twenty, 'WINDOW', 'Window', b)).toEqual(close(pathOf(seven, 'WINDOW', 'Window', a)));
+        expect(pathOf(twenty, 'VMATTE', 'Matte', b)).toEqual(close(pathOf(seven, 'VMATTE', 'Matte', a)));
+        expect(twenty.at('DECOR_BARS', P.timeRemap, b)).toBeCloseTo(seven.at('DECOR_BARS', P.timeRemap, a), 6);
+        expect(twenty.at('TXT_PRODUCT', P.pos, b)).toEqual(close([seven.at('TXT_PRODUCT', P.pos, a)])[0]);
+      }
+      // between the moves the card holds where the first one left it
+      expect(pathOf(twenty, 'CARD', 'Card', 10)).toEqual(close((v === 3 ? L.portal : L.card).keys[1].v));
+      // the visual's slow push-in runs on through the clip and reaches the pack's value at the cut
+      expect(twenty.at('SLOT_VISUAL', P.scale, 19)[0]).toBeCloseTo(seven.at('SLOT_VISUAL', P.scale, 6)[0], 6);
+    }
+    // at the default length the bars play the pack's time
+    const seven = comp({ ctrl: { Variant: 2, Duration: 7 } });
+    expect([1, 2.92, 4, 5.96].map((t) => seven.at('DECOR_BARS', P.timeRemap, t))).toEqual([1, 2.92, 4, 5.96].map((t) => expect.closeTo(t, 6)));
+    // a clip shorter than the default squeezes the second move in: it still ends at the cut
+    const short = comp({ ctrl: { Variant: 2, Duration: 6 } });
+    expect([2.92, 5].map((t) => short.at('DECOR_BARS', P.timeRemap, t))).toEqual([2.92, 6].map((t) => expect.closeTo(t, 6)));
+  });
+
   it('in 4K the cover is the FHD one twice as large', () => {
     for (const v of [1, 3]) {
       const fhd = comp({ ctrl: { Variant: v } });
