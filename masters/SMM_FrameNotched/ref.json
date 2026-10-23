@@ -1,0 +1,70 @@
+{
+  "id": "SMM_FrameNotched",
+  "_note": "Golden comparison against the SMM pack's overlays «Оверлей_9x16» (1080x1920) and «Оверлей_1x1» (1440x1440, scaled to 1080). At rest (0 s) the frame is the pack's; the steps' drift is on M10 (D19): the master passes the pack's turning points 15 s apart, so the master at 15 s is the pack at 4 s (9:16; the 1:1 turning points fall between the golden's key times). Green and white are the dark frame with its colour remapped. 16:9 turns the 9:16 frame a quarter: no pack frame shows it, it is approved by eye (README).",
+  "preview": {
+    "_note": "Card preview per proportion and colour: 6 s of the drift over a neutral grey from rest; named after the item's still (the form matches previews by proportion and values).",
+    "variant": "9x16",
+    "as": {
+      "9x16": "9x16_dark",
+      "1x1": "1x1_dark",
+      "16x9": "16x9_dark"
+    },
+    "ctrl": {
+      "Colour": 2
+    },
+    "text": {},
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "durationSec": 6,
+    "posterSec": 0,
+    "axes": {
+      "colour": "Colour"
+    }
+  },
+  "cases": [
+    {
+      "name": "dark916",
+      "title": "Тёмная 9:16 против «Оверлея_9x16»: покой и первая точка дрейфа",
+      "golden": { "slug": "smm", "compSlug": "overley_9x16" },
+      "variant": "9x16",
+      "ctrl": { "Colour": 2 },
+      "text": {},
+      "shift": [
+        { "from": 4.0, "to": 4.0, "by": 11 }
+      ],
+      "gate": [0, 4000]
+    },
+    {
+      "name": "green916",
+      "title": "Зелёная 9:16 против «Оверлея_9x16» в зелёном",
+      "golden": { "slug": "smm", "compSlug": "overley_9x16" },
+      "variant": "9x16",
+      "ctrl": { "Colour": 1 },
+      "text": {},
+      "remap": { "from": ["#222222", "#FFFFFF"], "to": ["#26D07C", "#FFFFFF"] },
+      "shift": [],
+      "gate": [0]
+    },
+    {
+      "name": "white916",
+      "title": "Белая 9:16 против «Оверлея_9x16» в белом",
+      "golden": { "slug": "smm", "compSlug": "overley_9x16" },
+      "variant": "9x16",
+      "ctrl": { "Colour": 3 },
+      "text": {},
+      "remap": { "from": ["#222222", "#FFFFFF"], "to": ["#FFFFFF", "#FFFFFF"] },
+      "shift": [],
+      "gate": [0]
+    },
+    {
+      "name": "dark11",
+      "title": "Тёмная 1:1 против «Оверлея_1x1» (1440 → 1080)",
+      "golden": { "slug": "smm", "compSlug": "overley_1x1", "scale": 0.75 },
+      "variant": "1x1",
+      "ctrl": { "Colour": 2 },
+      "text": {},
+      "shift": [],
+      "gate": [0]
+    }
+  ]
+}
