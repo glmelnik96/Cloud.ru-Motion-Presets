@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { canonProgress, checkCanon, dumpSegment, fitExpr, SIZE_CTRL, SIZES, visible } from '../../tools/masters/rig-plate.mjs';
+import { canonProgress, checkCanon, dumpSegment, fitExpr, hideOffset, SIZE_CTRL, SIZES, visible } from '../../tools/masters/rig-plate.mjs';
 import { keyedValue } from '../helpers/master-expr.mjs';
 
 const SEG = { frames: 23, bezier: [0.73, 0, 0.25, 1] };
@@ -42,5 +42,18 @@ describe('plate rig', () => {
     expect(new Function('thisComp', js.replace(/\n([^\n]*)$/, '\nreturn ($1);'))({ layer: () => ({ effect: () => () => ({ value: 5 }) }) })).toBe(1.6);
     expect(new Function('thisComp', js.replace('500', '800').replace(/\n([^\n]*)$/, '\nreturn ($1);'))({ layer: () => ({ effect: () => () => ({ value: 5 }) }) })).toBeCloseTo(999 / 800, 9);
     expect(visible(2)).toBe('thisComp.layer("CTRL").effect("Style")(1).value == 2 ? 100 : 0');
+  });
+
+  it('hidden words hang low enough for the tallest glyph of the font to clear the plate by a pixel', () => {
+    // SMM: the pack's 75 px left Й, Ё and б in the plate; 18.26 above its bottom + 0.886 em + 0.25 into the plate below + 1
+    const smm = { rise: 75, base: 18.263672, h: 82.5, step: 81.75 };
+    expect(hideOffset(smm, { font: 'SBSansDisplay-Semibold', size: 75 })).toBeCloseTo(18.263672 + 0.886 * 75 + 0.25 + 1, 6);
+    // podcast capitals: the pack's 95 px clear them already
+    expect(hideOffset({ rise: 95, base: -0.046846, h: 46.007813, step: 45.6875 }, { font: 'SBSansDisplay-Bold', size: 50, allCaps: true })).toBe(95);
+    // capitals by expression reach under the baseline as All Caps do (Q), not as у
+    const sub = { rise: 71.825, base: -0.004646, h: 66.00469, step: 75.999955 };
+    expect(hideOffset(sub, { font: 'SBSansDisplay-Bold', size: 80.75 }, { upper: true })).toBeCloseTo(0.894 * 80.75 + 0.181 * 80.75 + 1, 4);
+    expect(hideOffset(sub, { font: 'SBSansDisplay-Bold', size: 80.75 })).toBeCloseTo(0.894 * 80.75 + 0.215 * 80.75 + 1, 4);
+    expect(() => hideOffset(sub, { font: 'Arial', size: 50 })).toThrow(/glyph extents/);
   });
 });

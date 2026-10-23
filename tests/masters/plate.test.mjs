@@ -4,6 +4,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { GLYPHS } from '../../tools/masters/rig-plate.mjs';
+import { P } from '../../tools/masters/spec.mjs';
 import { exprComp } from '../helpers/master-expr.mjs';
 import { packInk, plateOf } from '../helpers/plate-ink.mjs';
 
@@ -56,6 +58,27 @@ describe.skipIf(!HAS_DUMPS)('TTL_Plate', async () => {
     const s = comp({ w: 1080, h: 1920, ctrl: { Style: 2, Position: 1 }, texts: SMM });
     expect(plateOf(s, 'PL_SMM_2', 3).h).toBeCloseTo(p.layout.smm.h, 6);
     expect(plateOf(s, 'PL_SMM_1', 3).y1).toBeCloseTo(plateOf(s, 'PL_SMM_2', 3).y0 + 1, 6);
+  });
+
+  it('hidden words hang out of their plate: no glyph of the font shows before the rise or after the exit', () => {
+    // SMM: the pack's 75 px left the tops of б, Й and Ё in the plate; the words hang 85.96 px instead. The
+    // baseline is the text's position, and the tallest glyph (0.886 em) clears the plate's bottom by a pixel
+    // (line 1: its plate reaches 1 px into the plate below)
+    const s = comp({ w: 1080, h: 1920, ctrl: { Style: 2, Position: 1 }, texts: SMM });
+    const top = GLYPHS['SBSansDisplay-Semibold'].top * p.layout.smm.size;
+    const clear = [1, 2].map((i) => {
+      const hide = s.at(`SMM_${i}`, P.rise(), 3)[1];
+      expect(hide).toBeCloseTo(85.96, 2);
+      return s.at(`SMM_${i}`, P.pos, 3)[1] + hide - top - plateOf(s, `PL_SMM_${i}`, 3).y1;
+    });
+    expect(clear).toEqual([expect.closeTo(1, 6), expect.closeTo(1.25, 6)]);
+    // the podcast style keeps the pack's 95 px: its capitals are well out of the plate with it
+    const c = comp({ ctrl: { Style: 1, Position: 1 }, texts: PACK });
+    const capsTop = GLYPHS['SBSansDisplay-Bold'].top * p.layout.podcast.size;
+    for (const i of [1, 2, 3]) {
+      expect(c.at(`TXT_LINE${i}`, P.rise(), 4)[1]).toBe(95);
+      expect(c.at(`TXT_LINE${i}`, P.pos, 4)[1] + 95 - capsTop).toBeGreaterThan(plateOf(c, `PL_POD_${i}`, 4).y1 + 30);
+    }
   });
 
   it('podcast «Авто»: the pack lines on the right, plates within 3 px (4K) of the pack', () => {

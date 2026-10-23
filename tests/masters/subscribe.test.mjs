@@ -3,6 +3,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { GLYPHS } from '../../tools/masters/rig-plate.mjs';
+import { P } from '../../tools/masters/spec.mjs';
 import { exprComp } from '../helpers/master-expr.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '../..');
@@ -54,6 +56,18 @@ describe.skipIf(!HAS_DUMPS)('TTL_Subscribe', async () => {
     expect(p.text.TXT_LINE1.style.allCaps).toBeUndefined();
     const c = comp({ ctrl: { Position: 1 }, texts: { TXT_LINE1: 'Подписывайся, ёлки!', TXT_LINE2: 'ссылки в описании' } });
     expect([c.at('TXT_LINE1', ['text'], 3), c.at('TXT_LINE2', ['text'], 3)]).toEqual(['ПОДПИСЫВАЙСЯ, ЁЛКИ!', 'ССЫЛКИ В ОПИСАНИИ']);
+  });
+
+  it('hidden words hang out of their plate: the breve of Й is not in it before the rise', () => {
+    // the pack's 71.8 px left the top of Й, Ё and Å 10.7 px deep in line 1's plate, which reaches under its Д
+    // and into line 2; the words hang 87.81 px, so that a capital Q's tail would not bring it back
+    const c = comp({ ctrl: { Position: 1 }, texts: {} });
+    const top = GLYPHS['SBSansDisplay-Bold'].top * p.layout.size;
+    for (const i of [1, 2]) {
+      const hide = c.at(`TXT_LINE${i}`, P.rise(), 3)[1];
+      expect(hide).toBeCloseTo(87.81, 2);
+      expect(c.at(`TXT_LINE${i}`, P.pos, 3)[1] + hide - top).toBeGreaterThan(plateOf(c, `PL_${i}`, 3).y1 + 1);
+    }
   });
 
   it('«Авто»: both lines centred low, line 1 reaches under its Д into line 2, as the pack', () => {

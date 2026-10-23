@@ -131,6 +131,27 @@ export function lineAt(dump, metrics, textName, plateName, t) {
   };
 }
 
+// Glyph extents of the plate fonts, em of the font size: the tallest glyph above the baseline (Й, Ё, Å), the
+// deepest below it (у; capitals only: the tail of Q, deeper than Д and the comma). Measured in AE 26.5 with
+// sourceRectAtTime at 100 px, 2026-10-23.
+export const GLYPHS = {
+  'SBSansDisplay-Semibold': { top: 0.886, bottom: 0.201, capsBottom: 0.181 },
+  'SBSansDisplay-Bold': { top: 0.894, bottom: 0.215, capsBottom: 0.181 },
+};
+
+// How far hidden words hang below their place, FHD px at text size 1: the pack's rise, or more when the top of
+// the tallest glyph would still be inside the plate. A plate reaches under its baseline by base, then by its
+// descenders or 1 px into the plate below (lineJs), and the glyph top must clear that edge by a pixel more.
+// The SMM pack's 75 px left the tops of б, Й and Ё in the plate before the rise, and ф showed as soon as a
+// word began to move (user, 2026-10-23: «текст частично виден до появления»).
+export function hideOffset(geo, style, { upper = false } = {}) {
+  const g = GLYPHS[style.font];
+  if (!g) throw new Error(`hideOffset: no glyph extents for ${style.font}`);
+  const deepest = (style.allCaps || upper ? g.capsBottom : g.bottom) * style.size;
+  const reach = Math.max(0, deepest - geo.base, geo.step - geo.h + 1);
+  return r6(Math.max(geo.rise, geo.base + g.top * style.size + reach + 1));
+}
+
 // Rig times of a block in a master of `duration`: the in keys from 0, the out keys of the LAST line to leave
 // so that its plate is gone on the last frame; the other lines read the same sliders earlier (outStagger).
 export function rigTimes(timing, duration, fps = FPS) {
@@ -152,6 +173,7 @@ export function rigTimes(timing, duration, fps = FPS) {
 function blockPre(B, timeMap, size) {
   const geo = B.geo;
   const N = B.texts.length;
+  const hide = hideOffset(geo, B.textStyle, { upper: B.upper });
   return [
     'var C = thisComp.layer("CTRL"), R = thisComp.layer("RIG");',
     'var k = Math.min(thisComp.width, thisComp.height) / 1080;',
@@ -167,11 +189,11 @@ function blockPre(B, timeMap, size) {
     `function ink(n) { var r = thisComp.layer(n).sourceRectAtTime(${B.rest}, false); return r.width > 0 ? { l: r.left * f, w: r.width * f, b: (r.top + r.height) * f } : { l: 0, w: 0, b: 0 }; }`,
     `var I = [${B.texts.map((t) => `ink("${t}")`).join(', ')}];`,
     // with a second phrase: its ink, whether it is there at all, and the lines of either phrase. At B.rest
-    // phrase 1 has left when there is a phrase 2: its words hang `rise` lower than at rest
+    // phrase 1 has left when there is a phrase 2: its words hang hideOffset lower than at rest
     ...(B.swap ? [
       `var I2 = [${B.swap.texts.map((t) => `ink("${t}")`).join(', ')}];`,
       `var swap = false; for (var q = 0; q < ${N}; q++) { if (I2[q].w > 0) { swap = true; } }`,
-      `if (swap) { for (var q1 = 0; q1 < ${N}; q1++) { if (I[q1].w > 0) { I[q1].b = I[q1].b - ${geo.rise} * k * f; } } }`,
+      `if (swap) { for (var q1 = 0; q1 < ${N}; q1++) { if (I[q1].w > 0) { I[q1].b = I[q1].b - ${hide} * k * f; } } }`,
     ] : []),
     `var n = 0, at = [${B.texts.map(() => -1).join(', ')}];`,
     `for (var j = 0; j < ${N}; j++) { if (I[j].w > 0${B.swap ? ' || I2[j].w > 0' : ''}) { at[j] = n; n++; } }`,
@@ -248,11 +270,13 @@ function selectorExprs(spec, B, tx, line, tin, out) {
 // phrase: { texts, values, source, stagger } and the sliders swapOut, resize, swapIn), place (a block its
 // master places: { side, bottom, left, avail } — expression code for the side, B0 once n is known, left(w)
 // and the room the block fits in), sizeCtrl (false: no «Размер текста» on CTRL). Every text is matted to
-// its plate, which reaches under its descenders, so words rise inside the plate and no glyph is cut.
+// its plate, which reaches under its descenders, so words rise inside the plate and no glyph is cut; hidden
+// words hang hideOffset below their place, out of the plate.
 export function addPlateBlock(spec, B, timeMap) {
   const geo = B.geo;
   const N = B.texts.length;
   if (!(B.rest > 0)) throw new Error('addPlateBlock: B.rest, a moment of the hold, is needed');
+  const hide = hideOffset(geo, B.textStyle, { upper: B.upper });
   const pre = blockPre(B, timeMap, sizeJs(B.fit));
   const widths = B.texts.map((_, i) => `width(I[${i}])`).concat(B.swap ? B.texts.map((_, i) => `width(I2[${i}])`) : []);
   spec.expr('RIG', P.slider(B.fit), fitExpr(blockPre(B, timeMap, SIZE_AT_1), `Math.max(${widths.join(', ')})`,
@@ -285,7 +309,7 @@ export function addPlateBlock(spec, B, timeMap) {
       spec.expr(t.tx, P.pos, line + `[${t.x}, pb - ${geo.base} * kt]`);
       selectorExprs(spec, B, t.tx, line, t.tin, t.out);
       // rise in layer units: the layer scale f carries it with the text
-      spec.expr(t.tx, P.rise(), k + `[0, ${geo.rise} * k, 0]`);
+      spec.expr(t.tx, P.rise(), k + `[0, ${hide} * k, 0]`);
       spec.expr(t.tx, P.scale, scaleExpr(B.fit));
       if (B.style) {
         if (t === texts[0]) spec.expr(plate, P.opacity, visible(B.style));
