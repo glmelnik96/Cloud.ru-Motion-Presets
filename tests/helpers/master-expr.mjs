@@ -19,8 +19,10 @@ export function keyedValue(keys, t) {
   return last.v;
 }
 
-// AE's linear(t, tMin, tMax, value1, value2), clamped.
-const LIB = 'function linear(t, a, b, c, d) { var u = b === a ? 1 : (t - a) / (b - a); u = Math.max(0, Math.min(1, u)); return c + (d - c) * u; }\n';
+// AE's linear(t, tMin, tMax, value1, value2), clamped; createPath(points, inTangents, outTangents, closed) as the
+// path it makes.
+const LIB = 'function linear(t, a, b, c, d) { var u = b === a ? 1 : (t - a) / (b - a); u = Math.max(0, Math.min(1, u)); return c + (d - c) * u; }\n' +
+  'function createPath(p, i, o, c) { return { vertices: p, inTangents: i, outTangents: o, closed: c }; }\n';
 
 // The last line of an expression is its value; `value` is the property's own (pre-expression) value and
 // valueAtTime(t) its keys at t (an expression on keyed sliders and selectors remaps their time).

@@ -4,7 +4,10 @@
 // master's timing differs), then compared with the pack's golden PNGs: SSIM over black and white plus
 // alpha (tools/qa/ssim.mjs), and a golden | master | diff picture for the eye. A case with parts (lines the
 // pack placed by hand) is gated part by part after registering each one, its placement by maxShift.
-//   node tools/masters/compare.mjs --item LOGO_Shot [--case egr] [--no-render]
+// Each case's last gate frame is rendered once more, alone on a freshly opened project, as Premiere or a scrub
+// evaluates a frame of the hold first; it must match the frame rendered in sequence (C45: order-dependent
+// expressions hid the last line of CRS_Cover and SMM_ShortsIntro there, while the sequence looked right).
+//   node tools/masters/compare.mjs --item LOGO_Shot [--case egr] [--no-render] [--no-order]
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,7 +17,7 @@ import { waitForStableFiles } from '../golden/png.mjs';
 import { workPath } from '../lib/work.mjs';
 import { compareFrames, remapColours } from '../qa/ssim.mjs';
 import { sideBySide } from '../qa/side-by-side.mjs';
-import { registerWindow, sampleWindow } from '../qa/register.mjs';
+import { registerWindow, sampleWindow, scaleImage } from '../qa/register.mjs';
 import { readPng } from '../png/read-png.mjs';
 import { loadMaster, printChecks } from './build-master.mjs';
 import { packagePaths, variantPlan, withDefaults } from './package.mjs';
@@ -61,6 +64,10 @@ async function renderCase(params, c, frames) {
   const sizes = await waitForStableFiles(frames.map((f) => f.file), { timeoutMs: 300000 });
   return { since, wait: { ok: true, sizes } };
 }
+
+// A frame rendered alone and the same frame rendered in sequence come from one project: they match to the bit
+// unless an expression depends on the order frames are evaluated in.
+const ORDER_MIN = 0.999;
 
 async function closeProject(params) {
   const body = composeProbe(['spikes/lib/ae-project.jsx'], { workDir: params.workDir }) +
@@ -114,12 +121,29 @@ if (isMain) {
         const r = await renderCase(params, c, frames);
         if (!r.wait.ok) throw new Error(`${c.name}: frames missing ${JSON.stringify(r.wait).slice(0, 300)}`);
       }
+      let order = null;
+      const last = [...frames].reverse().find((f) => f.gate);
+      if (last && !argv.includes('--no-render') && !argv.includes('--no-order')) {
+        const alone = { ...last, file: path.posix.join(dir, `alone_t${last.ms}.png`) };
+        await closeProject(params);
+        await renderCase(params, c, [alone]);
+        const res = compareFrames(readPng(last.file), readPng(alone.file), {});
+        order = { ms: last.ms, ssim: res.ssim, pass: res.ssim >= ORDER_MIN };
+        if (!order.pass) failed += 1;
+        console.log(`${c.name} t${last.ms}: alone on a fresh project vs in sequence ssim ${res.ssim.toFixed(4)}` +
+          (order.pass ? '  PASS' : '  FAIL (the result depends on the order frames are evaluated in, C45)'));
+      }
       const rows = [];
       // A golden canvas smaller than the frame (crop) is registered once, on the first gate frame, and the
       // same window is used for every frame of the case (moving frames must not be re-aligned).
       let origin = null;
-      // crop.golden: compare a part of the golden frame (e.g. a title inside a full webinar screen)
-      const goldenPart = (img) => (c.crop && c.crop.golden ? sampleWindow(img, c.crop.golden.x, c.crop.golden.y, c.crop.golden.w, c.crop.golden.h) : img);
+      // golden.scale: the pack drew the golden at another size (CRS_Cover: 2560x1440, 0.75 of it is FHD), resized
+      // by area first; crop.golden: compare a part of the golden frame (e.g. a title inside a full webinar screen)
+      const sized = (img) => (c.golden.scale ? scaleImage(img, Math.round(img.width * c.golden.scale), Math.round(img.height * c.golden.scale)) : img);
+      const goldenPart = (img0) => {
+        const img = sized(img0);
+        return c.crop && c.crop.golden ? sampleWindow(img, c.crop.golden.x, c.crop.golden.y, c.crop.golden.w, c.crop.golden.h) : img;
+      };
       if (c.crop) {
         const ref = frames.find((f) => f.gate) || frames[0];
         const reg = registerWindow(goldenPart(readPng(workPath('golden', c.golden.slug, c.golden.compSlug, `t${ref.ms}.png`))), readPng(ref.file),
@@ -153,7 +177,7 @@ if (isMain) {
           (pr ? `; by part ${pr.map((x) => `${x.name} ${x.ssim.toFixed(4)}`).join(', ')}` : '') + (f.gate ? (pass ? '  PASS' : '  FAIL') : '  view'));
       }
       report.cases.push({ name: c.name, title: c.title, golden: c.golden, ctrl: c.ctrl, text: c.text, origin,
-        parts: parts && parts.map((p) => ({ name: p.name, rect: [p.x, p.y, p.w, p.h], shift: p.shift })), rows });
+        parts: parts && parts.map((p) => ({ name: p.name, rect: [p.x, p.y, p.w, p.h], shift: p.shift })), order, rows });
     }
   } finally {
     if (!argv.includes('--no-render')) await closeProject(params).catch((e) => console.error('close: ' + e.message));

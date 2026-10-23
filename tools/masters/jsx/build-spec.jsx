@@ -83,16 +83,33 @@ function sbUses(comp, seen, out) {
 }
 
 // A longer comp: layers that ran to its end run to the new end (a precomp layer only as far as its source).
-function sbExtend(comp, d) {
+// all: every layer runs to the new end (decor whose layers the pack ends before its comp does: the master
+// cuts them itself), else only the layers that ran to the old end
+function sbExtend(comp, d, all) {
   var old = comp.duration;
   comp.duration = d;
   for (var i = 1; i <= comp.numLayers; i++) {
     var L = comp.layer(i);
-    if (Math.abs(L.outPoint - old) < 1e-6) {
+    if (all || Math.abs(L.outPoint - old) < 1e-6) {
       L.outPoint = d;
     }
   }
-  return comp.name + ' ' + old + ' -> ' + comp.duration + ' s';
+  return comp.name + ' ' + old + ' -> ' + comp.duration + ' s' + (all ? ' (every layer)' : '');
+}
+
+// The one pack comp a transplant (or one of its target comps) takes its layers from.
+function sbTransplantSource(all, s) {
+  var hits = [];
+  for (var i = 0; i < all.length; i++) {
+    var it = all[i];
+    if (it instanceof CompItem && it.name === s.name && it.width === s.w && it.height === s.h && it.numLayers === s.layers) {
+      hits.push(it);
+    }
+  }
+  if (hits.length !== 1) {
+    throw new Error('BK_TRANSPLANT_SOURCE: ' + s.name + ' x' + hits.length);
+  }
+  return hits[0];
 }
 
 function sbLayerNames(comp) {
@@ -118,21 +135,11 @@ function sbTransplant(tp) {
     throw new Error('BK_IMPORT: ' + tp.aep);
   }
   var all = sbFolderItems(root, []);
-  var hits = [];
-  for (i = 0; i < all.length; i++) {
-    it = all[i];
-    if (it instanceof CompItem && it.name === tp.source.name && it.width === tp.source.w && it.height === tp.source.h &&
-      it.numLayers === tp.source.layers) {
-      hits.push(it);
-    }
-  }
-  if (hits.length !== 1) {
-    throw new Error('BK_TRANSPLANT_SOURCE: ' + tp.source.name + ' x' + hits.length);
-  }
-  var src = hits[0];
   var made = [];
   for (i = 0; i < tp.comps.length; i++) {
     c = tp.comps[i];
+    // a target comp may come from its own pack comp (CRS_Cover: the header of one cover, the bars of another)
+    var src = sbTransplantSource(all, c.source || tp.source);
     var keep = {};
     for (j = 0; j < c.keep.length; j++) {
       if (src.layer(c.keep[j].index).name !== c.keep[j].name) {
@@ -146,6 +153,23 @@ function sbTransplant(tp) {
       if (!keep[j]) {
         dup.layer(j).remove();
       }
+    }
+    // kept for their children only (a parent whose picture the master draws itself): no video
+    var hide = c.hide || [];
+    for (j = 0; j < hide.length; j++) {
+      var hl = null;
+      for (var q = 1; q <= dup.numLayers; q++) {
+        if (dup.layer(q).name === hide[j]) {
+          if (hl) {
+            throw new Error('BK_TRANSPLANT_HIDE: two layers named ' + hide[j] + ' in ' + c.name);
+          }
+          hl = dup.layer(q);
+        }
+      }
+      if (!hl) {
+        throw new Error('BK_TRANSPLANT_HIDE: no layer ' + hide[j] + ' in ' + c.name);
+      }
+      hl.enabled = false;
     }
     while (dup.markerProperty.numKeys > 0) {
       dup.markerProperty.removeKey(1);
@@ -179,7 +203,7 @@ function sbTransplant(tp) {
   }
   for (i = 0; i < tp.comps.length; i++) {
     if (tp.comps[i].duration) {
-      log.push(sbExtend(made[i], tp.comps[i].duration));
+      log.push(sbExtend(made[i], tp.comps[i].duration, tp.comps[i].extendLayers === true));
     }
   }
   var folder = app.project.items.addFolder(tp.folder);
@@ -246,9 +270,15 @@ function sbMakeLayer(spec) {
     var anims = spec.animators || [];
     for (i = 0; i < anims.length; i++) {
       bdAddAnimator(L, anims[i].name);
-      bdAnimatorPosition(L, anims[i].name);
+      if (anims[i].position !== false) {
+        bdAnimatorPosition(L, anims[i].name);
+      }
       if (anims[i].opacity !== undefined) {
         bdAnimatorProp(L, anims[i].name, 'ADBE Text Opacity').setValue(anims[i].opacity);
+      }
+      // a fill over the whole text (its colour by expression: CRS_Cover's lines dark on the green variant)
+      if (anims[i].fill) {
+        bdAnimatorProp(L, anims[i].name, 'ADBE Text Fill Color').setValue([anims[i].fill[0], anims[i].fill[1], anims[i].fill[2], 1]);
       }
       bdRangeSelector(L, anims[i].name, anims[i].basedOn);
     }
@@ -263,7 +293,9 @@ function sbMakeLayer(spec) {
       L.timeRemapEnabled = true;
     }
     bdSpan(L, SB.comp.duration);
-    L.collapseTransformation = false;
+    // collapse: the decor's vector layers render at the size of the frame (CRS_Cover's 2560x1440 decor is scaled
+    // up 1.5 times in the 4K variant; rasterized at its own size it would come out soft)
+    L.collapseTransformation = spec.collapse === true;
   } else if (spec.type === 'slot') {
     // a Media Replacement slot (C28): a placeholder comp of the slot's frame, empty or with the default content
     // (placeholder.layers, built inside it the same way); an alternate source is wrapped by AE into a comp of

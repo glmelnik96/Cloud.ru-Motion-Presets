@@ -35,6 +35,53 @@ export function sampleWindow(src, ox, oy, w, h) {
   return { width: w, height: h, data: out };
 }
 
+// The image at w x h by area averaging (each output pixel is the mean of the source area it covers), on
+// premultiplied RGBA: a golden of a pack drawn at another size than the master's variants (CRS_Cover: the
+// courses pack's 2560x1440 against FHD).
+export function scaleImage(src, w, h) {
+  const img = load(src);
+  const W = img.width;
+  const H = img.height;
+  const d = img.data;
+  // per output index along an axis: the source indices it covers and their share
+  const taps = (n, m) => Array.from({ length: m }, (_, o) => {
+    const a = (o * n) / m;
+    const b = ((o + 1) * n) / m;
+    const list = [];
+    for (let i = Math.floor(a); i < Math.min(n, Math.ceil(b)); i += 1) {
+      const part = Math.min(b, i + 1) - Math.max(a, i);
+      if (part > 1e-9) list.push([i, part / (b - a)]);
+    }
+    return list;
+  });
+  const tx = taps(W, w);
+  const ty = taps(H, h);
+  const pre = new Float64Array(W * H * 4);
+  for (let i = 0; i < W * H; i += 1) {
+    const a = d[i * 4 + 3];
+    pre[i * 4 + 3] = a;
+    for (let c = 0; c < 3; c += 1) pre[i * 4 + c] = d[i * 4 + c] * a / 255;
+  }
+  const mid = new Float64Array(w * H * 4);
+  for (let y = 0; y < H; y += 1) {
+    for (let x = 0; x < w; x += 1) {
+      const o = (y * w + x) * 4;
+      for (const [i, share] of tx[x]) for (let c = 0; c < 4; c += 1) mid[o + c] += pre[(y * W + i) * 4 + c] * share;
+    }
+  }
+  const out = Buffer.alloc(w * h * 4);
+  for (let y = 0; y < h; y += 1) {
+    for (let x = 0; x < w; x += 1) {
+      const v = [0, 0, 0, 0];
+      for (const [j, share] of ty[y]) for (let c = 0; c < 4; c += 1) v[c] += mid[(j * w + x) * 4 + c] * share;
+      const o = (y * w + x) * 4;
+      out[o + 3] = Math.round(v[3]);
+      for (let c = 0; c < 3; c += 1) out[o + c] = v[3] > 0 ? Math.min(255, Math.round(v[c] * 255 / v[3])) : 0;
+    }
+  }
+  return { width: w, height: h, data: out };
+}
+
 // Mean absolute difference of luma-over-grey between the golden and a master window, on a grid of
 // sample points (every `step` px) so the search stays fast on 4K frames.
 function mad(golden, master, ox, oy, step) {
