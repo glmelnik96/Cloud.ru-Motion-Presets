@@ -1843,6 +1843,46 @@
       ]
     },
     {
+      "id": "POD_Outro",
+      "title_ru": "Аутро подкаста",
+      "category": "podcast",
+      "tier": "T2",
+      "hosts": [
+        "ae",
+        "pr"
+      ],
+      "version": 1,
+      "duration": {
+        "introSec": 0,
+        "holdSec": 10,
+        "outroSec": 0
+      },
+      "variants": [
+        {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
+      ]
+    },
+    {
       "id": "SMM_ShortsIntro",
       "title_ru": "Интро шортсов",
       "category": "smm",

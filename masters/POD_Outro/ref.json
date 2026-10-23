@@ -1,0 +1,55 @@
+{
+  "id": "POD_Outro",
+  "_note": "Golden comparison against the podcast pack's OUTRO (4K, scaled to FHD): the frozen logo shot is gated on the lockup window, registered to the subpixel (the 4K golden scaled to FHD antialiases its edges unlike a FHD render), the way in is viewed by eye — the pack's copy of «Есть где развернуться» runs on its own timing (its caption slides until 2.40 s), the master on LOGO_Shot's («Умное облако», M6). 9:16 is not in the pack: it is LOGO_Shot's stacked layout, approved there.",
+  "preview": {
+    "_note": "Card preview per proportion: the way in and a second of the hold (opaque, no backdrop). The poster: the frozen frame.",
+    "variant": "16x9",
+    "ctrl": {},
+    "text": {},
+    "backdrop": "#222222",
+    "fps": 12.5,
+    "durationSec": 4,
+    "posterSec": 3
+  },
+  "cases": [
+    {
+      "name": "outro169",
+      "title": "16:9 против OUTRO пакета",
+      "golden": {
+        "slug": "podcast",
+        "compSlug": "outro",
+        "scale": 0.5
+      },
+      "variant": "16x9",
+      "ctrl": {},
+      "text": {},
+      "crop": {
+        "golden": {
+          "x": 568,
+          "y": 490,
+          "w": 784,
+          "h": 100
+        },
+        "offset": [
+          568,
+          490
+        ],
+        "search": 2
+      },
+      "gate": [
+        3000,
+        6000,
+        9960
+      ],
+      "view": [
+        240,
+        520,
+        760,
+        1000,
+        1520,
+        2000,
+        2520
+      ]
+    }
+  ]
+}

@@ -39,7 +39,7 @@ function fakeBuild(ids, opts = {}) {
       // a clip (.mov) per format and colour; a background loop a .mov per format
       const v = item.variants.find((x) => x.key === f.key);
       const drift = v && v.options && 'drift' in v.options;
-      const ext = item.textStyle ? 'prtextstyle' : item.cutFrame !== undefined ? 'mov' : drift ? (v.options.drift ? 'mov' : 'png') : item.loop ? 'mov' : f.key;
+      const ext = item.textStyle ? 'prtextstyle' : item.cutFrame !== undefined ? 'mov' : drift ? (v.options.drift ? 'mov' : 'png') : item.loop || item.tier === 'T2' ? 'mov' : f.key;
       const p = path.join(build, f.anyExt ? `${f.from}.${ext}` : f.from);
       if (f.from.endsWith('.mogrt')) mogrtFor(item, p, opts);
       else {
