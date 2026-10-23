@@ -1,10 +1,10 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-23T16:53:57.566Z",
-  "finishedAt": "2026-10-23T16:54:13.903Z",
+  "startedAt": "2026-10-23T17:59:21.838Z",
+  "finishedAt": "2026-10-23T17:59:32.780Z",
   "summary": {
-    "checks": 312,
-    "passed": 312,
+    "checks": 313,
+    "passed": 313,
     "failed": 0
   },
   "failed": [],
@@ -1219,14 +1219,14 @@
       "detail": []
     },
     {
-      "name": "transition: files copied next to the project (0 copied, 1 reused, 0 written)",
+      "name": "transition: files copied next to the project (1 copied, 0 reused, 0 written)",
       "pass": true,
       "required": true,
       "detail": {
-        "copied": [],
-        "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_v1.mov"
+        "copied": [
+          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov"
         ],
+        "reused": [],
         "written": []
       }
     },
@@ -1238,16 +1238,16 @@
         "ok": true,
         "problems": [],
         "reply": {
-          "name": "TRN_StepWipe_16x9_v1.mov",
-          "startSec": 11.52,
-          "lengthSec": 1,
+          "name": "TRN_StepWipe_16x9_dark_v1.mov",
+          "startSec": 11.16,
+          "lengthSec": 1.68,
           "placed": [
             {
               "role": "transition",
-              "name": "TRN_StepWipe_16x9_v1.mov",
+              "name": "TRN_StepWipe_16x9_dark_v1.mov",
               "layerId": 99,
-              "startSec": 11.52,
-              "lengthSec": 1
+              "startSec": 11.16,
+              "lengthSec": 1.68
             }
           ],
           "imported": 1,
@@ -1262,24 +1262,24 @@
       "detail": ""
     },
     {
-      "name": "transition: transition on the timeline as reported (11.52 s)",
+      "name": "transition: transition on the timeline as reported (11.16 s)",
       "pass": true,
       "required": true,
       "detail": {
         "placed": {
           "role": "transition",
-          "name": "TRN_StepWipe_16x9_v1.mov",
+          "name": "TRN_StepWipe_16x9_dark_v1.mov",
           "layerId": 99,
-          "startSec": 11.52,
-          "lengthSec": 1
+          "startSec": 11.16,
+          "lengthSec": 1.68
         },
         "rows": [
           {
             "index": 1,
-            "name": "TRN_StepWipe_16x9_v1.mov",
-            "startSec": 11.52,
-            "endSec": 12.52,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_v1.mov",
+            "name": "TRN_StepWipe_16x9_dark_v1.mov",
+            "startSec": 11.16,
+            "endSec": 12.84,
+            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -1295,10 +1295,10 @@
       "detail": {
         "hit": {
           "index": 1,
-          "name": "TRN_StepWipe_16x9_v1.mov",
-          "startSec": 11.52,
-          "endSec": 12.52,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_v1.mov",
+          "name": "TRN_StepWipe_16x9_dark_v1.mov",
+          "startSec": 11.16,
+          "endSec": 12.84,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -1306,10 +1306,10 @@
         },
         "p": {
           "role": "transition",
-          "name": "TRN_StepWipe_16x9_v1.mov",
+          "name": "TRN_StepWipe_16x9_dark_v1.mov",
           "layerId": 99,
-          "startSec": 11.52,
-          "lengthSec": 1
+          "startSec": 11.16,
+          "lengthSec": 1.68
         }
       }
     },
@@ -1317,19 +1317,33 @@
       "name": "transition: transition plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_v1.mov"
+      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov"
     },
     {
-      "name": "transition: the marker of full cover (frame 12) on the current time: starts at 11.52 s",
+      "name": "transition: the form picked 16x9_dark (transition)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9_dark",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25
+        },
+        "kind": "transition"
+      }
+    },
+    {
+      "name": "transition: the marker of full cover (frame 21) on the current time: starts at 11.16 s",
       "pass": true,
       "required": true,
       "detail": [
         {
           "role": "transition",
-          "name": "TRN_StepWipe_16x9_v1.mov",
+          "name": "TRN_StepWipe_16x9_dark_v1.mov",
           "layerId": 99,
-          "startSec": 11.52,
-          "lengthSec": 1
+          "startSec": 11.16,
+          "lengthSec": 1.68
         }
       ]
     },
@@ -1341,7 +1355,7 @@
         "ok": true,
         "data": {
           "found": true,
-          "name": "TRN_StepWipe_16x9_v1.mov",
+          "name": "TRN_StepWipe_16x9_dark_v1.mov",
           "layerId": 99
         }
       }
@@ -2476,14 +2490,14 @@
       "detail": []
     },
     {
-      "name": "frame_drift: files copied next to the project (1 copied, 0 reused, 0 written)",
+      "name": "frame_drift: files copied next to the project (0 copied, 1 reused, 0 written)",
       "pass": true,
       "required": true,
       "detail": {
-        "copied": [
+        "copied": [],
+        "reused": [
           "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov"
         ],
-        "reused": [],
         "written": []
       }
     },
@@ -2653,7 +2667,7 @@
       "detail": "C:\\CRBK\\work\\panel-live\\ae\\media_live.aep"
     },
     {
-      "name": "transfer: copied the project and Cloud.ru BrandKit to C:/CRBK/work/panel-live/ae-moved-20261023T165405",
+      "name": "transfer: copied the project and Cloud.ru BrandKit to C:/CRBK/work/panel-live/ae-moved-20261023T175927",
       "pass": true,
       "required": true,
       "detail": [
@@ -2676,11 +2690,11 @@
       }
     },
     {
-      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/ae-moved-20261023T165405/media_live.aep",
+      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/ae-moved-20261023T175927/media_live.aep",
       "pass": true,
       "required": true,
       "detail": {
-        "path": "C:/CRBK/work/panel-live/ae-moved-20261023T165405/media_live.aep",
+        "path": "C:/CRBK/work/panel-live/ae-moved-20261023T175927/media_live.aep",
         "footage": 8
       }
     },
