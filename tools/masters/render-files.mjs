@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-// The files of a master that is delivered as files (spec 4.1 T2/T3; D9 CRS_LectureFrame): the stills and loops its
-// resolve lists in `files`, rendered in AE from the packaged project as the golden comparison renders
-// (tools/masters/jsx/render-case.jsx), into <work>/build/<id>/ under the names the catalog build takes:
-//   still  the frame at t                          -> <id>_<key>_v<N>.png, RGBA
-//   loop   the frames of [0, seconds), in batches  -> <id>_<key>_v<N>.mov, PNG in MOV, rgba (D24)
-// A loop stops a frame before its period, so played end to end it repeats without a seam.
+// The files of a master that is delivered as files (spec 4.1 T2/T3; D9 CRS_LectureFrame, TRN_StepWipe): the stills,
+// loops and clips its resolve lists in `files`, rendered in AE from the packaged project as the golden comparison
+// renders (tools/masters/jsx/render-case.jsx), into <work>/build/<id>/ under the names the catalog build takes:
+//   still        the frame at t                          -> <id>_<key>_v<N>.png, RGBA
+//   loop, clip   the frames of [0, seconds), in batches  -> <id>_<key>_v<N>.mov, PNG in MOV, rgba (D24)
+// A loop stops a frame before its period, so played end to end it repeats without a seam; a clip (a transition) is
+// played once.
 //   node tools/masters/render-files.mjs --item CRS_LectureFrame [--only key,key] [--keep-frames]
 import { existsSync, mkdirSync, rmSync, statSync } from 'node:fs';
 import path from 'node:path';
@@ -19,11 +20,15 @@ import { ffmpeg } from './preview.mjs';
 // Frames per host call: AE writes them after the call returns, a batch at a time keeps its queue short.
 export const BATCH = 250;
 
+// AE's saveFrameToPng stores the colour multiplied by alpha (an edge of white at alpha 64 is 64,64,64), while PNG
+// and the hosts that read the files take it straight: divided back, or every soft edge gets a dark rim.
+export const UNPREMULTIPLY = ['-vf', 'unpremultiply=inplace=1'];
+
 export function fileName(params, f) {
-  return `${params.id}_${f.key}_v${params.version}.${f.kind === 'loop' ? 'mov' : 'png'}`;
+  return `${params.id}_${f.key}_v${params.version}.${f.kind === 'still' ? 'png' : 'mov'}`;
 }
 
-// The times of a loop's frames: [0, seconds) on the frame grid of the comp.
+// The times of a loop's or a clip's frames: [0, seconds) on the frame grid of the comp.
 export function loopTimes(seconds, fps) {
   const n = Math.round(seconds * fps);
   return Array.from({ length: n }, (_, i) => Math.round((i / fps) * 1e6) / 1e6);
@@ -52,15 +57,20 @@ export async function renderFiles(id, { only = null, keepFrames = false } = {}) 
       const file = path.posix.join(params.out.dir, fileName(params, f));
       rmSync(file, { force: true });
       if (f.kind === 'still') {
-        await render(params, f, [{ t: f.t, file }]);
-      } else {
+        const raw = file.replace(/\.png$/, '.raw.png');
+        await render(params, f, [{ t: f.t, file: raw }]);
+        ffmpeg(['-i', raw, ...UNPREMULTIPLY, '-pix_fmt', 'rgba', file], `${f.key}.png`);
+        rmSync(raw, { force: true });
+      } else if (f.kind === 'loop' || f.kind === 'clip') {
         const dir = path.posix.join(params.out.dir, 'loop-frames', f.key);
         rmSync(dir, { recursive: true, force: true });
         mkdirSync(dir, { recursive: true });
         const frames = loopTimes(f.seconds, fps).map((t, i) => ({ t, file: path.posix.join(dir, `f${String(i).padStart(5, '0')}.png`) }));
         for (let i = 0; i < frames.length; i += BATCH) await render(params, f, frames.slice(i, i + BATCH));
-        ffmpeg(['-framerate', String(fps), '-i', path.posix.join(dir, 'f%05d.png'), '-c:v', 'png', '-pix_fmt', 'rgba', '-an', file], `${f.key}.mov`);
+        ffmpeg(['-framerate', String(fps), '-i', path.posix.join(dir, 'f%05d.png'), ...UNPREMULTIPLY, '-c:v', 'png', '-pix_fmt', 'rgba', '-an', file], `${f.key}.mov`);
         if (!keepFrames) rmSync(dir, { recursive: true, force: true });
+      } else {
+        throw new Error(`${f.key}: unknown kind ${f.kind}`);
       }
       if (!existsSync(file)) throw new Error(`${f.key}: ${file} was not written`);
       const bytes = statSync(file).size;

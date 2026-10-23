@@ -38,7 +38,9 @@ export function sampleWindow(src, ox, oy, w, h) {
 // The image at w x h by area averaging (each output pixel is the mean of the source area it covers), on
 // premultiplied RGBA: a golden of a pack drawn at another size than the master's variants (CRS_Cover: the
 // courses pack's 2560x1440 against FHD).
-export function scaleImage(src, w, h) {
+// premultiplied: the source colour is stored multiplied by alpha already (AE's saveFrameToPng) and so is the result,
+// as the master's frames it is compared with (TRN_StepWipe's edges).
+export function scaleImage(src, w, h, { premultiplied = false } = {}) {
   const img = load(src);
   const W = img.width;
   const H = img.height;
@@ -60,7 +62,7 @@ export function scaleImage(src, w, h) {
   for (let i = 0; i < W * H; i += 1) {
     const a = d[i * 4 + 3];
     pre[i * 4 + 3] = a;
-    for (let c = 0; c < 3; c += 1) pre[i * 4 + c] = d[i * 4 + c] * a / 255;
+    for (let c = 0; c < 3; c += 1) pre[i * 4 + c] = premultiplied ? d[i * 4 + c] : d[i * 4 + c] * a / 255;
   }
   const mid = new Float64Array(w * H * 4);
   for (let y = 0; y < H; y += 1) {
@@ -76,7 +78,10 @@ export function scaleImage(src, w, h) {
       for (const [j, share] of ty[y]) for (let c = 0; c < 4; c += 1) v[c] += mid[(j * w + x) * 4 + c] * share;
       const o = (y * w + x) * 4;
       out[o + 3] = Math.round(v[3]);
-      for (let c = 0; c < 3; c += 1) out[o + c] = v[3] > 0 ? Math.min(255, Math.round(v[c] * 255 / v[3])) : 0;
+      for (let c = 0; c < 3; c += 1) {
+        if (premultiplied) out[o + c] = Math.min(255, Math.round(v[c]));
+        else out[o + c] = v[3] > 0 ? Math.min(255, Math.round(v[c] * 255 / v[3])) : 0;
+      }
     }
   }
   return { width: w, height: h, data: out };

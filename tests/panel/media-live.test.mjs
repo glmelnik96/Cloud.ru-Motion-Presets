@@ -5,7 +5,7 @@ import vm from 'node:vm';
 import { describe, expect, it } from 'vitest';
 import { composeHost } from '../../panel/host/compose.mjs';
 import { Bridge } from '../../panel/src/bridge/bridge.ts';
-import { mediaJobs, mediaSource, MEDIA_IDS } from '../../tools/panel/media-fixtures.mjs';
+import { mediaJobs, mediaSource, MEDIA_IDS, REAL_IDS } from '../../tools/panel/media-fixtures.mjs';
 import { runMediaLive } from '../live/media.mjs';
 import { Report } from '../live/runner.mjs';
 import { toCatalogItem } from './fixtures.ts';
@@ -96,16 +96,20 @@ function dry(host) {
 }
 
 describe('live media checks, dry', () => {
-  it('makes ffmpeg jobs for every file of the synthetic pack', () => {
-    const files = SRC.items.filter((i) => MEDIA_IDS.includes(i.id)).flatMap((i) => mediaJobs(i).map((j) => j.file));
+  it('makes ffmpeg jobs for every file of the synthetic pack; the rendered items come from the real library', () => {
+    const files = SRC.items.filter((i) => MEDIA_IDS.includes(i.id) && !REAL_IDS.includes(i.id)).flatMap((i) => mediaJobs(i).map((j) => j.file));
     expect(files).toEqual([
-      'TRN_StepWipe/TRN_StepWipe_16x9_v1.mov', 'TRN_StepWipe/TRN_StepWipe_9x16_v1.mov',
       'BG_Arrows/BG_Arrows_16x9_intro_v1.mov', 'BG_Arrows/BG_Arrows_16x9_loop_v1.mov', 'BG_Arrows/BG_Arrows_16x9_outro_v1.mov',
       'BG_Arrows/BG_Arrows_9x16_intro_v1.mov', 'BG_Arrows/BG_Arrows_9x16_loop_v1.mov', 'BG_Arrows/BG_Arrows_9x16_outro_v1.mov',
       'BG_DotGrid/BG_DotGrid_16x9_v1.png', 'BG_DotGrid/BG_DotGrid_svg_v1.svg',
       'SFX_WhooshIn/SFX_WhooshIn_wav_v1.wav',
     ]);
     expect(SRC.items[0].companions.map((c) => c.ref)).toEqual(['BG_Arrows', 'SFX_WhooshIn']);
+    // the real stepped wipe takes the place of the example's stand-in: its cut frame and colours
+    const wipe = SRC.items.filter((i) => i.id === 'TRN_StepWipe');
+    expect(wipe).toHaveLength(1);
+    expect(wipe[0]).toMatchObject({ cutFrame: 21, fields: [{ key: 'colour' }] });
+    expect(mediaSource(readJson('../../library/library.src.json'), readJson('../../docs/library/example.src.json'), { rendered: [] }).items.find((i) => i.id === 'TRN_StepWipe').cutFrame).toBe(12);
   });
 
   for (const host of ['ae', 'pr']) {

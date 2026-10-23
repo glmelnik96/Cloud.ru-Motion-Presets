@@ -80,4 +80,11 @@ describe('remapColours', () => {
     const out = remapColours(img, { from: ['#222222', '#D3D3D3'], to: ['#222222', '#F2F2F2'] });
     expect([out.data[0], out.data[4], out.data[8]]).toEqual([34, 242, 137]);
   });
+  it('remaps the colour of a premultiplied edge, not its darkened value', () => {
+    // AE's saveFrameToPng: green #26D07C at alpha 64 is stored as 10,52,31; in white it is 64,64,64 at 64
+    const img = image(3, 1, (x) => [[38, 208, 124, 255], [10, 52, 31, 64], [0, 0, 0, 0]][x]);
+    const out = remapColours(img, { from: ['#26D07C', '#FFFFFF'], to: ['#FFFFFF', '#FFFFFF'], premultiplied: true });
+    expect([...out.data]).toEqual([255, 255, 255, 255, 64, 64, 64, 64, 0, 0, 0, 0]);
+    expect([...remapColours(img, { from: ['#26D07C', '#FFFFFF'], to: ['#FFFFFF', '#FFFFFF'] }).data.subarray(4, 8)]).not.toEqual([64, 64, 64, 64]);
+  });
 });

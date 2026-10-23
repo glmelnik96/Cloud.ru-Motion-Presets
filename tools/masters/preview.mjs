@@ -87,10 +87,14 @@ export function defaultCombo(combos, spec) {
 }
 
 // Template length and the poster moment (the middle of the hold) from the item's duration in library.src.json;
-// ref.preview.durationSec shortens it (CRS_LectureFrame: a few seconds of its 60 s drift show the frame).
+// ref.preview.durationSec shortens it (CRS_LectureFrame: a few seconds of its 60 s drift show the frame). An item
+// without a duration (a transition: its clip is as long as it is) takes both from ref.preview.
 export function previewSpec(item, ref = {}) {
   const spec = { ...DEFAULTS, ...(ref.preview || {}) };
-  const d = item.duration;
+  if (!item.duration && (spec.durationSec === undefined || spec.posterSec === undefined)) {
+    throw new Error(`${item.id}: no duration in the library entry: ref.preview needs durationSec and posterSec`);
+  }
+  const d = item.duration ?? { introSec: 0, holdSec: spec.durationSec, outroSec: 0 };
   const D = spec.durationSec ?? Math.round((d.introSec + d.holdSec + d.outroSec) * 1e6) / 1e6;
   const mid = d.introSec + d.holdSec / 2;
   return { ...spec, durationSec: D, posterSec: spec.posterSec ?? Math.round((spec.durationSec === undefined ? mid : Math.min(D / 2, mid)) * 1e6) / 1e6 };
@@ -107,12 +111,13 @@ const hex = (c) => '0x' + c.replace('#', '').toUpperCase();
 // Scale into a 480 px box: 16:9 and 1:1 are 480 wide, 9:16 is 480 high (even sizes).
 export const scaleFilter = (w, h) => (w >= h ? `scale=${PREVIEW_WIDTH}:-2:flags=lanczos` : `scale=-2:${PREVIEW_WIDTH}:flags=lanczos`);
 
-// ffmpeg arguments: the frames over the backdrop, scaled into the box, H.264 yuv420p.
+// ffmpeg arguments: the frames over the backdrop, scaled into the box, H.264 yuv420p. AE's saveFrameToPng stores
+// the colour multiplied by alpha: divided back first, or soft edges get a dark rim over the backdrop.
 export function videoArgs({ dir, spec, w, h, out }) {
   return [
     '-f', 'lavfi', '-i', `color=c=${hex(spec.backdrop)}:s=${w}x${h}:r=${spec.fps}`,
     '-framerate', String(spec.fps), '-i', path.posix.join(dir, 'f%04d.png'),
-    '-filter_complex', `[0:v][1:v]overlay=shortest=1:format=auto,${scaleFilter(w, h)},format=yuv420p[v]`,
+    '-filter_complex', `[1:v]unpremultiply=inplace=1[f];[0:v][f]overlay=shortest=1:format=auto,${scaleFilter(w, h)},format=yuv420p[v]`,
     '-map', '[v]', '-an', '-c:v', 'libx264', '-preset', 'slow', '-crf', '24', '-movflags', '+faststart', out,
   ];
 }
@@ -121,7 +126,7 @@ export function posterArgs({ frame, spec, w, h, out }) {
   return [
     '-f', 'lavfi', '-i', `color=c=${hex(spec.backdrop)}:s=${w}x${h}`,
     '-i', frame,
-    '-filter_complex', `[0:v][1:v]overlay=format=auto,${scaleFilter(w, h)}[v]`,
+    '-filter_complex', `[1:v]unpremultiply=inplace=1[f];[0:v][f]overlay=format=auto,${scaleFilter(w, h)}[v]`,
     '-map', '[v]', '-frames:v', '1', '-q:v', '3', out,
   ];
 }

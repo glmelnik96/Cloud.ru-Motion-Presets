@@ -21,6 +21,14 @@ describe('scaleImage', () => {
     expect(pixels(r)).toEqual([[255, 0, 0, 128]]);
   });
 
+  it('keeps a premultiplied source premultiplied (AE\'s saveFrameToPng): averages it as it is', () => {
+    // white at alpha 64 next to clear: stored 64,64,64,64 and 0,0,0,0
+    const src = img(2, 1, [[64, 64, 64, 64], [0, 0, 0, 0]]);
+    expect(pixels(scaleImage(src, 1, 1, { premultiplied: true }))).toEqual([[32, 32, 32, 32]]);
+    // read as straight it would come out white
+    expect(pixels(scaleImage(src, 1, 1))).toEqual([[64, 64, 64, 32]]);
+  });
+
   it('scales both axes: flat fields stay flat, a pixel across an edge mixes the colours by the area it covers', () => {
     const W = 6;
     const H = 2;

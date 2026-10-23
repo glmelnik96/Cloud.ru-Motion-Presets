@@ -57,6 +57,17 @@ describe('card previews', () => {
     expect(sameAs(mark.combos.find((c) => c.name === mark.def.name), mark.combos, markSpec).name).toBe('16x9_plate-on_theme-1_background-2');
   });
 
+  it('a transition has no duration: its clip length and poster come from ref.preview, one preview per proportion and colour', () => {
+    const it = item('TRN_StepWipe');
+    const spec = previewSpec(it, ref('TRN_StepWipe'));
+    expect(spec).toMatchObject({ durationSec: 1.68, posterSec: 0.64, ctrl: { Colour: 1 } });
+    expect(() => previewSpec(it, {})).toThrow(/durationSec and posterSec/);
+    const combos = previewCombos(it, spec, ['16x9', '16x9_4K', '9x16', '1x1'].map((key) => ({ key, ...{ '16x9': { w: 1920, h: 1080 }, '16x9_4K': { w: 3840, h: 2160 }, '9x16': { w: 1080, h: 1920 }, '1x1': { w: 1080, h: 1080 } }[key] })));
+    expect(combos.map((c) => c.name)).toEqual(['16x9_green_colour-1', '16x9_green_colour-2', '16x9_green_colour-3', '9x16_green_colour-1', '9x16_green_colour-2', '9x16_green_colour-3', '1x1_green_colour-1', '1x1_green_colour-2', '1x1_green_colour-3']);
+    expect(defaultCombo(combos, spec).name).toBe('16x9_green_colour-1');
+    expect(parsePreviewName('9x16_green_colour-2', it)).toEqual({ variant: '9x16_green', when: { colour: 2 } });
+  });
+
   it('names preview files and reads the names back with the types of the fields', () => {
     expect(previewName('9x16', { style: 2 })).toBe('9x16_style-2');
     expect(previewName('16x9', { plate: false, theme: 1 })).toBe('16x9_plate-off_theme-1');
@@ -78,12 +89,12 @@ describe('card previews', () => {
     const spec = { backdrop: '#5A5A5A', fps: 12.5 };
     expect(videoArgs({ dir: 'C:/w', spec, w: 1920, h: 1080, out: 'C:/o/preview.mp4' })).toEqual([
       '-f', 'lavfi', '-i', 'color=c=0x5A5A5A:s=1920x1080:r=12.5', '-framerate', '12.5', '-i', 'C:/w/f%04d.png',
-      '-filter_complex', '[0:v][1:v]overlay=shortest=1:format=auto,scale=480:-2:flags=lanczos,format=yuv420p[v]',
+      '-filter_complex', '[1:v]unpremultiply=inplace=1[f];[0:v][f]overlay=shortest=1:format=auto,scale=480:-2:flags=lanczos,format=yuv420p[v]',
       '-map', '[v]', '-an', '-c:v', 'libx264', '-preset', 'slow', '-crf', '24', '-movflags', '+faststart', 'C:/o/preview.mp4',
     ]);
     expect(posterArgs({ frame: 'C:/w/f0038.png', spec, w: 1920, h: 1080, out: 'C:/o/poster.jpg' })).toContain('C:/w/f0038.png');
     // a vertical variant fits the same 480 px box by its height
-    expect(videoArgs({ dir: 'C:/w', spec, w: 1080, h: 1920, out: 'C:/o/p.mp4' })[9]).toBe('[0:v][1:v]overlay=shortest=1:format=auto,scale=-2:480:flags=lanczos,format=yuv420p[v]');
+    expect(videoArgs({ dir: 'C:/w', spec, w: 1080, h: 1920, out: 'C:/o/p.mp4' })[9]).toBe('[1:v]unpremultiply=inplace=1[f];[0:v][f]overlay=shortest=1:format=auto,scale=-2:480:flags=lanczos,format=yuv420p[v]');
   });
 
   it.skipIf(!HAS_FFMPEG)('encodes a 480 px H.264 preview and a poster from transparent frames', () => {

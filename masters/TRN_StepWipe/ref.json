@@ -1,0 +1,107 @@
+{
+  "id": "TRN_StepWipe",
+  "_note": "Golden comparison against the courses pack's «Переход» (2560x1440, a nested comp: its frames are rendered by tools/golden/comp-frames.mjs with motion blur off, contract C35), scaled to FHD. The master starts at the pack's first shown frame (4) and holds its one frame of full cover (25) for four (spec 5): golden 0.16–1.00 s is master 0–0.84 s, golden 1.04–1.68 s is master 1.00–1.64 s, and the last frame of the hold (master 0.96 s) is golden 1.00 s too. Dark and white are the green with its colour remapped. 1:1 is the middle square of the 16:9 wipe; 4K the FHD one at 1.5 of the pack. 9:16 turns the wipe a quarter: no frame of the pack shows it, it is approved by eye (README).",
+  "preview": {
+    "_note": "Card preview per proportion and colour: the clip over a neutral grey; named after the item's variants (the form matches previews by proportion and colour). The poster: the steps half across the frame.",
+    "variant": "16x9",
+    "as": {
+      "16x9": "16x9_green",
+      "9x16": "9x16_green",
+      "1x1": "1x1_green"
+    },
+    "ctrl": {
+      "Colour": 1
+    },
+    "text": {},
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "durationSec": 1.68,
+    "posterSec": 0.64,
+    "axes": {
+      "colour": "Colour"
+    }
+  },
+  "cases": [
+    {
+      "name": "green169",
+      "title": "Зелёная 16:9 против «Перехода»",
+      "golden": { "slug": "courses", "compSlug": "perekhod", "scale": 0.75 },
+      "variant": "16x9",
+      "ctrl": { "Colour": 1 },
+      "text": {},
+      "shift": [
+        { "from": 0.16, "to": 1.0, "by": -0.16 },
+        { "from": 1.04, "to": 1.68, "by": -0.04 }
+      ],
+      "gate": [240, 400, 560, 720, 880, 1000, 1120, 1280, 1440, 1600],
+      "view": [160, 1680]
+    },
+    {
+      "name": "hold169",
+      "title": "Последний кадр удержания против кадра полного перекрытия",
+      "golden": { "slug": "courses", "compSlug": "perekhod", "scale": 0.75 },
+      "variant": "16x9",
+      "ctrl": { "Colour": 1 },
+      "text": {},
+      "shift": [
+        { "from": 1.0, "to": 1.0, "by": -0.04 }
+      ],
+      "gate": [1000]
+    },
+    {
+      "name": "dark169",
+      "title": "Тёмная 16:9 против «Перехода» в тёмном",
+      "golden": { "slug": "courses", "compSlug": "perekhod", "scale": 0.75 },
+      "variant": "16x9",
+      "ctrl": { "Colour": 2 },
+      "text": {},
+      "remap": { "from": ["#26D07C", "#FFFFFF"], "to": ["#222222", "#FFFFFF"] },
+      "shift": [
+        { "from": 0.16, "to": 1.0, "by": -0.16 },
+        { "from": 1.04, "to": 1.68, "by": -0.04 }
+      ],
+      "gate": [400, 880, 1000, 1280]
+    },
+    {
+      "name": "white169",
+      "title": "Белая 16:9 против «Перехода» в белом",
+      "golden": { "slug": "courses", "compSlug": "perekhod", "scale": 0.75 },
+      "variant": "16x9",
+      "ctrl": { "Colour": 3 },
+      "text": {},
+      "remap": { "from": ["#26D07C", "#FFFFFF"], "to": ["#FFFFFF", "#FFFFFF"] },
+      "shift": [
+        { "from": 0.16, "to": 1.0, "by": -0.16 },
+        { "from": 1.04, "to": 1.68, "by": -0.04 }
+      ],
+      "gate": [400, 880, 1000, 1280]
+    },
+    {
+      "name": "green11",
+      "title": "1:1 против середины «Перехода»",
+      "golden": { "slug": "courses", "compSlug": "perekhod", "scale": 0.75 },
+      "variant": "1x1",
+      "ctrl": { "Colour": 1 },
+      "text": {},
+      "crop": { "golden": { "x": 420, "y": 0, "w": 1080, "h": 1080 }, "offset": [0, 0], "fixed": true },
+      "shift": [
+        { "from": 0.16, "to": 1.0, "by": -0.16 },
+        { "from": 1.04, "to": 1.68, "by": -0.04 }
+      ],
+      "gate": [640, 800, 960, 1000, 1080, 1280]
+    },
+    {
+      "name": "green4K",
+      "title": "4K против «Перехода»",
+      "golden": { "slug": "courses", "compSlug": "perekhod", "scale": 1.5 },
+      "variant": "16x9_4K",
+      "ctrl": { "Colour": 1 },
+      "text": {},
+      "shift": [
+        { "from": 0.16, "to": 1.0, "by": -0.16 },
+        { "from": 1.04, "to": 1.68, "by": -0.04 }
+      ],
+      "gate": [400, 1000, 1280]
+    }
+  ]
+}

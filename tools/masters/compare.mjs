@@ -138,13 +138,19 @@ if (isMain) {
       // same window is used for every frame of the case (moving frames must not be re-aligned).
       let origin = null;
       // golden.scale: the pack drew the golden at another size (CRS_Cover: 2560x1440, 0.75 of it is FHD), resized
-      // by area first; crop.golden: compare a part of the golden frame (e.g. a title inside a full webinar screen)
-      const sized = (img) => (c.golden.scale ? scaleImage(img, Math.round(img.width * c.golden.scale), Math.round(img.height * c.golden.scale)) : img);
+      // by area first, premultiplied as AE wrote it; crop.golden: compare a part of the golden frame (e.g. a title
+      // inside a full webinar screen)
+      const sized = (img) => (c.golden.scale ? scaleImage(img, Math.round(img.width * c.golden.scale), Math.round(img.height * c.golden.scale), { premultiplied: true }) : img);
       const goldenPart = (img0) => {
         const img = sized(img0);
         return c.crop && c.crop.golden ? sampleWindow(img, c.crop.golden.x, c.crop.golden.y, c.crop.golden.w, c.crop.golden.h) : img;
       };
-      if (c.crop) {
+      if (c.crop && c.crop.fixed) {
+        // the window stands where the geometry puts it (TRN_StepWipe's 1:1, the middle of the 16:9 wipe): no
+        // registration, which on a nearly flat frame drifts by subpixels
+        origin = c.crop.offset;
+        console.log(`${c.name}: window origin ${origin.join(', ')} (fixed)`);
+      } else if (c.crop) {
         const ref = frames.find((f) => f.gate) || frames[0];
         const reg = registerWindow(goldenPart(readPng(workPath('golden', c.golden.slug, c.golden.compSlug, `t${ref.ms}.png`))), readPng(ref.file),
           { offset: c.crop.offset, search: c.crop.search || 4 });
@@ -154,7 +160,8 @@ if (isMain) {
       const goldenFile = (ms) => workPath('golden', c.golden.slug, c.golden.compSlug, `t${ms}.png`);
       const pair = (f) => {
         const g0 = goldenPart(readPng(goldenFile(f.ms)));
-        const g = c.remap ? remapColours(g0, { ...c.remap, rect: c.remap.rect || c.rect }) : g0;
+        // AE's saveFrameToPng stores the colour premultiplied: the remap moves the colour of the edges too
+        const g = c.remap ? remapColours(g0, { ...c.remap, rect: c.remap.rect || c.rect, premultiplied: true }) : g0;
         return { g, m: origin ? sampleWindow(readPng(f.file), origin[0], origin[1], g.width, g.height) : readPng(f.file) };
       };
       let parts = null;

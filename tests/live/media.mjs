@@ -15,7 +15,9 @@ const brief = (out) => ({ ok: out.ok, problems: out.problems.map((p) => p.code +
 export const MEDIA_CASES = [
   { key: 'loop', id: 'BG_Arrows', time: 2, range: 20, expect: { lengthSec: 18, backdrop: true, loops: 2 } },
   { key: 'reuse', id: 'BG_Arrows', target: 'loop', time: 30, options: { lengthSec: 12, backdrop: false }, expect: { lengthSec: 12, backdrop: false, imported: 0 } },
-  { key: 'transition', id: 'TRN_StepWipe', time: 12, edges: [0, 10, 20], expect: { startPr: 9.52, startAe: 11.52 } },
+  // the stepped wipe: its frame of full cover on the cut (Premiere: the nearest one, 10 s; AE: the current time), the
+  // colour picking the file
+  { key: 'transition', id: 'TRN_StepWipe', time: 12, edges: [0, 10, 20], values: { colour: 2 }, expect: { cutAt: { pr: 10, ae: 12 }, variant: '16x9_dark', kind: 'transition' } },
   { key: 'still', id: 'BG_DotGrid', time: 2, options: { lengthSec: 8, backdrop: false }, expect: { lengthSec: 8 } },
   { key: 'sound', id: 'SFX_WhooshIn', time: 5, expect: { lengthSec: 0.8 } },
   { key: 'companions', id: 'TTL_LowerThird', time: 2, sound: { music: false, sfx: true }, expect: { companions: ['intro', 'loop', 'outro', 'sound'], soundStart: 7.2 } },
@@ -95,7 +97,7 @@ export async function runMediaLive(o) {
         R.check(`${c.key}: ${p.role} plays the copy in «${BIN_NAME}» next to the project`, hit.file.toLowerCase().startsWith(joinPath(projectDir, BIN_NAME).toLowerCase() + '/'), hit.file);
       }
     }
-    await checkCase({ ...c, targetId: id }, { host, plan, out, rows, t, R, o });
+    await checkCase({ ...c, targetId: id }, { host, item, plan, out, rows, t, R, o });
     const first = plan.media ? (plan.media.layout.video[0] ?? plan.media.layout.audio[0]) : null;
     if (first) {
       const probe = await bridge.call('probeInsert', { targetId: ctx.target.id, startSec: out.reply.placed[0].startSec, aeComp: null, file: first.file });
@@ -106,7 +108,7 @@ export async function runMediaLive(o) {
 }
 
 // What each case adds to the generic checks.
-async function checkCase(c, { host, plan, out, rows, t, R, o }) {
+async function checkCase(c, { host, item, plan, out, rows, t, R, o }) {
   const e = c.expect;
   if (e.lengthSec !== undefined) R.check(`${c.key}: length ${e.lengthSec} s`, near(out.reply.lengthSec, e.lengthSec), out.reply);
   if (e.variant !== undefined) R.check(`${c.key}: the form picked ${e.variant} (${e.kind})`, plan.media?.variant.key === e.variant && plan.media?.kind === e.kind, plan.media && { variant: plan.media.variant, kind: plan.media.kind });
@@ -139,9 +141,10 @@ async function checkCase(c, { host, plan, out, rows, t, R, o }) {
     }
   }
   if (e.imported !== undefined) R.check(`${c.key}: nothing imported twice into «Cloud.ru BrandKit»`, out.reply.imported === e.imported, { imported: out.reply.imported, bin: t.binItems ?? t.binFootage });
-  if (e.startPr !== undefined) {
-    const want = host === 'pr' ? e.startPr : e.startAe;
-    R.check(`${c.key}: the marker of full cover (frame ${plan.media ? 12 : '?'}) on the ${host === 'pr' ? 'nearest cut' : 'current time'}: starts at ${want} s`, near(out.reply.placed[0].startSec, want), out.reply.placed);
+  if (e.cutAt !== undefined) {
+    // the case comps and sequences run at 25 fps, as the item's files
+    const want = Math.round((e.cutAt[host] - item.cutFrame / 25) * 1e6) / 1e6;
+    R.check(`${c.key}: the marker of full cover (frame ${item.cutFrame}) on the ${host === 'pr' ? 'nearest cut' : 'current time'}: starts at ${want} s`, near(out.reply.placed[0].startSec, want), out.reply.placed);
   }
   if (e.companions) {
     const cs = out.reply.companions ?? [];

@@ -198,7 +198,9 @@ export function compareFrames(srcA, srcB, { rect, backdrops = [[0, 0, 0], [255, 
 // A decided colour change applied to a golden before comparing (spec D1, e.g. the podcast plate #D3D3D3 ->
 // #F2F2F2): per channel, the line through (from[0] -> to[0]) and (from[1] -> to[1]), so anti-aliased blends
 // of the two colours (text on plate) move with them. Only pixels inside rect (default: all) change.
-export function remapColours(src, { from, to, rect }) {
+// premultiplied: the colour is stored multiplied by alpha, as AE's saveFrameToPng writes it (TRN_StepWipe: an edge
+// of the green at alpha 64 is 10,52,31): the colour itself is remapped and multiplied back.
+export function remapColours(src, { from, to, rect, premultiplied = false }) {
   const img = load(src);
   const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
   const [a0, a1] = from.map(hex);
@@ -208,10 +210,13 @@ export function remapColours(src, { from, to, rect }) {
   for (let y = r.y; y < r.y + r.h; y += 1) {
     for (let x = r.x; x < r.x + r.w; x += 1) {
       const i = (y * img.width + x) * 4;
+      const a = img.data[i + 3];
       for (let c = 0; c < 3; c += 1) {
+        const v = premultiplied ? (a ? (img.data[i + c] * 255) / a : 0) : img.data[i + c];
         const span = a1[c] - a0[c];
-        const t = span ? (img.data[i + c] - a0[c]) / span : 0;
-        out.data[i + c] = Math.max(0, Math.min(255, Math.round(b0[c] + t * (b1[c] - b0[c]))));
+        const t = span ? (v - a0[c]) / span : 0;
+        const w = b0[c] + t * (b1[c] - b0[c]);
+        out.data[i + c] = Math.max(0, Math.min(255, Math.round(premultiplied ? (w * a) / 255 : w)));
       }
     }
   }
