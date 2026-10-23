@@ -16,6 +16,7 @@ import { fileURLToPath } from 'node:url';
 import { layerProp, readJson } from '../../tools/dump/model.mjs';
 import { packProject } from '../../tools/dump/dump.mjs';
 import { workDir, workPath } from '../../tools/lib/work.mjs';
+import { coverFrames, coverOf, holdRemapJs, holdTimeline } from '../../tools/masters/full-cover.mjs';
 import { easedProgress } from '../../tools/masters/dump-keys.mjs';
 import { addQaPatch } from '../../tools/masters/rig-plate.mjs';
 import { nul, P, precomp, Spec } from '../../tools/masters/spec.mjs';
@@ -126,23 +127,6 @@ export function rectsAt(m, t) {
   return out;
 }
 
-// How the rectangles meet a window of the frame, exactly: full — every point of it covered with a pixel to spare (no
-// half-covered edge pixel), shows — some rectangle reaches half a pixel into it.
-export function coverOf(rects, win) {
-  const g = { l: win.l - 1, r: win.r + 1, t: win.t - 1, b: win.b + 1 };
-  const shows = rects.some((q) => Math.min(q.r, win.r) - Math.max(q.l, win.l) >= 0.5 && Math.min(q.b, win.b) - Math.max(q.t, win.t) >= 0.5);
-  const xs = [...new Set([g.l, g.r, ...rects.flatMap((q) => [q.l, q.r]).filter((x) => x > g.l && x < g.r)])].sort((a, b) => a - b);
-  let full = true;
-  for (let i = 0; full && i < xs.length - 1; i += 1) {
-    const mid = (xs[i] + xs[i + 1]) / 2;
-    const spans = rects.filter((q) => q.l <= mid && q.r >= mid).map((q) => [q.t, q.b]).sort((a, b) => a[0] - b[0]);
-    let reach = g.t;
-    for (const [a, b] of spans) if (a <= reach + 1e-9) reach = Math.max(reach, b);
-    full = reach >= g.b - 1e-9;
-  }
-  return { full, shows };
-}
-
 // The windows of the pack frame each format shows: 16:9 and the turned 9:16 the whole of it, 1:1 its middle square.
 export function windowsOf(m) {
   const whole = { l: 0, r: m.w, t: 0, b: m.h };
@@ -153,28 +137,8 @@ export function windowsOf(m) {
 // The pack's frames per window: where the wipe shows and where it covers it all; then the master's timeline — the
 // shown frames of the widest window, the first full frame held to HOLD frames — and the pack time of each frame.
 export function wipeTiming(m, hold = HOLD) {
-  const n = Math.round(m.duration * m.fps);
-  const wins = windowsOf(m);
-  const per = {};
-  for (const [k, win] of Object.entries(wins)) {
-    const shown = [];
-    const full = [];
-    for (let f = 0; f < n; f += 1) {
-      const c = coverOf(rectsAt(m, f / m.fps), win);
-      if (c.shows) shown.push(f);
-      if (c.full) full.push(f);
-    }
-    per[k] = { shown, full };
-  }
-  const { shown, full } = per['16x9'];
-  const run = (fs) => fs.length > 0 && fs[fs.length - 1] - fs[0] === fs.length - 1;
-  if (!run(shown) || !run(full)) throw new Error(`«Переход»: the wipe shows on ${shown.join(',')}, covers on ${full.join(',')}: not one run each`);
-  const head = shown[0];
-  const extra = Math.max(0, hold - full.length);
-  const cutFrame = full[0] - head;
-  const frames = shown.length + extra;
-  const packTime = (f) => r6((f <= cutFrame ? f + head : f < cutFrame + extra ? cutFrame + head : f + head - extra) / m.fps);
-  return { head, tail: shown[shown.length - 1], extra, cutFrame, frames, durationSec: r6(frames / m.fps), packTime, per };
+  const per = coverFrames((t) => rectsAt(m, t), windowsOf(m), Math.round(m.duration * m.fps), m.fps);
+  return { ...holdTimeline(per['16x9'], m.fps, hold), per };
 }
 
 export function resolveWipe(sources = loadSources()) {
@@ -193,13 +157,11 @@ export function resolveWipe(sources = loadSources()) {
   const colours = COLOURS.map((c) => ({ ...c, hex: base[c.token].hex }));
   const ctrl = { Colour: { label: 'Цвет', items: colours.map((c) => c.label), value: 1 } };
 
-  const A = r6(tm.head / FPS);
   const C = r6(tm.cutFrame / FPS);
-  const E = r6(tm.extra / FPS);
   const spec = new Spec({ name: COMP, w: 1920, h: 1080, fps: FPS, duration: tm.durationSec });
   spec.add(precomp('WIPE', 'DECOR_WIPE', { timeRemap: true, collapse: true, effects: [{ matchName: 'ADBE Fill', name: 'Fill' }] }));
-  // the pack's time: the shown frames from its first, the first full frame held E more
-  spec.expr('WIPE', P.timeRemap, `var A = ${A}, C = ${C}, E = ${E}, e = 1e-6;\ntime <= C + e ? time + A : (time < C + E - e ? C + A : time + A - E)`);
+  // the pack's time: the shown frames from its first, the first full frame held until four cover
+  spec.expr('WIPE', P.timeRemap, holdRemapJs(tm, FPS));
   spec.expr('WIPE', P.pos, '[thisComp.width / 2, thisComp.height / 2]');
   // a portrait frame turns the wipe a quarter: it crosses from the bottom up
   const portrait = 'var p = thisComp.height > thisComp.width;';

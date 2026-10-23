@@ -11,7 +11,7 @@ const HAS_DUMPS = existsSync('C:/CRBK/work/dumps/courses/perekhod.json');
 const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
 
 describe.skipIf(!HAS_DUMPS)('TRN_StepWipe', async () => {
-  const { resolve, libraryEntry, loadSources, wipeModel, rectsAt, coverOf, COLOURS, FORMATS, HOLD } = await import('../../masters/TRN_StepWipe/resolve.mjs');
+  const { resolve, libraryEntry, loadSources, wipeModel, rectsAt, COLOURS, FORMATS, HOLD } = await import('../../masters/TRN_StepWipe/resolve.mjs');
   const p = resolve();
   const comp = (Colour, w = 1920, h = 1080) => exprComp(p.spec, { w, h, ctrl: { Colour }, ink: () => ({ l: 0, w: 0, b: 0 }) });
 
@@ -26,16 +26,6 @@ describe.skipIf(!HAS_DUMPS)('TRN_StepWipe', async () => {
     expect(big.l).toBeLessThan(-100);
     expect(big.r).toBeGreaterThan(2560);
     expect(() => wipeModel({ ...loadSources().wipe, layers: loadSources().wipe.layers.slice(1) })).toThrow(/not the pack/);
-  });
-
-  it('covers a window only when every point of it is under a rectangle, with a pixel to spare', () => {
-    const win = { l: 0, r: 100, t: 0, b: 100 };
-    expect(coverOf([{ l: -1, r: 101, t: -1, b: 101 }], win)).toEqual({ full: true, shows: true });
-    expect(coverOf([{ l: 0, r: 100, t: 0, b: 100 }], win).full).toBe(false);
-    // two halves that meet cover it; a gap between them does not
-    expect(coverOf([{ l: -1, r: 50, t: -1, b: 101 }, { l: 50, r: 101, t: -1, b: 101 }], win).full).toBe(true);
-    expect(coverOf([{ l: -1, r: 50, t: -1, b: 101 }, { l: 51, r: 101, t: -1, b: 101 }], win).full).toBe(false);
-    expect(coverOf([{ l: 99.8, r: 200, t: 0, b: 100 }], win)).toEqual({ full: false, shows: false });
   });
 
   it('the pack shows the wipe on frames 4..42 and covers the frame on 25 only; the master holds that frame four times', () => {

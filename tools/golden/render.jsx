@@ -51,6 +51,10 @@ try {
       if (PARAMS.motionBlur === false) {
         comp.motionBlur = false;
       }
+      // sampled at another rate (comp-frames.mjs --fps): frame f is then at f / fps; keys stay where they are in time
+      if (PARAMS.fps) {
+        comp.frameRate = PARAMS.fps;
+      }
       for (var k = 0; k < PARAMS.frames.length; k++) {
         var fr = PARAMS.frames[k];
         comp.saveFrameToPng(fr.f * comp.frameDuration, new File(PARAMS.outDir + '/t' + fr.ms + '.png'));

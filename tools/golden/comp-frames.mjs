@@ -4,8 +4,10 @@
 // frames are rendered from the relinked copy as tools/golden/render.mjs renders the roots (tools/golden/render.jsx),
 // into <work>/golden/<slug>/<compSlug>/t<ms>.png; the manifest is docs/research/golden/<slug>-nested.json.
 // --no-motion-blur: the comp's motion blur off for the render (contract C35: the master renders without it, so the
-// golden differs from the master only where the design changed). The relinked copy is closed without saving.
-//   node tools/golden/comp-frames.mjs --slug courses --comp perekhod [--frames all|0-50|0,25,50] [--no-motion-blur]
+// golden differs from the master only where the design changed). --fps N: the comp sampled at N frames a second
+// (the SMM pack is 24 fps, the masters 25: the frames then fall on the master's times), into <compSlug>_<N>fps so
+// the root goldens of the comp stay as they are. The relinked copy is closed without saving.
+//   node tools/golden/comp-frames.mjs --slug courses --comp perekhod [--frames all|0-50|0,25,50] [--no-motion-blur] [--fps 25]
 import { existsSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -37,14 +39,19 @@ export function parseFrames(spec, comp) {
   return [...new Set(list)].sort((x, y) => x - y).map((f) => ({ f, ms: Math.round((f / comp.frameRate) * 1000) }));
 }
 
-export async function compFrames(slug, compSlug, { frames = 'all', motionBlur = true, waitMs = 600000 } = {}) {
+// Where the frames go: the comp's folder, or <compSlug>_<fps>fps when it is sampled at another rate.
+export const framesSlug = (compSlug, comp, fps) => (fps && fps !== comp.frameRate ? `${compSlug}_${fps}fps` : compSlug);
+
+export async function compFrames(slug, compSlug, { frames = 'all', motionBlur = true, fps = null, waitMs = 600000 } = {}) {
   const report = path.posix.join(packDir(slug), 'relink-report.json');
   if (!existsSync(report)) throw new Error('NO_RELINK_REPORT: ' + report);
   const reason = gateReason(readJson(report).acceptance);
   if (reason) throw new Error(`${slug}: the relinked copy is not clean (${reason})`);
   const comp = readJson(workPath('dumps', slug, compSlug + '.json')).comp;
-  const dir = ensureDir(compDir(slug, compSlug));
-  const plan = parseFrames(frames, comp).map((p) => ({ ...p, file: dir + '/t' + p.ms + '.png' }));
+  const out = framesSlug(compSlug, comp, fps);
+  const rate = out === compSlug ? comp.frameRate : fps;
+  const dir = ensureDir(compDir(slug, out));
+  const plan = parseFrames(frames, { ...comp, frameRate: rate }).map((p) => ({ ...p, file: dir + '/t' + p.ms + '.png' }));
   for (const n of readdirSync(dir)) if (/^t\d+\.png$/.test(n)) rmSync(path.posix.join(dir, n)); // no leftovers
   const project = relinkedPath(slug);
   await openProject(project);
@@ -52,25 +59,26 @@ export async function compFrames(slug, compSlug, { frames = 'all', motionBlur = 
   try {
     r = await callJsx('tools/golden/render.jsx', {
       expect: project, compId: comp.id, compName: comp.name, outDir: dir, frames: plan.map(({ f, ms }) => ({ f, ms })),
-      motionBlur: motionBlur ? undefined : false,
+      motionBlur: motionBlur ? undefined : false, fps: rate === comp.frameRate ? undefined : rate,
     }, { timeoutMs: 900000 });
     await waitForStableFiles(plan.map((p) => p.file), { timeoutMs: waitMs });
   } finally {
     await closeDiscard(project);
   }
-  const out = [];
+  const rendered = [];
   for (const p of plan) {
     const s = pngSize(p.file);
     if (s.width !== comp.width || s.height !== comp.height) throw new Error(`PNG_SIZE: ${p.file} is ${s.width}x${s.height}`);
-    out.push({ f: p.f, ms: p.ms, bytes: statSync(p.file).size, sha256: await sha256File(p.file) });
+    rendered.push({ f: p.f, ms: p.ms, bytes: statSync(p.file).size, sha256: await sha256File(p.file) });
   }
   const file = nestedManifestFile(slug);
   const man = existsSync(file) ? readJson(file) : { slug, comps: [] };
   const entry = {
-    id: comp.id, name: comp.name, compSlug, width: comp.width, height: comp.height, fps: comp.frameRate, duration: comp.duration,
-    motionBlur: motionBlur ? 'as in the pack' : 'off (C35)', aeVersion: r.version, date: new Date().toISOString().slice(0, 10), frames: out,
+    id: comp.id, name: comp.name, compSlug: out, width: comp.width, height: comp.height, fps: rate, duration: comp.duration,
+    ...(rate === comp.frameRate ? {} : { packFps: comp.frameRate }),
+    motionBlur: motionBlur ? 'as in the pack' : 'off (C35)', aeVersion: r.version, date: new Date().toISOString().slice(0, 10), frames: rendered,
   };
-  man.comps = [...(man.comps || []).filter((c) => c.compSlug !== compSlug), entry].sort((a, b) => (a.compSlug < b.compSlug ? -1 : 1));
+  man.comps = [...(man.comps || []).filter((c) => c.compSlug !== out), entry].sort((a, b) => (a.compSlug < b.compSlug ? -1 : 1));
   writeFileSync(file, JSON.stringify(man, null, 2) + '\n', 'utf8');
   return entry;
 }
@@ -80,8 +88,8 @@ if (isMain) {
   const argv = process.argv.slice(2);
   const val = (flag) => (argv.includes(flag) ? argv[argv.indexOf(flag) + 1] : undefined);
   try {
-    const e = await compFrames(val('--slug'), val('--comp'), { frames: val('--frames'), motionBlur: !argv.includes('--no-motion-blur') });
-    console.log(`${e.compSlug}: ${e.frames.length} frames, motion blur ${e.motionBlur}; ${compDir(val('--slug'), e.compSlug)}`);
+    const e = await compFrames(val('--slug'), val('--comp'), { frames: val('--frames'), motionBlur: !argv.includes('--no-motion-blur'), fps: val('--fps') ? Number(val('--fps')) : null });
+    console.log(`${e.compSlug}: ${e.frames.length} frames at ${e.fps} fps, motion blur ${e.motionBlur}; ${compDir(val('--slug'), e.compSlug)}`);
   } catch (e) {
     console.error('ERROR: ' + e.message);
     process.exitCode = 1;

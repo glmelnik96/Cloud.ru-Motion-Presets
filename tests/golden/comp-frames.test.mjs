@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseFrames, nestedManifestFile } from '../../tools/golden/comp-frames.mjs';
+import { framesSlug, parseFrames, nestedManifestFile } from '../../tools/golden/comp-frames.mjs';
 
 const comp = { duration: 2.04, frameRate: 25 };
 
@@ -19,6 +19,16 @@ describe('golden frames of a nested comp', () => {
     expect(() => parseFrames('49-51', comp)).toThrow(/0\.\.50/);
     expect(() => parseFrames('x', comp)).toThrow();
   });
+  it('a 24 fps comp sampled at 25 fps: frames on the master\'s grid, in a folder of its own', () => {
+    const smm = { duration: 0.875, frameRate: 24 };
+    const at25 = parseFrames('all', { ...smm, frameRate: 25 });
+    expect(at25).toHaveLength(22);
+    expect(at25[21]).toEqual({ f: 21, ms: 840 });
+    expect(framesSlug('transition_gray', smm, 25)).toBe('transition_gray_25fps');
+    expect(framesSlug('transition_gray', smm, 24)).toBe('transition_gray');
+    expect(framesSlug('perekhod', comp, null)).toBe('perekhod');
+  });
+
   it('keeps its manifest apart from the roots\' one', () => {
     expect(nestedManifestFile('courses')).toMatch(/docs[\\/]research[\\/]golden[\\/]courses-nested\.json$/);
   });

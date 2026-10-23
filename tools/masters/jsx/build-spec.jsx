@@ -173,6 +173,15 @@ function sbTransplant(tp) {
       }
       hl.enabled = false;
     }
+    // flat: planar 3D layers (z 0, not turned) made 2D, they look the same; collapsed into a variant of another size,
+    // 3D layers would follow the default camera of the master's size, half the size difference off (TRN_Bars)
+    if (c.flat === true) {
+      for (j = 1; j <= dup.numLayers; j++) {
+        if (dup.layer(j).threeDLayer) {
+          dup.layer(j).threeDLayer = false;
+        }
+      }
+    }
     while (dup.markerProperty.numKeys > 0) {
       dup.markerProperty.removeKey(1);
     }
