@@ -1843,6 +1843,134 @@
       ]
     },
     {
+      "id": "SMM_ShortsIntro",
+      "title_ru": "Интро шортсов",
+      "category": "smm",
+      "tier": "T1",
+      "hosts": [
+        "ae",
+        "pr"
+      ],
+      "version": 1,
+      "fit": "trim",
+      "duration": {
+        "introSec": 1.64,
+        "holdSec": 1.16,
+        "outroSec": 1.2,
+        "maxSec": 15
+      },
+      "requiredFonts": [
+        {
+          "postScriptName": "SBSansDisplay-Semibold"
+        }
+      ],
+      "fields": [
+        {
+          "key": "video",
+          "label_ru": "Видео",
+          "type": "media",
+          "egpName": "Видео",
+          "egpIndex": 0,
+          "accepts": [
+            "video",
+            "photo"
+          ]
+        },
+        {
+          "key": "line1",
+          "label_ru": "Заголовок, строка 1",
+          "type": "text",
+          "egpName": "Заголовок, строка 1",
+          "egpIndex": 1,
+          "maxLen": 40,
+          "default": "Заголовок шортса"
+        },
+        {
+          "key": "line2",
+          "label_ru": "Заголовок, строка 2",
+          "type": "text",
+          "egpName": "Заголовок, строка 2",
+          "egpIndex": 2,
+          "maxLen": 40,
+          "default": "в несколько строк"
+        },
+        {
+          "key": "line3",
+          "label_ru": "Заголовок, строка 3",
+          "type": "text",
+          "egpName": "Заголовок, строка 3",
+          "egpIndex": 3,
+          "maxLen": 40,
+          "default": ""
+        },
+        {
+          "key": "line4",
+          "label_ru": "Заголовок, строка 4",
+          "type": "text",
+          "egpName": "Заголовок, строка 4",
+          "egpIndex": 4,
+          "maxLen": 40,
+          "default": ""
+        },
+        {
+          "key": "speed",
+          "label_ru": "Скорость",
+          "type": "dropdown",
+          "egpName": "Скорость",
+          "egpIndex": 5,
+          "default": 2,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "0,75×"
+            },
+            {
+              "index": 2,
+              "label_ru": "1×"
+            },
+            {
+              "index": 3,
+              "label_ru": "1,25×"
+            },
+            {
+              "index": 4,
+              "label_ru": "1,5×"
+            },
+            {
+              "index": 5,
+              "label_ru": "2×"
+            }
+          ]
+        },
+        {
+          "key": "duration",
+          "label_ru": "Длительность",
+          "type": "slider",
+          "egpName": "Длительность (служебное, не менять)",
+          "egpIndex": 6,
+          "min": 1,
+          "max": 15,
+          "default": 4,
+          "service": true,
+          "editable": false
+        }
+      ],
+      "variants": [
+        {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "aeComp": "CR_SMM_ShortsIntro_9x16",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
+      ]
+    },
+    {
       "id": "CRS_SubtitleStyle",
       "title_ru": "Стиль субтитров «CR Субтитры»",
       "category": "courses",

@@ -1,0 +1,100 @@
+{
+ "_note": "Ink of the title lines of «Заставка_9x16» (SMM pack, item 1600, 1080x1920), which the JSX dump does not record: sourceRectAtTime (layer space, [left, top, width, height]) and per-line baselines [x0, y0, x1, y1]. Measured live on AE 26.5 with tools/masters/jsx/text-ink.jsx on the relinked working copy C:/CRBK/packs/smm/smm_relinked.aep (closed without saving), 2026-10-23, at 2.0 s (the lines at rest 1.21–3.54 s).",
+ "cases": [
+  {
+   "pack": "smm",
+   "comp": "Заставка_9x16",
+   "t": 2,
+   "layers": {
+    "сотрудников?": {
+     "text": "сотрудников?",
+     "index": 3,
+     "font": "SBSansDisplay-Semibold",
+     "fontSize": 60,
+     "tracking": 0,
+     "leading": 60,
+     "rect": [
+      -334.7643,
+      -138.7808,
+      397.992,
+      54.8657
+     ],
+     "lines": [
+      [
+       -337,
+       -96,
+       66.38,
+       -96
+      ]
+     ]
+    },
+    "под обучение": {
+     "text": "под обучение",
+     "index": 4,
+     "font": "SBSansDisplay-Semibold",
+     "fontSize": 60,
+     "tracking": 0,
+     "leading": 60,
+     "rect": [
+      -332.7098,
+      -142.8292,
+      391.9924,
+      58.9142
+     ],
+     "lines": [
+      [
+       -337,
+       -96,
+       61.28,
+       -96
+      ]
+     ]
+    },
+    "Telegram-бота с AI": {
+     "text": "Telegram-бота с AI",
+     "index": 5,
+     "font": "SBSansDisplay-Semibold",
+     "fontSize": 60,
+     "tracking": 0,
+     "leading": 60,
+     "rect": [
+      -336.1541,
+      -142.8292,
+      540.4458,
+      58.9142
+     ],
+     "lines": [
+      [
+       -337,
+       -96,
+       209.72,
+       -96
+      ]
+     ]
+    },
+    "Как быстро создать ": {
+     "text": "Как быстро создать",
+     "index": 6,
+     "font": "SBSansDisplay-Semibold",
+     "fontSize": 60,
+     "tracking": 0,
+     "leading": 60,
+     "rect": [
+      -331.5013,
+      -142.8292,
+      572.1525,
+      58.4912
+     ],
+     "lines": [
+      [
+       -337,
+       -96,
+       242.54,
+       -96
+      ]
+     ]
+    }
+   }
+  }
+ ]
+}

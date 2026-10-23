@@ -1,0 +1,57 @@
+{
+  "id": "SMM_ShortsIntro",
+  "_note": "Golden comparison against the SMM pack «Заставка_9x16» (24 fps in the pack, 25 here), the pack's title. «Длительность» 4.041667 puts the wipe where the pack has it (3.1667 s). The white card is the video slot: the pack shows its AI clip there, the master its white placeholder, so the comparison is by parts — the title lines and the green card beside them (a flat patch registers anywhere, so its place is not gated); the wipe and the rise are moving frames (motion blur in the pack, none in the master, C35).",
+  "preview": {
+    "_note": "Card preview: the default title over the white placeholder, at its default length.",
+    "variant": "9x16",
+    "ctrl": {},
+    "text": {},
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "axes": {}
+  },
+  "cases": [
+    {
+      "name": "pack",
+      "title": "Заголовок пакета, шторка на месте пакета",
+      "golden": { "slug": "smm", "compSlug": "zastavka_9x16" },
+      "variant": "9x16",
+      "ctrl": { "Duration": 4.041667 },
+      "text": { "TXT_LINE1": "Как быстро создать", "TXT_LINE2": "Telegram-бота с AI", "TXT_LINE3": "под обучение", "TXT_LINE4": "сотрудников?" },
+      "parts": [
+        { "name": "line1", "x": 100, "y": 262, "w": 600, "h": 72 },
+        { "name": "line2", "x": 100, "y": 322, "w": 600, "h": 72 },
+        { "name": "line3", "x": 100, "y": 382, "w": 600, "h": 72 },
+        { "name": "line4", "x": 100, "y": 442, "w": 600, "h": 72 },
+        { "name": "card", "x": 700, "y": 250, "w": 130, "h": 330, "maxShift": 10 }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [1500, 2000, 2500, 3000],
+      "view": [250, 500, 750, 1000, 3250, 3500, 3750, 4000]
+    }
+  ],
+  "premiere": {
+    "_note": "The 9x16 MOGRT in Premiere against the same variant rendered in AE, the slot at its default (Premiere does not fill media slots from a script). The template is trim: each clip is cut to its length and «Длительность» says where it ends, so the wipe plays at the clip's end. B is 8 s with the pack's four lines; C plays at 2×; D has one line longer than the card (the block shrinks).",
+    "variant": "9x16",
+    "clips": [
+      { "key": "A", "atSec": 0, "lenSec": 4, "ctrl": { "Duration": 4 }, "text": {} },
+      { "key": "B", "atSec": 6, "lenSec": 8, "ctrl": { "Duration": 8 },
+        "text": { "TXT_LINE1": "Как быстро создать", "TXT_LINE2": "Telegram-бота с AI", "TXT_LINE3": "под обучение", "TXT_LINE4": "сотрудников?" } },
+      { "key": "C", "atSec": 16, "lenSec": 4, "ctrl": { "Duration": 4, "Speed": 5 }, "text": {} },
+      { "key": "D", "atSec": 22, "lenSec": 4, "ctrl": { "Duration": 4 },
+        "text": { "TXT_LINE1": "Как развернуть облачную платформу за пять минут без администратора", "TXT_LINE2": "", "TXT_LINE3": "", "TXT_LINE4": "" } }
+    ],
+    "frames": [
+      { "key": "A_rise", "clip": "A", "sec": 0.4, "master": 0.4 },
+      { "key": "A_hold", "clip": "A", "sec": 2, "master": 2 },
+      { "key": "A_wipe", "clip": "A", "sec": 3.4, "master": 3.4 },
+      { "key": "A_end", "clip": "A", "sec": 3.8, "master": 3.8 },
+      { "key": "B_hold", "clip": "B", "sec": 5, "master": 5 },
+      { "key": "B_wipe", "clip": "B", "sec": 7.4, "master": 7.4 },
+      { "key": "C_rise", "clip": "C", "sec": 0.2, "master": 0.2 },
+      { "key": "C_wipe", "clip": "C", "sec": 3.68, "master": 3.68 },
+      { "key": "D_hold", "clip": "D", "sec": 2, "master": 2 }
+    ]
+  }
+}
