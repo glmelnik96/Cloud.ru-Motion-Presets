@@ -1,5 +1,9 @@
 // Host-specific parts of the live checks: how each host shows what the adapter left behind.
-// `wait` resolves when the frame files are complete (tools/golden/png.mjs in the live run).
+// `wait` resolves when the frame files are complete (tools/golden/png.mjs in the live run). Frame files of an
+// earlier run are removed first: AE writes its PNGs after the call returns, and an old file already looks
+// complete to `wait` (2026-10-23: CRS_Cover was judged on the frames of the run before).
+import { rmSync } from 'node:fs';
+
 const near = (a, b, eps = 0.002) => Math.abs(Number(a) - Number(b)) <= eps;
 
 function sameKeys(got, want) {
@@ -27,6 +31,7 @@ export function aeHooks({ wait }) {
       R.check(`nearest: layer scaled to ${expect.toFixed(3)} %`, l && near(l.scale[0], expect, 0.01) && near(l.scale[1], expect, 0.01), l?.scale);
     },
     async renderFrames({ key, id, shots, R, hostRun }) {
+      for (const s of shots) rmSync(s.file, { force: true });
       R.fromHost(`${key}: frames`, await hostRun('frames', { frames: shots.map((s) => ({ compId: id, t: s.at, file: s.file })) }));
       await wait(shots.map((s) => s.file));
     },
@@ -54,6 +59,7 @@ export function prHooks({ wait }) {
       R.check(`nearest: Motion scale ${expect.toFixed(3)} %`, c && near(c.scale, expect, 0.01), c);
     },
     async renderFrames({ key, id, fps, shots, R, hostRun }) {
+      for (const s of shots) rmSync(s.file, { force: true });
       R.fromHost(`${key}: frames`, await hostRun('frames', { id, frames: shots.map((s) => ({ key: s.name, frame: Math.round(s.at * fps) })) }));
       await wait(shots.map((s) => s.file));
     },
