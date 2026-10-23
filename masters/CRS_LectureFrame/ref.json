@@ -1,0 +1,114 @@
+{
+  "id": "CRS_LectureFrame",
+  "_note": "Golden comparison against the courses pack's overlays («Оверлей 16 на 9», «3 на 2», «со спикером», FHD), each layout against its own, at the four keys of the drift's 60 s cycle (0, 15, 30, 45 s). The pack's windows show its empty recording precomps (dark, or the green speaker placeholder), the master's are transparent, and the master's screen windows differ in size (D9: the proportion of the recording): the comparison is by parts outside every window — the green bars at the corners and edges, the ground or the pattern around the windows. The logo (D18) is compared by eye on the cmp pictures. The ground left of the screen windows is not a part: a flat patch registers anywhere and drags the window's edge in.",
+  "preview": {
+    "_note": "Card preview per layout: the frame over a neutral grey, 6 s of the drift; named after the item's 16:9 still (the form matches previews by proportion and layout).",
+    "variant": "16x9",
+    "as": {
+      "16x9": "16x9_s169"
+    },
+    "ctrl": {},
+    "text": {},
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "durationSec": 6,
+    "posterSec": 0,
+    "axes": {
+      "layout": "Layout"
+    }
+  },
+  "cases": [
+    {
+      "name": "screen169",
+      "title": "Экран 16:9 против «Оверлея 16 на 9»",
+      "golden": {
+        "slug": "courses",
+        "compSlug": "overley_16_na_9"
+      },
+      "variant": "16x9",
+      "ctrl": {
+        "Layout": 1
+      },
+      "text": {},
+      "parts": [
+        { "name": "top_right", "x": 1600, "y": 0, "w": 320, "h": 95 },
+        { "name": "right_edge", "x": 1760, "y": 95, "w": 160, "h": 600 },
+        { "name": "bottom", "x": 0, "y": 1005, "w": 1920, "h": 75 },
+        { "name": "bottom_right", "x": 1760, "y": 700, "w": 160, "h": 305 }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        0,
+        15000,
+        30000,
+        45000
+      ],
+      "view": [
+        7000,
+        52000
+      ]
+    },
+    {
+      "name": "screen32",
+      "title": "Экран 3:2 против «Оверлея 3 на 2»",
+      "golden": {
+        "slug": "courses",
+        "compSlug": "overley_3_na_2"
+      },
+      "variant": "16x9",
+      "ctrl": {
+        "Layout": 2
+      },
+      "text": {},
+      "parts": [
+        { "name": "top_right", "x": 1630, "y": 0, "w": 290, "h": 95 },
+        { "name": "right_edge", "x": 1630, "y": 95, "w": 290, "h": 600 },
+        { "name": "bottom", "x": 0, "y": 1005, "w": 1920, "h": 75 },
+        { "name": "bottom_right", "x": 1630, "y": 700, "w": 290, "h": 305 }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        0,
+        15000,
+        30000,
+        45000
+      ],
+      "view": [
+        7000
+      ]
+    },
+    {
+      "name": "speaker",
+      "title": "Спикер слева против «Оверлея со спикером»",
+      "golden": {
+        "slug": "courses",
+        "compSlug": "overley_so_spikerom"
+      },
+      "variant": "16x9",
+      "ctrl": {
+        "Layout": 3
+      },
+      "text": {},
+      "parts": [
+        { "name": "top_band", "x": 320, "y": 0, "w": 1600, "h": 140 },
+        { "name": "bottom", "x": 0, "y": 910, "w": 1920, "h": 170 },
+        { "name": "left_edge", "x": 0, "y": 140, "w": 45, "h": 770 },
+        { "name": "between", "x": 556, "y": 145, "w": 40, "h": 760 },
+        { "name": "right_edge", "x": 1855, "y": 140, "w": 65, "h": 770 }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        0,
+        15000,
+        30000,
+        45000
+      ],
+      "view": [
+        7000
+      ]
+    }
+  ]
+}

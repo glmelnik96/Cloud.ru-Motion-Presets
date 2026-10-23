@@ -19,6 +19,8 @@ const readJson = (p) => JSON.parse(readFileSync(p, 'utf8').replace(/^﻿/, ''));
 
 export const MEDIA_IDS = ['TRN_StepWipe', 'BG_Arrows', 'BG_DotGrid', 'SFX_WhooshIn'];
 export const T1_ID = 'TTL_LowerThird';
+// A frame of files of the real library (D9): its stills and loops as rendered (tools/masters/render-files.mjs).
+export const FRAME_ID = 'CRS_LectureFrame';
 // Stand-ins for the brand .ffx (spec 5 «Пресеты .ffx»), from the presets AE installs, as in S4.
 export const FX_STANDINS = {
   FX_TextRise: ['Text', 'Animate In', 'Fade Up Characters.ffx'],
@@ -31,9 +33,9 @@ export function aePresetsDir(env = process.env, platform = process.platform) {
 }
 const GREEN = '0x26D07C';
 
-// The live source: the lower third of the real library with two companions, the example media items and,
-// when AE's presets are there, the example effects (fx: true).
-export function mediaSource(real, example, { fx = false } = {}) {
+// The live source: the lower third of the real library with two companions, the example media items, when AE's
+// presets are there the example effects (fx: true), and the real lecture frame when its files are rendered (frame).
+export function mediaSource(real, example, { fx = false, frame = true } = {}) {
   const ttl = structuredClone(real.items.find((i) => i.id === T1_ID));
   ttl.companions = [
     { ref: 'BG_Arrows', kind: 'video', placement: 'under', default: true },
@@ -41,7 +43,8 @@ export function mediaSource(real, example, { fx = false } = {}) {
   ];
   const ids = fx ? [...MEDIA_IDS, ...Object.keys(FX_STANDINS)] : MEDIA_IDS;
   const media = ids.map((id) => structuredClone(example.items.find((i) => i.id === id)));
-  return { $schema: real.$schema, schemaVersion: 1, items: [ttl, ...media] };
+  const lecture = frame ? real.items.find((i) => i.id === FRAME_ID) : null;
+  return { $schema: real.$schema, schemaVersion: 1, items: [ttl, ...media, ...(lecture ? [structuredClone(lecture)] : [])] };
 }
 
 const transparent = (w, h, sec) => `color=c=black@0.0:s=${w}x${h}:r=25:d=${sec},format=rgba`;
@@ -109,7 +112,9 @@ export function makeMedia(buildDir, items, { ffmpeg = 'ffmpeg', force = false } 
 
 export async function buildMediaFixtures({ realBuild = workPath('build'), out = workPath('panel-live', 'media'), ffmpeg = 'ffmpeg', force = false, presets = aePresetsDir() } = {}) {
   const fx = Object.values(FX_STANDINS).every((parts) => existsSync(path.join(presets, ...parts)));
-  const src = mediaSource(readJson(path.join(REPO, 'library', 'library.src.json')), readJson(path.join(REPO, 'docs', 'library', 'example.src.json')), { fx });
+  const frameDir = path.join(realBuild, FRAME_ID);
+  const frame = existsSync(frameDir);
+  const src = mediaSource(readJson(path.join(REPO, 'library', 'library.src.json')), readJson(path.join(REPO, 'docs', 'library', 'example.src.json')), { fx, frame });
   const buildDir = path.join(out, 'build');
   if (fx) {
     for (const [id, parts] of Object.entries(FX_STANDINS)) {
@@ -121,7 +126,8 @@ export async function buildMediaFixtures({ realBuild = workPath('build'), out = 
   const t1 = path.join(realBuild, T1_ID);
   if (!existsSync(path.join(t1, `${T1_ID}_v1.aep`))) throw new Error(`no built ${T1_ID} in ${realBuild}: build the masters first`);
   copyTree(t1, path.join(buildDir, T1_ID));
-  const made = makeMedia(buildDir, src.items.filter((i) => i.tier !== 'T1'), { ffmpeg, force });
+  if (frame) copyTree(frameDir, path.join(buildDir, FRAME_ID));
+  const made = makeMedia(buildDir, src.items.filter((i) => i.tier !== 'T1' && i.id !== FRAME_ID), { ffmpeg, force });
   writeFileSync(path.join(out, 'library.src.json'), JSON.stringify(src, null, 2) + '\n', 'utf8');
   const tokens = readJson(path.join(REPO, 'brand', 'tokens.json'));
   const built = await buildCatalog({ src, buildDir, outDir: path.join(out, 'library'), tokens, libraryVersion: calver() });

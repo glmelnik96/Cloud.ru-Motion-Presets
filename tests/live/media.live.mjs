@@ -160,6 +160,20 @@ describe.skipIf(!MEDIA || (HOST !== 'ae' && HOST !== 'pr'))('panel live, media',
           },
           colorBox: (file, hex) => findColorCentroid(file, hex, 16).box,
         });
+        // the same into the windows of the lecture frame (D9), as the form picks them: «Спикер слева»
+        const frameItem = loaded.catalog.items.find((i) => i.id === 'CRS_LectureFrame');
+        if (R.check('fit frame: CRS_LectureFrame in the live library', !!frameItem)) {
+          await runFitLive({
+            bridge, hostRun, R, clips, item: frameItem, values: { layout: 3, drift: false }, tag: 'frame',
+            frame: async (id, frame, key) => {
+              const r = await hostRun('frames', { id, frames: [{ key, frame }] });
+              const file = r?.data?.frames?.[key] ?? null;
+              if (file) await waitForStableFiles([file], { timeoutMs: 120000 });
+              return file;
+            },
+            colorBox: (file, hex) => findColorCentroid(file, hex, 16).box,
+          });
+        }
         // «Монтаж» (0.1.19): the margins of a checkerboard blurred, the caption style of the build PC imported.
         const board = path.posix.join(outDir, 'blur-checker.png');
         if (!existsSync(board)) spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', "nullsrc=s=1920x1080,format=gray,geq=lum='if(mod(floor(X/48)+floor(Y/48),2),255,0)'", '-frames:v', '1', board]);

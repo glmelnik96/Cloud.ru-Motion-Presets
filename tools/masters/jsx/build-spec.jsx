@@ -151,6 +151,8 @@ function sbTransplant(tp) {
     dup.name = c.name;
     for (j = dup.numLayers; j >= 1; j--) {
       if (!keep[j]) {
+        // a locked layer of the pack (the BG of «Оверлей со спикером») cannot be removed locked
+        dup.layer(j).locked = false;
         dup.layer(j).remove();
       }
     }

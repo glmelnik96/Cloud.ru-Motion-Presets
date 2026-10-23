@@ -35,10 +35,13 @@ export const DEFAULTS = { variant: '16x9', ctrl: {}, text: {}, backdrop: '#22222
 
 // One preview per proportion (the smallest variant of each aspect: a 4K twin looks the same) and per
 // combination of the values of the axes; ctrl gets the value of each axis (a checkbox as 1 or 0).
+// spec.as names the previews of a master variant after a variant of the item when the item has other keys (a frame
+// of files: { "16x9": "16x9_s169" }; the form matches previews by proportion and values, CRS_LectureFrame).
 export function previewCombos(item, spec, variants) {
   const byAspect = new Map();
+  const ratio = (v) => (v.w && v.h ? String(Math.round((v.w / v.h) * 1000)) : v.key);
   for (const v of variants) {
-    const aspect = item.variants.find((x) => x.key === v.key)?.aspect ?? v.key;
+    const aspect = item.variants.find((x) => x.key === v.key)?.aspect ?? ratio(v);
     const cur = byAspect.get(aspect);
     if (!cur || v.w < cur.w) byAspect.set(aspect, v);
   }
@@ -54,7 +57,7 @@ export function previewCombos(item, spec, variants) {
     for (const when of whens) {
       const ctrl = { ...spec.ctrl };
       for (const a of axes) ctrl[a.ctrl] = when[a.key] === true ? 1 : when[a.key] === false ? 0 : when[a.key];
-      out.push({ variant: v, when, ctrl, name: previewName(v.key, when) });
+      out.push({ variant: v, when, ctrl, name: previewName((spec.as && spec.as[v.key]) || v.key, when) });
     }
   }
   return out;
@@ -83,12 +86,14 @@ export function defaultCombo(combos, spec) {
   })) ?? null;
 }
 
-// Template length and the poster moment (the middle of the hold) from the item's duration in library.src.json.
+// Template length and the poster moment (the middle of the hold) from the item's duration in library.src.json;
+// ref.preview.durationSec shortens it (CRS_LectureFrame: a few seconds of its 60 s drift show the frame).
 export function previewSpec(item, ref = {}) {
   const spec = { ...DEFAULTS, ...(ref.preview || {}) };
   const d = item.duration;
-  const D = Math.round((d.introSec + d.holdSec + d.outroSec) * 1e6) / 1e6;
-  return { ...spec, durationSec: D, posterSec: spec.posterSec ?? Math.round((d.introSec + d.holdSec / 2) * 1e6) / 1e6 };
+  const D = spec.durationSec ?? Math.round((d.introSec + d.holdSec + d.outroSec) * 1e6) / 1e6;
+  const mid = d.introSec + d.holdSec / 2;
+  return { ...spec, durationSec: D, posterSec: spec.posterSec ?? Math.round((spec.durationSec === undefined ? mid : Math.min(D / 2, mid)) * 1e6) / 1e6 };
 }
 
 // Frame times on the preview grid, the last one inside the template.

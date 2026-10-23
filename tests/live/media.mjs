@@ -19,6 +19,9 @@ export const MEDIA_CASES = [
   { key: 'still', id: 'BG_DotGrid', time: 2, options: { lengthSec: 8, backdrop: false }, expect: { lengthSec: 8 } },
   { key: 'sound', id: 'SFX_WhooshIn', time: 5, expect: { lengthSec: 0.8 } },
   { key: 'companions', id: 'TTL_LowerThird', time: 2, sound: { music: false, sfx: true }, expect: { companions: ['intro', 'loop', 'outro', 'sound'], soundStart: 7.2 } },
+  // the lecture frame (D9): the form picks the file — a still up to the end of the range, the drift loop repeated
+  { key: 'frame', id: 'CRS_LectureFrame', time: 2, range: 30, values: { layout: 3 }, expect: { lengthSec: 28, variant: '16x9_spkL', kind: 'still' } },
+  { key: 'frame_drift', id: 'CRS_LectureFrame', time: 2, values: { layout: 1, drift: true }, options: { lengthSec: 90 }, expect: { lengthSec: 90, variant: '16x9_s169_drift', kind: 'loop', loops: 2 } },
 ];
 
 export async function runMediaLive(o) {
@@ -60,7 +63,8 @@ export async function runMediaLive(o) {
       cuts = r.ok ? r.data.cuts : [];
       R.check(`${c.key}: getCuts finds the edges of the clips on V1 near the playhead`, near(cuts.find((x) => near(x, 10)) ?? -1, 10), r);
     }
-    const values = item.tier === 'T1' ? initialValues(item) : {};
+    // the form: the defaults of the item's fields and what the case chooses (a frame of files picks its file)
+    const values = { ...initialValues(item), ...(c.values || {}) };
     const plan = planItem({ item, ctx, values, fonts: null, options: { acceptNearest: false, sound: c.sound ?? { music: false, sfx: false }, cuts, ...c.options }, env, lookup });
     if (!R.check(`${c.key}: planned without errors`, plan.ok, plan.problems)) continue;
     const req = plan.media ?? plan.request;
@@ -105,6 +109,7 @@ export async function runMediaLive(o) {
 async function checkCase(c, { host, plan, out, rows, t, R, o }) {
   const e = c.expect;
   if (e.lengthSec !== undefined) R.check(`${c.key}: length ${e.lengthSec} s`, near(out.reply.lengthSec, e.lengthSec), out.reply);
+  if (e.variant !== undefined) R.check(`${c.key}: the form picked ${e.variant} (${e.kind})`, plan.media?.variant.key === e.variant && plan.media?.kind === e.kind, plan.media && { variant: plan.media.variant, kind: plan.media.kind });
   if (e.backdrop !== undefined) {
     const b = out.reply.placed.find((p) => p.role === 'backdrop');
     R.check(`${c.key}: backdrop #222222 ${e.backdrop ? 'under the loop' : 'left out'}`, Boolean(b) === e.backdrop, out.reply.placed);

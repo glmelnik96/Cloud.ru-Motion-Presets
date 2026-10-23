@@ -35,8 +35,10 @@ function fakeBuild(ids, opts = {}) {
     for (const f of itemFiles(item)) {
       if (f.optional) continue;
       // a file of any extension (T2/T3): the export presets are .epr and .aom, by the variant key; the caption
-      // style is .prtextstyle
-      const p = path.join(build, f.anyExt ? `${f.from}.${item.textStyle ? 'prtextstyle' : f.key}` : f.from);
+      // style is .prtextstyle; the lecture frame has a still (.png) per layout and its drift loop (.mov)
+      const v = item.variants.find((x) => x.key === f.key);
+      const ext = item.textStyle ? 'prtextstyle' : v && v.options && 'drift' in v.options ? (v.options.drift ? 'mov' : 'png') : f.key;
+      const p = path.join(build, f.anyExt ? `${f.from}.${ext}` : f.from);
       if (f.from.endsWith('.mogrt')) mogrtFor(item, p, opts);
       else {
         mkdirSync(path.dirname(p), { recursive: true });
