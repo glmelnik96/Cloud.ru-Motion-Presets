@@ -32,6 +32,10 @@ export const MEDIA_CASES = [
   { key: 'portal', id: 'BG_WebinarPortal', time: 2, values: { layout: 2, timer: true }, options: { lengthSec: 30 }, expect: { lengthSec: 30, variant: '16x9_speaker_timer', kind: 'loop', loops: 1 } },
   // the SMM frame: the green one drifting, as long as asked
   { key: 'notched', id: 'SMM_FrameNotched', time: 2, values: { colour: 1, drift: true }, options: { lengthSec: 75 }, expect: { lengthSec: 75, variant: '16x9_green_drift', kind: 'loop', loops: 2 } },
+  // the podcast intro and outro: plain clips at the playhead, as long as their files (the intro is on alpha over the
+  // video, so no backdrop)
+  { key: 'intro', id: 'POD_Intro', time: 2, expect: { lengthSec: 7, variant: '16x9', kind: 'clip', backdrop: false } },
+  { key: 'outro', id: 'POD_Outro', time: 2, expect: { lengthSec: 10, variant: '16x9', kind: 'clip' } },
 ];
 
 export async function runMediaLive(o) {

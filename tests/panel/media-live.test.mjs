@@ -24,6 +24,9 @@ function natural(file) {
   if (/\.png$/.test(name)) return { sec: 0, still: true };
   if (/_loop_/.test(name)) return { sec: 10, still: false };
   if (/\.wav$/.test(name)) return { sec: 0.8, still: false };
+  // a plain clip as long as its item (the podcast intro 7 s, the outro 10 s)
+  const clip = SRC.items.find((i) => name.startsWith(i.id + '_') && i.tier === 'T2' && !i.loop && i.cutFrame === undefined && i.duration);
+  if (clip) return { sec: clip.duration.holdSec, still: false };
   return { sec: 1, still: false };
 }
 

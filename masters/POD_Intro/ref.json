@@ -1,0 +1,86 @@
+{
+  "id": "POD_Intro",
+  "_note": "16:9 against the pack's comp (4K goldens scaled to FHD), 9:16 against the pack's vertical render (no comp, D12: golden frames by tools/golden/video-frames.mjs). Gated on the card (from 2 s only the hatches move, on the pack's keys); the build-up of the first second is viewed by eye (the pack renders with motion blur, the master has none, C35). The logo is masked: the master logo in brand colours (D18, L6) where the pack's stands in its own (#2D2D2D, #31D383).",
+  "preview": {
+    "_note": "Card preview per proportion: the build-up over the dark backdrop and a second of the card. The poster: the card.",
+    "variant": "16x9",
+    "ctrl": {},
+    "text": {},
+    "backdrop": "#222222",
+    "fps": 12.5,
+    "durationSec": 3,
+    "posterSec": 2
+  },
+  "cases": [
+    {
+      "name": "intro169",
+      "title": "16:9 против «Заставки_ПОДКАСТ_CLOUD.RU»",
+      "golden": {
+        "slug": "podcast",
+        "compSlug": "zastavka_podkast_cloud_ru",
+        "scale": 0.5
+      },
+      "variant": "16x9",
+      "ctrl": {},
+      "text": {},
+      "masks": [
+        {
+          "x": 88,
+          "y": 940,
+          "w": 240,
+          "h": 56,
+          "reason": "D18: the master logo, not the pack's"
+        }
+      ],
+      "gate": [
+        2000,
+        3000,
+        5000,
+        6960
+      ],
+      "view": [
+        240,
+        520,
+        760,
+        1000,
+        1240,
+        1520
+      ]
+    },
+    {
+      "name": "intro916",
+      "title": "9:16 против вертикального рендера пакета",
+      "golden": {
+        "slug": "podcast",
+        "compSlug": "render_zastavka_9x16",
+        "scale": 0.5
+      },
+      "variant": "9x16",
+      "ctrl": {},
+      "text": {},
+      "masks": [
+        {
+          "x": 650,
+          "y": 134,
+          "w": 262,
+          "h": 58,
+          "reason": "D18: the master logo, not the pack's"
+        }
+      ],
+      "gate": [
+        2000,
+        3000,
+        5000,
+        6960
+      ],
+      "view": [
+        240,
+        520,
+        760,
+        1000,
+        1240,
+        1520
+      ]
+    }
+  ]
+}
