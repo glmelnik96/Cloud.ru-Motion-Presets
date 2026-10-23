@@ -22,11 +22,12 @@ export function keyedValue(keys, t) {
 // AE's linear(t, tMin, tMax, value1, value2), clamped.
 const LIB = 'function linear(t, a, b, c, d) { var u = b === a ? 1 : (t - a) / (b - a); u = Math.max(0, Math.min(1, u)); return c + (d - c) * u; }\n';
 
-// The last line of an expression is its value; `value` is the property's own (pre-expression) value.
+// The last line of an expression is its value; `value` is the property's own (pre-expression) value and
+// valueAtTime(t) its keys at t (an expression on keyed sliders and selectors remaps their time).
 function compile(src) {
   const lines = src.split('\n');
   const body = LIB + lines.slice(0, -1).join('\n') + '\nreturn (' + lines[lines.length - 1] + ');';
-  return new Function('thisComp', 'time', 'value', body);
+  return new Function('thisComp', 'time', 'value', 'valueAtTime', body);
 }
 
 // spec: a built spec (toJSON); ctrl: CTRL values by effect name (1-based, as AE); texts: the field layers'
@@ -60,12 +61,17 @@ export function exprComp(spec, { w = 1920, h = 1080, ctrl = {}, texts = {}, ink 
   const rects = new Map();
   const START_P = ['selector', 'Rise', 'ADBE Text Percent Start'];
   const END_P = ['selector', 'Rise', 'ADBE Text Percent End'];
+  // a property's expression at t: `value` and valueAtTime from its keys when it has any
+  const run = (layer, path, t, value) => {
+    const keys = keyed.get(id(layer, path));
+    return exprs.get(id(layer, path))(comp, t, keys ? keyedValue(keys, t) : value, keys ? (tt) => keyedValue(keys, tt) : undefined);
+  };
   const hangOf = (layer, t) => {
     if (busy.has(layer) || !exprs.has(id(layer, START_P))) return 0;
     busy.add(layer);
     try {
-      const s = exprs.get(id(layer, START_P))(comp, t, 0);
-      const e = exprs.has(id(layer, END_P)) ? exprs.get(id(layer, END_P))(comp, t, 100) : 100;
+      const s = run(layer, START_P, t, 0);
+      const e = exprs.has(id(layer, END_P)) ? run(layer, END_P, t, 100) : 100;
       const rise = exprs.has(id(layer, ['animator', 'Rise', 'ADBE Text Position 3D'])) ? exprs.get(id(layer, ['animator', 'Rise', 'ADBE Text Position 3D']))(comp, t)[1] : 0;
       return Math.abs(e - s) >= 99.9 ? rise : 0;
     } finally {
@@ -96,9 +102,8 @@ export function exprComp(spec, { w = 1920, h = 1080, ctrl = {}, texts = {}, ink 
     k,
     // the value of a layer property at time t (its expression, else its keys)
     at(layer, path, t) {
-      const fn = exprs.get(id(layer, path));
       now = t;
-      if (fn) return fn(comp, t, statics.get(id(layer, path)));
+      if (exprs.has(id(layer, path))) return run(layer, path, t, statics.get(id(layer, path)));
       if (keyed.has(id(layer, path))) return keyedValue(keyed.get(id(layer, path)), t);
       throw new Error(`no expression or keys on ${layer} ${path.join('/')}`);
     },

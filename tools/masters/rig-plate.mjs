@@ -131,17 +131,27 @@ export function lineAt(dump, metrics, textName, plateName, t) {
   };
 }
 
-// Glyph extents of the plate fonts, em of the font size: the tallest glyph above the baseline (Й, Ё, Å), the
-// deepest below it (у; capitals only: the tail of Q, deeper than Д and the comma). Measured in AE 26.5 with
+// Glyph extents of the brand fonts, em of the font size: the tallest glyph above the baseline (Й, Ё, Å), the
+// deepest below it (у; capitals only: the tail of Q or a comma, deeper than Д). Measured in AE 26.5 with
 // sourceRectAtTime at 100 px, 2026-10-23.
 export const GLYPHS = {
   'SBSansDisplay-Semibold': { top: 0.886, bottom: 0.201, capsBottom: 0.181 },
   'SBSansDisplay-Bold': { top: 0.894, bottom: 0.215, capsBottom: 0.181 },
+  'SBSansDisplay-Regular': { top: 0.886, bottom: 0.188, capsBottom: 0.181 },
+  'SBSansText-Regular': { top: 0.939, bottom: 0.188, capsBottom: 0.162 },
 };
+
+// How far words must hang below their place to be out of a matte whose lower edge is `below` px under their
+// baseline: the top of the tallest glyph of the font clears that edge by a pixel.
+export function clearOffset(below, style) {
+  const g = GLYPHS[style.font];
+  if (!g) throw new Error(`no glyph extents for ${style.font}`);
+  return r6(below + g.top * style.size + 1);
+}
 
 // How far hidden words hang below their place, FHD px at text size 1: the pack's rise, or more when the top of
 // the tallest glyph would still be inside the plate. A plate reaches under its baseline by base, then by its
-// descenders or 1 px into the plate below (lineJs), and the glyph top must clear that edge by a pixel more.
+// descenders or 1 px into the plate below (lineJs).
 // The SMM pack's 75 px left the tops of б, Й and Ё in the plate before the rise, and ф showed as soon as a
 // word began to move (user, 2026-10-23: «текст частично виден до появления»).
 export function hideOffset(geo, style, { upper = false } = {}) {
@@ -149,7 +159,7 @@ export function hideOffset(geo, style, { upper = false } = {}) {
   if (!g) throw new Error(`hideOffset: no glyph extents for ${style.font}`);
   const deepest = (style.allCaps || upper ? g.capsBottom : g.bottom) * style.size;
   const reach = Math.max(0, deepest - geo.base, geo.step - geo.h + 1);
-  return r6(Math.max(geo.rise, geo.base + g.top * style.size + reach + 1));
+  return r6(Math.max(geo.rise, clearOffset(geo.base + reach, style)));
 }
 
 // Rig times of a block in a master of `duration`: the in keys from 0, the out keys of the LAST line to leave

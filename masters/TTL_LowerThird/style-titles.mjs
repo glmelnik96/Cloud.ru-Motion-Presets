@@ -4,7 +4,7 @@
 import { applyPoint } from '../../tools/dump/geometry.mjs';
 import { dumpKeys, dumpLayer, progressSegment, toBuilderKeys } from '../../tools/masters/dump-keys.mjs';
 import { layerToCompAt, shapeBoxAt } from '../../tools/masters/dump-geometry.mjs';
-import { fitExpr, SIZE_AT_1, scaleExpr, sizeJs, visible } from '../../tools/masters/rig-plate.mjs';
+import { clearOffset, fitExpr, SIZE_AT_1, scaleExpr, sizeJs, visible } from '../../tools/masters/rig-plate.mjs';
 import { P, rectGroup, shape, text } from '../../tools/masters/spec.mjs';
 
 const FPS = 25;
@@ -128,6 +128,16 @@ export function platePre(timeMap, size) {
   ].join('\n') + '\n';
 }
 
+// How far the hidden words of each field hang (FHD px at text size 1): the pack's rise, or more when the
+// tallest glyph would still be inside its plate. The name plate ends under the name's baseline; the role
+// plate ends farthest under the first of two role lines.
+export function riseOffsets(L, T) {
+  return {
+    name: Math.max(L.nameRise, clearOffset(L.name.h - L.nameBaseline, T.TXT_NAME.style)),
+    role: Math.max(L.roleRise, clearOffset(L.role.h - L.roleBaselines[0], T.TXT_ROLE1.style)),
+  };
+}
+
 // Adds the style's layers (bottom first), keys and expressions to the spec.
 export function addTitles(spec, { layout: L, rig, nameStart, text: T, hex, timeMap }) {
   const titlesPre = (size) => platePre(timeMap, size) + [
@@ -172,10 +182,13 @@ export function addTitles(spec, { layout: L, rig, nameStart, text: T, hex, timeM
   spec.expr('TXT_ROLE1', P.pos, pre + `[xr + TX, yr + ${L.roleBaselines[0]} * kt]`);
   // role 2 takes the first line when role 1 is empty
   spec.expr('TXT_ROLE2', P.pos, pre + `[xr + TX, yr + (r1 > 0 ? ${L.roleBaselines[1]} : ${L.roleBaselines[0]}) * kt]`);
-  // rise offsets in layer units: the layer scale f carries them with the text
-  spec.expr('TXT_NAME', P.rise(), k + `[0, ${L.nameRise} * k, 0]`);
-  spec.expr('TXT_ROLE1', P.rise(), k + `[0, ${L.roleRise} * k, 0]`);
-  spec.expr('TXT_ROLE2', P.rise(), k + `[0, ${L.roleRise} * k, 0]`);
+  // rise offsets in layer units: the layer scale f carries them with the text. Hidden words hang out of their
+  // plate: the pack's 56.25 px left the tops of Й, Ё and Å 6–7 px inside the name plate before the rise, and
+  // its 91.4 px the ring of Å half a pixel inside the role plate on the first of two lines (2026-10-23)
+  const hide = riseOffsets(L, T);
+  spec.expr('TXT_NAME', P.rise(), k + `[0, ${hide.name} * k, 0]`);
+  spec.expr('TXT_ROLE1', P.rise(), k + `[0, ${hide.role} * k, 0]`);
+  spec.expr('TXT_ROLE2', P.rise(), k + `[0, ${hide.role} * k, 0]`);
   for (const layer of ['TXT_NAME', 'TXT_ROLE1', 'TXT_ROLE2']) spec.expr(layer, P.scale, scaleExpr(FIT.titles));
   // the pack's role selector ran over three lines (an empty first one): line 2 moved while Start passed
   // 33.3-66.7 %, line 3 while it passed 66.7-100 %. Each role layer gets its own window of that Start.
