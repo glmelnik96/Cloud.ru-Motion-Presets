@@ -1971,6 +1971,72 @@
       ]
     },
     {
+      "id": "CRS_Subtitles",
+      "title_ru": "Субтитры",
+      "category": "courses",
+      "tier": "T1",
+      "hosts": [
+        "ae"
+      ],
+      "version": 1,
+      "fit": "trim",
+      "duration": {
+        "introSec": 0,
+        "holdSec": 4,
+        "outroSec": 0,
+        "maxSec": 300
+      },
+      "requiredFonts": [
+        {
+          "postScriptName": "SBSansText-Regular"
+        }
+      ],
+      "fields": [
+        {
+          "key": "line1",
+          "label_ru": "Строка 1",
+          "type": "text",
+          "egpName": "Строка 1",
+          "egpIndex": 0,
+          "maxLen": 60,
+          "default": "Текст субтитра"
+        },
+        {
+          "key": "line2",
+          "label_ru": "Строка 2",
+          "type": "text",
+          "egpName": "Строка 2",
+          "egpIndex": 1,
+          "maxLen": 60,
+          "default": "во вторую строку"
+        }
+      ],
+      "variants": [
+        {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_CRS_Subtitles_16x9",
+          "minHostVersion": {
+            "ae": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_CRS_Subtitles_16x9_4K",
+          "minHostVersion": {
+            "ae": "26.0"
+          }
+        }
+      ]
+    },
+    {
       "id": "CRS_SubtitleStyle",
       "title_ru": "Стиль субтитров «CR Субтитры»",
       "category": "courses",

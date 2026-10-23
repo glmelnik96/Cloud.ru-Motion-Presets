@@ -1,0 +1,31 @@
+{
+  "id": "CRS_Subtitles",
+  "_note": "Golden comparison against the courses pack «Оверлей 16 на 9» (FHD, an hour of a still overlay), the pack's own subtitle lines (resolved from the dump: \"text\": \"pack\"). The pack sets its lines over its dark ground #222222 without plates; the master's plates are that colour, so inside each line's part the two frames match. The parts lie inside the plates (9 px past the ink, 35 px over and 14.7 px under the baseline). The pack's lines stand 6.3 and 3.9 px left of the frame centre, the master's on it: each part registers within maxShift 8.",
+  "preview": {
+    "_note": "Card preview: the default two lines on a neutral grey.",
+    "variant": "16x9",
+    "ctrl": {},
+    "text": {},
+    "backdrop": "#5A5A5A",
+    "fps": 12.5,
+    "axes": {}
+  },
+  "cases": [
+    {
+      "name": "pack",
+      "title": "Строки пакета на его месте",
+      "golden": { "slug": "courses", "compSlug": "overley_16_na_9" },
+      "variant": "16x9",
+      "ctrl": {},
+      "text": "pack",
+      "parts": [
+        { "name": "line1", "x": 582, "y": 911, "w": 745, "h": 40 },
+        { "name": "line2", "x": 890, "y": 958, "w": 130, "h": 37 }
+      ],
+      "maxShift": 8,
+      "shift": [],
+      "gate": [10000, 20000, 30000],
+      "view": [0]
+    }
+  ]
+}

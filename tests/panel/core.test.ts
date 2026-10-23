@@ -53,7 +53,8 @@ describe('library', () => {
     const c = catalog();
     c.items[1].hosts = ['ae'];
     const ids = c.items.map((i) => i.id);
-    expect(itemsForHost(c, 'pr').map((i) => i.id)).toEqual(ids.filter((id) => id !== 'LOGO_Mark'));
+    expect(itemsForHost(c, 'pr').map((i) => i.id)).toEqual(c.items.filter((i) => i.hosts.includes('pr')).map((i) => i.id));
+    expect(itemsForHost(c, 'pr').map((i) => i.id)).not.toContain('LOGO_Mark');
     const items = c.items;
     expect(filterItems(items, { query: 'подписью логошот' }).map((i) => i.id)).toEqual(['LOGO_Shot']);
     expect(filterItems(items, { query: 'ttl' }).map((i) => i.id)).toEqual(ids.filter((id) => id.startsWith('TTL_')));
@@ -63,7 +64,7 @@ describe('library', () => {
     expect(filterItems(items, { category: 'favorites', favorites: new Set(['LOGO_Mark']) }).map((i) => i.id)).toEqual(['LOGO_Mark']);
     items[0].title_ru = 'Ёлка';
     expect(filterItems(items, { query: 'елка' }).map((i) => i.id)).toEqual(['LOGO_Shot']);
-    expect(usedCategories(items).map((c) => c.label_ru)).toEqual(['Логотипы', 'Титры', 'SMM', 'Подкаст']);
+    expect(usedCategories(items).map((c) => c.label_ru)).toEqual(['Логотипы', 'Титры', 'Курсы', 'SMM', 'Подкаст']);
   });
 });
 
