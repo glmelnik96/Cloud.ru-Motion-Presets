@@ -36,14 +36,20 @@ function dry(host) {
   const run = (code) => vm.runInContext(code, ctx);
   const bridge = new Bridge({ evalScript: async (s) => { try { return String(run(s)); } catch { return 'EvalScript error.'; } }, loadHost: async () => void run(BUNDLE), sleep: async () => undefined });
   const cat = catalog();
-  const ttl = cat.items.find((i) => i.id === 'TTL_LowerThird');
-  const D = ttl.duration.introSec + ttl.duration.holdSec + ttl.duration.outroSec;
-  if (host === 'ae') {
-    ctx.__comps = ttl.variants.map((v) => ({ name: v.aeComp, w: v.w, h: v.h, duration: D, fps: v.fps, ep: ttl.fields.map((f) => ({ name: f.egpName, kind: f.type === 'text' ? 'text' : 'number', value: f.type === 'text' ? f.default ?? '' : Number(f.default ?? 1) })) }));
-    run(`__ae.template(${JSON.stringify(`${LIB}/${ttl.aep.file}`)}, __comps, [])`);
-  } else {
-    ctx.__params = ttl.fields.map((f) => ({ name: f.egpName, kind: f.type === 'text' ? 'text' : 'number', value: f.type === 'text' ? f.default : (f.default ?? 1) - 1 }));
-    for (const v of ttl.variants) run(`__pr.mogrt(${JSON.stringify(`${LIB}/${v.file}`)}, ${D}, __params)`);
+  // the templates of the pack (the lower third, the webinar screen): their comps or MOGRTs with the fields the panel
+  // writes, as long as the template (a trim one: its longest insert)
+  for (const t1 of cat.items.filter((i) => i.tier === 'T1')) {
+    const D = t1.fit === 'trim' ? t1.duration.maxSec : t1.duration.introSec + t1.duration.holdSec + t1.duration.outroSec;
+    const fields = t1.fields.filter((f) => f.type !== 'media');
+    if (host === 'ae') {
+      ctx.__comps = t1.variants.map((v) => ({ name: v.aeComp, w: v.w, h: v.h, duration: D, fps: v.fps, ep: fields.map((f) => ({ name: f.egpName, kind: f.type === 'text' ? 'text' : 'number',
+        value: f.type === 'text' ? f.default ?? '' : f.type === 'checkbox' ? Number(Boolean(f.default)) : Number(f.default ?? 1) })) }));
+      run(`__ae.template(${JSON.stringify(`${LIB}/${t1.aep.file}`)}, __comps, [])`);
+    } else {
+      ctx.__params = fields.map((f) => ({ name: f.egpName, kind: f.type === 'text' ? 'text' : 'number',
+        value: f.type === 'text' ? f.default : f.type === 'dropdown' ? (f.default ?? 1) - 1 : f.type === 'checkbox' ? Boolean(f.default) : f.default }));
+      for (const v of t1.variants) run(`__pr.mogrt(${JSON.stringify(`${LIB}/${v.file}`)}, ${D}, __params)`);
+    }
   }
   const files = new Set();
   const add = (p) => {
@@ -120,7 +126,7 @@ describe('live media checks, dry', () => {
       const d = dry(host);
       const R = new Report(host);
       await runMediaLive({
-        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.24', R,
+        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.25', R,
         prepare: async (prep) => {
           for (const c of prep.copies) d.add(c.to);
           for (const s of prep.solids) d.add(s.path);
