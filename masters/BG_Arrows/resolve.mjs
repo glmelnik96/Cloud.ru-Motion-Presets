@@ -15,6 +15,7 @@ import { packProject } from '../../tools/dump/dump.mjs';
 import { workDir, workPath } from '../../tools/lib/work.mjs';
 import { dumpLayer } from '../../tools/masters/dump-keys.mjs';
 import { addQaPatch } from '../../tools/masters/rig-plate.mjs';
+import { aspectOf, packOf, with4k } from '../../tools/masters/pack4k.mjs';
 import { nul, P, precomp, Spec } from '../../tools/masters/spec.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -96,7 +97,7 @@ export function resolveArrows(sources = loadSources()) {
   spec.add(nul('CTRL', [{ kind: 'checkbox', name: 'QA', value: false }]));
 
   const built = spec.toJSON();
-  const files = FORMATS.map((fmt) => ({ key: fmt, variant: fmt, ctrl: {}, kind: 'loop', seconds: PERIOD, options: {} }));
+  const files = with4k(FORMATS.map((fmt) => ({ key: fmt, variant: fmt, ctrl: {}, kind: 'loop', seconds: PERIOD, options: {} })));
   return {
     id: ID,
     workDir: workDir(),
@@ -132,7 +133,7 @@ export function resolveArrows(sources = loadSources()) {
     },
     check: {},
     version: 1,
-    variants: FORMATS.map((key) => ({ key, ...tokens.video.formats[key] })),
+    variants: [...FORMATS, '16x9_4K'].map((key) => ({ key, ...tokens.video.formats[key] })),
     sweepTimes: [0, 7.5, r6(PERIOD - 1 / FPS)],
     rest: 0,
   };
@@ -154,7 +155,7 @@ export function libraryEntry(p = resolveArrows()) {
     duration: p.duration,
     variants: p.files.map((f) => {
       const v = p.variants.find((x) => x.key === f.variant);
-      return { key: f.key, aspect: f.variant, w: v.w, h: v.h, fps: FPS, minHostVersion: { ae: '26.0', pr: '26.0' } };
+      return { key: f.key, aspect: aspectOf(f.variant), w: v.w, h: v.h, fps: FPS, ...packOf(f), minHostVersion: { ae: '26.0', pr: '26.0' } };
     }),
   };
 }

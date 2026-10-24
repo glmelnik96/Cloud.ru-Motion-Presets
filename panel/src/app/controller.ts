@@ -11,7 +11,7 @@ import { planFit, runFit, windowsFor, type FitWindow } from '../core/fit';
 import { previewFor, type PreviewMedia } from '../core/previews';
 import type { HostCaller } from '../core/host';
 import { planItem, runInsert, runMedia, type InsertOptions, type InsertPlan } from '../core/insert';
-import { filterItems, itemsForHost, parseCatalog, usedCategories, CATEGORIES } from '../core/library';
+import { filterItems, installedOnly, itemsForHost, parseCatalog, usedCategories, CATEGORIES } from '../core/library';
 import type { Logger } from '../core/log';
 import { backdropDefault, CUT_WINDOW_SEC, defaultMediaLengthSec, mediaKind, pickMediaVariant, placeable, type Prepare } from '../core/media';
 import { FieldMemory, type KeyValueStore } from '../core/memory';
@@ -41,6 +41,8 @@ export interface Services {
   exportFs?: { size(p: string): number | null; mkdirp(dir: string): void; documents: string };
   aerender?(job: AerenderJob): Promise<AerenderResult>;
   reveal?(path: string): void;
+  // Whether a library file is on disk: the 4K files are an installer option (D24).
+  fileExists?(path: string): boolean;
 }
 
 export type View = 'catalog' | 'form';
@@ -168,7 +170,8 @@ export class PanelApp {
       this.log('error', 'library.refused', { problems: loaded.problems.map((p) => p.code) });
       return;
     }
-    this.set({ phase: 'ready', catalog: loaded.catalog, items: itemsForHost(loaded.catalog, this.svc.hostKey), libraryProblems: loaded.problems });
+    const catalog = this.svc.fileExists ? installedOnly(loaded.catalog, this.svc.libraryRoot, this.svc.fileExists) : loaded.catalog;
+    this.set({ phase: 'ready', catalog, items: itemsForHost(catalog, this.svc.hostKey), libraryProblems: loaded.problems });
     this.log('info', 'start', { host: this.svc.hostKey, plugin: this.svc.pluginVersion, library: loaded.catalog.libraryVersion });
     await this.refreshContext();
     await this.refreshFonts();
@@ -560,6 +563,13 @@ export class PanelApp {
     if (item.tier === 'T1') return null;
     const v = variantsForValues(item, this.state.values).find((x) => /\.svg$/i.test(x.file ?? ''));
     return v?.file ? libraryFile(this.svc.libraryRoot, v.file) : null;
+  }
+
+  // An item whose 4K files this install lacks (D24), in a 4K comp or sequence: the hint under the consent to the
+  // nearest variant.
+  packHint(item: Item): string | null {
+    const t = this.state.context?.target;
+    return item.packsMissing?.includes('4k') && t && Math.min(t.w, t.h) >= 2160 ? messages.pack4k() : null;
   }
 
   // The variant for the format chip: manual or by the frame of the active comp or sequence.

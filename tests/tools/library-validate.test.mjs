@@ -172,6 +172,19 @@ describe('library source', () => {
     item(doc, 'AME_4K').omTemplate = 'Lossless';
     expect(errorsOf(doc)).toMatch(/omTemplate/);
   });
+  it('keeps a pack to T2/T3 files whose look stays in every install (D24)', () => {
+    let doc = example();
+    const portal = item(doc, 'BG_WebinarPortal');
+    expect(portal.variants.find((v) => v.key === '16x9_4K').pack).toBe('4k');
+    portal.variants.find((v) => v.key === '16x9').pack = '4k';
+    expect(errorsOf(doc)).toMatch(/BG_WebinarPortal: pack: variant "16x9_4K": its look has no variant in every install/);
+    doc = example();
+    item(doc, 'TTL_LowerThird').variants[1].pack = '4k';
+    expect(errorsOf(doc)).toMatch(/TTL_LowerThird: pack: variant "16x9_4K": a template's MOGRT is in every install/);
+    doc = example();
+    item(doc, 'BG_Arrows').variants[0].pack = '8k';
+    expect(errorsOf(doc)).toMatch(/pack must be equal to one of the allowed values/);
+  });
 });
 
 describe('library catalog', () => {

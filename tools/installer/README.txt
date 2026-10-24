@@ -14,6 +14,15 @@ macOS
   (двойной щелчок по файлу, скачанному из браузера или мессенджера, macOS не откроет)
   Пресеты Adobe Media Encoder тоже:  bash install.command --with-ame
 
+[4K]
+4K-петли и клипы (по желанию, {size4k} на диске)
+  Фоны, фон экрана вебинара, дрейф рамки лекции, интро и аутро подкаста в 4K лежат в отдельном архиве
+  {name}-4k.zip. Распакуйте его туда же, где этот: его папка {name} совпадёт с этой.
+  Windows: двойной щелчок по install-4k.cmd.   macOS: bash install.command --with-4k
+  Следующие установки сохраняют 4K, пока архив распакован рядом; убрать 4K: install.cmd -No4K / --no-4k.
+  Без 4K в 4K-проекте панель берёт FHD-версию и вписывает её в кадр.
+
+[/4K]
 Что ставится
   панель           в папку расширений CEP пользователя (ru.cloud.brandkit)
   библиотека       Windows: C:\ProgramData\CloudRuBrandKit\library   macOS: /Users/Shared/CloudRuBrandKit/library

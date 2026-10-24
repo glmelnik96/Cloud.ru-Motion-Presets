@@ -46,7 +46,9 @@ describe.skipIf(!HAS_DUMPS)('CRS_LectureFrame', async () => {
     expect(Object.values(p.drift)).toEqual(Array(6).fill([0, 15, 30, 45, 60]));
     expect(p.comp).toMatchObject({ w: 1920, h: 1080, fps: 25, duration: 60 });
     expect(p.files.map((f) => [f.key, f.kind, f.variant])).toEqual(LAYOUTS.flatMap((l) => [
-      [`16x9_${l.key}`, 'still', '16x9'], [`16x9_4K_${l.key}`, 'still', '16x9_4K'], [`16x9_${l.key}_drift`, 'loop', '16x9']]));
+      [`16x9_${l.key}`, 'still', '16x9'], [`16x9_4K_${l.key}`, 'still', '16x9_4K'], [`16x9_${l.key}_drift`, 'loop', '16x9'], [`16x9_4K_${l.key}_drift`, 'loop', '16x9_4K']]));
+    // the 4K drift loops are the installer's 4K option (D24); the 4K stills are in every install
+    expect(p.files.filter((f) => f.pack).map((f) => f.key)).toEqual(LAYOUTS.map((l) => `16x9_4K_${l.key}_drift`));
     expect(p.files.filter((f) => f.kind === 'loop').every((f) => f.seconds === 60)).toBe(true);
     expect(p.spec.transplant.comps.map((c) => [c.name, c.keep.length])).toEqual([['DECOR_BARS', 6], ['DECOR_PATTERN', 1]]);
   });
@@ -78,8 +80,8 @@ describe.skipIf(!HAS_DUMPS)('CRS_LectureFrame', async () => {
     const item = src.items.find((i) => i.id === 'CRS_LectureFrame');
     expect(item).toEqual(libraryEntry(p));
     // every file has the screen window; the speaker layouts have the speaker one, in their own frame size
-    expect(item.windows[0].rects).toHaveLength(12);
-    expect(item.windows[1].rects.map((r) => r.variant)).toEqual(['16x9_spkL', '16x9_4K_spkL', '16x9_spkL_drift', '16x9_spkR', '16x9_4K_spkR', '16x9_spkR_drift']);
+    expect(item.windows[0].rects).toHaveLength(16);
+    expect(item.windows[1].rects.map((r) => r.variant)).toEqual(['16x9_spkL', '16x9_4K_spkL', '16x9_spkL_drift', '16x9_4K_spkL_drift', '16x9_spkR', '16x9_4K_spkR', '16x9_spkR_drift', '16x9_4K_spkR_drift']);
     expect(item.windows[1].rects[1]).toEqual({ variant: '16x9_4K_spkL', x: 100, y: 300, w: 1000, h: 1500 });
   });
 });

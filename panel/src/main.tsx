@@ -84,6 +84,7 @@ async function start(el: HTMLElement): Promise<void> {
     exportFs: rt.exportFs,
     aerender: rt.aerender,
     reveal: rt.reveal,
+    fileExists: rt.fileExists,
   });
   const ui: UiServices = {
     fileUrl: (file) => fileUrl(rt.libraryRoot, rt.platform, file),

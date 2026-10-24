@@ -147,7 +147,7 @@ describe.skipIf(!HAS_DUMPS)('POD_Intro', async () => {
     expect(item).toEqual(libraryEntry(p));
     expect(item).toMatchObject({ category: 'podcast', tier: 'T2', alpha: true, duration: { holdSec: 7 } });
     expect([item.loop, item.cutFrame, item.fields]).toEqual([undefined, undefined, undefined]);
-    expect(item.variants.map((v) => [v.key, v.w, v.h])).toEqual([['16x9', 1920, 1080], ['9x16', 1080, 1920]]);
+    expect(item.variants.map((v) => [v.key, v.w, v.h, v.pack])).toEqual([['16x9', 1920, 1080, undefined], ['16x9_4K', 3840, 2160, '4k'], ['9x16', 1080, 1920, undefined]]);
     expect(src.items.map((i) => i.id).filter((id) => /^POD_(Intro|Outro)$/.test(id))).toEqual(['POD_Intro', 'POD_Outro']);
   });
 });

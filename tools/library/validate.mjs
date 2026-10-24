@@ -138,6 +138,12 @@ function checkItem(item, byId, kind, err) {
       err('aspect', `variant "${v.key}": ${v.w}x${v.h} is not ${v.aspect}`);
     }
     checkSwitches(`variant "${v.key}" options`, v.options);
+    // D24: a pack's files come with an installer option; the look must stay in every install in another size
+    if (v.pack !== undefined) {
+      const look = (o) => JSON.stringify(Object.entries(o.options ?? {}).sort());
+      if (item.tier === 'T1') err('pack', `variant "${v.key}": a template's MOGRT is in every install, packs are for T2/T3 files`);
+      else if (!variants.some((o) => o.pack === undefined && look(o) === look(v))) err('pack', `variant "${v.key}": its look has no variant in every install`);
+    }
     if (item.tier === 'T1' && item.hosts.includes('ae')) {
       if (!v.aeComp) {
         err('ae-comp', `variant "${v.key}": an AE-capable variant needs aeComp`);

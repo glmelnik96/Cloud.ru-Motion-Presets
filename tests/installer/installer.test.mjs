@@ -26,11 +26,12 @@ async function library({ ids, version = 1, libraryVersion = '2026.10.05', extra 
   for (const item of src.items) {
     for (const f of itemFiles(item)) {
       if (f.optional) continue;
-      // a file of any extension (the export presets): .epr or .aom by the variant key
-      const p = path.join(buildDir, f.anyExt ? `${f.from}.${f.key}` : f.from);
+      // a file of any extension: the export presets .epr or .aom by the variant key, the loops (BG_Plus) .mov
+      const ext = ['epr', 'aom'].includes(f.key) ? f.key : 'mov';
+      const p = path.join(buildDir, f.anyExt ? `${f.from}.${ext}` : f.from);
       mkdirSync(path.dirname(p), { recursive: true });
       if (!f.from.endsWith('.mogrt')) {
-        writeFileSync(p, (f.anyExt ? f.key : 'aep') + ' ' + item.id);
+        writeFileSync(p, (f.anyExt ? ext + ' ' + f.key : 'aep') + ' ' + item.id);
         continue;
       }
       const zip = new AdmZip();
@@ -98,6 +99,31 @@ describe('release package', () => {
     const entry = new AdmZip(r.zip).getEntries().find((e) => e.entryName.endsWith('/install.command'));
     expect((entry.attr >>> 16) & 0o777).toBe(0o755);
     expect(readFileSync(p('README.txt'), 'utf8')).toContain(`Cloud.ru BrandKit ${pluginVersion()}, библиотека 2026.10.05`);
+  }, 60000);
+
+  it('puts the files of the 4K option in an archive of their own that unpacks over the base folder (D24)', async () => {
+    const lib = await library({ ids: ['TTL_LowerThird', 'BG_Plus'] });
+    const out = tmp('bk-inst-out-');
+    const r = await buildPackage({ zxp, library: lib, out });
+    expect(r.problems).toEqual([]);
+    const four = 'items/BG_Plus/BG_Plus_16x9_4K_v1.mov';
+    expect(existsSync(path.join(r.dir, 'payload', 'library', four))).toBe(false);
+    expect(existsSync(path.join(r.dir, 'payload', 'library', 'items/BG_Plus/BG_Plus_16x9_v1.mov'))).toBe(true);
+    expect(r.pack4k.files).toBe(1);
+    expect(path.basename(r.zip4k)).toBe(`${r.name}-4k.zip`);
+    const names = new AdmZip(r.zip4k).getEntries().filter((e) => !e.isDirectory).map((e) => e.entryName).sort();
+    expect(names).toEqual([`${r.name}/payload/VERSION-4k`, `${r.name}/payload/library-4k/${four}`]);
+    new AdmZip(r.zip4k).extractAllTo(out, true);
+    expect(readFileSync(path.join(r.dir, 'payload', 'VERSION-4k'), 'utf8')).toBe(`library=2026.10.05\nbytes=${r.pack4k.bytes}\nfiles=1\n`);
+    expect(readFileSync(path.join(r.dir, 'payload', 'library-4k', four), 'utf8')).toBe('mov 16x9_4K BG_Plus');
+    expect(readFileSync(path.join(r.dir, 'install-4k.cmd'), 'utf8')).toMatch(/call "%~dp0install\.cmd" -With4K %\*\r\n/);
+    const readme = readFileSync(path.join(r.dir, 'README.txt'), 'utf8');
+    expect(readme).toContain(`${r.name}-4k.zip`);
+    expect(readme).not.toMatch(/\[\/?4K\]/);
+    // a library without the option: no archive, no word of it in the README
+    const plain = await buildPackage({ zxp, library: await library({ ids: ['LOGO_Mark'] }), out: tmp('bk-inst-out-') });
+    expect([plain.zip4k, existsSync(path.join(plain.dir, 'install-4k.cmd'))]).toEqual([null, false]);
+    expect(readFileSync(path.join(plain.dir, 'README.txt'), 'utf8')).not.toMatch(/4K-петли|\[4K\]/);
   }, 60000);
 
   it('refuses a library that differs from its library.json, an unsigned ZXP and no panel at all', async () => {
@@ -195,9 +221,9 @@ describe.skipIf(!HAS_BASH)('install.command', () => {
 const IS_WIN = process.platform === 'win32';
 
 // install.cmd as a user runs it (with an argument, so no pause); the console in UTF-8 for the Russian messages.
-function winInstall(pkg, sb, env = {}) {
-  const cmd = path.join(pkg, 'install.cmd');
-  const r = spawnSync('cmd.exe', ['/d', '/s', '/c', `"chcp 65001 >nul & "${cmd}" -Sandbox "${sb}""`], { env: { ...process.env, ...env }, windowsVerbatimArguments: true, windowsHide: true });
+function winInstall(pkg, sb, env = {}, { launcher = 'install.cmd', args = [] } = {}) {
+  const cmd = path.join(pkg, launcher);
+  const r = spawnSync('cmd.exe', ['/d', '/s', '/c', `"chcp 65001 >nul & "${cmd}" -Sandbox "${sb}"${args.map((a) => ' ' + a).join('')}"`], { env: { ...process.env, ...env }, windowsVerbatimArguments: true, windowsHide: true });
   return { status: r.status, out: Buffer.concat([r.stdout ?? Buffer.alloc(0), r.stderr ?? Buffer.alloc(0)]).toString('utf8') };
 }
 
@@ -278,6 +304,40 @@ describe.skipIf(!IS_WIN)('install.cmd (Windows)', () => {
     const again = winInstall(v2, sb);
     expect(again.status, again.out).toBe(0);
     expect(libVersion(w)).toBe('2026.10.20');
+    expect(await settled(w)).toEqual([]);
+  }, 240000);
+
+  it('the 4K option: install-4k.cmd adds the files, later installs keep them while they are unpacked, -No4K drops them (D24)', async () => {
+    const out = tmp('bk-inst-out-');
+    const r = await buildPackage({ zxp, library: await library({ ids: ['TTL_LowerThird', 'BG_Plus'] }), out });
+    const sb = tmp('bk-inst-sb-');
+    const w = winWhere(sb);
+    const four = path.join(w.library, 'items', 'BG_Plus', 'BG_Plus_16x9_4K_v1.mov');
+    // asked for before the archive is unpacked: refused, nothing installed
+    const early = winInstall(r.dir, sb, {}, { launcher: 'install-4k.cmd' });
+    expect(early.status, early.out).toBe(1);
+    expect(early.out).toMatch(/нет 4K-файлов .*-4k\.zip/);
+    expect(existsSync(w.library)).toBe(false);
+    // without it: the base install says what the option would add
+    const plain = winInstall(r.dir, sb);
+    expect(plain.status, plain.out).toBe(0);
+    expect(existsSync(four)).toBe(false);
+    new AdmZip(r.zip4k).extractAllTo(out, true);
+    const base = winInstall(r.dir, sb);
+    expect(base.out).toMatch(/4K-петли и клипы не ставились .*install-4k\.cmd/);
+    const with4k = winInstall(r.dir, sb, {}, { launcher: 'install-4k.cmd' });
+    expect(with4k.status, with4k.out).toBe(0);
+    expect(with4k.out).toMatch(/4K-петли и клипы: 1 файлов/);
+    expect(readFileSync(four, 'utf8')).toBe('mov 16x9_4K BG_Plus');
+    expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(/\r?\npacks=4k\r?\n$/);
+    // a later plain install keeps the option while the archive is unpacked here
+    const again = winInstall(r.dir, sb);
+    expect(again.status, again.out).toBe(0);
+    expect(existsSync(four)).toBe(true);
+    const dropped = winInstall(r.dir, sb, {}, { args: ['-No4K'] });
+    expect(dropped.status, dropped.out).toBe(0);
+    expect(existsSync(four)).toBe(false);
+    expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(/\r?\npacks=\r?\n$/);
     expect(await settled(w)).toEqual([]);
   }, 240000);
 

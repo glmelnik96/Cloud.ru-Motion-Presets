@@ -1,7 +1,10 @@
 # Cloud.ru BrandKit installer for Windows (spec 8.1). No admin rights, no Creative Cloud app, no Adobe ID.
 # Windows PowerShell 5.1 and PowerShell 7. install.cmd runs it with -ExecutionPolicy Bypass.
-#   install.cmd [-WithAme] [-Sandbox <dir>]
+#   install.cmd [-WithAme] [-With4K | -No4K] [-Sandbox <dir>]
 # -WithAme   also copies the brand .epr presets into the user presets of Adobe Media Encoder
+# -With4K    also installs the 4K loops and clips (D24): payload\library-4k, from the archive <folder>-4k.zip unpacked
+#            over this folder; install-4k.cmd passes it. A later install keeps them while they are unpacked here
+# -No4K      leaves the 4K files out although an earlier install had them
 # -Sandbox   installs into <dir>\... instead of the real folders (a dry run for checks); skips the check for
 #            running apps and the folder rights
 # -Done <file>  written as the very last step; install.cmd passes it and reports a run that ended without it
@@ -11,6 +14,8 @@
 # BRANDKIT_INSTALL_TEST_STOP=swap ends the process right after the swap, as an antivirus does (installer tests only).
 param(
   [switch]$WithAme,
+  [switch]$With4K,
+  [switch]$No4K,
   [string]$Sandbox = '',
   [string]$Done = '',
   [switch]$Interrupted
@@ -73,6 +78,30 @@ try {
     }
   }
 
+  # 1a. The 4K option (D24): asked for, or installed before and not turned off. Its files are checked to belong to this
+  #     library before anything changes.
+  $Pack4k = Join-Path $Payload 'library-4k'
+  $Version4k = Join-Path $Payload 'VERSION-4k'
+  $installedFile = Join-Path $StateDir 'installed.txt'
+  $had4k = (Test-Path -LiteralPath $installedFile) -and (Select-String -LiteralPath $installedFile -SimpleMatch 'packs=4k' -Quiet)
+  $want4k = $With4K -or ($had4k -and -not $No4K)
+  $packHere = (Test-Path -LiteralPath $Pack4k) -and (Test-Path -LiteralPath $Version4k)
+  $v4 = @{}
+  if ($packHere) {
+    foreach ($line in Get-Content -LiteralPath $Version4k) {
+      if ($line -match '^([a-z]+)=(.*)$') { $v4[$Matches[1]] = $Matches[2] }
+    }
+  }
+  $size4k = if ($v4['bytes']) { '{0:N1} ГБ' -f ([double]$v4['bytes'] / 1GB) } else { '' }
+  $use4k = $false
+  if ($want4k) {
+    if ($packHere -and $v4['library'] -ne $ver['library']) {
+      Fail "4K-файлы рядом — от библиотеки $($v4['library']), а ставится $($ver['library']): распакуйте сюда архив 4K той же версии"
+    }
+    if ($packHere) { $use4k = $true }
+    elseif ($With4K) { Fail "нет 4K-файлов (payload\library-4k): распакуйте сюда архив $(Split-Path -Leaf $Here)-4k.zip — его папка совпадёт с этой — и запустите установщик снова" }
+  }
+
   # 2. Files downloaded by a browser carry the Mark of the Web; the copies must not.
   Get-ChildItem -LiteralPath $Here -Recurse -File | Unblock-File -ErrorAction SilentlyContinue
 
@@ -107,6 +136,17 @@ try {
   Copy-Item -LiteralPath (Join-Path $Payload 'extension') -Destination $cepNew -Recurse
   $libraryNew = "$LibraryDir.new-$Stamp"
   Copy-Item -LiteralPath (Join-Path $Payload 'library') -Destination $libraryNew -Recurse
+  # the 4K files into the new copy, file by file under the same paths (items\<id>\...)
+  $n4k = 0
+  if ($use4k) {
+    $from4k = (Resolve-Path -LiteralPath $Pack4k).Path
+    foreach ($f in Get-ChildItem -LiteralPath $from4k -Recurse -File) {
+      $to = Join-Path $libraryNew $f.FullName.Substring($from4k.Length).TrimStart('\')
+      New-Item -ItemType Directory -Force -Path (Split-Path -Parent $to) | Out-Null
+      Copy-Item -LiteralPath $f.FullName -Destination $to
+      $n4k++
+    }
+  }
   $libraryOld = $null
   if (Test-Path -LiteralPath $LibraryDir) {
     $libraryOld = "$LibraryDir.old-$Stamp"
@@ -127,6 +167,9 @@ try {
   if ($env:BRANDKIT_INSTALL_TEST_STOP -eq 'swap') { [Environment]::Exit(0) }
   Say "Панель: $CepDir"
   Say "Библиотека: $LibraryDir"
+  if ($use4k) { Say "4K-петли и клипы: $n4k файлов, $size4k" }
+  elseif ($had4k -and -not $No4K) { Say "Внимание: 4K-петли и клипы стояли раньше, но в этой папке их нет — они не поставлены. Чтобы вернуть: распакуйте сюда архив $(Split-Path -Leaf $Here)-4k.zip и запустите install-4k.cmd" }
+  elseif ($packHere) { Say "4K-петли и клипы не ставились ($size4k): их поставит install-4k.cmd" }
 
   # 5. MOGRT copies flat in Local Templates: the Graphics Templates panel does not see subfolders. Our copies of
   #    the previous install that the new one does not carry are removed (the state file lists them).
@@ -201,8 +244,9 @@ try {
     Get-ChildItem -LiteralPath $CepCache -Directory -Filter "*$BundleId*" | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
   }
 
-  [IO.File]::WriteAllLines((Join-Path $StateDir 'installed.txt'), [string[]]@(
-    "plugin=$($ver['plugin'])", "library=$($ver['library'])", "installed=$((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ'))"))
+  [IO.File]::WriteAllLines($installedFile, [string[]]@(
+    "plugin=$($ver['plugin'])", "library=$($ver['library'])", "installed=$((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ'))",
+    "packs=$(if ($use4k) { '4k' } else { '' })"))
   if ($Done) { [IO.File]::WriteAllText($Done, 'ok') }
   if ($ver['signed'] -ne '1') {
     Say 'Внимание: панель без подписи. Она загрузится только с PlayerDebugMode: reg add HKCU\Software\Adobe\CSXS.11 /v PlayerDebugMode /t REG_SZ /d 1 /f (и CSXS.12)'

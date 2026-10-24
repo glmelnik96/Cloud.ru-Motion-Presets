@@ -19,6 +19,7 @@ import { shapeBoxAt, shapePathsAt } from '../../tools/masters/dump-geometry.mjs'
 import { workDir, workPath } from '../../tools/lib/work.mjs';
 import { fitCube, masterLockup } from '../../tools/masters/logo.mjs';
 import { addQaPatch } from '../../tools/masters/rig-plate.mjs';
+import { aspectOf, packOf, with4k } from '../../tools/masters/pack4k.mjs';
 import { M10_JS } from '../SMM_FrameNotched/resolve.mjs';
 import { nul, P, pathGroup, precomp, shape, Spec } from '../../tools/masters/spec.mjs';
 
@@ -267,7 +268,7 @@ export function resolveIntro(sources = loadSources()) {
 
   const built = spec.toJSON();
   const FORMATS = ['16x9', '9x16'];
-  const files = FORMATS.map((fmt) => ({ key: fmt, variant: fmt, ctrl: {}, kind: 'clip', seconds: DURATION, options: {} }));
+  const files = with4k(FORMATS.map((fmt) => ({ key: fmt, variant: fmt, ctrl: {}, kind: 'clip', seconds: DURATION, options: {} })));
   return {
     id: ID,
     workDir: workDir(),
@@ -305,7 +306,7 @@ export function resolveIntro(sources = loadSources()) {
     },
     check: {},
     version: 1,
-    variants: FORMATS.map((key) => ({ key, ...tokens.video.formats[key] })),
+    variants: [...FORMATS, '16x9_4K'].map((key) => ({ key, ...tokens.video.formats[key] })),
     sweepTimes: [0, 0.4, 0.96, 1, 2, r6(DURATION - 1 / FPS)],
     rest: 3,
   };
@@ -326,7 +327,7 @@ export function libraryEntry(p = resolveIntro()) {
     duration: p.duration,
     variants: p.files.map((f) => {
       const v = p.variants.find((x) => x.key === f.variant);
-      return { key: f.key, aspect: f.variant, w: v.w, h: v.h, fps: FPS, minHostVersion: { ae: '26.0', pr: '26.0' } };
+      return { key: f.key, aspect: aspectOf(f.variant), w: v.w, h: v.h, fps: FPS, ...packOf(f), minHostVersion: { ae: '26.0', pr: '26.0' } };
     }),
   };
 }

@@ -180,7 +180,8 @@ describe.skipIf(!HAS_DUMPS)('WEB_Screen', async () => {
     expect(minutes).toMatchObject({ min: MINUTES.min, max: MINUTES.max, default: 5, drivesDuration: true, unitSec: 60, enabledBy: 'timer' });
     // the portal's loops answer to the same keys and values
     const portal = lib.items.find((i) => i.id === 'BG_WebinarPortal');
-    expect(portal.variants.map((v) => v.options)).toEqual([{ layout: 1, timer: false }, { layout: 1, timer: true }, { layout: 2, timer: false }, { layout: 2, timer: true }]);
+    expect(portal.variants.filter((v) => !v.pack).map((v) => v.options)).toEqual([{ layout: 1, timer: false }, { layout: 1, timer: true }, { layout: 2, timer: false }, { layout: 2, timer: true }]);
+    expect(portal.variants.filter((v) => v.pack).map((v) => v.options)).toEqual(portal.variants.filter((v) => !v.pack).map((v) => v.options));
     // D21: no real name, role or title in the template
     const words = Object.values(p.text).map((t) => t.value).join(' ');
     for (const s of [...Object.values(p.packs.speaker), ...Object.values(p.packs.visual)].filter((s) => s && !/Cloud\.ru|Telegram/.test(s))) expect(words).not.toContain(s);

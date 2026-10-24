@@ -45,7 +45,9 @@ describe.skipIf(!HAS(['smm/bg_pattern_9x16_2', 'smm/bg_pattern_1x1_2', 'smm/plus
     const item = SRC().items.find((i) => i.id === 'BG_Plus');
     expect(item).toEqual(libraryEntry(p));
     expect(item).toMatchObject({ category: 'backgrounds', tier: 'T2', alpha: true, loop: { periodFrames: 225 } });
-    expect(item.variants.map((v) => v.key)).toEqual(['9x16', '1x1', '16x9']);
+    expect(item.variants.map((v) => v.key)).toEqual(['9x16', '1x1', '16x9', '16x9_4K']);
+    // the 4K loop is the installer's 4K option (D24)
+    expect(item.variants.filter((v) => v.pack).map((v) => [v.key, v.pack, v.w])).toEqual([['16x9_4K', '4k', 3840]]);
   });
 });
 
@@ -110,6 +112,7 @@ describe.skipIf(!HAS(['webinars/pattern_rack_animation', 'webinars/pattern_rack'
   it('library.src.json has its entry: a 9 s loop per format and colour', () => {
     const item = SRC().items.find((i) => i.id === 'BG_Rack');
     expect(item).toEqual(libraryEntry(p));
-    expect(item.variants.map((v) => v.key)).toEqual(['16x9_light', '16x9_dark', '9x16_light', '9x16_dark', '1x1_light', '1x1_dark']);
+    expect(item.variants.map((v) => v.key)).toEqual(['16x9_light', '16x9_4K_light', '16x9_dark', '16x9_4K_dark', '9x16_light', '9x16_dark', '1x1_light', '1x1_dark']);
+    expect(item.variants.filter((v) => v.pack).map((v) => v.options)).toEqual([{ colour: 1 }, { colour: 2 }]);
   });
 });

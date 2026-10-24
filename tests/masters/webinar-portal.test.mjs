@@ -61,8 +61,12 @@ describe.skipIf(!HAS_DUMPS)('BG_WebinarPortal', async () => {
     expect(item).toMatchObject({ category: 'webinars', tier: 'T2', loop: { periodFrames: 1500 } });
     expect(item.alpha).toBeUndefined();
     expect(item.variants.map((v) => [v.key, v.options])).toEqual([
-      ['16x9_visual', { layout: 1, timer: false }], ['16x9_visual_timer', { layout: 1, timer: true }],
-      ['16x9_speaker', { layout: 2, timer: false }], ['16x9_speaker_timer', { layout: 2, timer: true }],
+      ['16x9_visual', { layout: 1, timer: false }], ['16x9_4K_visual', { layout: 1, timer: false }],
+      ['16x9_visual_timer', { layout: 1, timer: true }], ['16x9_4K_visual_timer', { layout: 1, timer: true }],
+      ['16x9_speaker', { layout: 2, timer: false }], ['16x9_4K_speaker', { layout: 2, timer: false }],
+      ['16x9_speaker_timer', { layout: 2, timer: true }], ['16x9_4K_speaker_timer', { layout: 2, timer: true }],
     ]);
+    // the 4K loops are the installer's 4K option (D24)
+    expect(item.variants.filter((v) => v.pack).every((v) => v.pack === '4k' && v.w === 3840 && v.key.startsWith('16x9_4K_'))).toBe(true);
   });
 });

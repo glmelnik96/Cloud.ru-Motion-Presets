@@ -58,6 +58,8 @@ export interface Variant {
   bytes?: number;
   parts?: { intro?: Part; loop?: Part; outro?: Part };
   aeComp?: string;
+  // D24: the installer option its files come with («4k»); without one the variant is in every install.
+  pack?: '4k';
   minHostVersion: Partial<Record<Host, string>>;
 }
 
@@ -111,6 +113,8 @@ export interface Item {
   poster?: Stored;
   // Previews per format and look (tools/masters/preview.mjs): the form shows the one that matches.
   previews?: PreviewEntry[];
+  // Set by the panel, not in library.json: the installer options whose variants this install lacks.
+  packsMissing?: string[];
 }
 
 export interface PreviewEntry {

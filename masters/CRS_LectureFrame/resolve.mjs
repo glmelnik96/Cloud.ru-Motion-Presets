@@ -21,6 +21,7 @@ import { layerToCompAt, shapeBoxAt } from '../../tools/masters/dump-geometry.mjs
 import { dumpLayer } from '../../tools/masters/dump-keys.mjs';
 import { fitCube, masterLockup } from '../../tools/masters/logo.mjs';
 import { addQaPatch } from '../../tools/masters/rig-plate.mjs';
+import { aspectOf, packOf, with4k } from '../../tools/masters/pack4k.mjs';
 import { nul, P, pathGroup, precomp, rectGroup, shape, Spec } from '../../tools/masters/spec.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -206,11 +207,11 @@ export function resolveFrame(sources = loadSources()) {
   };
   const src = (slug) => ({ name: OVERLAYS[slug].name, w: 1920, h: 1080, layers: OVERLAYS[slug].layers });
   // the files: per layout a still at FHD and 4K (the first frame of the cycle) and the 60 s drift loop at FHD
-  const files = LAYOUTS.flatMap((l, i) => [
+  const files = with4k(LAYOUTS.flatMap((l, i) => [
     { key: `16x9_${l.key}`, variant: '16x9', ctrl: { Layout: i + 1 }, kind: 'still', t: 0, options: { layout: i + 1, drift: false } },
     { key: `16x9_4K_${l.key}`, variant: '16x9_4K', ctrl: { Layout: i + 1 }, kind: 'still', t: 0, options: { layout: i + 1, drift: false } },
     { key: `16x9_${l.key}_drift`, variant: '16x9', ctrl: { Layout: i + 1 }, kind: 'loop', seconds: PERIOD, options: { layout: i + 1, drift: true } },
-  ]);
+  ]));
   return {
     id: ID,
     workDir: workDir(),
@@ -259,7 +260,7 @@ export const resolve = resolveFrame;
 export function libraryEntry(p = resolveFrame()) {
   const variants = p.files.map((f) => {
     const v = p.variants.find((x) => x.key === f.variant);
-    return { key: f.key, aspect: '16x9', w: v.w, h: v.h, fps: FPS, options: f.options, minHostVersion: { ae: '26.0', pr: '26.0' } };
+    return { key: f.key, aspect: aspectOf(f.variant), w: v.w, h: v.h, fps: FPS, options: f.options, ...packOf(f), minHostVersion: { ae: '26.0', pr: '26.0' } };
   });
   const scale = (r, s) => ({ x: r.x * s, y: r.y * s, w: r.w * s, h: r.h * s });
   const windows = [['screen', 'Экран'], ['speaker', 'Спикер']].map(([key, label]) => ({

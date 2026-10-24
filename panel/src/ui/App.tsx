@@ -505,6 +505,7 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
         {s.consent && (
           <div class="consent">
             Нет варианта под этот кадр. Вставить ближайший — {s.consent.label}? Он будет вписан в кадр.
+            {app.packHint(item) && <p class="hint">{app.packHint(item)}</p>}
             <div><button class="secondary" onClick={() => void app.insert(true)}>Вставить ближайший</button></div>
           </div>
         )}

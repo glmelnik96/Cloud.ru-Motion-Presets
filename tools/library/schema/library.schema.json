@@ -78,6 +78,7 @@
           "pattern": "^CR_[A-Z]+_[A-Za-z0-9]+(_[A-Za-z0-9]+)*_v[0-9]+$",
           "maxLength": 64
         },
+        "pack": { "$ref": "library.src.schema.json#/$defs/pack" },
         "minHostVersion": { "$ref": "library.src.schema.json#/$defs/minHostVersion" }
       }
     },

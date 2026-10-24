@@ -154,6 +154,7 @@ export interface CepRuntime {
   exportFs: { size(p: string): number | null; mkdirp(dir: string): void; documents: string };
   aerender(job: AerenderJob): Promise<AerenderResult>;
   reveal(path: string): void;
+  fileExists(path: string): boolean;
 }
 
 // Everything the panel needs from CEP, or null outside a host (a browser preview of the UI).
@@ -188,6 +189,7 @@ export function cepRuntime(bundleVersion?: string): CepRuntime | null {
       documents: documentsPath(() => c.getSystemPath('myDocuments'), node.platform, node.env),
     },
     aerender: (job) => runAerender(req('child_process').spawn, node.platform, job),
+    fileExists: (path) => node.prepFs.size(path) !== null,
     reveal: (path) => {
       const r = revealCommand(node.platform, path, node.prepFs.size(path) !== null);
       try {

@@ -20,6 +20,7 @@ import { layerProp, readJson } from '../../tools/dump/model.mjs';
 import { packProject } from '../../tools/dump/dump.mjs';
 import { workDir, workPath } from '../../tools/lib/work.mjs';
 import { addQaPatch } from '../../tools/masters/rig-plate.mjs';
+import { aspectOf, packOf, with4k } from '../../tools/masters/pack4k.mjs';
 import { M10_JS } from '../SMM_FrameNotched/resolve.mjs';
 import { nul, P, precomp, Spec } from '../../tools/masters/spec.mjs';
 
@@ -133,10 +134,10 @@ export function resolvePortal(sources = loadSources()) {
   ]));
 
   const built = spec.toJSON();
-  const files = SCREENS.map((s) => ({
+  const files = with4k(SCREENS.map((s) => ({
     key: `16x9_${s.key}`, variant: '16x9', ctrl: { Layout: s.layout, Timer: s.timer ? 1 : 0 }, kind: 'loop', seconds: PERIOD,
     options: { layout: s.layout, timer: s.timer },
-  }));
+  })));
   return {
     id: ID,
     workDir: workDir(),
@@ -182,7 +183,7 @@ export function resolvePortal(sources = loadSources()) {
     },
     check: {},
     version: 1,
-    variants: [{ key: '16x9', ...tokens.video.formats['16x9'] }],
+    variants: ['16x9', '16x9_4K'].map((key) => ({ key, ...tokens.video.formats[key] })),
     sweepTimes: [0, 7.5, 15, 30, 45, 59.96],
     rest: 0,
   };
@@ -205,7 +206,10 @@ export function libraryEntry(p = resolvePortal()) {
       { key: 'layout', label_ru: 'Раскладка', type: 'dropdown', default: 1, options: LAYOUTS.map((label, i) => ({ index: i + 1, label_ru: label })) },
       { key: 'timer', label_ru: 'С таймером', type: 'checkbox', default: false },
     ],
-    variants: p.files.map((f) => ({ key: f.key, aspect: '16x9', w: 1920, h: 1080, fps: FPS, options: f.options, minHostVersion: { ae: '26.0', pr: '26.0' } })),
+    variants: p.files.map((f) => {
+      const v = p.variants.find((x) => x.key === f.variant);
+      return { key: f.key, aspect: aspectOf(f.variant), w: v.w, h: v.h, fps: FPS, options: f.options, ...packOf(f), minHostVersion: { ae: '26.0', pr: '26.0' } };
+    }),
   };
 }
 

@@ -15,6 +15,7 @@ import { packProject } from '../../tools/dump/dump.mjs';
 import { workDir, workPath } from '../../tools/lib/work.mjs';
 import { dumpLayer } from '../../tools/masters/dump-keys.mjs';
 import { addQaPatch } from '../../tools/masters/rig-plate.mjs';
+import { aspectOf, packOf, with4k } from '../../tools/masters/pack4k.mjs';
 import { nul, P, precomp, Spec } from '../../tools/masters/spec.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -103,7 +104,7 @@ export function resolveRack(sources = loadSources()) {
   ]));
 
   const built = spec.toJSON();
-  const files = FORMATS.flatMap((fmt) => colours.map((c, i) => ({ key: `${fmt}_${c.key}`, variant: fmt, ctrl: { Colour: i + 1 }, kind: 'loop', seconds: period, options: { colour: i + 1 } })));
+  const files = with4k(FORMATS.flatMap((fmt) => colours.map((c, i) => ({ key: `${fmt}_${c.key}`, variant: fmt, ctrl: { Colour: i + 1 }, kind: 'loop', seconds: period, options: { colour: i + 1 } }))));
   const keep = sources.anim.layers.filter((l) => l.name === NOISE || l.name === GRID).map((l) => ({ index: l.index, name: l.name }));
   return {
     id: ID,
@@ -144,7 +145,7 @@ export function resolveRack(sources = loadSources()) {
     },
     check: {},
     version: 1,
-    variants: FORMATS.map((key) => ({ key, ...tokens.video.formats[key] })),
+    variants: [...FORMATS, '16x9_4K'].map((key) => ({ key, ...tokens.video.formats[key] })),
     sweepTimes: [0, r6(period / 2), r6(period - 1 / FPS)],
     rest: 0,
   };
@@ -168,7 +169,7 @@ export function libraryEntry(p = resolveRack()) {
     fields: [{ key: 'colour', label_ru: 'Цвет', type: 'dropdown', default: 1, options: COLOURS.map((c, i) => ({ index: i + 1, label_ru: c.label })) }],
     variants: p.files.map((f) => {
       const v = p.variants.find((x) => x.key === f.variant);
-      return { key: f.key, aspect: f.variant, w: v.w, h: v.h, fps: FPS, options: f.options, minHostVersion: { ae: '26.0', pr: '26.0' } };
+      return { key: f.key, aspect: aspectOf(f.variant), w: v.w, h: v.h, fps: FPS, options: f.options, ...packOf(f), minHostVersion: { ae: '26.0', pr: '26.0' } };
     }),
   };
 }

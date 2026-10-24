@@ -122,7 +122,7 @@
       "loop": { "periodFrames": 750 },
       "variants": [
         { "key": "16x9", "aspect": "16x9", "w": 1920, "h": 1080, "fps": 25, "parts": { "loop": [0, 750] } },
-        { "key": "16x9_4K", "aspect": "16x9", "w": 3840, "h": 2160, "fps": 25, "parts": { "loop": [0, 750] } }
+        { "key": "16x9_4K", "aspect": "16x9", "w": 3840, "h": 2160, "fps": 25, "parts": { "loop": [0, 750] }, "pack": "4k" }
       ]
     },
     {

@@ -2250,6 +2250,18 @@
           }
         },
         {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "pack": "4k",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
           "key": "9x16",
           "aspect": "9x16",
           "w": 1080,
@@ -2284,6 +2296,18 @@
           "w": 1920,
           "h": 1080,
           "fps": 25,
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "pack": "4k",
           "minHostVersion": {
             "ae": "26.0",
             "pr": "26.0"
@@ -2959,6 +2983,13 @@
               "h": 900
             },
             {
+              "variant": "16x9_4K_s169_drift",
+              "x": 300,
+              "y": 200,
+              "w": 3200,
+              "h": 1800
+            },
+            {
               "variant": "16x9_s32",
               "x": 275,
               "y": 100,
@@ -2978,6 +3009,13 @@
               "y": 100,
               "w": 1350,
               "h": 900
+            },
+            {
+              "variant": "16x9_4K_s32_drift",
+              "x": 550,
+              "y": 200,
+              "w": 2700,
+              "h": 1800
             },
             {
               "variant": "16x9_spkL",
@@ -3001,6 +3039,13 @@
               "h": 702
             },
             {
+              "variant": "16x9_4K_spkL_drift",
+              "x": 1202,
+              "y": 348,
+              "w": 2496,
+              "h": 1404
+            },
+            {
               "variant": "16x9_spkR",
               "x": 71,
               "y": 174,
@@ -3020,6 +3065,13 @@
               "y": 174,
               "w": 1248,
               "h": 702
+            },
+            {
+              "variant": "16x9_4K_spkR_drift",
+              "x": 142,
+              "y": 348,
+              "w": 2496,
+              "h": 1404
             }
           ]
         },
@@ -3049,6 +3101,13 @@
               "h": 750
             },
             {
+              "variant": "16x9_4K_spkL_drift",
+              "x": 100,
+              "y": 300,
+              "w": 1000,
+              "h": 1500
+            },
+            {
               "variant": "16x9_spkR",
               "x": 1370,
               "y": 150,
@@ -3068,6 +3127,13 @@
               "y": 150,
               "w": 500,
               "h": 750
+            },
+            {
+              "variant": "16x9_4K_spkR_drift",
+              "x": 2740,
+              "y": 300,
+              "w": 1000,
+              "h": 1500
             }
           ]
         }
@@ -3151,6 +3217,22 @@
           }
         },
         {
+          "key": "16x9_4K_s169_drift",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "layout": 1,
+            "drift": true
+          },
+          "pack": "4k",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
           "key": "16x9_s32",
           "aspect": "16x9",
           "w": 1920,
@@ -3190,6 +3272,22 @@
             "layout": 2,
             "drift": true
           },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_s32_drift",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "layout": 2,
+            "drift": true
+          },
+          "pack": "4k",
           "minHostVersion": {
             "ae": "26.0",
             "pr": "26.0"
@@ -3241,6 +3339,22 @@
           }
         },
         {
+          "key": "16x9_4K_spkL_drift",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "layout": 3,
+            "drift": true
+          },
+          "pack": "4k",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
           "key": "16x9_spkR",
           "aspect": "16x9",
           "w": 1920,
@@ -3280,6 +3394,22 @@
             "layout": 4,
             "drift": true
           },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_spkR_drift",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "layout": 4,
+            "drift": true
+          },
+          "pack": "4k",
           "minHostVersion": {
             "ae": "26.0",
             "pr": "26.0"
@@ -4029,6 +4159,18 @@
             "ae": "26.0",
             "pr": "26.0"
           }
+        },
+        {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "pack": "4k",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
         }
       ]
     },
@@ -4080,6 +4222,18 @@
           "w": 1920,
           "h": 1080,
           "fps": 25,
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "pack": "4k",
           "minHostVersion": {
             "ae": "26.0",
             "pr": "26.0"
@@ -4140,6 +4294,21 @@
           }
         },
         {
+          "key": "16x9_4K_light",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "colour": 1
+          },
+          "pack": "4k",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
           "key": "16x9_dark",
           "aspect": "16x9",
           "w": 1920,
@@ -4148,6 +4317,21 @@
           "options": {
             "colour": 2
           },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_dark",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "colour": 2
+          },
+          "pack": "4k",
           "minHostVersion": {
             "ae": "26.0",
             "pr": "26.0"
@@ -4898,6 +5082,22 @@
           }
         },
         {
+          "key": "16x9_4K_visual",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "layout": 1,
+            "timer": false
+          },
+          "pack": "4k",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
           "key": "16x9_visual_timer",
           "aspect": "16x9",
           "w": 1920,
@@ -4907,6 +5107,22 @@
             "layout": 1,
             "timer": true
           },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_visual_timer",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "layout": 1,
+            "timer": true
+          },
+          "pack": "4k",
           "minHostVersion": {
             "ae": "26.0",
             "pr": "26.0"
@@ -4928,6 +5144,22 @@
           }
         },
         {
+          "key": "16x9_4K_speaker",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "layout": 2,
+            "timer": false
+          },
+          "pack": "4k",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
           "key": "16x9_speaker_timer",
           "aspect": "16x9",
           "w": 1920,
@@ -4937,6 +5169,22 @@
             "layout": 2,
             "timer": true
           },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_speaker_timer",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "layout": 2,
+            "timer": true
+          },
+          "pack": "4k",
           "minHostVersion": {
             "ae": "26.0",
             "pr": "26.0"

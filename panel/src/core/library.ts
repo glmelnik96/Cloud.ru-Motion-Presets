@@ -2,7 +2,8 @@
 // so the panel checks only what it relies on and drops a broken item instead of refusing the whole library.
 import { insertable } from './media';
 import { error, messages, warning, type Problem } from './problems';
-import type { Catalog, Category, Host, Item } from './types';
+import { libraryFile } from './paths';
+import type { Catalog, Category, Host, Item, Variant } from './types';
 import { atLeast } from './version';
 
 export const CATEGORIES: Array<{ key: Category; label_ru: string }> = [
@@ -46,6 +47,18 @@ export function itemDefect(it: unknown): string | null {
 export interface LoadedLibrary {
   catalog: Catalog | null;
   problems: Problem[];
+}
+
+// D24: the variants of an installer option («4k») whose files this install lacks are left out; the item keeps the
+// options it lost (packsMissing) for the hint that the installer with the option adds them.
+export function installedOnly(catalog: Catalog, root: string, exists: (path: string) => boolean): Catalog {
+  const files = (v: Variant) => [v.file, ...Object.values(v.parts ?? {}).map((p) => p?.file)].filter((f): f is string => Boolean(f));
+  const items = catalog.items.map((it) => {
+    const lost = it.variants.filter((v) => v.pack && !files(v).every((f) => exists(libraryFile(root, f))));
+    if (!lost.length) return it;
+    return { ...it, variants: it.variants.filter((v) => !lost.includes(v)), packsMissing: [...new Set(lost.map((v) => v.pack as string))] };
+  });
+  return { ...catalog, items };
 }
 
 export function parseCatalog(input: string | unknown, pluginVersion: string): LoadedLibrary {

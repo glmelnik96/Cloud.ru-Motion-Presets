@@ -166,8 +166,13 @@
         "options": { "$ref": "#/$defs/options" },
         "parts": { "$ref": "#/$defs/srcParts" },
         "aeComp": { "$ref": "#/$defs/aeCompBase" },
+        "pack": { "$ref": "#/$defs/pack" },
         "minHostVersion": { "$ref": "#/$defs/minHostVersion" }
       }
+    },
+    "pack": {
+      "description": "An installer option the variant's files come with (D24): «4k», the 4K loops and clips. Without it the variant is in every install.",
+      "enum": ["4k"]
     },
     "itemCommon": {
       "description": "Properties shared by library.src.json and library.json items.",

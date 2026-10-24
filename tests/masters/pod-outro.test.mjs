@@ -53,9 +53,10 @@ describe.skipIf(!HAS_DUMPS)('POD_Outro', async () => {
     expect(item).toEqual(libraryEntry(p));
     expect(item).toMatchObject({ category: 'podcast', tier: 'T2', duration: { holdSec: 10 } });
     expect([item.alpha, item.loop, item.cutFrame, item.fields]).toEqual([undefined, undefined, undefined, undefined]);
-    expect(item.variants.map((v) => [v.key, v.w, v.h])).toEqual([['16x9', 1920, 1080], ['9x16', 1080, 1920]]);
+    expect(item.variants.map((v) => [v.key, v.w, v.h, v.pack])).toEqual([['16x9', 1920, 1080, undefined], ['16x9_4K', 3840, 2160, '4k'], ['9x16', 1080, 1920, undefined]]);
     expect(p.files).toEqual([
       { key: '16x9', variant: '16x9', ctrl: {}, kind: 'clip', seconds: 10, options: {} },
+      { key: '16x9_4K', variant: '16x9_4K', ctrl: {}, kind: 'clip', seconds: 10, options: {}, pack: '4k' },
       { key: '9x16', variant: '9x16', ctrl: {}, kind: 'clip', seconds: 10, options: {} },
     ]);
   });
