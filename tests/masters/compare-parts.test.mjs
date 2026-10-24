@@ -1,7 +1,7 @@
 // Golden comparison by parts (tools/masters/compare.mjs): lines the pack placed by hand are registered one
 // by one, gated on their look there and on how far they stand from the pack's place.
 import { describe, expect, it } from 'vitest';
-import { compareParts, overBackdrop, registerParts } from '../../tools/masters/compare.mjs';
+import { compareParts, loopTime, overBackdrop, registerParts } from '../../tools/masters/compare.mjs';
 
 // 200 x 60 grey frame with two dark bars (the "lines"); dx moves the first one.
 function frame(dx = 0) {
@@ -46,5 +46,11 @@ describe('a template over its companion', () => {
     expect([...overBackdrop(px(0, 0, 0, 0), px(34, 34, 34, 255)).data]).toEqual([34, 34, 34, 255]);
     expect([...overBackdrop(px(255, 255, 255, 255), px(34, 34, 34, 255)).data]).toEqual([255, 255, 255, 255]);
     expect(() => overBackdrop(px(0, 0, 0, 0), { width: 2, height: 1, data: Buffer.alloc(8) })).toThrow(/backdrop 2x1/);
+  });
+});
+
+describe('a loop under a longer template', () => {
+  it('wraps the time at the loop\'s length, as the panel repeats it', () => {
+    expect([loopTime(61, 60), loopTime(1, 60), loopTime(59.96, 60), loopTime(120.04, 60)]).toEqual([1, 1, 59.96, 0.04]);
   });
 });

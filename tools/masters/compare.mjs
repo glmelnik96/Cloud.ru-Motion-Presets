@@ -8,6 +8,7 @@
 // evaluates a frame of the hold first; it must match the frame rendered in sequence (C45: order-dependent
 // expressions hid the last line of CRS_Cover and SMM_ShortsIntro there, while the sequence looked right).
 //   node tools/masters/compare.mjs --item LOGO_Shot [--case egr] [--no-render] [--no-order]
+import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -99,10 +100,26 @@ export function overBackdrop(master, backdrop) {
   return { width: master.width, height: master.height, data: out };
 }
 
-// The companion's frame at a master time: ffmpeg seeks the intra-only render (PNG in MOV) to the frame.
+// The companion's frame at a master time: ffmpeg seeks the intra-only render (PNG in MOV) to the frame. A loop plays
+// end to end under a longer template (the panel's pieces), so the time wraps at the file's length.
+const lengths = new Map();
+export function mediaSeconds(file) {
+  if (!lengths.has(file)) {
+    const r = spawnSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', file], { encoding: 'utf8', windowsHide: true });
+    const sec = Number(String(r.stdout).trim());
+    if (r.status !== 0 || !(sec > 0)) throw new Error(`ffprobe ${file}: ${r.stderr || r.stdout}`);
+    lengths.set(file, sec);
+  }
+  return lengths.get(file);
+}
+
+export const loopTime = (t, sec) => Math.round((t % sec) * 1e6) / 1e6;
+
 export function backdropFrame(file, t, out) {
   if (!existsSync(file)) throw new Error(`no backdrop ${file}: render the companion first (render-files.mjs)`);
-  ffmpeg(['-ss', t.toFixed(3), '-i', file, '-frames:v', '1', '-vf', 'format=rgba', '-pix_fmt', 'rgba', out], `backdrop t${t}`);
+  const at = loopTime(t, mediaSeconds(file));
+  ffmpeg(['-ss', at.toFixed(3), '-i', file, '-frames:v', '1', '-vf', 'format=rgba', '-pix_fmt', 'rgba', out], `backdrop t${t}`);
+  if (!existsSync(out)) throw new Error(`backdrop t${t}: ffmpeg wrote no frame at ${at} s of ${file}`);
   return out;
 }
 
