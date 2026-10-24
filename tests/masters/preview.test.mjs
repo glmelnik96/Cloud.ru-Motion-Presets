@@ -6,7 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { PNG } from 'pngjs';
 import { describe, expect, it } from 'vitest';
-import { defaultCombo, encodePreview, parsePreviewName, posterArgs, previewCombos, previewFrames, previewName, previewSpec, sameAs, videoArgs } from '../../tools/masters/preview.mjs';
+import { backdropVideoFor, defaultCombo, encodePreview, parsePreviewName, posterArgs, previewCombos, previewFrames, previewName, previewSpec, sameAs, videoArgs } from '../../tools/masters/preview.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '../..');
 const SRC = JSON.parse(readFileSync(path.join(REPO, 'library', 'library.src.json'), 'utf8'));
@@ -95,6 +95,20 @@ describe('card previews', () => {
     expect(posterArgs({ frame: 'C:/w/f0038.png', spec, w: 1920, h: 1080, out: 'C:/o/poster.jpg' })).toContain('C:/w/f0038.png');
     // a vertical variant fits the same 480 px box by its height
     expect(videoArgs({ dir: 'C:/w', spec, w: 1080, h: 1920, out: 'C:/o/p.mp4' })[9]).toBe('[1:v]unpremultiply=inplace=1[f];[0:v][f]overlay=shortest=1:format=auto,scale=-2:480:flags=lanczos,format=yuv420p[v]');
+  });
+
+  it('lays a template whose background is a companion over the companion file its values pick', () => {
+    const spec = { backdrop: '#222222', fps: 12.5, backdropVideo: [
+      { when: { layout: 1, timer: false }, file: 'BG/visual.mov' },
+      { when: { layout: 2, timer: true }, file: 'BG/speaker_timer.mov' },
+    ] };
+    expect(backdropVideoFor(spec, { when: { layout: 2, timer: true } })).toBe('BG/speaker_timer.mov');
+    expect(backdropVideoFor(spec, { when: { layout: 2, timer: false } })).toBeNull();
+    expect(backdropVideoFor({ backdrop: '#222222' }, { when: {} })).toBeNull();
+    const args = videoArgs({ dir: 'C:/w', spec, w: 1920, h: 1080, out: 'C:/o/p.mp4', backdropFile: 'C:/b/bg.mov' });
+    expect(args.slice(0, 2)).toEqual(['-i', 'C:/b/bg.mov']);
+    expect(args[args.indexOf('-filter_complex') + 1]).toBe('[0:v]fps=12.5[b];[1:v]unpremultiply=inplace=1[f];[b][f]overlay=shortest=1:format=auto,scale=480:-2:flags=lanczos,format=yuv420p[v]');
+    expect(posterArgs({ frame: 'C:/w/f0037.png', spec, w: 1920, h: 1080, out: 'C:/o/p.jpg', backdropFile: 'C:/b/bg.mov', t: 2.96 }).slice(0, 4)).toEqual(['-ss', '2.960', '-i', 'C:/b/bg.mov']);
   });
 
   it.skipIf(!HAS_FFMPEG)('encodes a 480 px H.264 preview and a poster from transparent frames', () => {

@@ -2,7 +2,9 @@
 // Packages a built master (spec §4.4 steps 1-4) in the live AE, one host call per step:
 //   variants  <work>/build/<id>/<id>_work.aep -> <id>_v<N>.aep with CR_<...>_<fmt>_v<N> comps (k = min(w,h)/1080)
 //   export    one .mogrt per variant into <work>/build/<id>/mogrt/<id>_<fmt>_v<N>.mogrt, checked in Node
-//   node tools/masters/package.mjs --item LOGO_Shot [--only variants|export]
+//   node tools/masters/package.mjs --item LOGO_Shot [--only variants|export] [--variant 16x9_4K]
+// AE renders a thumbnail video of the whole comp into each .mogrt (thumb.mp4, 640x360): a long trim comp exports for
+// minutes (WEB_Screen, 905 s: 12.5 min for FHD), so the call waits in proportion to the comp's length.
 import { existsSync, mkdirSync, renameSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -89,8 +91,11 @@ export async function packageVariants(params) {
   return { failed: printChecks(r.checks), report: r };
 }
 
-export async function exportMogrts(params) {
-  const plan = variantPlan(params);
+export const exportTimeoutMs = (params) => Math.max(300000, Math.round(params.comp.duration * 2500));
+
+export async function exportMogrts(params, { only = null } = {}) {
+  const plan = variantPlan(params).filter((v) => !only || v.key === only);
+  if (!plan.length) throw new Error(`${params.id}: no variant ${only}`);
   const { aep, mogrtDir } = packagePaths(params);
   mkdirSync(mogrtDir, { recursive: true });
   const labels = egpLabels(params);
@@ -104,7 +109,7 @@ export async function exportMogrts(params) {
     const body = composeProbe(['spikes/lib/ae-project.jsx', 'tools/masters/jsx/mogrt-export.jsx'], {
       workDir: params.workDir, aep, comp: v.comp, template: v.template, outDir: mogrtDir, qa: 0,
     });
-    const r = await host(body);
+    const r = await host(body, exportTimeoutMs(params));
     failed += printChecks(r.checks);
     const w = await waitStableFile(file, { sinceMs: since - 1000, timeoutMs: 180000 });
     if (!w.ok) {
@@ -127,6 +132,7 @@ if (isMain) {
   const argv = process.argv.slice(2);
   const id = argv.includes('--item') ? argv[argv.indexOf('--item') + 1] : null;
   const only = argv.includes('--only') ? argv[argv.indexOf('--only') + 1] : null;
+  const variant = argv.includes('--variant') ? argv[argv.indexOf('--variant') + 1] : null;
   const { params } = await loadMaster(id);
   const report = { id, plan: variantPlan(params) };
   let failed = 0;
@@ -137,7 +143,7 @@ if (isMain) {
       report.variants = r.report;
     }
     if (!failed && (!only || only === 'export')) {
-      const r = await exportMogrts(params);
+      const r = await exportMogrts(params, { only: variant });
       failed += r.failed;
       report.mogrt = r.results;
     }

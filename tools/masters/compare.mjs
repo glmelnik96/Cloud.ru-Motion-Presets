@@ -21,6 +21,7 @@ import { registerWindow, sampleWindow, scaleImage } from '../qa/register.mjs';
 import { readPng } from '../png/read-png.mjs';
 import { loadMaster, printChecks } from './build-master.mjs';
 import { packagePaths, variantPlan, withDefaults } from './package.mjs';
+import { ffmpeg } from './preview.mjs';
 
 // Golden time -> master time, piecewise: in a segment, master = from + by + (t - from) * scale (scale 1 when
 // absent: a plain shift; 0: a pause of the pack that the master does not have).
@@ -77,6 +78,32 @@ async function closeProject(params) {
 
 export function judge(result, min) {
   return result.ssim >= min;
+}
+
+// A template whose background is a companion file (WEB_Screen over BG_WebinarPortal): the master's frame laid over
+// the companion's frame at the same time, as the user gets them on the timeline, then compared with the pack's
+// screen. AE's saveFrameToPng stores the colour multiplied by alpha, so «over» adds the backdrop's share; the
+// backdrop is opaque (a loop of ffmpeg's frames) and so is the result.
+export function overBackdrop(master, backdrop) {
+  if (master.width !== backdrop.width || master.height !== backdrop.height) {
+    throw new Error(`backdrop ${backdrop.width}x${backdrop.height} under a ${master.width}x${master.height} frame`);
+  }
+  const m = master.data;
+  const b = backdrop.data;
+  const out = Buffer.alloc(m.length);
+  for (let i = 0; i < m.length; i += 4) {
+    const rest = 1 - m[i + 3] / 255;
+    for (let c = 0; c < 3; c += 1) out[i + c] = Math.min(255, Math.round(m[i + c] + b[i + c] * rest));
+    out[i + 3] = 255;
+  }
+  return { width: master.width, height: master.height, data: out };
+}
+
+// The companion's frame at a master time: ffmpeg seeks the intra-only render (PNG in MOV) to the frame.
+export function backdropFrame(file, t, out) {
+  if (!existsSync(file)) throw new Error(`no backdrop ${file}: render the companion first (render-files.mjs)`);
+  ffmpeg(['-ss', t.toFixed(3), '-i', file, '-frames:v', '1', '-vf', 'format=rgba', '-pix_fmt', 'rgba', out], `backdrop t${t}`);
+  return out;
 }
 
 const r1 = (v) => Math.round(v * 10) / 10;
@@ -136,6 +163,12 @@ if (isMain) {
           (order.pass ? '  PASS' : '  FAIL (the result depends on the order frames are evaluated in, C45)'));
       }
       const rows = [];
+      // backdrop: a companion file under the template (relative to <work>/build), its frame at each master time
+      const masterImg = (f) => {
+        const m = readPng(f.file);
+        if (!c.backdrop) return m;
+        return overBackdrop(m, readPng(backdropFrame(workPath('build', c.backdrop), f.t, path.posix.join(dir, `bg_t${Math.round(f.t * 1000)}.png`))));
+      };
       // A golden canvas smaller than the frame (crop) is registered once, on the first gate frame, and the
       // same window is used for every frame of the case (moving frames must not be re-aligned).
       let origin = null;
@@ -154,7 +187,7 @@ if (isMain) {
         console.log(`${c.name}: window origin ${origin.join(', ')} (fixed)`);
       } else if (c.crop) {
         const ref = frames.find((f) => f.gate) || frames[0];
-        const reg = registerWindow(goldenPart(readPng(workPath('golden', c.golden.slug, c.golden.compSlug, `t${ref.ms}.png`))), readPng(ref.file),
+        const reg = registerWindow(goldenPart(readPng(workPath('golden', c.golden.slug, c.golden.compSlug, `t${ref.ms}.png`))), masterImg(ref),
           { offset: c.crop.offset, search: c.crop.search || 4 });
         origin = reg.origin;
         console.log(`${c.name}: window origin ${origin.join(', ')} (predicted ${c.crop.offset.join(', ')}, coarse ${reg.coarse.join(', ')}, MAD ${reg.mad.toFixed(2)})`);
@@ -164,7 +197,7 @@ if (isMain) {
         const g0 = goldenPart(readPng(goldenFile(f.ms)));
         // AE's saveFrameToPng stores the colour premultiplied: the remap moves the colour of the edges too
         const g = c.remap ? remapColours(g0, { ...c.remap, rect: c.remap.rect || c.rect, premultiplied: true }) : g0;
-        return { g, m: origin ? sampleWindow(readPng(f.file), origin[0], origin[1], g.width, g.height) : readPng(f.file) };
+        return { g, m: origin ? sampleWindow(masterImg(f), origin[0], origin[1], g.width, g.height) : masterImg(f) };
       };
       let parts = null;
       if (c.parts) {

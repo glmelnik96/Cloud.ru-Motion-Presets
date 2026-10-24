@@ -26,6 +26,7 @@ import { composeProbe, REPO } from '../spike/runner.mjs';
 import { waitForStableFiles } from '../golden/png.mjs';
 import { loadMaster, printChecks } from './build-master.mjs';
 import { packagePaths, variantPlan, withDefaults } from './package.mjs';
+import { workPath } from '../lib/work.mjs';
 import { parsePreviewName, previewName } from '../library/preview-names.mjs';
 
 export { parsePreviewName, previewName };
@@ -111,20 +112,32 @@ const hex = (c) => '0x' + c.replace('#', '').toUpperCase();
 // Scale into a 480 px box: 16:9 and 1:1 are 480 wide, 9:16 is 480 high (even sizes).
 export const scaleFilter = (w, h) => (w >= h ? `scale=${PREVIEW_WIDTH}:-2:flags=lanczos` : `scale=-2:${PREVIEW_WIDTH}:flags=lanczos`);
 
+// The companion file under a template whose background is not its own (WEB_Screen over BG_WebinarPortal):
+// ref.preview.backdropVideo [{ when: { <field>: <value> }, file: <path under <work>/build> }], the entry whose
+// values agree with the combination's; null: the flat backdrop colour.
+export function backdropVideoFor(spec, combo) {
+  const hit = (spec.backdropVideo || []).find((b) => Object.entries(b.when || {}).every(([k, v]) => combo.when[k] === v));
+  return hit ? hit.file : null;
+}
+
 // ffmpeg arguments: the frames over the backdrop, scaled into the box, H.264 yuv420p. AE's saveFrameToPng stores
-// the colour multiplied by alpha: divided back first, or soft edges get a dark rim over the backdrop.
-export function videoArgs({ dir, spec, w, h, out }) {
+// the colour multiplied by alpha: divided back first, or soft edges get a dark rim over the backdrop. A backdrop
+// video plays from its start at the preview's frame rate.
+export function videoArgs({ dir, spec, w, h, out, backdropFile = null }) {
+  const under = backdropFile ? ['-i', backdropFile] : ['-f', 'lavfi', '-i', `color=c=${hex(spec.backdrop)}:s=${w}x${h}:r=${spec.fps}`];
+  const bg = backdropFile ? `[0:v]fps=${spec.fps}[b];` : '';
   return [
-    '-f', 'lavfi', '-i', `color=c=${hex(spec.backdrop)}:s=${w}x${h}:r=${spec.fps}`,
+    ...under,
     '-framerate', String(spec.fps), '-i', path.posix.join(dir, 'f%04d.png'),
-    '-filter_complex', `[1:v]unpremultiply=inplace=1[f];[0:v][f]overlay=shortest=1:format=auto,${scaleFilter(w, h)},format=yuv420p[v]`,
+    '-filter_complex', `${bg}[1:v]unpremultiply=inplace=1[f];${backdropFile ? '[b]' : '[0:v]'}[f]overlay=shortest=1:format=auto,${scaleFilter(w, h)},format=yuv420p[v]`,
     '-map', '[v]', '-an', '-c:v', 'libx264', '-preset', 'slow', '-crf', '24', '-movflags', '+faststart', out,
   ];
 }
 
-export function posterArgs({ frame, spec, w, h, out }) {
+export function posterArgs({ frame, spec, w, h, out, backdropFile = null, t = 0 }) {
+  const under = backdropFile ? ['-ss', t.toFixed(3), '-i', backdropFile] : ['-f', 'lavfi', '-i', `color=c=${hex(spec.backdrop)}:s=${w}x${h}`];
   return [
-    '-f', 'lavfi', '-i', `color=c=${hex(spec.backdrop)}:s=${w}x${h}`,
+    ...under,
     '-i', frame,
     '-filter_complex', `[1:v]unpremultiply=inplace=1[f];[0:v][f]overlay=format=auto,${scaleFilter(w, h)}[v]`,
     '-map', '[v]', '-frames:v', '1', '-q:v', '3', out,
@@ -139,13 +152,13 @@ export function ffmpeg(args, label) {
 }
 
 // Encodes the rendered frames; the poster is the frame nearest to spec.posterSec.
-export function encodePreview({ dir, spec, w, h, outDir, name = null }) {
+export function encodePreview({ dir, spec, w, h, outDir, name = null, backdropFile = null }) {
   const frames = previewFrames(spec, dir);
   const posterIndex = Math.min(frames.length - 1, Math.round(spec.posterSec * spec.fps));
   const video = path.posix.join(outDir, name ? `preview_${name}.mp4` : 'preview.mp4');
   const poster = path.posix.join(outDir, name ? `poster_${name}.jpg` : 'poster.jpg');
-  ffmpeg(videoArgs({ dir, spec, w, h, out: video }), 'preview.mp4');
-  ffmpeg(posterArgs({ frame: frames[posterIndex].file, spec, w, h, out: poster }), 'poster.jpg');
+  ffmpeg(videoArgs({ dir, spec, w, h, out: video, backdropFile }), 'preview.mp4');
+  ffmpeg(posterArgs({ frame: frames[posterIndex].file, spec, w, h, out: poster, backdropFile, t: frames[posterIndex].t }), 'poster.jpg');
   return { video, poster, frames: frames.length, posterSec: frames[posterIndex].t };
 }
 
@@ -182,7 +195,8 @@ if (isMain) {
         if (printChecks(r.checks)) throw new Error(`render call failed (${c.name ?? 'default'})`);
         await waitForStableFiles(frames.map((f) => f.file), { timeoutMs: 600000 });
       }
-      const r = encodePreview({ dir, spec, w: c.variant.w, h: c.variant.h, outDir, name: c.name });
+      const bgFile = backdropVideoFor(spec, c);
+      const r = encodePreview({ dir, spec, w: c.variant.w, h: c.variant.h, outDir, name: c.name, backdropFile: bgFile && workPath('build', bgFile) });
       console.log(`OK ${r.video} (${r.frames} frames at ${spec.fps} fps), ${r.poster} at ${r.posterSec} s`);
     }
     for (const [c, src] of copies) {
