@@ -1,16 +1,16 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-24T12:05:53.715Z",
-  "finishedAt": "2026-10-24T12:11:02.948Z",
+  "startedAt": "2026-10-24T13:19:04.581Z",
+  "finishedAt": "2026-10-24T13:24:35.838Z",
   "summary": {
-    "checks": 673,
-    "passed": 673,
+    "checks": 721,
+    "passed": 721,
     "failed": 0
   },
   "failed": [],
   "checks": [
     {
-      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap, TTL_Disclaimer, POD_Frame, POD_Guest, POD_Content, POD_QR, POD_Intro, POD_Outro, SMM_ShortsIntro, SMM_FrameNotched, CRS_Cover, CRS_LectureFrame, CRS_Subtitles, TRN_StepWipe, TRN_Bars, BG_Arrows, BG_Plus, BG_Rack, BG_WebinarPortal, WEB_Screen, WEB_Announce",
+      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, LOGO_Header, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap, TTL_Disclaimer, POD_Frame, POD_Guest, POD_Content, POD_QR, POD_Intro, POD_Outro, SMM_ShortsIntro, SMM_FrameNotched, CRS_Cover, CRS_LectureFrame, CRS_Subtitles, TRN_StepWipe, TRN_Bars, BG_Arrows, BG_Plus, BG_Rack, BG_WebinarPortal, WEB_Screen, WEB_Announce",
       "pass": true,
       "required": true,
       "detail": []
@@ -39,7 +39,7 @@
       "pass": true,
       "required": true,
       "detail": {
-        "comps": 45,
+        "comps": 48,
         "path": "C:\\CRBK\\work\\panel-live\\ae\\panel_live.aep"
       }
     },
@@ -99,7 +99,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_16x9_v1",
-          "layerId": 613,
+          "layerId": 649,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 5,
@@ -126,7 +126,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_16x9_v1",
-          "layerId": 614,
+          "layerId": 650,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 9,
@@ -214,17 +214,17 @@
       "detail": {
         "found": true,
         "name": "CR_LOGO_Shot_16x9_v1",
-        "layerId": 614
+        "layerId": 650
       }
     },
     {
-      "name": "LOGO_Shot_16x9: layer A: layer 613 read",
+      "name": "LOGO_Shot_16x9: layer A: layer 649 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "LOGO_Shot_16x9: layer B: layer 614 read",
+      "name": "LOGO_Shot_16x9: layer B: layer 650 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -386,7 +386,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_16x9_4K_v1",
-          "layerId": 615,
+          "layerId": 651,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 5,
@@ -411,7 +411,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_16x9_4K_v1",
-          "layerId": 616,
+          "layerId": 652,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 9,
@@ -499,17 +499,17 @@
       "detail": {
         "found": true,
         "name": "CR_LOGO_Shot_16x9_4K_v1",
-        "layerId": 616
+        "layerId": 652
       }
     },
     {
-      "name": "LOGO_Shot_16x9_4K: layer A: layer 615 read",
+      "name": "LOGO_Shot_16x9_4K: layer A: layer 651 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "LOGO_Shot_16x9_4K: layer B: layer 616 read",
+      "name": "LOGO_Shot_16x9_4K: layer B: layer 652 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -671,7 +671,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_9x16_v1",
-          "layerId": 617,
+          "layerId": 653,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 5,
@@ -696,7 +696,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_9x16_v1",
-          "layerId": 618,
+          "layerId": 654,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 9,
@@ -784,17 +784,17 @@
       "detail": {
         "found": true,
         "name": "CR_LOGO_Shot_9x16_v1",
-        "layerId": 618
+        "layerId": 654
       }
     },
     {
-      "name": "LOGO_Shot_9x16: layer A: layer 617 read",
+      "name": "LOGO_Shot_9x16: layer A: layer 653 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "LOGO_Shot_9x16: layer B: layer 618 read",
+      "name": "LOGO_Shot_9x16: layer B: layer 654 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -956,7 +956,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Mark_16x9_v1",
-          "layerId": 683,
+          "layerId": 719,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 4,
@@ -983,7 +983,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Mark_16x9_v1",
-          "layerId": 684,
+          "layerId": 720,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 8,
@@ -1071,17 +1071,17 @@
       "detail": {
         "found": true,
         "name": "CR_LOGO_Mark_16x9_v1",
-        "layerId": 684
+        "layerId": 720
       }
     },
     {
-      "name": "LOGO_Mark_16x9: layer A: layer 683 read",
+      "name": "LOGO_Mark_16x9: layer A: layer 719 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "LOGO_Mark_16x9: layer B: layer 684 read",
+      "name": "LOGO_Mark_16x9: layer B: layer 720 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1243,7 +1243,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Mark_16x9_4K_v1",
-          "layerId": 685,
+          "layerId": 721,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 4,
@@ -1268,7 +1268,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Mark_16x9_4K_v1",
-          "layerId": 686,
+          "layerId": 722,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 8,
@@ -1356,17 +1356,17 @@
       "detail": {
         "found": true,
         "name": "CR_LOGO_Mark_16x9_4K_v1",
-        "layerId": 686
+        "layerId": 722
       }
     },
     {
-      "name": "LOGO_Mark_16x9_4K: layer A: layer 685 read",
+      "name": "LOGO_Mark_16x9_4K: layer A: layer 721 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "LOGO_Mark_16x9_4K: layer B: layer 686 read",
+      "name": "LOGO_Mark_16x9_4K: layer B: layer 722 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1528,7 +1528,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Mark_9x16_v1",
-          "layerId": 687,
+          "layerId": 723,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 4,
@@ -1553,7 +1553,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Mark_9x16_v1",
-          "layerId": 688,
+          "layerId": 724,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 8,
@@ -1641,17 +1641,17 @@
       "detail": {
         "found": true,
         "name": "CR_LOGO_Mark_9x16_v1",
-        "layerId": 688
+        "layerId": 724
       }
     },
     {
-      "name": "LOGO_Mark_9x16: layer A: layer 687 read",
+      "name": "LOGO_Mark_9x16: layer A: layer 723 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "LOGO_Mark_9x16: layer B: layer 688 read",
+      "name": "LOGO_Mark_9x16: layer B: layer 724 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1789,7 +1789,675 @@
       }
     },
     {
-      "name": "activate TTL_LowerThird_16x9 at 2 s: comp 73 active at 2 s",
+      "name": "activate LOGO_Header_16x9 at 2 s: comp 73 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Header_16x9"
+      }
+    },
+    {
+      "name": "activate LOGO_Header_16x9 at 20 s: comp 73 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Header_16x9"
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9: A inserted at 2 s, 10 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Header_16x9_v1",
+          "layerId": 782,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 10,
+          "readback": {
+            "Дескриптор": 0
+          },
+          "imported": true,
+          "notes": [
+            "footage: 0"
+          ],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9: B inserted at 20 s, 14 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Header_16x9_v1",
+          "layerId": 783,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 14,
+          "readback": {
+            "Дескриптор": 0
+          },
+          "imported": false,
+          "notes": [],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9: variant 16x9 chosen for 1920x1080",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Header_16x9_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/LOGO_Header/LOGO_Header_16x9_v1.mogrt",
+          "sha256": "c436f775fa5ad446006707381cd7b4da9d403658c87d9292ead63d9bd0dabb38",
+          "bytes": 9656198
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Дескриптор": 0
+          },
+          "startSec": 2,
+          "lengthSec": 10,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Дескриптор": 0
+          },
+          "startSec": 20,
+          "lengthSec": 14,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_LOGO_Header_16x9_v1",
+        "layerId": 783
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9: layer A: layer 782 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Header_16x9: layer B: layer 783 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Header_16x9: A plays as is (no time remap, 10 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_LOGO_Header_16x9_v1",
+        "inPoint": 2,
+        "outPoint": 12,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_LOGO_Header_16x9"
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9: B is cut to 14 s, no time remap (trim)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_LOGO_Header_16x9_v1",
+        "inPoint": 20,
+        "outPoint": 34,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": true,
+        "comp": "LIVE_LOGO_Header_16x9"
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_LOGO_Header_16x9_v1",
+        "inPoint": 20,
+        "outPoint": 34,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": true,
+        "comp": "LIVE_LOGO_Header_16x9"
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Header_16x9: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_b_intro.png"
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_b_outro.png"
+      }
+    },
+    {
+      "name": "activate LOGO_Header_16x9_4K at 2 s: comp 85 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Header_16x9_4K"
+      }
+    },
+    {
+      "name": "activate LOGO_Header_16x9_4K at 20 s: comp 85 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Header_16x9_4K"
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: A inserted at 2 s, 10 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Header_16x9_4K_v1",
+          "layerId": 784,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 10,
+          "readback": {
+            "Дескриптор": 0
+          },
+          "imported": false,
+          "notes": [],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: B inserted at 20 s, 14 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Header_16x9_4K_v1",
+          "layerId": 785,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 14,
+          "readback": {
+            "Дескриптор": 0
+          },
+          "imported": false,
+          "notes": [],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: variant 16x9_4K chosen for 3840x2160",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Header_16x9_4K_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/LOGO_Header/LOGO_Header_16x9_4K_v1.mogrt",
+          "sha256": "f155e9c61d3ff64bce665a93adf7c58b7440de7a6f66ad59bef820e1fbc1d017",
+          "bytes": 8658277
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Дескриптор": 0
+          },
+          "startSec": 2,
+          "lengthSec": 10,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Дескриптор": 0
+          },
+          "startSec": 20,
+          "lengthSec": 14,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_LOGO_Header_16x9_4K_v1",
+        "layerId": 785
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: layer A: layer 784 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: layer B: layer 785 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: A plays as is (no time remap, 10 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_LOGO_Header_16x9_4K_v1",
+        "inPoint": 2,
+        "outPoint": 12,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_LOGO_Header_16x9_4K"
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: B is cut to 14 s, no time remap (trim)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_LOGO_Header_16x9_4K_v1",
+        "inPoint": 20,
+        "outPoint": 34,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": true,
+        "comp": "LIVE_LOGO_Header_16x9_4K"
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_LOGO_Header_16x9_4K_v1",
+        "inPoint": 20,
+        "outPoint": 34,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": true,
+        "comp": "LIVE_LOGO_Header_16x9_4K"
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_4K_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_4K_b_intro.png"
+      }
+    },
+    {
+      "name": "LOGO_Header_16x9_4K: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_4K_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_4K_b_outro.png"
+      }
+    },
+    {
+      "name": "activate LOGO_Header_9x16 at 2 s: comp 97 active at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Header_9x16"
+      }
+    },
+    {
+      "name": "activate LOGO_Header_9x16 at 20 s: comp 97 active at 20 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "active": "LIVE_LOGO_Header_9x16"
+      }
+    },
+    {
+      "name": "LOGO_Header_9x16: A inserted at 2 s, 10 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Header_9x16_v1",
+          "layerId": 786,
+          "layerIndex": 1,
+          "startSec": 2,
+          "lengthSec": 10,
+          "readback": {
+            "Дескриптор": 0
+          },
+          "imported": false,
+          "notes": [],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "LOGO_Header_9x16: B inserted at 20 s, 14 s long",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "CR_LOGO_Header_9x16_v1",
+          "layerId": 787,
+          "layerIndex": 1,
+          "startSec": 20,
+          "lengthSec": 14,
+          "readback": {
+            "Дескриптор": 0
+          },
+          "imported": false,
+          "notes": [],
+          "companions": []
+        }
+      }
+    },
+    {
+      "name": "LOGO_Header_9x16: variant 9x16 chosen for 1080x1920",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "variant": {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Header_9x16_v1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          },
+          "file": "items/LOGO_Header/LOGO_Header_9x16_v1.mogrt",
+          "sha256": "9428f8105f13477ccd4b253ab542bd0899eb3ec92a69ac41b35cb0191e620512",
+          "bytes": 2068373
+        },
+        "reason": "exact",
+        "scale": 1,
+        "needsConsent": false
+      }
+    },
+    {
+      "name": "LOGO_Header_9x16: A fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Дескриптор": 0
+          },
+          "startSec": 2,
+          "lengthSec": 10,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "LOGO_Header_9x16: B fields read back in a new call",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "bad": [],
+        "back": {
+          "values": {
+            "Дескриптор": 0
+          },
+          "startSec": 20,
+          "lengthSec": 14,
+          "timeRemap": false
+        }
+      }
+    },
+    {
+      "name": "LOGO_Header_9x16: probeInsert finds B",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "found": true,
+        "name": "CR_LOGO_Header_9x16_v1",
+        "layerId": 787
+      }
+    },
+    {
+      "name": "LOGO_Header_9x16: layer A: layer 786 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Header_9x16: layer B: layer 787 read",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Header_9x16: A plays as is (no time remap, 10 s)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_LOGO_Header_9x16_v1",
+        "inPoint": 2,
+        "outPoint": 12,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": false,
+        "comp": "LIVE_LOGO_Header_9x16"
+      }
+    },
+    {
+      "name": "LOGO_Header_9x16: B is cut to 14 s, no time remap (trim)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "CR_LOGO_Header_9x16_v1",
+        "inPoint": 20,
+        "outPoint": 34,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": true,
+        "comp": "LIVE_LOGO_Header_9x16"
+      }
+    },
+    {
+      "name": "LOGO_Header_9x16: B is the selected layer after its insert",
+      "pass": true,
+      "required": false,
+      "detail": {
+        "name": "CR_LOGO_Header_9x16_v1",
+        "inPoint": 20,
+        "outPoint": 34,
+        "scale": [
+          100,
+          100,
+          100
+        ],
+        "timeRemap": false,
+        "keys": [],
+        "selected": true,
+        "comp": "LIVE_LOGO_Header_9x16"
+      }
+    },
+    {
+      "name": "LOGO_Header_9x16: frames: frames requested: 4",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "LOGO_Header_9x16: frame a_intro = b_intro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_9x16_a_intro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_9x16_b_intro.png"
+      }
+    },
+    {
+      "name": "LOGO_Header_9x16: frame a_outro = b_outro (intro and outro keep their speed)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ssim": 1,
+        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_9x16_a_outro.png",
+        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_9x16_b_outro.png"
+      }
+    },
+    {
+      "name": "activate TTL_LowerThird_16x9 at 2 s: comp 109 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -1797,7 +2465,7 @@
       }
     },
     {
-      "name": "activate TTL_LowerThird_16x9 at 20 s: comp 73 active at 20 s",
+      "name": "activate TTL_LowerThird_16x9 at 20 s: comp 109 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -1813,7 +2481,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_16x9_v1",
-          "layerId": 837,
+          "layerId": 936,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -1843,7 +2511,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_16x9_v1",
-          "layerId": 838,
+          "layerId": 937,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -1940,17 +2608,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_LowerThird_16x9_v1",
-        "layerId": 838
+        "layerId": 937
       }
     },
     {
-      "name": "TTL_LowerThird_16x9: layer A: layer 837 read",
+      "name": "TTL_LowerThird_16x9: layer A: layer 936 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_LowerThird_16x9: layer B: layer 838 read",
+      "name": "TTL_LowerThird_16x9: layer B: layer 937 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2088,7 +2756,7 @@
       }
     },
     {
-      "name": "activate TTL_LowerThird_16x9_4K at 2 s: comp 85 active at 2 s",
+      "name": "activate TTL_LowerThird_16x9_4K at 2 s: comp 121 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -2096,7 +2764,7 @@
       }
     },
     {
-      "name": "activate TTL_LowerThird_16x9_4K at 20 s: comp 85 active at 20 s",
+      "name": "activate TTL_LowerThird_16x9_4K at 20 s: comp 121 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -2112,7 +2780,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_16x9_4K_v1",
-          "layerId": 839,
+          "layerId": 938,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -2140,7 +2808,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_16x9_4K_v1",
-          "layerId": 840,
+          "layerId": 939,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -2237,17 +2905,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_LowerThird_16x9_4K_v1",
-        "layerId": 840
+        "layerId": 939
       }
     },
     {
-      "name": "TTL_LowerThird_16x9_4K: layer A: layer 839 read",
+      "name": "TTL_LowerThird_16x9_4K: layer A: layer 938 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_LowerThird_16x9_4K: layer B: layer 840 read",
+      "name": "TTL_LowerThird_16x9_4K: layer B: layer 939 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2385,7 +3053,7 @@
       }
     },
     {
-      "name": "activate TTL_LowerThird_9x16 at 2 s: comp 97 active at 2 s",
+      "name": "activate TTL_LowerThird_9x16 at 2 s: comp 133 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -2393,7 +3061,7 @@
       }
     },
     {
-      "name": "activate TTL_LowerThird_9x16 at 20 s: comp 97 active at 20 s",
+      "name": "activate TTL_LowerThird_9x16 at 20 s: comp 133 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -2409,7 +3077,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_9x16_v1",
-          "layerId": 841,
+          "layerId": 940,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -2437,7 +3105,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_9x16_v1",
-          "layerId": 842,
+          "layerId": 941,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -2534,17 +3202,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_LowerThird_9x16_v1",
-        "layerId": 842
+        "layerId": 941
       }
     },
     {
-      "name": "TTL_LowerThird_9x16: layer A: layer 841 read",
+      "name": "TTL_LowerThird_9x16: layer A: layer 940 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_LowerThird_9x16: layer B: layer 842 read",
+      "name": "TTL_LowerThird_9x16: layer B: layer 941 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2682,7 +3350,7 @@
       }
     },
     {
-      "name": "activate TTL_LowerThird_1x1 at 2 s: comp 109 active at 2 s",
+      "name": "activate TTL_LowerThird_1x1 at 2 s: comp 145 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -2690,7 +3358,7 @@
       }
     },
     {
-      "name": "activate TTL_LowerThird_1x1 at 20 s: comp 109 active at 20 s",
+      "name": "activate TTL_LowerThird_1x1 at 20 s: comp 145 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -2706,7 +3374,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_1x1_v1",
-          "layerId": 843,
+          "layerId": 942,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -2734,7 +3402,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_LowerThird_1x1_v1",
-          "layerId": 844,
+          "layerId": 943,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -2831,17 +3499,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_LowerThird_1x1_v1",
-        "layerId": 844
+        "layerId": 943
       }
     },
     {
-      "name": "TTL_LowerThird_1x1: layer A: layer 843 read",
+      "name": "TTL_LowerThird_1x1: layer A: layer 942 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_LowerThird_1x1: layer B: layer 844 read",
+      "name": "TTL_LowerThird_1x1: layer B: layer 943 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2979,7 +3647,7 @@
       }
     },
     {
-      "name": "activate TTL_Plate_16x9 at 2 s: comp 121 active at 2 s",
+      "name": "activate TTL_Plate_16x9 at 2 s: comp 157 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -2987,7 +3655,7 @@
       }
     },
     {
-      "name": "activate TTL_Plate_16x9 at 20 s: comp 121 active at 20 s",
+      "name": "activate TTL_Plate_16x9 at 20 s: comp 157 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -3003,7 +3671,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_16x9_v1",
-          "layerId": 957,
+          "layerId": 1056,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 8,
@@ -3033,7 +3701,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_16x9_v1",
-          "layerId": 958,
+          "layerId": 1057,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 12,
@@ -3130,17 +3798,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Plate_16x9_v1",
-        "layerId": 958
+        "layerId": 1057
       }
     },
     {
-      "name": "TTL_Plate_16x9: layer A: layer 957 read",
+      "name": "TTL_Plate_16x9: layer A: layer 1056 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Plate_16x9: layer B: layer 958 read",
+      "name": "TTL_Plate_16x9: layer B: layer 1057 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3278,7 +3946,7 @@
       }
     },
     {
-      "name": "activate TTL_Plate_16x9_4K at 2 s: comp 133 active at 2 s",
+      "name": "activate TTL_Plate_16x9_4K at 2 s: comp 169 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -3286,7 +3954,7 @@
       }
     },
     {
-      "name": "activate TTL_Plate_16x9_4K at 20 s: comp 133 active at 20 s",
+      "name": "activate TTL_Plate_16x9_4K at 20 s: comp 169 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -3302,7 +3970,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_16x9_4K_v1",
-          "layerId": 959,
+          "layerId": 1058,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 8,
@@ -3330,7 +3998,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_16x9_4K_v1",
-          "layerId": 960,
+          "layerId": 1059,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 12,
@@ -3427,17 +4095,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Plate_16x9_4K_v1",
-        "layerId": 960
+        "layerId": 1059
       }
     },
     {
-      "name": "TTL_Plate_16x9_4K: layer A: layer 959 read",
+      "name": "TTL_Plate_16x9_4K: layer A: layer 1058 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Plate_16x9_4K: layer B: layer 960 read",
+      "name": "TTL_Plate_16x9_4K: layer B: layer 1059 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3575,7 +4243,7 @@
       }
     },
     {
-      "name": "activate TTL_Plate_9x16 at 2 s: comp 145 active at 2 s",
+      "name": "activate TTL_Plate_9x16 at 2 s: comp 181 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -3583,7 +4251,7 @@
       }
     },
     {
-      "name": "activate TTL_Plate_9x16 at 20 s: comp 145 active at 20 s",
+      "name": "activate TTL_Plate_9x16 at 20 s: comp 181 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -3599,7 +4267,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_9x16_v1",
-          "layerId": 961,
+          "layerId": 1060,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 8,
@@ -3627,7 +4295,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_9x16_v1",
-          "layerId": 962,
+          "layerId": 1061,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 12,
@@ -3724,17 +4392,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Plate_9x16_v1",
-        "layerId": 962
+        "layerId": 1061
       }
     },
     {
-      "name": "TTL_Plate_9x16: layer A: layer 961 read",
+      "name": "TTL_Plate_9x16: layer A: layer 1060 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Plate_9x16: layer B: layer 962 read",
+      "name": "TTL_Plate_9x16: layer B: layer 1061 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3872,7 +4540,7 @@
       }
     },
     {
-      "name": "activate TTL_Plate_1x1 at 2 s: comp 157 active at 2 s",
+      "name": "activate TTL_Plate_1x1 at 2 s: comp 193 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -3880,7 +4548,7 @@
       }
     },
     {
-      "name": "activate TTL_Plate_1x1 at 20 s: comp 157 active at 20 s",
+      "name": "activate TTL_Plate_1x1 at 20 s: comp 193 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -3896,7 +4564,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_1x1_v1",
-          "layerId": 963,
+          "layerId": 1062,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 8,
@@ -3924,7 +4592,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Plate_1x1_v1",
-          "layerId": 964,
+          "layerId": 1063,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 12,
@@ -4021,17 +4689,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Plate_1x1_v1",
-        "layerId": 964
+        "layerId": 1063
       }
     },
     {
-      "name": "TTL_Plate_1x1: layer A: layer 963 read",
+      "name": "TTL_Plate_1x1: layer A: layer 1062 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Plate_1x1: layer B: layer 964 read",
+      "name": "TTL_Plate_1x1: layer B: layer 1063 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4169,7 +4837,7 @@
       }
     },
     {
-      "name": "activate TTL_Subscribe_16x9 at 2 s: comp 169 active at 2 s",
+      "name": "activate TTL_Subscribe_16x9 at 2 s: comp 205 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -4177,7 +4845,7 @@
       }
     },
     {
-      "name": "activate TTL_Subscribe_16x9 at 20 s: comp 169 active at 20 s",
+      "name": "activate TTL_Subscribe_16x9 at 20 s: comp 205 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -4193,7 +4861,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_16x9_v1",
-          "layerId": 1045,
+          "layerId": 1144,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -4221,7 +4889,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_16x9_v1",
-          "layerId": 1046,
+          "layerId": 1145,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -4312,17 +4980,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Subscribe_16x9_v1",
-        "layerId": 1046
+        "layerId": 1145
       }
     },
     {
-      "name": "TTL_Subscribe_16x9: layer A: layer 1045 read",
+      "name": "TTL_Subscribe_16x9: layer A: layer 1144 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Subscribe_16x9: layer B: layer 1046 read",
+      "name": "TTL_Subscribe_16x9: layer B: layer 1145 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4460,7 +5128,7 @@
       }
     },
     {
-      "name": "activate TTL_Subscribe_16x9_4K at 2 s: comp 181 active at 2 s",
+      "name": "activate TTL_Subscribe_16x9_4K at 2 s: comp 217 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -4468,7 +5136,7 @@
       }
     },
     {
-      "name": "activate TTL_Subscribe_16x9_4K at 20 s: comp 181 active at 20 s",
+      "name": "activate TTL_Subscribe_16x9_4K at 20 s: comp 217 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -4484,7 +5152,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_16x9_4K_v1",
-          "layerId": 1047,
+          "layerId": 1146,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -4510,7 +5178,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_16x9_4K_v1",
-          "layerId": 1048,
+          "layerId": 1147,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -4601,17 +5269,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Subscribe_16x9_4K_v1",
-        "layerId": 1048
+        "layerId": 1147
       }
     },
     {
-      "name": "TTL_Subscribe_16x9_4K: layer A: layer 1047 read",
+      "name": "TTL_Subscribe_16x9_4K: layer A: layer 1146 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Subscribe_16x9_4K: layer B: layer 1048 read",
+      "name": "TTL_Subscribe_16x9_4K: layer B: layer 1147 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4749,7 +5417,7 @@
       }
     },
     {
-      "name": "activate TTL_Subscribe_9x16 at 2 s: comp 193 active at 2 s",
+      "name": "activate TTL_Subscribe_9x16 at 2 s: comp 229 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -4757,7 +5425,7 @@
       }
     },
     {
-      "name": "activate TTL_Subscribe_9x16 at 20 s: comp 193 active at 20 s",
+      "name": "activate TTL_Subscribe_9x16 at 20 s: comp 229 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -4773,7 +5441,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_9x16_v1",
-          "layerId": 1049,
+          "layerId": 1148,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -4799,7 +5467,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_9x16_v1",
-          "layerId": 1050,
+          "layerId": 1149,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -4890,17 +5558,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Subscribe_9x16_v1",
-        "layerId": 1050
+        "layerId": 1149
       }
     },
     {
-      "name": "TTL_Subscribe_9x16: layer A: layer 1049 read",
+      "name": "TTL_Subscribe_9x16: layer A: layer 1148 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Subscribe_9x16: layer B: layer 1050 read",
+      "name": "TTL_Subscribe_9x16: layer B: layer 1149 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5038,7 +5706,7 @@
       }
     },
     {
-      "name": "activate TTL_Subscribe_1x1 at 2 s: comp 205 active at 2 s",
+      "name": "activate TTL_Subscribe_1x1 at 2 s: comp 241 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -5046,7 +5714,7 @@
       }
     },
     {
-      "name": "activate TTL_Subscribe_1x1 at 20 s: comp 205 active at 20 s",
+      "name": "activate TTL_Subscribe_1x1 at 20 s: comp 241 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -5062,7 +5730,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_1x1_v1",
-          "layerId": 1051,
+          "layerId": 1150,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 6,
@@ -5088,7 +5756,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Subscribe_1x1_v1",
-          "layerId": 1052,
+          "layerId": 1151,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 10,
@@ -5179,17 +5847,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Subscribe_1x1_v1",
-        "layerId": 1052
+        "layerId": 1151
       }
     },
     {
-      "name": "TTL_Subscribe_1x1: layer A: layer 1051 read",
+      "name": "TTL_Subscribe_1x1: layer A: layer 1150 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Subscribe_1x1: layer B: layer 1052 read",
+      "name": "TTL_Subscribe_1x1: layer B: layer 1151 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5327,7 +5995,7 @@
       }
     },
     {
-      "name": "activate TTL_PlateSwap_16x9 at 2 s: comp 217 active at 2 s",
+      "name": "activate TTL_PlateSwap_16x9 at 2 s: comp 253 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -5335,7 +6003,7 @@
       }
     },
     {
-      "name": "activate TTL_PlateSwap_16x9 at 20 s: comp 217 active at 20 s",
+      "name": "activate TTL_PlateSwap_16x9 at 20 s: comp 253 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -5351,7 +6019,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_PlateSwap_16x9_v1",
-          "layerId": 1189,
+          "layerId": 1288,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 12,
@@ -5384,7 +6052,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_PlateSwap_16x9_v1",
-          "layerId": 1190,
+          "layerId": 1289,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 16,
@@ -5490,17 +6158,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_PlateSwap_16x9_v1",
-        "layerId": 1190
+        "layerId": 1289
       }
     },
     {
-      "name": "TTL_PlateSwap_16x9: layer A: layer 1189 read",
+      "name": "TTL_PlateSwap_16x9: layer A: layer 1288 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_PlateSwap_16x9: layer B: layer 1190 read",
+      "name": "TTL_PlateSwap_16x9: layer B: layer 1289 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5638,7 +6306,7 @@
       }
     },
     {
-      "name": "activate TTL_PlateSwap_16x9_4K at 2 s: comp 229 active at 2 s",
+      "name": "activate TTL_PlateSwap_16x9_4K at 2 s: comp 265 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -5646,7 +6314,7 @@
       }
     },
     {
-      "name": "activate TTL_PlateSwap_16x9_4K at 20 s: comp 229 active at 20 s",
+      "name": "activate TTL_PlateSwap_16x9_4K at 20 s: comp 265 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -5662,7 +6330,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_PlateSwap_16x9_4K_v1",
-          "layerId": 1191,
+          "layerId": 1290,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 12,
@@ -5693,7 +6361,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_PlateSwap_16x9_4K_v1",
-          "layerId": 1192,
+          "layerId": 1291,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 16,
@@ -5799,17 +6467,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_PlateSwap_16x9_4K_v1",
-        "layerId": 1192
+        "layerId": 1291
       }
     },
     {
-      "name": "TTL_PlateSwap_16x9_4K: layer A: layer 1191 read",
+      "name": "TTL_PlateSwap_16x9_4K: layer A: layer 1290 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_PlateSwap_16x9_4K: layer B: layer 1192 read",
+      "name": "TTL_PlateSwap_16x9_4K: layer B: layer 1291 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5947,7 +6615,7 @@
       }
     },
     {
-      "name": "activate TTL_PlateSwap_9x16 at 2 s: comp 241 active at 2 s",
+      "name": "activate TTL_PlateSwap_9x16 at 2 s: comp 277 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -5955,7 +6623,7 @@
       }
     },
     {
-      "name": "activate TTL_PlateSwap_9x16 at 20 s: comp 241 active at 20 s",
+      "name": "activate TTL_PlateSwap_9x16 at 20 s: comp 277 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -5971,7 +6639,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_PlateSwap_9x16_v1",
-          "layerId": 1193,
+          "layerId": 1292,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 12,
@@ -6002,7 +6670,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_PlateSwap_9x16_v1",
-          "layerId": 1194,
+          "layerId": 1293,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 16,
@@ -6108,17 +6776,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_PlateSwap_9x16_v1",
-        "layerId": 1194
+        "layerId": 1293
       }
     },
     {
-      "name": "TTL_PlateSwap_9x16: layer A: layer 1193 read",
+      "name": "TTL_PlateSwap_9x16: layer A: layer 1292 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_PlateSwap_9x16: layer B: layer 1194 read",
+      "name": "TTL_PlateSwap_9x16: layer B: layer 1293 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -6256,7 +6924,7 @@
       }
     },
     {
-      "name": "activate TTL_PlateSwap_1x1 at 2 s: comp 253 active at 2 s",
+      "name": "activate TTL_PlateSwap_1x1 at 2 s: comp 289 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -6264,7 +6932,7 @@
       }
     },
     {
-      "name": "activate TTL_PlateSwap_1x1 at 20 s: comp 253 active at 20 s",
+      "name": "activate TTL_PlateSwap_1x1 at 20 s: comp 289 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -6280,7 +6948,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_PlateSwap_1x1_v1",
-          "layerId": 1195,
+          "layerId": 1294,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 12,
@@ -6311,7 +6979,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_PlateSwap_1x1_v1",
-          "layerId": 1196,
+          "layerId": 1295,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 16,
@@ -6417,17 +7085,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_PlateSwap_1x1_v1",
-        "layerId": 1196
+        "layerId": 1295
       }
     },
     {
-      "name": "TTL_PlateSwap_1x1: layer A: layer 1195 read",
+      "name": "TTL_PlateSwap_1x1: layer A: layer 1294 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_PlateSwap_1x1: layer B: layer 1196 read",
+      "name": "TTL_PlateSwap_1x1: layer B: layer 1295 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -6565,7 +7233,7 @@
       }
     },
     {
-      "name": "activate TTL_Disclaimer_16x9 at 2 s: comp 265 active at 2 s",
+      "name": "activate TTL_Disclaimer_16x9 at 2 s: comp 301 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -6573,7 +7241,7 @@
       }
     },
     {
-      "name": "activate TTL_Disclaimer_16x9 at 20 s: comp 265 active at 20 s",
+      "name": "activate TTL_Disclaimer_16x9 at 20 s: comp 301 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -6589,7 +7257,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Disclaimer_16x9_v1",
-          "layerId": 1356,
+          "layerId": 1455,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 10,
@@ -6619,7 +7287,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Disclaimer_16x9_v1",
-          "layerId": 1357,
+          "layerId": 1456,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 14,
@@ -6716,17 +7384,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Disclaimer_16x9_v1",
-        "layerId": 1357
+        "layerId": 1456
       }
     },
     {
-      "name": "TTL_Disclaimer_16x9: layer A: layer 1356 read",
+      "name": "TTL_Disclaimer_16x9: layer A: layer 1455 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Disclaimer_16x9: layer B: layer 1357 read",
+      "name": "TTL_Disclaimer_16x9: layer B: layer 1456 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -6850,7 +7518,7 @@
       }
     },
     {
-      "name": "activate TTL_Disclaimer_16x9_4K at 2 s: comp 277 active at 2 s",
+      "name": "activate TTL_Disclaimer_16x9_4K at 2 s: comp 313 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -6858,7 +7526,7 @@
       }
     },
     {
-      "name": "activate TTL_Disclaimer_16x9_4K at 20 s: comp 277 active at 20 s",
+      "name": "activate TTL_Disclaimer_16x9_4K at 20 s: comp 313 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -6874,7 +7542,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Disclaimer_16x9_4K_v1",
-          "layerId": 1358,
+          "layerId": 1457,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 10,
@@ -6902,7 +7570,7 @@
         "problems": [],
         "reply": {
           "name": "CR_TTL_Disclaimer_16x9_4K_v1",
-          "layerId": 1359,
+          "layerId": 1458,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 14,
@@ -6999,17 +7667,17 @@
       "detail": {
         "found": true,
         "name": "CR_TTL_Disclaimer_16x9_4K_v1",
-        "layerId": 1359
+        "layerId": 1458
       }
     },
     {
-      "name": "TTL_Disclaimer_16x9_4K: layer A: layer 1358 read",
+      "name": "TTL_Disclaimer_16x9_4K: layer A: layer 1457 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "TTL_Disclaimer_16x9_4K: layer B: layer 1359 read",
+      "name": "TTL_Disclaimer_16x9_4K: layer B: layer 1458 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -7133,7 +7801,7 @@
       }
     },
     {
-      "name": "activate POD_Frame_16x9 at 2 s: comp 289 active at 2 s",
+      "name": "activate POD_Frame_16x9 at 2 s: comp 325 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -7141,7 +7809,7 @@
       }
     },
     {
-      "name": "activate POD_Frame_16x9 at 20 s: comp 289 active at 20 s",
+      "name": "activate POD_Frame_16x9 at 20 s: comp 325 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -7157,7 +7825,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_Frame_16x9_v1",
-          "layerId": 1408,
+          "layerId": 1507,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 10,
@@ -7184,7 +7852,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_Frame_16x9_v1",
-          "layerId": 1409,
+          "layerId": 1508,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 14,
@@ -7272,17 +7940,17 @@
       "detail": {
         "found": true,
         "name": "CR_POD_Frame_16x9_v1",
-        "layerId": 1409
+        "layerId": 1508
       }
     },
     {
-      "name": "POD_Frame_16x9: layer A: layer 1408 read",
+      "name": "POD_Frame_16x9: layer A: layer 1507 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "POD_Frame_16x9: layer B: layer 1409 read",
+      "name": "POD_Frame_16x9: layer B: layer 1508 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -7420,7 +8088,7 @@
       }
     },
     {
-      "name": "activate POD_Frame_16x9_4K at 2 s: comp 301 active at 2 s",
+      "name": "activate POD_Frame_16x9_4K at 2 s: comp 337 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -7428,7 +8096,7 @@
       }
     },
     {
-      "name": "activate POD_Frame_16x9_4K at 20 s: comp 301 active at 20 s",
+      "name": "activate POD_Frame_16x9_4K at 20 s: comp 337 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -7444,7 +8112,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_Frame_16x9_4K_v1",
-          "layerId": 1410,
+          "layerId": 1509,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 10,
@@ -7469,7 +8137,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_Frame_16x9_4K_v1",
-          "layerId": 1411,
+          "layerId": 1510,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 14,
@@ -7557,17 +8225,17 @@
       "detail": {
         "found": true,
         "name": "CR_POD_Frame_16x9_4K_v1",
-        "layerId": 1411
+        "layerId": 1510
       }
     },
     {
-      "name": "POD_Frame_16x9_4K: layer A: layer 1410 read",
+      "name": "POD_Frame_16x9_4K: layer A: layer 1509 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "POD_Frame_16x9_4K: layer B: layer 1411 read",
+      "name": "POD_Frame_16x9_4K: layer B: layer 1510 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -7705,7 +8373,7 @@
       }
     },
     {
-      "name": "activate POD_Guest_16x9 at 2 s: comp 313 active at 2 s",
+      "name": "activate POD_Guest_16x9 at 2 s: comp 349 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -7713,7 +8381,7 @@
       }
     },
     {
-      "name": "activate POD_Guest_16x9 at 20 s: comp 313 active at 20 s",
+      "name": "activate POD_Guest_16x9 at 20 s: comp 349 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -7729,7 +8397,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_Guest_16x9_v1",
-          "layerId": 1462,
+          "layerId": 1561,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 8,
@@ -7759,7 +8427,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_Guest_16x9_v1",
-          "layerId": 1463,
+          "layerId": 1562,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 12,
@@ -7856,17 +8524,17 @@
       "detail": {
         "found": true,
         "name": "CR_POD_Guest_16x9_v1",
-        "layerId": 1463
+        "layerId": 1562
       }
     },
     {
-      "name": "POD_Guest_16x9: layer A: layer 1462 read",
+      "name": "POD_Guest_16x9: layer A: layer 1561 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "POD_Guest_16x9: layer B: layer 1463 read",
+      "name": "POD_Guest_16x9: layer B: layer 1562 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -8004,7 +8672,7 @@
       }
     },
     {
-      "name": "activate POD_Guest_16x9_4K at 2 s: comp 325 active at 2 s",
+      "name": "activate POD_Guest_16x9_4K at 2 s: comp 361 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -8012,7 +8680,7 @@
       }
     },
     {
-      "name": "activate POD_Guest_16x9_4K at 20 s: comp 325 active at 20 s",
+      "name": "activate POD_Guest_16x9_4K at 20 s: comp 361 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -8028,7 +8696,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_Guest_16x9_4K_v1",
-          "layerId": 1464,
+          "layerId": 1563,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 8,
@@ -8056,7 +8724,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_Guest_16x9_4K_v1",
-          "layerId": 1465,
+          "layerId": 1564,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 12,
@@ -8153,17 +8821,17 @@
       "detail": {
         "found": true,
         "name": "CR_POD_Guest_16x9_4K_v1",
-        "layerId": 1465
+        "layerId": 1564
       }
     },
     {
-      "name": "POD_Guest_16x9_4K: layer A: layer 1464 read",
+      "name": "POD_Guest_16x9_4K: layer A: layer 1563 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "POD_Guest_16x9_4K: layer B: layer 1465 read",
+      "name": "POD_Guest_16x9_4K: layer B: layer 1564 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -8301,7 +8969,7 @@
       }
     },
     {
-      "name": "activate POD_Content_16x9 at 2 s: comp 337 active at 2 s",
+      "name": "activate POD_Content_16x9 at 2 s: comp 373 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -8309,7 +8977,7 @@
       }
     },
     {
-      "name": "activate POD_Content_16x9 at 20 s: comp 337 active at 20 s",
+      "name": "activate POD_Content_16x9 at 20 s: comp 373 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -8325,7 +8993,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_Content_16x9_v1",
-          "layerId": 1528,
+          "layerId": 1627,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 10,
@@ -8355,7 +9023,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_Content_16x9_v1",
-          "layerId": 1529,
+          "layerId": 1628,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 14,
@@ -8448,17 +9116,17 @@
       "detail": {
         "found": true,
         "name": "CR_POD_Content_16x9_v1",
-        "layerId": 1529
+        "layerId": 1628
       }
     },
     {
-      "name": "POD_Content_16x9: layer A: layer 1528 read",
+      "name": "POD_Content_16x9: layer A: layer 1627 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "POD_Content_16x9: layer B: layer 1529 read",
+      "name": "POD_Content_16x9: layer B: layer 1628 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -8547,7 +9215,7 @@
       }
     },
     {
-      "name": "activate POD_Content_16x9_4K at 2 s: comp 349 active at 2 s",
+      "name": "activate POD_Content_16x9_4K at 2 s: comp 385 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -8555,7 +9223,7 @@
       }
     },
     {
-      "name": "activate POD_Content_16x9_4K at 20 s: comp 349 active at 20 s",
+      "name": "activate POD_Content_16x9_4K at 20 s: comp 385 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -8571,7 +9239,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_Content_16x9_4K_v1",
-          "layerId": 1530,
+          "layerId": 1629,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 10,
@@ -8599,7 +9267,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_Content_16x9_4K_v1",
-          "layerId": 1531,
+          "layerId": 1630,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 14,
@@ -8692,17 +9360,17 @@
       "detail": {
         "found": true,
         "name": "CR_POD_Content_16x9_4K_v1",
-        "layerId": 1531
+        "layerId": 1630
       }
     },
     {
-      "name": "POD_Content_16x9_4K: layer A: layer 1530 read",
+      "name": "POD_Content_16x9_4K: layer A: layer 1629 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "POD_Content_16x9_4K: layer B: layer 1531 read",
+      "name": "POD_Content_16x9_4K: layer B: layer 1630 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -8791,7 +9459,7 @@
       }
     },
     {
-      "name": "activate POD_QR_16x9 at 2 s: comp 361 active at 2 s",
+      "name": "activate POD_QR_16x9 at 2 s: comp 397 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -8799,7 +9467,7 @@
       }
     },
     {
-      "name": "activate POD_QR_16x9 at 20 s: comp 361 active at 20 s",
+      "name": "activate POD_QR_16x9 at 20 s: comp 397 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -8815,7 +9483,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_QR_16x9_v1",
-          "layerId": 1605,
+          "layerId": 1704,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 8,
@@ -8843,7 +9511,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_QR_16x9_v1",
-          "layerId": 1606,
+          "layerId": 1705,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 12,
@@ -8934,17 +9602,17 @@
       "detail": {
         "found": true,
         "name": "CR_POD_QR_16x9_v1",
-        "layerId": 1606
+        "layerId": 1705
       }
     },
     {
-      "name": "POD_QR_16x9: layer A: layer 1605 read",
+      "name": "POD_QR_16x9: layer A: layer 1704 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "POD_QR_16x9: layer B: layer 1606 read",
+      "name": "POD_QR_16x9: layer B: layer 1705 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -9082,7 +9750,7 @@
       }
     },
     {
-      "name": "activate POD_QR_16x9_4K at 2 s: comp 373 active at 2 s",
+      "name": "activate POD_QR_16x9_4K at 2 s: comp 409 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -9090,7 +9758,7 @@
       }
     },
     {
-      "name": "activate POD_QR_16x9_4K at 20 s: comp 373 active at 20 s",
+      "name": "activate POD_QR_16x9_4K at 20 s: comp 409 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -9106,7 +9774,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_QR_16x9_4K_v1",
-          "layerId": 1607,
+          "layerId": 1706,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 8,
@@ -9132,7 +9800,7 @@
         "problems": [],
         "reply": {
           "name": "CR_POD_QR_16x9_4K_v1",
-          "layerId": 1608,
+          "layerId": 1707,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 12,
@@ -9223,17 +9891,17 @@
       "detail": {
         "found": true,
         "name": "CR_POD_QR_16x9_4K_v1",
-        "layerId": 1608
+        "layerId": 1707
       }
     },
     {
-      "name": "POD_QR_16x9_4K: layer A: layer 1607 read",
+      "name": "POD_QR_16x9_4K: layer A: layer 1706 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "POD_QR_16x9_4K: layer B: layer 1608 read",
+      "name": "POD_QR_16x9_4K: layer B: layer 1707 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -9371,7 +10039,7 @@
       }
     },
     {
-      "name": "activate SMM_ShortsIntro_9x16 at 2 s: comp 385 active at 2 s",
+      "name": "activate SMM_ShortsIntro_9x16 at 2 s: comp 421 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -9379,7 +10047,7 @@
       }
     },
     {
-      "name": "activate SMM_ShortsIntro_9x16 at 20 s: comp 385 active at 20 s",
+      "name": "activate SMM_ShortsIntro_9x16 at 20 s: comp 421 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -9395,7 +10063,7 @@
         "problems": [],
         "reply": {
           "name": "CR_SMM_ShortsIntro_9x16_v1",
-          "layerId": 1682,
+          "layerId": 1781,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 4,
@@ -9424,7 +10092,7 @@
         "problems": [],
         "reply": {
           "name": "CR_SMM_ShortsIntro_9x16_v1",
-          "layerId": 1683,
+          "layerId": 1782,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 8,
@@ -9514,17 +10182,17 @@
       "detail": {
         "found": true,
         "name": "CR_SMM_ShortsIntro_9x16_v1",
-        "layerId": 1683
+        "layerId": 1782
       }
     },
     {
-      "name": "SMM_ShortsIntro_9x16: layer A: layer 1682 read",
+      "name": "SMM_ShortsIntro_9x16: layer A: layer 1781 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "SMM_ShortsIntro_9x16: layer B: layer 1683 read",
+      "name": "SMM_ShortsIntro_9x16: layer B: layer 1782 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -9613,7 +10281,7 @@
       }
     },
     {
-      "name": "activate CRS_Cover_16x9 at 2 s: comp 397 active at 2 s",
+      "name": "activate CRS_Cover_16x9 at 2 s: comp 433 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -9621,7 +10289,7 @@
       }
     },
     {
-      "name": "activate CRS_Cover_16x9 at 20 s: comp 397 active at 20 s",
+      "name": "activate CRS_Cover_16x9 at 20 s: comp 433 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -9637,7 +10305,7 @@
         "problems": [],
         "reply": {
           "name": "CR_CRS_Cover_16x9_v1",
-          "layerId": 1826,
+          "layerId": 1925,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 7,
@@ -9667,7 +10335,7 @@
         "problems": [],
         "reply": {
           "name": "CR_CRS_Cover_16x9_v1",
-          "layerId": 1827,
+          "layerId": 1926,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 11,
@@ -9760,17 +10428,17 @@
       "detail": {
         "found": true,
         "name": "CR_CRS_Cover_16x9_v1",
-        "layerId": 1827
+        "layerId": 1926
       }
     },
     {
-      "name": "CRS_Cover_16x9: layer A: layer 1826 read",
+      "name": "CRS_Cover_16x9: layer A: layer 1925 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "CRS_Cover_16x9: layer B: layer 1827 read",
+      "name": "CRS_Cover_16x9: layer B: layer 1926 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -9859,7 +10527,7 @@
       }
     },
     {
-      "name": "activate CRS_Cover_16x9_4K at 2 s: comp 409 active at 2 s",
+      "name": "activate CRS_Cover_16x9_4K at 2 s: comp 445 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -9867,7 +10535,7 @@
       }
     },
     {
-      "name": "activate CRS_Cover_16x9_4K at 20 s: comp 409 active at 20 s",
+      "name": "activate CRS_Cover_16x9_4K at 20 s: comp 445 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -9883,7 +10551,7 @@
         "problems": [],
         "reply": {
           "name": "CR_CRS_Cover_16x9_4K_v1",
-          "layerId": 1828,
+          "layerId": 1927,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 7,
@@ -9911,7 +10579,7 @@
         "problems": [],
         "reply": {
           "name": "CR_CRS_Cover_16x9_4K_v1",
-          "layerId": 1829,
+          "layerId": 1928,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 11,
@@ -10004,17 +10672,17 @@
       "detail": {
         "found": true,
         "name": "CR_CRS_Cover_16x9_4K_v1",
-        "layerId": 1829
+        "layerId": 1928
       }
     },
     {
-      "name": "CRS_Cover_16x9_4K: layer A: layer 1828 read",
+      "name": "CRS_Cover_16x9_4K: layer A: layer 1927 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "CRS_Cover_16x9_4K: layer B: layer 1829 read",
+      "name": "CRS_Cover_16x9_4K: layer B: layer 1928 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -10103,7 +10771,7 @@
       }
     },
     {
-      "name": "activate CRS_Subtitles_16x9 at 2 s: comp 421 active at 2 s",
+      "name": "activate CRS_Subtitles_16x9 at 2 s: comp 457 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -10111,7 +10779,7 @@
       }
     },
     {
-      "name": "activate CRS_Subtitles_16x9 at 20 s: comp 421 active at 20 s",
+      "name": "activate CRS_Subtitles_16x9 at 20 s: comp 457 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -10127,7 +10795,7 @@
         "problems": [],
         "reply": {
           "name": "CR_CRS_Subtitles_16x9_v1",
-          "layerId": 1872,
+          "layerId": 1971,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 4,
@@ -10152,7 +10820,7 @@
         "problems": [],
         "reply": {
           "name": "CR_CRS_Subtitles_16x9_v1",
-          "layerId": 1873,
+          "layerId": 1972,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 8,
@@ -10228,17 +10896,17 @@
       "detail": {
         "found": true,
         "name": "CR_CRS_Subtitles_16x9_v1",
-        "layerId": 1873
+        "layerId": 1972
       }
     },
     {
-      "name": "CRS_Subtitles_16x9: layer A: layer 1872 read",
+      "name": "CRS_Subtitles_16x9: layer A: layer 1971 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "CRS_Subtitles_16x9: layer B: layer 1873 read",
+      "name": "CRS_Subtitles_16x9: layer B: layer 1972 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -10327,7 +10995,7 @@
       }
     },
     {
-      "name": "activate CRS_Subtitles_16x9_4K at 2 s: comp 433 active at 2 s",
+      "name": "activate CRS_Subtitles_16x9_4K at 2 s: comp 469 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -10335,7 +11003,7 @@
       }
     },
     {
-      "name": "activate CRS_Subtitles_16x9_4K at 20 s: comp 433 active at 20 s",
+      "name": "activate CRS_Subtitles_16x9_4K at 20 s: comp 469 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -10351,7 +11019,7 @@
         "problems": [],
         "reply": {
           "name": "CR_CRS_Subtitles_16x9_4K_v1",
-          "layerId": 1874,
+          "layerId": 1973,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 4,
@@ -10374,7 +11042,7 @@
         "problems": [],
         "reply": {
           "name": "CR_CRS_Subtitles_16x9_4K_v1",
-          "layerId": 1875,
+          "layerId": 1974,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 8,
@@ -10450,17 +11118,17 @@
       "detail": {
         "found": true,
         "name": "CR_CRS_Subtitles_16x9_4K_v1",
-        "layerId": 1875
+        "layerId": 1974
       }
     },
     {
-      "name": "CRS_Subtitles_16x9_4K: layer A: layer 1874 read",
+      "name": "CRS_Subtitles_16x9_4K: layer A: layer 1973 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "CRS_Subtitles_16x9_4K: layer B: layer 1875 read",
+      "name": "CRS_Subtitles_16x9_4K: layer B: layer 1974 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -10549,7 +11217,7 @@
       }
     },
     {
-      "name": "activate WEB_Screen_16x9 at 2 s: comp 445 active at 2 s",
+      "name": "activate WEB_Screen_16x9 at 2 s: comp 481 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -10557,7 +11225,7 @@
       }
     },
     {
-      "name": "activate WEB_Screen_16x9 at 20 s: comp 445 active at 20 s",
+      "name": "activate WEB_Screen_16x9 at 20 s: comp 481 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -10573,7 +11241,7 @@
         "problems": [],
         "reply": {
           "name": "CR_WEB_Screen_16x9_v1",
-          "layerId": 2015,
+          "layerId": 2114,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 30,
@@ -10607,7 +11275,7 @@
         "problems": [],
         "reply": {
           "name": "CR_WEB_Screen_16x9_v1",
-          "layerId": 2016,
+          "layerId": 2115,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 34,
@@ -10714,17 +11382,17 @@
       "detail": {
         "found": true,
         "name": "CR_WEB_Screen_16x9_v1",
-        "layerId": 2016
+        "layerId": 2115
       }
     },
     {
-      "name": "WEB_Screen_16x9: layer A: layer 2015 read",
+      "name": "WEB_Screen_16x9: layer A: layer 2114 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "WEB_Screen_16x9: layer B: layer 2016 read",
+      "name": "WEB_Screen_16x9: layer B: layer 2115 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -10813,7 +11481,7 @@
       }
     },
     {
-      "name": "activate WEB_Screen_16x9_4K at 2 s: comp 457 active at 2 s",
+      "name": "activate WEB_Screen_16x9_4K at 2 s: comp 493 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -10821,7 +11489,7 @@
       }
     },
     {
-      "name": "activate WEB_Screen_16x9_4K at 20 s: comp 457 active at 20 s",
+      "name": "activate WEB_Screen_16x9_4K at 20 s: comp 493 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -10837,7 +11505,7 @@
         "problems": [],
         "reply": {
           "name": "CR_WEB_Screen_16x9_4K_v1",
-          "layerId": 2017,
+          "layerId": 2116,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 30,
@@ -10869,7 +11537,7 @@
         "problems": [],
         "reply": {
           "name": "CR_WEB_Screen_16x9_4K_v1",
-          "layerId": 2018,
+          "layerId": 2117,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 34,
@@ -10976,17 +11644,17 @@
       "detail": {
         "found": true,
         "name": "CR_WEB_Screen_16x9_4K_v1",
-        "layerId": 2018
+        "layerId": 2117
       }
     },
     {
-      "name": "WEB_Screen_16x9_4K: layer A: layer 2017 read",
+      "name": "WEB_Screen_16x9_4K: layer A: layer 2116 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "WEB_Screen_16x9_4K: layer B: layer 2018 read",
+      "name": "WEB_Screen_16x9_4K: layer B: layer 2117 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -11075,7 +11743,7 @@
       }
     },
     {
-      "name": "activate WEB_Announce_1x1 at 2 s: comp 469 active at 2 s",
+      "name": "activate WEB_Announce_1x1 at 2 s: comp 505 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -11083,7 +11751,7 @@
       }
     },
     {
-      "name": "activate WEB_Announce_1x1 at 20 s: comp 469 active at 20 s",
+      "name": "activate WEB_Announce_1x1 at 20 s: comp 505 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -11099,7 +11767,7 @@
         "problems": [],
         "reply": {
           "name": "CR_WEB_Announce_1x1_v1",
-          "layerId": 2089,
+          "layerId": 2188,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 10,
@@ -11126,7 +11794,7 @@
         "problems": [],
         "reply": {
           "name": "CR_WEB_Announce_1x1_v1",
-          "layerId": 2090,
+          "layerId": 2189,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 14,
@@ -11212,17 +11880,17 @@
       "detail": {
         "found": true,
         "name": "CR_WEB_Announce_1x1_v1",
-        "layerId": 2090
+        "layerId": 2189
       }
     },
     {
-      "name": "WEB_Announce_1x1: layer A: layer 2089 read",
+      "name": "WEB_Announce_1x1: layer A: layer 2188 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "WEB_Announce_1x1: layer B: layer 2090 read",
+      "name": "WEB_Announce_1x1: layer B: layer 2189 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -11311,7 +11979,7 @@
       }
     },
     {
-      "name": "activate WEB_Announce_9x16 at 2 s: comp 481 active at 2 s",
+      "name": "activate WEB_Announce_9x16 at 2 s: comp 517 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -11319,7 +11987,7 @@
       }
     },
     {
-      "name": "activate WEB_Announce_9x16 at 20 s: comp 481 active at 20 s",
+      "name": "activate WEB_Announce_9x16 at 20 s: comp 517 active at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -11335,7 +12003,7 @@
         "problems": [],
         "reply": {
           "name": "CR_WEB_Announce_9x16_v1",
-          "layerId": 2091,
+          "layerId": 2190,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 10,
@@ -11360,7 +12028,7 @@
         "problems": [],
         "reply": {
           "name": "CR_WEB_Announce_9x16_v1",
-          "layerId": 2092,
+          "layerId": 2191,
           "layerIndex": 1,
           "startSec": 20,
           "lengthSec": 14,
@@ -11446,17 +12114,17 @@
       "detail": {
         "found": true,
         "name": "CR_WEB_Announce_9x16_v1",
-        "layerId": 2092
+        "layerId": 2191
       }
     },
     {
-      "name": "WEB_Announce_9x16: layer A: layer 2091 read",
+      "name": "WEB_Announce_9x16: layer A: layer 2190 read",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "WEB_Announce_9x16: layer B: layer 2092 read",
+      "name": "WEB_Announce_9x16: layer B: layer 2191 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -11545,7 +12213,7 @@
       }
     },
     {
-      "name": "activate nearest at 2 s: comp 493 active at 2 s",
+      "name": "activate nearest at 2 s: comp 529 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -11569,7 +12237,7 @@
       ]
     },
     {
-      "name": "activate nearest at 2 s: comp 493 active at 2 s",
+      "name": "activate nearest at 2 s: comp 529 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -11585,7 +12253,7 @@
         "problems": [],
         "reply": {
           "name": "CR_LOGO_Shot_16x9_4K_v1",
-          "layerId": 2093,
+          "layerId": 2192,
           "layerIndex": 1,
           "startSec": 2,
           "lengthSec": 5,
@@ -11602,7 +12270,7 @@
       }
     },
     {
-      "name": "nearest: layer: layer 2093 read",
+      "name": "nearest: layer: layer 2192 read",
       "pass": true,
       "required": true,
       "detail": ""
@@ -11618,7 +12286,7 @@
       ]
     },
     {
-      "name": "activate other at 2 s: comp 529 active at 2 s",
+      "name": "activate other at 2 s: comp 565 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -11626,7 +12294,7 @@
       }
     },
     {
-      "name": "activate undo at 2 s: comp 517 active at 2 s",
+      "name": "activate undo at 2 s: comp 553 active at 2 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -11634,13 +12302,13 @@
       }
     },
     {
-      "name": "count: layers of comp 517 counted",
+      "name": "count: layers of comp 553 counted",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "count: layers of comp 517 counted",
+      "name": "count: layers of comp 553 counted",
       "pass": true,
       "required": true,
       "detail": ""
