@@ -1,0 +1,485 @@
+{
+ "_note": "Ink of the texts of the webinars pack «Заставка/Таймер с вижуалом/со спикером», «Timer precomp» and «Логоблок с челкой», which the JSX dump does not record: sourceRectAtTime (layer space, [left, top, width, height]) and per-line baselines [x0, y0, x1, y1], by layer index (the texts themselves come from the dumps at build time: the pack names a real speaker, D21). Measured live on AE 26.5 with tools/masters/jsx/text-ink.jsx on the relinked working copy C:/CRBK/packs/webinars/webinars_relinked.aep (closed without saving), 2026-10-24, at 5 s (the screens are still). probe: the same metrics of chosen texts in an untitled scratch project (SB Sans Display Regular): the QR caption of the pack is outlines, its 36 px and tracking 0 fit the outlines within 0.2 px; the timer and «Начинаем» at 155 px.",
+ "cases": [
+  {
+   "pack": "webinars",
+   "comp": "Заставка с вижуалом",
+   "t": 5,
+   "layers": {
+    "1": {
+     "index": 1,
+     "font": "SBSansDisplay-Regular",
+     "fontSize": 60,
+     "tracking": 0,
+     "leading": 67,
+     "rect": [
+      -470.8996,
+      -181.2974,
+      578.2335,
+      176.9016
+     ],
+     "lines": [
+      [
+       -473.8,
+       -139,
+       112.64,
+       -139
+      ],
+      [
+       -473.8,
+       -72,
+       -121.42,
+       -72
+      ],
+      [
+       -473.8,
+       -5,
+       76.94,
+       -5
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "webinars",
+   "comp": "Заставка со спикером",
+   "t": 5,
+   "layers": {
+    "1": {
+     "index": 1,
+     "font": "SBSansDisplay-Regular",
+     "fontSize": 35,
+     "tracking": 19,
+     "leading": 47,
+     "rect": [
+      0.1762,
+      -32.6735,
+      454.3484,
+      119.0259
+     ],
+     "lines": [
+      [
+       0,
+       -8,
+       455.56,
+       -8
+      ],
+      [
+       0,
+       39,
+       367.465,
+       39
+      ],
+      [
+       0,
+       86,
+       457.835,
+       86
+      ]
+     ]
+    },
+    "7": {
+     "index": 7,
+     "font": "SBSansDisplay-Regular",
+     "fontSize": 60,
+     "tracking": 0,
+     "leading": 67,
+     "rect": [
+      -470.7787,
+      -185.5875,
+      817.3068,
+      191.464
+     ],
+     "lines": [
+      [
+       -473.8,
+       -139,
+       284.9,
+       -139
+      ],
+      [
+       -470,
+       -72,
+       348.8199,
+       -72
+      ],
+      [
+       -470,
+       -5,
+       235.54,
+       -5
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "webinars",
+   "comp": "Таймер с вижуалом",
+   "t": 5,
+   "layers": {
+    "7": {
+     "index": 7,
+     "font": "SBSansDisplay-Regular",
+     "fontSize": 60,
+     "tracking": 0,
+     "leading": 67,
+     "rect": [
+      -470.8996,
+      -181.2974,
+      578.2335,
+      176.9016
+     ],
+     "lines": [
+      [
+       -473.8,
+       -139,
+       112.64,
+       -139
+      ],
+      [
+       -473.8,
+       -72,
+       -121.42,
+       -72
+      ],
+      [
+       -473.8,
+       -5,
+       76.94,
+       -5
+      ]
+     ]
+    },
+    "8": {
+     "index": 8,
+     "font": "SBSansDisplay-Regular",
+     "fontSize": 39.6,
+     "tracking": 0,
+     "leading": 47.52,
+     "rect": [
+      -155.3596,
+      -65.889,
+      246.1343,
+      27.5175
+     ],
+     "lines": [
+      [
+       -158.55,
+       -45.55,
+       92.4348,
+       -45.55
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "webinars",
+   "comp": "Таймер со спикером",
+   "t": 5,
+   "layers": {
+    "1": {
+     "index": 1,
+     "font": "SBSansDisplay-Regular",
+     "fontSize": 35,
+     "tracking": 19,
+     "leading": 47,
+     "rect": [
+      0.1762,
+      -32.6735,
+      454.3484,
+      119.0259
+     ],
+     "lines": [
+      [
+       0,
+       -8,
+       455.56,
+       -8
+      ],
+      [
+       0,
+       39,
+       367.465,
+       39
+      ],
+      [
+       0,
+       86,
+       457.835,
+       86
+      ]
+     ]
+    },
+    "7": {
+     "index": 7,
+     "font": "SBSansDisplay-Regular",
+     "fontSize": 60,
+     "tracking": 0,
+     "leading": 67,
+     "rect": [
+      -470.7787,
+      -185.5875,
+      817.3068,
+      191.464
+     ],
+     "lines": [
+      [
+       -473.8,
+       -139,
+       284.9,
+       -139
+      ],
+      [
+       -470,
+       -72,
+       348.8199,
+       -72
+      ],
+      [
+       -470,
+       -5,
+       235.54,
+       -5
+      ]
+     ]
+    },
+    "8": {
+     "index": 8,
+     "font": "SBSansDisplay-Regular",
+     "fontSize": 35,
+     "tracking": 0,
+     "leading": 42,
+     "rect": [
+      -155.7302,
+      -66.9764,
+      217.543,
+      24.321
+     ],
+     "lines": [
+      [
+       -158.55,
+       -49,
+       63.28,
+       -49
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "webinars",
+   "comp": "Timer precomp",
+   "t": 5,
+   "layers": {
+    "1": {
+     "index": 1,
+     "font": "SBSansDisplay-Regular",
+     "fontSize": 155,
+     "tracking": 0,
+     "leading": 186,
+     "rect": [
+      7.8049,
+      -110.517,
+      312.2098,
+      112.0779
+     ],
+     "lines": [
+      [
+       0,
+       0,
+       327.205,
+       0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "pack": "webinars",
+   "comp": "Логоблок с челкой",
+   "t": 5,
+   "layers": {
+    "2": {
+     "index": 2,
+     "font": "SBSansDisplay-Semibold",
+     "fontSize": 39.6,
+     "tracking": -18,
+     "leading": 41,
+     "rect": [
+      1.4756,
+      -38.9073,
+      265.4152,
+      79.6042
+     ],
+     "lines": [
+      [
+       0,
+       -8,
+       192.5748,
+       -8
+      ],
+      [
+       0,
+       33,
+       268.8048,
+       33
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "probe": [
+  {
+   "text": "Канал Cloud.ru",
+   "font": "SBSansDisplay-Regular",
+   "fontSize": 36,
+   "tracking": 0,
+   "rect": [
+    3.6255,
+    -27.1912,
+    256.3504,
+    27.59
+   ],
+   "advance": 262.728
+  },
+  {
+   "text": "в Telegram",
+   "font": "SBSansDisplay-Regular",
+   "fontSize": 36,
+   "tracking": 0,
+   "rect": [
+    2.9004,
+    -27.1912,
+    180.5088,
+    33.9708
+   ],
+   "advance": 185.796
+  },
+  {
+   "text": "Начинаем",
+   "font": "SBSansDisplay-Regular",
+   "fontSize": 155,
+   "tracking": 0,
+   "rect": [
+    15.6097,
+    -109.2682,
+    727.0601,
+    110.8292
+   ],
+   "advance": 754.385
+  },
+  {
+   "text": "15:00",
+   "font": "SBSansDisplay-Regular",
+   "fontSize": 155,
+   "tracking": 0,
+   "rect": [
+    9.3658,
+    -110.517,
+    372.7147,
+    112.0779
+   ],
+   "advance": 389.205
+  },
+  {
+   "text": "14:59",
+   "font": "SBSansDisplay-Regular",
+   "fontSize": 155,
+   "tracking": 0,
+   "rect": [
+    9.3658,
+    -110.517,
+    370.8415,
+    112.0779
+   ],
+   "advance": 389.205
+  },
+  {
+   "text": "10:00",
+   "font": "SBSansDisplay-Regular",
+   "fontSize": 155,
+   "tracking": 0,
+   "rect": [
+    9.3658,
+    -110.517,
+    382.0147,
+    112.0779
+   ],
+   "advance": 398.505
+  },
+  {
+   "text": "0:00",
+   "font": "SBSansDisplay-Regular",
+   "fontSize": 155,
+   "tracking": 0,
+   "rect": [
+    7.8049,
+    -110.517,
+    321.5757,
+    112.0779
+   ],
+   "advance": 336.505
+  },
+  {
+   "text": "начало через",
+   "font": "SBSansDisplay-Regular",
+   "fontSize": 35,
+   "tracking": 0,
+   "rect": [
+    2.8198,
+    -17.9764,
+    217.543,
+    24.321
+   ],
+   "advance": 221.83
+  }
+ ],
+ "timer": {
+  "_note": "The countdown at 155 px: the widest ink right of every value with one and with two digits of minutes (0:00..9:59, 10:00..15:59), layer space from the origin.",
+  "one": {
+   "text": "8:04",
+   "right": 332.5025
+  },
+  "two": {
+   "text": "10:04",
+   "right": 394.5025
+  }
+ },
+ "speakerLines": {
+  "_note": "Each line of the speaker block of «Заставка со спикером» (layer #1) on its own at 35 px, tracking 19: ink left and right and the advance, layer space (the words stay out: a real name).",
+  "lines": [
+   {
+    "left": 0.1762,
+    "right": 451.6972,
+    "advance": 455.56
+   },
+   {
+    "left": 0.3172,
+    "right": 366.0343,
+    "advance": 367.465
+   },
+   {
+    "left": 2.8198,
+    "right": 454.5246,
+    "advance": 457.835
+   }
+  ]
+ },
+ "titleWords": {
+  "_note": "The words on each line where the box of the speaker screens wraps their title (the visual screens break it by hand).",
+  "Заставка со спикером": [
+   2,
+   5,
+   2
+  ],
+  "Таймер со спикером": [
+   2,
+   5,
+   2
+  ]
+ }
+}

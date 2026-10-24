@@ -1,0 +1,442 @@
+{
+  "id": "WEB_Screen",
+  "_note": "Golden comparison against the webinars pack's four screens, the master laid over the portal's loop it goes with (compare.mjs backdrop: the BG_WebinarPortal file of the same layout and timer, its frame at the master's time), as the user gets them on the timeline. The screens carry the pack's own visual (an AI clip) and a real speaker where the master has its neutral slots (D13, D21), so the comparison goes by parts: the title's lines, the header's hatching and descriptor, the QR and its caption's lines, the speaker's lines on their plates (inside the plates: the photo behind their ends differs), the countdown and its label. The pack's countdown shows a second less than it means (its reversed precomp starts at 4:59): the timer cases compare the master one second later.",
+  "preview": {
+    "_note": "Card preview per layout and timer over the portal's loop: the first 6 s (the countdown from 5:00).",
+    "variant": "16x9",
+    "ctrl": {
+      "Layout": 1,
+      "Timer": 0,
+      "Minutes": 5
+    },
+    "text": {},
+    "backdrop": "#222222",
+    "backdropVideo": [
+      {
+        "when": {
+          "layout": 1,
+          "timer": false
+        },
+        "file": "BG_WebinarPortal/BG_WebinarPortal_16x9_visual_v1.mov"
+      },
+      {
+        "when": {
+          "layout": 1,
+          "timer": true
+        },
+        "file": "BG_WebinarPortal/BG_WebinarPortal_16x9_visual_timer_v1.mov"
+      },
+      {
+        "when": {
+          "layout": 2,
+          "timer": false
+        },
+        "file": "BG_WebinarPortal/BG_WebinarPortal_16x9_speaker_v1.mov"
+      },
+      {
+        "when": {
+          "layout": 2,
+          "timer": true
+        },
+        "file": "BG_WebinarPortal/BG_WebinarPortal_16x9_speaker_timer_v1.mov"
+      }
+    ],
+    "fps": 12.5,
+    "durationSec": 6,
+    "posterSec": 3,
+    "axes": {
+      "layout": "Layout",
+      "timer": "Timer"
+    }
+  },
+  "cases": [
+    {
+      "name": "visual",
+      "title": "С визуалом против «Заставки с вижуалом»",
+      "golden": {
+        "slug": "webinars",
+        "compSlug": "zastavka_s_vizhualom"
+      },
+      "variant": "16x9",
+      "backdrop": "BG_WebinarPortal/BG_WebinarPortal_16x9_visual_v1.mov",
+      "ctrl": {
+        "Layout": 1,
+        "Timer": 0
+      },
+      "text": "pack:visual",
+      "parts": [
+        {
+          "name": "title1",
+          "x": 118,
+          "y": 220,
+          "w": 620,
+          "h": 70
+        },
+        {
+          "name": "title2",
+          "x": 118,
+          "y": 287,
+          "w": 385,
+          "h": 70
+        },
+        {
+          "name": "title3",
+          "x": 118,
+          "y": 354,
+          "w": 585,
+          "h": 70
+        },
+        {
+          "name": "hatching",
+          "x": 420,
+          "y": 40,
+          "w": 1200,
+          "h": 66
+        },
+        {
+          "name": "descriptor",
+          "x": 1640,
+          "y": 40,
+          "w": 215,
+          "h": 66
+        },
+        {
+          "name": "qr",
+          "x": 74,
+          "y": 867,
+          "w": 139,
+          "h": 139
+        },
+        {
+          "name": "caption1",
+          "x": 244,
+          "y": 918,
+          "w": 278,
+          "h": 42
+        },
+        {
+          "name": "caption2",
+          "x": 244,
+          "y": 966,
+          "w": 200,
+          "h": 46
+        }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        0,
+        2000,
+        4000
+      ],
+      "view": [
+        1000,
+        5760
+      ]
+    },
+    {
+      "name": "speaker",
+      "title": "Со спикером против «Заставки со спикером»",
+      "golden": {
+        "slug": "webinars",
+        "compSlug": "zastavka_so_spikerom"
+      },
+      "variant": "16x9",
+      "backdrop": "BG_WebinarPortal/BG_WebinarPortal_16x9_speaker_v1.mov",
+      "ctrl": {
+        "Layout": 2,
+        "Timer": 0
+      },
+      "text": "pack:speaker",
+      "parts": [
+        {
+          "name": "title1",
+          "x": 118,
+          "y": 220,
+          "w": 790,
+          "h": 70
+        },
+        {
+          "name": "title2",
+          "x": 118,
+          "y": 287,
+          "w": 850,
+          "h": 70,
+          "maxShift": 4.5
+        },
+        {
+          "name": "title3",
+          "x": 118,
+          "y": 354,
+          "w": 740,
+          "h": 70,
+          "maxShift": 4.5
+        },
+        {
+          "name": "speaker1",
+          "x": 1079,
+          "y": 663,
+          "w": 380,
+          "h": 45,
+          "maxShift": 3
+        },
+        {
+          "name": "speaker2",
+          "x": 1079,
+          "y": 712,
+          "w": 380,
+          "h": 45,
+          "maxShift": 3
+        },
+        {
+          "name": "speaker3",
+          "x": 1079,
+          "y": 761,
+          "w": 380,
+          "h": 45,
+          "maxShift": 3
+        },
+        {
+          "name": "hatching",
+          "x": 420,
+          "y": 40,
+          "w": 1200,
+          "h": 66
+        },
+        {
+          "name": "descriptor",
+          "x": 1640,
+          "y": 40,
+          "w": 215,
+          "h": 66
+        },
+        {
+          "name": "qr",
+          "x": 74,
+          "y": 867,
+          "w": 139,
+          "h": 139
+        },
+        {
+          "name": "caption1",
+          "x": 244,
+          "y": 918,
+          "w": 278,
+          "h": 42
+        },
+        {
+          "name": "caption2",
+          "x": 244,
+          "y": 966,
+          "w": 200,
+          "h": 46
+        }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        0,
+        2000,
+        4000
+      ],
+      "view": [
+        1000,
+        5760
+      ]
+    },
+    {
+      "name": "visual_timer",
+      "title": "С визуалом и таймером против «Таймера с вижуалом»: отсчёт",
+      "golden": {
+        "slug": "webinars",
+        "compSlug": "taymer_s_vizhualom"
+      },
+      "variant": "16x9",
+      "backdrop": "BG_WebinarPortal/BG_WebinarPortal_16x9_visual_timer_v1.mov",
+      "ctrl": {
+        "Layout": 1,
+        "Timer": 1,
+        "Minutes": 5
+      },
+      "text": "pack:visual",
+      "parts": [
+        {
+          "name": "countdown",
+          "x": 124,
+          "y": 645,
+          "w": 345,
+          "h": 130
+        }
+      ],
+      "maxShift": 2,
+      "shift": [
+        {
+          "from": 0,
+          "to": 300,
+          "by": 1
+        }
+      ],
+      "gate": [
+        0,
+        2000,
+        4000
+      ],
+      "view": [
+        1000,
+        60000
+      ]
+    },
+    {
+      "name": "speaker_timer",
+      "title": "Со спикером и таймером против «Таймера со спикером»: отсчёт и подпись",
+      "golden": {
+        "slug": "webinars",
+        "compSlug": "taymer_so_spikerom"
+      },
+      "variant": "16x9",
+      "backdrop": "BG_WebinarPortal/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+      "ctrl": {
+        "Layout": 2,
+        "Timer": 1,
+        "Minutes": 5
+      },
+      "text": "pack:speaker",
+      "parts": [
+        {
+          "name": "countdown",
+          "x": 124,
+          "y": 645,
+          "w": 345,
+          "h": 130
+        },
+        {
+          "name": "label",
+          "x": 124,
+          "y": 588,
+          "w": 235,
+          "h": 40
+        }
+      ],
+      "maxShift": 2,
+      "shift": [
+        {
+          "from": 0,
+          "to": 300,
+          "by": 1
+        }
+      ],
+      "gate": [
+        0,
+        2000,
+        4000
+      ],
+      "view": [
+        1000,
+        60000
+      ]
+    }
+  ],
+  "premiere": {
+    "_note": "The 16:9 MOGRT in Premiere against the same variant rendered in AE, the slots at their defaults (Premiere does not fill media slots from a script). The template is trim: each clip is cut to its length. A: the defaults (the visual, no timer). B: the speaker with a minute of timer, 65 s, through the last second of the countdown into «Начинаем». C: twelve minutes (the countdown shrunk to the room of one digit of minutes). D: a title line and a speaker line longer than their room (the blocks shrink).",
+    "variant": "16x9",
+    "clips": [
+      {
+        "key": "A",
+        "atSec": 0,
+        "lenSec": 30,
+        "ctrl": {
+          "Layout": 1,
+          "Timer": 0
+        },
+        "text": {}
+      },
+      {
+        "key": "B",
+        "atSec": 32,
+        "lenSec": 65,
+        "ctrl": {
+          "Layout": 2,
+          "Timer": 1,
+          "Minutes": 1
+        },
+        "text": {
+          "TXT_TITLE1": "Собираем корпоративный",
+          "TXT_TITLE2": "AI-чат: от выбора модели до",
+          "TXT_TITLE3": "работающего прототипа",
+          "TXT_SPK1": "Имя Фамилия,",
+          "TXT_SPK2": "Технический эксперт",
+          "TXT_SPK3": "по облачным технологиям"
+        }
+      },
+      {
+        "key": "C",
+        "atSec": 100,
+        "lenSec": 10,
+        "ctrl": {
+          "Layout": 1,
+          "Timer": 1,
+          "Minutes": 12
+        },
+        "text": {}
+      },
+      {
+        "key": "D",
+        "atSec": 112,
+        "lenSec": 6,
+        "ctrl": {
+          "Layout": 2,
+          "Timer": 0
+        },
+        "text": {
+          "TXT_TITLE1": "Как развернуть облачную платформу за пять минут без администратора",
+          "TXT_SPK1": "Анна-Мария Ёлкина-Преображенская, PhD",
+          "TXT_SPK2": "Руководитель направления облачных технологий и сервисов"
+        }
+      }
+    ],
+    "frames": [
+      {
+        "key": "A_hold",
+        "clip": "A",
+        "sec": 5,
+        "master": 5
+      },
+      {
+        "key": "B_count",
+        "clip": "B",
+        "sec": 2,
+        "master": 2
+      },
+      {
+        "key": "B_last",
+        "clip": "B",
+        "sec": 59.96,
+        "master": 59.96
+      },
+      {
+        "key": "B_go",
+        "clip": "B",
+        "sec": 60,
+        "master": 60
+      },
+      {
+        "key": "B_end",
+        "clip": "B",
+        "sec": 64.96,
+        "master": 64.96
+      },
+      {
+        "key": "C_count",
+        "clip": "C",
+        "sec": 1,
+        "master": 1
+      },
+      {
+        "key": "D_hold",
+        "clip": "D",
+        "sec": 3,
+        "master": 3
+      }
+    ]
+  }
+}

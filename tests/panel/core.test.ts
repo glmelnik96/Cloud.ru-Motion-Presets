@@ -64,7 +64,7 @@ describe('library', () => {
     expect(filterItems(items, { category: 'favorites', favorites: new Set(['LOGO_Mark']) }).map((i) => i.id)).toEqual(['LOGO_Mark']);
     items[0].title_ru = 'Ёлка';
     expect(filterItems(items, { query: 'елка' }).map((i) => i.id)).toEqual(['LOGO_Shot']);
-    expect(usedCategories(items).map((c) => c.label_ru)).toEqual(['Логотипы', 'Титры', 'Курсы', 'SMM', 'Подкаст']);
+    expect(usedCategories(items).map((c) => c.label_ru)).toEqual(['Логотипы', 'Титры', 'Вебинары', 'Курсы', 'SMM', 'Подкаст']);
   });
 });
 

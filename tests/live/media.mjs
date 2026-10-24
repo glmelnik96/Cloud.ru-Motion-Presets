@@ -36,6 +36,9 @@ export const MEDIA_CASES = [
   // video, so no backdrop)
   { key: 'intro', id: 'POD_Intro', time: 2, expect: { lengthSec: 7, variant: '16x9', kind: 'clip', backdrop: false } },
   { key: 'outro', id: 'POD_Outro', time: 2, expect: { lengthSec: 10, variant: '16x9', kind: 'clip' } },
+  // the webinar screen with its timer for a minute (65 s with «Начинаем»): the portal's loop under it is the one its
+  // «Раскладка» and «Таймер» pick, the speaker's with the timer
+  { key: 'screen', id: 'WEB_Screen', time: 2, sound: { music: false, sfx: false }, values: { layout: 2, timer: true, minutes: 1 }, expect: { lengthSec: 65, companionFile: 'BG_WebinarPortal_16x9_speaker_timer_v1' } },
 ];
 
 export async function runMediaLive(o) {
@@ -157,6 +160,18 @@ async function checkCase(c, { host, item, plan, out, rows, t, R, o }) {
     // the case comps and sequences run at 25 fps, as the item's files
     const want = Math.round((e.cutAt[host] - item.cutFrame / 25) * 1e6) / 1e6;
     R.check(`${c.key}: the marker of full cover (frame ${item.cutFrame}) on the ${host === 'pr' ? 'nearest cut' : 'current time'}: starts at ${want} s`, near(out.reply.placed[0].startSec, want), out.reply.placed);
+  }
+  if (e.companionFile) {
+    const cs = out.reply.companions ?? [];
+    const loops = cs.filter((x) => x.role === 'loop');
+    R.check(`${c.key}: the form picked the companion ${e.companionFile}, ${loops.length} piece(s) to the template's end`,
+      loops.length > 0 && loops.every((x) => x.name.startsWith(e.companionFile)) && near(Math.max(...loops.map((x) => x.startSec + x.lengthSec)), 2 + e.lengthSec), cs);
+    if (host === 'pr') R.check(`${c.key}: the background runs on a track under the MOGRT`, loops.every((x) => x.track < out.reply.track), { mogrt: out.reply.track, loops });
+    else {
+      const tpl = rows.find((x) => x.name === out.reply.name);
+      const under = loops.map((x) => rows.find((r) => r.name === x.name && near(r.startSec, x.startSec)));
+      R.check(`${c.key}: the background layers lie right under the template layer`, tpl && under.every((r) => r && r.index > tpl.index), { tpl, under });
+    }
   }
   if (e.companions) {
     const cs = out.reply.companions ?? [];

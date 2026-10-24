@@ -49,8 +49,10 @@ export function prHooks({ wait }) {
       const at = (s) => d.clips.find((x) => near(x.startSec, s, 0.021));
       const a = at(2);
       const b = at(20);
+      // A clip still running at 20 s (the webinar screen: 30 s) keeps V2, and B goes on the next free track
+      const bTrack = 2 + D > 20 ? 3 : 2;
       R.check(`${c.key}: A on V2 from 2 s for ${D} s`, a && a.track === 2 && near(a.endSec - a.startSec, D, 0.021), a);
-      R.check(`${c.key}: B on V2 from 20 s for ${D + 4} s`, b && b.track === 2 && near(b.endSec - b.startSec, D + 4, 0.021), b);
+      R.check(`${c.key}: B on V${bTrack} from 20 s for ${D + 4} s`, b && b.track === bTrack && near(b.endSec - b.startSec, D + 4, 0.021), b);
       R.check(`${c.key}: B is the selected clip after its insert`, b?.selected === true && a?.selected === false, { a, b }, false);
     },
     async inspectScale({ id, R, hostRun, expect }) {
