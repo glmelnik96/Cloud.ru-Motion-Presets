@@ -56,7 +56,8 @@ export function resolveOutro(sources = loadSources()) {
   const { tokens } = sources;
   const pack = outroModel(sources.outro);
   const spec = new Spec({ name: COMP, w: 1920, h: 1080, fps: FPS, duration: DURATION });
-  const shots = FORMATS.map((fmt) => {
+  // a shot per frame: LOGO_Shot's own comp of that size (its 4K one for the 4K clip)
+  const shots = [...FORMATS, '16x9_4K'].map((fmt) => {
     const f = tokens.video.formats[fmt];
     return { fmt, layer: `SHOT_${fmt.toUpperCase()}`, decor: `DECOR_${fmt}`, source: { name: `CR_${SHOT.id}_${fmt}_v${SHOT.version}`, w: f.w, h: f.h, layers: SHOT.layers.length } };
   });
@@ -64,8 +65,7 @@ export function resolveOutro(sources = loadSources()) {
     spec.add(precomp(s.layer, s.decor, { timeRemap: true }));
     spec.expr(s.layer, P.timeRemap, `Math.min(time, ${pack.freeze})`);
     spec.expr(s.layer, P.pos, '[thisComp.width / 2, thisComp.height / 2]');
-    const wide = s.source.w > s.source.h;
-    spec.expr(s.layer, P.opacity, `(thisComp.width > thisComp.height) == ${wide} ? 100 : 0`);
+    spec.expr(s.layer, P.opacity, `thisComp.width == ${s.source.w} && thisComp.height == ${s.source.h} ? 100 : 0`);
   }
   addQaPatch(spec, tokens.color.base.green.hex);
   spec.add(nul('CTRL', [{ kind: 'checkbox', name: 'QA', value: false }]));

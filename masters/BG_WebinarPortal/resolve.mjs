@@ -123,7 +123,11 @@ export function resolvePortal(sources = loadSources()) {
   const spec = new Spec({ name: COMP, w: 1920, h: 1080, fps: FPS, duration: PERIOD });
   const pre = 'var L = thisComp.layer("CTRL").effect("Layout")(1).value, M = thisComp.layer("CTRL").effect("Timer")(1).value;\n';
   for (const s of SCREENS) {
-    spec.add(precomp(s.key.toUpperCase(), s.decor));
+    // collapsed and scaled with the frame: the 4K loop draws the portal and the solid anew and the rack's 4K comps at
+    // their own size (only the dots' PNG is enlarged)
+    spec.add(precomp(s.key.toUpperCase(), s.decor, { collapse: true }));
+    spec.expr(s.key.toUpperCase(), P.pos, '[thisComp.width / 2, thisComp.height / 2]');
+    spec.expr(s.key.toUpperCase(), P.scale, 'var k = Math.min(thisComp.width, thisComp.height) / 1080;\n[100 * k, 100 * k]');
     spec.expr(s.key.toUpperCase(), P.opacity, pre + `L == ${s.layout} && M == ${s.timer ? 1 : 0} ? 100 : 0`);
   }
   addQaPatch(spec, tokens.color.base.green.hex);

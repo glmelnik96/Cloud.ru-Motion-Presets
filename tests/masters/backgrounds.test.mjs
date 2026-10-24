@@ -39,6 +39,8 @@ describe.skipIf(!HAS(['smm/bg_pattern_9x16_2', 'smm/bg_pattern_1x1_2', 'smm/plus
     expect(tall).toEqual({ pos: [expect.closeTo(9, 3), expect.closeTo(12, 3)], scale: [50, 50], matte: 100, noise: 111.7 });
     expect(square).toEqual({ pos: [expect.closeTo(6.75, 3), expect.closeTo(9, 3)], scale: [37.5, 37.5], matte: 50, noise: expect.closeTo(83.775, 3) });
     expect(wide).toEqual(tall);
+    // 4K (the installer's 4K option): twice 16:9, the 150 px tile at 100 %
+    expect(look([3840, 2160])).toEqual({ pos: [expect.closeTo(18, 3), expect.closeTo(24, 3)], scale: [100, 100], matte: 100, noise: expect.closeTo(223.4, 3) });
   });
 
   it('library.src.json has its entry: a loop per format', () => {

@@ -87,7 +87,8 @@ export function resolvePlus(sources = loadSources()) {
   const n = tall.noise;
   const spec = new Spec({ name: COMP, w: PACK.tall.w, h: PACK.tall.h, fps: FPS, duration: period });
   // the tiles: the pack's «+» comp at its place from the top left, spread over the frame (its expand covers FHD)
-  const pre = 'var w = thisComp.width, h = thisComp.height, q = w == h ? ' + k1 + ' : 1;\n';
+  // q: the pack's 1:1 against its 9:16, times the frame's short side (the 4K loop draws the 150 px tile at 100 %)
+  const pre = 'var w = thisComp.width, h = thisComp.height, q = (w == h ? ' + k1 + ' : 1) * Math.min(w, h) / 1080;\n';
   spec.add(precomp('PLUSES', 'DECOR_PLUS', {
     anchor: tall.plus.anchor,
     effects: [{ matchName: 'CC RepeTile', name: 'RepeTile', values: { 'CC RepeTile-0001': 4000, 'CC RepeTile-0002': 0, 'CC RepeTile-0003': 4000, 'CC RepeTile-0004': 0, 'CC RepeTile-0005': tall.plus.expand.tiling } }],

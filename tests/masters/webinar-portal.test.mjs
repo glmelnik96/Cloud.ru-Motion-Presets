@@ -52,6 +52,10 @@ describe.skipIf(!HAS_DUMPS)('BG_WebinarPortal', async () => {
       const c = exprComp(p.spec, { w: 1920, h: 1080, ctrl: { Layout: s.layout, Timer: s.timer ? 1 : 0 }, ink: () => ({ l: 0, w: 0, b: 0 }) });
       expect(SCREENS.map((x) => c.at(x.key.toUpperCase(), P.opacity, 0))).toEqual(SCREENS.map((x) => (x === s ? 100 : 0)));
     }
+    // the screens fill the frame at any size: collapsed, centred, scaled with it (the 4K loops of the 4K option)
+    const uhd = exprComp(p.spec, { w: 3840, h: 2160, ctrl: { Layout: 1, Timer: 0 }, ink: () => ({ l: 0, w: 0, b: 0 }) });
+    expect([uhd.at('VISUAL', P.pos, 0), uhd.at('VISUAL', P.scale, 0)]).toEqual([[1920, 1080], [200, 200]]);
+    expect(p.spec.layers.filter((l) => l.type === 'precomp').every((l) => l.collapse === true)).toBe(true);
   });
 
   it('library.src.json has its entry: four 60 s loops, opaque, picked by the form', () => {

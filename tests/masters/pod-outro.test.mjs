@@ -21,12 +21,13 @@ describe.skipIf(!HAS_DUMPS)('POD_Outro', async () => {
     expect(() => outroModel(d)).toThrow(/freeze/);
   });
 
-  it('moves LOGO_Shot\'s packaged 16:9 and 9:16 over with «есть где развернуться» on «Тёмный»', () => {
+  it('moves LOGO_Shot\'s packaged 16:9, 9:16 and 4K over with «есть где развернуться» on «Тёмный»', () => {
     const t = p.spec.transplant;
     expect(t.aep).toMatch(/build\/LOGO_Shot\/LOGO_Shot_v1\.aep$/);
     expect(t.comps.map((c) => [c.name, c.source])).toEqual([
       ['DECOR_16x9', { name: 'CR_LOGO_Shot_16x9_v1', w: 1920, h: 1080, layers: 10 }],
       ['DECOR_9x16', { name: 'CR_LOGO_Shot_9x16_v1', w: 1080, h: 1920, layers: 10 }],
+      ['DECOR_16x9_4K', { name: 'CR_LOGO_Shot_16x9_4K_v1', w: 3840, h: 2160, layers: 10 }],
     ]);
     for (const c of t.comps) {
       expect(c.keep.map((k) => k.name)).toEqual(SHOT.layers);
@@ -45,6 +46,11 @@ describe.skipIf(!HAS_DUMPS)('POD_Outro', async () => {
     const tall = comp(1080, 1920);
     expect([tall.at('SHOT_16X9', P.opacity, 0), tall.at('SHOT_9X16', P.opacity, 0)]).toEqual([0, 100]);
     expect(tall.at('SHOT_9X16', P.pos, 0)).toEqual([540, 960]);
+    // the 4K clip shows LOGO_Shot's own 4K comp, not the FHD one enlarged
+    const uhd = comp(3840, 2160);
+    expect(['SHOT_16X9', 'SHOT_9X16', 'SHOT_16X9_4K'].map((l) => uhd.at(l, P.opacity, 0))).toEqual([0, 0, 100]);
+    expect(wide.at('SHOT_16X9_4K', P.opacity, 0)).toBe(0);
+    expect(uhd.at('SHOT_16X9_4K', P.pos, 0)).toEqual([1920, 1080]);
   });
 
   it('library.src.json has its entry: a 10 s clip per proportion, opaque', () => {
