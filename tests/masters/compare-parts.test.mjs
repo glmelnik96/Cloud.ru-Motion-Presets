@@ -54,3 +54,13 @@ describe('a loop under a longer template', () => {
     expect([loopTime(61, 60), loopTime(1, 60), loopTime(59.96, 60), loopTime(120.04, 60)]).toEqual([1, 1, 59.96, 0.04]);
   });
 });
+
+describe('a part with its own threshold', () => {
+  it('passes on its own min, still within its place', () => {
+    const placed = registerParts(frame(), frame(1), PARTS).map((p, i) => (i === 0 ? { ...p, min: 0.5 } : p));
+    const strict = compareParts(frame(), frame(1), placed.map((p) => ({ ...p, min: undefined })), { min: 1.01, maxShift: 4 });
+    expect(strict.map((r) => r.pass)).toEqual([false, false]);
+    const own = compareParts(frame(), frame(1), placed, { min: 1.01, maxShift: 4 });
+    expect(own.map((r) => r.pass)).toEqual([true, false]);
+  });
+});

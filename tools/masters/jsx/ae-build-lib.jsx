@@ -138,6 +138,14 @@ function bdFill(L, groupName, hex, itemName) {
   return item;
 }
 
+// A stroke at AE's defaults (butt caps, miter joins, limit 4): the webinar announce's arrows.
+function bdStroke(L, groupName, hex, width, itemName) {
+  var item = bdInGroup(L, groupName, 'ADBE Vector Graphic - Stroke', itemName);
+  item.property('ADBE Vector Stroke Color').setValue(bdRgba(hex));
+  item.property('ADBE Vector Stroke Width').setValue(width);
+  return item;
+}
+
 // ae-quirks #9: set the text, then change the LIVE document and set it again. addText takes the alignment
 // last used in the Paragraph panel, so justification is always set. st.box [w, h]: paragraph text in a box
 // centred on the layer origin; the anchor goes to the box's top-left corner, which stays where it is when a

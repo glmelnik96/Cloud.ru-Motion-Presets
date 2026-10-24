@@ -378,7 +378,13 @@ function sbMakeLayer(spec) {
       for (i = 0; i < paths.length; i++) {
         bdPath(L, G.name, paths[i], 'Path ' + (i + 1));
       }
-      bdFill(L, G.name, G.fill, 'Fill');
+      // a group without fill is a stroke only (G.fill null)
+      if (G.fill) {
+        bdFill(L, G.name, G.fill, 'Fill');
+      }
+      if (G.stroke) {
+        bdStroke(L, G.name, G.stroke.color, G.stroke.width, 'Stroke');
+      }
       if (G.position) {
         L.property('ADBE Root Vectors Group').property(G.name).property('ADBE Vector Transform Group')
           .property('ADBE Vector Position').setValue(G.position);
@@ -409,6 +415,11 @@ function sbMakeLayer(spec) {
       // a fill over the whole text (its colour by expression: CRS_Cover's lines dark on the green variant)
       if (anims[i].fill) {
         bdAnimatorProp(L, anims[i].name, 'ADBE Text Fill Color').setValue([anims[i].fill[0], anims[i].fill[1], anims[i].fill[2], 1]);
+      }
+      // tracking added over the whole text, in pixels a character at the layer's font (not thousandths of an em):
+      // WEB_Announce's title, by expression 0 in 1:1 and 16/1000 x 70 px in 9:16
+      if (anims[i].tracking !== undefined) {
+        bdAnimatorProp(L, anims[i].name, 'ADBE Text Tracking Amount').setValue(anims[i].tracking);
       }
       bdRangeSelector(L, anims[i].name, anims[i].basedOn);
     }

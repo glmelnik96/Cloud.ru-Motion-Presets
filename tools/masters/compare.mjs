@@ -137,11 +137,13 @@ export function registerParts(golden, master, parts, { search = 6 } = {}) {
   });
 }
 
+// A part's own min: small text that the pack placed by sub-pixel hand (WEB_Announce's date line: 46–49 px, 0.5–1.5 px
+// off an even layout) scores 0.96–0.97 where it looks the same; its placement is still gated by maxShift.
 export function compareParts(golden, master, placed, { min, maxShift }) {
   return placed.map((p) => {
     const res = compareFrames(sampleWindow(golden, p.x, p.y, p.w, p.h), sampleWindow(master, p.origin[0], p.origin[1], p.w, p.h));
     const placedOk = Math.hypot(p.shift[0], p.shift[1]) <= (p.maxShift === undefined ? maxShift : p.maxShift);
-    return { name: p.name, shift: p.shift, ssim: res.ssim, pass: res.ssim >= min && placedOk };
+    return { name: p.name, shift: p.shift, ssim: res.ssim, pass: res.ssim >= (p.min === undefined ? min : p.min) && placedOk };
   });
 }
 
