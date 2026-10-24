@@ -1,0 +1,31 @@
+{
+  "id": "BG_Patterns",
+  "_note": "No golden comparison: the stills are drawn from the packs' vectors (the rack's cell, the announce's arrow and dots, the podcast's globe at rest), and tests/masters/patterns.test.mjs checks them against their sources. The files are checked by eye on the previews.",
+  "preview": {
+    "_note": "Card preview per format, element and ground: the frame on the brand's dark (#222222) or light (#F2F2F2) plate, one second; named after the files of the first element on dark (the form matches previews by proportion and values).",
+    "variant": "16x9",
+    "as": {
+      "16x9": "16x9_pattern_dark",
+      "9x16": "9x16_pattern_dark",
+      "1x1": "1x1_pattern_dark"
+    },
+    "ctrl": {
+      "Element": 1,
+      "Ground": 1
+    },
+    "text": {},
+    "backdrop": "#222222",
+    "backdropColor": [
+      { "when": { "ground": 1 }, "color": "#222222" },
+      { "when": { "ground": 2 }, "color": "#F2F2F2" }
+    ],
+    "fps": 12.5,
+    "durationSec": 1,
+    "posterSec": 0,
+    "axes": {
+      "element": "Element",
+      "ground": "Ground"
+    }
+  },
+  "cases": []
+}

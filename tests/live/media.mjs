@@ -41,6 +41,8 @@ export const MEDIA_CASES = [
   { key: 'screen', id: 'WEB_Screen', time: 2, sound: { music: false, sfx: false }, values: { layout: 2, timer: true, minutes: 1 }, expect: { lengthSec: 65, companionFile: 'BG_WebinarPortal_16x9_speaker_timer_v1' } },
   // the logo as files: «Схема» picks the PNG (colour, for a light picture), a still up to the end of the range
   { key: 'logo_files', id: 'LOGO_Files', time: 2, range: 14, values: { scheme: 2 }, expect: { lengthSec: 12, variant: '16x9_light', kind: 'still' } },
+  // the patterns and icons: two fields pick the PNG (the globe, for a light picture), as long as asked
+  { key: 'patterns', id: 'BG_Patterns', time: 2, values: { element: 4, ground: 2 }, options: { lengthSec: 6 }, expect: { lengthSec: 6, variant: '16x9_globe_light', kind: 'still' } },
 ];
 
 export async function runMediaLive(o) {

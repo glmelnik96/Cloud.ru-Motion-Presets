@@ -385,6 +385,14 @@ function sbMakeLayer(spec) {
       if (G.stroke) {
         bdStroke(L, G.name, G.stroke.color, G.stroke.width, 'Stroke');
       }
+      // repeaters tile the group, each copying everything above it (BG_Patterns: a cell, then its row, then the rows)
+      var reps = G.repeaters || [];
+      for (i = 0; i < reps.length; i++) {
+        var rep = bdInGroup(L, G.name, 'ADBE Vector Filter - Repeater', reps[i].name);
+        rep.property('ADBE Vector Repeater Copies').setValue(reps[i].copies);
+        rep.property('ADBE Vector Repeater Offset').setValue(0);
+        rep.property('ADBE Vector Repeater Transform').property('ADBE Vector Repeater Position').setValue(reps[i].position);
+      }
       if (G.position) {
         L.property('ADBE Root Vectors Group').property(G.name).property('ADBE Vector Transform Group')
           .property('ADBE Vector Position').setValue(G.position);

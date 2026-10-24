@@ -4212,6 +4212,634 @@
       ]
     },
     {
+      "id": "BG_Patterns",
+      "title_ru": "Паттерны и иконки",
+      "category": "backgrounds",
+      "tier": "T3",
+      "hosts": [
+        "ae",
+        "pr"
+      ],
+      "version": 1,
+      "duration": {
+        "introSec": 0,
+        "holdSec": 10,
+        "outroSec": 0
+      },
+      "fields": [
+        {
+          "key": "element",
+          "label_ru": "Элемент",
+          "type": "dropdown",
+          "default": 1,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "Паттерн стрелок"
+            },
+            {
+              "index": 2,
+              "label_ru": "Стрелка"
+            },
+            {
+              "index": 3,
+              "label_ru": "Сетка точек"
+            },
+            {
+              "index": 4,
+              "label_ru": "Глобус"
+            }
+          ]
+        },
+        {
+          "key": "ground",
+          "label_ru": "Фон",
+          "type": "dropdown",
+          "default": 1,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "Тёмный"
+            },
+            {
+              "index": 2,
+              "label_ru": "Светлый"
+            }
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "key": "16x9_pattern_dark",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 1,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_pattern_dark",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "element": 1,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16_pattern_dark",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "options": {
+            "element": 1,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1_pattern_dark",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 1,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "svg_pattern_dark",
+          "options": {
+            "element": 1,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_pattern_light",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 1,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_pattern_light",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "element": 1,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16_pattern_light",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "options": {
+            "element": 1,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1_pattern_light",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 1,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "svg_pattern_light",
+          "options": {
+            "element": 1,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_arrow_dark",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 2,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_arrow_dark",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "element": 2,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16_arrow_dark",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "options": {
+            "element": 2,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1_arrow_dark",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 2,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "svg_arrow_dark",
+          "options": {
+            "element": 2,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_arrow_light",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 2,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_arrow_light",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "element": 2,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16_arrow_light",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "options": {
+            "element": 2,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1_arrow_light",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 2,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "svg_arrow_light",
+          "options": {
+            "element": 2,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_dots_dark",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 3,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_dots_dark",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "element": 3,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16_dots_dark",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "options": {
+            "element": 3,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1_dots_dark",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 3,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "svg_dots_dark",
+          "options": {
+            "element": 3,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_dots_light",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 3,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_dots_light",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "element": 3,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16_dots_light",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "options": {
+            "element": 3,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1_dots_light",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 3,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "svg_dots_light",
+          "options": {
+            "element": 3,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_globe_dark",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 4,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_globe_dark",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "element": 4,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16_globe_dark",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "options": {
+            "element": 4,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1_globe_dark",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 4,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "svg_globe_dark",
+          "options": {
+            "element": 4,
+            "ground": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_globe_light",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 4,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_globe_light",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "element": 4,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16_globe_light",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "options": {
+            "element": 4,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1_globe_light",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "element": 4,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "svg_globe_light",
+          "options": {
+            "element": 4,
+            "ground": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
+      ]
+    },
+    {
       "id": "BG_WebinarPortal",
       "title_ru": "Фон экрана вебинара",
       "category": "webinars",

@@ -19,8 +19,10 @@ export const P = {
 export const shape = (name, groups, extra = {}) => ({ name, type: 'shape', groups, ...extra });
 export const rectGroup = (name, fill) => ({ name, rect: true, fill });
 export const pathGroup = (name, fill, paths, position) => ({ name, fill, paths, position });
-// paths stroked, not filled: stroke { color, width } (butt caps, miter joins)
-export const strokeGroup = (name, stroke, paths) => ({ name, fill: null, stroke, paths });
+// paths stroked, not filled: stroke { color, width } (butt caps, miter joins); extra.repeaters tile the group
+export const strokeGroup = (name, stroke, paths, extra = {}) => ({ name, fill: null, stroke, paths, ...extra });
+// a Repeater of a group: copies of everything above it, each moved by position [dx, dy]
+export const repeater = (name, copies, position) => ({ name, copies, position });
 export const text = (name, t, animators = [{ name: 'Rise', basedOn: 3 }]) => ({ name, type: 'text', text: t, animators });
 export const nul = (name, effects, extra = {}) => ({ name, type: 'null', effects, ...extra });
 // a layer of a comp the builder made from spec.transplant (by name); timeRemap: switched on for an expression
