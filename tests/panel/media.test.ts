@@ -5,8 +5,9 @@ import { planInsert, planItem, placementMismatches, runMedia, type MediaRequest 
 import { itemsForHost } from '../../panel/src/core/library';
 import { insertable, mediaKind, nearestCut, pickMediaVariant } from '../../panel/src/core/media';
 import type { HostReply } from '../../panel/src/core/host';
-import type { HostContext, Item } from '../../panel/src/core/types';
-import { aeContext, ALL_FONTS, exampleCatalog, exampleItem, lookupExample, prContext } from './fixtures';
+import type { HostContext, Item, Values } from '../../panel/src/core/types';
+import src from '../../library/library.src.json';
+import { aeContext, ALL_FONTS, exampleCatalog, exampleItem, lookupExample, prContext, toCatalogItem } from './fixtures';
 
 const env = { platform: 'win' as const, libraryRoot: 'C:/ProgramData/CloudRuBrandKit/library' };
 const LIB = env.libraryRoot;
@@ -147,6 +148,22 @@ describe('companions of T1 templates', () => {
     ttl.companions = [{ ref: 'SFX_WhooshIn', kind: 'sfx', placement: 'out', default: true }];
     const c = insert(ttl, { music: false, sfx: true }).request!.companions!;
     expect(c.audio).toEqual([expect.objectContaining({ endSec: 46, floorSec: 40 })]);
+  });
+
+  it('the form of the template picks the file of its companion: the real portal by layout and timer', () => {
+    const portal = toCatalogItem((src.items as unknown[]).find((i) => (i as Item).id === 'BG_WebinarPortal'));
+    const lookup = (id: string) => (id === portal.id ? portal : lookupExample(id));
+    const at = (values: Values, ctx = prContext()) => planInsert({ item: web(), ctx, values, fonts: ALL_FONTS, options: { sound: { music: false, sfx: false } }, env, lookup });
+    const file = (p: ReturnType<typeof at>) => p.request!.companions!.video[0].file.split('/').pop();
+    expect(file(at({ layout: 2, timer: true, minutes: 5 }))).toBe('BG_WebinarPortal_16x9_speaker_timer_v1.mov');
+    expect(file(at({ layout: 1, timer: false }))).toBe('BG_WebinarPortal_16x9_visual_v1.mov');
+    // the defaults of the form when the values leave a switch out: the first file that agrees
+    expect(file(at({ layout: 2 }))).toBe('BG_WebinarPortal_16x9_speaker_v1.mov');
+    // a 4K sequence takes the FHD loop scaled up, with the nearest-variant warning
+    const big = at({ layout: 1, timer: true, minutes: 5 }, prContext({ target: { ...prContext().target!, w: 3840, h: 2160 } }));
+    expect(file(big)).toBe('BG_WebinarPortal_16x9_visual_timer_v1.mov');
+    expect(big.request!.companions!.scale).toBe(2);
+    expect(big.problems.map((x) => x.code)).toContain('NEAREST_VARIANT');
   });
 
   it('a missing companion is a warning, the template still goes in', () => {

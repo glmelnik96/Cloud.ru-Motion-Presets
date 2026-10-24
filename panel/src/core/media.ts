@@ -297,6 +297,9 @@ export interface CompanionInput {
   // Where the template landed: its start and its length on the timeline.
   startSec: number;
   lengthSec: number;
+  // The template's form: a companion with prerendered looks takes the file its switches agree with (the webinar
+  // screen's «Раскладка» and «Таймер» pick the portal's loop).
+  values?: Values;
 }
 
 export function companionOn(c: Companion, sound: { music: boolean; sfx: boolean }): boolean {
@@ -320,7 +323,7 @@ export function planCompanions(input: CompanionInput): { layout: MediaLayout | n
     const ref = input.lookup(c.ref);
     const skip = (why: string) => problems.push(warning('COMPANION', messages.companion(ref?.title_ru ?? c.ref), { ref: c.ref, why }));
     if (!ref || !ref.hosts.includes(input.host)) { skip('not in the library for this host'); continue; }
-    const pick = pickMediaVariant(ref, input.target);
+    const pick = pickMediaVariant(ref, input.target, null, input.values ?? {});
     const v = pick.variant;
     const kind = v ? mediaKind(ref, v) : null;
     if (!v || !kind) { skip('no placeable variant'); continue; }

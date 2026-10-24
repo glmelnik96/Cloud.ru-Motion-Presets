@@ -197,7 +197,7 @@ export function planInsert({ item, ctx, values, fonts, options = {}, env, lookup
   if (hasErrors(problems)) return done(pick);
 
   const companions = options.sound && lookup && ctx.project.path
-    ? planCompanions({ item, host, target, projectPath: ctx.project.path, libraryRoot: env.libraryRoot, lookup, sound: options.sound, startSec: target.timeSec, lengthSec: length.sec })
+    ? planCompanions({ item, host, target, projectPath: ctx.project.path, libraryRoot: env.libraryRoot, lookup, sound: options.sound, startSec: target.timeSec, lengthSec: length.sec, values })
     : { layout: null, problems: [] };
   problems.push(...companions.problems);
 
