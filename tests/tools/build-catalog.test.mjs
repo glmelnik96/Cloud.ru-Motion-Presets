@@ -36,10 +36,12 @@ function fakeBuild(ids, opts = {}) {
       if (f.optional) continue;
       // a file of any extension (T2/T3): the export presets are .epr and .aom, by the variant key; the caption
       // style is .prtextstyle; the lecture frame has a still (.png) per layout and its drift loop (.mov); a transition
-      // a clip (.mov) per format and colour; a background loop a .mov per format
+      // a clip (.mov) per format and colour; a background loop a .mov per format; the logo files a .png per format
+      // and scheme and an .svg per scheme
       const v = item.variants.find((x) => x.key === f.key);
       const drift = v && v.options && 'drift' in v.options;
-      const ext = item.textStyle ? 'prtextstyle' : item.cutFrame !== undefined ? 'mov' : drift ? (v.options.drift ? 'mov' : 'png') : item.loop || item.tier === 'T2' ? 'mov' : f.key;
+      const ext = item.textStyle ? 'prtextstyle' : item.cutFrame !== undefined ? 'mov' : drift ? (v.options.drift ? 'mov' : 'png') : item.loop || item.tier === 'T2' ? 'mov'
+        : item.category === 'export' ? f.key : String(f.key).startsWith('svg_') ? 'svg' : 'png';
       const p = path.join(build, f.anyExt ? `${f.from}.${ext}` : f.from);
       if (f.from.endsWith('.mogrt')) mogrtFor(item, p, opts);
       else {
@@ -73,7 +75,7 @@ describe('build-catalog', () => {
 
   it('builds a valid catalog of the first pack and copies the files', async () => {
     const ids = SRC.items.map((i) => i.id);
-    expect(ids.slice(0, 4)).toEqual(['LOGO_Shot', 'LOGO_Mark', 'LOGO_Header', 'TTL_LowerThird']);
+    expect(ids.slice(0, 4)).toEqual(['LOGO_Shot', 'LOGO_Mark', 'LOGO_Header', 'LOGO_Files']);
     const { build, out } = fakeBuild(ids);
     const r = await buildCatalog({ src: SRC, buildDir: build, outDir: out, libraryVersion: '2026.10.05', tokens: TOKENS, now: new Date('2026-10-05T10:00:00.123Z') });
     expect(r.problems).toEqual([]);
@@ -87,6 +89,10 @@ describe('build-catalog', () => {
     expect(ttl.variants[0].sha256).toBe(sha(readFileSync(path.join(out, ttl.variants[0].file))));
     expect(ttl.requiredFonts).toContainEqual({ postScriptName: 'SBSansText-Regular', build: '1.003' });
     expect(existsSync(path.join(out, 'items/LOGO_Mark/LOGO_Mark_9x16_v1.mogrt'))).toBe(true);
+    // T3 files: a still per format and scheme, the SVG beside them
+    const files = lib.items.find((i) => i.id === 'LOGO_Files').variants;
+    expect(files.find((v) => v.key === '9x16_light').file).toBe('items/LOGO_Files/LOGO_Files_9x16_light_v1.png');
+    expect(files.find((v) => v.key === 'svg_light').file).toBe('items/LOGO_Files/LOGO_Files_svg_light_v1.svg');
   });
 
   it('leaves a file of the same content in place on the next build, replaces a changed one', async () => {

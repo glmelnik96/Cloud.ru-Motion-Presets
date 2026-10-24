@@ -39,6 +39,8 @@ export const MEDIA_CASES = [
   // the webinar screen with its timer for a minute (65 s with «Начинаем»): the portal's loop under it is the one its
   // «Раскладка» and «Таймер» pick, the speaker's with the timer
   { key: 'screen', id: 'WEB_Screen', time: 2, sound: { music: false, sfx: false }, values: { layout: 2, timer: true, minutes: 1 }, expect: { lengthSec: 65, companionFile: 'BG_WebinarPortal_16x9_speaker_timer_v1' } },
+  // the logo as files: «Схема» picks the PNG (colour, for a light picture), a still up to the end of the range
+  { key: 'logo_files', id: 'LOGO_Files', time: 2, range: 14, values: { scheme: 2 }, expect: { lengthSec: 12, variant: '16x9_light', kind: 'still' } },
 ];
 
 export async function runMediaLive(o) {

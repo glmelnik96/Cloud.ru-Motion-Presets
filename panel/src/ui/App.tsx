@@ -434,6 +434,7 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
   const hasSfx = companions.some((c) => c.kind === 'sfx');
   const shown = s.outcome ? s.outcome.problems : planProblems;
   const preset = app.isPreset(item);
+  const vector = app.vectorFile(item);
   return (
     <>
       <div class="form-head">
@@ -466,6 +467,13 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
       </div>}
 
       {app.fields(item).map(({ field, mode }) => <FieldInput key={field.key} app={app} ui={ui} field={field} mode={mode} />)}
+
+      {vector && (
+        <div class="field">
+          <label>SVG для вёрстки</label>
+          <button class="link" onClick={() => app.reveal(vector)}>Показать в папке</button>
+        </div>
+      )}
 
       {app.backdropOffered(item) && (
         <div class="field">

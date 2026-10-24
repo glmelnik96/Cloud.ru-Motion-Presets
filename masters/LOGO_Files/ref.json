@@ -1,0 +1,31 @@
+{
+  "id": "LOGO_Files",
+  "_note": "No golden comparison: the logo is the master logo (D18) on the header's cube, and LOGO_Header compares the header with the pack. The files are checked by tests/masters/logo-files.test.mjs (the SVG against the master, the colours against the brand book) and by eye on the previews.",
+  "preview": {
+    "_note": "Card preview per format and scheme: the frame on the plate the brand book gives the scheme (tokens color.logoVariants), one second; named after the files of the first scheme (the form matches previews by proportion and scheme).",
+    "variant": "16x9",
+    "as": {
+      "16x9": "16x9_dark",
+      "9x16": "9x16_dark",
+      "1x1": "1x1_dark"
+    },
+    "ctrl": {
+      "Scheme": 1
+    },
+    "text": {},
+    "backdrop": "#222222",
+    "backdropColor": [
+      { "when": { "scheme": 1 }, "color": "#222222" },
+      { "when": { "scheme": 2 }, "color": "#FFFFFF" },
+      { "when": { "scheme": 3 }, "color": "#26D07C" },
+      { "when": { "scheme": 4 }, "color": "#222222" }
+    ],
+    "fps": 12.5,
+    "durationSec": 1,
+    "posterSec": 0,
+    "axes": {
+      "scheme": "Scheme"
+    }
+  },
+  "cases": []
+}

@@ -6,7 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { PNG } from 'pngjs';
 import { describe, expect, it } from 'vitest';
-import { backdropVideoFor, defaultCombo, encodePreview, parsePreviewName, posterArgs, previewCombos, previewFrames, previewName, previewSpec, sameAs, videoArgs } from '../../tools/masters/preview.mjs';
+import { backdropColorFor, backdropVideoFor, defaultCombo, encodePreview, parsePreviewName, posterArgs, previewCombos, previewFrames, previewName, previewSpec, sameAs, videoArgs } from '../../tools/masters/preview.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '../..');
 const SRC = JSON.parse(readFileSync(path.join(REPO, 'library', 'library.src.json'), 'utf8'));
@@ -109,6 +109,14 @@ describe('card previews', () => {
     expect(args.slice(0, 2)).toEqual(['-i', 'C:/b/bg.mov']);
     expect(args[args.indexOf('-filter_complex') + 1]).toBe('[0:v]fps=12.5[b];[1:v]unpremultiply=inplace=1[f];[b][f]overlay=shortest=1:format=auto,scale=480:-2:flags=lanczos,format=yuv420p[v]');
     expect(posterArgs({ frame: 'C:/w/f0037.png', spec, w: 1920, h: 1080, out: 'C:/o/p.jpg', backdropFile: 'C:/b/bg.mov', t: 2.96 }).slice(0, 4)).toEqual(['-ss', '2.960', '-i', 'C:/b/bg.mov']);
+  });
+
+  it('lays each look over the flat colour its values pick, else the backdrop', () => {
+    const spec = { backdrop: '#5A5A5A', fps: 12.5, backdropColor: [{ when: { scheme: 1 }, color: '#222222' }, { when: { scheme: 3 }, color: '#26D07C' }] };
+    expect(backdropColorFor(spec, { when: { scheme: 3 } })).toBe('#26D07C');
+    expect(backdropColorFor(spec, { when: { scheme: 2 } })).toBe('#5A5A5A');
+    expect(backdropColorFor({ backdrop: '#222222' }, { when: {} })).toBe('#222222');
+    expect(videoArgs({ dir: 'C:/w', spec: { ...spec, backdrop: backdropColorFor(spec, { when: { scheme: 3 } }) }, w: 1920, h: 1080, out: 'C:/o/p.mp4' })[3]).toBe('color=c=0x26D07C:s=1920x1080:r=12.5');
   });
 
   it.skipIf(!HAS_FFMPEG)('encodes a 480 px H.264 preview and a poster from transparent frames', () => {

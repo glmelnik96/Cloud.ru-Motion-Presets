@@ -16,7 +16,7 @@ const BUILDS: Record<string, string> = {
 function mediaExt(it: Item, v: { key: string; options?: Record<string, number | boolean> }): string {
   const key = v.key;
   if (it.category === 'sounds') return 'wav';
-  if (key === 'svg') return 'svg';
+  if (key === 'svg' || key.startsWith('svg_')) return 'svg';
   if (key === 'ffx') return 'ffx';
   if (key === 'epr' || key === 'aom') return key;
   if (it.textStyle) return 'prtextstyle';

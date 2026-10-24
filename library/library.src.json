@@ -363,6 +363,314 @@
       ]
     },
     {
+      "id": "LOGO_Files",
+      "title_ru": "Логотип: файлы",
+      "category": "logo",
+      "tier": "T3",
+      "hosts": [
+        "ae",
+        "pr"
+      ],
+      "version": 1,
+      "duration": {
+        "introSec": 0,
+        "holdSec": 10,
+        "outroSec": 0
+      },
+      "fields": [
+        {
+          "key": "scheme",
+          "label_ru": "Схема",
+          "type": "dropdown",
+          "default": 1,
+          "options": [
+            {
+              "index": 1,
+              "label_ru": "Цветной, для тёмного фона"
+            },
+            {
+              "index": 2,
+              "label_ru": "Цветной, для светлого фона"
+            },
+            {
+              "index": 3,
+              "label_ru": "Чёрный, для зелёного фона"
+            },
+            {
+              "index": 4,
+              "label_ru": "Белый, для фото"
+            }
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "key": "16x9_dark",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "scheme": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_dark",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "scheme": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16_dark",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "options": {
+            "scheme": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1_dark",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "scheme": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "svg_dark",
+          "options": {
+            "scheme": 1
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_light",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "scheme": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_light",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "scheme": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16_light",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "options": {
+            "scheme": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1_light",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "scheme": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "svg_light",
+          "options": {
+            "scheme": 2
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_green",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "scheme": 3
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_green",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "scheme": 3
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16_green",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "options": {
+            "scheme": 3
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1_green",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "scheme": 3
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "svg_green",
+          "options": {
+            "scheme": 3
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_mono",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "scheme": 4
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K_mono",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "options": {
+            "scheme": 4
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16_mono",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "options": {
+            "scheme": 4
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "1x1_mono",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "options": {
+            "scheme": 4
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "svg_mono",
+          "options": {
+            "scheme": 4
+          },
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
+      ]
+    },
+    {
       "id": "TTL_LowerThird",
       "title_ru": "Подпись спикера",
       "category": "titles",

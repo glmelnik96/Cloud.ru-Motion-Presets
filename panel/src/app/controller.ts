@@ -15,7 +15,7 @@ import { filterItems, itemsForHost, parseCatalog, usedCategories, CATEGORIES } f
 import type { Logger } from '../core/log';
 import { backdropDefault, CUT_WINDOW_SEC, defaultMediaLengthSec, mediaKind, pickMediaVariant, placeable, type Prepare } from '../core/media';
 import { FieldMemory, type KeyValueStore } from '../core/memory';
-import { dirname, type Platform } from '../core/paths';
+import { dirname, libraryFile, type Platform } from '../core/paths';
 import { error, messages, sec, type Problem } from '../core/problems';
 import { defaultLengthSec } from '../core/timing';
 import type { Catalog, Category, FieldValue, FontStatus, Host, HostContext, Item, Values, Variant } from '../core/types';
@@ -552,6 +552,14 @@ export class PanelApp {
   // the look the form chose (the options of a prerendered file).
   formatVariants(item: Item): Variant[] {
     return item.tier === 'T1' ? item.variants : variantsForValues(item, this.state.values).filter(placeable);
+  }
+
+  // The layout file of an asset (.svg, LOGO_Files) in the look of the form: the panel places its .png twin, the form
+  // offers «Показать в папке» for the vector.
+  vectorFile(item: Item): string | null {
+    if (item.tier === 'T1') return null;
+    const v = variantsForValues(item, this.state.values).find((x) => /\.svg$/i.test(x.file ?? ''));
+    return v?.file ? libraryFile(this.svc.libraryRoot, v.file) : null;
   }
 
   // The variant for the format chip: manual or by the frame of the active comp or sequence.

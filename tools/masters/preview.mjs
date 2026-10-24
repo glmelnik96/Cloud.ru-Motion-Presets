@@ -120,6 +120,14 @@ export function backdropVideoFor(spec, combo) {
   return hit ? hit.file : null;
 }
 
+// The flat backdrop of a combination: ref.preview.backdropColor [{ when: { <field>: <value> }, color }], the entry whose
+// values agree with the combination's (LOGO_Files: each scheme on the plate the brand book gives it); else
+// ref.preview.backdrop.
+export function backdropColorFor(spec, combo) {
+  const hit = (spec.backdropColor || []).find((b) => Object.entries(b.when || {}).every(([k, v]) => combo.when[k] === v));
+  return hit ? hit.color : spec.backdrop;
+}
+
 // ffmpeg arguments: the frames over the backdrop, scaled into the box, H.264 yuv420p. AE's saveFrameToPng stores
 // the colour multiplied by alpha: divided back first, or soft edges get a dark rim over the backdrop. A backdrop
 // video plays from its start at the preview's frame rate.
@@ -196,7 +204,7 @@ if (isMain) {
         await waitForStableFiles(frames.map((f) => f.file), { timeoutMs: 600000 });
       }
       const bgFile = backdropVideoFor(spec, c);
-      const r = encodePreview({ dir, spec, w: c.variant.w, h: c.variant.h, outDir, name: c.name, backdropFile: bgFile && workPath('build', bgFile) });
+      const r = encodePreview({ dir, spec: { ...spec, backdrop: backdropColorFor(spec, c) }, w: c.variant.w, h: c.variant.h, outDir, name: c.name, backdropFile: bgFile && workPath('build', bgFile) });
       console.log(`OK ${r.video} (${r.frames} frames at ${spec.fps} fps), ${r.poster} at ${r.posterSec} s`);
     }
     for (const [c, src] of copies) {

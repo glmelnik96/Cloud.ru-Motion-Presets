@@ -4,10 +4,11 @@
 // renders (tools/masters/jsx/render-case.jsx), into <work>/build/<id>/ under the names the catalog build takes:
 //   still        the frame at t                          -> <id>_<key>_v<N>.png, RGBA
 //   loop, clip   the frames of [0, seconds), in batches  -> <id>_<key>_v<N>.mov, PNG in MOV, rgba (D24)
+//   svg          the content the resolve wrote            -> <id>_<key>_v<N>.svg (LOGO_Files: the logo for layouts)
 // A loop stops a frame before its period, so played end to end it repeats without a seam; a clip (a transition) is
 // played once.
 //   node tools/masters/render-files.mjs --item CRS_LectureFrame [--only key,key] [--keep-frames]
-import { existsSync, mkdirSync, rmSync, statSync } from 'node:fs';
+import { existsSync, mkdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { run } from '../host-run.mjs';
@@ -25,7 +26,7 @@ export const BATCH = 250;
 export const UNPREMULTIPLY = ['-vf', 'unpremultiply=inplace=1'];
 
 export function fileName(params, f) {
-  return `${params.id}_${f.key}_v${params.version}.${f.kind === 'still' ? 'png' : 'mov'}`;
+  return `${params.id}_${f.key}_v${params.version}.${f.kind === 'still' ? 'png' : f.kind === 'svg' ? 'svg' : 'mov'}`;
 }
 
 // The times of a loop's or a clip's frames: [0, seconds) on the frame grid of the comp.
@@ -56,7 +57,9 @@ export async function renderFiles(id, { only = null, keepFrames = false } = {}) 
       if (only && !only.includes(f.key)) continue;
       const file = path.posix.join(params.out.dir, fileName(params, f));
       rmSync(file, { force: true });
-      if (f.kind === 'still') {
+      if (f.kind === 'svg') {
+        writeFileSync(file, f.content);
+      } else if (f.kind === 'still') {
         const raw = file.replace(/\.png$/, '.raw.png');
         await render(params, f, [{ t: f.t, file: raw }]);
         ffmpeg(['-i', raw, ...UNPREMULTIPLY, '-pix_fmt', 'rgba', file], `${f.key}.png`);
