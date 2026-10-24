@@ -1,0 +1,276 @@
+{
+  "id": "WEB_Announce",
+  "_note": "Golden comparison against the webinars pack posts «Анонс_Вебинар_1x1» (1400x1400, scaled to the master 1080 by area) and «Анонс_Вебинар_9x16», with the pack texts (pack:square, pack:vertical). The posts carry the pack AI clip where the master has its neutral slot (D13), and the square notches move on the pack keys (out by 5 s) where the master drifts on M10 (D19): the comparison goes by parts away from both: the title lines, each piece of the date line (the word, the arrows, the date), the left strip of the square card, the corner of the mint card, the dot clusters outside the window. The date line's word and date (46–49 px) keep a part threshold of 0.95: the pack placed them by hand 0.5–1.5 px off an even layout, and at that size a sub-pixel offset scores 0.96–0.97 where they look the same (their placement is gated by maxShift).",
+  "preview": {
+    "_note": "Card preview per proportion: the default title and date over the empty visual, the first 6 s (the square notches start to drift).",
+    "variant": "1x1",
+    "ctrl": {},
+    "text": {},
+    "backdrop": "#222222",
+    "fps": 12.5,
+    "durationSec": 6,
+    "posterSec": 3
+  },
+  "cases": [
+    {
+      "name": "square",
+      "title": "Квадрат против «Анонс_Вебинар_1x1»",
+      "golden": {
+        "slug": "webinars",
+        "compSlug": "anons_vebinar_1x1",
+        "scale": 0.771429
+      },
+      "variant": "1x1",
+      "ctrl": {},
+      "text": "pack:square",
+      "parts": [
+        {
+          "name": "title1",
+          "x": 210,
+          "y": 160,
+          "w": 660,
+          "h": 76
+        },
+        {
+          "name": "title2",
+          "x": 40,
+          "y": 233,
+          "w": 1000,
+          "h": 76
+        },
+        {
+          "name": "word",
+          "x": 190,
+          "y": 72,
+          "w": 200,
+          "h": 50,
+          "min": 0.95
+        },
+        {
+          "name": "arrow1",
+          "x": 396,
+          "y": 80,
+          "w": 42,
+          "h": 40
+        },
+        {
+          "name": "date",
+          "x": 447,
+          "y": 72,
+          "w": 390,
+          "h": 50,
+          "min": 0.95
+        },
+        {
+          "name": "arrow2",
+          "x": 845,
+          "y": 80,
+          "w": 42,
+          "h": 40
+        },
+        {
+          "name": "card_left",
+          "x": 44,
+          "y": 430,
+          "w": 70,
+          "h": 500,
+          "fixed": true
+        }
+      ],
+      "maxShift": 3,
+      "shift": [],
+      "gate": [
+        0,
+        2000,
+        4000
+      ],
+      "view": [
+        1000,
+        9960
+      ]
+    },
+    {
+      "name": "vertical",
+      "title": "Вертикаль против «Анонс_Вебинар_9x16»",
+      "golden": {
+        "slug": "webinars",
+        "compSlug": "anons_vebinar_9x16"
+      },
+      "variant": "9x16",
+      "ctrl": {},
+      "text": "pack:vertical",
+      "parts": [
+        {
+          "name": "title1",
+          "x": 132,
+          "y": 358,
+          "w": 715,
+          "h": 72
+        },
+        {
+          "name": "title2",
+          "x": 132,
+          "y": 437,
+          "w": 432,
+          "h": 72
+        },
+        {
+          "name": "title3",
+          "x": 132,
+          "y": 516,
+          "w": 672,
+          "h": 72
+        },
+        {
+          "name": "word",
+          "x": 160,
+          "y": 236,
+          "w": 215,
+          "h": 50,
+          "min": 0.95
+        },
+        {
+          "name": "arrow1",
+          "x": 388,
+          "y": 245,
+          "w": 40,
+          "h": 36
+        },
+        {
+          "name": "date",
+          "x": 446,
+          "y": 236,
+          "w": 287,
+          "h": 50,
+          "min": 0.95
+        },
+        {
+          "name": "arrow2",
+          "x": 748,
+          "y": 245,
+          "w": 40,
+          "h": 36
+        },
+        {
+          "name": "card_corner",
+          "x": 90,
+          "y": 165,
+          "w": 300,
+          "h": 60,
+          "fixed": true
+        },
+        {
+          "name": "dots_top",
+          "x": 910,
+          "y": 15,
+          "w": 140,
+          "h": 500,
+          "fixed": true
+        },
+        {
+          "name": "dots_bottom",
+          "x": 0,
+          "y": 1660,
+          "w": 175,
+          "h": 250,
+          "fixed": true
+        }
+      ],
+      "maxShift": 3,
+      "shift": [],
+      "gate": [
+        0,
+        2000,
+        4000
+      ],
+      "view": [
+        1000,
+        9960
+      ]
+    }
+  ],
+  "premiere": {
+    "_note": "The square MOGRT in Premiere against the same variant rendered in AE, the visual slot at its default. A: the defaults, 10 s. B: three title lines and a long date (the line shrinks), 12 s (the notches further out).",
+    "variant": "1x1",
+    "clips": [
+      {
+        "key": "A",
+        "atSec": 0,
+        "lenSec": 10,
+        "ctrl": {},
+        "text": {}
+      },
+      {
+        "key": "B",
+        "atSec": 12,
+        "lenSec": 12,
+        "ctrl": {},
+        "text": {
+          "TXT_TITLE1": "Как развернуть облачную",
+          "TXT_TITLE2": "платформу за пять минут",
+          "TXT_TITLE3": "без администратора",
+          "TXT_DATE": "Четверг, 25 ноября 2026 года в 11:00 по Москве"
+        }
+      }
+    ],
+    "frames": [
+      {
+        "key": "A_start",
+        "clip": "A",
+        "sec": 0,
+        "master": 0
+      },
+      {
+        "key": "A_end",
+        "clip": "A",
+        "sec": 9.96,
+        "master": 9.96
+      },
+      {
+        "key": "B_late",
+        "clip": "B",
+        "sec": 11.96,
+        "master": 11.96
+      }
+    ]
+  },
+  "premiere9x16": {
+    "_note": "The vertical MOGRT in Premiere against the same variant rendered in AE, the visual slot at its default. A: the defaults. B: three title lines and a long date.",
+    "variant": "9x16",
+    "clips": [
+      {
+        "key": "A",
+        "atSec": 0,
+        "lenSec": 10,
+        "ctrl": {},
+        "text": {}
+      },
+      {
+        "key": "B",
+        "atSec": 12,
+        "lenSec": 10,
+        "ctrl": {},
+        "text": {
+          "TXT_TITLE1": "Как развернуть облачную",
+          "TXT_TITLE2": "платформу за пять минут",
+          "TXT_TITLE3": "без администратора",
+          "TXT_DATE": "Четверг, 25 ноября 2026 года в 11:00"
+        }
+      }
+    ],
+    "frames": [
+      {
+        "key": "A_start",
+        "clip": "A",
+        "sec": 0,
+        "master": 0
+      },
+      {
+        "key": "B_hold",
+        "clip": "B",
+        "sec": 5,
+        "master": 5
+      }
+    ]
+  }
+}

@@ -4142,6 +4142,104 @@
       ]
     },
     {
+      "id": "WEB_Announce",
+      "title_ru": "Анонс вебинара",
+      "category": "webinars",
+      "tier": "T1",
+      "hosts": [
+        "ae",
+        "pr"
+      ],
+      "version": 1,
+      "fit": "trim",
+      "duration": {
+        "introSec": 0,
+        "holdSec": 10,
+        "outroSec": 0,
+        "maxSec": 60
+      },
+      "requiredFonts": [
+        {
+          "postScriptName": "SBSansDisplay-Regular"
+        }
+      ],
+      "fields": [
+        {
+          "key": "title1",
+          "label_ru": "Заголовок, строка 1",
+          "type": "text",
+          "egpName": "Заголовок, строка 1",
+          "egpIndex": 0,
+          "maxLen": 40,
+          "default": "Название вебинара"
+        },
+        {
+          "key": "title2",
+          "label_ru": "Заголовок, строка 2",
+          "type": "text",
+          "egpName": "Заголовок, строка 2",
+          "egpIndex": 1,
+          "maxLen": 40,
+          "default": "в несколько строк"
+        },
+        {
+          "key": "title3",
+          "label_ru": "Заголовок, строка 3",
+          "type": "text",
+          "egpName": "Заголовок, строка 3",
+          "egpIndex": 2,
+          "maxLen": 40,
+          "default": ""
+        },
+        {
+          "key": "date",
+          "label_ru": "Дата",
+          "type": "text",
+          "egpName": "Дата",
+          "egpIndex": 3,
+          "maxLen": 30,
+          "default": "25.11 в 11:00"
+        },
+        {
+          "key": "visual",
+          "label_ru": "Визуал",
+          "type": "media",
+          "egpName": "Визуал",
+          "egpIndex": 4,
+          "accepts": [
+            "video",
+            "photo"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "key": "1x1",
+          "aspect": "1x1",
+          "w": 1080,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_WEB_Announce_1x1",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "aeComp": "CR_WEB_Announce_9x16",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
+      ]
+    },
+    {
       "id": "AME_4K",
       "title_ru": "4K, 3840×2160",
       "category": "export",
