@@ -292,6 +292,77 @@
       ]
     },
     {
+      "id": "LOGO_Header",
+      "title_ru": "Шапка с логотипом",
+      "category": "logo",
+      "tier": "T1",
+      "hosts": [
+        "ae",
+        "pr"
+      ],
+      "version": 1,
+      "fit": "trim",
+      "duration": {
+        "introSec": 0,
+        "holdSec": 10,
+        "outroSec": 0,
+        "maxSec": 900
+      },
+      "requiredFonts": [
+        {
+          "postScriptName": "SBSansDisplay-Semibold"
+        }
+      ],
+      "fields": [
+        {
+          "key": "descriptor",
+          "label_ru": "Дескриптор",
+          "type": "checkbox",
+          "egpName": "Дескриптор",
+          "egpIndex": 0,
+          "default": true
+        }
+      ],
+      "variants": [
+        {
+          "key": "16x9",
+          "aspect": "16x9",
+          "w": 1920,
+          "h": 1080,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Header_16x9",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "16x9_4K",
+          "aspect": "16x9",
+          "w": 3840,
+          "h": 2160,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Header_16x9_4K",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        },
+        {
+          "key": "9x16",
+          "aspect": "9x16",
+          "w": 1080,
+          "h": 1920,
+          "fps": 25,
+          "aeComp": "CR_LOGO_Header_9x16",
+          "minHostVersion": {
+            "ae": "26.0",
+            "pr": "26.0"
+          }
+        }
+      ]
+    },
+    {
       "id": "TTL_LowerThird",
       "title_ru": "Подпись спикера",
       "category": "titles",

@@ -31,7 +31,7 @@ describe('library', () => {
     expect(r.problems).toEqual([]);
     // every template of library.src.json, the first pack first (the list grows with every master)
     expect(r.catalog?.items.map((i) => i.id)).toEqual(catalog().items.map((i) => i.id));
-    expect(r.catalog?.items.slice(0, 3).map((i) => i.id)).toEqual(['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird']);
+    expect(r.catalog?.items.slice(0, 4).map((i) => i.id)).toEqual(['LOGO_Shot', 'LOGO_Mark', 'LOGO_Header', 'TTL_LowerThird']);
   });
   it('refuses a library that is not JSON or needs a newer panel', () => {
     expect(parseCatalog('{', '0.1.0').problems[0].code).toBe('LIBRARY');
@@ -60,7 +60,7 @@ describe('library', () => {
     expect(filterItems(items, { query: 'ttl' }).map((i) => i.id)).toEqual(ids.filter((id) => id.startsWith('TTL_')));
     expect(filterItems(items, { query: 'плашке' }).map((i) => i.id)).toEqual(['TTL_Plate', 'TTL_PlateSwap']);
     expect(filterItems(items, { query: 'фразы плашке' }).map((i) => i.id)).toEqual(['TTL_PlateSwap']);
-    expect(filterItems(items, { category: 'logo' }).length).toBe(2);
+    expect(filterItems(items, { category: 'logo' }).length).toBe(3);
     expect(filterItems(items, { category: 'favorites', favorites: new Set(['LOGO_Mark']) }).map((i) => i.id)).toEqual(['LOGO_Mark']);
     items[0].title_ru = 'Ёлка';
     expect(filterItems(items, { query: 'елка' }).map((i) => i.id)).toEqual(['LOGO_Shot']);

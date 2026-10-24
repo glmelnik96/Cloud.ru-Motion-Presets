@@ -73,14 +73,14 @@ describe('build-catalog', () => {
 
   it('builds a valid catalog of the first pack and copies the files', async () => {
     const ids = SRC.items.map((i) => i.id);
-    expect(ids.slice(0, 3)).toEqual(['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird']);
+    expect(ids.slice(0, 4)).toEqual(['LOGO_Shot', 'LOGO_Mark', 'LOGO_Header', 'TTL_LowerThird']);
     const { build, out } = fakeBuild(ids);
     const r = await buildCatalog({ src: SRC, buildDir: build, outDir: out, libraryVersion: '2026.10.05', tokens: TOKENS, now: new Date('2026-10-05T10:00:00.123Z') });
     expect(r.problems).toEqual([]);
     const lib = JSON.parse(readFileSync(path.join(out, 'library.json'), 'utf8'));
     expect(lib).toMatchObject({ schemaVersion: 1, libraryVersion: '2026.10.05', minPluginVersion: '0.1.0', generatedAt: '2026-10-05T10:00:00Z' });
     expect(lib.items.map((i) => i.id)).toEqual(ids);
-    const ttl = lib.items[2];
+    const ttl = lib.items.find((i) => i.id === 'TTL_LowerThird');
     expect(ttl.aep.file).toBe('items/TTL_LowerThird/TTL_LowerThird_v1.aep');
     expect(ttl.aep.sha256).toBe(sha(Buffer.from('aep of TTL_LowerThird')));
     expect(ttl.variants[0]).toMatchObject({ key: '16x9', aeComp: 'CR_TTL_LowerThird_16x9_v1', file: 'items/TTL_LowerThird/TTL_LowerThird_16x9_v1.mogrt' });

@@ -1,0 +1,143 @@
+{
+  "id": "LOGO_Header",
+  "_note": "Golden comparison against the webinars pack logo block «Логоблок с челкой» (frames rendered from the relinked copy, tools/golden/comp-frames.mjs): the hatching in its window and the descriptor, on 16:9 with the descriptor on. The logo is the master logo (D18) where the pack has its own, so it is not gated. The pack hatching runs on M11 from 0 to 5.96 s without wrapping; the master moves its lines by the fraction of a line, the same picture at every moment.",
+  "preview": {
+    "_note": "Card preview per proportion, descriptor on and off: the first 6 s of the hatching.",
+    "variant": "16x9",
+    "ctrl": {
+      "Descriptor": 1
+    },
+    "text": {},
+    "backdrop": "#222222",
+    "fps": 12.5,
+    "durationSec": 6,
+    "posterSec": 3,
+    "axes": {
+      "descriptor": "Descriptor"
+    }
+  },
+  "cases": [
+    {
+      "name": "webinars",
+      "title": "16:9 против «Логоблока с челкой»",
+      "golden": {
+        "slug": "webinars",
+        "compSlug": "logoblok_s_chelkoy"
+      },
+      "variant": "16x9",
+      "ctrl": {
+        "Descriptor": 1
+      },
+      "text": {},
+      "parts": [
+        {
+          "name": "hatching",
+          "x": 405,
+          "y": 36,
+          "w": 1235,
+          "h": 76,
+          "fixed": true
+        },
+        {
+          "name": "descriptor",
+          "x": 1642,
+          "y": 40,
+          "w": 210,
+          "h": 66
+        }
+      ],
+      "maxShift": 2,
+      "shift": [],
+      "gate": [
+        0,
+        1000,
+        2000,
+        4000,
+        5960
+      ],
+      "view": []
+    }
+  ],
+  "premiere": {
+    "_note": "The 16:9 MOGRT in Premiere against the same variant rendered in AE: A with the descriptor, B without it (the hatching reaches the right margin).",
+    "variant": "16x9",
+    "clips": [
+      {
+        "key": "A",
+        "atSec": 0,
+        "lenSec": 10,
+        "ctrl": {
+          "Descriptor": 1
+        },
+        "text": {}
+      },
+      {
+        "key": "B",
+        "atSec": 12,
+        "lenSec": 10,
+        "ctrl": {
+          "Descriptor": 0
+        },
+        "text": {}
+      }
+    ],
+    "frames": [
+      {
+        "key": "A_start",
+        "clip": "A",
+        "sec": 0,
+        "master": 0
+      },
+      {
+        "key": "A_hold",
+        "clip": "A",
+        "sec": 5,
+        "master": 5
+      },
+      {
+        "key": "B_hold",
+        "clip": "B",
+        "sec": 3,
+        "master": 3
+      }
+    ]
+  },
+  "premiere9x16": {
+    "_note": "The 9:16 MOGRT in Premiere against AE, descriptor on and off.",
+    "variant": "9x16",
+    "clips": [
+      {
+        "key": "A",
+        "atSec": 0,
+        "lenSec": 10,
+        "ctrl": {
+          "Descriptor": 1
+        },
+        "text": {}
+      },
+      {
+        "key": "B",
+        "atSec": 12,
+        "lenSec": 10,
+        "ctrl": {
+          "Descriptor": 0
+        },
+        "text": {}
+      }
+    ],
+    "frames": [
+      {
+        "key": "A_hold",
+        "clip": "A",
+        "sec": 5,
+        "master": 5
+      },
+      {
+        "key": "B_hold",
+        "clip": "B",
+        "sec": 3,
+        "master": 3
+      }
+    ]
+  }
+}

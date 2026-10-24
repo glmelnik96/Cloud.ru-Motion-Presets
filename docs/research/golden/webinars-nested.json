@@ -2,6 +2,50 @@
   "slug": "webinars",
   "comps": [
     {
+      "id": 1028,
+      "name": "Логоблок с челкой",
+      "compSlug": "logoblok_s_chelkoy",
+      "width": 1920,
+      "height": 1080,
+      "fps": 25,
+      "duration": 6,
+      "motionBlur": "as in the pack",
+      "aeVersion": "26.5x89",
+      "date": "2026-10-24",
+      "frames": [
+        {
+          "f": 0,
+          "ms": 0,
+          "bytes": 36401,
+          "sha256": "634028f4e4bf5912be85ffd0b0ff56fc1f8339b2869989e54114ce2ac392518b"
+        },
+        {
+          "f": 25,
+          "ms": 1000,
+          "bytes": 36403,
+          "sha256": "8e7a25711e9e61d70e5b463749fda9c9c9b829e73f71751c77a92605c01903e4"
+        },
+        {
+          "f": 50,
+          "ms": 2000,
+          "bytes": 36401,
+          "sha256": "634028f4e4bf5912be85ffd0b0ff56fc1f8339b2869989e54114ce2ac392518b"
+        },
+        {
+          "f": 100,
+          "ms": 4000,
+          "bytes": 36401,
+          "sha256": "634028f4e4bf5912be85ffd0b0ff56fc1f8339b2869989e54114ce2ac392518b"
+        },
+        {
+          "f": 149,
+          "ms": 5960,
+          "bytes": 36414,
+          "sha256": "2034297ced03f886666565b340b2c30a98c608a6e2f635d4253635c35d292779"
+        }
+      ]
+    },
+    {
       "id": 834,
       "name": "PATTERN RACK_Animation",
       "compSlug": "pattern_rack_animation",

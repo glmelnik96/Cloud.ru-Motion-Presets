@@ -66,7 +66,7 @@ describe('panel app', () => {
     const { a, store } = app(new Host(prContext()));
     await a.init();
     a.setQuery('логотип');
-    expect(a.visibleItems().map((i) => i.id)).toEqual(['LOGO_Mark']);
+    expect(a.visibleItems().map((i) => i.id)).toEqual(['LOGO_Mark', 'LOGO_Header']);
     a.setQuery('');
     a.toggleFavorite('TTL_LowerThird');
     a.setCategory('favorites');

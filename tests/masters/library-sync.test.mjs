@@ -8,9 +8,9 @@ import { egpLabels } from '../../tools/masters/package.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '../..');
 const lib = JSON.parse(readFileSync(path.join(REPO, 'library', 'library.src.json'), 'utf8'));
-const HAS_DUMPS = ['logo/umnoe_oblako.json', 'titles/podpis_spikerov.json', 'podcast/tekst_na_plashke_1.json', 'podcast/diskleymer.json', 'podcast/o_goste.json', 'podcast/kontent_3.json', 'podcast/qr_kod_3.json', 'smm/zastavka_9x16.json', 'smm/plashki_9x16.json', 'courses/overley_16_na_9.json', 'courses/overley_3_na_2.json', 'courses/oblozhka_1.json', 'courses/oblozhka_2.json', 'courses/oblozhka_3.json', 'courses/perekhod.json', 'webinars/taymer_so_spikerom.json', 'webinars/anons_vebinar_9x16.json']
+const HAS_DUMPS = ['logo/umnoe_oblako.json', 'titles/podpis_spikerov.json', 'podcast/tekst_na_plashke_1.json', 'podcast/diskleymer.json', 'podcast/o_goste.json', 'podcast/kontent_3.json', 'podcast/qr_kod_3.json', 'smm/zastavka_9x16.json', 'smm/plashki_9x16.json', 'courses/overley_16_na_9.json', 'courses/overley_3_na_2.json', 'courses/oblozhka_1.json', 'courses/oblozhka_2.json', 'courses/oblozhka_3.json', 'courses/perekhod.json', 'webinars/taymer_so_spikerom.json', 'webinars/anons_vebinar_9x16.json', 'webinars/logoblok_s_chelkoy.json']
   .every((f) => existsSync('C:/CRBK/work/dumps/' + f));
-const MASTERS = ['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird', 'TTL_Plate', 'TTL_PlateSwap', 'TTL_Subscribe', 'TTL_Disclaimer', 'POD_Frame', 'POD_Guest', 'POD_Content', 'POD_QR', 'SMM_ShortsIntro', 'CRS_Subtitles', 'CRS_Cover', 'WEB_Screen', 'WEB_Announce'];
+const MASTERS = ['LOGO_Shot', 'LOGO_Mark', 'TTL_LowerThird', 'TTL_Plate', 'TTL_PlateSwap', 'TTL_Subscribe', 'TTL_Disclaimer', 'POD_Frame', 'POD_Guest', 'POD_Content', 'POD_QR', 'SMM_ShortsIntro', 'CRS_Subtitles', 'CRS_Cover', 'WEB_Screen', 'WEB_Announce', 'LOGO_Header'];
 
 describe.skipIf(!HAS_DUMPS)('library.src.json matches the masters', () => {
   for (const id of MASTERS) {
