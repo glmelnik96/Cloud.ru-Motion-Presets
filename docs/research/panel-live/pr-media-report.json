@@ -1,10 +1,10 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-23T23:23:39.050Z",
-  "finishedAt": "2026-10-23T23:26:28.261Z",
+  "startedAt": "2026-10-24T11:30:07.559Z",
+  "finishedAt": "2026-10-24T11:33:17.775Z",
   "summary": {
-    "checks": 255,
-    "passed": 255,
+    "checks": 266,
+    "passed": 266,
     "failed": 0
   },
   "failed": [],
@@ -30,7 +30,7 @@
         "data": {
           "app": "pr",
           "version": "26.5.2",
-          "bk": "0.1.24"
+          "bk": "0.1.25"
         }
       }
     },
@@ -45,23 +45,24 @@
       }
     },
     {
-      "name": "setup: sequences created: 13",
+      "name": "setup: sequences created: 14",
       "pass": true,
       "required": true,
       "detail": {
-        "loop": "43a3197f-113f-4bec-b44d-65cb94e037cd",
-        "transition": "4280eb86-c9f9-469c-9553-4992144a3509",
-        "bars": "c3d7ae81-ef8a-4e1d-925b-d8ecb5e27dfa",
-        "still": "a8c0d4a6-7114-498e-b11a-8a887875b926",
-        "sound": "1a942d0d-7b54-4e42-8c93-611033ef6dc0",
-        "companions": "a0ccb35c-42ba-41fb-a99a-79704c0d888a",
-        "frame": "1225e461-5a77-48a0-ba3b-0965e97abba8",
-        "frame_drift": "1bb02574-c98d-4bd5-978e-75585f1511be",
-        "rack": "28a6c827-eb9f-411a-85b4-75663a9a2342",
-        "portal": "88d5425d-5562-4bb6-a27e-55e4523aa300",
-        "notched": "db8aca77-ae79-48a3-ae77-51997cc31809",
-        "intro": "c2eff7f1-2c51-4192-aecc-34b9fa956050",
-        "outro": "446a09b7-d528-41ba-8b43-bc5c2fd9e37e"
+        "loop": "98f11fca-5853-46ed-8ee4-8cfa6ce1ee42",
+        "transition": "399f2f7a-ab1e-4f1d-83b9-06c276c5f2d2",
+        "bars": "098f935d-8e2b-489e-96db-c72624c3ae35",
+        "still": "18831dac-a1c2-46b8-99e9-3c5461fdb3c1",
+        "sound": "92baeef8-60d2-4a93-afc5-a75111226d76",
+        "companions": "0d939f0a-b49d-4771-94cf-5401b2d11d37",
+        "frame": "d5d71796-7f48-486e-b71c-643f81563424",
+        "frame_drift": "088fdc77-7e9e-43d1-a0a7-1e83b825a217",
+        "rack": "ff6bb52e-b263-43e1-aae6-4dd759a8bb0c",
+        "portal": "1ac5ef4e-dfa1-4d01-92b1-24a521526b84",
+        "notched": "8ac25fb5-b1c4-4e37-9d3b-bed8961a97f8",
+        "intro": "355015aa-7610-4e0d-9047-af17f2ea79c3",
+        "outro": "e155b32a-5c57-46fb-a6c7-8211e08aa41d",
+        "screen": "bd84542a-25a6-41b0-bbcb-eba2df0d0145"
       }
     },
     {
@@ -71,7 +72,7 @@
       "detail": "BG_Arrows"
     },
     {
-      "name": "loop: range: out point of sequence 43a3197f-113f-4bec-b44d-65cb94e037cd at 20 s",
+      "name": "loop: range: out point of sequence 98f11fca-5853-46ed-8ee4-8cfa6ce1ee42 at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -80,11 +81,11 @@
       }
     },
     {
-      "name": "loop: activate: sequence 43a3197f-113f-4bec-b44d-65cb94e037cd active, playhead at 2 s",
+      "name": "loop: activate: sequence 98f11fca-5853-46ed-8ee4-8cfa6ce1ee42 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media loop_21",
+        "name": "BK media loop_22",
         "player": 2
       }
     },
@@ -94,8 +95,8 @@
       "required": true,
       "detail": {
         "kind": "sequence",
-        "id": "43a3197f-113f-4bec-b44d-65cb94e037cd",
-        "name": "BK media loop_21",
+        "id": "98f11fca-5853-46ed-8ee4-8cfa6ce1ee42",
+        "name": "BK media loop_22",
         "w": 1920,
         "h": 1080,
         "fps": 25,
@@ -181,7 +182,7 @@
       }
     },
     {
-      "name": "loop: timeline: clips of sequence 43a3197f-113f-4bec-b44d-65cb94e037cd listed with their files",
+      "name": "loop: timeline: clips of sequence 98f11fca-5853-46ed-8ee4-8cfa6ce1ee42 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -693,11 +694,11 @@
       "detail": "BG_Arrows"
     },
     {
-      "name": "reuse: activate: sequence 43a3197f-113f-4bec-b44d-65cb94e037cd active, playhead at 30 s",
+      "name": "reuse: activate: sequence 98f11fca-5853-46ed-8ee4-8cfa6ce1ee42 active, playhead at 30 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media loop_21",
+        "name": "BK media loop_22",
         "player": 30
       }
     },
@@ -768,7 +769,7 @@
       }
     },
     {
-      "name": "reuse: timeline: clips of sequence 43a3197f-113f-4bec-b44d-65cb94e037cd listed with their files",
+      "name": "reuse: timeline: clips of sequence 98f11fca-5853-46ed-8ee4-8cfa6ce1ee42 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1143,7 +1144,7 @@
       "required": true,
       "detail": {
         "imported": 0,
-        "bin": 18
+        "bin": 21
       }
     },
     {
@@ -1166,7 +1167,7 @@
       "detail": "TRN_StepWipe"
     },
     {
-      "name": "transition: cuts on V1: clips on V1 of sequence 4280eb86-c9f9-469c-9553-4992144a3509 cut at 0, 10, 20 s",
+      "name": "transition: cuts on V1: clips on V1 of sequence 399f2f7a-ab1e-4f1d-83b9-06c276c5f2d2 cut at 0, 10, 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -1174,11 +1175,11 @@
       }
     },
     {
-      "name": "transition: activate: sequence 4280eb86-c9f9-469c-9553-4992144a3509 active, playhead at 12 s",
+      "name": "transition: activate: sequence 399f2f7a-ab1e-4f1d-83b9-06c276c5f2d2 active, playhead at 12 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media transition_21",
+        "name": "BK media transition_22",
         "player": 12
       }
     },
@@ -1242,7 +1243,7 @@
       }
     },
     {
-      "name": "transition: timeline: clips of sequence 4280eb86-c9f9-469c-9553-4992144a3509 listed with their files",
+      "name": "transition: timeline: clips of sequence 399f2f7a-ab1e-4f1d-83b9-06c276c5f2d2 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1348,7 +1349,7 @@
       "detail": "TRN_Bars"
     },
     {
-      "name": "bars: cuts on V1: clips on V1 of sequence c3d7ae81-ef8a-4e1d-925b-d8ecb5e27dfa cut at 0, 10, 20 s",
+      "name": "bars: cuts on V1: clips on V1 of sequence 098f935d-8e2b-489e-96db-c72624c3ae35 cut at 0, 10, 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -1356,11 +1357,11 @@
       }
     },
     {
-      "name": "bars: activate: sequence c3d7ae81-ef8a-4e1d-925b-d8ecb5e27dfa active, playhead at 12 s",
+      "name": "bars: activate: sequence 098f935d-8e2b-489e-96db-c72624c3ae35 active, playhead at 12 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media bars_5",
+        "name": "BK media bars_6",
         "player": 12
       }
     },
@@ -1424,7 +1425,7 @@
       }
     },
     {
-      "name": "bars: timeline: clips of sequence c3d7ae81-ef8a-4e1d-925b-d8ecb5e27dfa listed with their files",
+      "name": "bars: timeline: clips of sequence 098f935d-8e2b-489e-96db-c72624c3ae35 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1530,11 +1531,11 @@
       "detail": "BG_DotGrid"
     },
     {
-      "name": "still: activate: sequence a8c0d4a6-7114-498e-b11a-8a887875b926 active, playhead at 2 s",
+      "name": "still: activate: sequence 18831dac-a1c2-46b8-99e9-3c5461fdb3c1 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media still_21",
+        "name": "BK media still_22",
         "player": 2
       }
     },
@@ -1585,7 +1586,7 @@
       }
     },
     {
-      "name": "still: timeline: clips of sequence a8c0d4a6-7114-498e-b11a-8a887875b926 listed with their files",
+      "name": "still: timeline: clips of sequence 18831dac-a1c2-46b8-99e9-3c5461fdb3c1 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1667,11 +1668,11 @@
       "detail": "SFX_WhooshIn"
     },
     {
-      "name": "sound: activate: sequence 1a942d0d-7b54-4e42-8c93-611033ef6dc0 active, playhead at 5 s",
+      "name": "sound: activate: sequence 92baeef8-60d2-4a93-afc5-a75111226d76 active, playhead at 5 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media sound_21",
+        "name": "BK media sound_22",
         "player": 5
       }
     },
@@ -1722,7 +1723,7 @@
       }
     },
     {
-      "name": "sound: timeline: clips of sequence 1a942d0d-7b54-4e42-8c93-611033ef6dc0 listed with their files",
+      "name": "sound: timeline: clips of sequence 92baeef8-60d2-4a93-afc5-a75111226d76 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1804,11 +1805,11 @@
       "detail": "TTL_LowerThird"
     },
     {
-      "name": "companions: activate: sequence a0ccb35c-42ba-41fb-a99a-79704c0d888a active, playhead at 2 s",
+      "name": "companions: activate: sequence 0d939f0a-b49d-4771-94cf-5401b2d11d37 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media companions_21",
+        "name": "BK media companions_22",
         "player": 2
       }
     },
@@ -1899,7 +1900,7 @@
       }
     },
     {
-      "name": "companions: timeline: clips of sequence a0ccb35c-42ba-41fb-a99a-79704c0d888a listed with their files",
+      "name": "companions: timeline: clips of sequence 0d939f0a-b49d-4771-94cf-5401b2d11d37 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2261,7 +2262,7 @@
       "detail": "CRS_LectureFrame"
     },
     {
-      "name": "frame: range: out point of sequence 1225e461-5a77-48a0-ba3b-0965e97abba8 at 30 s",
+      "name": "frame: range: out point of sequence d5d71796-7f48-486e-b71c-643f81563424 at 30 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -2270,11 +2271,11 @@
       }
     },
     {
-      "name": "frame: activate: sequence 1225e461-5a77-48a0-ba3b-0965e97abba8 active, playhead at 2 s",
+      "name": "frame: activate: sequence d5d71796-7f48-486e-b71c-643f81563424 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media frame_9",
+        "name": "BK media frame_10",
         "player": 2
       }
     },
@@ -2284,8 +2285,8 @@
       "required": true,
       "detail": {
         "kind": "sequence",
-        "id": "1225e461-5a77-48a0-ba3b-0965e97abba8",
-        "name": "BK media frame_9",
+        "id": "d5d71796-7f48-486e-b71c-643f81563424",
+        "name": "BK media frame_10",
         "w": 1920,
         "h": 1080,
         "fps": 25,
@@ -2341,7 +2342,7 @@
       }
     },
     {
-      "name": "frame: timeline: clips of sequence 1225e461-5a77-48a0-ba3b-0965e97abba8 listed with their files",
+      "name": "frame: timeline: clips of sequence d5d71796-7f48-486e-b71c-643f81563424 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2437,11 +2438,11 @@
       "detail": "CRS_LectureFrame"
     },
     {
-      "name": "frame_drift: activate: sequence 1bb02574-c98d-4bd5-978e-75585f1511be active, playhead at 2 s",
+      "name": "frame_drift: activate: sequence 088fdc77-7e9e-43d1-a0a7-1e83b825a217 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media frame_drift_9",
+        "name": "BK media frame_drift_10",
         "player": 2
       }
     },
@@ -2492,7 +2493,7 @@
       }
     },
     {
-      "name": "frame_drift: timeline: clips of sequence 1bb02574-c98d-4bd5-978e-75585f1511be listed with their files",
+      "name": "frame_drift: timeline: clips of sequence 088fdc77-7e9e-43d1-a0a7-1e83b825a217 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2633,11 +2634,11 @@
       "detail": "BG_Rack"
     },
     {
-      "name": "rack: activate: sequence 28a6c827-eb9f-411a-85b4-75663a9a2342 active, playhead at 2 s",
+      "name": "rack: activate: sequence ff6bb52e-b263-43e1-aae6-4dd759a8bb0c active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media rack_3",
+        "name": "BK media rack_4",
         "player": 2
       }
     },
@@ -2688,7 +2689,7 @@
       }
     },
     {
-      "name": "rack: timeline: clips of sequence 28a6c827-eb9f-411a-85b4-75663a9a2342 listed with their files",
+      "name": "rack: timeline: clips of sequence ff6bb52e-b263-43e1-aae6-4dd759a8bb0c listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2863,11 +2864,11 @@
       "detail": "BG_WebinarPortal"
     },
     {
-      "name": "portal: activate: sequence 88d5425d-5562-4bb6-a27e-55e4523aa300 active, playhead at 2 s",
+      "name": "portal: activate: sequence 1ac5ef4e-dfa1-4d01-92b1-24a521526b84 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media portal_2",
+        "name": "BK media portal_3",
         "player": 2
       }
     },
@@ -2918,7 +2919,7 @@
       }
     },
     {
-      "name": "portal: timeline: clips of sequence 88d5425d-5562-4bb6-a27e-55e4523aa300 listed with their files",
+      "name": "portal: timeline: clips of sequence 1ac5ef4e-dfa1-4d01-92b1-24a521526b84 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3041,11 +3042,11 @@
       "detail": "SMM_FrameNotched"
     },
     {
-      "name": "notched: activate: sequence db8aca77-ae79-48a3-ae77-51997cc31809 active, playhead at 2 s",
+      "name": "notched: activate: sequence 8ac25fb5-b1c4-4e37-9d3b-bed8961a97f8 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media notched_4",
+        "name": "BK media notched_5",
         "player": 2
       }
     },
@@ -3096,7 +3097,7 @@
       }
     },
     {
-      "name": "notched: timeline: clips of sequence db8aca77-ae79-48a3-ae77-51997cc31809 listed with their files",
+      "name": "notched: timeline: clips of sequence 8ac25fb5-b1c4-4e37-9d3b-bed8961a97f8 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3237,11 +3238,11 @@
       "detail": "POD_Intro"
     },
     {
-      "name": "intro: activate: sequence c2eff7f1-2c51-4192-aecc-34b9fa956050 active, playhead at 2 s",
+      "name": "intro: activate: sequence 355015aa-7610-4e0d-9047-af17f2ea79c3 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media intro",
+        "name": "BK media intro_2",
         "player": 2
       }
     },
@@ -3252,14 +3253,14 @@
       "detail": []
     },
     {
-      "name": "intro: files copied next to the project (1 copied, 0 reused, 0 written)",
+      "name": "intro: files copied next to the project (0 copied, 1 reused, 0 written)",
       "pass": true,
       "required": true,
       "detail": {
-        "copied": [
+        "copied": [],
+        "reused": [
           "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov"
         ],
-        "reused": [],
         "written": []
       }
     },
@@ -3285,14 +3286,14 @@
               "lengthSec": 7
             }
           ],
-          "imported": 1,
+          "imported": 0,
           "addedTracks": 0,
           "notes": []
         }
       }
     },
     {
-      "name": "intro: timeline: clips of sequence c2eff7f1-2c51-4192-aecc-34b9fa956050 listed with their files",
+      "name": "intro: timeline: clips of sequence 355015aa-7610-4e0d-9047-af17f2ea79c3 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3349,7 +3350,7 @@
             "lengthSec": 7
           }
         ],
-        "imported": 1,
+        "imported": 0,
         "addedTracks": 0,
         "notes": []
       }
@@ -3404,11 +3405,11 @@
       "detail": "POD_Outro"
     },
     {
-      "name": "outro: activate: sequence 446a09b7-d528-41ba-8b43-bc5c2fd9e37e active, playhead at 2 s",
+      "name": "outro: activate: sequence e155b32a-5c57-46fb-a6c7-8211e08aa41d active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media outro",
+        "name": "BK media outro_2",
         "player": 2
       }
     },
@@ -3419,14 +3420,14 @@
       "detail": []
     },
     {
-      "name": "outro: files copied next to the project (1 copied, 0 reused, 0 written)",
+      "name": "outro: files copied next to the project (0 copied, 1 reused, 0 written)",
       "pass": true,
       "required": true,
       "detail": {
-        "copied": [
+        "copied": [],
+        "reused": [
           "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov"
         ],
-        "reused": [],
         "written": []
       }
     },
@@ -3452,14 +3453,14 @@
               "lengthSec": 10
             }
           ],
-          "imported": 1,
+          "imported": 0,
           "addedTracks": 0,
           "notes": []
         }
       }
     },
     {
-      "name": "outro: timeline: clips of sequence 446a09b7-d528-41ba-8b43-bc5c2fd9e37e listed with their files",
+      "name": "outro: timeline: clips of sequence e155b32a-5c57-46fb-a6c7-8211e08aa41d listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3516,7 +3517,7 @@
             "lengthSec": 10
           }
         ],
-        "imported": 1,
+        "imported": 0,
         "addedTracks": 0,
         "notes": []
       }
@@ -3549,6 +3550,211 @@
       }
     },
     {
+      "name": "screen: WEB_Screen is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "WEB_Screen"
+    },
+    {
+      "name": "screen: activate: sequence bd84542a-25a6-41b0-bbcb-eba2df0d0145 active, playhead at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK media screen",
+        "player": 2
+      }
+    },
+    {
+      "name": "screen: planned without errors",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "screen: files copied next to the project (0 copied, 1 reused, 0 written)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "copied": [],
+        "reused": [
+          "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov"
+        ],
+        "written": []
+      }
+    },
+    {
+      "name": "screen: inserted, every piece where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "WEB_Screen_16x9_v1",
+          "track": 3,
+          "companions": [
+            {
+              "role": "loop",
+              "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+              "track": 2,
+              "audio": false,
+              "clips": 2,
+              "startSec": 2,
+              "lengthSec": 65
+            }
+          ],
+          "startSec": 2,
+          "lengthSec": 65,
+          "readback": {
+            "Раскладка": 1,
+            "Таймер": true,
+            "Минуты": 1,
+            "Заголовок, строка 1": "Название вебинара",
+            "Заголовок, строка 2": "в несколько строк",
+            "Заголовок, строка 3": "",
+            "Спикер, строка 1": "Имя Фамилия",
+            "Спикер, строка 2": "Должность",
+            "Спикер, строка 3": "",
+            "Подпись QR, строка 1": "Канал Cloud.ru",
+            "Подпись QR, строка 2": "в Telegram"
+          },
+          "retried": false,
+          "addedTracks": 0,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "screen: timeline: clips of sequence bd84542a-25a6-41b0-bbcb-eba2df0d0145 listed with their files",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "screen: loop on the timeline as reported (2 s, V2)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "loop",
+          "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+          "track": 2,
+          "audio": false,
+          "clips": 2,
+          "startSec": 2,
+          "lengthSec": 65
+        },
+        "rows": [
+          {
+            "track": 2,
+            "audio": false,
+            "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "startSec": 2,
+            "endSec": 62,
+            "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "selected": false
+          },
+          {
+            "track": 2,
+            "audio": false,
+            "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "startSec": 62,
+            "endSec": 67,
+            "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "selected": false
+          },
+          {
+            "track": 3,
+            "audio": false,
+            "name": "WEB_Screen_16x9_v1",
+            "startSec": 2,
+            "endSec": 67,
+            "file": "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media/264adb72-dfe7-46d2-a21d-d41decbbd7ce/WEB_Screen_16x9_v1.aegraphic",
+            "selected": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "screen: loop plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov"
+    },
+    {
+      "name": "screen: length 65 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "WEB_Screen_16x9_v1",
+        "track": 3,
+        "companions": [
+          {
+            "role": "loop",
+            "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "track": 2,
+            "audio": false,
+            "clips": 2,
+            "startSec": 2,
+            "lengthSec": 65
+          }
+        ],
+        "startSec": 2,
+        "lengthSec": 65,
+        "readback": {
+          "Раскладка": 1,
+          "Таймер": true,
+          "Минуты": 1,
+          "Заголовок, строка 1": "Название вебинара",
+          "Заголовок, строка 2": "в несколько строк",
+          "Заголовок, строка 3": "",
+          "Спикер, строка 1": "Имя Фамилия",
+          "Спикер, строка 2": "Должность",
+          "Спикер, строка 3": "",
+          "Подпись QR, строка 1": "Канал Cloud.ru",
+          "Подпись QR, строка 2": "в Telegram"
+        },
+        "retried": false,
+        "addedTracks": 0,
+        "notes": []
+      }
+    },
+    {
+      "name": "screen: the form picked the companion BG_WebinarPortal_16x9_speaker_timer_v1, 1 piece(s) to the template's end",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "role": "loop",
+          "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+          "track": 2,
+          "audio": false,
+          "clips": 2,
+          "startSec": 2,
+          "lengthSec": 65
+        }
+      ]
+    },
+    {
+      "name": "screen: the background runs on a track under the MOGRT",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "mogrt": 3,
+        "loops": [
+          {
+            "role": "loop",
+            "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "track": 2,
+            "audio": false,
+            "clips": 2,
+            "startSec": 2,
+            "lengthSec": 65
+          }
+        ]
+      }
+    },
+    {
       "name": "save: scratch project saved",
       "pass": true,
       "required": false,
@@ -3561,7 +3767,7 @@
       "detail": "C:\\CRBK\\work\\panel-live\\pr\\media_live.prproj"
     },
     {
-      "name": "transfer: copied the project and Cloud.ru BrandKit, Motion Graphics Template Media to C:/CRBK/work/panel-live/pr-moved-20261023T232534",
+      "name": "transfer: copied the project and Cloud.ru BrandKit, Motion Graphics Template Media to C:/CRBK/work/panel-live/pr-moved-20261024T113209",
       "pass": true,
       "required": true,
       "detail": [
@@ -3570,14 +3776,14 @@
       ]
     },
     {
-      "name": "transfer: the check of C:/CRBK/work/panel-live/pr-moved-20261023T232534/media_live.prproj waits for a restart of Premiere (node tools/panel/live.mjs --host pr --transfer)",
+      "name": "transfer: the check of C:/CRBK/work/panel-live/pr-moved-20261024T113209/media_live.prproj waits for a restart of Premiere (node tools/panel/live.mjs --host pr --transfer)",
       "pass": true,
       "required": false,
       "detail": {
         "host": "pr",
         "project": "C:/CRBK/work/panel-live/pr/media_live.prproj",
-        "movedDir": "C:/CRBK/work/panel-live/pr-moved-20261023T232534",
-        "moved": "C:/CRBK/work/panel-live/pr-moved-20261023T232534/media_live.prproj",
+        "movedDir": "C:/CRBK/work/panel-live/pr-moved-20261024T113209",
+        "moved": "C:/CRBK/work/panel-live/pr-moved-20261024T113209/media_live.prproj",
         "parts": [
           "Cloud.ru BrandKit",
           "Motion Graphics Template Media"
@@ -3600,7 +3806,7 @@
       "pass": true,
       "required": true,
       "detail": {
-        "fit": "f5ec747c-6009-4c7e-9146-2a1575e22f51"
+        "fit": "07346545-563c-4666-86ad-90d304a8de0e"
       }
     },
     {
@@ -3612,11 +3818,11 @@
       }
     },
     {
-      "name": "fit screen: activate: sequence f5ec747c-6009-4c7e-9146-2a1575e22f51 active, playhead at 1 s",
+      "name": "fit screen: activate: sequence 07346545-563c-4666-86ad-90d304a8de0e active, playhead at 1 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK fit_15",
+        "name": "BK fit_16",
         "player": 1
       }
     },
@@ -3739,11 +3945,11 @@
       }
     },
     {
-      "name": "fit speaker: activate: sequence f5ec747c-6009-4c7e-9146-2a1575e22f51 active, playhead at 11 s",
+      "name": "fit speaker: activate: sequence 07346545-563c-4666-86ad-90d304a8de0e active, playhead at 11 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK fit_15",
+        "name": "BK fit_16",
         "player": 11
       }
     },
@@ -3903,7 +4109,7 @@
       "pass": true,
       "required": true,
       "detail": {
-        "fit": "38ffd564-5cd2-4dc5-bed3-32d1c6cea4cc"
+        "fit": "994c39d9-9f31-4b36-a5b5-b6318df66df6"
       }
     },
     {
@@ -3915,11 +4121,11 @@
       }
     },
     {
-      "name": "fit frame screen: activate: sequence 38ffd564-5cd2-4dc5-bed3-32d1c6cea4cc active, playhead at 1 s",
+      "name": "fit frame screen: activate: sequence 994c39d9-9f31-4b36-a5b5-b6318df66df6 active, playhead at 1 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK fit frame_9",
+        "name": "BK fit frame_10",
         "player": 1
       }
     },
@@ -4042,11 +4248,11 @@
       }
     },
     {
-      "name": "fit frame speaker: activate: sequence 38ffd564-5cd2-4dc5-bed3-32d1c6cea4cc active, playhead at 11 s",
+      "name": "fit frame speaker: activate: sequence 994c39d9-9f31-4b36-a5b5-b6318df66df6 active, playhead at 11 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK fit frame_9",
+        "name": "BK fit frame_10",
         "player": 11
       }
     },
@@ -4200,7 +4406,7 @@
       "pass": true,
       "required": true,
       "detail": {
-        "blur": "ccab51cf-365a-4806-a780-deffa9383a67"
+        "blur": "011cece6-3b77-4d66-bed3-f4e64c25a8a5"
       }
     },
     {
@@ -4229,11 +4435,11 @@
       }
     },
     {
-      "name": "blur: activate: sequence ccab51cf-365a-4806-a780-deffa9383a67 active, playhead at 1 s",
+      "name": "blur: activate: sequence 011cece6-3b77-4d66-bed3-f4e64c25a8a5 active, playhead at 1 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK blur_13",
+        "name": "BK blur_14",
         "player": 1
       }
     },
