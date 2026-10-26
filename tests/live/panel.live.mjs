@@ -13,6 +13,7 @@ import { cdpEval, getPageTarget } from '../../tools/lib/cdp.mjs';
 import { buildPayload, hostPorts } from '../../tools/lib/payload.mjs';
 import { workPath } from '../../tools/lib/work.mjs';
 import { buildCatalog, calver } from '../../tools/library/build-catalog.mjs';
+import { loadSource } from '../../tools/library/source.mjs';
 import { composeProbe, REPO } from '../../tools/spike/runner.mjs';
 import { scanFonts } from '../../tools/fonts/scan-fonts.mjs';
 import { presetSources, stagePreset } from '../../tools/pr/env.mjs';
@@ -35,10 +36,14 @@ describe.skipIf(HOST !== 'ae' && HOST !== 'pr')('panel live', () => {
     const tokens = readJson(path.join(REPO, 'brand', 'tokens.json'));
     try {
       // The catalog of the masters that are built, as the installer will lay it out.
-      const src = readJson(path.join(REPO, 'library', 'library.src.json'));
+      // the source with its sounds: the templates' music is a sound of the library (tools/library/source.mjs)
+      const src = loadSource(path.join(REPO, 'library', 'library.src.json'));
       const buildDir = process.env.BRANDKIT_LIVE_BUILD || workPath('build');
       const libraryRoot = process.env.BRANDKIT_LIVE_LIBRARY || workPath('panel-live', 'library');
-      const only = src.items.filter((i) => existsSync(path.join(buildDir, i.id, `${i.id}_v${i.version}.aep`))).map((i) => i.id);
+      const masters = src.items.filter((i) => existsSync(path.join(buildDir, i.id, `${i.id}_v${i.version}.aep`))).map((i) => i.id);
+      // with the companions of the built masters that are built too (the music under the webinar screen and the covers)
+      const refs = src.items.filter((i) => masters.includes(i.id)).flatMap((i) => (i.companions || []).map((c) => c.ref));
+      const only = [...masters, ...[...new Set(refs)].filter((r) => !masters.includes(r) && existsSync(path.join(buildDir, r)))];
       const built = await buildCatalog({ src, buildDir, outDir: libraryRoot, tokens, only, libraryVersion: calver() });
       R.check(`catalog built from ${buildDir}: ${only.join(', ') || 'no masters'}`, built.ok && only.length > 0, built.problems);
       if (!built.ok || !only.length) return;
