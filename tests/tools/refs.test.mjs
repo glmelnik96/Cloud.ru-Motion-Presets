@@ -5,7 +5,7 @@ import { existsSync, mkdtempSync, readFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { addRef, analyze, motionSpans, parseShowinfo, parseYavg, slugOk, videoOf } from '../../tools/refs/refs.mjs';
+import { addRef, analyze, drawn, motionSpans, parseShowinfo, parseYavg, slugOk, videoOf } from '../../tools/refs/refs.mjs';
 
 const hasFfmpeg = spawnSync('ffmpeg', ['-version']).status === 0;
 
@@ -56,5 +56,13 @@ describe.skipIf(!hasFfmpeg)('references: analysis of a clip', () => {
     expect(r.spans[0].end).toBeLessThanOrEqual(1.64);
     for (const f of ['probe.json', 'sheet.jpg', 'cuts.json', 'cuts.jpg', 'motion.json', 'strip-0_8.jpg', 'notes.md']) expect(existsSync(path.join(out, f)), f).toBe(true);
     expect(readFileSync(path.join(out, 'notes.md'), 'utf8')).toContain('Склейки: 00:02.00.');
+  }, 30000);
+
+  it('a picture whose labels ffmpeg cannot draw (no drawtext, no font) is made without them', () => {
+    const out = path.join(mkdtempSync(path.join(os.tmpdir(), 'bk-refs-')), 'sheet.jpg');
+    const r = drawn((l) => ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', 'color=c=0x222222:s=320x180:d=1', '-vf', `${l}tile=2x2`, '-frames:v', '1', out],
+      "drawtext=fontfile='/no/such/font.ttf':text='x'");
+    expect(r.status).toBe(0);
+    expect(existsSync(out)).toBe(true);
   }, 30000);
 });

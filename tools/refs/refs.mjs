@@ -106,7 +106,19 @@ export function motionSpans(all, { share = 0.25, minGap = 2, cuts = [], fps = 25
   return spans.map((s) => ({ ...s, dur: r3(s.end - s.start) }));
 }
 
-const font = () => (process.platform === 'win32' ? "fontfile='C\\:/Windows/Fonts/arial.ttf':" : '');
+// drawtext needs a font: Arial of Windows or of macOS (Homebrew's ffmpeg finds no default there), else fontconfig's
+const FONTS = { win32: 'C\\:/Windows/Fonts/arial.ttf', darwin: '/System/Library/Fonts/Supplemental/Arial.ttf' };
+const font = () => {
+  const f = FONTS[process.platform];
+  return f && (process.platform === 'win32' || existsSync(f)) ? `fontfile='${f}':` : '';
+};
+
+// One picture of ffmpeg with timecodes or frame numbers drawn on it (`label`, a drawtext filter); an ffmpeg that
+// cannot draw them (no drawtext, no font) makes the same picture without them.
+export function drawn(args, label) {
+  const r = run('ffmpeg', args(`${label},`));
+  return r.status === 0 ? r : run('ffmpeg', args(''));
+}
 
 export function analyze(file, outDir, { every = null, strips = [] } = {}) {
   mkdirSync(outDir, { recursive: true });
@@ -115,12 +127,12 @@ export function analyze(file, outDir, { every = null, strips = [] } = {}) {
   writeFileSync(path.join(outDir, 'probe.json'), JSON.stringify(info, null, 1) + '\n');
   const step = every ?? Math.max(info.duration / 16, 1 / (info.fps || 25));
   const label = `drawtext=${font()}text='%{pts\\:hms}':x=6:y=6:fontsize=20:fontcolor=white:box=1:boxcolor=black@0.6`;
-  run('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-vf', `fps=1/${step},scale=320:-2,${label},tile=4x4:padding=4`, '-frames:v', '1', '-q:v', '3', path.join(outDir, 'sheet.jpg')]);
+  drawn((l) => ['-y', '-loglevel', 'error', '-i', file, '-vf', `fps=1/${step},scale=320:-2,${l}tile=4x4:padding=4`, '-frames:v', '1', '-q:v', '3', path.join(outDir, 'sheet.jpg')], label);
   const sc = run('ffmpeg', ['-hide_banner', '-i', file, '-vf', "select='gt(scene,0.3)',showinfo", '-an', '-f', 'null', '-']);
   const cuts = parseShowinfo(sc.stderr);
   writeFileSync(path.join(outDir, 'cuts.json'), JSON.stringify(cuts, null, 1) + '\n');
   if (cuts.length) {
-    run('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-vf', `select='gt(scene,0.3)',scale=320:-2,${label},tile=4x4:padding=4`, '-frames:v', '1', '-vsync', 'vfr', '-q:v', '3', path.join(outDir, 'cuts.jpg')]);
+    drawn((l) => ['-y', '-loglevel', 'error', '-i', file, '-vf', `select='gt(scene,0.3)',scale=320:-2,${l}tile=4x4:padding=4`, '-frames:v', '1', '-vsync', 'vfr', '-q:v', '3', path.join(outDir, 'cuts.jpg')], label);
   }
   const me = run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-i', file, '-vf', 'scale=480:-2,format=gray,tblend=all_mode=difference,signalstats,metadata=print:file=-', '-an', '-f', 'null', '-']);
   const curve = parseYavg(me.stdout);
@@ -131,7 +143,8 @@ export function analyze(file, outDir, { every = null, strips = [] } = {}) {
     const name = `strip-${String(start).replace('.', '_')}.jpg`;
     const n = Math.ceil(dur * (info.fps || 25));
     const cols = Math.min(8, n);
-    run('ffmpeg', ['-y', '-loglevel', 'error', '-ss', String(start), '-t', String(dur), '-i', file, '-vf', `scale=240:-2,drawtext=${font()}text='%{n}':x=4:y=4:fontsize=16:fontcolor=white:box=1:boxcolor=black@0.6,tile=${cols}x${Math.ceil(n / cols)}:padding=2`, '-frames:v', '1', '-q:v', '3', path.join(outDir, name)]);
+    drawn((l) => ['-y', '-loglevel', 'error', '-ss', String(start), '-t', String(dur), '-i', file, '-vf', `scale=240:-2,${l}tile=${cols}x${Math.ceil(n / cols)}:padding=2`, '-frames:v', '1', '-q:v', '3', path.join(outDir, name)],
+      `drawtext=${font()}text='%{n}':x=4:y=4:fontsize=16:fontcolor=white:box=1:boxcolor=black@0.6`);
     made.push(name);
   }
   const notes = path.join(outDir, 'notes.md');
