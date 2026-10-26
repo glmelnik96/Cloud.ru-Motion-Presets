@@ -316,6 +316,12 @@ AVLayer.prototype.property = function (name) {
     return { name: 'Text', property: function (n) { return n === 'ADBE Text Animators' ? anims : n === 'ADBE Text Document' ? doc : null; } };
   }
   if (name === 'ADBE Root Vectors Group') return this._contents || null;
+  // the audio of a footage layer that plays (a still has none): Audio Levels [L, R] in dB, keyed in comp time
+  if (name === 'ADBE Audio Group') {
+    if (this._still || !(this.source instanceof FootageItem)) return null;
+    if (!this._levels) this._levels = __colorProp('Audio Levels', 'ADBE Audio Levels', [0, 0]);
+    return { property: function (n) { return n === 'ADBE Audio Levels' ? self._levels : null; } };
+  }
   if (name === 'ADBE Time Remapping') {
     var sorted = function () { self._keys.sort(function (a, b) { return a.t - b.t; }); };
     return {

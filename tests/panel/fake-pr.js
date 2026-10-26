@@ -52,6 +52,32 @@ function __param(name, kind, value) {
   return p;
 }
 
+// Volume of an audio clip (build PC 2026-10-26): matchName Internal Volume Stereo, Bypass then Level, a gain
+// (0.17782793939114 is 0 dB); keys at seconds of the clip's media once Level varies in time.
+function __volume() {
+  var level = __param('Level', 'number', 0.17782793939114);
+  level._keys = null;
+  var at = function (t) { return (level._keys || []).filter(function (k) { return Math.abs(k.t - Number(t)) < 1e-6; })[0]; };
+  level.isTimeVarying = function () { return level._keys !== null; };
+  level.setTimeVarying = function (on) { level._keys = on ? level._keys || [] : null; return true; };
+  level.addKey = function (t) {
+    if (level._keys === null) throw new Error('Level does not vary in time');
+    if (!at(t)) level._keys.push({ t: Number(t), v: level._value });
+    return true;
+  };
+  level.setValueAtKey = function (t, v) {
+    var k = at(t);
+    if (!k) throw new Error('no key at ' + t);
+    k.v = v;
+    __pr.calls.push('key Level @' + Number(t));
+    return true;
+  };
+  level.getKeys = function () {
+    return (level._keys || []).slice().sort(function (a, b) { return a.t - b.t; }).map(function (k) { return __time(Math.round(k.t * TPS)); });
+  };
+  return { matchName: 'Internal Volume Stereo', displayName: 'Volume', properties: __collection([__param('Bypass', 'bool', false), level]) };
+}
+
 function __collection(list) {
   var c = { numItems: list.length };
   for (var i = 0; i < list.length; i++) c[i] = list[i];
@@ -124,6 +150,7 @@ Track.prototype.overwriteClip = function (item, sec) {
   clip.projectItem = item;
   clip._in = inT;
   clip._out = inT + len;
+  if (this.name.charAt(0) === 'A') clip._components = [__volume()];
   this._clips.push(clip);
   // a video track brings the audio of the media along, onto the audio track of the same index, and cuts out
   // what lies there; a subclip made without audio brings none
@@ -131,6 +158,7 @@ Track.prototype.overwriteClip = function (item, sec) {
     var at = this._seq._atracks[Number(this.name.slice(1)) - 1];
     var a = new TrackItem(item.name, start, len, { params: [] });
     a.projectItem = item;
+    a._components = [__volume()];
     at._clips = at._clips.filter(function (c) { return !(c._start < start + len && c._end > start); });
     at._clips.push(a);
   }

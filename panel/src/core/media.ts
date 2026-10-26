@@ -15,7 +15,8 @@ export type PieceRole = 'intro' | 'loop' | 'outro' | 'clip' | 'still' | 'sound' 
 
 // One file on the timeline. Start: startSec, or for a piece aligned to its end, endSec (then it starts at
 // endSec minus its length, not before floorSec). Length: lengthSec exactly (a loop repeats every periodSec
-// up to it, a still is held for it), else the natural length of the file, at most maxSec.
+// up to it, a still is held for it), else the natural length of the file, at most maxSec. A piece with
+// fadeOutSec fades out over its last seconds when the file is cut short (the adapters key its level).
 export interface MediaPiece {
   role: PieceRole;
   source: string;
@@ -26,6 +27,7 @@ export interface MediaPiece {
   lengthSec?: number | null;
   maxSec?: number | null;
   periodSec?: number | null;
+  fadeOutSec?: number | null;
 }
 
 export interface Backdrop {
@@ -70,6 +72,8 @@ export const BACKDROP_RGB: [number, number, number] = [0x22, 0x22, 0x22];
 // Premiere: nearest cut within this many seconds of the playhead (decision P13).
 export const CUT_WINDOW_SEC = 5;
 export const STILL_DEFAULT_SEC = 5;
+// Music a template cuts short fades out over its last seconds instead of stopping dead.
+export const MUSIC_FADE_SEC = 2;
 
 const r6 = (v: number) => Math.round(v * 1e6) / 1e6;
 const ext = (f: string | undefined) => (f ? (/\.([A-Za-z0-9]+)$/.exec(f)?.[1] ?? '').toLowerCase() : '');
@@ -339,9 +343,9 @@ export function planCompanions(input: CompanionInput): { layout: MediaLayout | n
       continue;
     }
     if (kind !== 'sound') { skip('not a sound'); continue; }
-    const file = at(v.file as string);
-    if (c.placement === 'out') audio.push({ role: 'sound', ...file, endSec: end, floorSec: input.startSec });
-    else audio.push({ role: 'sound', ...file, startSec: input.startSec, maxSec: input.lengthSec });
+    const sound: MediaPiece = { role: 'sound', ...at(v.file as string), ...(c.kind === 'music' ? { fadeOutSec: MUSIC_FADE_SEC } : {}) };
+    if (c.placement === 'out') audio.push({ ...sound, endSec: end, floorSec: input.startSec });
+    else audio.push({ ...sound, startSec: input.startSec, maxSec: input.lengthSec });
   }
   if (!video.length && !audio.length) return { layout: null, problems };
   return { layout: { video, backdrop: null, audio, scale }, problems };

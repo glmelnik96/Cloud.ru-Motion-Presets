@@ -132,7 +132,7 @@ describe('companions of T1 templates', () => {
     expect(c.video).toEqual([{ role: 'loop', source: `${LIB}/items/BG_WebinarPortal/BG_WebinarPortal_16x9_loop_v1.mov`, file: `${ASSETS}/BG_WebinarPortal@1/BG_WebinarPortal_16x9_loop_v1.mov`, startSec: 40, lengthSec: 35, periodSec: 30 }]);
     expect(c.audio).toEqual([]);
     const withMusic = insert(web(), { music: true, sfx: true }).request!.companions!;
-    expect(withMusic.audio).toEqual([expect.objectContaining({ role: 'sound', file: `${ASSETS}/SFX_WebinarBed@1/SFX_WebinarBed_wav_v1.wav`, startSec: 40, maxSec: 35 })]);
+    expect(withMusic.audio).toEqual([expect.objectContaining({ role: 'sound', file: `${ASSETS}/SFX_WebinarBed@1/SFX_WebinarBed_wav_v1.wav`, startSec: 40, maxSec: 35, fadeOutSec: 2 })]);
     expect(insert(web(), { music: true, sfx: true }).request!.prepare.copies).toHaveLength(2);
   });
 
@@ -140,6 +140,8 @@ describe('companions of T1 templates', () => {
     const ttl = exampleItem('TTL_LowerThird');
     const on = insert(ttl, { music: false, sfx: true }).request!;
     expect(on.companions!.audio).toEqual([expect.objectContaining({ role: 'sound', startSec: 40, maxSec: 6 })]);
+    // a sound effect plays out whole: only music fades
+    expect(on.companions!.audio[0].fadeOutSec).toBeUndefined();
     expect(insert(ttl, { music: false, sfx: false }).request!.companions).toBeNull();
   });
 

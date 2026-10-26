@@ -183,7 +183,34 @@ function lvCuts() {
   });
 }
 
-// Every clip of the video and audio tracks as the media checks read it.
+// Volume > Level keys of an audio clip: [time of its media, gain] (0.17782793939114 is 0 dB); [] without keys.
+// The last entry adds the gain halfway between the first and the last key: how Premiere eases (information).
+function lvLevels(c) {
+  var vol = null;
+  var out = [];
+  var i, level, keys, mid;
+  for (i = 0; i < c.components.numItems && !vol; i++) {
+    if (String(c.components[i].matchName).indexOf('Internal Volume') === 0) {
+      vol = c.components[i];
+    }
+  }
+  level = vol ? vol.properties[1] : null;
+  if (!level || !level.isTimeVarying()) {
+    return out;
+  }
+  keys = level.getKeys();
+  for (i = 0; keys && i < keys.length; i++) {
+    out.push([Math.round(keys[i].seconds * 1000) / 1000, level.getValueAtKey(keys[i])]);
+  }
+  if (out.length > 1) {
+    try { mid = level.getValueAtTime((out[0][0] + out[out.length - 1][0]) / 2); } catch (e) { mid = null; }
+    out[out.length - 1].push(mid);
+  }
+  return out;
+}
+
+// Every clip of the video and audio tracks as the media checks read it; an audio clip with the start of its
+// media and its level keys.
 function lvTimeline() {
   check('clips of sequence ' + PARAMS.id + ' listed with their files', function () {
     var seq = lvSeq(PARAMS.id);
@@ -204,6 +231,8 @@ function lvTimeline() {
             startSec: ticksToFrames(c.start.ticks, tpf) * tpf / TPS,
             endSec: ticksToFrames(c.end.ticks, tpf) * tpf / TPS,
             file: file,
+            inSec: kinds[k][0] === 'audio' ? Math.round(c.inPoint.seconds * 1000) / 1000 : null,
+            levels: kinds[k][0] === 'audio' ? lvLevels(c) : null,
             selected: c.isSelected()
           });
         }

@@ -196,10 +196,15 @@ BK.mkdirs = function (path) {
   return f.create();
 };
 
+// A cut shorter than this takes only the file's own tail: the pack's music ends in its own fade (the last
+// quarter second of the 30-second webinar track peaks at -46 dB), so there is nothing to fade.
+BK.FADE_CUT_SEC = 0.25;
+
 // Where and how long a media piece goes (panel/src/core/media.ts MediaPiece), once the adapter knows the
-// natural length of its file (null for a still, which lasts as long as it is told). Seconds.
+// natural length of its file (null for a still, which lasts as long as it is told). Seconds. `fade`: how long
+// a piece with fadeOutSec fades out at its end, when the file is cut short, at most half the piece; else 0.
 BK.resolvePiece = function (p, natural) {
-  var len, start;
+  var len, start, fade;
   if (typeof p.lengthSec === 'number') {
     len = p.lengthSec;
   } else if (natural === null || natural === undefined) {
@@ -219,7 +224,11 @@ BK.resolvePiece = function (p, natural) {
       len = p.endSec - start;
     }
   }
-  return { start: BK.round(start), len: BK.round(len) };
+  fade = 0;
+  if (typeof p.fadeOutSec === 'number' && typeof natural === 'number' && natural - len > BK.FADE_CUT_SEC) {
+    fade = Math.min(p.fadeOutSec, len / 2);
+  }
+  return { start: BK.round(start), len: BK.round(len), fade: BK.round(fade) };
 };
 
 // File name with its extension: "C:/x/BG_Arrows_16x9_loop_v1.mov" -> "BG_Arrows_16x9_loop_v1.mov".

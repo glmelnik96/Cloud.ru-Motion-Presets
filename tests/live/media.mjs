@@ -42,7 +42,7 @@ export const MEDIA_CASES = [
   // «Раскладка» and «Таймер» pick, the speaker's with the timer
   { key: 'screen', id: 'WEB_Screen', time: 2, sound: { music: false, sfx: false }, values: { layout: 2, timer: true, minutes: 1 }, expect: { lengthSec: 65, companionFile: 'BG_WebinarPortal_16x9_speaker_timer_v1' } },
   // the same screen with «Музыка» on: the pack's 5-minute track (the timer is on) under it from its start, cut to its 65 s
-  { key: 'screen_music', id: 'WEB_Screen', time: 2, sound: { music: true, sfx: false }, values: { layout: 1, timer: true, minutes: 1 }, expect: { lengthSec: 65, musicFile: 'SFX_MusicWebinar5min_wav_v1' } },
+  { key: 'screen_music', id: 'WEB_Screen', time: 2, sound: { music: true, sfx: false }, values: { layout: 1, timer: true, minutes: 1 }, expect: { lengthSec: 65, musicFile: 'SFX_MusicWebinar5min_wav_v1', fadeSec: 2 } },
   // the logo as files: «Схема» picks the PNG (colour, for a light picture), a still up to the end of the range
   { key: 'logo_files', id: 'LOGO_Files', time: 2, range: 14, values: { scheme: 2 }, expect: { lengthSec: 12, variant: '16x9_light', kind: 'still' } },
   // the patterns and icons: two fields pick the PNG (the globe, for a light picture), as long as asked
@@ -186,6 +186,19 @@ async function checkCase(c, { host, item, plan, out, rows, t, R, o }) {
     R.check(`${c.key}: the music ${e.musicFile} under the template from its start, as long as it`,
       music.length === 1 && music[0].name.startsWith(e.musicFile) && near(music[0].startSec, 2) && near(music[0].lengthSec, e.lengthSec), music);
     if (host === 'pr') R.check(`${c.key}: the music is on an audio track`, music.every((x) => x.audio === true), music);
+  }
+  if (e.fadeSec !== undefined) {
+    // the template cuts the track short: its level falls to silence over the last seconds, keyed by the adapter
+    // (AE: Audio Levels at comp times, 0 dB to -96 dB; Premiere: Volume > Level at times of the media, 0 dB to 0)
+    const m = (out.reply.companions ?? []).find((x) => x.role === 'sound');
+    R.check(`${c.key}: the music fades out over its last ${e.fadeSec} s`, m && near(m.fadeSec, e.fadeSec), m);
+    const row = m && rows.find((x) => x.name === m.name && near(x.startSec, m.startSec) && (host === 'ae' || x.audio));
+    const keys = row?.levels ?? [];
+    const end = row && (host === 'ae' ? row.endSec : row.inSec + row.endSec - row.startSec);
+    const [loud, silent] = host === 'ae' ? [0, -96] : [0.17782793939114, 0];
+    R.check(`${c.key}: the level is keyed down from ${host === 'ae' ? '0 dB' : 'the gain of 0 dB'} to silence over the last ${e.fadeSec} s`,
+      keys.length >= 2 && near(keys[keys.length - 1][0], end) && near(keys[keys.length - 1][0] - keys[0][0], e.fadeSec)
+        && Math.abs(keys[0][1] - loud) < 1e-6 && keys[keys.length - 1][1] <= silent && keys.every((k, i) => i === 0 || k[1] < keys[i - 1][1]), { keys, row });
   }
   if (e.companions) {
     const cs = out.reply.companions ?? [];

@@ -96,11 +96,14 @@ function dry(host) {
       if (host === 'ae') {
         return ok({ layers: run(`app.project.itemByID(${Number(p.id)})._layers.map(function (l, i) { return { index: i + 1, name: l.name, startSec: Math.round(l.inPoint * 1000) / 1000, endSec: Math.round(l.outPoint * 1000) / 1000,
           file: l.source.file ? l.source.file.fsName : null, loop: l.source.mainSource && !l.source.mainSource.isStill ? l.source.mainSource.loop : null,
-          solid: l.source._solid ? l.source._solid.map(function (c) { return Math.round(c * 255); }) : null }; })`) });
+          solid: l.source._solid ? l.source._solid.map(function (c) { return Math.round(c * 255); }) : null,
+          levels: l._levels ? l._levels._keys.slice().sort(function (a, b) { return a.t - b.t; }).map(function (k) { return [k.t, k.v[0]]; }) : null }; })`) });
       }
       return ok({ clips: run(`(function () { var s = __seqs[${JSON.stringify(p.id)}]; var out = [];
         [['v', s._tracks], ['a', s._atracks]].forEach(function (k) { k[1].forEach(function (t, i) { t._clips.forEach(function (c) {
-          out.push({ track: i + 1, audio: k[0] === 'a', name: c.name, startSec: c._start / TPS, endSec: c._end / TPS, file: c.projectItem ? c.projectItem._path : null }); }); }); });
+          var lv = k[0] === 'a' ? c._components[0].properties[1] : null;
+          out.push({ track: i + 1, audio: k[0] === 'a', name: c.name, startSec: c._start / TPS, endSec: c._end / TPS, file: c.projectItem ? c.projectItem._path : null,
+            inSec: lv ? c._in / TPS : null, levels: lv ? (lv._keys || []).slice().sort(function (a, b) { return a.t - b.t; }).map(function (x) { return [x.t, x.v]; }) : null }); }); }); });
         return out; })()`) });
     }
     return ok({});
@@ -142,6 +145,7 @@ describe('live media checks, dry', () => {
       });
       expect(R.failed()).toEqual([]);
       expect(R.checks.map((c) => c.name)).toContain('loop: the rendered backdrop is #222222 (34, 34, 34 ± 2) where nothing covers it');
+      expect(R.checks.map((c) => c.name)).toContain('screen_music: the music fades out over its last 2 s');
       expect(R.checks.length).toBeGreaterThan(40);
     });
   }

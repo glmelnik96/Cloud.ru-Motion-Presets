@@ -110,7 +110,23 @@ function lvRange() {
   });
 }
 
-// Every layer of the comp as the media checks read it: times, file, Interpret Footage loop, solid colour.
+// Audio Levels keys of a layer with sound: [comp time, left dB]; null for a layer without sound.
+function lvLevels(l) {
+  var lv = null;
+  var out = [];
+  var k;
+  if (l.hasAudio !== true) {
+    return null;
+  }
+  try { lv = l.property('ADBE Audio Group').property('ADBE Audio Levels'); } catch (e) { lv = null; }
+  for (k = 1; lv && k <= lv.numKeys; k++) {
+    out.push([Math.round(lv.keyTime(k) * 1000) / 1000, Math.round(lv.keyValue(k)[0] * 1000) / 1000]);
+  }
+  return out;
+}
+
+// Every layer of the comp as the media checks read it: times, file, Interpret Footage loop, solid colour, the
+// level keys of a sound.
 function lvTimeline() {
   check('layers of comp ' + PARAMS.id + ' listed', function () {
     var c = lvComp(PARAMS.id);
@@ -130,6 +146,7 @@ function lvTimeline() {
         loop: ms && ms.isStill === false && ms.loop !== undefined ? ms.loop : null,
         solid: ms && typeof SolidSource !== 'undefined' && ms instanceof SolidSource ? [Math.round(ms.color[0] * 255), Math.round(ms.color[1] * 255), Math.round(ms.color[2] * 255)] : null,
         audioOnly: l.hasAudio === true && l.hasVideo === false,
+        levels: lvLevels(l),
         selected: l.selected
       });
     }

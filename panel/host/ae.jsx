@@ -413,11 +413,24 @@
     return { role: role, name: String(layer.name), layerId: layer.id, startSec: BK.round(layer.inPoint), lengthSec: BK.round(layer.outPoint - layer.inPoint) };
   }
 
+  // A fade-out over the last `fade` seconds before `end` (comp time): Audio Levels keys. AE eases them linearly
+  // in dB, so two keys would drop the sound right after the first; the keys step down by amplitude, 1 to 0 in
+  // quarters (0, -2.5, -6, -12 dB), and end at -96 dB, the lowest level AE keeps (build PC 2026-10-26).
+  function fadeOutLayer(layer, end, fade) {
+    var levels = layer.property('ADBE Audio Group').property('ADBE Audio Levels');
+    var k, a, db;
+    for (k = 0; k <= 4; k++) {
+      a = 1 - k / 4;
+      db = a > 0 ? BK.round(20 * Math.log(a) / Math.LN10) : -96;
+      levels.setValueAtTime(BK.round(end - fade + fade * k / 4), [db, db]);
+    }
+  }
+
   // Layers of a layout: the video pieces, the backdrop solid under them, the sounds. Each new layer goes right
   // under `anchor` (the template layer for companions); without one the first layer stays on top.
   function placeLayout(comp, bin, layout, anchor, stats) {
     var out = [];
-    var i, p, footage, natural, at, layer, b, first;
+    var i, p, footage, natural, at, layer, b, first, rec;
     first = null;
     function stack(l) {
       if (anchor) {
@@ -461,7 +474,12 @@
       layer.startTime = at.start;
       layer.outPoint = at.start + at.len;
       stack(layer);
-      out.push(placed(p.role, layer));
+      rec = placed(p.role, layer);
+      if (at.fade) {
+        fadeOutLayer(layer, at.start + at.len, at.fade);
+        rec.fadeSec = at.fade;
+      }
+      out.push(rec);
     }
     return { placed: out, first: first };
   }

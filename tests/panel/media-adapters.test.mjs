@@ -58,6 +58,10 @@ function ae({ time = 2 } = {}) {
   return h;
 }
 
+// Audio Levels keys of the layer at an index from the top: [comp time, left dB].
+const aeLevels = (h, i) => h.run(`(function () { var l = app.project.activeItem._layers[${i}];
+  return l._levels ? l._levels._keys.slice().sort(function (a, b) { return a.t - b.t; }).map(function (k) { return [k.t, k.v[0]]; }) : []; })()`);
+
 const aeLayers = (h) => h.run(`app.project.activeItem._layers.map(function (l) {
   return { name: l.name, start: Math.round(l.inPoint * 1000) / 1000, end: Math.round(l.outPoint * 1000) / 1000, loop: l.source.mainSource ? l.source.mainSource.loop : null, selected: l.selected };
 })`);
@@ -140,6 +144,34 @@ describe('After Effects: companions of a template', () => {
     ]);
     expect(out.reply.companions.map((c) => c.role)).toEqual(['loop', 'sound']);
     expect(h.run('__ae.undo')).toEqual(['import WEB_Screen_v1.aep', 'import BG_WebinarPortal_16x9_loop_v1.mov', 'import SFX_WebinarBed_wav_v1.wav', 'begin BrandKit: Экран вебинара', 'end']);
+    // the 60-second bed is cut at 35 s: it fades out over the last 2 s, down by amplitude in quarters
+    expect(out.reply.companions[1].fadeSec).toBe(2);
+    expect(aeLevels(h, 2)).toEqual([[35, 0], [35.5, -2.498775], [36, -6.0206], [36.5, -12.0412], [37, -96]]);
+  });
+
+  it('music that ends within the template, or a quarter second after it, plays its own ending', () => {
+    for (const sec of [30, 35.2]) {
+      const web = exampleItem('WEB_Screen');
+      const h = withTemplate(web);
+      h.run('__ae.userComp(1920, 1080, 25, 2)');
+      const p = plan(h, web, { sound: { music: true, sfx: true } }, initialValues(web));
+      prepared(h, p.request.prepare, '__ae.addMedia');
+      h.run(`__ae.addMedia(${JSON.stringify(p.request.companions.audio[0].file)}, ${sec}, false)`);
+      const r = h.call('insertItem', p.request);
+      expect(r.data.companions[1].fadeSec).toBeUndefined();
+      expect(aeLevels(h, 2)).toEqual([]);
+    }
+  });
+
+  it('a fade lasts half the piece at most, only for a piece that asks for it and a file cut by more than a quarter second', () => {
+    const h = ae();
+    const at = (p, natural) => JSON.parse(h.run(`JSON.stringify(BK.resolvePiece(${JSON.stringify(p)}, ${JSON.stringify(natural)}))`));
+    expect(at({ startSec: 2, maxSec: 3, fadeOutSec: 2 }, 60)).toEqual({ start: 2, len: 3, fade: 1.5 });
+    expect(at({ startSec: 2, maxSec: 35, fadeOutSec: 2 }, 35.25)).toEqual({ start: 2, len: 35, fade: 0 });
+    expect(at({ startSec: 2, maxSec: 35, fadeOutSec: 2 }, 35.3)).toEqual({ start: 2, len: 35, fade: 2 });
+    expect(at({ endSec: 37, floorSec: 2, fadeOutSec: 2 }, 60)).toEqual({ start: 2, len: 35, fade: 2 });
+    expect(at({ startSec: 2, maxSec: 35 }, 60)).toEqual({ start: 2, len: 35, fade: 0 });
+    expect(at({ startSec: 2, lengthSec: 5, fadeOutSec: 2 }, null)).toEqual({ start: 2, len: 5, fade: 0 });
   });
 
   it('a sound placed out ends with the template', () => {
@@ -287,6 +319,10 @@ describe('Premiere: companions of a template', () => {
     ]);
     expect(prClips(h, true)).toEqual([[2, 'SFX_WebinarBed_wav_v1.wav', 40, 35]]);
     expect(out.reply.companions.map((c) => [c.role, c.track, c.audio])).toEqual([['loop', 2, false], ['sound', 2, true]]);
+    // the 60-second bed cut at 35 s fades out over its last 2 s: Level keys in the time of its media
+    expect(out.reply.companions[1].fadeSec).toBe(2);
+    expect(h.run(`(function () { var lv = app.project.activeSequence._atracks[1]._clips[0]._components[0].properties[1];
+      return lv.getKeys().map(function (t) { var k = lv._keys.filter(function (x) { return Math.abs(x.t - t.seconds) < 1e-6; })[0]; return [t.seconds, k.v]; }); })()`)).toEqual([[33, 0.17782793939114], [35, 0]]);
   });
 
   it('without companions the MOGRT keeps the lowest free track', () => {

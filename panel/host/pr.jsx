@@ -277,6 +277,32 @@
     return null;
   }
 
+  // A fade-out over the last fadeF frames of an audio clip lenF frames long: two keys on Volume > Level, in the
+  // time of the clip's media (its inPoint plus the time in the clip). Level is a gain: 0.17782793939114 is 0 dB,
+  // 0 silence (build PC 2026-10-26: matchName Internal Volume Mono or Stereo, Level after Bypass).
+  function fadeOutClip(clip, lenF, fadeF, tpf) {
+    var vol = null;
+    var i, level, from, a, b;
+    for (i = 0; i < clip.components.numItems && !vol; i++) {
+      if (String(clip.components[i].matchName).indexOf('Internal Volume') === 0) {
+        vol = clip.components[i];
+      }
+    }
+    level = vol ? vol.properties[1] : null;
+    if (!level) {
+      return false;
+    }
+    from = level.getValue();
+    a = (Number(clip.inPoint.ticks) + framesToTicks(lenF - fadeF, tpf)) / TPS;
+    b = (Number(clip.inPoint.ticks) + framesToTicks(lenF, tpf)) / TPS;
+    level.setTimeVarying(true);
+    level.addKey(a);
+    level.setValueAtKey(a, from, true);
+    level.addKey(b);
+    level.setValueAtKey(b, 0, true);
+    return true;
+  }
+
   // Motion > Scale (percent) of a clip; the variant is scaled into a frame it was not made for.
   function scaleClip(clip, s) {
     var motion = componentByMatch(clip, 'AE.ADBE Motion');
@@ -356,7 +382,7 @@
       var item = mediaItem(bin, p.file, stats);
       var nat = naturalFrames(item, tpf);
       var at = BK.resolvePiece(p, p.role === 'still' ? null : nat * Number(tpf) / TPS);
-      return { role: p.role, item: item, startF: secToFrames(at.start, tpf), lenF: Math.max(1, secToFrames(at.len, tpf)), periodF: p.periodSec ? Math.max(1, secToFrames(p.periodSec, tpf)) : 0 };
+      return { role: p.role, item: item, startF: secToFrames(at.start, tpf), lenF: Math.max(1, secToFrames(at.len, tpf)), periodF: p.periodSec ? Math.max(1, secToFrames(p.periodSec, tpf)) : 0, fadeF: at.fade ? Math.max(1, secToFrames(at.fade, tpf)) : 0 };
     }
     var i, b;
     for (i = 0; i < layout.video.length; i++) {
@@ -410,7 +436,7 @@
     var tpf = Number(seq.timebase);
     var out = [];
     var first = null;
-    var i, k, p, sp, st, vIdx, bIdx, aIdx, clip, n, len, r, ra;
+    var i, k, p, sp, st, vIdx, bIdx, aIdx, clip, n, len, r, ra, rec;
     if (m.video.length && !tracks.length) {
       sp = span(m.backdrop ? m.video.concat([m.backdrop]) : m.video, tpf);
       st = stackTracks(seq, sp.s, sp.e, m.backdrop ? 2 : 1);
@@ -458,7 +484,11 @@
       if (!first) {
         first = clip;
       }
-      out.push(placedRec(p.role, clip, aIdx, true, p.startF, p.lenF, 1, tpf));
+      rec = placedRec(p.role, clip, aIdx, true, p.startF, p.lenF, 1, tpf);
+      if (p.fadeF && fadeOutClip(clip, p.lenF, p.fadeF, tpf)) {
+        rec.fadeSec = BK.round(framesToTicks(p.fadeF, tpf) / TPS);
+      }
+      out.push(rec);
     }
     return { placed: out, first: first };
   }
