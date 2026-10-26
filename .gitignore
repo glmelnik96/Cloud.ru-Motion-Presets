@@ -30,6 +30,15 @@ Adobe After Effects Auto-Save/
 __MACOSX/
 Thumbs.db
 
+# Отчёты прогонов: живые прогоны, контрольные точки, установки. Пишутся на машине, где идут, в git не храним:
+# в них пути этой машины (решение пользователя 2026-10-26). У каждой папки остаётся README.
+docs/research/panel-live/*
+!docs/research/panel-live/README.md
+docs/research/checkpoint/*
+!docs/research/checkpoint/README.md
+docs/research/installer/*
+!docs/research/installer/README.md
+
 # Выходы пробных сборок (рабочая папка C:/CRBK/work — вне репозитория, но на всякий случай)
 spikes/fixtures/out/
 work/
