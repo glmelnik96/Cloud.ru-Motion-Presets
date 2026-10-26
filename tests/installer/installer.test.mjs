@@ -19,7 +19,7 @@ const tmp = (p) => mkdtempSync(path.join(os.tmpdir(), p));
 const HAS_BASH = process.platform !== 'win32' && spawnSync('bash', ['-c', 'exit 0']).status === 0;
 
 // A stock music track of the option «music», as tools/library/source.mjs merges the sounds.
-const MUSIC = { id: 'SFX_MusicTest', title_ru: 'Тестовая музыка', category: 'sounds', tier: 'T3', hosts: ['ae', 'pr'], version: 1, group: 'music', variants: [{ key: 'wav', pack: 'music' }] };
+const MUSIC = { id: 'SFX_MusicTest', title_ru: 'Тестовая музыка', category: 'music', tier: 'T3', hosts: ['ae', 'pr'], version: 1, group: 'calm', variants: [{ key: 'wav', pack: 'music' }] };
 
 // A library root built the way the pipeline does it, from fake masters of the given items and version.
 async function library({ ids, version = 1, libraryVersion = '2026.10.05', extra = {}, items = [] }) {

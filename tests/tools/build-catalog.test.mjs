@@ -5,9 +5,11 @@ import os from 'node:os';
 import path from 'node:path';
 import AdmZip from 'adm-zip';
 import { buildCatalog, calver, fontBuilds, itemFiles, parseArgs } from '../../tools/library/build-catalog.mjs';
+import { loadSource } from '../../tools/library/source.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '../..');
-const SRC = JSON.parse(readFileSync(path.join(REPO, 'library', 'library.src.json'), 'utf8'));
+// the source as the catalog build reads it: the templates' music companions are sounds of sounds.src.json
+const SRC = loadSource(path.join(REPO, 'library', 'library.src.json'));
 const TOKENS = JSON.parse(readFileSync(path.join(REPO, 'brand', 'tokens.json'), 'utf8'));
 const ui = (str) => ({ strDB: [{ localeString: 'ru_RU', str }] });
 const sha = (buf) => createHash('sha256').update(buf).digest('hex');
@@ -41,7 +43,7 @@ function fakeBuild(ids, opts = {}) {
       const v = item.variants.find((x) => x.key === f.key);
       const drift = v && v.options && 'drift' in v.options;
       const ext = item.textStyle ? 'prtextstyle' : item.cutFrame !== undefined ? 'mov' : drift ? (v.options.drift ? 'mov' : 'png') : item.loop || item.tier === 'T2' ? 'mov'
-        : item.category === 'export' ? f.key : String(f.key).startsWith('svg_') ? 'svg' : 'png';
+        : item.category === 'export' ? f.key : f.key === 'wav' ? 'wav' : String(f.key).startsWith('svg_') ? 'svg' : 'png';
       const p = path.join(build, f.anyExt ? `${f.from}.${ext}` : f.from);
       if (f.from.endsWith('.mogrt')) mogrtFor(item, p, opts);
       else {
@@ -93,7 +95,14 @@ describe('build-catalog', () => {
     const files = lib.items.find((i) => i.id === 'LOGO_Files').variants;
     expect(files.find((v) => v.key === '9x16_light').file).toBe('items/LOGO_Files/LOGO_Files_9x16_light_v1.png');
     expect(files.find((v) => v.key === 'svg_light').file).toBe('items/LOGO_Files/LOGO_Files_svg_light_v1.svg');
-  });
+    // the music of the webinar screen: a companion under a condition, its track in «Музыка»
+    const web = lib.items.find((i) => i.id === 'WEB_Screen');
+    expect(web.companions.filter((c) => c.kind === 'music')).toEqual([
+      { ref: 'SFX_MusicWebinar5min', kind: 'music', placement: 'under', default: false, when: { timer: true } },
+      { ref: 'SFX_MusicWebinar30s', kind: 'music', placement: 'under', default: false, when: { timer: false } },
+    ]);
+    expect(lib.items.find((i) => i.id === 'SFX_MusicWebinar5min')).toMatchObject({ category: 'music', group: 'cloud' });
+  }, 60000);
 
   it('leaves a file of the same content in place on the next build, replaces a changed one', async () => {
     // A host may hold an imported library file open; rewriting it failed with EBUSY (Premiere, 2026-10-05).

@@ -12,7 +12,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { workPath } from '../lib/work.mjs';
-import { gainDb, libraryOrder, parseLoudness, renderFilters, rule, sameChannels, SILENCE_DB, soundingRange, sourceEntry } from './process.mjs';
+import { gainDb, isMusic, libraryOrder, parseLoudness, renderFilters, rule, sameChannels, SILENCE_DB, soundingRange, sourceEntry } from './process.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 export const RECIPE = 'v2: 48k s16 tpdf, trim under -60 dBFS after the gain 5/50 ms, M -18 / I -24 beds / I -18 music, TP -1';
@@ -50,7 +50,8 @@ export async function buildSound(sound, roots, { force = false, previous = null 
   const file = path.join(roots[root], rest.join(':'));
   const st = statSync(file);
   const out = workPath('build', sound.id, `${sound.id}_wav_v1.wav`);
-  const recipe = `${RECIPE} | ${sound.group} | ${st.size}`;
+  // music's groups level and cut alike: a track moved between them is not rendered again
+  const recipe = `${RECIPE} | ${isMusic(sound.group) ? 'music' : sound.group} | ${st.size}`;
   if (!force && previous && previous.recipe === recipe && previous.src === sound.src && existsSync(out)) return previous;
   const p = probe(file);
   const ch = Math.min(2, Math.max(1, p.channels));

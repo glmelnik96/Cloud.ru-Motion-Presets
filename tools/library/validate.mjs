@@ -26,6 +26,9 @@ const schemaFor = {
   catalog: ajv.getSchema(CATALOG_SCHEMA.$id),
 };
 
+// The music's groups (tools/sounds/process.mjs): an item of one of them is in «Музыка».
+const MUSIC_GROUPS = ['cloud', 'corporate', 'tech', 'cinematic', 'electronic', 'energetic', 'calm'];
+
 const ASPECTS = { '16x9': 16 / 9, '9x16': 9 / 16, '1x1': 1, '4x5': 4 / 5, '4x3': 4 / 3 };
 const FILE_NAME = /^[A-Za-z0-9_-]+\.[a-z0-9]+$/;
 
@@ -226,13 +229,19 @@ function checkItem(item, byId, kind, err) {
   for (const c of item.companions || []) {
     const ref = byId.get(c.ref);
     if (!ref || c.ref === item.id) { err('companion-ref', `companion "${c.ref}" does not exist`); continue; }
-    if ((c.kind === 'music' || c.kind === 'sfx') && ref.category !== 'sounds') err('companion-kind', `companion "${c.ref}": ${c.kind} must be a sounds item`);
+    if (c.kind === 'sfx' && ref.category !== 'sounds') err('companion-kind', `companion "${c.ref}": sfx must be a sounds item`);
+    if (c.kind === 'music' && ref.category !== 'music' && ref.category !== 'sounds') err('companion-kind', `companion "${c.ref}": music must be a music or sounds item`);
     if (c.kind === 'video' && (ref.tier === 'T1' || c.placement !== 'under')) err('companion-kind', `companion "${c.ref}": a video companion is T2/T3 and goes under`);
     if ((ref.variants || []).every((v) => v.pack !== undefined)) err('companion-pack', `companion "${c.ref}": only an installer option brings it, a companion must be in every install`);
+    checkSwitches(`companion "${c.ref}" when`, c.when);
   }
 
-  // Sound groups belong to the «Звуки» category.
-  if (item.group !== undefined && item.category !== 'sounds') err('group', `a group is for sounds, the item is in ${item.category}`);
+  // Groups: the sounds' in «Звуки», the music's in «Музыка».
+  if (item.group !== undefined) {
+    const music = MUSIC_GROUPS.includes(item.group);
+    if (item.category !== 'sounds' && item.category !== 'music') err('group', `a group is for sounds and music, the item is in ${item.category}`);
+    else if (music !== (item.category === 'music')) err('group', `group "${item.group}" is not a group of ${item.category}`);
+  }
 
   // Previews per format and look.
   for (const p of item.previews || []) {

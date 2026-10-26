@@ -5,10 +5,10 @@ import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { gainDb, GROUPS, libraryOrder, parseLoudness, renderFilters, rule, sameChannels, soundingRange, soundItem, sourceEntry } from '../../tools/sounds/process.mjs';
+import { gainDb, GROUPS, libraryOrder, MUSIC_GROUPS, parseLoudness, renderFilters, rule, sameChannels, soundingRange, soundItem, sourceEntry } from '../../tools/sounds/process.mjs';
 import { loadSource } from '../../tools/library/source.mjs';
 import { validateLibrary } from '../../tools/library/validate.mjs';
-import { SOUND_GROUPS } from '../../panel/src/core/library.ts';
+import { MUSIC_GROUPS as PANEL_MUSIC, SOUND_GROUPS } from '../../panel/src/core/library.ts';
 
 const REPO = path.resolve(import.meta.dirname, '../..');
 
@@ -18,7 +18,8 @@ describe('sound rules', () => {
     expect(rule({ id: 'SFX_HeavyRain', group: 'nature', sec: 62 })).toEqual({ mode: 'integrated', target: -24, trim: true });
     // a long riser builds to its moment: still a one-shot
     expect(rule({ id: 'SFX_EpicBuild', group: 'riser', sec: 20 }).mode).toBe('momentary');
-    expect(rule({ id: 'SFX_MusicPodcast', group: 'music', sec: 160 })).toEqual({ mode: 'integrated', target: -18, trim: false });
+    expect(rule({ id: 'SFX_MusicPodcast', group: 'cloud', sec: 160 })).toEqual({ mode: 'integrated', target: -18, trim: false });
+    expect(rule({ id: 'SFX_MusicSynergy', group: 'electronic', sec: 140 }).mode).toBe('integrated');
     // the podcast pack's tracks keep the timing of their 10 s comps
     expect(rule({ id: 'SFX_PodcastQr1', group: 'brand', sec: 9.64 }).trim).toBe(false);
     expect(rule({ id: 'SFX_AirWhoosh', group: 'brand', sec: 1.3 }).trim).toBe(true);
@@ -67,14 +68,18 @@ describe('sound rules', () => {
   });
 
   it('orders the library by group, then by title with numbers in order', () => {
-    const e = [['SFX_Whoosh10', 'Вжух 10', 'whoosh'], ['SFX_MusicPodcast', 'Музыка подкаста', 'music'], ['SFX_Whoosh2', 'Вжух 2', 'whoosh'], ['SFX_Drops', 'Капли', 'nature']]
+    const e = [['SFX_Whoosh10', 'Вжух 10', 'whoosh'], ['SFX_MusicPodcast', 'Музыка подкаста', 'cloud'], ['SFX_Whoosh2', 'Вжух 2', 'whoosh'], ['SFX_Drops', 'Капли', 'nature']]
       .map(([id, title_ru, group]) => sourceEntry({ id, title_ru, group, keywords: id }, 1));
-    expect(libraryOrder(e).map((x) => x.id)).toEqual(['SFX_MusicPodcast', 'SFX_Whoosh2', 'SFX_Whoosh10', 'SFX_Drops']);
-    expect(sourceEntry({ id: 'SFX_MusicX', title_ru: 'X', group: 'music', keywords: 'X', pack: 'music', src: 'audio:Music/x.wav' }, 120.12345)).toEqual({ id: 'SFX_MusicX', title_ru: 'X', group: 'music', keywords: 'X', sec: 120.123, pack: 'music' });
+    // the sounds' groups first, then the music's
+    expect(libraryOrder(e).map((x) => x.id)).toEqual(['SFX_Whoosh2', 'SFX_Whoosh10', 'SFX_Drops', 'SFX_MusicPodcast']);
+    expect(sourceEntry({ id: 'SFX_MusicX', title_ru: 'X', group: 'calm', keywords: 'X', pack: 'music', src: 'audio:Music/x.wav' }, 120.12345)).toEqual({ id: 'SFX_MusicX', title_ru: 'X', group: 'calm', keywords: 'X', sec: 120.123, pack: 'music' });
+    // the group says the category
+    expect([soundItem(e[0]).category, soundItem(e[1]).category]).toEqual(['sounds', 'music']);
   });
 
   it('the panel lists the same groups in the same order', () => {
     expect(SOUND_GROUPS.map((g) => [g.key, g.label_ru])).toEqual(GROUPS);
+    expect(PANEL_MUSIC.map((g) => [g.key, g.label_ru])).toEqual(MUSIC_GROUPS);
   });
 });
 
@@ -85,12 +90,12 @@ describe('the source with its sounds', () => {
     writeFileSync(path.join(dir, 'library.src.json'), JSON.stringify({ ...lib, items: lib.items.slice(0, 1) }));
     writeFileSync(path.join(dir, 'sounds.src.json'), JSON.stringify({ version: 1, sounds: [
       { id: 'SFX_Whoosh1', title_ru: 'Вжух 1', group: 'whoosh', keywords: 'Whoosh 1', sec: 0.643 },
-      { id: 'SFX_MusicTest', title_ru: 'Тест', group: 'music', keywords: 'Test', sec: 60, pack: 'music' },
+      { id: 'SFX_MusicTest', title_ru: 'Тест', group: 'calm', keywords: 'Test', sec: 60, pack: 'music' },
     ] }));
     const doc = loadSource(path.join(dir, 'library.src.json'));
     expect(doc.items.map((i) => i.id)).toEqual([lib.items[0].id, 'SFX_Whoosh1', 'SFX_MusicTest']);
     expect(doc.items[1]).toEqual(soundItem({ id: 'SFX_Whoosh1', title_ru: 'Вжух 1', group: 'whoosh', keywords: 'Whoosh 1', sec: 0.643 }));
-    expect(doc.items[2].variants).toEqual([{ key: 'wav', pack: 'music' }]);
+    expect([doc.items[2].category, doc.items[2].variants]).toEqual(['music', [{ key: 'wav', pack: 'music' }]]);
     expect(validateLibrary(doc).errors).toEqual([]);
   });
 
@@ -100,7 +105,12 @@ describe('the source with its sounds', () => {
     const sounds = JSON.parse(readFileSync(path.join(REPO, 'library', 'sounds.src.json'), 'utf8')).sounds;
     expect(new Set(sounds.map((s) => s.id)).size).toBe(sounds.length);
     expect(new Set(sounds.map((s) => s.title_ru)).size).toBe(sounds.length);
-    expect(sounds.every((s) => GROUPS.some(([g]) => g === s.group) && s.sec > 0)).toBe(true);
+    expect(sounds.every((s) => [...GROUPS, ...MUSIC_GROUPS].some(([g]) => g === s.group) && s.sec > 0)).toBe(true);
+    // the templates lean on the pack's music: it comes with every install
+    for (const id of ['SFX_MusicWebinar5min', 'SFX_MusicWebinar30s', 'SFX_MusicCourseIntro']) {
+      expect(sounds.find((s) => s.id === id)).toMatchObject({ group: 'cloud' });
+      expect(sounds.find((s) => s.id === id).pack).toBeUndefined();
+    }
     // nothing of where a sound came from: no pack prefixes, no paths
     expect(sounds.some((s) => /^(KF|DA|SCH|VGT|AMZA) - |[\\/]/.test(s.keywords))).toBe(false);
     expect(libraryOrder(sounds).map((s) => s.id)).toEqual(sounds.map((s) => s.id));

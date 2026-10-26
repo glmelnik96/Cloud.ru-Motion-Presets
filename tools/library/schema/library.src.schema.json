@@ -150,7 +150,8 @@
         "ref": { "$ref": "#/$defs/id" },
         "kind": { "enum": ["music", "sfx", "video"] },
         "placement": { "enum": ["in", "out", "under"] },
-        "default": { "type": "boolean" }
+        "default": { "type": "boolean" },
+        "when": { "description": "Values of the template's switches under which the companion goes in (the webinar screen's music: «Таймер» on, the 5-minute track; off, the 30-second one).", "$ref": "#/$defs/options" }
       }
     },
     "variant": {
@@ -175,8 +176,9 @@
       "enum": ["4k", "music"]
     },
     "soundGroup": {
-      "description": "Group of a sound in the «Звуки» category (tools/sounds/process.mjs, panel/src/core/library.ts).",
-      "enum": ["brand", "music", "whoosh", "impact", "riser", "ui", "glitch", "texture", "scifi", "ambience", "nature", "city", "foley"]
+      "description": "Group of a sound in «Звуки» or of a track in «Музыка» (tools/sounds/process.mjs, panel/src/core/library.ts).",
+      "enum": ["brand", "whoosh", "impact", "riser", "ui", "glitch", "texture", "scifi", "ambience", "nature", "city", "foley",
+        "cloud", "corporate", "tech", "cinematic", "electronic", "energetic", "calm"]
     },
     "itemCommon": {
       "description": "Properties shared by library.src.json and library.json items.",
@@ -185,7 +187,7 @@
       "properties": {
         "id": { "$ref": "#/$defs/id" },
         "title_ru": { "type": "string", "minLength": 1 },
-        "category": { "enum": ["logo", "titles", "webinars", "courses", "smm", "podcast", "transitions", "backgrounds", "effects", "sounds", "export"] },
+        "category": { "enum": ["logo", "titles", "webinars", "courses", "smm", "podcast", "transitions", "backgrounds", "effects", "sounds", "music", "export"] },
         "tier": { "enum": ["T1", "T2", "T3"] },
         "hosts": { "$ref": "#/$defs/hosts" },
         "version": { "type": "integer", "minimum": 1 },

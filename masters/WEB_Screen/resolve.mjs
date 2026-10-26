@@ -517,7 +517,13 @@ export function libraryEntry(p = resolveScreen()) {
     requiredFonts: p.spec.fonts.map((f) => ({ postScriptName: f })),
     fields,
     variants: p.variants.map((v) => ({ key: v.key, aspect: '16x9', w: v.w, h: v.h, fps: FPS, aeComp: `${COMP}_${v.key}`, minHostVersion: { ae: '26.0', pr: '26.0' } })),
-    companions: [{ ref: 'BG_WebinarPortal', kind: 'video', placement: 'under', default: true }],
+    // the portal's loop under the screen; the pack's music by «Таймер» as the pack has it (the timer screens play the
+    // 5-minute track, the others the 30-second one), under the checkbox «Музыка», off by default (D14)
+    companions: [
+      { ref: 'BG_WebinarPortal', kind: 'video', placement: 'under', default: true },
+      { ref: 'SFX_MusicWebinar5min', kind: 'music', placement: 'under', default: false, when: { timer: true } },
+      { ref: 'SFX_MusicWebinar30s', kind: 'music', placement: 'under', default: false, when: { timer: false } },
+    ],
   };
 }
 

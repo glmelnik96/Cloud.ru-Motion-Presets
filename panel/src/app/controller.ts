@@ -82,7 +82,7 @@ export interface AppState {
   libraryProblems: Problem[];
   query: string;
   category: Category | 'favorites' | null;
-  // a group of «Звуки», while that category is open
+  // a group of «Звуки» or «Музыка», while that category is open
   soundGroup: SoundGroup | null;
   favorites: Set<string>;
   selectedId: string | null;
@@ -459,9 +459,9 @@ export class PanelApp {
     return filterItems(this.state.items, { query: this.state.query, category: this.state.category, favorites: this.state.favorites, group: this.state.soundGroup });
   }
 
-  // The groups of «Звуки» while it is open.
+  // The groups of «Звуки» or «Музыка» while it is open.
   soundGroups(): Array<{ key: SoundGroup; label_ru: string }> {
-    return this.state.category === 'sounds' ? usedSoundGroups(this.state.items) : [];
+    return usedSoundGroups(this.state.items, this.state.category);
   }
 
   setSoundGroup(group: SoundGroup | null): void {

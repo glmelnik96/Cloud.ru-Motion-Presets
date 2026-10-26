@@ -386,7 +386,7 @@ function SoundPlayer({ src, item }: { src: string; item: Item }) {
 function SoundRow({ app, ui, item }: { app: PanelApp; ui: UiServices; item: Item }) {
   const fav = app.state.favorites.has(item.id);
   const length = soundLength(item);
-  const meta = [app.state.category === 'sounds' && app.state.soundGroup ? '' : groupLabel(item.group), length === null ? '' : `${sec(length)} с`].filter(Boolean).join(' · ');
+  const meta = [app.state.soundGroup ? '' : groupLabel(item.group), length === null ? '' : `${sec(length)} с`].filter(Boolean).join(' · ');
   return (
     <div class="sound-row" role="button" tabIndex={0} onClick={() => app.open(item.id)} onKeyDown={(e) => e.key === 'Enter' && app.open(item.id)}>
       <PlayButton src={ui.fileUrl(soundFile(item)!)} />

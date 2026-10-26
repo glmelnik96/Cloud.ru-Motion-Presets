@@ -1,6 +1,7 @@
 // The rules of the sound library (phase 2 «Звуки», decisions of 2026-10-26): how a source sound becomes a library file.
 // Pure functions; tools/sounds/build-sounds.mjs runs ffmpeg with them.
-// - Groups of the «Звуки» category, in the panel order (the panel has the same list: panel/src/core/library.ts).
+// - Groups of the «Звуки» and «Музыка» categories, in the panel order (the panel has the same lists:
+//   panel/src/core/library.ts); the group says the category: music has its own (user 2026-10-26).
 // - Loudness (EBU R128, not signed): one-shots to a loudest momentary loudness of -18 LUFS, long beds (over 12 s of
 //   ambience, nature, city, foley, sci-fi or glitches) to -24 LUFS integrated, music to -18 LUFS integrated; the true
 //   peak never over -1 dBTP: a sound that would pass it stays quieter.
@@ -10,7 +11,6 @@
 
 export const GROUPS = [
   ['brand', 'Фирменные'],
-  ['music', 'Музыка'],
   ['whoosh', 'Переходы'],
   ['impact', 'Удары'],
   ['riser', 'Подъёмы и спады'],
@@ -24,6 +24,18 @@ export const GROUPS = [
   ['foley', 'Бытовые'],
 ];
 
+export const MUSIC_GROUPS = [
+  ['cloud', 'Cloud.ru'],
+  ['corporate', 'Корпоративная'],
+  ['tech', 'Технологии'],
+  ['cinematic', 'Кинематографичная'],
+  ['electronic', 'Электроника'],
+  ['energetic', 'Энергичная'],
+  ['calm', 'Спокойная'],
+];
+
+export const isMusic = (group) => MUSIC_GROUPS.some(([g]) => g === group);
+
 export const TARGET = { momentary: -18, bed: -24, music: -18, truePeak: -1 };
 export const SILENCE_DB = -60;
 export const LONG_SEC = 12;
@@ -31,7 +43,7 @@ const BED_GROUPS = ['ambience', 'nature', 'city', 'foley', 'scifi', 'glitch'];
 
 // How a sound is levelled and cut: { mode: 'momentary'|'integrated', target, trim }.
 export function rule(sound) {
-  if (sound.group === 'music') return { mode: 'integrated', target: TARGET.music, trim: false };
+  if (isMusic(sound.group)) return { mode: 'integrated', target: TARGET.music, trim: false };
   // the podcast pack's template tracks are aligned to their 10 s comps
   if (sound.group === 'brand' && /^SFX_Podcast/.test(sound.id)) return { mode: 'momentary', target: TARGET.momentary, trim: false };
   if (sound.sec > LONG_SEC && BED_GROUPS.includes(sound.group)) return { mode: 'integrated', target: TARGET.bed, trim: true };
@@ -121,9 +133,10 @@ export function sourceEntry(sound, sec) {
   return e;
 }
 
-// Library order: the groups as listed, inside a group by title with numbers in order («Удар 2» before «Удар 10»).
+// Library order: the sounds' groups as listed, then the music's; inside a group by title with numbers in order
+// («Удар 2» before «Удар 10»).
 export function libraryOrder(entries) {
-  const at = (g) => GROUPS.findIndex(([k]) => k === g);
+  const at = (g) => [...GROUPS, ...MUSIC_GROUPS].findIndex(([k]) => k === g);
   const coll = new Intl.Collator('ru', { numeric: true, sensitivity: 'base' });
   return entries.slice().sort((a, b) => at(a.group) - at(b.group) || coll.compare(a.title_ru, b.title_ru));
 }
@@ -133,7 +146,7 @@ export function soundItem(e) {
   return {
     id: e.id,
     title_ru: e.title_ru,
-    category: 'sounds',
+    category: isMusic(e.group) ? 'music' : 'sounds',
     tier: 'T3',
     hosts: ['ae', 'pr'],
     version: 1,

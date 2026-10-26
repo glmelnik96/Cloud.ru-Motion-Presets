@@ -3,18 +3,19 @@
 import { describe, expect, it } from 'vitest';
 import { PanelApp, type Services } from '../../panel/src/app/controller';
 import type { CallOptions, HostCaller, HostReply } from '../../panel/src/core/host';
-import { planItem } from '../../panel/src/core/insert';
-import { filterItems, installedOnly, usedSoundGroups } from '../../panel/src/core/library';
+import { planInsert, planItem } from '../../panel/src/core/insert';
+import { filterItems, installedOnly, MUSIC_GROUPS, usedSoundGroups } from '../../panel/src/core/library';
 import { mediaKind } from '../../panel/src/core/media';
 import { memoryStore } from '../../panel/src/core/memory';
 import type { Catalog, HostContext, Item } from '../../panel/src/core/types';
 import sounds from '../../library/sounds.src.json';
+import src from '../../library/library.src.json';
 import { ALL_FONTS, catalog, prContext, toCatalogItem } from './fixtures';
 
 const ROOT = 'C:/ProgramData/CloudRuBrandKit/library';
 type Entry = { id: string; title_ru: string; group: string; keywords: string; sec: number; pack?: string };
 const soundItems = (): Item[] => (sounds.sounds as Entry[]).map((e) => toCatalogItem({
-  id: e.id, title_ru: e.title_ru, category: 'sounds', tier: 'T3', hosts: ['ae', 'pr'], version: 1, group: e.group, keywords: e.keywords,
+  id: e.id, title_ru: e.title_ru, category: MUSIC_GROUPS.some((g) => g.key === e.group) ? 'music' : 'sounds', tier: 'T3', hosts: ['ae', 'pr'], version: 1, group: e.group, keywords: e.keywords,
   duration: { introSec: 0, holdSec: e.sec, outroSec: 0 }, variants: [{ key: 'wav', ...(e.pack ? { pack: e.pack } : {}) }],
 }));
 const withSounds = (): Catalog => { const c = catalog(); c.items.push(...soundItems()); return c; };
@@ -32,9 +33,9 @@ describe('the sound library', () => {
   it('keeps the sounds out of the whole catalog; «Звуки», a search and the favourites show them', () => {
     const items = withSounds().items;
     const all = filterItems(items, {});
-    expect(all.some((i) => i.category === 'sounds')).toBe(false);
+    expect(all.some((i) => i.category === 'sounds' || i.category === 'music')).toBe(false);
     expect(all.length).toBe(catalog().items.length);
-    expect(filterItems(items, { category: 'sounds' }).length).toBe(sounds.sounds.length);
+    expect(filterItems(items, { category: 'sounds' }).length + filterItems(items, { category: 'music' }).length).toBe(sounds.sounds.length);
     // a search finds sounds by their Russian title, their group and their English source name
     expect(filterItems(items, { query: 'вжух 1' }).map((i) => i.id)).toContain('SFX_Whoosh1');
     expect(filterItems(items, { query: 'whoosh' }).every((i) => i.category === 'sounds')).toBe(true);
@@ -43,14 +44,17 @@ describe('the sound library', () => {
     expect(filterItems(items, { category: 'favorites', favorites: new Set(['SFX_Whoosh1']) }).map((i) => i.id)).toEqual(['SFX_Whoosh1']);
   });
 
-  it('groups «Звуки» by the library\'s groups, in their order', () => {
+  it('groups «Звуки» and «Музыка» by their own groups, in their order', () => {
     const items = withSounds().items;
-    expect(usedSoundGroups(items).map((g) => g.key)).toEqual(['brand', 'music', 'whoosh', 'impact', 'riser', 'ui', 'glitch', 'texture', 'scifi', 'ambience', 'nature', 'city', 'foley']);
-    const music = filterItems(items, { category: 'sounds', group: 'music' });
-    expect(music.length).toBeGreaterThan(40);
-    expect(music.every((i) => i.group === 'music')).toBe(true);
-    // a group means nothing outside «Звуки»
-    expect(filterItems(items, { category: 'logo', group: 'music' }).length).toBe(catalog().items.filter((i) => i.category === 'logo').length);
+    expect(usedSoundGroups(items).map((g) => g.key)).toEqual(['brand', 'whoosh', 'impact', 'riser', 'ui', 'glitch', 'texture', 'scifi', 'ambience', 'nature', 'city', 'foley']);
+    expect(usedSoundGroups(items, 'music').map((g) => g.key)).toEqual(['cloud', 'corporate', 'tech', 'cinematic', 'electronic', 'energetic', 'calm']);
+    // music is a category of its own (user 2026-10-26): 48 tracks, none of them in «Звуки»
+    const music = filterItems(items, { category: 'music' });
+    expect(music.length).toBe(48);
+    expect(filterItems(items, { category: 'sounds' }).some((i) => i.id.startsWith('SFX_Music'))).toBe(false);
+    expect(filterItems(items, { category: 'music', group: 'cloud' }).map((i) => i.id).sort()).toEqual(['SFX_MusicCourseIntro', 'SFX_MusicPodcast', 'SFX_MusicWebinar30s', 'SFX_MusicWebinar5min']);
+    // a group means nothing outside «Звуки» and «Музыка»
+    expect(filterItems(items, { category: 'logo', group: 'cloud' }).length).toBe(catalog().items.filter((i) => i.category === 'logo').length);
   });
 
   it('leaves the stock music out whole when its option is not installed', () => {
@@ -73,12 +77,16 @@ describe('the sound library', () => {
     await a.init();
     expect(a.soundGroups()).toEqual([]);
     a.setCategory('sounds');
-    expect(a.soundGroups().length).toBe(13);
+    expect(a.soundGroups().length).toBe(12);
     a.setSoundGroup('impact');
     expect(a.visibleItems().every((i) => i.group === 'impact')).toBe(true);
     a.setSoundGroup('impact');
     expect(a.state.soundGroup).toBeNull();
     a.setSoundGroup('ui');
+    a.setCategory('music');
+    expect([a.state.soundGroup, a.soundGroups().map((g) => g.key)]).toEqual([null, ['cloud', 'corporate', 'tech', 'cinematic', 'electronic', 'energetic', 'calm']]);
+    a.setSoundGroup('calm');
+    expect(a.visibleItems().every((i) => i.category === 'music' && i.group === 'calm')).toBe(true);
     a.setCategory('logo');
     expect([a.state.soundGroup, a.soundGroups()]).toEqual([null, []]);
   });
@@ -88,5 +96,28 @@ describe('the sound library', () => {
     expect(mediaKind(s, s.variants[0])).toBe('sound');
     const p = planItem({ item: s, ctx: prContext(), values: {}, fonts: ALL_FONTS, options: {}, env: { platform: 'win', libraryRoot: ROOT } });
     expect([p.ok, p.media?.kind, p.media?.layout.audio.length, p.media?.layout.video.length]).toEqual([true, 'sound', 1, 0]);
+  });
+});
+
+describe('the music of the templates (D14)', () => {
+  const real = (id: string) => toCatalogItem((src.items as unknown[]).find((i) => (i as Item).id === id), true);
+  const lookup = (id: string) => [...soundItems(), real('BG_WebinarPortal')].find((i) => i.id === id);
+  const env = { platform: 'win' as const, libraryRoot: ROOT };
+  const music = (id: string, values: Record<string, number | boolean>, on = true) => {
+    const p = planInsert({ item: real(id), ctx: prContext(), values, fonts: ALL_FONTS, options: { sound: { music: on, sfx: false } }, env, lookup });
+    return (p.request?.companions?.audio ?? []).map((a) => a.file.split('/').pop());
+  };
+
+  it('the webinar screen plays the pack\'s music by «Таймер», as the pack did; off by default', () => {
+    expect(music('WEB_Screen', { layout: 1, timer: true, minutes: 1 })).toEqual(['SFX_MusicWebinar5min_wav_v1.wav']);
+    expect(music('WEB_Screen', { layout: 2, timer: false })).toEqual(['SFX_MusicWebinar30s_wav_v1.wav']);
+    expect(music('WEB_Screen', { layout: 1, timer: true, minutes: 1 }, false)).toEqual([]);
+    // under the screen from its start, no longer than the screen
+    const p = planInsert({ item: real('WEB_Screen'), ctx: prContext(), values: { layout: 1, timer: true, minutes: 1 }, fonts: ALL_FONTS, options: { sound: { music: true, sfx: false } }, env, lookup });
+    expect(p.request?.companions?.audio[0]).toMatchObject({ role: 'sound', startSec: p.request?.startSec, maxSec: 65 });
+  });
+
+  it('a course cover plays the courses\' intro music', () => {
+    expect(music('CRS_Cover', { variant: 1 })).toEqual(['SFX_MusicCourseIntro_wav_v1.wav']);
   });
 });

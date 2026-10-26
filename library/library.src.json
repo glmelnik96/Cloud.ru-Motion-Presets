@@ -2936,6 +2936,14 @@
             "pr": "26.0"
           }
         }
+      ],
+      "companions": [
+        {
+          "ref": "SFX_MusicCourseIntro",
+          "kind": "music",
+          "placement": "under",
+          "default": false
+        }
       ]
     },
     {
@@ -5393,6 +5401,24 @@
           "kind": "video",
           "placement": "under",
           "default": true
+        },
+        {
+          "ref": "SFX_MusicWebinar5min",
+          "kind": "music",
+          "placement": "under",
+          "default": false,
+          "when": {
+            "timer": true
+          }
+        },
+        {
+          "ref": "SFX_MusicWebinar30s",
+          "kind": "music",
+          "placement": "under",
+          "default": false,
+          "when": {
+            "timer": false
+          }
         }
       ]
     },

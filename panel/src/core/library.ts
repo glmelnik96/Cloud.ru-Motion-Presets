@@ -17,13 +17,13 @@ export const CATEGORIES: Array<{ key: Category; label_ru: string }> = [
   { key: 'backgrounds', label_ru: 'Фоны' },
   { key: 'effects', label_ru: 'Эффекты' },
   { key: 'sounds', label_ru: 'Звуки' },
+  { key: 'music', label_ru: 'Музыка' },
   { key: 'export', label_ru: 'Экспорт' },
 ];
 
-// Groups of «Звуки» in the panel order (tools/sounds/process.mjs has the same list).
+// Groups of «Звуки» and of «Музыка» in the panel order (tools/sounds/process.mjs has the same lists).
 export const SOUND_GROUPS: Array<{ key: SoundGroup; label_ru: string }> = [
   { key: 'brand', label_ru: 'Фирменные' },
-  { key: 'music', label_ru: 'Музыка' },
   { key: 'whoosh', label_ru: 'Переходы' },
   { key: 'impact', label_ru: 'Удары' },
   { key: 'riser', label_ru: 'Подъёмы и спады' },
@@ -37,7 +37,21 @@ export const SOUND_GROUPS: Array<{ key: SoundGroup; label_ru: string }> = [
   { key: 'foley', label_ru: 'Бытовые' },
 ];
 
-export const groupLabel = (g: SoundGroup | undefined): string => SOUND_GROUPS.find((x) => x.key === g)?.label_ru ?? '';
+export const MUSIC_GROUPS: Array<{ key: SoundGroup; label_ru: string }> = [
+  { key: 'cloud', label_ru: 'Cloud.ru' },
+  { key: 'corporate', label_ru: 'Корпоративная' },
+  { key: 'tech', label_ru: 'Технологии' },
+  { key: 'cinematic', label_ru: 'Кинематографичная' },
+  { key: 'electronic', label_ru: 'Электроника' },
+  { key: 'energetic', label_ru: 'Энергичная' },
+  { key: 'calm', label_ru: 'Спокойная' },
+];
+
+// The categories listed by sound, not by picture: they have groups and the whole catalog leaves them out.
+const LISTENED: ReadonlyArray<Category | 'favorites' | null | undefined> = ['sounds', 'music'];
+const groupsOf = (category: Category | 'favorites' | null | undefined) => (category === 'music' ? MUSIC_GROUPS : category === 'sounds' ? SOUND_GROUPS : []);
+
+export const groupLabel = (g: SoundGroup | undefined): string => [...SOUND_GROUPS, ...MUSIC_GROUPS].find((x) => x.key === g)?.label_ru ?? '';
 
 const isObj = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
 
@@ -128,28 +142,29 @@ export interface Filter {
   query?: string;
   category?: Category | 'favorites' | null;
   favorites?: ReadonlySet<string>;
-  // a group of «Звуки»
+  // a group of «Звуки» or «Музыка»
   group?: SoundGroup | null;
 }
 
-// The whole catalog without a category or a query leaves the sounds out: hundreds of them would bury the templates;
-// they are in «Звуки», in «Избранное» and in what a search finds. A sound is found by its group and its source name too.
+// The whole catalog without a category or a query leaves the sounds and the music out: hundreds of them would bury the
+// templates; they are in «Звуки» and «Музыка», in «Избранное» and in what a search finds. A sound is found by its group
+// and its source name too.
 export function filterItems(items: Item[], f: Filter): Item[] {
   const words = normalizeQuery(f.query ?? '').split(' ').filter(Boolean);
   return items.filter((it) => {
     if (f.category === 'favorites' && !f.favorites?.has(it.id)) return false;
     if (f.category && f.category !== 'favorites' && it.category !== f.category) return false;
-    if (!f.category && !words.length && it.category === 'sounds') return false;
-    if (f.group && f.category === 'sounds' && it.group !== f.group) return false;
+    if (!f.category && !words.length && LISTENED.includes(it.category)) return false;
+    if (f.group && LISTENED.includes(f.category) && it.group !== f.group) return false;
     const hay = normalizeQuery(`${it.title_ru} ${it.id} ${it.keywords ?? ''} ${groupLabel(it.group)}`);
     return words.every((w) => hay.includes(w));
   });
 }
 
-// Groups that have at least one sound, in the panel order.
-export function usedSoundGroups(items: Item[]): typeof SOUND_GROUPS {
-  const used = new Set(items.filter((it) => it.category === 'sounds').map((it) => it.group));
-  return SOUND_GROUPS.filter((g) => used.has(g.key));
+// Groups of «Звуки» or «Музыка» that have at least one item, in the panel order.
+export function usedSoundGroups(items: Item[], category: Category | 'favorites' | null = 'sounds'): typeof SOUND_GROUPS {
+  const used = new Set(items.filter((it) => it.category === category).map((it) => it.group));
+  return groupsOf(category).filter((g) => used.has(g.key));
 }
 
 // Categories that have at least one item, in the panel order.

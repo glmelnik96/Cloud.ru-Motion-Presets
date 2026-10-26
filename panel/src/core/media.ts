@@ -320,6 +320,8 @@ export function planCompanions(input: CompanionInput): { layout: MediaLayout | n
   let scale = 1;
   for (const c of input.item.companions ?? []) {
     if (!companionOn(c, input.sound)) continue;
+    // a companion of a look of the template: only when the form agrees (the webinar screen's music by «Таймер»)
+    if (c.when && !Object.entries(c.when).every(([k, v]) => (input.values ?? {})[k] === v)) continue;
     const ref = input.lookup(c.ref);
     const skip = (why: string) => problems.push(warning('COMPANION', messages.companion(ref?.title_ru ?? c.ref), { ref: c.ref, why }));
     if (!ref || !ref.hosts.includes(input.host)) { skip('not in the library for this host'); continue; }

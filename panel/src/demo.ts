@@ -10,6 +10,7 @@ import type { CallOptions, HostCaller, HostReply } from './core/host';
 import type { InsertRequest, MediaRequest } from './core/insert';
 import type { Catalog, HostContext, Item } from './core/types';
 import { App } from './ui/App';
+import { MUSIC_GROUPS } from './core/library';
 
 const SHA = '0'.repeat(64);
 
@@ -24,7 +25,7 @@ function toItem(raw: unknown, keepCompanions: boolean): Item {
     else if (v.parts) {
       const src = v.parts as unknown as Record<string, [number, number]>;
       out.parts = Object.fromEntries(Object.entries(src).map(([p, r]) => [p, { file: `${base}_${p}_v${it.version}.mov`, sha256: SHA, bytes: 0, frames: r[1] - r[0] }]));
-    } else out.file = `${base}_v${it.version}.${it.category === 'sounds' ? 'wav' : it.textStyle ? 'prtextstyle' : v.key.startsWith('svg_') ? 'svg' : v.key === 'svg' || v.key === 'ffx' || v.key === 'epr' || v.key === 'aom' ? v.key : it.tier === 'T3' ? 'png' : 'mov'}`;
+    } else out.file = `${base}_v${it.version}.${it.category === 'sounds' || it.category === 'music' ? 'wav' : it.textStyle ? 'prtextstyle' : v.key.startsWith('svg_') ? 'svg' : v.key === 'svg' || v.key === 'ffx' || v.key === 'epr' || v.key === 'aom' ? v.key : it.tier === 'T3' ? 'png' : 'mov'}`;
     return out;
   });
   if (it.tier === 'T1') it.aep = { file: `${dir}/${it.id}_v${it.version}.aep`, sha256: SHA, bytes: 0 };
@@ -109,7 +110,7 @@ export function startDemo(el: HTMLElement, version: string): void {
     ...(src.items as unknown[]).map((i) => toItem(i, false)),
     ...(example.items as unknown[]).filter((i) => (i as Item).id !== 'TTL_LowerThird').map((i) => toItem(i, true)),
     // the sound library as tools/library/source.mjs merges it
-    ...sounds.sounds.map((e) => toItem({ id: e.id, title_ru: e.title_ru, category: 'sounds', tier: 'T3', hosts: ['ae', 'pr'], version: 1, group: e.group, keywords: e.keywords,
+    ...sounds.sounds.map((e) => toItem({ id: e.id, title_ru: e.title_ru, category: MUSIC_GROUPS.some((g) => g.key === e.group) ? 'music' : 'sounds', tier: 'T3', hosts: ['ae', 'pr'], version: 1, group: e.group, keywords: e.keywords,
       duration: { introSec: 0, holdSec: e.sec, outroSec: 0 }, variants: [{ key: 'wav' }] }, false)),
   ];
   // ?media=<url folder>: the first card gets preview.webm and poster.jpg from there (tests/panel/ui-dom.test.mjs).

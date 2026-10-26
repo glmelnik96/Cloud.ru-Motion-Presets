@@ -6,10 +6,11 @@ export type Tier = 'T1' | 'T2' | 'T3';
 export type Fit = 'rdt' | 'trim';
 export type Category =
   | 'logo' | 'titles' | 'webinars' | 'courses' | 'smm' | 'podcast'
-  | 'transitions' | 'backgrounds' | 'effects' | 'sounds' | 'export';
-// Groups of the «Звуки» category (tools/sounds/process.mjs).
+  | 'transitions' | 'backgrounds' | 'effects' | 'sounds' | 'music' | 'export';
+// Groups of «Звуки» and of «Музыка» (tools/sounds/process.mjs).
 export type SoundGroup =
-  | 'brand' | 'music' | 'whoosh' | 'impact' | 'riser' | 'ui' | 'glitch' | 'texture' | 'scifi' | 'ambience' | 'nature' | 'city' | 'foley';
+  | 'brand' | 'whoosh' | 'impact' | 'riser' | 'ui' | 'glitch' | 'texture' | 'scifi' | 'ambience' | 'nature' | 'city' | 'foley'
+  | 'cloud' | 'corporate' | 'tech' | 'cinematic' | 'electronic' | 'energetic' | 'calm';
 export type FieldType = 'text' | 'dropdown' | 'checkbox' | 'slider' | 'media';
 export type FieldValue = string | number | boolean | null;
 export type Values = Record<string, FieldValue>;
@@ -87,6 +88,8 @@ export interface Companion {
   kind: 'music' | 'sfx' | 'video';
   placement: 'in' | 'out' | 'under';
   default: boolean;
+  // the template's switch values it goes in under (the webinar screen's music by «Таймер»)
+  when?: Values;
 }
 
 export interface Item {

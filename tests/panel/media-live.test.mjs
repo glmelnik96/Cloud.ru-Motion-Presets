@@ -26,7 +26,7 @@ function natural(file) {
   if (/\.png$/.test(name)) return { sec: 0, still: true };
   if (/_loop_/.test(name)) return { sec: 10, still: false };
   // a sound of the library is as long as its item says; the example's whoosh 0.8 s
-  const sound = SRC.items.find((i) => name.startsWith(i.id + '_') && i.category === 'sounds' && i.duration);
+  const sound = SRC.items.find((i) => name.startsWith(i.id + '_') && (i.category === 'sounds' || i.category === 'music') && i.duration);
   if (/\.wav$/.test(name)) return { sec: sound ? sound.duration.holdSec : 0.8, still: false };
   // a plain clip as long as its item (the podcast intro 7 s, the outro 10 s)
   const clip = SRC.items.find((i) => name.startsWith(i.id + '_') && i.tier === 'T2' && !i.loop && i.cutFrame === undefined && i.duration);
@@ -130,7 +130,7 @@ describe('live media checks, dry', () => {
       const d = dry(host);
       const R = new Report(host);
       await runMediaLive({
-        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.27', R,
+        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.28', R,
         prepare: async (prep) => {
           for (const c of prep.copies) d.add(c.to);
           for (const s of prep.solids) d.add(s.path);

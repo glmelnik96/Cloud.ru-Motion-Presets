@@ -15,7 +15,7 @@ const BUILDS: Record<string, string> = {
 // The file a variant gets in the catalog, by tier and kind the way build-catalog.mjs names them.
 function mediaExt(it: Item, v: { key: string; options?: Record<string, number | boolean> }): string {
   const key = v.key;
-  if (it.category === 'sounds') return 'wav';
+  if (it.category === 'sounds' || it.category === 'music') return 'wav';
   if (key === 'svg' || key.startsWith('svg_')) return 'svg';
   if (key === 'ffx') return 'ffx';
   if (key === 'epr' || key === 'aom') return key;

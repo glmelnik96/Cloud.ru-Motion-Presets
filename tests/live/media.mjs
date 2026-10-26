@@ -41,6 +41,8 @@ export const MEDIA_CASES = [
   // the webinar screen with its timer for a minute (65 s with «Начинаем»): the portal's loop under it is the one its
   // «Раскладка» and «Таймер» pick, the speaker's with the timer
   { key: 'screen', id: 'WEB_Screen', time: 2, sound: { music: false, sfx: false }, values: { layout: 2, timer: true, minutes: 1 }, expect: { lengthSec: 65, companionFile: 'BG_WebinarPortal_16x9_speaker_timer_v1' } },
+  // the same screen with «Музыка» on: the pack's 5-minute track (the timer is on) under it from its start, cut to its 65 s
+  { key: 'screen_music', id: 'WEB_Screen', time: 2, sound: { music: true, sfx: false }, values: { layout: 1, timer: true, minutes: 1 }, expect: { lengthSec: 65, musicFile: 'SFX_MusicWebinar5min_wav_v1' } },
   // the logo as files: «Схема» picks the PNG (colour, for a light picture), a still up to the end of the range
   { key: 'logo_files', id: 'LOGO_Files', time: 2, range: 14, values: { scheme: 2 }, expect: { lengthSec: 12, variant: '16x9_light', kind: 'still' } },
   // the patterns and icons: two fields pick the PNG (the globe, for a light picture), as long as asked
@@ -178,6 +180,12 @@ async function checkCase(c, { host, item, plan, out, rows, t, R, o }) {
       const under = loops.map((x) => rows.find((r) => r.name === x.name && near(r.startSec, x.startSec)));
       R.check(`${c.key}: the background layers lie right under the template layer`, tpl && under.every((r) => r && r.index > tpl.index), { tpl, under });
     }
+  }
+  if (e.musicFile) {
+    const music = (out.reply.companions ?? []).filter((x) => x.role === 'sound');
+    R.check(`${c.key}: the music ${e.musicFile} under the template from its start, as long as it`,
+      music.length === 1 && music[0].name.startsWith(e.musicFile) && near(music[0].startSec, 2) && near(music[0].lengthSec, e.lengthSec), music);
+    if (host === 'pr') R.check(`${c.key}: the music is on an audio track`, music.every((x) => x.audio === true), music);
   }
   if (e.companions) {
     const cs = out.reply.companions ?? [];
