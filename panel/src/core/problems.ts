@@ -93,7 +93,7 @@ export const messages = {
       : 'Нет активной секвенции. Откройте секвенцию на таймлайне и повторите.',
   notSaved: () => 'Проект не сохранён. Сохраните его: файлы шаблона кладутся в папку «Cloud.ru BrandKit» рядом с проектом.',
   pathTooLong: (limit: number) => `Путь к проекту длиннее ${limit} символов. Перенесите проект в папку с коротким путём.`,
-  pack4k: () => '4K-файлы этого элемента ставит установщик с опцией 4K: install-4k.cmd в Windows, bash install.command --with-4k в macOS.',
+  pack4k: () => '4K-файлы этого элемента ставит установщик BrandKit с отметкой «4K-фоны и клипы».',
   hostTooOld: (host: Host, have: string, need: string) => `${APP[host]} ${have} старше нужной версии ${need}. Обновите приложение.`,
   pluginTooOld: (lib: string, need: string, have: string) =>
     `Библиотеке ${lib} нужна панель ${need} или новее, установлена ${have}. Запустите новый установщик.`,
