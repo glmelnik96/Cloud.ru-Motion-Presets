@@ -527,6 +527,71 @@ select {
   opacity: 0.8;
 }
 
+/* The sound library: the groups of «Звуки» and a compact list, one row a sound. */
+.chips.groups {
+  margin-top: -4px;
+}
+
+.chips.groups .chip {
+  font-size: 11px;
+  padding: 2px 8px;
+}
+
+.grid + .sound-list {
+  margin-top: 10px;
+}
+
+.sound-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sound-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 4px 3px 3px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  cursor: pointer;
+}
+
+.sound-row:hover,
+.sound-row:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.sound-row .sound-play {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border-width: 1px;
+  font-size: 11px;
+  padding: 0;
+}
+
+.sound-row .title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sound-row .meta {
+  color: var(--text-dim);
+  font-size: 11px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.sound-row .star {
+  position: static;
+  flex: none;
+}
+
 
 /* «Экспорт» (decisions P18–P23): presets for the frame, the way, the folder, renders in the background. */
 .export .hint {

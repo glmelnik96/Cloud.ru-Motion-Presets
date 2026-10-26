@@ -21,6 +21,7 @@ import { readMogrt } from '../spike/mogrt.mjs';
 import { checkMogrt } from '../masters/package.mjs';
 import { workPath } from '../lib/work.mjs';
 import { parsePreviewName } from './preview-names.mjs';
+import { loadSource } from './source.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const stripBom = (t) => (t.charCodeAt(0) === 0xfeff ? t.slice(1) : t);
@@ -232,7 +233,7 @@ const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPat
 if (isMain) {
   const a = parseArgs(process.argv.slice(2));
   const r = await buildCatalog({
-    src: readJson(a.src),
+    src: loadSource(a.src),
     buildDir: a.buildDir,
     outDir: a.outDir,
     libraryVersion: a.libraryVersion || calver(),

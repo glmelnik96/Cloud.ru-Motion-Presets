@@ -171,8 +171,12 @@
       }
     },
     "pack": {
-      "description": "An installer option the variant's files come with (D24): «4k», the 4K loops and clips. Without it the variant is in every install.",
-      "enum": ["4k"]
+      "description": "An installer option the variant's files come with (D24): «4k», the 4K loops and clips; «music», the stock music tracks. Without it the variant is in every install.",
+      "enum": ["4k", "music"]
+    },
+    "soundGroup": {
+      "description": "Group of a sound in the «Звуки» category (tools/sounds/process.mjs, panel/src/core/library.ts).",
+      "enum": ["brand", "music", "whoosh", "impact", "riser", "ui", "glitch", "texture", "scifi", "ambience", "nature", "city", "foley"]
     },
     "itemCommon": {
       "description": "Properties shared by library.src.json and library.json items.",
@@ -199,7 +203,9 @@
         "omTemplate": { "description": "Export presets (AME_*): name of the After Effects Output Module template that repeats the .epr, loaded by hand from the brand .aom (decision P21).", "type": "string", "pattern": "^CR [A-Za-z0-9 ]+$", "maxLength": 48 },
         "textStyle": { "description": "A caption Track Style of Premiere (D25): its name in the Track Style list; the one variant is the .prtextstyle file.", "type": "string", "minLength": 1, "maxLength": 48 },
         "fields": { "type": "array", "items": { "$ref": "#/$defs/field" } },
-        "companions": { "type": "array", "items": { "$ref": "#/$defs/companion" } }
+        "companions": { "type": "array", "items": { "$ref": "#/$defs/companion" } },
+        "group": { "$ref": "#/$defs/soundGroup" },
+        "keywords": { "description": "More words the catalog search finds the item by (a sound's source name in English).", "type": "string", "minLength": 1, "maxLength": 200 }
       },
       "allOf": [
         { "if": { "properties": { "tier": { "const": "T1" } } }, "then": { "required": ["fit", "duration"] } },
@@ -214,7 +220,7 @@
       "type": "object",
       "$ref": "#/$defs/itemCommon",
       "propertyNames": {
-        "enum": ["id", "title_ru", "category", "tier", "hosts", "version", "fit", "cutFrame", "windows", "duration", "loop", "alpha", "omTemplate", "textStyle", "fields", "companions", "requiredFonts", "variants"]
+        "enum": ["id", "title_ru", "category", "tier", "hosts", "version", "fit", "cutFrame", "windows", "duration", "loop", "alpha", "omTemplate", "textStyle", "fields", "companions", "requiredFonts", "variants", "group", "keywords"]
       },
       "properties": {
         "requiredFonts": { "type": "array", "items": { "$ref": "#/$defs/font" } },

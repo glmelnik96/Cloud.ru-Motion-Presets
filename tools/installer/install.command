@@ -2,11 +2,12 @@
 # Cloud.ru BrandKit installer for macOS (spec 8.1). No admin rights, no Creative Cloud app, no Adobe ID.
 # Run from Terminal: bash install.command  (a file downloaded by a browser or a messenger is quarantined,
 # and a double click does not open it on macOS 15+).
-#   bash install.command [--with-ame] [--with-4k | --no-4k] [--sandbox <dir>]
+#   bash install.command [--with-ame] [--with-4k | --no-4k] [--with-music | --no-music] [--sandbox <dir>]
 # --with-ame   also copies the brand .epr presets into the user presets of Adobe Media Encoder
 # --with-4k    also installs the 4K loops and clips (D24): payload/library-4k, from the archive <folder>-4k.zip
 #              unpacked over this folder. A later install keeps them while they are unpacked here
 # --no-4k      leaves the 4K files out although an earlier install had them
+# --with-music, --no-music   the same for the stock music (payload/library-music, <folder>-music.zip)
 # --sandbox    installs into <dir>/... instead of the real folders (a dry run for checks); skips the
 #              check for running apps
 # Exit codes: 0 installed, 2 refused (After Effects or Premiere is running, or Media Encoder with --with-ame), 1 error.
@@ -16,15 +17,17 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 PAYLOAD="$HERE/payload"
 BUNDLE_ID="ru.cloud.brandkit"
 WITH_AME=0
-WITH_4K=0
-NO_4K=0
+WITH_PACKS=""
+NO_PACKS=""
 SANDBOX=""
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --with-ame) WITH_AME=1 ;;
-    --with-4k) WITH_4K=1 ;;
-    --no-4k) NO_4K=1 ;;
+    --with-4k) WITH_PACKS="$WITH_PACKS 4k" ;;
+    --no-4k) NO_PACKS="$NO_PACKS 4k" ;;
+    --with-music) WITH_PACKS="$WITH_PACKS music" ;;
+    --no-music) NO_PACKS="$NO_PACKS music" ;;
     --sandbox) SANDBOX="$2"; shift ;;
     *) echo "Неизвестный параметр: $1"; exit 1 ;;
   esac
@@ -33,6 +36,9 @@ done
 
 say() { printf '%s\n' "$*"; }
 fail() { say "ОШИБКА: $*"; exit 1; }
+# has "<words>" <word>: the list of option keys holds the key
+has() { case " $1 " in *" $2 "*) return 0 ;; esac; return 1; }
+pack_name() { case "$1" in 4k) printf '4K-петли и клипы' ;; music) printf 'Стоковая музыка' ;; esac; }
 
 [ -f "$PAYLOAD/VERSION" ] || fail "нет payload/VERSION рядом с установщиком: распакуйте архив целиком"
 PLUGIN_VERSION="$(sed -n 's/^plugin=//p' "$PAYLOAD/VERSION")"
@@ -74,31 +80,22 @@ if [ -z "$SANDBOX" ]; then
   fi
 fi
 
-# 1a. The 4K option (D24): asked for, or installed before and not turned off. Its files are checked to belong to this
-#     library before anything changes.
-PACK_4K="$PAYLOAD/library-4k"
-VERSION_4K="$PAYLOAD/VERSION-4k"
-HAD_4K=0
-grep -qxF 'packs=4k' "$STATE_DIR/installed.txt" 2>/dev/null && HAD_4K=1
-WANT_4K=0
-if [ "$WITH_4K" = 1 ] || { [ "$HAD_4K" = 1 ] && [ "$NO_4K" = 0 ]; }; then WANT_4K=1; fi
-PACK_HERE=0
-[ -d "$PACK_4K" ] && [ -f "$VERSION_4K" ] && PACK_HERE=1
-SIZE_4K=""
-if [ "$PACK_HERE" = 1 ]; then
-  BYTES_4K="$(sed -n 's/^bytes=//p' "$VERSION_4K")"
-  [ -n "$BYTES_4K" ] && SIZE_4K="$(awk -v b="$BYTES_4K" 'BEGIN { printf "%.1f ГБ", b / 1073741824 }')"
-fi
-USE_4K=0
-if [ "$WANT_4K" = 1 ]; then
-  if [ "$PACK_HERE" = 1 ]; then
-    LIB_4K="$(sed -n 's/^library=//p' "$VERSION_4K")"
-    [ "$LIB_4K" = "$LIBRARY_VERSION" ] || fail "4K-файлы рядом — от библиотеки $LIB_4K, а ставится $LIBRARY_VERSION: распакуйте сюда архив 4K той же версии"
-    USE_4K=1
-  elif [ "$WITH_4K" = 1 ]; then
-    fail "нет 4K-файлов (payload/library-4k): распакуйте сюда архив $(basename "$HERE")-4k.zip — его папка совпадёт с этой — и запустите установщик снова"
+# 1a. The installer options (D24): the 4K loops and clips, the stock music. Each is asked for, or installed before and
+#     not turned off; its files are checked to belong to this library before anything changes.
+HAD_PACKS="$(sed -n 's/^packs=//p' "$STATE_DIR/installed.txt" 2>/dev/null | tr ',' ' ')"
+USE_PACKS=""
+for k in 4k music; do
+  zip="$(basename "$HERE")-$k.zip"
+  if has "$WITH_PACKS" "$k" || { has "$HAD_PACKS" "$k" && ! has "$NO_PACKS" "$k"; }; then
+    if [ -d "$PAYLOAD/library-$k" ] && [ -f "$PAYLOAD/VERSION-$k" ]; then
+      lib="$(sed -n 's/^library=//p' "$PAYLOAD/VERSION-$k")"
+      [ "$lib" = "$LIBRARY_VERSION" ] || fail "файлы опции «$(pack_name "$k")» рядом — от библиотеки $lib, а ставится $LIBRARY_VERSION: распакуйте сюда архив $zip той же версии"
+      USE_PACKS="$USE_PACKS $k"
+    elif has "$WITH_PACKS" "$k"; then
+      fail "нет файлов опции «$(pack_name "$k")» (payload/library-$k): распакуйте сюда архив $zip — его папка совпадёт с этой — и запустите установщик снова"
+    fi
   fi
-fi
+done
 
 # 2. Quarantine off the files of the package, so the copies do not carry it (spec 8.1 «Mac»).
 if command -v xattr >/dev/null 2>&1; then
@@ -126,12 +123,10 @@ CEP_NEW="$ASIDE/panel-new-$STAMP"
 cp -R "$PAYLOAD/extension" "$CEP_NEW" || fail "панель не скопировалась в $CEP_NEW"
 LIBRARY_NEW="$LIBRARY_DIR.new-$STAMP"
 cp -R "$PAYLOAD/library" "$LIBRARY_NEW" || fail "библиотека не скопировалась"
-# the 4K files into the new copy under the same paths (items/<id>/...)
-N_4K=0
-if [ "$USE_4K" = 1 ]; then
-  cp -R "$PACK_4K/." "$LIBRARY_NEW/" || fail "4K-файлы не скопировались"
-  N_4K="$(find "$PACK_4K" -type f | wc -l | tr -d ' ')"
-fi
+# the files of the options into the new copy under the same paths (items/<id>/...)
+for k in $USE_PACKS; do
+  cp -R "$PAYLOAD/library-$k/." "$LIBRARY_NEW/" || fail "файлы опции «$(pack_name "$k")» не скопировались"
+done
 LIBRARY_OLD=""
 if [ -d "$LIBRARY_DIR" ]; then
   LIBRARY_OLD="$LIBRARY_DIR.old-$STAMP"
@@ -150,13 +145,20 @@ mv "$CEP_NEW" "$CEP_DIR" || fail "панель не встала на место
 find "$SHARED_ROOT" -user "$(id -u)" -exec chmod a+rwX {} + 2>/dev/null || true
 say "Панель: $CEP_DIR"
 say "Библиотека: $LIBRARY_DIR"
-if [ "$USE_4K" = 1 ]; then
-  say "4K-петли и клипы: $N_4K файлов, $SIZE_4K"
-elif [ "$HAD_4K" = 1 ] && [ "$NO_4K" = 0 ]; then
-  say "Внимание: 4K-петли и клипы стояли раньше, но в этой папке их нет — они не поставлены. Чтобы вернуть: распакуйте сюда архив $(basename "$HERE")-4k.zip и запустите bash install.command --with-4k"
-elif [ "$PACK_HERE" = 1 ]; then
-  say "4K-петли и клипы не ставились ($SIZE_4K): их поставит bash install.command --with-4k"
-fi
+for k in 4k music; do
+  size=""
+  if [ -f "$PAYLOAD/VERSION-$k" ]; then
+    b="$(sed -n 's/^bytes=//p' "$PAYLOAD/VERSION-$k")"
+    [ -n "$b" ] && size="$(awk -v b="$b" 'BEGIN { printf "%.1f ГБ", b / 1073741824 }')"
+  fi
+  if has "$USE_PACKS" "$k"; then
+    say "$(pack_name "$k"): $(find "$PAYLOAD/library-$k" -type f | wc -l | tr -d ' ') файлов, $size"
+  elif has "$HAD_PACKS" "$k" && ! has "$NO_PACKS" "$k"; then
+    say "Внимание: опция «$(pack_name "$k")» стояла раньше, но её файлов в этой папке нет — она не поставлена. Чтобы вернуть: распакуйте сюда архив $(basename "$HERE")-$k.zip и запустите bash install.command --with-$k"
+  elif [ -d "$PAYLOAD/library-$k" ]; then
+    say "Опция «$(pack_name "$k")» не ставилась ($size): её поставит bash install.command --with-$k"
+  fi
+done
 
 # 5. MOGRT copies flat in Local Templates: the Graphics Templates panel does not see subfolders. Our copies of
 #    the previous install that the new one does not carry are removed (the state file lists them).
@@ -232,8 +234,7 @@ if [ -d "$CEP_CACHE" ]; then
   find "$CEP_CACHE" -maxdepth 1 -name "*$BUNDLE_ID*" -exec rm -rf {} + 2>/dev/null || true
 fi
 
-PACKS=""
-[ "$USE_4K" = 1 ] && PACKS="4k"
+PACKS="$(echo $USE_PACKS | tr ' ' ',')"
 printf 'plugin=%s\nlibrary=%s\ninstalled=%s\npacks=%s\n' "$PLUGIN_VERSION" "$LIBRARY_VERSION" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$PACKS" > "$STATE_DIR/installed.txt"
 if [ "$SIGNED" != 1 ]; then
   say "Внимание: панель без подписи. Она загрузится только с PlayerDebugMode: defaults write com.adobe.CSXS.11 PlayerDebugMode 1 (и .12)"

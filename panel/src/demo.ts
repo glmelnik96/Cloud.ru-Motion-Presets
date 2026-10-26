@@ -3,6 +3,7 @@
 import { render, h } from 'preact';
 import src from '../../library/library.src.json';
 import example from '../../docs/library/example.src.json';
+import sounds from '../../library/sounds.src.json';
 import { PanelApp } from './app/controller';
 import type { ExportRequest } from './core/export';
 import type { CallOptions, HostCaller, HostReply } from './core/host';
@@ -107,6 +108,9 @@ export function startDemo(el: HTMLElement, version: string): void {
   const items = [
     ...(src.items as unknown[]).map((i) => toItem(i, false)),
     ...(example.items as unknown[]).filter((i) => (i as Item).id !== 'TTL_LowerThird').map((i) => toItem(i, true)),
+    // the sound library as tools/library/source.mjs merges it
+    ...sounds.sounds.map((e) => toItem({ id: e.id, title_ru: e.title_ru, category: 'sounds', tier: 'T3', hosts: ['ae', 'pr'], version: 1, group: e.group, keywords: e.keywords,
+      duration: { introSec: 0, holdSec: e.sec, outroSec: 0 }, variants: [{ key: 'wav' }] }, false)),
   ];
   // ?media=<url folder>: the first card gets preview.webm and poster.jpg from there (tests/panel/ui-dom.test.mjs).
   const media = q.get('media');

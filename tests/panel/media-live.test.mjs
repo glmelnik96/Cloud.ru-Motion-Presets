@@ -1,11 +1,13 @@
 // A dry run of the live media checks (tests/live/media.mjs) on the vm fakes: the flow the build PC runs with
 // the synthetic pack of tools/panel/media-fixtures.mjs, with the test-bed steps done in JS on the fakes.
 import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
 import { describe, expect, it } from 'vitest';
 import { composeHost } from '../../panel/host/compose.mjs';
 import { Bridge } from '../../panel/src/bridge/bridge.ts';
 import { mediaJobs, mediaSource, MEDIA_IDS, REAL_IDS } from '../../tools/panel/media-fixtures.mjs';
+import { loadSource } from '../../tools/library/source.mjs';
 import { runMediaLive } from '../live/media.mjs';
 import { Report } from '../live/runner.mjs';
 import { toCatalogItem } from './fixtures.ts';
@@ -16,14 +18,16 @@ const LIB = 'C:/ProgramData/CloudRuBrandKit/library';
 const readJson = (u) => JSON.parse(readFileSync(new URL(u, import.meta.url), 'utf8'));
 const ok = (data) => ({ checks: [{ name: 'step', pass: true }], data });
 
-const SRC = mediaSource(readJson('../../library/library.src.json'), readJson('../../docs/library/example.src.json'));
+const SRC = mediaSource(loadSource(fileURLToPath(new URL('../../library/library.src.json', import.meta.url))), readJson('../../docs/library/example.src.json'));
 const catalog = () => ({ schemaVersion: 1, libraryVersion: '2026.10.05', minPluginVersion: '0.1.0', items: SRC.items.map((i) => toCatalogItem(i, true)) });
 
 function natural(file) {
   const name = file.split('/').pop();
   if (/\.png$/.test(name)) return { sec: 0, still: true };
   if (/_loop_/.test(name)) return { sec: 10, still: false };
-  if (/\.wav$/.test(name)) return { sec: 0.8, still: false };
+  // a sound of the library is as long as its item says; the example's whoosh 0.8 s
+  const sound = SRC.items.find((i) => name.startsWith(i.id + '_') && i.category === 'sounds' && i.duration);
+  if (/\.wav$/.test(name)) return { sec: sound ? sound.duration.holdSec : 0.8, still: false };
   // a plain clip as long as its item (the podcast intro 7 s, the outro 10 s)
   const clip = SRC.items.find((i) => name.startsWith(i.id + '_') && i.tier === 'T2' && !i.loop && i.cutFrame === undefined && i.duration);
   if (clip) return { sec: clip.duration.holdSec, still: false };
@@ -126,7 +130,7 @@ describe('live media checks, dry', () => {
       const d = dry(host);
       const R = new Report(host);
       await runMediaLive({
-        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.26', R,
+        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.27', R,
         prepare: async (prep) => {
           for (const c of prep.copies) d.add(c.to);
           for (const s of prep.solids) d.add(s.path);

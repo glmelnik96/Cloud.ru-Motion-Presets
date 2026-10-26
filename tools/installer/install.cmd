@@ -1,6 +1,6 @@
 @echo off
 rem Cloud.ru BrandKit installer for Windows: runs install.ps1 next to it (spec 8.1).
-rem   install.cmd [-WithAme] [-With4K | -No4K] [-Sandbox <dir>]     (install-4k.cmd passes -With4K)
+rem   install.cmd [-WithAme] [-With4K | -No4K] [-WithMusic | -NoMusic] [-Sandbox <dir>]   (install-4k.cmd, install-music.cmd pass -With4K, -WithMusic)
 rem install.ps1 writes the DONE file as its very last step. A run that ends with code 0 and without it was stopped
 rem half-way (an antivirus stopped the script without a word on the build PC, 2026-10-20) and counts as a failure;
 rem install.ps1 -Interrupted says so (its texts are in UTF-8 there, this file is read in the OEM code page).

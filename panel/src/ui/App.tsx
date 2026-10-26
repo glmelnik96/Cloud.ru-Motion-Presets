@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { PanelApp } from '../app/controller';
 import { palette, TARGETS } from '../core/colors';
+import { groupLabel } from '../core/library';
 import { fitLabel, type ExportMode } from '../core/export';
 import { isActive } from '../core/fields';
 import type { Problem } from '../core/problems';
@@ -262,10 +263,26 @@ function Catalog({ app, ui }: { app: PanelApp; ui: UiServices }) {
           <button key={c.key} class={'chip' + (s.category === c.key ? ' on' : '')} onClick={() => app.setCategory(c.key)}>{c.label_ru}</button>
         ))}
       </div>
-      {items.length ? (
-        <div class="grid">
-          {items.map((it) => <Card key={it.id} app={app} ui={ui} item={it} />)}
+      {app.soundGroups().length > 0 && (
+        <div class="chips groups">
+          {app.soundGroups().map((g) => (
+            <button key={g.key} class={'chip' + (s.soundGroup === g.key ? ' on' : '')} onClick={() => app.setSoundGroup(g.key)}>{g.label_ru}</button>
+          ))}
         </div>
+      )}
+      {items.length ? (
+        <>
+          {items.some((it) => !soundFile(it)) && (
+            <div class="grid">
+              {items.filter((it) => !soundFile(it)).map((it) => <Card key={it.id} app={app} ui={ui} item={it} />)}
+            </div>
+          )}
+          {items.some((it) => soundFile(it)) && (
+            <div class="sound-list">
+              {items.filter((it) => soundFile(it)).map((it) => <SoundRow key={it.id} app={app} ui={ui} item={it} />)}
+            </div>
+          )}
+        </>
       ) : (
         <div class="empty">{s.category === 'favorites' ? 'В избранном пока ничего нет' : 'Ничего не найдено'}</div>
       )}
@@ -306,35 +323,77 @@ export function soundFile(item: Item): string | null {
   return item.variants.find((v) => /\.wav$/i.test(v.file ?? ''))?.file ?? null;
 }
 
-// One sound plays at a time across the panel (spec 7 «Звуки: прослушивание и вставка»).
-let playingAudio: HTMLAudioElement | null = null;
+// One sound plays at a time across the panel (spec 7 «Звуки: прослушивание и вставка»): one audio element for all
+// of them, so a list of hundreds of sounds loads nothing until ▶.
+const player = typeof Audio === 'undefined' ? null : new Audio();
+let playingSrc: string | null = null;
+const playerListeners = new Set<() => void>();
+const playerChanged = (src: string | null) => {
+  playingSrc = src;
+  playerListeners.forEach((f) => f());
+};
+if (player) {
+  player.preload = 'none';
+  player.addEventListener('ended', () => playerChanged(null));
+  player.addEventListener('error', () => playerChanged(null));
+}
 
-function SoundPlayer({ src }: { src: string }) {
-  const audio = useRef<HTMLAudioElement>(null);
-  const [playing, setPlaying] = useState(false);
-  const [length, setLength] = useState<number | null>(null);
-  const toggle = (e: Event) => {
-    e.stopPropagation();
-    const a = audio.current;
-    if (!a) return;
-    if (!a.paused) {
-      a.pause();
-      a.currentTime = 0;
-      return;
-    }
-    if (playingAudio && playingAudio !== a) {
-      playingAudio.pause();
-      playingAudio.currentTime = 0;
-    }
-    playingAudio = a;
-    void a.play().catch(() => setPlaying(false));
-  };
+function togglePlay(src: string) {
+  if (!player) return;
+  if (playingSrc === src) {
+    player.pause();
+    player.currentTime = 0;
+    playerChanged(null);
+    return;
+  }
+  player.src = src;
+  playerChanged(src);
+  void player.play().catch(() => playerChanged(null));
+}
+
+function usePlaying(src: string): boolean {
+  const [, tick] = useState(0);
+  useEffect(() => {
+    const f = () => tick((n) => n + 1);
+    playerListeners.add(f);
+    return () => { playerListeners.delete(f); };
+  }, []);
+  return playingSrc === src;
+}
+
+// The length of a sound from the catalog: no file is read to show it.
+const soundLength = (item: Item): number | null => (item.duration ? item.duration.introSec + item.duration.holdSec + item.duration.outroSec : null);
+
+function PlayButton({ src }: { src: string }) {
+  const playing = usePlaying(src);
+  return (
+    <button class={'sound-play' + (playing ? ' on' : '')} title={playing ? 'Остановить' : 'Прослушать'}
+      onClick={(e) => { e.stopPropagation(); togglePlay(src); }}>{playing ? '■' : '▶'}</button>
+  );
+}
+
+function SoundPlayer({ src, item }: { src: string; item: Item }) {
+  const length = soundLength(item);
   return (
     <div class="sound">
-      <audio ref={audio} src={src} preload="metadata" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}
-        onLoadedMetadata={(e) => setLength((e.target as HTMLAudioElement).duration)} />
-      <button class={'sound-play' + (playing ? ' on' : '')} title={playing ? 'Остановить' : 'Прослушать'} onClick={toggle}>{playing ? '■' : '▶'}</button>
-      {length !== null && Number.isFinite(length) && <span class="sound-length">{sec(length)} с</span>}
+      <PlayButton src={src} />
+      {length !== null && <span class="sound-length">{sec(length)} с</span>}
+    </div>
+  );
+}
+
+// A sound in the catalog: ▶, the title, its group and length, ★; a click opens the form.
+function SoundRow({ app, ui, item }: { app: PanelApp; ui: UiServices; item: Item }) {
+  const fav = app.state.favorites.has(item.id);
+  const length = soundLength(item);
+  const meta = [app.state.category === 'sounds' && app.state.soundGroup ? '' : groupLabel(item.group), length === null ? '' : `${sec(length)} с`].filter(Boolean).join(' · ');
+  return (
+    <div class="sound-row" role="button" tabIndex={0} onClick={() => app.open(item.id)} onKeyDown={(e) => e.key === 'Enter' && app.open(item.id)}>
+      <PlayButton src={ui.fileUrl(soundFile(item)!)} />
+      <span class="title">{item.title_ru}</span>
+      <span class="meta">{meta}</span>
+      <button class={'star' + (fav ? ' on' : '')} title={fav ? 'Убрать из избранного' : 'В избранное'}
+        onClick={(e) => { e.stopPropagation(); app.toggleFavorite(item.id); }}>★</button>
     </div>
   );
 }
@@ -346,7 +405,7 @@ function Card({ app, ui, item }: { app: PanelApp; ui: UiServices; item: Item }) 
   return (
     <div class="card" role="button" tabIndex={0} onClick={() => app.open(item.id)} onKeyDown={(e) => e.key === 'Enter' && app.open(item.id)}
       onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-      {soundFile(item) && !item.preview ? <SoundPlayer src={ui.fileUrl(soundFile(item)!)} /> : <Preview item={item} ui={ui} playing={hover} />}
+      {soundFile(item) && !item.preview ? <SoundPlayer src={ui.fileUrl(soundFile(item)!)} item={item} /> : <Preview item={item} ui={ui} playing={hover} />}
       <div class="title">{item.title_ru}</div>
       <div class="meta">{formats}</div>
       <button class={'star' + (fav ? ' on' : '')} title={fav ? 'Убрать из избранного' : 'В избранное'}
@@ -444,19 +503,19 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
       </div>
       {/* keyed by the file: another format or style loads its own preview (user 2026-10-05) */}
       <div class="hero">{soundFile(item) && !item.preview
-        ? <SoundPlayer src={ui.fileUrl(soundFile(item)!)} />
+        ? <SoundPlayer src={ui.fileUrl(soundFile(item)!)} item={item} />
         : (() => { const m = app.previewMedia(item); return <Preview key={m.video?.file ?? m.poster?.file ?? item.id} item={item} ui={ui} media={m} playing />; })()}</div>
 
       {preset && <p class="hint">Выделите в композиции слои: эффект ляжет на каждый из них, ключи — на текущее время.</p>}
 
       {!preset && <div class="row">
-        <div class="field">
+        {app.hasFormats(item) && <div class="field">
           <label for="f-format">Формат</label>
           <select id="f-format" value={s.manualVariant ?? ''} onChange={(e) => app.setVariant((e.target as HTMLSelectElement).value || null)}>
             <option value="">Авто{pick?.variant && !s.manualVariant ? ` (${pick.variant.aspect?.replace('x', ':') ?? pick.variant.key})` : ''}</option>
             {app.formatVariants(item).map((v) => <option key={v.key} value={v.key}>{variantLabel(v)}</option>)}
           </select>
-        </div>
+        </div>}
         {app.lengthEditable(item) && (
           <div class="field">
             <label for="f-length">Длительность, с</label>

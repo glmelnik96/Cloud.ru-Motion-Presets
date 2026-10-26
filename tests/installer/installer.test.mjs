@@ -18,16 +18,19 @@ const tmp = (p) => mkdtempSync(path.join(os.tmpdir(), p));
 // files carry no unix mode (installer check 2026-10-05). install.ps1 is checked on the PC by hand.
 const HAS_BASH = process.platform !== 'win32' && spawnSync('bash', ['-c', 'exit 0']).status === 0;
 
+// A stock music track of the option «music», as tools/library/source.mjs merges the sounds.
+const MUSIC = { id: 'SFX_MusicTest', title_ru: 'Тестовая музыка', category: 'sounds', tier: 'T3', hosts: ['ae', 'pr'], version: 1, group: 'music', variants: [{ key: 'wav', pack: 'music' }] };
+
 // A library root built the way the pipeline does it, from fake masters of the given items and version.
-async function library({ ids, version = 1, libraryVersion = '2026.10.05', extra = {} }) {
+async function library({ ids, version = 1, libraryVersion = '2026.10.05', extra = {}, items = [] }) {
   const root = tmp('bk-inst-lib-');
   const buildDir = path.join(root, 'build');
-  const src = { ...SRC, items: SRC.items.filter((i) => ids.includes(i.id)).map((i) => ({ ...i, version })) };
+  const src = { ...SRC, items: [...SRC.items.filter((i) => ids.includes(i.id)).map((i) => ({ ...i, version })), ...items] };
   for (const item of src.items) {
     for (const f of itemFiles(item)) {
       if (f.optional) continue;
-      // a file of any extension: the export presets .epr or .aom by the variant key, the loops (BG_Plus) .mov
-      const ext = ['epr', 'aom'].includes(f.key) ? f.key : 'mov';
+      // a file of any extension: the export presets .epr or .aom by the variant key, a sound .wav, the loops .mov
+      const ext = ['epr', 'aom', 'wav'].includes(f.key) ? f.key : 'mov';
       const p = path.join(buildDir, f.anyExt ? `${f.from}.${ext}` : f.from);
       mkdirSync(path.dirname(p), { recursive: true });
       if (!f.from.endsWith('.mogrt')) {
@@ -101,29 +104,35 @@ describe('release package', () => {
     expect(readFileSync(p('README.txt'), 'utf8')).toContain(`Cloud.ru BrandKit ${pluginVersion()}, библиотека 2026.10.05`);
   }, 60000);
 
-  it('puts the files of the 4K option in an archive of their own that unpacks over the base folder (D24)', async () => {
-    const lib = await library({ ids: ['TTL_LowerThird', 'BG_Plus'] });
+  it('puts the files of each installer option in an archive of its own that unpacks over the base folder (D24)', async () => {
+    const lib = await library({ ids: ['TTL_LowerThird', 'BG_Plus'], items: [MUSIC] });
     const out = tmp('bk-inst-out-');
     const r = await buildPackage({ zxp, library: lib, out });
     expect(r.problems).toEqual([]);
     const four = 'items/BG_Plus/BG_Plus_16x9_4K_v1.mov';
-    expect(existsSync(path.join(r.dir, 'payload', 'library', four))).toBe(false);
+    const track = 'items/SFX_MusicTest/SFX_MusicTest_wav_v1.wav';
+    for (const f of [four, track]) expect(existsSync(path.join(r.dir, 'payload', 'library', f))).toBe(false);
     expect(existsSync(path.join(r.dir, 'payload', 'library', 'items/BG_Plus/BG_Plus_16x9_v1.mov'))).toBe(true);
-    expect(r.pack4k.files).toBe(1);
-    expect(path.basename(r.zip4k)).toBe(`${r.name}-4k.zip`);
-    const names = new AdmZip(r.zip4k).getEntries().filter((e) => !e.isDirectory).map((e) => e.entryName).sort();
-    expect(names).toEqual([`${r.name}/payload/VERSION-4k`, `${r.name}/payload/library-4k/${four}`]);
-    new AdmZip(r.zip4k).extractAllTo(out, true);
-    expect(readFileSync(path.join(r.dir, 'payload', 'VERSION-4k'), 'utf8')).toBe(`library=2026.10.05\nbytes=${r.pack4k.bytes}\nfiles=1\n`);
+    expect(Object.keys(r.packs)).toEqual(['4k', 'music']);
+    for (const [key, file] of [['4k', four], ['music', track]]) {
+      const p = r.packs[key];
+      expect([path.basename(p.zip), p.files]).toEqual([`${r.name}-${key}.zip`, 1]);
+      const names = new AdmZip(p.zip).getEntries().filter((e) => !e.isDirectory).map((e) => e.entryName).sort();
+      expect(names).toEqual([`${r.name}/payload/VERSION-${key}`, `${r.name}/payload/library-${key}/${file}`]);
+      new AdmZip(p.zip).extractAllTo(out, true);
+      expect(readFileSync(path.join(r.dir, 'payload', `VERSION-${key}`), 'utf8')).toBe(`library=2026.10.05\nbytes=${p.bytes}\nfiles=1\n`);
+    }
     expect(readFileSync(path.join(r.dir, 'payload', 'library-4k', four), 'utf8')).toBe('mov 16x9_4K BG_Plus');
     expect(readFileSync(path.join(r.dir, 'install-4k.cmd'), 'utf8')).toMatch(/call "%~dp0install\.cmd" -With4K %\*\r\n/);
+    expect(readFileSync(path.join(r.dir, 'install-music.cmd'), 'utf8')).toMatch(/call "%~dp0install\.cmd" -WithMusic %\*\r\n/);
     const readme = readFileSync(path.join(r.dir, 'README.txt'), 'utf8');
     expect(readme).toContain(`${r.name}-4k.zip`);
-    expect(readme).not.toMatch(/\[\/?4K\]/);
-    // a library without the option: no archive, no word of it in the README
+    expect(readme).toContain(`${r.name}-music.zip`);
+    expect(readme).not.toMatch(/\[\/?(4K|MUSIC)\]|\{size/);
+    // a library without the options: no archives, no word of them in the README
     const plain = await buildPackage({ zxp, library: await library({ ids: ['LOGO_Mark'] }), out: tmp('bk-inst-out-') });
-    expect([plain.zip4k, existsSync(path.join(plain.dir, 'install-4k.cmd'))]).toEqual([null, false]);
-    expect(readFileSync(path.join(plain.dir, 'README.txt'), 'utf8')).not.toMatch(/4K-петли|\[4K\]/);
+    expect([plain.packs, existsSync(path.join(plain.dir, 'install-4k.cmd')), existsSync(path.join(plain.dir, 'install-music.cmd'))]).toEqual([{}, false, false]);
+    expect(readFileSync(path.join(plain.dir, 'README.txt'), 'utf8')).not.toMatch(/4K-петли|Стоковая музыка|\[(4K|MUSIC)\]/);
   }, 60000);
 
   it('refuses a library that differs from its library.json, an unsigned ZXP and no panel at all', async () => {
@@ -307,39 +316,46 @@ describe.skipIf(!IS_WIN)('install.cmd (Windows)', () => {
     expect(await settled(w)).toEqual([]);
   }, 240000);
 
-  it('the 4K option: install-4k.cmd adds the files, later installs keep them while they are unpacked, -No4K drops them (D24)', async () => {
+  it('the options: install-4k.cmd and install-music.cmd add their files, later installs keep them while they are unpacked, -No4K drops one (D24)', async () => {
     const out = tmp('bk-inst-out-');
-    const r = await buildPackage({ zxp, library: await library({ ids: ['TTL_LowerThird', 'BG_Plus'] }), out });
+    const r = await buildPackage({ zxp, library: await library({ ids: ['TTL_LowerThird', 'BG_Plus'], items: [MUSIC] }), out });
     const sb = tmp('bk-inst-sb-');
     const w = winWhere(sb);
     const four = path.join(w.library, 'items', 'BG_Plus', 'BG_Plus_16x9_4K_v1.mov');
+    const track = path.join(w.library, 'items', 'SFX_MusicTest', 'SFX_MusicTest_wav_v1.wav');
     // asked for before the archive is unpacked: refused, nothing installed
     const early = winInstall(r.dir, sb, {}, { launcher: 'install-4k.cmd' });
     expect(early.status, early.out).toBe(1);
-    expect(early.out).toMatch(/нет 4K-файлов .*-4k\.zip/);
+    expect(early.out).toMatch(/нет файлов опции «4K-петли и клипы» .*-4k\.zip/);
     expect(existsSync(w.library)).toBe(false);
-    // without it: the base install says what the option would add
+    // without them: the base install says what the options would add
     const plain = winInstall(r.dir, sb);
     expect(plain.status, plain.out).toBe(0);
-    expect(existsSync(four)).toBe(false);
-    new AdmZip(r.zip4k).extractAllTo(out, true);
+    expect([existsSync(four), existsSync(track)]).toEqual([false, false]);
+    for (const p of Object.values(r.packs)) new AdmZip(p.zip).extractAllTo(out, true);
     const base = winInstall(r.dir, sb);
-    expect(base.out).toMatch(/4K-петли и клипы не ставились .*install-4k\.cmd/);
+    expect(base.out).toMatch(/Опция «4K-петли и клипы» не ставилась .*install-4k\.cmd/);
+    expect(base.out).toMatch(/Опция «Стоковая музыка» не ставилась .*install-music\.cmd/);
     const with4k = winInstall(r.dir, sb, {}, { launcher: 'install-4k.cmd' });
     expect(with4k.status, with4k.out).toBe(0);
     expect(with4k.out).toMatch(/4K-петли и клипы: 1 файлов/);
     expect(readFileSync(four, 'utf8')).toBe('mov 16x9_4K BG_Plus');
     expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(/\r?\npacks=4k\r?\n$/);
-    // a later plain install keeps the option while the archive is unpacked here
+    // the second option on top: the first stays
+    const withMusic = winInstall(r.dir, sb, {}, { launcher: 'install-music.cmd' });
+    expect(withMusic.status, withMusic.out).toBe(0);
+    expect([existsSync(four), readFileSync(track, 'utf8')]).toEqual([true, 'wav wav SFX_MusicTest']);
+    expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(/\r?\npacks=4k,music\r?\n$/);
+    // a later plain install keeps the options while the archives are unpacked here
     const again = winInstall(r.dir, sb);
     expect(again.status, again.out).toBe(0);
-    expect(existsSync(four)).toBe(true);
+    expect([existsSync(four), existsSync(track)]).toEqual([true, true]);
     const dropped = winInstall(r.dir, sb, {}, { args: ['-No4K'] });
     expect(dropped.status, dropped.out).toBe(0);
-    expect(existsSync(four)).toBe(false);
-    expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(/\r?\npacks=\r?\n$/);
+    expect([existsSync(four), existsSync(track)]).toEqual([false, true]);
+    expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(/\r?\npacks=music\r?\n$/);
     expect(await settled(w)).toEqual([]);
-  }, 240000);
+  }, 300000);
 
   it('a run stopped right after the swap without a word, as an antivirus does, is reported as a failure', async () => {
     const v1 = (await buildPackage({ zxp, library: await library({ ids: ['TTL_LowerThird'] }), out: tmp('bk-inst-out-') })).dir;

@@ -176,8 +176,25 @@ describe('library source', () => {
     let doc = example();
     const portal = item(doc, 'BG_WebinarPortal');
     expect(portal.variants.find((v) => v.key === '16x9_4K').pack).toBe('4k');
-    portal.variants.find((v) => v.key === '16x9').pack = '4k';
+    // a look the option alone brings: the timer's 4K loop without an FHD one
+    portal.fields = [{ key: 'timer', label_ru: 'С таймером', type: 'checkbox', default: false }];
+    portal.variants.find((v) => v.key === '16x9').options = { timer: false };
+    portal.variants.find((v) => v.key === '16x9_4K').options = { timer: true };
     expect(errorsOf(doc)).toMatch(/BG_WebinarPortal: pack: variant "16x9_4K": its look has no variant in every install/);
+    // a whole item the option brings is allowed (the stock music), but nothing may lean on it as a companion
+    doc = example();
+    item(doc, 'BG_WebinarPortal').variants.forEach((v) => { v.pack = '4k'; });
+    item(doc, 'SFX_WebinarBed').variants[0].pack = 'music';
+    const e = errorsOf(doc);
+    expect(e).not.toMatch(/: pack: /);
+    expect(e).toMatch(/WEB_Screen: companion-pack: companion "BG_WebinarPortal": only an installer option brings it/);
+    expect(e).toMatch(/WEB_Screen: companion-pack: companion "SFX_WebinarBed"/);
+    // a group is for sounds
+    doc = example();
+    item(doc, 'SFX_WhooshIn').group = 'whoosh';
+    item(doc, 'BG_Arrows').group = 'texture';
+    expect(errorsOf(doc)).toMatch(/BG_Arrows: group: a group is for sounds/);
+    expect(errorsOf(doc)).not.toMatch(/SFX_WhooshIn: group/);
     doc = example();
     item(doc, 'TTL_LowerThird').variants[1].pack = '4k';
     expect(errorsOf(doc)).toMatch(/TTL_LowerThird: pack: variant "16x9_4K": a template's MOGRT is in every install/);

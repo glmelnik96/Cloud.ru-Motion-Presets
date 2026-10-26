@@ -7,6 +7,9 @@ export type Fit = 'rdt' | 'trim';
 export type Category =
   | 'logo' | 'titles' | 'webinars' | 'courses' | 'smm' | 'podcast'
   | 'transitions' | 'backgrounds' | 'effects' | 'sounds' | 'export';
+// Groups of the «Звуки» category (tools/sounds/process.mjs).
+export type SoundGroup =
+  | 'brand' | 'music' | 'whoosh' | 'impact' | 'riser' | 'ui' | 'glitch' | 'texture' | 'scifi' | 'ambience' | 'nature' | 'city' | 'foley';
 export type FieldType = 'text' | 'dropdown' | 'checkbox' | 'slider' | 'media';
 export type FieldValue = string | number | boolean | null;
 export type Values = Record<string, FieldValue>;
@@ -113,6 +116,9 @@ export interface Item {
   poster?: Stored;
   // Previews per format and look (tools/masters/preview.mjs): the form shows the one that matches.
   previews?: PreviewEntry[];
+  // Sounds: the group in «Звуки» and more words the search finds the item by (its source name in English).
+  group?: SoundGroup;
+  keywords?: string;
   // Set by the panel, not in library.json: the installer options whose variants this install lacks.
   packsMissing?: string[];
 }

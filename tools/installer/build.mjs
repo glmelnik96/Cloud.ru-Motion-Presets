@@ -11,10 +11,11 @@
 //     payload/mogrt.txt          MOGRTs the installers copy flat into Local Templates
 //     payload/ame.txt            brand .epr presets: <path in the library><TAB><preset file name>, for --with-ame
 //     payload/aom.txt            the AE Output Module templates (.aom) in the library: the installers say how to load it
-//   CloudRuBrandKit-<plugin>-<library>-4k.zip   the 4K option (D24), when the catalog has variants of pack «4k»:
-//     <the same folder>/payload/library-4k/   their files under the library's paths, out of payload/library
-//     <the same folder>/payload/VERSION-4k    library=, bytes=, files=
-//   unpacked over the base folder; install-4k.cmd or install.command --with-4k installs them.
+//   CloudRuBrandKit-<plugin>-<library>-<option>.zip   an installer option (D24), when the catalog has variants of
+//   its pack — «4k» the 4K loops and clips, «music» the stock music:
+//     <the same folder>/payload/library-<option>/   their files under the library's paths, out of payload/library
+//     <the same folder>/payload/VERSION-<option>    library=, bytes=, files=
+//   unpacked over the base folder; install-<option>.cmd or install.command --with-<option> installs them.
 // The installers need no Node: they read only these text files.
 import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync, chmodSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
@@ -87,6 +88,12 @@ export function exportFiles(catalog, problems = []) {
   return { ame, aom };
 }
 
+// The installer options (D24): the pack key, its launcher for a double click, its section of README.txt.
+export const OPTIONS = [
+  { key: '4k', launcher: 'install-4k.cmd', section: '4K' },
+  { key: 'music', launcher: 'install-music.cmd', section: 'MUSIC' },
+];
+
 // The files of an installer option (D24): every file of the variants of the pack, with its size.
 export function packFiles(catalog, pack = '4k') {
   const files = [];
@@ -144,9 +151,9 @@ export async function buildPackage({ zxp = null, unsigned = false, dist = path.j
   else copyTree(dist, ext);
   const extCheck = checkDist(ext, { version });
   if (!extCheck.ok) return { ok: false, problems: extCheck.problems.map((p) => 'extension: ' + p) };
-  // the files of the 4K option stay out of the base payload: they go to an archive of their own
-  const pack = packFiles(lib.catalog);
-  const inPack = new Set(pack.map((f) => f.file));
+  // the files of the options stay out of the base payload: each goes to an archive of its own
+  const options = OPTIONS.map((o) => ({ ...o, files: packFiles(lib.catalog, o.key) })).map((o) => ({ ...o, bytes: o.files.reduce((s, f) => s + f.bytes, 0) }));
+  const inPack = new Set(options.flatMap((o) => o.files.map((f) => f.file)));
   const rel = (src) => path.relative(library, src).replace(/\\/g, '/');
   copyTree(library, path.join(payload, 'library'), { filter: (src) => !JUNK.test(src.replace(/\\/g, '/')) && !inPack.has(rel(src)) });
   writeFileSync(path.join(payload, 'VERSION'), `plugin=${version}\nlibrary=${lib.catalog.libraryVersion}\nsigned=${zxp ? 1 : 0}\n`, 'utf8');
@@ -160,13 +167,16 @@ export async function buildPackage({ zxp = null, unsigned = false, dist = path.j
   // Windows PowerShell 5.1 reads a script without a BOM in the ANSI code page: the Russian messages need it.
   writeFileSync(path.join(dir, 'install.ps1'), '﻿' + crlf(read('install.ps1')), 'utf8');
   writeFileSync(path.join(dir, 'install.cmd'), crlf(read('install.cmd')), 'utf8');
-  if (pack.length) writeFileSync(path.join(dir, 'install-4k.cmd'), crlf(read('install-4k.cmd')), 'utf8');
-  const bytes4k = pack.reduce((s, f) => s + f.bytes, 0);
+  for (const o of options) if (o.files.length) writeFileSync(path.join(dir, o.launcher), crlf(read(o.launcher)), 'utf8');
   const gb = (b) => `${(b / 1073741824).toFixed(1).replace('.', ',')} ГБ`;
-  // the 4K section of the README only with the option, its markers gone
-  const readme = read('README.txt').replace(/\r?\n?\[4K\]\r?\n([\s\S]*?)\[\/4K\]\r?\n/, (m, body) => (pack.length ? '\n' + body : '\n'));
+  // the section of an option in the README only when the package has it, its markers gone
+  let readme = read('README.txt');
+  for (const o of options) {
+    const re = new RegExp(`\\r?\\n?\\[${o.section}\\]\\r?\\n([\\s\\S]*?)\\[\\/${o.section}\\]\\r?\\n`);
+    readme = readme.replace(re, (m, body) => (o.files.length ? '\n' + body : '\n')).replace(new RegExp(`\\{size${o.key}\\}`, 'g'), gb(o.bytes));
+  }
   writeFileSync(path.join(dir, 'README.txt'), '﻿' + crlf(readme
-    .replace(/\{plugin\}/g, version).replace(/\{library\}/g, lib.catalog.libraryVersion).replace(/\{name\}/g, name).replace(/\{size4k\}/g, gb(bytes4k))), 'utf8');
+    .replace(/\{plugin\}/g, version).replace(/\{library\}/g, lib.catalog.libraryVersion).replace(/\{name\}/g, name)), 'utf8');
   // The guide of the editors for the pilot (docs/guide/panel.md), with a BOM for Windows editors.
   writeFileSync(path.join(dir, 'guide.md'), '\uFEFF' + crlf(readFileSync(path.join(REPO, 'docs', 'guide', 'panel.md'), 'utf8')), 'utf8');
 
@@ -181,23 +191,25 @@ export async function buildPackage({ zxp = null, unsigned = false, dist = path.j
   rmSync(zipFile, { force: true });
   zip.writeZip(zipFile);
 
-  // The 4K option: its files under the same folder name, so that its archive unpacks over the base one.
-  let zip4k = null;
-  if (pack.length) {
-    const stage = path.join(out, `${name}-4k`);
+  // Each option: its files under the same folder name, so that its archive unpacks over the base one.
+  const packs = {};
+  for (const o of options) {
+    if (!o.files.length) continue;
+    const stage = path.join(out, `${name}-${o.key}`);
     rmSync(stage, { recursive: true, force: true });
-    const p4k = path.join(stage, name, 'payload');
-    for (const f of pack) {
-      const to = path.join(p4k, 'library-4k', f.file);
+    const pp = path.join(stage, name, 'payload');
+    for (const f of o.files) {
+      const to = path.join(pp, `library-${o.key}`, f.file);
       mkdirSync(path.dirname(to), { recursive: true });
       copyFileSync(path.join(library, f.file), to);
     }
-    writeFileSync(path.join(p4k, 'VERSION-4k'), `library=${lib.catalog.libraryVersion}\nbytes=${bytes4k}\nfiles=${pack.length}\n`, 'utf8');
-    zip4k = path.join(out, `${name}-4k.zip`);
-    rmSync(zip4k, { force: true });
-    zipStored(stage, name, zip4k);
+    writeFileSync(path.join(pp, `VERSION-${o.key}`), `library=${lib.catalog.libraryVersion}\nbytes=${o.bytes}\nfiles=${o.files.length}\n`, 'utf8');
+    const zipOpt = path.join(out, `${name}-${o.key}.zip`);
+    rmSync(zipOpt, { force: true });
+    zipStored(stage, name, zipOpt);
+    packs[o.key] = { zip: zipOpt, files: o.files.length, bytes: o.bytes };
   }
-  return { ok: true, problems: [], dir, zip: zipFile, zip4k, pack4k: { files: pack.length, bytes: bytes4k }, name, mogrts: lib.mogrts.length, signed: Boolean(zxp) };
+  return { ok: true, problems: [], dir, zip: zipFile, packs, name, mogrts: lib.mogrts.length, signed: Boolean(zxp) };
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
@@ -216,5 +228,5 @@ if (isMain) {
     process.exit(1);
   }
   console.log(`OK ${r.zip}: ${r.mogrts} MOGRT, ${r.signed ? 'signed' : 'UNSIGNED (PlayerDebugMode needed)'}, ${(statSync(r.zip).size / 1048576).toFixed(1)} MB`);
-  if (r.zip4k) console.log(`OK ${r.zip4k}: the 4K option, ${r.pack4k.files} files, ${(statSync(r.zip4k).size / 1048576).toFixed(1)} MB`);
+  for (const [key, p] of Object.entries(r.packs)) console.log(`OK ${p.zip}: the option «${key}», ${p.files} files, ${(statSync(p.zip).size / 1048576).toFixed(1)} MB`);
 }

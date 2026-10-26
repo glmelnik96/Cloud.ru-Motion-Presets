@@ -138,11 +138,13 @@ function checkItem(item, byId, kind, err) {
       err('aspect', `variant "${v.key}": ${v.w}x${v.h} is not ${v.aspect}`);
     }
     checkSwitches(`variant "${v.key}" options`, v.options);
-    // D24: a pack's files come with an installer option; the look must stay in every install in another size
+    // D24: a pack's files come with an installer option; the look must stay in every install in another size, unless
+    // the whole item is the option's (the stock music: every variant in «music»)
     if (v.pack !== undefined) {
       const look = (o) => JSON.stringify(Object.entries(o.options ?? {}).sort());
+      const whole = variants.every((o) => o.pack === v.pack);
       if (item.tier === 'T1') err('pack', `variant "${v.key}": a template's MOGRT is in every install, packs are for T2/T3 files`);
-      else if (!variants.some((o) => o.pack === undefined && look(o) === look(v))) err('pack', `variant "${v.key}": its look has no variant in every install`);
+      else if (!whole && !variants.some((o) => o.pack === undefined && look(o) === look(v))) err('pack', `variant "${v.key}": its look has no variant in every install`);
     }
     if (item.tier === 'T1' && item.hosts.includes('ae')) {
       if (!v.aeComp) {
@@ -226,7 +228,11 @@ function checkItem(item, byId, kind, err) {
     if (!ref || c.ref === item.id) { err('companion-ref', `companion "${c.ref}" does not exist`); continue; }
     if ((c.kind === 'music' || c.kind === 'sfx') && ref.category !== 'sounds') err('companion-kind', `companion "${c.ref}": ${c.kind} must be a sounds item`);
     if (c.kind === 'video' && (ref.tier === 'T1' || c.placement !== 'under')) err('companion-kind', `companion "${c.ref}": a video companion is T2/T3 and goes under`);
+    if ((ref.variants || []).every((v) => v.pack !== undefined)) err('companion-pack', `companion "${c.ref}": only an installer option brings it, a companion must be in every install`);
   }
+
+  // Sound groups belong to the «Звуки» category.
+  if (item.group !== undefined && item.category !== 'sounds') err('group', `a group is for sounds, the item is in ${item.category}`);
 
   // Previews per format and look.
   for (const p of item.previews || []) {
@@ -280,7 +286,8 @@ if (isMain) {
     console.error('usage: node tools/library/validate.mjs [--source|--catalog] <library.src.json|library.json>');
     process.exit(2);
   }
-  const doc = readJson(file);
+  // a source takes the sounds of sounds.src.json next to it, as the catalog build does
+  const doc = argv.includes('--catalog') || detectKind(readJson(file)) === 'catalog' ? readJson(file) : (await import('./source.mjs')).loadSource(file);
   const forced = argv.includes('--catalog') ? 'catalog' : argv.includes('--source') ? 'source' : undefined;
   const r = validateLibrary(doc, forced);
   if (r.ok) {

@@ -13,6 +13,7 @@ import { fileURLToPath } from 'node:url';
 import { copyTree } from '../lib/copy-tree.mjs';
 import { workPath } from '../lib/work.mjs';
 import { buildCatalog, calver } from '../library/build-catalog.mjs';
+import { loadSource } from '../library/source.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const readJson = (p) => JSON.parse(readFileSync(p, 'utf8').replace(/^﻿/, ''));
@@ -21,10 +22,10 @@ export const MEDIA_IDS = ['TRN_StepWipe', 'BG_Arrows', 'BG_DotGrid', 'SFX_Whoosh
 export const T1_ID = 'TTL_LowerThird';
 // Items of the real library delivered as rendered files (tools/masters/render-files.mjs): the lecture frame (D9), the
 // two transitions, the SMM frame, the rack background, the webinar screen's, the podcast intro and outro, the logo as
-// files, the patterns and icons; and the webinar screen itself, the real template with a real companion (its form
-// picks the portal's loop). Each comes in as built when its build folder is there, and replaces its stand-in. The
+// files, the patterns and icons, a sound of the library; and the webinar screen itself, the real template with a real
+// companion (its form picks the portal's loop). Each comes in as built when its build folder is there, and replaces its stand-in. The
 // arrows background stays the example's: its intro, loop and outro test the parts.
-export const REAL_IDS = ['CRS_LectureFrame', 'TRN_StepWipe', 'TRN_Bars', 'SMM_FrameNotched', 'BG_Rack', 'BG_WebinarPortal', 'POD_Intro', 'POD_Outro', 'WEB_Screen', 'LOGO_Files', 'BG_Patterns'];
+export const REAL_IDS = ['CRS_LectureFrame', 'TRN_StepWipe', 'TRN_Bars', 'SMM_FrameNotched', 'BG_Rack', 'BG_WebinarPortal', 'POD_Intro', 'POD_Outro', 'WEB_Screen', 'LOGO_Files', 'BG_Patterns', 'SFX_CyberImpact3'];
 // Stand-ins for the brand .ffx (spec 5 «Пресеты .ffx»), from the presets AE installs, as in S4.
 export const FX_STANDINS = {
   FX_TextRise: ['Text', 'Animate In', 'Fade Up Characters.ffx'],
@@ -118,7 +119,7 @@ export function makeMedia(buildDir, items, { ffmpeg = 'ffmpeg', force = false } 
 export async function buildMediaFixtures({ realBuild = workPath('build'), out = workPath('panel-live', 'media'), ffmpeg = 'ffmpeg', force = false, presets = aePresetsDir() } = {}) {
   const fx = Object.values(FX_STANDINS).every((parts) => existsSync(path.join(presets, ...parts)));
   const rendered = REAL_IDS.filter((id) => existsSync(path.join(realBuild, id)));
-  const src = mediaSource(readJson(path.join(REPO, 'library', 'library.src.json')), readJson(path.join(REPO, 'docs', 'library', 'example.src.json')), { fx, rendered });
+  const src = mediaSource(loadSource(path.join(REPO, 'library', 'library.src.json')), readJson(path.join(REPO, 'docs', 'library', 'example.src.json')), { fx, rendered });
   const buildDir = path.join(out, 'build');
   if (fx) {
     for (const [id, parts] of Object.entries(FX_STANDINS)) {

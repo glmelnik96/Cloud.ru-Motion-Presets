@@ -23,6 +23,15 @@ macOS
   Без 4K в 4K-проекте панель берёт FHD-версию и вписывает её в кадр.
 
 [/4K]
+[MUSIC]
+Стоковая музыка (по желанию, {sizemusic} на диске)
+  Музыкальные треки для роликов — в отдельном архиве {name}-music.zip. Распакуйте его туда же, где этот.
+  Windows: двойной щелчок по install-music.cmd.   macOS: bash install.command --with-music
+  Обе опции сразу: install.cmd -With4K -WithMusic / bash install.command --with-4k --with-music
+  Следующие установки сохраняют музыку, пока архив распакован рядом; убрать: install.cmd -NoMusic / --no-music.
+  Музыка пакетов Cloud.ru (вебинары, курсы, подкаст) ставится всегда, без опции.
+
+[/MUSIC]
 Что ставится
   панель           в папку расширений CEP пользователя (ru.cloud.brandkit)
   библиотека       Windows: C:\ProgramData\CloudRuBrandKit\library   macOS: /Users/Shared/CloudRuBrandKit/library

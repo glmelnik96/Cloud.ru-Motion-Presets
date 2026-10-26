@@ -11,14 +11,14 @@ import { planFit, runFit, windowsFor, type FitWindow } from '../core/fit';
 import { previewFor, type PreviewMedia } from '../core/previews';
 import type { HostCaller } from '../core/host';
 import { planItem, runInsert, runMedia, type InsertOptions, type InsertPlan } from '../core/insert';
-import { filterItems, installedOnly, itemsForHost, parseCatalog, usedCategories, CATEGORIES } from '../core/library';
+import { filterItems, installedOnly, itemsForHost, parseCatalog, usedCategories, usedSoundGroups, CATEGORIES } from '../core/library';
 import type { Logger } from '../core/log';
 import { backdropDefault, CUT_WINDOW_SEC, defaultMediaLengthSec, mediaKind, pickMediaVariant, placeable, type Prepare } from '../core/media';
 import { FieldMemory, type KeyValueStore } from '../core/memory';
 import { dirname, libraryFile, type Platform } from '../core/paths';
 import { error, messages, sec, type Problem } from '../core/problems';
 import { defaultLengthSec } from '../core/timing';
-import type { Catalog, Category, FieldValue, FontStatus, Host, HostContext, Item, Values, Variant } from '../core/types';
+import type { Catalog, Category, FieldValue, FontStatus, Host, HostContext, Item, SoundGroup, Values, Variant } from '../core/types';
 import { pickVariant, variantLabel, variantsForValues, type VariantPick } from '../core/variant';
 import { shortVersion } from '../core/version';
 import { aerenderProblem, type AerenderJob, type AerenderResult } from '../services/export';
@@ -82,6 +82,8 @@ export interface AppState {
   libraryProblems: Problem[];
   query: string;
   category: Category | 'favorites' | null;
+  // a group of «Звуки», while that category is open
+  soundGroup: SoundGroup | null;
   favorites: Set<string>;
   selectedId: string | null;
   values: Values;
@@ -123,6 +125,7 @@ export class PanelApp {
       libraryProblems: [],
       query: '',
       category: null,
+      soundGroup: null,
       favorites: this.memory.favorites(),
       selectedId: null,
       values: {},
@@ -453,7 +456,16 @@ export class PanelApp {
   // ---- Catalog ----
 
   visibleItems(): Item[] {
-    return filterItems(this.state.items, { query: this.state.query, category: this.state.category, favorites: this.state.favorites });
+    return filterItems(this.state.items, { query: this.state.query, category: this.state.category, favorites: this.state.favorites, group: this.state.soundGroup });
+  }
+
+  // The groups of «Звуки» while it is open.
+  soundGroups(): Array<{ key: SoundGroup; label_ru: string }> {
+    return this.state.category === 'sounds' ? usedSoundGroups(this.state.items) : [];
+  }
+
+  setSoundGroup(group: SoundGroup | null): void {
+    this.set({ soundGroup: this.state.soundGroup === group ? null : group });
   }
 
   categories(): Array<{ key: Category | 'favorites'; label_ru: string }> {
@@ -466,7 +478,7 @@ export class PanelApp {
   }
 
   setCategory(category: Category | 'favorites' | null): void {
-    this.set({ category: this.state.category === category ? null : category });
+    this.set({ category: this.state.category === category ? null : category, soundGroup: null });
   }
 
   toggleFavorite(id: string): void {
@@ -598,8 +610,14 @@ export class PanelApp {
     const fps = `${Math.round(t.fps * 100) / 100}p`;
     const p = item ? this.pick(item) : null;
     const v = p?.variant;
-    if (v) return `${this.state.manualVariant ? 'Вручную' : 'Авто'} ${variantLabel(v)}`;
+    // a sound has no frame: the chip shows the sequence's
+    if (v && this.hasFormats(item!)) return `${this.state.manualVariant ? 'Вручную' : 'Авто'} ${variantLabel(v)}`;
     return `Авто ${t.w}×${t.h} · ${fps}`;
+  }
+
+  // Whether the item's files have formats to choose from (a sound has one file for any frame).
+  hasFormats(item: Item): boolean {
+    return item.tier === 'T1' || this.formatVariants(item).some((v) => v.aspect !== undefined);
   }
 
   fields(item: Item) {

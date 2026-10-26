@@ -22,6 +22,8 @@ export const MEDIA_CASES = [
   { key: 'bars', id: 'TRN_Bars', time: 12, edges: [0, 10, 20], values: { colour: 3, logo: true }, expect: { cutAt: { pr: 10, ae: 12 }, variant: '16x9_white_logo', kind: 'transition' } },
   { key: 'still', id: 'BG_DotGrid', time: 2, options: { lengthSec: 8, backdrop: false }, expect: { lengthSec: 8 } },
   { key: 'sound', id: 'SFX_WhooshIn', time: 5, expect: { lengthSec: 0.8 } },
+  // a sound of the library as built (tools/sounds/build-sounds.mjs): at the playhead, as long as its file
+  { key: 'sfx_real', id: 'SFX_CyberImpact3', time: 5, expect: { lengthSec: 2.353 } },
   { key: 'companions', id: 'TTL_LowerThird', time: 2, sound: { music: false, sfx: true }, expect: { companions: ['intro', 'loop', 'outro', 'sound'], soundStart: 7.2 } },
   // the lecture frame (D9): the form picks the file — a still up to the end of the range, the drift loop repeated
   { key: 'frame', id: 'CRS_LectureFrame', time: 2, range: 30, values: { layout: 3 }, expect: { lengthSec: 28, variant: '16x9_spkL', kind: 'still' } },

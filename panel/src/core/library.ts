@@ -3,7 +3,7 @@
 import { insertable } from './media';
 import { error, messages, warning, type Problem } from './problems';
 import { libraryFile } from './paths';
-import type { Catalog, Category, Host, Item, Variant } from './types';
+import type { Catalog, Category, Host, Item, SoundGroup, Variant } from './types';
 import { atLeast } from './version';
 
 export const CATEGORIES: Array<{ key: Category; label_ru: string }> = [
@@ -19,6 +19,25 @@ export const CATEGORIES: Array<{ key: Category; label_ru: string }> = [
   { key: 'sounds', label_ru: 'Звуки' },
   { key: 'export', label_ru: 'Экспорт' },
 ];
+
+// Groups of «Звуки» in the panel order (tools/sounds/process.mjs has the same list).
+export const SOUND_GROUPS: Array<{ key: SoundGroup; label_ru: string }> = [
+  { key: 'brand', label_ru: 'Фирменные' },
+  { key: 'music', label_ru: 'Музыка' },
+  { key: 'whoosh', label_ru: 'Переходы' },
+  { key: 'impact', label_ru: 'Удары' },
+  { key: 'riser', label_ru: 'Подъёмы и спады' },
+  { key: 'ui', label_ru: 'Интерфейс' },
+  { key: 'glitch', label_ru: 'Глитчи' },
+  { key: 'texture', label_ru: 'Бумага и скотч' },
+  { key: 'scifi', label_ru: 'Техно и sci-fi' },
+  { key: 'ambience', label_ru: 'Атмосферы' },
+  { key: 'nature', label_ru: 'Природа' },
+  { key: 'city', label_ru: 'Город и люди' },
+  { key: 'foley', label_ru: 'Бытовые' },
+];
+
+export const groupLabel = (g: SoundGroup | undefined): string => SOUND_GROUPS.find((x) => x.key === g)?.label_ru ?? '';
 
 const isObj = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
 
@@ -58,7 +77,8 @@ export function installedOnly(catalog: Catalog, root: string, exists: (path: str
     if (!lost.length) return it;
     return { ...it, variants: it.variants.filter((v) => !lost.includes(v)), packsMissing: [...new Set(lost.map((v) => v.pack as string))] };
   });
-  return { ...catalog, items };
+  // an item the option brings whole (the stock music) is not there at all
+  return { ...catalog, items: items.filter((it) => it.variants.length) };
 }
 
 export function parseCatalog(input: string | unknown, pluginVersion: string): LoadedLibrary {
@@ -108,16 +128,28 @@ export interface Filter {
   query?: string;
   category?: Category | 'favorites' | null;
   favorites?: ReadonlySet<string>;
+  // a group of «Звуки»
+  group?: SoundGroup | null;
 }
 
+// The whole catalog without a category or a query leaves the sounds out: hundreds of them would bury the templates;
+// they are in «Звуки», in «Избранное» and in what a search finds. A sound is found by its group and its source name too.
 export function filterItems(items: Item[], f: Filter): Item[] {
   const words = normalizeQuery(f.query ?? '').split(' ').filter(Boolean);
   return items.filter((it) => {
     if (f.category === 'favorites' && !f.favorites?.has(it.id)) return false;
     if (f.category && f.category !== 'favorites' && it.category !== f.category) return false;
-    const hay = normalizeQuery(`${it.title_ru} ${it.id}`);
+    if (!f.category && !words.length && it.category === 'sounds') return false;
+    if (f.group && f.category === 'sounds' && it.group !== f.group) return false;
+    const hay = normalizeQuery(`${it.title_ru} ${it.id} ${it.keywords ?? ''} ${groupLabel(it.group)}`);
     return words.every((w) => hay.includes(w));
   });
+}
+
+// Groups that have at least one sound, in the panel order.
+export function usedSoundGroups(items: Item[]): typeof SOUND_GROUPS {
+  const used = new Set(items.filter((it) => it.category === 'sounds').map((it) => it.group));
+  return SOUND_GROUPS.filter((g) => used.has(g.key));
 }
 
 // Categories that have at least one item, in the panel order.
