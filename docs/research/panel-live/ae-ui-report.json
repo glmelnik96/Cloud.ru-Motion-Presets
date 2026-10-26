@@ -1,6 +1,6 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-20T16:17:25.984Z",
+  "startedAt": "2026-10-26T08:40:40.993Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -30,15 +30,15 @@
     {
       "name": "status line shows the host, the panel and the library",
       "pass": true,
-      "detail": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.22 · библиотека 2026.10.20Скопировать диагностику"
+      "detail": "Шрифты SB Sans на месте · AE 26.5 · панель 0.1.30 · библиотека 2026.10.26.3Скопировать диагностику"
     },
     {
       "name": "card previews: H.264 is playable in the panel",
       "pass": true,
       "detail": {
-        "videos": 3,
-        "posters": 3,
-        "postersLoaded": 3,
+        "videos": 29,
+        "posters": 29,
+        "postersLoaded": 29,
         "h264": "probably"
       }
     },
@@ -46,9 +46,9 @@
       "name": "card previews: the preview under the cursor plays",
       "pass": true,
       "detail": {
-        "videos": 3,
-        "posters": 3,
-        "postersLoaded": 3,
+        "videos": 29,
+        "posters": 29,
+        "postersLoaded": 29,
         "h264": "probably"
       }
     },
@@ -91,16 +91,46 @@
       }
     },
     {
-      "name": "AE: one layer in UI_check",
+      "name": "AE: the template in UI_check, with the in and out sounds of its podcast style",
       "pass": true,
-      "detail": {
-        "op": "count",
-        "count": {
-          "layers": 1,
-          "templates": 1
+      "detail": [
+        {
+          "index": 1,
+          "name": "CR_TTL_LowerThird_16x9_v1",
+          "startSec": 4,
+          "endSec": 10,
+          "file": null,
+          "loop": null,
+          "solid": null,
+          "audioOnly": false,
+          "levels": null,
+          "selected": true
         },
-        "hostVersion": "26.5x89"
-      }
+        {
+          "index": 2,
+          "name": "SFX_PodcastLowerThirdIn_wav_v1.wav",
+          "startSec": 4,
+          "endSec": 5.95,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastLowerThirdIn@1/SFX_PodcastLowerThirdIn_wav_v1.wav",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": true,
+          "levels": [],
+          "selected": false
+        },
+        {
+          "index": 3,
+          "name": "SFX_PodcastLowerThirdOut_wav_v1.wav",
+          "startSec": 7.7,
+          "endSec": 10,
+          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastLowerThirdOut@1/SFX_PodcastLowerThirdOut_wav_v1.wav",
+          "loop": 1,
+          "solid": null,
+          "audioOnly": true,
+          "levels": [],
+          "selected": false
+        }
+      ]
     },
     {
       "name": "tabs: Каталог, Цвета, Движение, Экспорт",
@@ -178,16 +208,16 @@
       "name": "export: reported as done in the panel",
       "pass": true,
       "detail": {
-        "done": "done: Готово: UI_check_FullHD_3.mp4.Показать в папке",
+        "done": "done: Готово: UI_check_FullHD_2.mp4.Показать в папке",
         "problems": []
       }
     },
     {
-      "name": "export: the file is in Export next to the project (C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD_3.mp4)",
+      "name": "export: the file is in Export next to the project (C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD_2.mp4)",
       "pass": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD_3.mp4"
+      "detail": "C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD_2.mp4"
     }
   ],
-  "finishedAt": "2026-10-20T16:18:23.974Z",
+  "finishedAt": "2026-10-26T08:41:33.921Z",
   "failed": []
 }

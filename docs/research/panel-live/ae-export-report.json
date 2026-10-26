@@ -1,7 +1,7 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-20T09:34:06.043Z",
-  "finishedAt": "2026-10-20T09:34:34.011Z",
+  "startedAt": "2026-10-26T08:08:23.686Z",
+  "finishedAt": "2026-10-26T08:08:53.448Z",
   "summary": {
     "checks": 150,
     "passed": 150,
@@ -22,7 +22,7 @@
       "detail": []
     },
     {
-      "name": "bridge: the host bundle 0.1.20 answers",
+      "name": "bridge: the host bundle 0.1.30 answers",
       "pass": true,
       "required": true,
       "detail": {
@@ -30,7 +30,7 @@
         "data": {
           "app": "ae",
           "version": "26.5x89",
-          "bk": "0.1.20"
+          "bk": "0.1.30"
         }
       }
     },
@@ -120,8 +120,8 @@
         "problems": [],
         "reply": {
           "file": "C:/CRBK/work/panel-live/ae/Export/BK export FHD_FullHD.mp4",
-          "bytes": 3113131,
-          "ms": 2253
+          "bytes": 3295336,
+          "ms": 2008
         }
       }
     },
@@ -333,8 +333,8 @@
         "problems": [],
         "reply": {
           "file": "C:/CRBK/work/panel-live/ae/Export/BK export FHD_WebinarTimer.mp4",
-          "bytes": 992945,
-          "ms": 1090
+          "bytes": 993036,
+          "ms": 1102
         }
       }
     },
@@ -552,8 +552,8 @@
         "problems": [],
         "reply": {
           "file": "C:/CRBK/work/panel-live/ae/Export/BK export FHD_FullHD_2.mp4",
-          "bytes": 3110387,
-          "ms": 1098
+          "bytes": 3295336,
+          "ms": 1106
         }
       }
     },
@@ -765,8 +765,8 @@
         "problems": [],
         "reply": {
           "file": "C:/CRBK/work/panel-live/ae/Export/BK export 4K_4K.mp4",
-          "bytes": 8451664,
-          "ms": 3932
+          "bytes": 7766885,
+          "ms": 2172
         }
       }
     },
@@ -987,8 +987,8 @@
         "problems": [],
         "reply": {
           "file": "C:/CRBK/work/panel-live/ae/Export/BK export 4K_FullHD.mp4",
-          "bytes": 2628702,
-          "ms": 2809
+          "bytes": 2289702,
+          "ms": 1913
         }
       }
     },
@@ -1212,8 +1212,8 @@
         "problems": [],
         "reply": {
           "file": "C:/CRBK/work/panel-live/ae/Export/BK export FHD30_FullHD.mp4",
-          "bytes": 3111525,
-          "ms": 1103
+          "bytes": 3295336,
+          "ms": 1116
         }
       }
     },
@@ -1425,8 +1425,8 @@
         "problems": [],
         "reply": {
           "file": "C:/CRBK/work/panel-live/ae/Export/BK export 1x1_SMM_1x1.mp4",
-          "bytes": 1737200,
-          "ms": 1089
+          "bytes": 1639011,
+          "ms": 1096
         }
       }
     },
@@ -1638,8 +1638,8 @@
         "problems": [],
         "reply": {
           "file": "C:/CRBK/work/panel-live/ae/Export/BK export 9x16_SMM_9x16.mp4",
-          "bytes": 1639476,
-          "ms": 1216
+          "bytes": 1655656,
+          "ms": 1141
         }
       }
     },
@@ -2053,11 +2053,11 @@
           "PROGRESS:  0:00:02:18 (44): 0 Seconds",
           "PROGRESS:  0:00:02:19 (45): 0 Seconds",
           "PROGRESS:  0:00:02:20 (46): 0 Seconds",
-          "PROGRESS:  0:00:02:21 (47): 0 Seconds",
+          "PROGRESS:  0:00:02:21 (47): 1 Seconds",
           "PROGRESS:  0:00:02:22 (48): 0 Seconds",
           "PROGRESS:  0:00:02:23 (49): 0 Seconds",
           "PROGRESS:  0:00:02:24 (50): 0 Seconds",
-          "PROGRESS:  10/20/2026 12:34:31 PM: Finished composition \"BK export FHD\".",
+          "PROGRESS:  10/26/2026 11:08:49 AM: Finished composition \"BK export FHD\".",
           "PROGRESS:  Total Time Elapsed: 3 Seconds"
         ]
       }

@@ -26,7 +26,7 @@ Windows прогоняется на ПК сборки тем же днём (`doc
 - **Файлы от пользователя** (папка `mac-2026-10-26` с ПК сборки):
   1. `CloudRuBrandKit-0.1.30-2026.10.26.3.zip` — подписанный релиз. **На Mac он должен прийти через браузер или мессенджер, чтобы у него был карантин.** Флешка и сеть карантина не дают.
   2. `build-mac-2026-10-26.zip` — 65 папок сборки мастеров (2,9 ГБ), из них живые прогоны собирают свою библиотеку. Этот архив можно перенести как угодно.
-  3. `windows-projects-2026-10-26.zip` — проекты со вставками, сделанные на Windows: `ae-moved/` и `pr-moved-<время>/`.
+  3. `windows-projects-2026-10-26.zip` (0,4 ГБ) — проекты со вставками, сделанные на Windows контрольной точкой 2026-10-26: `ae-moved-20261026T080812/` и `pr-moved-20261026T082943/`, у каждого рядом его папки. Перенести как угодно.
 
 ## Шаги
 
@@ -90,13 +90,13 @@ npm run panel:checkpoint
 
 **Проекты с Windows → Mac.** Распакуйте `windows-projects-2026-10-26.zip` в любую папку, например `~/CRBK-from-win/`, и откройте:
 ```bash
-node tools/panel/live.mjs --host ae --open ~/CRBK-from-win/ae-moved/media_live.aep
-node tools/panel/live.mjs --host pr --open ~/CRBK-from-win/pr-moved-<время>/media_live.prproj
+node tools/panel/live.mjs --host ae --open ~/CRBK-from-win/ae-moved-20261026T080812/media_live.aep
+node tools/panel/live.mjs --host pr --open ~/CRBK-from-win/pr-moved-20261026T082943/media_live.prproj
 ```
 Отчёты: `docs/research/panel-live/<host>-open-mac-report.json`. Ожидаем ноль пропавших файлов.
 
 **Проекты с Mac → Windows.** После медиапрогона шага 3 на Mac есть свежие копии:
-- `/Users/Shared/CRBK/work/panel-live/ae-moved`;
+- последняя `/Users/Shared/CRBK/work/panel-live/ae-moved-<время>`;
 - последняя `/Users/Shared/CRBK/work/panel-live/pr-moved-<время>`.
 
 Упакуйте обе папки в `mac-projects-<дата>.zip` и отдайте пользователю: на Windows их откроют тем же `--open`.

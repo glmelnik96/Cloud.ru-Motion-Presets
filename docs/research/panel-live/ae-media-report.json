@@ -1,7 +1,7 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-26T07:07:38.376Z",
-  "finishedAt": "2026-10-26T07:08:04.008Z",
+  "startedAt": "2026-10-26T08:07:52.158Z",
+  "finishedAt": "2026-10-26T08:08:22.853Z",
   "summary": {
     "checks": 472,
     "passed": 472,
@@ -5430,7 +5430,7 @@
       "detail": "C:\\CRBK\\work\\panel-live\\ae\\media_live.aep"
     },
     {
-      "name": "transfer: copied the project and Cloud.ru BrandKit to C:/CRBK/work/panel-live/ae-moved-20261026T070755",
+      "name": "transfer: copied the project and Cloud.ru BrandKit to C:/CRBK/work/panel-live/ae-moved-20261026T080812",
       "pass": true,
       "required": true,
       "detail": [
@@ -5453,11 +5453,11 @@
       }
     },
     {
-      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/ae-moved-20261026T070755/media_live.aep",
+      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/ae-moved-20261026T080812/media_live.aep",
       "pass": true,
       "required": true,
       "detail": {
-        "path": "C:/CRBK/work/panel-live/ae-moved-20261026T070755/media_live.aep",
+        "path": "C:/CRBK/work/panel-live/ae-moved-20261026T080812/media_live.aep",
         "footage": 21
       }
     },

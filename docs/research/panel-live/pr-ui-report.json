@@ -1,6 +1,6 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-20T14:52:46.476Z",
+  "startedAt": "2026-10-26T08:38:34.093Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -21,7 +21,7 @@
           "pass": true,
           "required": true,
           "detail": {
-            "ui": "65dbf8d1-00ca-4a40-ac46-56469046690f"
+            "ui": "2d6dfdb0-1a67-4cf1-894b-76a30b9885bf"
           }
         }
       ]
@@ -39,15 +39,15 @@
     {
       "name": "status line shows the host, the panel and the library",
       "pass": true,
-      "detail": "Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.21 · библиотека 2026.10.20Скопировать диагностику"
+      "detail": "Шрифты SB Sans на месте · Pr 26.5.2 · панель 0.1.30 · библиотека 2026.10.26.3Скопировать диагностику"
     },
     {
       "name": "card previews: H.264 is playable in the panel",
       "pass": true,
       "detail": {
-        "videos": 3,
-        "posters": 3,
-        "postersLoaded": 3,
+        "videos": 28,
+        "posters": 28,
+        "postersLoaded": 28,
         "h264": "probably"
       }
     },
@@ -55,9 +55,9 @@
       "name": "card previews: the preview under the cursor plays",
       "pass": true,
       "detail": {
-        "videos": 3,
-        "posters": 3,
-        "postersLoaded": 3,
+        "videos": 28,
+        "posters": 28,
+        "postersLoaded": 28,
         "h264": "probably"
       }
     },
@@ -163,16 +163,16 @@
       "name": "export: reported as done in the panel",
       "pass": true,
       "detail": {
-        "done": "done: Готово: UI_check_13_FullHD.mp4.Показать в папке",
+        "done": "done: Готово: UI_check_2_FullHD.mp4.Показать в папке",
         "problems": []
       }
     },
     {
-      "name": "export: the file is in Export next to the project (C:/CRBK/work/panel-live/pr/Export/UI_check_13_FullHD.mp4)",
+      "name": "export: the file is in Export next to the project (C:/CRBK/work/panel-live/pr/Export/UI_check_2_FullHD.mp4)",
       "pass": true,
-      "detail": "C:/CRBK/work/panel-live/pr/Export/UI_check_13_FullHD.mp4"
+      "detail": "C:/CRBK/work/panel-live/pr/Export/UI_check_2_FullHD.mp4"
     }
   ],
-  "finishedAt": "2026-10-20T14:52:59.517Z",
+  "finishedAt": "2026-10-26T08:39:42.853Z",
   "failed": []
 }
