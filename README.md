@@ -10,7 +10,7 @@
   - `npm run panel:build` — расширение CEP в `panel/dist`; `npm run panel:dev` — интерфейс в браузере на демо-хосте
   - `npm run typecheck` — типы ядра и интерфейса
   - на ПК сборки: `node tools/panel/live.mjs --host ae|pr [--media]` (живые проверки; `--media` — T2/T3 и компаньоны на синтетическом наборе), `node tools/panel/install-dev.mjs`, `node tools/panel/ui-check.mjs --host ae|pr`, `node tools/panel/package-zxp.mjs`
-- Установочный пакет: `npm run installer:build -- --zxp <подписанный.zxp> --library <корень>` (`install.cmd` / `install.command` внутри)
+- Установочный пакет: `npm run installer:build -- --zxp <подписанный.zxp> --library <корень>` — один архив: «Установить (Windows)» и «Установить (Mac)», «Как установить.pdf», «Руководство монтажёра.pdf», тихая установка в `files/` (`install.cmd` / `install.command`)
 - Каталог библиотеки: `npm run library:build` (`library.src.json` + выходы конвейера → `library.json`)
 
 ## История репозитория

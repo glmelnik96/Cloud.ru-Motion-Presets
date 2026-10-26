@@ -1,13 +1,13 @@
 #!/bin/bash
 # Cloud.ru BrandKit installer for macOS (spec 8.1). No admin rights, no Creative Cloud app, no Adobe ID.
-# Run from Terminal: bash install.command  (a file downloaded by a browser or a messenger is quarantined,
-# and a double click does not open it on macOS 15+).
-#   bash install.command [--with-ame] [--with-4k | --no-4k] [--with-music | --no-music] [--sandbox <dir>]
+# The launcher of the package («Установить (Mac).command», tools/installer/setup.command) runs it after its dialogs;
+# IT runs it from Terminal (a file downloaded by a browser or a messenger is quarantined, a double click does not
+# open it on macOS 15+):
+#   bash files/install.command [--with-ame] [--with-4k | --no-4k] [--with-music | --no-music] [--sandbox <dir>]
 # --with-ame   also copies the brand .epr presets into the user presets of Adobe Media Encoder
-# --with-4k    also installs the 4K loops and clips (D24): payload/library-4k, from the archive <folder>-4k.zip
-#              unpacked over this folder. A later install keeps them while they are unpacked here
+# --with-4k    also installs the 4K loops and clips (D24): payload/library-4k of the package. A later install keeps them
 # --no-4k      leaves the 4K files out although an earlier install had them
-# --with-music, --no-music   the same for the stock music (payload/library-music, <folder>-music.zip)
+# --with-music, --no-music   the same for the stock music (payload/library-music)
 # --sandbox    installs into <dir>/... instead of the real folders (a dry run for checks); skips the
 #              check for running apps
 # Exit codes: 0 installed, 2 refused (After Effects or Premiere is running, or Media Encoder with --with-ame), 1 error.
@@ -38,7 +38,7 @@ say() { printf '%s\n' "$*"; }
 fail() { say "ОШИБКА: $*"; exit 1; }
 # has "<words>" <word>: the list of option keys holds the key
 has() { case " $1 " in *" $2 "*) return 0 ;; esac; return 1; }
-pack_name() { case "$1" in 4k) printf '4K-петли и клипы' ;; music) printf 'Стоковая музыка' ;; esac; }
+pack_name() { case "$1" in 4k) printf '4K-фоны и клипы' ;; music) printf 'Стоковая музыка' ;; esac; }
 
 [ -f "$PAYLOAD/VERSION" ] || fail "нет payload/VERSION рядом с установщиком: распакуйте архив целиком"
 PLUGIN_VERSION="$(sed -n 's/^plugin=//p' "$PAYLOAD/VERSION")"
@@ -85,14 +85,13 @@ fi
 HAD_PACKS="$(sed -n 's/^packs=//p' "$STATE_DIR/installed.txt" 2>/dev/null | tr ',' ' ')"
 USE_PACKS=""
 for k in 4k music; do
-  zip="$(basename "$HERE")-$k.zip"
   if has "$WITH_PACKS" "$k" || { has "$HAD_PACKS" "$k" && ! has "$NO_PACKS" "$k"; }; then
     if [ -d "$PAYLOAD/library-$k" ] && [ -f "$PAYLOAD/VERSION-$k" ]; then
       lib="$(sed -n 's/^library=//p' "$PAYLOAD/VERSION-$k")"
-      [ "$lib" = "$LIBRARY_VERSION" ] || fail "файлы опции «$(pack_name "$k")» рядом — от библиотеки $lib, а ставится $LIBRARY_VERSION: распакуйте сюда архив $zip той же версии"
+      [ "$lib" = "$LIBRARY_VERSION" ] || fail "файлы опции «$(pack_name "$k")» в этой папке — от библиотеки $lib, а ставится $LIBRARY_VERSION: распакуйте архив заново целиком в пустую папку"
       USE_PACKS="$USE_PACKS $k"
     elif has "$WITH_PACKS" "$k"; then
-      fail "нет файлов опции «$(pack_name "$k")» (payload/library-$k): распакуйте сюда архив $zip — его папка совпадёт с этой — и запустите установщик снова"
+      fail "нет файлов опции «$(pack_name "$k")» (payload/library-$k): распакуйте архив целиком и запустите установщик снова"
     fi
   fi
 done
@@ -154,9 +153,9 @@ for k in 4k music; do
   if has "$USE_PACKS" "$k"; then
     say "$(pack_name "$k"): $(find "$PAYLOAD/library-$k" -type f | wc -l | tr -d ' ') файлов, $size"
   elif has "$HAD_PACKS" "$k" && ! has "$NO_PACKS" "$k"; then
-    say "Внимание: опция «$(pack_name "$k")» стояла раньше, но её файлов в этой папке нет — она не поставлена. Чтобы вернуть: распакуйте сюда архив $(basename "$HERE")-$k.zip и запустите bash install.command --with-$k"
+    say "Внимание: опция «$(pack_name "$k")» стояла раньше, но её файлов в этой папке нет — она не поставлена. Чтобы вернуть, поставьте её из полного архива BrandKit."
   elif [ -d "$PAYLOAD/library-$k" ]; then
-    say "Опция «$(pack_name "$k")» не ставилась ($size): её поставит bash install.command --with-$k"
+    say "Опция «$(pack_name "$k")» не ставилась ($size)"
   fi
 done
 

@@ -1,11 +1,11 @@
 # Cloud.ru BrandKit installer for Windows (spec 8.1). No admin rights, no Creative Cloud app, no Adobe ID.
-# Windows PowerShell 5.1 and PowerShell 7. install.cmd runs it with -ExecutionPolicy Bypass.
-#   install.cmd [-WithAme] [-With4K | -No4K] [-WithMusic | -NoMusic] [-Sandbox <dir>]
+# Windows PowerShell 5.1 and PowerShell 7. files\install.cmd runs it with -ExecutionPolicy Bypass, and so does the
+# window of the installer (files\setup.ps1) with the switches its boxes ask for.
+#   files\install.cmd [-WithAme] [-With4K | -No4K] [-WithMusic | -NoMusic] [-Sandbox <dir>]
 # -WithAme   also copies the brand .epr presets into the user presets of Adobe Media Encoder
-# -With4K    also installs the 4K loops and clips (D24): payload\library-4k, from the archive <folder>-4k.zip unpacked
-#            over this folder; install-4k.cmd passes it. A later install keeps them while they are unpacked here
+# -With4K    also installs the 4K loops and clips (D24): payload\library-4k of the package. A later install keeps them
 # -No4K      leaves the 4K files out although an earlier install had them
-# -WithMusic, -NoMusic   the same for the stock music (payload\library-music, <folder>-music.zip, install-music.cmd)
+# -WithMusic, -NoMusic   the same for the stock music (payload\library-music)
 # -Sandbox   installs into <dir>\... instead of the real folders (a dry run for checks); skips the check for
 #            running apps and the folder rights
 # -Done <file>  written as the very last step; install.cmd passes it and reports a run that ended without it
@@ -24,6 +24,12 @@ param(
   [switch]$Interrupted
 )
 $ErrorActionPreference = 'Stop'
+# Its words go to a file (the window of the installer reads them from there): in UTF-8, whatever the code page of the
+# console, and no progress records — they would come out on stderr.
+if ([Console]::IsOutputRedirected) {
+  [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+  $ProgressPreference = 'SilentlyContinue'
+}
 $BundleId = 'ru.cloud.brandkit'
 $Here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Payload = Join-Path $Here 'payload'
@@ -91,13 +97,12 @@ try {
     }
   }
   $Options = @(
-    @{ key = '4k'; name = '4K-петли и клипы'; with = [bool]$With4K; off = [bool]$No4K; launcher = 'install-4k.cmd' },
-    @{ key = 'music'; name = 'Стоковая музыка'; with = [bool]$WithMusic; off = [bool]$NoMusic; launcher = 'install-music.cmd' }
+    @{ key = '4k'; name = '4K-фоны и клипы'; with = [bool]$With4K; off = [bool]$No4K },
+    @{ key = 'music'; name = 'Стоковая музыка'; with = [bool]$WithMusic; off = [bool]$NoMusic }
   )
   foreach ($o in $Options) {
     $o['dir'] = Join-Path $Payload "library-$($o['key'])"
     $verFile = Join-Path $Payload "VERSION-$($o['key'])"
-    $o['zip'] = "$(Split-Path -Leaf $Here)-$($o['key']).zip"
     $o['here'] = (Test-Path -LiteralPath $o['dir']) -and (Test-Path -LiteralPath $verFile)
     $o['had'] = $hadPacks -contains $o['key']
     $v = @{}
@@ -111,10 +116,10 @@ try {
     $o['files'] = 0
     if ($o['with'] -or ($o['had'] -and -not $o['off'])) {
       if ($o['here'] -and $v['library'] -ne $ver['library']) {
-        Fail "файлы опции «$($o['name'])» рядом — от библиотеки $($v['library']), а ставится $($ver['library']): распакуйте сюда архив $($o['zip']) той же версии"
+        Fail "файлы опции «$($o['name'])» в этой папке — от библиотеки $($v['library']), а ставится $($ver['library']): распакуйте архив заново целиком в пустую папку"
       }
       if ($o['here']) { $o['use'] = $true }
-      elseif ($o['with']) { Fail "нет файлов опции «$($o['name'])» (payload\library-$($o['key'])): распакуйте сюда архив $($o['zip']) — его папка совпадёт с этой — и запустите установщик снова" }
+      elseif ($o['with']) { Fail "нет файлов опции «$($o['name'])» (payload\library-$($o['key'])): распакуйте архив целиком и запустите установщик снова" }
     }
   }
 
@@ -185,8 +190,8 @@ try {
   Say "Библиотека: $LibraryDir"
   foreach ($o in $Options) {
     if ($o['use']) { Say "$($o['name']): $($o['files']) файлов, $($o['size'])" }
-    elseif ($o['had'] -and -not $o['off']) { Say "Внимание: опция «$($o['name'])» стояла раньше, но её файлов в этой папке нет — она не поставлена. Чтобы вернуть: распакуйте сюда архив $($o['zip']) и запустите $($o['launcher'])" }
-    elseif ($o['here']) { Say "Опция «$($o['name'])» не ставилась ($($o['size'])): её поставит $($o['launcher'])" }
+    elseif ($o['had'] -and -not $o['off']) { Say "Внимание: опция «$($o['name'])» стояла раньше, но её файлов в этой папке нет — она не поставлена. Чтобы вернуть, поставьте её из полного архива BrandKit." }
+    elseif ($o['here']) { Say "Опция «$($o['name'])» не ставилась ($($o['size']))" }
   }
 
   # 5. MOGRT copies flat in Local Templates: the Graphics Templates panel does not see subfolders. Our copies of

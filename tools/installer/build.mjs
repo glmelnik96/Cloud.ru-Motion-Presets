@@ -1,23 +1,28 @@
 #!/usr/bin/env node
-// Release package of Cloud.ru BrandKit (spec 8.1): one folder and one zip with both installers.
+// Release package of Cloud.ru BrandKit (spec 8.1): one folder and ONE zip with everything (user 2026-10-26: one
+// archive for the team, a window with boxes, the AME presets ticked).
 //   node tools/installer/build.mjs --zxp <signed.zxp> [--library <root>] [--out <dir>]
 //   node tools/installer/build.mjs --unsigned [--library <root>] [--out <dir>]     (panel/dist, for checks)
 // Layout:
 //   CloudRuBrandKit-<plugin>-<library>/
-//     install.cmd, install.ps1 (Windows), install.command (macOS), README.txt, guide.md (docs/guide/panel.md)
-//     payload/VERSION            plugin=, library=, signed=
-//     payload/extension/         the panel: the signed ZXP unpacked (its signature stays valid unpacked)
-//     payload/library/           the library root with library.json, checked against its sha256
-//     payload/mogrt.txt          MOGRTs the installers copy flat into Local Templates
-//     payload/ame.txt            brand .epr presets: <path in the library><TAB><preset file name>, for --with-ame
-//     payload/aom.txt            the AE Output Module templates (.aom) in the library: the installers say how to load it
-//   CloudRuBrandKit-<plugin>-<library>-<option>.zip   an installer option (D24), when the catalog has variants of
-//   its pack — «4k» the 4K loops and clips, «music» the stock music:
-//     <the same folder>/payload/library-<option>/   their files under the library's paths, out of payload/library
-//     <the same folder>/payload/VERSION-<option>    library=, bytes=, files=
-//   unpacked over the base folder; install-<option>.cmd or install.command --with-<option> installs them.
+//     Установить (Windows).cmd     opens files\setup.ps1, the window of the installer (tools/installer/setup.cmd)
+//     Установить (Mac).command     dialogs of macOS, then files/install.command (tools/installer/setup.command)
+//     Как установить.pdf           for the editors (tools/installer/docs.mjs); .html where the build has no Chrome
+//     Руководство монтажёра.pdf    docs/guide/panel.md
+//     files/
+//       setup.ps1                  the window (Windows); install.cmd and install.ps1 — the work, also without the window
+//       install.command            the work on macOS
+//       README.txt                 for IT: the silent install, its keys and exit codes
+//       payload/VERSION            plugin=, library=, signed=
+//       payload/extension/         the panel: the signed ZXP unpacked (its signature stays valid unpacked)
+//       payload/library/           the library root with library.json, checked against its sha256
+//       payload/library-<option>/  the files of an installer option (D24) under the library's paths: «4k» the 4K loops and
+//       payload/VERSION-<option>   clips, «music» the stock music; library=, bytes=, files=
+//       payload/mogrt.txt          MOGRTs the installers copy flat into Local Templates
+//       payload/ame.txt            brand .epr presets: <path in the library><TAB><preset file name>, for --with-ame
+//       payload/aom.txt            the AE Output Module templates (.aom) in the library: the installers say how to load it
 // The installers need no Node: they read only these text files.
-import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync, chmodSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync, chmodSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -28,10 +33,18 @@ import { sha256File } from '../library/build-catalog.mjs';
 import { validateLibrary } from '../library/validate.mjs';
 import { workPath } from '../lib/work.mjs';
 import { copyTree } from '../lib/copy-tree.mjs';
+import { findChrome, guideHtml, howToInstallHtml, writeDocument } from './docs.mjs';
+import { setUnixMode } from './zip-mode.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(here, '../..');
 const JUNK = /(^|\/)(\.DS_Store|__MACOSX|\._[^/]*|Thumbs\.db|\.debug)$/;
+
+// The names the editors see in the package
+export const LAUNCH_WIN = 'Установить (Windows).cmd';
+export const LAUNCH_MAC = 'Установить (Mac).command';
+export const HOW_TO = 'Как установить';
+export const GUIDE = 'Руководство монтажёра';
 
 export function pluginVersion() {
   return JSON.parse(readFileSync(path.join(REPO, 'panel', 'package.json'), 'utf8')).version;
@@ -88,10 +101,10 @@ export function exportFiles(catalog, problems = []) {
   return { ame, aom };
 }
 
-// The installer options (D24): the pack key, its launcher for a double click, its section of README.txt.
+// The installer options (D24): the pack key and its section of files/README.txt.
 export const OPTIONS = [
-  { key: '4k', launcher: 'install-4k.cmd', section: '4K' },
-  { key: 'music', launcher: 'install-music.cmd', section: 'MUSIC' },
+  { key: '4k', section: '4K' },
+  { key: 'music', section: 'MUSIC' },
 ];
 
 // The files of an installer option (D24): every file of the variants of the pack, with its size.
@@ -107,24 +120,27 @@ export function packFiles(catalog, pack = '4k') {
   return files;
 }
 
-// A zip of <parent>/<name> with the files stored as they are (the loops are compressed already). bsdtar (Windows 10+,
-// macOS) streams it: the 4K files run to gigabytes, adm-zip builds a zip in memory and stays for the rest.
-export function zipStored(parent, name, zipFile, platform = process.platform) {
+// A zip of <parent>/<name>, deflated (the sounds and the music are WAV: the package of 2026-10-26 shrank from 5.18 to
+// 3.97 GB), with the names in UTF-8 and its flag: the launchers and documents have Russian names. bsdtar (Windows 10+,
+// macOS) streams it — the package runs to gigabytes, zip64 past 4 GB; adm-zip builds a zip in memory, for the rest.
+export function zipFolder(parent, name, zipFile, platform = process.platform) {
   const tar = platform === 'win32' ? path.join(process.env.SystemRoot || 'C:\\Windows', 'System32', 'tar.exe') : platform === 'darwin' ? '/usr/bin/tar' : null;
   if (tar && existsSync(tar)) {
-    const r = spawnSync(tar, ['-a', '-c', '-f', zipFile, '--options', 'zip:compression=store', '-C', parent, name], { encoding: 'utf8', windowsHide: true });
+    const r = spawnSync(tar, ['-a', '-c', '-f', zipFile, '--options', 'zip:compression=deflate,zip:hdrcharset=UTF-8', '-C', parent, name], { encoding: 'utf8', windowsHide: true });
     if (r.status !== 0) throw new Error(`tar: ${r.status} ${(r.stderr || '').slice(0, 400)}`);
     return 'tar';
   }
   const zip = new AdmZip();
   zip.addLocalFolder(path.join(parent, name), name);
+  for (const e of zip.getEntries()) e.header.flags |= 0x800;
   zip.writeZip(zipFile);
   return 'adm-zip';
 }
 
 const crlf = (s) => s.replace(/\r?\n/g, '\r\n');
+const bytesOf = (dir) => (existsSync(dir) ? readdirSync(dir, { withFileTypes: true }).reduce((a, e) => a + (e.isDirectory() ? bytesOf(path.join(dir, e.name)) : statSync(path.join(dir, e.name)).size), 0) : 0);
 
-export async function buildPackage({ zxp = null, unsigned = false, dist = path.join(REPO, 'panel', 'dist'), library, out }) {
+export async function buildPackage({ zxp = null, unsigned = false, dist = path.join(REPO, 'panel', 'dist'), library, out, chrome = findChrome() }) {
   const version = pluginVersion();
   const problems = [];
   if (!zxp && !unsigned) problems.push('give --zxp <signed.zxp>, or --unsigned for a check build');
@@ -144,72 +160,74 @@ export async function buildPackage({ zxp = null, unsigned = false, dist = path.j
   const name = `CloudRuBrandKit-${version}-${lib.catalog.libraryVersion}`;
   const dir = path.join(out, name);
   rmSync(dir, { recursive: true, force: true });
-  const payload = path.join(dir, 'payload');
+  const files = path.join(dir, 'files');
+  const payload = path.join(files, 'payload');
   mkdirSync(payload, { recursive: true });
   const ext = path.join(payload, 'extension');
   if (zxp) new AdmZip(zxp).extractAllTo(ext, true);
   else copyTree(dist, ext);
   const extCheck = checkDist(ext, { version });
   if (!extCheck.ok) return { ok: false, problems: extCheck.problems.map((p) => 'extension: ' + p) };
-  // the files of the options stay out of the base payload: each goes to an archive of its own
+  // the files of the options go to folders of their own: the installer puts them only when they are asked for
   const options = OPTIONS.map((o) => ({ ...o, files: packFiles(lib.catalog, o.key) })).map((o) => ({ ...o, bytes: o.files.reduce((s, f) => s + f.bytes, 0) }));
   const inPack = new Set(options.flatMap((o) => o.files.map((f) => f.file)));
   const rel = (src) => path.relative(library, src).replace(/\\/g, '/');
   copyTree(library, path.join(payload, 'library'), { filter: (src) => !JUNK.test(src.replace(/\\/g, '/')) && !inPack.has(rel(src)) });
+  const packs = {};
+  for (const o of options) {
+    if (!o.files.length) continue;
+    for (const f of o.files) {
+      const to = path.join(payload, `library-${o.key}`, f.file);
+      mkdirSync(path.dirname(to), { recursive: true });
+      copyFileSync(path.join(library, f.file), to);
+    }
+    writeFileSync(path.join(payload, `VERSION-${o.key}`), `library=${lib.catalog.libraryVersion}\nbytes=${o.bytes}\nfiles=${o.files.length}\n`, 'utf8');
+    packs[o.key] = { files: o.files.length, bytes: o.bytes };
+  }
   writeFileSync(path.join(payload, 'VERSION'), `plugin=${version}\nlibrary=${lib.catalog.libraryVersion}\nsigned=${zxp ? 1 : 0}\n`, 'utf8');
   writeFileSync(path.join(payload, 'mogrt.txt'), lib.mogrts.map((m) => m + '\n').join(''), 'utf8');
   writeFileSync(path.join(payload, 'ame.txt'), lib.ame.map((a) => `${a.file}\t${a.name}\n`).join(''), 'utf8');
   writeFileSync(path.join(payload, 'aom.txt'), lib.aom ? lib.aom + '\n' : '', 'utf8');
 
   const read = (f) => readFileSync(path.join(here, f), 'utf8');
-  writeFileSync(path.join(dir, 'install.command'), read('install.command'), 'utf8');
-  chmodSync(path.join(dir, 'install.command'), 0o755);
-  // Windows PowerShell 5.1 reads a script without a BOM in the ANSI code page: the Russian messages need it.
-  writeFileSync(path.join(dir, 'install.ps1'), '﻿' + crlf(read('install.ps1')), 'utf8');
-  writeFileSync(path.join(dir, 'install.cmd'), crlf(read('install.cmd')), 'utf8');
-  for (const o of options) if (o.files.length) writeFileSync(path.join(dir, o.launcher), crlf(read(o.launcher)), 'utf8');
+  // Windows PowerShell 5.1 reads a script without a BOM in the ANSI code page: the Russian words need it.
+  writeFileSync(path.join(files, 'install.ps1'), '﻿' + crlf(read('install.ps1')), 'utf8');
+  writeFileSync(path.join(files, 'setup.ps1'), '﻿' + crlf(read('setup.ps1')), 'utf8');
+  writeFileSync(path.join(files, 'install.cmd'), crlf(read('install.cmd')), 'utf8');
+  writeFileSync(path.join(files, 'install.command'), read('install.command'), 'utf8');
+  chmodSync(path.join(files, 'install.command'), 0o755);
+  writeFileSync(path.join(dir, LAUNCH_WIN), crlf(read('setup.cmd')), 'utf8');
+  writeFileSync(path.join(dir, LAUNCH_MAC), read('setup.command'), 'utf8');
+  chmodSync(path.join(dir, LAUNCH_MAC), 0o755);
   const gb = (b) => `${(b / 1073741824).toFixed(1).replace('.', ',')} ГБ`;
   // the section of an option in the README only when the package has it, its markers gone
   let readme = read('README.txt');
   for (const o of options) {
-    const re = new RegExp(`\\r?\\n?\\[${o.section}\\]\\r?\\n([\\s\\S]*?)\\[\\/${o.section}\\]\\r?\\n`);
-    readme = readme.replace(re, (m, body) => (o.files.length ? '\n' + body : '\n')).replace(new RegExp(`\\{size${o.key}\\}`, 'g'), gb(o.bytes));
+    const re = new RegExp(`\\[${o.section}\\]\\r?\\n([\\s\\S]*?)\\[\\/${o.section}\\]\\r?\\n`);
+    readme = readme.replace(re, (m, body) => (o.files.length ? body : '')).replace(new RegExp(`\\{size${o.key}\\}`, 'g'), gb(o.bytes));
   }
-  writeFileSync(path.join(dir, 'README.txt'), '﻿' + crlf(readme
-    .replace(/\{plugin\}/g, version).replace(/\{library\}/g, lib.catalog.libraryVersion).replace(/\{name\}/g, name)), 'utf8');
-  // The guide of the editors for the pilot (docs/guide/panel.md), with a BOM for Windows editors.
-  writeFileSync(path.join(dir, 'guide.md'), '\uFEFF' + crlf(readFileSync(path.join(REPO, 'docs', 'guide', 'panel.md'), 'utf8')), 'utf8');
+  writeFileSync(path.join(files, 'README.txt'), '﻿' + crlf(readme.replace(/\{plugin\}/g, version).replace(/\{library\}/g, lib.catalog.libraryVersion).replace(/\{name\}/g, name)), 'utf8');
 
-  // The zip keeps the folder and the executable bit of install.command (unix mode in the external attributes).
-  const zip = new AdmZip();
-  zip.addLocalFolder(dir, name);
-  for (const e of zip.getEntries()) {
-    const mode = e.entryName.endsWith('install.command') ? 0o100755 : e.isDirectory ? 0o040755 : 0o100644;
-    e.attr = (mode << 16) >>> 0;
-  }
+  // The documents of the editors: «Как установить» with the window of the installer, and their guide.
+  const shotFile = path.join(here, 'img', 'setup-windows.png');
+  const shot = existsSync(shotFile) ? `data:image/png;base64,${readFileSync(shotFile).toString('base64')}` : null;
+  const base = bytesOf(path.join(payload, 'library')) + bytesOf(ext);
+  const docs = [
+    writeDocument(howToInstallHtml({ plugin: version, library: lib.catalog.libraryVersion, base, k4: packs['4k']?.bytes ?? 0, music: packs.music?.bytes ?? 0, shot }), path.join(dir, HOW_TO), { chrome }),
+    writeDocument(guideHtml(readFileSync(path.join(REPO, 'docs', 'guide', 'panel.md'), 'utf8'), { plugin: version }), path.join(dir, GUIDE), { chrome }),
+  ];
+
+  // One zip; the launchers of macOS keep their executable bit (made on Windows, the zip has none: patched in).
   const zipFile = path.join(out, `${name}.zip`);
   rmSync(zipFile, { force: true });
-  zip.writeZip(zipFile);
-
-  // Each option: its files under the same folder name, so that its archive unpacks over the base one.
-  const packs = {};
-  for (const o of options) {
-    if (!o.files.length) continue;
-    const stage = path.join(out, `${name}-${o.key}`);
-    rmSync(stage, { recursive: true, force: true });
-    const pp = path.join(stage, name, 'payload');
-    for (const f of o.files) {
-      const to = path.join(pp, `library-${o.key}`, f.file);
-      mkdirSync(path.dirname(to), { recursive: true });
-      copyFileSync(path.join(library, f.file), to);
-    }
-    writeFileSync(path.join(pp, `VERSION-${o.key}`), `library=${lib.catalog.libraryVersion}\nbytes=${o.bytes}\nfiles=${o.files.length}\n`, 'utf8');
-    const zipOpt = path.join(out, `${name}-${o.key}.zip`);
-    rmSync(zipOpt, { force: true });
-    zipStored(stage, name, zipOpt);
-    packs[o.key] = { zip: zipOpt, files: o.files.length, bytes: o.bytes };
+  const how = zipFolder(out, name, zipFile);
+  if (how === 'tar') setUnixMode(zipFile, (n) => n.endsWith('.command'), 0o100755);
+  else {
+    const z = new AdmZip(zipFile);
+    for (const e of z.getEntries()) e.attr = (((e.entryName.endsWith('.command') ? 0o100755 : e.isDirectory ? 0o040755 : 0o100644) << 16) >>> 0);
+    z.writeZip(zipFile);
   }
-  return { ok: true, problems: [], dir, zip: zipFile, packs, name, mogrts: lib.mogrts.length, signed: Boolean(zxp) };
+  return { ok: true, problems: [], dir, zip: zipFile, packs, docs, name, mogrts: lib.mogrts.length, signed: Boolean(zxp) };
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
@@ -227,6 +245,6 @@ if (isMain) {
     console.error('FAIL: nothing packaged');
     process.exit(1);
   }
-  console.log(`OK ${r.zip}: ${r.mogrts} MOGRT, ${r.signed ? 'signed' : 'UNSIGNED (PlayerDebugMode needed)'}, ${(statSync(r.zip).size / 1048576).toFixed(1)} MB`);
-  for (const [key, p] of Object.entries(r.packs)) console.log(`OK ${p.zip}: the option «${key}», ${p.files} files, ${(statSync(p.zip).size / 1048576).toFixed(1)} MB`);
+  const opts = Object.entries(r.packs).map(([k, p]) => `${k} ${p.files} files`).join(', ') || 'no options';
+  console.log(`OK ${r.zip}: ${r.mogrts} MOGRT, ${r.signed ? 'signed' : 'UNSIGNED (PlayerDebugMode needed)'}, ${opts}, ${r.docs.join(', ')}, ${(statSync(r.zip).size / 1073741824).toFixed(2)} GB`);
 }
