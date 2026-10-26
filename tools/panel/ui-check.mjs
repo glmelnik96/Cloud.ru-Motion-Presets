@@ -166,8 +166,12 @@ if (isMain) {
 
     // What the host has now.
     if (host === 'ae') {
-      const c = await hostRun('count', { id });
-      check('AE: one layer in UI_check', c?.data?.count?.layers === 1, c?.data);
+      // the template and, since 0.1.29, the in and out sounds of its podcast style («Звуковые эффекты» on by D14)
+      const t = await hostRun('timeline', { id });
+      const rows = t?.data?.layers ?? [];
+      const sounds = rows.filter((x) => x.audioOnly).map((x) => x.name).sort();
+      check('AE: the template in UI_check, with the in and out sounds of its podcast style',
+        rows.filter((x) => !x.audioOnly).length === 1 && JSON.stringify(sounds) === JSON.stringify(['SFX_PodcastLowerThirdIn_wav_v1.wav', 'SFX_PodcastLowerThirdOut_wav_v1.wav']), rows);
     } else {
       const c = await hostRun('clips', { id });
       const clip = (c?.data?.clips ?? []).find((x) => Math.abs(x.startSec - 4) < 0.05);
