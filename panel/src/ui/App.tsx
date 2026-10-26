@@ -6,6 +6,7 @@ import { palette, TARGETS } from '../core/colors';
 import { groupLabel } from '../core/library';
 import { fitLabel, type ExportMode } from '../core/export';
 import { isActive } from '../core/fields';
+import { soundBoxes } from '../core/media';
 import type { Problem } from '../core/problems';
 import { messages, sec } from '../core/problems';
 import type { PreviewMedia } from '../core/previews';
@@ -488,9 +489,7 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
   const pick = app.pick(item);
   const planProblems = s.plan?.problems ?? [];
   const blocking = planProblems.some((p) => p.severity === 'error');
-  const companions = item.companions ?? [];
-  const hasMusic = companions.some((c) => c.kind === 'music');
-  const hasSfx = companions.some((c) => c.kind === 'sfx');
+  const boxes = soundBoxes(item, s.values);
   const shown = s.outcome ? s.outcome.problems : planProblems;
   const preset = app.isPreset(item);
   const vector = app.vectorFile(item);
@@ -540,10 +539,13 @@ function Form({ app, ui }: { app: PanelApp; ui: UiServices }) {
         </div>
       )}
 
-      {(hasMusic || hasSfx) && (
+      {(boxes.music || boxes.sfx) && (
         <div class="field">
-          {hasMusic && <label class="check"><input type="checkbox" checked={s.sound.music} onChange={(e) => app.setSound({ ...s.sound, music: (e.target as HTMLInputElement).checked })} />Музыка</label>}
-          {hasSfx && <label class="check"><input type="checkbox" checked={s.sound.sfx} onChange={(e) => app.setSound({ ...s.sound, sfx: (e.target as HTMLInputElement).checked })} />Звуковые эффекты</label>}
+          {boxes.music && <label class="check"><input type="checkbox" checked={s.sound.music && boxes.music.applies} disabled={!boxes.music.applies} onChange={(e) => app.setSound({ ...s.sound, music: (e.target as HTMLInputElement).checked })} />Музыка</label>}
+          {boxes.sfx && <label class="check"><input type="checkbox" checked={s.sound.sfx && boxes.sfx.applies} disabled={!boxes.sfx.applies} onChange={(e) => app.setSound({ ...s.sound, sfx: (e.target as HTMLInputElement).checked })} />Звуковые эффекты</label>}
+          {[boxes.music && !boxes.music.applies ? ['Музыка', boxes.music.needs] as const : null, boxes.sfx && !boxes.sfx.applies ? ['Звуковые эффекты', boxes.sfx.needs] as const : null]
+            .filter((x) => x !== null)
+            .map(([what, needs]) => <p class="hint" key={what}>{what} шаблона — при {needs.map((n) => `«${n}»`).join(', ')}.</p>)}
         </div>
       )}
 

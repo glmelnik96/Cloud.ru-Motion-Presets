@@ -878,6 +878,28 @@
             "pr": "26.0"
           }
         }
+      ],
+      "companions": [
+        {
+          "ref": "SFX_PodcastLowerThirdIn",
+          "kind": "sfx",
+          "placement": "in",
+          "default": true,
+          "when": {
+            "style": 2,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastLowerThirdOut",
+          "kind": "sfx",
+          "placement": "out",
+          "default": true,
+          "when": {
+            "style": 2,
+            "speed": 2
+          }
+        }
       ]
     },
     {
@@ -1084,6 +1106,28 @@
           "minHostVersion": {
             "ae": "26.0",
             "pr": "26.0"
+          }
+        }
+      ],
+      "companions": [
+        {
+          "ref": "SFX_PodcastTextPlateIn",
+          "kind": "sfx",
+          "placement": "in",
+          "default": true,
+          "when": {
+            "style": 1,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastTextPlateOut",
+          "kind": "sfx",
+          "placement": "out",
+          "default": true,
+          "when": {
+            "style": 1,
+            "speed": 2
           }
         }
       ]
@@ -1633,6 +1677,17 @@
             "pr": "26.0"
           }
         }
+      ],
+      "companions": [
+        {
+          "ref": "SFX_PodcastDisclaimer",
+          "kind": "sfx",
+          "placement": "under",
+          "default": true,
+          "when": {
+            "speed": 2
+          }
+        }
       ]
     },
     {
@@ -1747,6 +1802,26 @@
           "minHostVersion": {
             "ae": "26.0",
             "pr": "26.0"
+          }
+        }
+      ],
+      "companions": [
+        {
+          "ref": "SFX_PodcastFrameIn",
+          "kind": "sfx",
+          "placement": "in",
+          "default": true,
+          "when": {
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastFrameOut",
+          "kind": "sfx",
+          "placement": "out",
+          "default": true,
+          "when": {
+            "speed": 2
           }
         }
       ]
@@ -1893,6 +1968,26 @@
           "minHostVersion": {
             "ae": "26.0",
             "pr": "26.0"
+          }
+        }
+      ],
+      "companions": [
+        {
+          "ref": "SFX_PodcastGuestIn",
+          "kind": "sfx",
+          "placement": "in",
+          "default": true,
+          "when": {
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastGuestOut",
+          "kind": "sfx",
+          "placement": "out",
+          "default": true,
+          "when": {
+            "speed": 2
           }
         }
       ]
@@ -2066,6 +2161,68 @@
             "pr": "26.0"
           }
         }
+      ],
+      "companions": [
+        {
+          "ref": "SFX_PodcastContent1In",
+          "kind": "sfx",
+          "placement": "in",
+          "default": true,
+          "when": {
+            "side": 1,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastContent1Out",
+          "kind": "sfx",
+          "placement": "out",
+          "default": true,
+          "when": {
+            "side": 1,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastContent2In",
+          "kind": "sfx",
+          "placement": "in",
+          "default": true,
+          "when": {
+            "side": 2,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastContent2Out",
+          "kind": "sfx",
+          "placement": "out",
+          "default": true,
+          "when": {
+            "side": 2,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastContent3In",
+          "kind": "sfx",
+          "placement": "in",
+          "default": true,
+          "when": {
+            "side": 3,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastContent3Out",
+          "kind": "sfx",
+          "placement": "out",
+          "default": true,
+          "when": {
+            "side": 3,
+            "speed": 2
+          }
+        }
       ]
     },
     {
@@ -2217,6 +2374,88 @@
           "minHostVersion": {
             "ae": "26.0",
             "pr": "26.0"
+          }
+        }
+      ],
+      "companions": [
+        {
+          "ref": "SFX_PodcastQR1In",
+          "kind": "sfx",
+          "placement": "in",
+          "default": true,
+          "when": {
+            "layout": 1,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastQR1Out",
+          "kind": "sfx",
+          "placement": "out",
+          "default": true,
+          "when": {
+            "layout": 1,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastQR2In",
+          "kind": "sfx",
+          "placement": "in",
+          "default": true,
+          "when": {
+            "layout": 2,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastQR2Out",
+          "kind": "sfx",
+          "placement": "out",
+          "default": true,
+          "when": {
+            "layout": 2,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastSubscribeIn",
+          "kind": "sfx",
+          "placement": "in",
+          "default": true,
+          "when": {
+            "layout": 3,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastSubscribeOut",
+          "kind": "sfx",
+          "placement": "out",
+          "default": true,
+          "when": {
+            "layout": 3,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastQR1In",
+          "kind": "sfx",
+          "placement": "in",
+          "default": true,
+          "when": {
+            "layout": 4,
+            "speed": 2
+          }
+        },
+        {
+          "ref": "SFX_PodcastQR1Out",
+          "kind": "sfx",
+          "placement": "out",
+          "default": true,
+          "when": {
+            "layout": 4,
+            "speed": 2
           }
         }
       ]

@@ -151,9 +151,25 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
 
   it('the webinar screen shows the music checkbox, off by default', async () => {
     await go('?host=pr&open=WEB_Screen');
-    await waitFor(s, `!!document.getElementById('f-title')`);
     const music = `[...document.querySelectorAll('.check')].find((e) => e.textContent === 'Музыка')`;
+    await waitFor(s, `!!${music}`);
     expect(await evaluate(s, `${music}.querySelector('input').checked`)).toBe(false);
+  }, 60000);
+
+  it('the lower third\'s podcast sounds: on in its podcast style at 1×, greyed elsewhere with what they need (D14)', async () => {
+    await go('?host=pr&open=TTL_LowerThird');
+    const sfx = `[...document.querySelectorAll('.check')].find((e) => e.textContent === 'Звуковые эффекты')`;
+    const hint = `[...document.querySelectorAll('.hint')].map((e) => e.textContent).find((t) => t.startsWith('Звуковые эффекты')) || ''`;
+    await waitFor(s, `!!${sfx}`);
+    expect(await evaluate(s, `${sfx}.querySelector('input').disabled`)).toBe(true);
+    expect(await evaluate(s, hint)).toBe('Звуковые эффекты шаблона — при «Стиль: Подкаст».');
+    expect(await evaluate(s, page.pressSeg('Подкаст'))).toBe(true);
+    await waitFor(s, `!${sfx}.querySelector('input').disabled`);
+    expect(await evaluate(s, `${sfx}.querySelector('input').checked`)).toBe(true);
+    expect(await evaluate(s, hint)).toBe('');
+    await evaluate(s, `(() => { const f = document.getElementById('f-speed'); f.value = '5'; f.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+    await waitFor(s, `${sfx}.querySelector('input').disabled`);
+    expect(await evaluate(s, hint)).toBe('Звуковые эффекты шаблона — при «Скорость: 1×».');
   }, 60000);
 
   it('an AE effect applies to the selected layers, without format or length, and is not in Premiere', async () => {

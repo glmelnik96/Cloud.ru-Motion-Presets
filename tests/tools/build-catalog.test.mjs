@@ -120,13 +120,15 @@ describe('build-catalog', () => {
   });
 
   it('adds the previews per format and look, with their conditions', async () => {
-    const { build, out } = fakeBuild(['TTL_LowerThird']);
+    // the lower third with the sounds of its podcast style, which its companions need
+    const only = ['TTL_LowerThird', 'SFX_PodcastLowerThirdIn', 'SFX_PodcastLowerThirdOut'];
+    const { build, out } = fakeBuild(only);
     const dir = path.join(build, 'TTL_LowerThird');
     for (const stem of ['16x9_style-1', '9x16_style-2', '1x1_style-3']) {
       writeFileSync(path.join(dir, `preview_${stem}.mp4`), 'mp4 ' + stem);
       writeFileSync(path.join(dir, `poster_${stem}.jpg`), 'jpg ' + stem);
     }
-    const r = await buildCatalog({ src: SRC, buildDir: build, outDir: out, only: ['TTL_LowerThird'], tokens: TOKENS });
+    const r = await buildCatalog({ src: SRC, buildDir: build, outDir: out, only, tokens: TOKENS });
     expect(r.problems).toEqual([]);
     const ttl = JSON.parse(readFileSync(path.join(out, 'library.json'), 'utf8')).items[0];
     expect(ttl.previews.map((p) => [p.variant, p.when, p.video.file, p.poster.file])).toEqual([

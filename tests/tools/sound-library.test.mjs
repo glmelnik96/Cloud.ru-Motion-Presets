@@ -7,6 +7,7 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { gainDb, GROUPS, libraryOrder, MUSIC_GROUPS, parseLoudness, renderFilters, rule, sameChannels, soundingRange, soundItem, sourceEntry } from '../../tools/sounds/process.mjs';
 import { loadSource } from '../../tools/library/source.mjs';
+import { partFilters, PARTS } from '../../tools/sounds/parts.mjs';
 import { validateLibrary } from '../../tools/library/validate.mjs';
 import { MUSIC_GROUPS as PANEL_MUSIC, SOUND_GROUPS } from '../../panel/src/core/library.ts';
 
@@ -80,6 +81,50 @@ describe('sound rules', () => {
   it('the panel lists the same groups in the same order', () => {
     expect(SOUND_GROUPS.map((g) => [g.key, g.label_ru])).toEqual(GROUPS);
     expect(PANEL_MUSIC.map((g) => [g.key, g.label_ru])).toEqual(MUSIC_GROUPS);
+  });
+});
+
+describe('the parts of the podcast template tracks', () => {
+  const published = JSON.parse(readFileSync(path.join(REPO, 'library/sounds.src.json'), 'utf8')).sounds;
+  const byId = (id) => published.find((s) => s.id === id);
+
+  it('cuts the built parent, fades both ends and dithers to 16 bits', () => {
+    const p = PARTS.find((x) => x.id === 'SFX_PodcastGuestOut');
+    expect(partFilters(p)).toBe('atrim=start=7.08:end=8.62,asetpts=PTS-STARTPTS,afade=t=in:d=0.3,afade=t=out:st=1.51:d=0.03,aresample=osf=s16:dither_method=triangular');
+    // the frame's fly-in starts with its track: no fade in
+    expect(partFilters(PARTS.find((x) => x.id === 'SFX_PodcastFrameIn'))).toBe('atrim=start=0:end=0.95,asetpts=PTS-STARTPTS,afade=t=out:st=0.8:d=0.15,aresample=osf=s16:dither_method=triangular');
+  });
+
+  it('every part lies inside its parent, in the published list with its length and the parent\'s group', () => {
+    expect(new Set(PARTS.map((p) => p.id)).size).toBe(PARTS.length);
+    for (const p of PARTS) {
+      const parent = byId(p.from);
+      expect(parent, p.from).toBeTruthy();
+      expect(p.start).toBeGreaterThanOrEqual(0);
+      expect(p.end).toBeGreaterThan(p.start);
+      expect(p.end).toBeLessThanOrEqual(parent.sec);
+      expect(byId(p.id), p.id).toMatchObject({ title_ru: p.title_ru, group: parent.group, keywords: p.keywords });
+      expect(Math.abs(byId(p.id).sec - (p.end - p.start))).toBeLessThan(0.002);
+    }
+  });
+
+  it('an element\'s in part starts after the frame\'s punch, its out part ends before the frame\'s; the frame has the punches', () => {
+    for (const p of PARTS.filter((x) => !/Frame/.test(x.id))) {
+      if (p.id.endsWith('In')) expect(p.start, p.id).toBeGreaterThanOrEqual(0.85);
+      else expect(p.end, p.id).toBeLessThanOrEqual(9.1);
+    }
+    expect(PARTS.filter((p) => /Frame/.test(p.id)).map((p) => [p.from, p.start, p.end])).toEqual([['SFX_PodcastTextPlate1', 0, 0.95], ['SFX_PodcastTextPlate1', 8.72, 9.64]]);
+  });
+
+  it('the templates name parts that exist, in pairs placed in and out', () => {
+    const lib = loadSource(path.join(REPO, 'library/library.src.json'));
+    const sfx = lib.items.flatMap((i) => (i.companions ?? []).filter((c) => c.kind === 'sfx').map((c) => ({ ...c, item: i.id })));
+    expect([...new Set(sfx.map((c) => c.item))]).toEqual(['TTL_LowerThird', 'TTL_Plate', 'TTL_Disclaimer', 'POD_Frame', 'POD_Guest', 'POD_Content', 'POD_QR']);
+    for (const c of sfx) {
+      expect(lib.items.find((i) => i.id === c.ref), c.ref).toBeTruthy();
+      expect(c.when.speed, c.ref).toBe(2);
+      if (c.placement !== 'under') expect(c.ref.endsWith(c.placement === 'in' ? 'In' : 'Out'), c.ref).toBe(true);
+    }
   });
 });
 

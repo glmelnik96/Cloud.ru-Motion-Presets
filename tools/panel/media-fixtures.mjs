@@ -23,9 +23,10 @@ export const T1_ID = 'TTL_LowerThird';
 // Items of the real library delivered as rendered files (tools/masters/render-files.mjs): the lecture frame (D9), the
 // two transitions, the SMM frame, the rack background, the webinar screen's, the podcast intro and outro, the logo as
 // files, the patterns and icons, a sound of the library, the webinar music; and the webinar screen itself, the real
-// template with real companions (its form picks the portal's loop and the music). Each comes in as built when its build folder is there, and replaces its stand-in. The
+// template with real companions (its form picks the portal's loop and the music); the podcast guest card with the in
+// and out parts of its track (D14 «Звуковые эффекты»). Each comes in as built when its build folder is there, and replaces its stand-in. The
 // arrows background stays the example's: its intro, loop and outro test the parts.
-export const REAL_IDS = ['CRS_LectureFrame', 'TRN_StepWipe', 'TRN_Bars', 'SMM_FrameNotched', 'BG_Rack', 'BG_WebinarPortal', 'POD_Intro', 'POD_Outro', 'WEB_Screen', 'LOGO_Files', 'BG_Patterns', 'SFX_CyberImpact3', 'SFX_MusicWebinar5min', 'SFX_MusicWebinar30s'];
+export const REAL_IDS = ['CRS_LectureFrame', 'TRN_StepWipe', 'TRN_Bars', 'SMM_FrameNotched', 'BG_Rack', 'BG_WebinarPortal', 'POD_Intro', 'POD_Outro', 'WEB_Screen', 'LOGO_Files', 'BG_Patterns', 'SFX_CyberImpact3', 'SFX_MusicWebinar5min', 'SFX_MusicWebinar30s', 'POD_Guest', 'SFX_PodcastGuestIn', 'SFX_PodcastGuestOut'];
 // Stand-ins for the brand .ffx (spec 5 «Пресеты .ffx»), from the presets AE installs, as in S4.
 export const FX_STANDINS = {
   FX_TextRise: ['Text', 'Animate In', 'Fade Up Characters.ffx'],

@@ -4,6 +4,7 @@
 // The core lays every file out as pieces with times on the target timeline; the adapters only resolve the
 // natural length of a file they imported and place it. Files are copied next to the project by the panel
 // (Node, before the host call): a 4K loop takes longer to copy than a host call may last (decision P11).
+import { initialValues } from './fields';
 import { error, messages, warning, type Problem } from './problems';
 import { basename, BIN_NAME, dirname, joinPath, libraryFile, projectAssetDir } from './paths';
 import { fromFrames, toFrames } from './timing';
@@ -72,8 +73,9 @@ export const BACKDROP_RGB: [number, number, number] = [0x22, 0x22, 0x22];
 // Premiere: nearest cut within this many seconds of the playhead (decision P13).
 export const CUT_WINDOW_SEC = 5;
 export const STILL_DEFAULT_SEC = 5;
-// Music a template cuts short fades out over its last seconds instead of stopping dead.
-export const MUSIC_FADE_SEC = 2;
+// A sound under the whole template (music, the disclaimer's bed) that the template cuts short fades out over its
+// last seconds instead of stopping dead.
+export const FADE_OUT_SEC = 2;
 
 const r6 = (v: number) => Math.round(v * 1e6) / 1e6;
 const ext = (f: string | undefined) => (f ? (/\.([A-Za-z0-9]+)$/.exec(f)?.[1] ?? '').toLowerCase() : '');
@@ -306,6 +308,41 @@ export interface CompanionInput {
   values?: Values;
 }
 
+// Whether a companion goes with the form: its `when` agrees with the template's fields, the unset ones at their
+// defaults (the webinar screen's music by «Таймер», the podcast sounds by «Стиль» and «Скорость»).
+export function companionApplies(item: Item, c: Companion, values: Values = {}): boolean {
+  if (!c.when) return true;
+  const form = initialValues(item, values);
+  return Object.entries(c.when).every(([k, v]) => form[k] === v);
+}
+
+// The sound checkboxes of a template's form (D14), one per kind of sound it has: whether a companion of the kind goes
+// with the form, and when none does, what the closest one asks of it, as «field: option» (the podcast lower third's
+// sounds: «Стиль: Подкаст», «Скорость: 1×»).
+export interface SoundBox {
+  applies: boolean;
+  needs: string[];
+}
+
+export function soundBoxes(item: Item, values: Values): { music: SoundBox | null; sfx: SoundBox | null } {
+  const form = initialValues(item, values);
+  const option = (key: string, value: unknown) => {
+    const f = (item.fields ?? []).find((x) => x.key === key);
+    if (!f) return `${key}: ${String(value)}`;
+    const shown = f.type === 'dropdown' ? f.options?.find((o) => o.index === value)?.label_ru : f.type === 'checkbox' ? (value ? 'вкл.' : 'выкл.') : undefined;
+    return `${f.label_ru}: ${shown ?? String(value)}`;
+  };
+  const box = (kind: 'music' | 'sfx'): SoundBox | null => {
+    const list = (item.companions ?? []).filter((c) => c.kind === kind);
+    if (!list.length) return null;
+    if (list.some((c) => companionApplies(item, c, values))) return { applies: true, needs: [] };
+    const unmet = list.map((c) => Object.entries(c.when ?? {}).filter(([k, v]) => form[k] !== v));
+    const closest = unmet.reduce((a, b) => (b.length < a.length ? b : a));
+    return { applies: false, needs: closest.map(([k, v]) => option(k, v)) };
+  };
+  return { music: box('music'), sfx: box('sfx') };
+}
+
 export function companionOn(c: Companion, sound: { music: boolean; sfx: boolean }): boolean {
   if (c.kind === 'music') return sound.music;
   if (c.kind === 'sfx') return sound.sfx;
@@ -314,8 +351,8 @@ export function companionOn(c: Companion, sound: { music: boolean; sfx: boolean 
 
 // Companions of a T1 template (spec 4.4, 6.1 steps 7 and 9): the video under the template for its whole
 // length (a loop repeats), sounds by placement — in: from the start, out: ending with the template,
-// under: the whole length; neither runs past the template (decision P15). A companion that cannot be placed
-// is left out with a warning; the template still goes in.
+// under: the whole length, fading out when the template cuts it short; neither runs past the template (decision
+// P15). A companion that cannot be placed is left out with a warning; the template still goes in.
 export function planCompanions(input: CompanionInput): { layout: MediaLayout | null; problems: Problem[] } {
   const problems: Problem[] = [];
   const video: MediaPiece[] = [];
@@ -325,7 +362,7 @@ export function planCompanions(input: CompanionInput): { layout: MediaLayout | n
   for (const c of input.item.companions ?? []) {
     if (!companionOn(c, input.sound)) continue;
     // a companion of a look of the template: only when the form agrees (the webinar screen's music by «Таймер»)
-    if (c.when && !Object.entries(c.when).every(([k, v]) => (input.values ?? {})[k] === v)) continue;
+    if (!companionApplies(input.item, c, input.values)) continue;
     const ref = input.lookup(c.ref);
     const skip = (why: string) => problems.push(warning('COMPANION', messages.companion(ref?.title_ru ?? c.ref), { ref: c.ref, why }));
     if (!ref || !ref.hosts.includes(input.host)) { skip('not in the library for this host'); continue; }
@@ -343,7 +380,7 @@ export function planCompanions(input: CompanionInput): { layout: MediaLayout | n
       continue;
     }
     if (kind !== 'sound') { skip('not a sound'); continue; }
-    const sound: MediaPiece = { role: 'sound', ...at(v.file as string), ...(c.kind === 'music' ? { fadeOutSec: MUSIC_FADE_SEC } : {}) };
+    const sound: MediaPiece = { role: 'sound', ...at(v.file as string), ...(c.placement === 'under' ? { fadeOutSec: FADE_OUT_SEC } : {}) };
     if (c.placement === 'out') audio.push({ ...sound, endSec: end, floorSec: input.startSec });
     else audio.push({ ...sound, startSec: input.startSec, maxSec: input.lengthSec });
   }

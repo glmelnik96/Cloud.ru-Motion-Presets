@@ -133,7 +133,7 @@ describe('live media checks, dry', () => {
       const d = dry(host);
       const R = new Report(host);
       await runMediaLive({
-        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.28', R,
+        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.29', R,
         prepare: async (prep) => {
           for (const c of prep.copies) d.add(c.to);
           for (const s of prep.solids) d.add(s.path);
@@ -146,6 +146,7 @@ describe('live media checks, dry', () => {
       expect(R.failed()).toEqual([]);
       expect(R.checks.map((c) => c.name)).toContain('loop: the rendered backdrop is #222222 (34, 34, 34 ± 2) where nothing covers it');
       expect(R.checks.map((c) => c.name)).toContain('screen_music: the music fades out over its last 2 s');
+      expect(R.checks.map((c) => c.name)).toContain('podcast_sfx: the out part ends with the template, at 10 s');
       expect(R.checks.length).toBeGreaterThan(40);
     });
   }

@@ -43,6 +43,9 @@ export const MEDIA_CASES = [
   { key: 'screen', id: 'WEB_Screen', time: 2, sound: { music: false, sfx: false }, values: { layout: 2, timer: true, minutes: 1 }, expect: { lengthSec: 65, companionFile: 'BG_WebinarPortal_16x9_speaker_timer_v1' } },
   // the same screen with «Музыка» on: the pack's 5-minute track (the timer is on) under it from its start, cut to its 65 s
   { key: 'screen_music', id: 'WEB_Screen', time: 2, sound: { music: true, sfx: false }, values: { layout: 1, timer: true, minutes: 1 }, expect: { lengthSec: 65, musicFile: 'SFX_MusicWebinar5min_wav_v1', fadeSec: 2 } },
+  // the podcast guest card with «Звуковые эффекты» on (D14): the in part of its track from its start, the out part
+  // ending with it (8 s at 1×)
+  { key: 'podcast_sfx', id: 'POD_Guest', time: 2, sound: { music: false, sfx: true }, expect: { lengthSec: 8, sfxParts: ['SFX_PodcastGuestIn_wav_v1', 'SFX_PodcastGuestOut_wav_v1'] } },
   // the logo as files: «Схема» picks the PNG (colour, for a light picture), a still up to the end of the range
   { key: 'logo_files', id: 'LOGO_Files', time: 2, range: 14, values: { scheme: 2 }, expect: { lengthSec: 12, variant: '16x9_light', kind: 'still' } },
   // the patterns and icons: two fields pick the PNG (the globe, for a light picture), as long as asked
@@ -199,6 +202,14 @@ async function checkCase(c, { host, item, plan, out, rows, t, R, o }) {
     R.check(`${c.key}: the level is keyed down from ${host === 'ae' ? '0 dB' : 'the gain of 0 dB'} to silence over the last ${e.fadeSec} s`,
       keys.length >= 2 && near(keys[keys.length - 1][0], end) && near(keys[keys.length - 1][0] - keys[0][0], e.fadeSec)
         && Math.abs(keys[0][1] - loud) < 1e-6 && keys[keys.length - 1][1] <= silent && keys.every((k, i) => i === 0 || k[1] < keys[i - 1][1]), { keys, row });
+  }
+  if (e.sfxParts) {
+    const sounds = (out.reply.companions ?? []).filter((x) => x.role === 'sound');
+    const [a, b] = e.sfxParts.map((f) => sounds.find((x) => x.name.startsWith(f)));
+    R.check(`${c.key}: the template's sounds placed: ${e.sfxParts.join(', ')}`, sounds.length === e.sfxParts.length && Boolean(a && b), sounds);
+    R.check(`${c.key}: the in part plays from the template's start`, a && near(a.startSec, 2), a);
+    R.check(`${c.key}: the out part ends with the template, at ${2 + e.lengthSec} s`, b && near(b.startSec + b.lengthSec, 2 + e.lengthSec), b);
+    if (host === 'pr') R.check(`${c.key}: the sounds are on audio tracks`, sounds.every((x) => x.audio === true), sounds);
   }
   if (e.companions) {
     const cs = out.reply.companions ?? [];

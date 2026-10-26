@@ -25,7 +25,8 @@ const MUSIC = { id: 'SFX_MusicTest', title_ru: 'Тестовая музыка', 
 async function library({ ids, version = 1, libraryVersion = '2026.10.05', extra = {}, items = [] }) {
   const root = tmp('bk-inst-lib-');
   const buildDir = path.join(root, 'build');
-  const src = { ...SRC, items: [...SRC.items.filter((i) => ids.includes(i.id)).map((i) => ({ ...i, version })), ...items] };
+  // the templates without their companions: the sounds they name are not in this library
+  const src = { ...SRC, items: [...SRC.items.filter((i) => ids.includes(i.id)).map(({ companions: _c, ...i }) => ({ ...i, version })), ...items] };
   for (const item of src.items) {
     for (const f of itemFiles(item)) {
       if (f.optional) continue;

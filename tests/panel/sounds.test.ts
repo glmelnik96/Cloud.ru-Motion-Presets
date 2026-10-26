@@ -5,7 +5,7 @@ import { PanelApp, type Services } from '../../panel/src/app/controller';
 import type { CallOptions, HostCaller, HostReply } from '../../panel/src/core/host';
 import { planInsert, planItem } from '../../panel/src/core/insert';
 import { filterItems, installedOnly, MUSIC_GROUPS, usedSoundGroups } from '../../panel/src/core/library';
-import { mediaKind } from '../../panel/src/core/media';
+import { mediaKind, soundBoxes } from '../../panel/src/core/media';
 import { memoryStore } from '../../panel/src/core/memory';
 import type { Catalog, HostContext, Item } from '../../panel/src/core/types';
 import sounds from '../../library/sounds.src.json';
@@ -119,5 +119,61 @@ describe('the music of the templates (D14)', () => {
 
   it('a course cover plays the courses\' intro music', () => {
     expect(music('CRS_Cover', { variant: 1 })).toEqual(['SFX_MusicCourseIntro_wav_v1.wav']);
+  });
+});
+
+describe('the sound effects of the podcast templates (D14)', () => {
+  const real = (id: string) => toCatalogItem((src.items as unknown[]).find((i) => (i as Item).id === id), true);
+  const lookup = (id: string) => soundItems().find((i) => i.id === id);
+  const env = { platform: 'win' as const, libraryRoot: ROOT };
+  const plan = (id: string, values: Record<string, number | boolean>, sfx = true) =>
+    planInsert({ item: real(id), ctx: prContext(), values, fonts: ALL_FONTS, options: { sound: { music: false, sfx } }, env, lookup });
+  const files = (id: string, values: Record<string, number | boolean>, sfx = true) =>
+    (plan(id, values, sfx).request?.companions?.audio ?? []).map((a) => a.file.split('/').pop());
+
+  it('the podcast lower third comes in and leaves with its sounds: in from its start, out ending with it', () => {
+    const p = plan('TTL_LowerThird', { style: 2 });
+    const r = p.request!;
+    expect(r.companions!.audio).toEqual([
+      expect.objectContaining({ file: expect.stringMatching(/SFX_PodcastLowerThirdIn_wav_v1\.wav$/), startSec: r.startSec, maxSec: r.lengthSec }),
+      expect.objectContaining({ file: expect.stringMatching(/SFX_PodcastLowerThirdOut_wav_v1\.wav$/), endSec: r.startSec + r.lengthSec, floorSec: r.startSec }),
+    ]);
+    // the parts play out whole: only a sound under the whole template fades
+    expect(r.companions!.audio.every((a) => a.fadeOutSec === undefined)).toBe(true);
+    expect(files('TTL_LowerThird', { style: 2 }, false)).toEqual([]);
+  });
+
+  it('only for the pack\'s look at 1×: the titles and webinar styles and another speed have none', () => {
+    expect(files('TTL_LowerThird', { style: 1 })).toEqual([]);
+    expect(files('TTL_LowerThird', { style: 3 })).toEqual([]);
+    expect(files('TTL_LowerThird', { style: 2, speed: 5 })).toEqual([]);
+    expect(files('TTL_Plate', { style: 1 })).toEqual(['SFX_PodcastTextPlateIn_wav_v1.wav', 'SFX_PodcastTextPlateOut_wav_v1.wav']);
+    expect(files('TTL_Plate', { style: 2 })).toEqual([]);
+  });
+
+  it('the form picks the track: the content window by its side, the QR block by its layout', () => {
+    expect(files('POD_Content', { side: 3 })).toEqual(['SFX_PodcastContent3In_wav_v1.wav', 'SFX_PodcastContent3Out_wav_v1.wav']);
+    expect(files('POD_QR', { layout: 3 })).toEqual(['SFX_PodcastSubscribeIn_wav_v1.wav', 'SFX_PodcastSubscribeOut_wav_v1.wav']);
+    // two QR codes take the left one's sounds
+    expect(files('POD_QR', { layout: 4 })).toEqual(['SFX_PodcastQR1In_wav_v1.wav', 'SFX_PodcastQR1Out_wav_v1.wav']);
+    expect(files('POD_Guest', {})).toEqual(['SFX_PodcastGuestIn_wav_v1.wav', 'SFX_PodcastGuestOut_wav_v1.wav']);
+    expect(files('POD_Frame', {})).toEqual(['SFX_PodcastFrameIn_wav_v1.wav', 'SFX_PodcastFrameOut_wav_v1.wav']);
+  });
+
+  it('the disclaimer\'s bed runs under it and fades out where it ends', () => {
+    const r = plan('TTL_Disclaimer', {}).request!;
+    expect(r.companions!.audio).toEqual([expect.objectContaining({ file: expect.stringMatching(/SFX_PodcastDisclaimer_wav_v1\.wav$/), startSec: r.startSec, maxSec: r.lengthSec, fadeOutSec: 2 })]);
+  });
+
+  it('the checkbox says what the template\'s sounds need when the form does not fit them', () => {
+    const lt = real('TTL_LowerThird');
+    expect(soundBoxes(lt, { style: 2, speed: 2 })).toEqual({ music: null, sfx: { applies: true, needs: [] } });
+    expect(soundBoxes(lt, { style: 1 })).toEqual({ music: null, sfx: { applies: false, needs: ['Стиль: Подкаст'] } });
+    expect(soundBoxes(lt, { style: 3, speed: 5 }).sfx).toEqual({ applies: false, needs: ['Стиль: Подкаст', 'Скорость: 1×'] });
+    // several looks of one condition: the closest one speaks
+    expect(soundBoxes(real('POD_QR'), { layout: 2, speed: 1 }).sfx).toEqual({ applies: false, needs: ['Скорость: 1×'] });
+    // the webinar screen: its music goes with either «Таймер», no sound effects
+    expect(soundBoxes(real('WEB_Screen'), { timer: false })).toEqual({ music: { applies: true, needs: [] }, sfx: null });
+    expect(soundBoxes(real('LOGO_Shot'), {})).toEqual({ music: null, sfx: null });
   });
 });

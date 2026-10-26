@@ -6,16 +6,19 @@
 // packs. { roots: { <name>: <folder> }, sounds: [{ src: '<root>:<path>', id, title_ru, group, keywords, sec, pack? }] }
 //   node tools/sounds/build-sounds.mjs [--manifest <file>] [--only id,id] [--force] [--jobs 4]
 // A file is rendered again only when its source, its rule or its recipe changed (<work>/sounds/build-report.json).
+// The parts of the podcast template tracks (tools/sounds/parts.mjs) are cut from their built parents after them.
 import { spawn, spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { workPath } from '../lib/work.mjs';
+import { partFilters, PARTS, partSound } from './parts.mjs';
 import { gainDb, isMusic, libraryOrder, parseLoudness, renderFilters, rule, sameChannels, SILENCE_DB, soundingRange, sourceEntry } from './process.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 export const RECIPE = 'v2: 48k s16 tpdf, trim under -60 dBFS after the gain 5/50 ms, M -18 / I -24 beds / I -18 music, TP -1';
+export const PART_RECIPE = 'part v1: cut of the built parent, fades, s16 tpdf';
 
 const run = (args) => spawnSync('ffmpeg', ['-hide_banner', '-nostats', ...args], { encoding: 'utf8', maxBuffer: 1 << 26, windowsHide: true, cwd: process.platform === 'win32' ? 'C:/' : os.tmpdir() });
 
@@ -81,6 +84,23 @@ export async function buildSound(sound, roots, { force = false, previous = null 
   };
 }
 
+// A part of a template track, cut from its parent's library file: built again when the cut or the parent changed.
+export function buildPart(p, parent, { force = false, previous = null } = {}) {
+  const src = workPath('build', p.from, `${p.from}_wav_v1.wav`);
+  const out = workPath('build', p.id, `${p.id}_wav_v1.wav`);
+  if (!parent || !existsSync(src)) throw new Error(`no built parent ${p.from}`);
+  const recipe = `${PART_RECIPE} | ${p.start}-${p.end} fades ${p.fade.in}/${p.fade.out} | ${parent.recipe} | ${parent.gain}`;
+  if (!force && previous && previous.recipe === recipe && existsSync(out)) return previous;
+  mkdirSync(path.dirname(out), { recursive: true });
+  const w = run(['-y', '-i', src, '-af', partFilters(p), '-c:a', 'pcm_s16le', '-ar', '48000', '-map_metadata', '-1', out]);
+  if (w.status !== 0) throw new Error(`ffmpeg part ${w.status}: ${(w.stderr || '').slice(-400)}`);
+  const o = probe(out);
+  return {
+    id: p.id, src: `part of ${p.from}`, recipe, channels: o.channels, gain: 0, range: { start: p.start, end: p.end },
+    after: loudness(out, 'anull', o.channels), sec: Math.round(o.duration * 1000) / 1000, bytes: statSync(out).size,
+  };
+}
+
 export async function buildSounds({ manifest = workPath('sounds', 'manifest.json'), only = null, force = false, jobs = 4, log = console.log } = {}) {
   const m = JSON.parse(readFileSync(manifest, 'utf8'));
   const reportFile = path.join(path.dirname(manifest), 'build-report.json');
@@ -105,13 +125,33 @@ export async function buildSounds({ manifest = workPath('sounds', 'manifest.json
     }
   };
   await Promise.all(Array.from({ length: jobs }, worker));
+  // the parts, once their parents are built
+  const parts = [];
+  let cut = 0;
+  for (const p of PARTS) {
+    const parent = m.sounds.find((s) => s.id === p.from);
+    if (!parent) {
+      failed.push({ id: p.id, error: `no sound ${p.from} in the manifest` });
+      continue;
+    }
+    parts.push(partSound(p, parent));
+    if (only && !only.includes(p.id) && !only.includes(p.from)) continue;
+    try {
+      report[p.id] = buildPart(p, report[p.from], { force, previous: report[p.id] ?? null });
+      cut += 1;
+    } catch (e) {
+      failed.push({ id: p.id, error: e.message });
+      log(`FAIL ${p.id}: ${e.message}`);
+    }
+  }
   writeFileSync(reportFile, JSON.stringify(report, null, 1));
-  // the published list: every sound of the manifest that has its file
-  const entries = libraryOrder(m.sounds.filter((s) => report[s.id] && existsSync(workPath('build', s.id, `${s.id}_wav_v1.wav`))).map((s) => sourceEntry(s, report[s.id].sec)));
+  // the published list: every sound of the manifest and every part that has its file
+  const entries = libraryOrder([...m.sounds, ...parts].filter((s) => report[s.id] && existsSync(workPath('build', s.id, `${s.id}_wav_v1.wav`))).map((s) => sourceEntry(s, report[s.id].sec)));
   const comment = 'Sounds of the library, written by tools/sounds/build-sounds.mjs from the manifest of the build PC; tools/library/build-catalog.mjs merges them into library.src.json as items of the «Звуки» category.';
   // one sound a line: the file is long, its diffs stay readable
   writeFileSync(path.join(REPO, 'library', 'sounds.src.json'), `{\n "$comment": ${JSON.stringify(comment)},\n "version": 1,\n "sounds": [\n${entries.map((e) => '  ' + JSON.stringify(e)).join(',\n')}\n ]\n}\n`);
-  return { built: todo.length - failed.length, failed, entries: entries.length, bytes: entries.reduce((a, e) => a + (report[e.id]?.bytes ?? 0), 0) };
+  const soundsFailed = failed.filter((f) => todo.some((s) => s.id === f.id)).length;
+  return { built: todo.length - soundsFailed, parts: cut, failed, entries: entries.length, bytes: entries.reduce((a, e) => a + (report[e.id]?.bytes ?? 0), 0) };
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
@@ -124,6 +164,6 @@ if (isMain) {
     force: argv.includes('--force'),
     jobs: Number(get('--jobs') ?? 4),
   });
-  console.log(`built ${r.built}, failed ${r.failed.length}; library/sounds.src.json: ${r.entries} sounds, ${(r.bytes / 1048576).toFixed(1)} MB`);
+  console.log(`built ${r.built}, parts ${r.parts}, failed ${r.failed.length}; library/sounds.src.json: ${r.entries} sounds, ${(r.bytes / 1048576).toFixed(1)} MB`);
   if (r.failed.length) process.exitCode = 1;
 }

@@ -107,7 +107,8 @@ export function startDemo(el: HTMLElement, version: string): void {
   const host = q.get('host') === 'ae' ? 'ae' : 'pr';
   const [w, hh] = (q.get('frame') ?? '1920x1080').split('x').map(Number);
   const items = [
-    ...(src.items as unknown[]).map((i) => toItem(i, false)),
+    // the templates with their companions: the sounds they name are below
+    ...(src.items as unknown[]).map((i) => toItem(i, true)),
     ...(example.items as unknown[]).filter((i) => (i as Item).id !== 'TTL_LowerThird').map((i) => toItem(i, true)),
     // the sound library as tools/library/source.mjs merges it
     ...sounds.sounds.map((e) => toItem({ id: e.id, title_ru: e.title_ru, category: MUSIC_GROUPS.some((g) => g.key === e.group) ? 'music' : 'sounds', tier: 'T3', hosts: ['ae', 'pr'], version: 1, group: e.group, keywords: e.keywords,
