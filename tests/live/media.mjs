@@ -202,6 +202,10 @@ async function checkCase(c, { host, item, plan, out, rows, t, R, o }) {
     R.check(`${c.key}: the level is keyed down from ${host === 'ae' ? '0 dB' : 'the gain of 0 dB'} to silence over the last ${e.fadeSec} s`,
       keys.length >= 2 && near(keys[keys.length - 1][0], end) && near(keys[keys.length - 1][0] - keys[0][0], e.fadeSec)
         && Math.abs(keys[0][1] - loud) < 1e-6 && keys[keys.length - 1][1] <= silent && keys.every((k, i) => i === 0 || k[1] < keys[i - 1][1]), { keys, row });
+    // one curve in both hosts: Premiere's own easing between its two keys, AE's keys laid on it — -13.4 dB halfway
+    const mid = keys[keys.length - 1]?.[2];
+    const half = host === 'ae' ? keys.find((k) => near(k[0], end - e.fadeSec / 2))?.[1] : typeof mid === 'number' && mid > 0 ? 20 * Math.log10(mid / loud) : null;
+    R.check(`${c.key}: halfway through the fade the level is -13.4 dB, alike in both hosts`, typeof half === 'number' && Math.abs(half + 13.4) < 0.5, { half, keys });
   }
   if (e.sfxParts) {
     const sounds = (out.reply.companions ?? []).filter((x) => x.role === 'sound');

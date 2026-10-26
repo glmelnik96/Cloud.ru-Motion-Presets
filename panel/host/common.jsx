@@ -6,7 +6,7 @@
 // a JSON string {ok, data, error{code, message, detail}}, with non-ASCII characters as \uXXXX so the reply
 // survives evalScript on any Windows code page. Adapters raise refusals with BK.fail(code, message).
 var BK = (typeof BK !== 'undefined' && BK) ? BK : {};
-BK.version = '0.1.29';
+BK.version = '0.1.30';
 BK.adapters = BK.adapters || {};
 
 BK.fail = function (code, message, detail) {
@@ -199,6 +199,10 @@ BK.mkdirs = function (path) {
 // A cut shorter than this takes only the file's own tail: the pack's music ends in its own fade (the last
 // quarter second of the 30-second webinar track peaks at -46 dB), so there is nothing to fade.
 BK.FADE_CUT_SEC = 0.25;
+
+// Premiere eases Volume > Level between two keys so that the gain falls as (1 - t)^2.2335 (measured on the build PC
+// 2026-10-26: -2.0, -4.3, -6.9, -9.9, -13.4 dB at the first five tenths): After Effects keys its fade on this curve.
+BK.FADE_TAPER = 2.2335;
 
 // Where and how long a media piece goes (panel/src/core/media.ts MediaPiece), once the adapter knows the
 // natural length of its file (null for a still, which lasts as long as it is told). Seconds. `fade`: how long

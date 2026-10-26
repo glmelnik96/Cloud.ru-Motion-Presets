@@ -75,6 +75,20 @@ function __volume() {
   level.getKeys = function () {
     return (level._keys || []).slice().sort(function (a, b) { return a.t - b.t; }).map(function (k) { return __time(Math.round(k.t * TPS)); });
   };
+  // between two keys Premiere eases the gain as a power 2.2335 of a straight line (build PC 2026-10-26)
+  level.getValueAtTime = function (t) {
+    var ks = (level._keys || []).slice().sort(function (a, b) { return a.t - b.t; });
+    if (!ks.length) return level._value;
+    if (t <= ks[0].t) return ks[0].v;
+    for (var i = 1; i < ks.length; i++) {
+      if (t <= ks[i].t) {
+        var f = (t - ks[i - 1].t) / (ks[i].t - ks[i - 1].t);
+        var p0 = Math.pow(ks[i - 1].v, 1 / 2.2335), p1 = Math.pow(ks[i].v, 1 / 2.2335);
+        return Math.pow(p0 + (p1 - p0) * f, 2.2335);
+      }
+    }
+    return ks[ks.length - 1].v;
+  };
   return { matchName: 'Internal Volume Stereo', displayName: 'Volume', properties: __collection([__param('Bypass', 'bool', false), level]) };
 }
 

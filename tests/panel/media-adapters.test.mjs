@@ -144,9 +144,9 @@ describe('After Effects: companions of a template', () => {
     ]);
     expect(out.reply.companions.map((c) => c.role)).toEqual(['loop', 'sound']);
     expect(h.run('__ae.undo')).toEqual(['import WEB_Screen_v1.aep', 'import BG_WebinarPortal_16x9_loop_v1.mov', 'import SFX_WebinarBed_wav_v1.wav', 'begin BrandKit: Экран вебинара', 'end']);
-    // the 60-second bed is cut at 35 s: it fades out over the last 2 s, down by amplitude in quarters
+    // the 60-second bed is cut at 35 s: it fades out over the last 2 s on Premiere's curve, (1 - t)^2.2335
     expect(out.reply.companions[1].fadeSec).toBe(2);
-    expect(aeLevels(h, 2)).toEqual([[35, 0], [35.5, -2.498775], [36, -6.0206], [36.5, -12.0412], [37, -96]]);
+    expect(aeLevels(h, 2)).toEqual([[35, 0], [35.5, -5.581013], [36, -13.44701], [36.5, -26.89402], [37, -96]]);
   });
 
   it('music that ends within the template, or a quarter second after it, plays its own ending', () => {

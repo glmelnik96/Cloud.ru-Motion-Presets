@@ -99,11 +99,14 @@ function dry(host) {
           solid: l.source._solid ? l.source._solid.map(function (c) { return Math.round(c * 255); }) : null,
           levels: l._levels ? l._levels._keys.slice().sort(function (a, b) { return a.t - b.t; }).map(function (k) { return [k.t, k.v[0]]; }) : null }; })`) });
       }
+      // the Level keys as the test bed lists them: the last one adds the gain halfway between the first and the last
+      run(`function __levels(lv) { var ks = (lv._keys || []).slice().sort(function (a, b) { return a.t - b.t; }).map(function (x) { return [x.t, x.v]; });
+        if (ks.length > 1) ks[ks.length - 1].push(lv.getValueAtTime((ks[0][0] + ks[ks.length - 1][0]) / 2)); return ks; }`);
       return ok({ clips: run(`(function () { var s = __seqs[${JSON.stringify(p.id)}]; var out = [];
         [['v', s._tracks], ['a', s._atracks]].forEach(function (k) { k[1].forEach(function (t, i) { t._clips.forEach(function (c) {
           var lv = k[0] === 'a' ? c._components[0].properties[1] : null;
           out.push({ track: i + 1, audio: k[0] === 'a', name: c.name, startSec: c._start / TPS, endSec: c._end / TPS, file: c.projectItem ? c.projectItem._path : null,
-            inSec: lv ? c._in / TPS : null, levels: lv ? (lv._keys || []).slice().sort(function (a, b) { return a.t - b.t; }).map(function (x) { return [x.t, x.v]; }) : null }); }); }); });
+            inSec: lv ? c._in / TPS : null, levels: lv ? __levels(lv) : null }); }); }); });
         return out; })()`) });
     }
     return ok({});
@@ -133,7 +136,7 @@ describe('live media checks, dry', () => {
       const d = dry(host);
       const R = new Report(host);
       await runMediaLive({
-        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.29', R,
+        host, bridge: d.bridge, hostRun: d.hostRun, catalog: d.cat, libraryRoot: LIB, platform: 'win', bkVersion: '0.1.30', R,
         prepare: async (prep) => {
           for (const c of prep.copies) d.add(c.to);
           for (const s of prep.solids) d.add(s.path);
@@ -146,6 +149,7 @@ describe('live media checks, dry', () => {
       expect(R.failed()).toEqual([]);
       expect(R.checks.map((c) => c.name)).toContain('loop: the rendered backdrop is #222222 (34, 34, 34 ± 2) where nothing covers it');
       expect(R.checks.map((c) => c.name)).toContain('screen_music: the music fades out over its last 2 s');
+      expect(R.checks.map((c) => c.name)).toContain('screen_music: halfway through the fade the level is -13.4 dB, alike in both hosts');
       expect(R.checks.map((c) => c.name)).toContain('podcast_sfx: the out part ends with the template, at 10 s');
       expect(R.checks.length).toBeGreaterThan(40);
     });

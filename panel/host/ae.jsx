@@ -413,15 +413,15 @@
     return { role: role, name: String(layer.name), layerId: layer.id, startSec: BK.round(layer.inPoint), lengthSec: BK.round(layer.outPoint - layer.inPoint) };
   }
 
-  // A fade-out over the last `fade` seconds before `end` (comp time): Audio Levels keys. AE eases them linearly
-  // in dB, so two keys would drop the sound right after the first; the keys step down by amplitude, 1 to 0 in
-  // quarters (0, -2.5, -6, -12 dB), and end at -96 dB, the lowest level AE keeps (build PC 2026-10-26).
+  // A fade-out over the last `fade` seconds before `end` (comp time): Audio Levels keys on Premiere's curve
+  // (BK.FADE_TAPER), so a template fades alike in both hosts. AE eases its keys linearly in dB: two keys would drop
+  // the sound right after the first, so five follow the curve (0, -5.6, -13.4, -26.9 dB) and end at -96 dB, the
+  // lowest level AE keeps.
   function fadeOutLayer(layer, end, fade) {
     var levels = layer.property('ADBE Audio Group').property('ADBE Audio Levels');
-    var k, a, db;
+    var k, db;
     for (k = 0; k <= 4; k++) {
-      a = 1 - k / 4;
-      db = a > 0 ? BK.round(20 * Math.log(a) / Math.LN10) : -96;
+      db = k < 4 ? BK.round(20 * BK.FADE_TAPER * Math.log(1 - k / 4) / Math.LN10) : -96;
       levels.setValueAtTime(BK.round(end - fade + fade * k / 4), [db, db]);
     }
   }
