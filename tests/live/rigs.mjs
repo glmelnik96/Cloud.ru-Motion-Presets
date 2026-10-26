@@ -177,7 +177,8 @@ export async function runRigsLive(o) {
       const sheet = new PNG({ width: W * 2, height: H * 2 });
       frames.forEach((f, i) => blit(sheet, readPng(f.file), (i % 2) * W, Math.floor(i / 2) * H, W, H, [34, 34, 34]));
       writeFileSync(o.sheet, PNG.sync.write(sheet));
-      R.check(`rigs: sheet of ${SHEET_TIMES.join(', ')} s written`, true, o.sheet);
+      // the file's name only: an absolute path would put the user's folder into the committed report (D21)
+      R.check(`rigs: sheet of ${SHEET_TIMES.join(', ')} s written`, true, path.basename(o.sheet));
     }
   }
 }
