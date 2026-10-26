@@ -1,6 +1,6 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-26T08:40:40.993Z",
+  "startedAt": "2026-10-26T10:06:25.723Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
@@ -12,7 +12,7 @@
           "required": true,
           "detail": {
             "comps": 1,
-            "path": "C:\\CRBK\\work\\panel-live\\ae\\panel_ui.aep"
+            "path": "/Users/Shared/CRBK/work/panel-live/ae/panel_ui.aep"
           }
         }
       ]
@@ -73,9 +73,12 @@
       "detail": null
     },
     {
-      "name": "form preview: no previews per style in this library yet",
+      "name": "form preview: «Подкаст» shows its own preview",
       "pass": true,
-      "detail": "file:///C:/ProgramData/CloudRuBrandKit/library/items/TTL_LowerThird/poster_16x9_style-2.jpg"
+      "detail": {
+        "before": "file:///Users/Shared/CloudRuBrandKit/library/items/TTL_LowerThird/poster_16x9_style-1.jpg",
+        "after": "file:///Users/Shared/CloudRuBrandKit/library/items/TTL_LowerThird/poster_16x9_style-2.jpg"
+      }
     },
     {
       "name": "«Вставить на плейхед» clicked",
@@ -111,7 +114,7 @@
           "name": "SFX_PodcastLowerThirdIn_wav_v1.wav",
           "startSec": 4,
           "endSec": 5.95,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastLowerThirdIn@1/SFX_PodcastLowerThirdIn_wav_v1.wav",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastLowerThirdIn@1/SFX_PodcastLowerThirdIn_wav_v1.wav",
           "loop": 1,
           "solid": null,
           "audioOnly": true,
@@ -123,7 +126,7 @@
           "name": "SFX_PodcastLowerThirdOut_wav_v1.wav",
           "startSec": 7.7,
           "endSec": 10,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastLowerThirdOut@1/SFX_PodcastLowerThirdOut_wav_v1.wav",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastLowerThirdOut@1/SFX_PodcastLowerThirdOut_wav_v1.wav",
           "loop": 1,
           "solid": null,
           "audioOnly": true,
@@ -206,18 +209,23 @@
     },
     {
       "name": "export: reported as done in the panel",
-      "pass": true,
+      "pass": false,
       "detail": {
-        "done": "done: Готово: UI_check_FullHD_2.mp4.Показать в папке",
-        "problems": []
+        "done": "error: В After Effects нет шаблона вывода «CR FullHD». Загрузите брендовые шаблоны один раз: Edit → Templates → Output Module → Load… и выберите файл /Users/Shared/CloudRuBrandKit/library/items/AME_Templates/AME_Templates_aom_v1.aom. Затем повторите экспорт.",
+        "problems": [
+          "error: В After Effects нет шаблона вывода «CR FullHD». Загрузите брендовые шаблоны один раз: Edit → Templates → Output Module → Load… и выберите файл /Users/Shared/CloudRuBrandKit/library/items/AME_Templates/AME_Templates_aom_v1.aom. Затем повторите экспорт."
+        ]
       }
     },
     {
-      "name": "export: the file is in Export next to the project (C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD_2.mp4)",
-      "pass": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Export/UI_check_FullHD_2.mp4"
+      "name": "export: the file is in Export next to the project (null)",
+      "pass": false,
+      "detail": null
     }
   ],
-  "finishedAt": "2026-10-26T08:41:33.921Z",
-  "failed": []
+  "finishedAt": "2026-10-26T10:06:29.576Z",
+  "failed": [
+    "export: reported as done in the panel",
+    "export: the file is in Export next to the project (null)"
+  ]
 }

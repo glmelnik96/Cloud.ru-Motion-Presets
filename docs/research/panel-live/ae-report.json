@@ -1,7 +1,7 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-26T08:00:43.119Z",
-  "finishedAt": "2026-10-26T08:07:51.180Z",
+  "startedAt": "2026-10-26T10:00:39.715Z",
+  "finishedAt": "2026-10-26T10:06:03.033Z",
   "summary": {
     "checks": 721,
     "passed": 721,
@@ -10,7 +10,7 @@
   "failed": [],
   "checks": [
     {
-      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, LOGO_Header, LOGO_Files, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap, TTL_Disclaimer, POD_Frame, POD_Guest, POD_Content, POD_QR, POD_Intro, POD_Outro, SMM_ShortsIntro, SMM_FrameNotched, CRS_Cover, CRS_LectureFrame, CRS_Subtitles, TRN_StepWipe, TRN_Bars, BG_Arrows, BG_Plus, BG_Rack, BG_Patterns, BG_WebinarPortal, WEB_Screen, WEB_Announce, SFX_PodcastLowerThirdIn, SFX_PodcastLowerThirdOut, SFX_PodcastTextPlateIn, SFX_PodcastTextPlateOut, SFX_PodcastDisclaimer, SFX_PodcastFrameIn, SFX_PodcastFrameOut, SFX_PodcastGuestIn, SFX_PodcastGuestOut, SFX_PodcastContent1In, SFX_PodcastContent1Out, SFX_PodcastContent2In, SFX_PodcastContent2Out, SFX_PodcastContent3In, SFX_PodcastContent3Out, SFX_PodcastQR1In, SFX_PodcastQR1Out, SFX_PodcastQR2In, SFX_PodcastQR2Out, SFX_PodcastSubscribeIn, SFX_PodcastSubscribeOut, SFX_MusicCourseIntro, SFX_MusicWebinar5min, SFX_MusicWebinar30s",
+      "name": "catalog built from /Users/Shared/CRBK/work/build: LOGO_Shot, LOGO_Mark, LOGO_Header, LOGO_Files, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap, TTL_Disclaimer, POD_Frame, POD_Guest, POD_Content, POD_QR, POD_Intro, POD_Outro, SMM_ShortsIntro, SMM_FrameNotched, CRS_Cover, CRS_LectureFrame, CRS_Subtitles, TRN_StepWipe, TRN_Bars, BG_Arrows, BG_Plus, BG_Rack, BG_Patterns, BG_WebinarPortal, WEB_Screen, WEB_Announce, SFX_PodcastLowerThirdIn, SFX_PodcastLowerThirdOut, SFX_PodcastTextPlateIn, SFX_PodcastTextPlateOut, SFX_PodcastDisclaimer, SFX_PodcastFrameIn, SFX_PodcastFrameOut, SFX_PodcastGuestIn, SFX_PodcastGuestOut, SFX_PodcastContent1In, SFX_PodcastContent1Out, SFX_PodcastContent2In, SFX_PodcastContent2Out, SFX_PodcastContent3In, SFX_PodcastContent3Out, SFX_PodcastQR1In, SFX_PodcastQR1Out, SFX_PodcastQR2In, SFX_PodcastQR2Out, SFX_PodcastSubscribeIn, SFX_PodcastSubscribeOut, SFX_MusicCourseIntro, SFX_MusicWebinar5min, SFX_MusicWebinar30s",
       "pass": true,
       "required": true,
       "detail": []
@@ -40,7 +40,7 @@
       "required": true,
       "detail": {
         "comps": 48,
-        "path": "C:\\CRBK\\work\\panel-live\\ae\\panel_live.aep"
+        "path": "/Users/Shared/CRBK/work/panel-live/ae/panel_live.aep"
       }
     },
     {
@@ -52,25 +52,25 @@
           "found": true,
           "version": "1.002",
           "substitute": false,
-          "location": "C:/Windows/Fonts/SBSansDisplay-SemiBold.otf"
+          "location": "/Users/gmmelnikov/Library/Fonts/SBSansDisplay-SemiBold.otf"
         },
         "SBSansText-Regular": {
           "found": true,
           "version": "1.003",
           "substitute": false,
-          "location": "C:/Windows/Fonts/SBSansText-Regular.otf"
+          "location": "/Users/gmmelnikov/Library/Fonts/SBSansText-Regular.otf"
         },
         "SBSansDisplay-Bold": {
           "found": true,
           "version": "1.002",
           "substitute": false,
-          "location": "C:/Windows/Fonts/SBSansDisplay-Bold.otf"
+          "location": "/Users/gmmelnikov/Library/Fonts/SBSansDisplay-Bold.otf"
         },
         "SBSansDisplay-Regular": {
           "found": true,
           "version": "1.002",
           "substitute": false,
-          "location": "C:/Windows/Fonts/SBSansDisplay-Regular.otf"
+          "location": "/Users/gmmelnikov/Library/Fonts/SBSansDisplay-Regular.otf"
         }
       }
     },
@@ -347,8 +347,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_b_intro.png"
       }
     },
     {
@@ -357,8 +357,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_b_outro.png"
       }
     },
     {
@@ -632,8 +632,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_4K_b_intro.png"
       }
     },
     {
@@ -642,8 +642,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Shot_16x9_4K_b_outro.png"
       }
     },
     {
@@ -917,8 +917,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Shot_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Shot_9x16_b_intro.png"
       }
     },
     {
@@ -927,8 +927,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Shot_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Shot_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Shot_9x16_b_outro.png"
       }
     },
     {
@@ -1204,8 +1204,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_b_intro.png"
       }
     },
     {
@@ -1214,8 +1214,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_b_outro.png"
       }
     },
     {
@@ -1489,8 +1489,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_4K_b_intro.png"
       }
     },
     {
@@ -1499,8 +1499,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Mark_16x9_4K_b_outro.png"
       }
     },
     {
@@ -1774,8 +1774,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Mark_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Mark_9x16_b_intro.png"
       }
     },
     {
@@ -1784,8 +1784,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Mark_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Mark_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Mark_9x16_b_outro.png"
       }
     },
     {
@@ -1998,8 +1998,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_b_intro.png"
       }
     },
     {
@@ -2008,8 +2008,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_b_outro.png"
       }
     },
     {
@@ -2220,8 +2220,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_4K_b_intro.png"
       }
     },
     {
@@ -2230,8 +2230,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Header_16x9_4K_b_outro.png"
       }
     },
     {
@@ -2442,8 +2442,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Header_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Header_9x16_b_intro.png"
       }
     },
     {
@@ -2452,8 +2452,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/LOGO_Header_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Header_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/LOGO_Header_9x16_b_outro.png"
       }
     },
     {
@@ -2741,8 +2741,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_b_intro.png"
       }
     },
     {
@@ -2751,8 +2751,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_b_outro.png"
       }
     },
     {
@@ -3038,8 +3038,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_4K_b_intro.png"
       }
     },
     {
@@ -3048,8 +3048,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_16x9_4K_b_outro.png"
       }
     },
     {
@@ -3335,8 +3335,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_9x16_b_intro.png"
       }
     },
     {
@@ -3345,8 +3345,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_9x16_b_outro.png"
       }
     },
     {
@@ -3632,8 +3632,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_1x1_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_1x1_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_1x1_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_1x1_b_intro.png"
       }
     },
     {
@@ -3642,8 +3642,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_1x1_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_LowerThird_1x1_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_1x1_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_LowerThird_1x1_b_outro.png"
       }
     },
     {
@@ -3931,8 +3931,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_b_intro.png"
       }
     },
     {
@@ -3941,8 +3941,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_b_outro.png"
       }
     },
     {
@@ -4228,8 +4228,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_4K_b_intro.png"
       }
     },
     {
@@ -4238,8 +4238,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_16x9_4K_b_outro.png"
       }
     },
     {
@@ -4525,8 +4525,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_9x16_b_intro.png"
       }
     },
     {
@@ -4535,8 +4535,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_9x16_b_outro.png"
       }
     },
     {
@@ -4822,8 +4822,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_1x1_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_1x1_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_1x1_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_1x1_b_intro.png"
       }
     },
     {
@@ -4832,8 +4832,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_1x1_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Plate_1x1_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_1x1_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Plate_1x1_b_outro.png"
       }
     },
     {
@@ -5113,8 +5113,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_b_intro.png"
       }
     },
     {
@@ -5123,8 +5123,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_b_outro.png"
       }
     },
     {
@@ -5402,8 +5402,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_4K_b_intro.png"
       }
     },
     {
@@ -5412,8 +5412,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_16x9_4K_b_outro.png"
       }
     },
     {
@@ -5691,8 +5691,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_9x16_b_intro.png"
       }
     },
     {
@@ -5701,8 +5701,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_9x16_b_outro.png"
       }
     },
     {
@@ -5980,8 +5980,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_1x1_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_1x1_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_1x1_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_1x1_b_intro.png"
       }
     },
     {
@@ -5990,8 +5990,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_1x1_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Subscribe_1x1_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_1x1_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Subscribe_1x1_b_outro.png"
       }
     },
     {
@@ -6291,8 +6291,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_b_intro.png"
       }
     },
     {
@@ -6301,8 +6301,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_b_outro.png"
       }
     },
     {
@@ -6600,8 +6600,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_4K_b_intro.png"
       }
     },
     {
@@ -6610,8 +6610,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_16x9_4K_b_outro.png"
       }
     },
     {
@@ -6909,8 +6909,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_9x16_b_intro.png"
       }
     },
     {
@@ -6919,8 +6919,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_9x16_b_outro.png"
       }
     },
     {
@@ -7218,8 +7218,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_1x1_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_1x1_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_1x1_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_1x1_b_intro.png"
       }
     },
     {
@@ -7228,8 +7228,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_1x1_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_1x1_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_1x1_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_PlateSwap_1x1_b_outro.png"
       }
     },
     {
@@ -7503,8 +7503,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_b_intro.png"
       }
     },
     {
@@ -7513,8 +7513,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_b_outro.png"
       }
     },
     {
@@ -7786,8 +7786,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_4K_b_intro.png"
       }
     },
     {
@@ -7796,8 +7796,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/TTL_Disclaimer_16x9_4K_b_outro.png"
       }
     },
     {
@@ -8073,8 +8073,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_b_intro.png"
       }
     },
     {
@@ -8083,8 +8083,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_b_outro.png"
       }
     },
     {
@@ -8358,8 +8358,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_4K_b_intro.png"
       }
     },
     {
@@ -8368,8 +8368,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Frame_16x9_4K_b_outro.png"
       }
     },
     {
@@ -8657,8 +8657,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_b_intro.png"
       }
     },
     {
@@ -8667,8 +8667,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_b_outro.png"
       }
     },
     {
@@ -8954,8 +8954,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_4K_b_intro.png"
       }
     },
     {
@@ -8964,8 +8964,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Guest_16x9_4K_b_outro.png"
       }
     },
     {
@@ -9200,8 +9200,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_Content_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_Content_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Content_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Content_16x9_b_intro.png"
       }
     },
     {
@@ -9210,8 +9210,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_Content_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_Content_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Content_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Content_16x9_b_outro.png"
       }
     },
     {
@@ -9444,8 +9444,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_Content_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_Content_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Content_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Content_16x9_4K_b_intro.png"
       }
     },
     {
@@ -9454,8 +9454,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_Content_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_Content_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Content_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_Content_16x9_4K_b_outro.png"
       }
     },
     {
@@ -9735,8 +9735,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_QR_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_QR_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_QR_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_QR_16x9_b_intro.png"
       }
     },
     {
@@ -9745,8 +9745,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_QR_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_QR_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_QR_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_QR_16x9_b_outro.png"
       }
     },
     {
@@ -10024,8 +10024,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_QR_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_QR_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_QR_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_QR_16x9_4K_b_intro.png"
       }
     },
     {
@@ -10034,8 +10034,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/POD_QR_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/POD_QR_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_QR_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/POD_QR_16x9_4K_b_outro.png"
       }
     },
     {
@@ -10266,8 +10266,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/SMM_ShortsIntro_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/SMM_ShortsIntro_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/SMM_ShortsIntro_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/SMM_ShortsIntro_9x16_b_intro.png"
       }
     },
     {
@@ -10276,8 +10276,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/SMM_ShortsIntro_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/SMM_ShortsIntro_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/SMM_ShortsIntro_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/SMM_ShortsIntro_9x16_b_outro.png"
       }
     },
     {
@@ -10512,8 +10512,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_b_intro.png"
       }
     },
     {
@@ -10522,8 +10522,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_b_outro.png"
       }
     },
     {
@@ -10756,8 +10756,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_4K_b_intro.png"
       }
     },
     {
@@ -10766,8 +10766,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Cover_16x9_4K_b_outro.png"
       }
     },
     {
@@ -10980,8 +10980,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_b_intro.png"
       }
     },
     {
@@ -10990,8 +10990,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_b_outro.png"
       }
     },
     {
@@ -11202,8 +11202,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_4K_b_intro.png"
       }
     },
     {
@@ -11212,8 +11212,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/CRS_Subtitles_16x9_4K_b_outro.png"
       }
     },
     {
@@ -11465,9 +11465,9 @@
       "pass": true,
       "required": true,
       "detail": {
-        "ssim": 0.9870260297641824,
-        "a": "C:/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_b_intro.png"
+        "ssim": 0.9870336398237444,
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_b_intro.png"
       }
     },
     {
@@ -11475,9 +11475,9 @@
       "pass": true,
       "required": true,
       "detail": {
-        "ssim": 0.9864822368271565,
-        "a": "C:/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_b_outro.png"
+        "ssim": 0.9864947649019847,
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_b_outro.png"
       }
     },
     {
@@ -11727,9 +11727,9 @@
       "pass": true,
       "required": true,
       "detail": {
-        "ssim": 0.9906150170596769,
-        "a": "C:/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_4K_b_intro.png"
+        "ssim": 0.9906207627313818,
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_4K_b_intro.png"
       }
     },
     {
@@ -11737,9 +11737,9 @@
       "pass": true,
       "required": true,
       "detail": {
-        "ssim": 0.9901079188612553,
-        "a": "C:/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_4K_b_outro.png"
+        "ssim": 0.9901138820085508,
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Screen_16x9_4K_b_outro.png"
       }
     },
     {
@@ -11964,8 +11964,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/WEB_Announce_1x1_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/WEB_Announce_1x1_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Announce_1x1_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Announce_1x1_b_intro.png"
       }
     },
     {
@@ -11974,8 +11974,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/WEB_Announce_1x1_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/WEB_Announce_1x1_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Announce_1x1_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Announce_1x1_b_outro.png"
       }
     },
     {
@@ -12198,8 +12198,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/WEB_Announce_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/WEB_Announce_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Announce_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Announce_9x16_b_intro.png"
       }
     },
     {
@@ -12208,8 +12208,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/ae/frames/WEB_Announce_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/ae/frames/WEB_Announce_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Announce_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/ae/frames/WEB_Announce_9x16_b_outro.png"
       }
     },
     {
@@ -12338,5 +12338,5 @@
   ],
   "hostVersion": "26.5x89",
   "frames": true,
-  "outDir": "C:/CRBK/work/panel-live/ae"
+  "outDir": "/Users/Shared/CRBK/work/panel-live/ae"
 }

@@ -1,0 +1,143 @@
+{
+  "host": "ae",
+  "startedAt": "2026-10-26T09:58:56.846Z",
+  "finishedAt": "2026-10-26T09:58:58.708Z",
+  "summary": {
+    "checks": 3,
+    "passed": 3,
+    "failed": 0
+  },
+  "failed": [],
+  "checks": [
+    {
+      "name": "open: moved project opened: /Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/media_live.aep",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "path": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/media_live.aep",
+        "footage": 21
+      }
+    },
+    {
+      "name": "no missing files (21 listed)",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "every file the panel put next to the project found inside its folder (21)",
+      "pass": true,
+      "required": true,
+      "detail": []
+    }
+  ],
+  "os": "mac",
+  "project": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/media_live.aep",
+  "items": [
+    {
+      "name": "BG_Arrows_16x9_intro_v1.mov",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+      "missing": false
+    },
+    {
+      "name": "BG_Arrows_16x9_loop_v1.mov",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+      "missing": false
+    },
+    {
+      "name": "BG_Arrows_16x9_outro_v1.mov",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+      "missing": false
+    },
+    {
+      "name": "BG_Rack_16x9_dark_v1.mov",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
+      "missing": false
+    },
+    {
+      "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+      "missing": false
+    },
+    {
+      "name": "BG_WebinarPortal_16x9_visual_timer_v1.mov",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
+      "missing": false
+    },
+    {
+      "name": "CRS_LectureFrame_16x9_s169_drift_v1.mov",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov",
+      "missing": false
+    },
+    {
+      "name": "POD_Intro_16x9_v1.mov",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov",
+      "missing": false
+    },
+    {
+      "name": "POD_Outro_16x9_v1.mov",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov",
+      "missing": false
+    },
+    {
+      "name": "SMM_FrameNotched_16x9_green_drift_v1.mov",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov",
+      "missing": false
+    },
+    {
+      "name": "TRN_Bars_16x9_white_logo_v1.mov",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/TRN_Bars@1/TRN_Bars_16x9_white_logo_v1.mov",
+      "missing": false
+    },
+    {
+      "name": "TRN_StepWipe_16x9_dark_v1.mov",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov",
+      "missing": false
+    },
+    {
+      "name": "BG_DotGrid_16x9_v1.png",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png",
+      "missing": false
+    },
+    {
+      "name": "BG_Patterns_16x9_globe_light_v1.png",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/BG_Patterns@1/BG_Patterns_16x9_globe_light_v1.png",
+      "missing": false
+    },
+    {
+      "name": "CRS_LectureFrame_16x9_spkL_v1.png",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_spkL_v1.png",
+      "missing": false
+    },
+    {
+      "name": "LOGO_Files_16x9_light_v1.png",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/LOGO_Files@1/LOGO_Files_16x9_light_v1.png",
+      "missing": false
+    },
+    {
+      "name": "SFX_CyberImpact3_wav_v1.wav",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/SFX_CyberImpact3@1/SFX_CyberImpact3_wav_v1.wav",
+      "missing": false
+    },
+    {
+      "name": "SFX_MusicWebinar5min_wav_v1.wav",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav",
+      "missing": false
+    },
+    {
+      "name": "SFX_PodcastGuestIn_wav_v1.wav",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav",
+      "missing": false
+    },
+    {
+      "name": "SFX_PodcastGuestOut_wav_v1.wav",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav",
+      "missing": false
+    },
+    {
+      "name": "SFX_WhooshIn_wav_v1.wav",
+      "file": "/Users/gmmelnikov/CRBK-from-win/ae-moved-20261026T080812/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+      "missing": false
+    }
+  ]
+}

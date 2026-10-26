@@ -1,7 +1,7 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-26T08:08:56.461Z",
-  "finishedAt": "2026-10-26T08:24:32.990Z",
+  "startedAt": "2026-10-26T09:45:19.715Z",
+  "finishedAt": "2026-10-26T09:49:24.524Z",
   "summary": {
     "checks": 783,
     "passed": 783,
@@ -10,7 +10,7 @@
   "failed": [],
   "checks": [
     {
-      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, LOGO_Header, LOGO_Files, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap, TTL_Disclaimer, POD_Frame, POD_Guest, POD_Content, POD_QR, POD_Intro, POD_Outro, SMM_ShortsIntro, SMM_FrameNotched, CRS_Cover, CRS_LectureFrame, CRS_Subtitles, TRN_StepWipe, TRN_Bars, BG_Arrows, BG_Plus, BG_Rack, BG_Patterns, BG_WebinarPortal, WEB_Screen, WEB_Announce, SFX_PodcastLowerThirdIn, SFX_PodcastLowerThirdOut, SFX_PodcastTextPlateIn, SFX_PodcastTextPlateOut, SFX_PodcastDisclaimer, SFX_PodcastFrameIn, SFX_PodcastFrameOut, SFX_PodcastGuestIn, SFX_PodcastGuestOut, SFX_PodcastContent1In, SFX_PodcastContent1Out, SFX_PodcastContent2In, SFX_PodcastContent2Out, SFX_PodcastContent3In, SFX_PodcastContent3Out, SFX_PodcastQR1In, SFX_PodcastQR1Out, SFX_PodcastQR2In, SFX_PodcastQR2Out, SFX_PodcastSubscribeIn, SFX_PodcastSubscribeOut, SFX_MusicCourseIntro, SFX_MusicWebinar5min, SFX_MusicWebinar30s",
+      "name": "catalog built from /Users/Shared/CRBK/work/build: LOGO_Shot, LOGO_Mark, LOGO_Header, LOGO_Files, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap, TTL_Disclaimer, POD_Frame, POD_Guest, POD_Content, POD_QR, POD_Intro, POD_Outro, SMM_ShortsIntro, SMM_FrameNotched, CRS_Cover, CRS_LectureFrame, CRS_Subtitles, TRN_StepWipe, TRN_Bars, BG_Arrows, BG_Plus, BG_Rack, BG_Patterns, BG_WebinarPortal, WEB_Screen, WEB_Announce, SFX_PodcastLowerThirdIn, SFX_PodcastLowerThirdOut, SFX_PodcastTextPlateIn, SFX_PodcastTextPlateOut, SFX_PodcastDisclaimer, SFX_PodcastFrameIn, SFX_PodcastFrameOut, SFX_PodcastGuestIn, SFX_PodcastGuestOut, SFX_PodcastContent1In, SFX_PodcastContent1Out, SFX_PodcastContent2In, SFX_PodcastContent2Out, SFX_PodcastContent3In, SFX_PodcastContent3Out, SFX_PodcastQR1In, SFX_PodcastQR1Out, SFX_PodcastQR2In, SFX_PodcastQR2Out, SFX_PodcastSubscribeIn, SFX_PodcastSubscribeOut, SFX_MusicCourseIntro, SFX_MusicWebinar5min, SFX_MusicWebinar30s",
       "pass": true,
       "required": true,
       "detail": []
@@ -35,12 +35,12 @@
       }
     },
     {
-      "name": "setup: scratch project C:/CRBK/work/panel-live/pr/panel_live.prproj is the active project",
+      "name": "setup: scratch project /Users/Shared/CRBK/work/panel-live/pr/panel_live.prproj is the active project",
       "pass": true,
       "required": true,
       "detail": {
-        "how": "opened",
-        "path": "C:\\CRBK\\work\\panel-live\\pr\\panel_live.prproj",
+        "how": "created",
+        "path": "/Users/Shared/CRBK/work/panel-live/pr/panel_live.prproj",
         "ok": true
       }
     },
@@ -49,52 +49,52 @@
       "pass": true,
       "required": true,
       "detail": {
-        "LOGO_Shot_16x9": "66096aa3-280d-4d0c-b58e-4f3de5ecd863",
-        "LOGO_Shot_16x9_4K": "68a723cb-8c2a-4d7b-82cc-a73be0706971",
-        "LOGO_Shot_9x16": "0ffd4d39-d63f-42bd-868e-24a9995e0e6d",
-        "LOGO_Mark_16x9": "26a8b64b-f545-42a9-b035-445833bbdd30",
-        "LOGO_Mark_16x9_4K": "daf8c4a5-bded-483c-aa65-25ec2aceeda5",
-        "LOGO_Mark_9x16": "77656055-2d65-44cb-b7ad-9a260432b65a",
-        "LOGO_Header_16x9": "f334c90b-4680-4acb-87be-210a785de031",
-        "LOGO_Header_16x9_4K": "3000e9a1-b3f5-4dd9-8af8-00ecc892ba10",
-        "LOGO_Header_9x16": "03b84810-8fda-4f81-802b-3a3cb245b7ec",
-        "TTL_LowerThird_16x9": "18cb41f8-b26e-4ffe-a31e-163ea8ffa94f",
-        "TTL_LowerThird_16x9_4K": "16fd5f83-2d5a-4803-8016-9d926dd312de",
-        "TTL_LowerThird_9x16": "f9329292-c151-472e-bad7-d470db32384a",
-        "TTL_LowerThird_1x1": "e59b8271-97d8-43e6-81e3-24019a555678",
-        "TTL_Plate_16x9": "67038d76-ced6-4b9d-a3c3-925265f6c3d7",
-        "TTL_Plate_16x9_4K": "c79f408d-52b6-41e5-b8b2-dc97fdd46247",
-        "TTL_Plate_9x16": "fa735916-5ac0-4e10-aa84-e306615a15a1",
-        "TTL_Plate_1x1": "b1e788f6-79f6-45a2-bfbc-694da376f203",
-        "TTL_Subscribe_16x9": "368f7cc7-6430-4eb5-b672-254a0a4b49cc",
-        "TTL_Subscribe_16x9_4K": "299160e6-2e6b-4357-b4e8-09ea38a01174",
-        "TTL_Subscribe_9x16": "55ea89d8-8266-48fb-bcef-6c27118ffec8",
-        "TTL_Subscribe_1x1": "b13d377c-360a-431d-bed2-47258ec91081",
-        "TTL_PlateSwap_16x9": "b2b7c086-1d20-49df-9f28-59fc22b3ac4b",
-        "TTL_PlateSwap_16x9_4K": "4f2065b3-bf2b-4146-bb8c-21db9088e3c0",
-        "TTL_PlateSwap_9x16": "cc504dfb-06a3-489f-95eb-8894ad32ab52",
-        "TTL_PlateSwap_1x1": "4e79664b-2d0a-4aec-acf0-85794145fd15",
-        "TTL_Disclaimer_16x9": "b2a8c608-7071-41ff-a8d8-04c0db92e775",
-        "TTL_Disclaimer_16x9_4K": "a26d78d6-a555-44fc-bc9e-172d3a2f536c",
-        "POD_Frame_16x9": "3fe26a53-f195-46e6-b59d-6349d8a755ba",
-        "POD_Frame_16x9_4K": "9501a0fe-d73f-46a1-bdb9-2e9d0cb39b1c",
-        "POD_Guest_16x9": "d6edbe19-fd21-4fea-9cb8-45d619975adf",
-        "POD_Guest_16x9_4K": "94706557-bf29-479a-9101-8dd623e42cb7",
-        "POD_Content_16x9": "6ea2a1ed-26ac-4627-8ecc-a575a58fbb41",
-        "POD_Content_16x9_4K": "e550e80a-6911-445f-a253-22b2f257a7b0",
-        "POD_QR_16x9": "c8f20389-950f-4410-b4d0-27d61e0da774",
-        "POD_QR_16x9_4K": "2d4df173-b120-44ba-830d-d198769d5a14",
-        "SMM_ShortsIntro_9x16": "0eca121f-46b9-4ad5-8a7c-da3d355fcd92",
-        "CRS_Cover_16x9": "3b73c3b4-b9d5-451f-97a9-7e44aa8db5e0",
-        "CRS_Cover_16x9_4K": "07719951-ec05-4538-b230-513eed1e53ef",
-        "WEB_Screen_16x9": "7aab033a-12a8-4d14-ae86-196037451bfd",
-        "WEB_Screen_16x9_4K": "942ac2cc-0543-4053-b09d-9b0b138864f0",
-        "WEB_Announce_1x1": "e60190e7-8fc1-4175-a202-be54b1d92476",
-        "WEB_Announce_9x16": "950f65bf-9eef-4ccc-988c-06f7830442ae",
-        "nearest": "6e04707c-ff59-48b7-b365-212f118a0d4b",
-        "tracks": "760f6372-6291-4f80-9361-5d78b95d15db",
-        "undo": "3792f776-29cb-4ff2-a30b-8c3e31cd40a3",
-        "other": "0fbf2d6a-88e5-4c86-a30a-bb2d626c609b"
+        "LOGO_Shot_16x9": "1b3295f6-91a8-4b2b-996f-340e6186f7bb",
+        "LOGO_Shot_16x9_4K": "151def13-ad64-4d65-b33a-f47ac0e5953f",
+        "LOGO_Shot_9x16": "200845fc-66c9-4479-96ed-1d5865dd9449",
+        "LOGO_Mark_16x9": "a814e800-41d3-4e84-8b38-1e3c53f9f0d1",
+        "LOGO_Mark_16x9_4K": "511b5ec2-08bd-4058-b66c-9e50a387326f",
+        "LOGO_Mark_9x16": "75bc00b2-80e1-4c6f-be5c-ccea33201af3",
+        "LOGO_Header_16x9": "22f0c63c-25bd-4599-b28d-d900553b4466",
+        "LOGO_Header_16x9_4K": "e51769fe-243d-4b5f-8e1f-f6877ea8977f",
+        "LOGO_Header_9x16": "ae95daae-e6da-4710-aaa6-93401f5ac15c",
+        "TTL_LowerThird_16x9": "fe07a5cf-afb0-4f8c-90d4-4bf635554107",
+        "TTL_LowerThird_16x9_4K": "9baf7ee1-7bc6-4550-95e9-075a27bc80cb",
+        "TTL_LowerThird_9x16": "7cc11b77-46d8-469b-9b13-13efebc30976",
+        "TTL_LowerThird_1x1": "9f2fe5fa-55d1-4977-95ff-94816e1d5920",
+        "TTL_Plate_16x9": "dc12d841-5f31-45a2-8ea1-5dacbd626c7c",
+        "TTL_Plate_16x9_4K": "06bbd65b-687d-4e3e-bddb-5e0916a7b539",
+        "TTL_Plate_9x16": "fcfda866-6dc4-429c-af68-346ad6581d6f",
+        "TTL_Plate_1x1": "11f27792-37fd-4220-8722-de833d5c3458",
+        "TTL_Subscribe_16x9": "57263e61-d6b2-4461-8156-7c622581941c",
+        "TTL_Subscribe_16x9_4K": "59e13645-db46-429f-adcc-e3a712e26a43",
+        "TTL_Subscribe_9x16": "fec2290f-babc-42cc-863c-bed9b6f984aa",
+        "TTL_Subscribe_1x1": "ef00c1e9-058e-4865-9a57-a2ea2400ef60",
+        "TTL_PlateSwap_16x9": "eee945f8-b3b5-4f76-ad2e-2e138cf50f52",
+        "TTL_PlateSwap_16x9_4K": "3142ef1a-8a19-4ba6-8d86-d886e679b736",
+        "TTL_PlateSwap_9x16": "126e3b5d-08b9-4883-9f48-ff9634210d3f",
+        "TTL_PlateSwap_1x1": "18768361-ef93-40e9-a079-82510f02c5ca",
+        "TTL_Disclaimer_16x9": "f95885b0-4a68-4280-8d95-df4d9e5bf30a",
+        "TTL_Disclaimer_16x9_4K": "cb700014-1d06-4069-8732-76c988225c90",
+        "POD_Frame_16x9": "b5a72679-886e-485f-8bdf-2bf43e23ba2b",
+        "POD_Frame_16x9_4K": "3110cfb9-3c73-4d70-a66b-db463d2816a9",
+        "POD_Guest_16x9": "2015df77-0c33-4508-9c40-8c208075709b",
+        "POD_Guest_16x9_4K": "04e19ec4-97a1-40e6-8f27-b7cc5df1a337",
+        "POD_Content_16x9": "6819dc0a-3c0e-4619-95c7-fb5794a65d3a",
+        "POD_Content_16x9_4K": "d9d3a3c0-0980-4d91-9a5d-18ecea712f3e",
+        "POD_QR_16x9": "1d5af674-6af3-4db2-85ed-f599c46f4006",
+        "POD_QR_16x9_4K": "a7bf118b-1f56-4f96-a843-dc57f80a68bd",
+        "SMM_ShortsIntro_9x16": "e1ebe042-c82a-47b4-9887-d1523a251764",
+        "CRS_Cover_16x9": "10d14165-81d0-43c2-8be5-d694cfb6488d",
+        "CRS_Cover_16x9_4K": "217d92f6-b3b2-4bef-a7a9-747df8a93a7a",
+        "WEB_Screen_16x9": "0efebc86-3c7a-4302-bac9-baefe58b8264",
+        "WEB_Screen_16x9_4K": "141ae6c1-fe61-4be7-89fa-0e35666e89c1",
+        "WEB_Announce_1x1": "e00a484a-7538-4547-a260-1dc6ea1d2a60",
+        "WEB_Announce_9x16": "73407de9-f0ce-428b-91d7-6a6a5d530d12",
+        "nearest": "e28588bd-f95b-40c3-99ab-9a008cfbf151",
+        "tracks": "181dc480-80e4-4aea-bcee-7458dc493f12",
+        "undo": "900ad771-19ba-416c-9173-8656ff31eb59",
+        "other": "ef9e25d1-1d63-45ed-bb1d-52066ce7263c"
       }
     },
     {
@@ -121,20 +121,20 @@
       }
     },
     {
-      "name": "activate LOGO_Shot_16x9 at 2 s: sequence 66096aa3-280d-4d0c-b58e-4f3de5ecd863 active, playhead at 2 s",
+      "name": "activate LOGO_Shot_16x9 at 2 s: sequence 1b3295f6-91a8-4b2b-996f-340e6186f7bb active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Shot_16x9_7",
+        "name": "LIVE_LOGO_Shot_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Shot_16x9 at 20 s: sequence 66096aa3-280d-4d0c-b58e-4f3de5ecd863 active, playhead at 20 s",
+      "name": "activate LOGO_Shot_16x9 at 20 s: sequence 1b3295f6-91a8-4b2b-996f-340e6186f7bb active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Shot_16x9_7",
+        "name": "LIVE_LOGO_Shot_16x9",
         "player": 20
       }
     },
@@ -262,7 +262,7 @@
       }
     },
     {
-      "name": "LOGO_Shot_16x9: clips: clips of sequence 66096aa3-280d-4d0c-b58e-4f3de5ecd863 listed",
+      "name": "LOGO_Shot_16x9: clips: clips of sequence 1b3295f6-91a8-4b2b-996f-340e6186f7bb listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -366,8 +366,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_b_intro.png"
       }
     },
     {
@@ -376,25 +376,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate LOGO_Shot_16x9_4K at 2 s: sequence 68a723cb-8c2a-4d7b-82cc-a73be0706971 active, playhead at 2 s",
+      "name": "activate LOGO_Shot_16x9_4K at 2 s: sequence 151def13-ad64-4d65-b33a-f47ac0e5953f active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Shot_16x9_4K_7",
+        "name": "LIVE_LOGO_Shot_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Shot_16x9_4K at 20 s: sequence 68a723cb-8c2a-4d7b-82cc-a73be0706971 active, playhead at 20 s",
+      "name": "activate LOGO_Shot_16x9_4K at 20 s: sequence 151def13-ad64-4d65-b33a-f47ac0e5953f active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Shot_16x9_4K_7",
+        "name": "LIVE_LOGO_Shot_16x9_4K",
         "player": 20
       }
     },
@@ -522,7 +522,7 @@
       }
     },
     {
-      "name": "LOGO_Shot_16x9_4K: clips: clips of sequence 68a723cb-8c2a-4d7b-82cc-a73be0706971 listed",
+      "name": "LOGO_Shot_16x9_4K: clips: clips of sequence 151def13-ad64-4d65-b33a-f47ac0e5953f listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -626,8 +626,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_4K_b_intro.png"
       }
     },
     {
@@ -636,25 +636,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Shot_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate LOGO_Shot_9x16 at 2 s: sequence 0ffd4d39-d63f-42bd-868e-24a9995e0e6d active, playhead at 2 s",
+      "name": "activate LOGO_Shot_9x16 at 2 s: sequence 200845fc-66c9-4479-96ed-1d5865dd9449 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Shot_9x16_7",
+        "name": "LIVE_LOGO_Shot_9x16",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Shot_9x16 at 20 s: sequence 0ffd4d39-d63f-42bd-868e-24a9995e0e6d active, playhead at 20 s",
+      "name": "activate LOGO_Shot_9x16 at 20 s: sequence 200845fc-66c9-4479-96ed-1d5865dd9449 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Shot_9x16_7",
+        "name": "LIVE_LOGO_Shot_9x16",
         "player": 20
       }
     },
@@ -782,7 +782,7 @@
       }
     },
     {
-      "name": "LOGO_Shot_9x16: clips: clips of sequence 0ffd4d39-d63f-42bd-868e-24a9995e0e6d listed",
+      "name": "LOGO_Shot_9x16: clips: clips of sequence 200845fc-66c9-4479-96ed-1d5865dd9449 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -886,8 +886,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Shot_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Shot_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Shot_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Shot_9x16_b_intro.png"
       }
     },
     {
@@ -896,25 +896,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Shot_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Shot_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Shot_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Shot_9x16_b_outro.png"
       }
     },
     {
-      "name": "activate LOGO_Mark_16x9 at 2 s: sequence 26a8b64b-f545-42a9-b035-445833bbdd30 active, playhead at 2 s",
+      "name": "activate LOGO_Mark_16x9 at 2 s: sequence a814e800-41d3-4e84-8b38-1e3c53f9f0d1 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Mark_16x9_7",
+        "name": "LIVE_LOGO_Mark_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Mark_16x9 at 20 s: sequence 26a8b64b-f545-42a9-b035-445833bbdd30 active, playhead at 20 s",
+      "name": "activate LOGO_Mark_16x9 at 20 s: sequence a814e800-41d3-4e84-8b38-1e3c53f9f0d1 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Mark_16x9_7",
+        "name": "LIVE_LOGO_Mark_16x9",
         "player": 20
       }
     },
@@ -1042,7 +1042,7 @@
       }
     },
     {
-      "name": "LOGO_Mark_16x9: clips: clips of sequence 26a8b64b-f545-42a9-b035-445833bbdd30 listed",
+      "name": "LOGO_Mark_16x9: clips: clips of sequence a814e800-41d3-4e84-8b38-1e3c53f9f0d1 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1146,8 +1146,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_b_intro.png"
       }
     },
     {
@@ -1156,25 +1156,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate LOGO_Mark_16x9_4K at 2 s: sequence daf8c4a5-bded-483c-aa65-25ec2aceeda5 active, playhead at 2 s",
+      "name": "activate LOGO_Mark_16x9_4K at 2 s: sequence 511b5ec2-08bd-4058-b66c-9e50a387326f active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Mark_16x9_4K_7",
+        "name": "LIVE_LOGO_Mark_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Mark_16x9_4K at 20 s: sequence daf8c4a5-bded-483c-aa65-25ec2aceeda5 active, playhead at 20 s",
+      "name": "activate LOGO_Mark_16x9_4K at 20 s: sequence 511b5ec2-08bd-4058-b66c-9e50a387326f active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Mark_16x9_4K_7",
+        "name": "LIVE_LOGO_Mark_16x9_4K",
         "player": 20
       }
     },
@@ -1302,7 +1302,7 @@
       }
     },
     {
-      "name": "LOGO_Mark_16x9_4K: clips: clips of sequence daf8c4a5-bded-483c-aa65-25ec2aceeda5 listed",
+      "name": "LOGO_Mark_16x9_4K: clips: clips of sequence 511b5ec2-08bd-4058-b66c-9e50a387326f listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1406,8 +1406,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_4K_b_intro.png"
       }
     },
     {
@@ -1416,25 +1416,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Mark_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate LOGO_Mark_9x16 at 2 s: sequence 77656055-2d65-44cb-b7ad-9a260432b65a active, playhead at 2 s",
+      "name": "activate LOGO_Mark_9x16 at 2 s: sequence 75bc00b2-80e1-4c6f-be5c-ccea33201af3 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Mark_9x16_7",
+        "name": "LIVE_LOGO_Mark_9x16",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Mark_9x16 at 20 s: sequence 77656055-2d65-44cb-b7ad-9a260432b65a active, playhead at 20 s",
+      "name": "activate LOGO_Mark_9x16 at 20 s: sequence 75bc00b2-80e1-4c6f-be5c-ccea33201af3 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Mark_9x16_7",
+        "name": "LIVE_LOGO_Mark_9x16",
         "player": 20
       }
     },
@@ -1562,7 +1562,7 @@
       }
     },
     {
-      "name": "LOGO_Mark_9x16: clips: clips of sequence 77656055-2d65-44cb-b7ad-9a260432b65a listed",
+      "name": "LOGO_Mark_9x16: clips: clips of sequence 75bc00b2-80e1-4c6f-be5c-ccea33201af3 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1666,8 +1666,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Mark_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Mark_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Mark_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Mark_9x16_b_intro.png"
       }
     },
     {
@@ -1676,25 +1676,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Mark_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Mark_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Mark_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Mark_9x16_b_outro.png"
       }
     },
     {
-      "name": "activate LOGO_Header_16x9 at 2 s: sequence f334c90b-4680-4acb-87be-210a785de031 active, playhead at 2 s",
+      "name": "activate LOGO_Header_16x9 at 2 s: sequence 22f0c63c-25bd-4599-b28d-d900553b4466 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Header_16x9_7",
+        "name": "LIVE_LOGO_Header_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Header_16x9 at 20 s: sequence f334c90b-4680-4acb-87be-210a785de031 active, playhead at 20 s",
+      "name": "activate LOGO_Header_16x9 at 20 s: sequence 22f0c63c-25bd-4599-b28d-d900553b4466 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Header_16x9_7",
+        "name": "LIVE_LOGO_Header_16x9",
         "player": 20
       }
     },
@@ -1810,7 +1810,7 @@
       }
     },
     {
-      "name": "LOGO_Header_16x9: clips: clips of sequence f334c90b-4680-4acb-87be-210a785de031 listed",
+      "name": "LOGO_Header_16x9: clips: clips of sequence 22f0c63c-25bd-4599-b28d-d900553b4466 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1914,8 +1914,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_b_intro.png"
       }
     },
     {
@@ -1924,25 +1924,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate LOGO_Header_16x9_4K at 2 s: sequence 3000e9a1-b3f5-4dd9-8af8-00ecc892ba10 active, playhead at 2 s",
+      "name": "activate LOGO_Header_16x9_4K at 2 s: sequence e51769fe-243d-4b5f-8e1f-f6877ea8977f active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Header_16x9_4K_7",
+        "name": "LIVE_LOGO_Header_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Header_16x9_4K at 20 s: sequence 3000e9a1-b3f5-4dd9-8af8-00ecc892ba10 active, playhead at 20 s",
+      "name": "activate LOGO_Header_16x9_4K at 20 s: sequence e51769fe-243d-4b5f-8e1f-f6877ea8977f active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Header_16x9_4K_7",
+        "name": "LIVE_LOGO_Header_16x9_4K",
         "player": 20
       }
     },
@@ -2058,7 +2058,7 @@
       }
     },
     {
-      "name": "LOGO_Header_16x9_4K: clips: clips of sequence 3000e9a1-b3f5-4dd9-8af8-00ecc892ba10 listed",
+      "name": "LOGO_Header_16x9_4K: clips: clips of sequence e51769fe-243d-4b5f-8e1f-f6877ea8977f listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2162,8 +2162,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_4K_b_intro.png"
       }
     },
     {
@@ -2172,25 +2172,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Header_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate LOGO_Header_9x16 at 2 s: sequence 03b84810-8fda-4f81-802b-3a3cb245b7ec active, playhead at 2 s",
+      "name": "activate LOGO_Header_9x16 at 2 s: sequence ae95daae-e6da-4710-aaa6-93401f5ac15c active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Header_9x16_7",
+        "name": "LIVE_LOGO_Header_9x16",
         "player": 2
       }
     },
     {
-      "name": "activate LOGO_Header_9x16 at 20 s: sequence 03b84810-8fda-4f81-802b-3a3cb245b7ec active, playhead at 20 s",
+      "name": "activate LOGO_Header_9x16 at 20 s: sequence ae95daae-e6da-4710-aaa6-93401f5ac15c active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_LOGO_Header_9x16_7",
+        "name": "LIVE_LOGO_Header_9x16",
         "player": 20
       }
     },
@@ -2306,7 +2306,7 @@
       }
     },
     {
-      "name": "LOGO_Header_9x16: clips: clips of sequence 03b84810-8fda-4f81-802b-3a3cb245b7ec listed",
+      "name": "LOGO_Header_9x16: clips: clips of sequence ae95daae-e6da-4710-aaa6-93401f5ac15c listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2410,8 +2410,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Header_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Header_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Header_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Header_9x16_b_intro.png"
       }
     },
     {
@@ -2420,25 +2420,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/LOGO_Header_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/LOGO_Header_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Header_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/LOGO_Header_9x16_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_LowerThird_16x9 at 2 s: sequence 18cb41f8-b26e-4ffe-a31e-163ea8ffa94f active, playhead at 2 s",
+      "name": "activate TTL_LowerThird_16x9 at 2 s: sequence fe07a5cf-afb0-4f8c-90d4-4bf635554107 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_16x9_7",
+        "name": "LIVE_TTL_LowerThird_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_LowerThird_16x9 at 20 s: sequence 18cb41f8-b26e-4ffe-a31e-163ea8ffa94f active, playhead at 20 s",
+      "name": "activate TTL_LowerThird_16x9 at 20 s: sequence fe07a5cf-afb0-4f8c-90d4-4bf635554107 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_16x9_7",
+        "name": "LIVE_TTL_LowerThird_16x9",
         "player": 20
       }
     },
@@ -2578,7 +2578,7 @@
       }
     },
     {
-      "name": "TTL_LowerThird_16x9: clips: clips of sequence 18cb41f8-b26e-4ffe-a31e-163ea8ffa94f listed",
+      "name": "TTL_LowerThird_16x9: clips: clips of sequence fe07a5cf-afb0-4f8c-90d4-4bf635554107 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2682,8 +2682,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_b_intro.png"
       }
     },
     {
@@ -2692,25 +2692,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_LowerThird_16x9_4K at 2 s: sequence 16fd5f83-2d5a-4803-8016-9d926dd312de active, playhead at 2 s",
+      "name": "activate TTL_LowerThird_16x9_4K at 2 s: sequence 9baf7ee1-7bc6-4550-95e9-075a27bc80cb active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_16x9_4K_7",
+        "name": "LIVE_TTL_LowerThird_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_LowerThird_16x9_4K at 20 s: sequence 16fd5f83-2d5a-4803-8016-9d926dd312de active, playhead at 20 s",
+      "name": "activate TTL_LowerThird_16x9_4K at 20 s: sequence 9baf7ee1-7bc6-4550-95e9-075a27bc80cb active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_16x9_4K_7",
+        "name": "LIVE_TTL_LowerThird_16x9_4K",
         "player": 20
       }
     },
@@ -2850,7 +2850,7 @@
       }
     },
     {
-      "name": "TTL_LowerThird_16x9_4K: clips: clips of sequence 16fd5f83-2d5a-4803-8016-9d926dd312de listed",
+      "name": "TTL_LowerThird_16x9_4K: clips: clips of sequence 9baf7ee1-7bc6-4550-95e9-075a27bc80cb listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2954,8 +2954,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_4K_b_intro.png"
       }
     },
     {
@@ -2964,25 +2964,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_LowerThird_9x16 at 2 s: sequence f9329292-c151-472e-bad7-d470db32384a active, playhead at 2 s",
+      "name": "activate TTL_LowerThird_9x16 at 2 s: sequence 7cc11b77-46d8-469b-9b13-13efebc30976 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_9x16_7",
+        "name": "LIVE_TTL_LowerThird_9x16",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_LowerThird_9x16 at 20 s: sequence f9329292-c151-472e-bad7-d470db32384a active, playhead at 20 s",
+      "name": "activate TTL_LowerThird_9x16 at 20 s: sequence 7cc11b77-46d8-469b-9b13-13efebc30976 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_9x16_7",
+        "name": "LIVE_TTL_LowerThird_9x16",
         "player": 20
       }
     },
@@ -3122,7 +3122,7 @@
       }
     },
     {
-      "name": "TTL_LowerThird_9x16: clips: clips of sequence f9329292-c151-472e-bad7-d470db32384a listed",
+      "name": "TTL_LowerThird_9x16: clips: clips of sequence 7cc11b77-46d8-469b-9b13-13efebc30976 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3226,8 +3226,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_9x16_b_intro.png"
       }
     },
     {
@@ -3236,25 +3236,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_9x16_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_LowerThird_1x1 at 2 s: sequence e59b8271-97d8-43e6-81e3-24019a555678 active, playhead at 2 s",
+      "name": "activate TTL_LowerThird_1x1 at 2 s: sequence 9f2fe5fa-55d1-4977-95ff-94816e1d5920 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_1x1_7",
+        "name": "LIVE_TTL_LowerThird_1x1",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_LowerThird_1x1 at 20 s: sequence e59b8271-97d8-43e6-81e3-24019a555678 active, playhead at 20 s",
+      "name": "activate TTL_LowerThird_1x1 at 20 s: sequence 9f2fe5fa-55d1-4977-95ff-94816e1d5920 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_LowerThird_1x1_7",
+        "name": "LIVE_TTL_LowerThird_1x1",
         "player": 20
       }
     },
@@ -3394,7 +3394,7 @@
       }
     },
     {
-      "name": "TTL_LowerThird_1x1: clips: clips of sequence e59b8271-97d8-43e6-81e3-24019a555678 listed",
+      "name": "TTL_LowerThird_1x1: clips: clips of sequence 9f2fe5fa-55d1-4977-95ff-94816e1d5920 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3498,8 +3498,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_1x1_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_1x1_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_1x1_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_1x1_b_intro.png"
       }
     },
     {
@@ -3508,25 +3508,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_1x1_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_LowerThird_1x1_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_1x1_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_LowerThird_1x1_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_Plate_16x9 at 2 s: sequence 67038d76-ced6-4b9d-a3c3-925265f6c3d7 active, playhead at 2 s",
+      "name": "activate TTL_Plate_16x9 at 2 s: sequence dc12d841-5f31-45a2-8ea1-5dacbd626c7c active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_16x9_7",
+        "name": "LIVE_TTL_Plate_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Plate_16x9 at 20 s: sequence 67038d76-ced6-4b9d-a3c3-925265f6c3d7 active, playhead at 20 s",
+      "name": "activate TTL_Plate_16x9 at 20 s: sequence dc12d841-5f31-45a2-8ea1-5dacbd626c7c active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_16x9_7",
+        "name": "LIVE_TTL_Plate_16x9",
         "player": 20
       }
     },
@@ -3666,7 +3666,7 @@
       }
     },
     {
-      "name": "TTL_Plate_16x9: clips: clips of sequence 67038d76-ced6-4b9d-a3c3-925265f6c3d7 listed",
+      "name": "TTL_Plate_16x9: clips: clips of sequence dc12d841-5f31-45a2-8ea1-5dacbd626c7c listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3770,8 +3770,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_b_intro.png"
       }
     },
     {
@@ -3780,25 +3780,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_Plate_16x9_4K at 2 s: sequence c79f408d-52b6-41e5-b8b2-dc97fdd46247 active, playhead at 2 s",
+      "name": "activate TTL_Plate_16x9_4K at 2 s: sequence 06bbd65b-687d-4e3e-bddb-5e0916a7b539 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_16x9_4K_7",
+        "name": "LIVE_TTL_Plate_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Plate_16x9_4K at 20 s: sequence c79f408d-52b6-41e5-b8b2-dc97fdd46247 active, playhead at 20 s",
+      "name": "activate TTL_Plate_16x9_4K at 20 s: sequence 06bbd65b-687d-4e3e-bddb-5e0916a7b539 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_16x9_4K_7",
+        "name": "LIVE_TTL_Plate_16x9_4K",
         "player": 20
       }
     },
@@ -3938,7 +3938,7 @@
       }
     },
     {
-      "name": "TTL_Plate_16x9_4K: clips: clips of sequence c79f408d-52b6-41e5-b8b2-dc97fdd46247 listed",
+      "name": "TTL_Plate_16x9_4K: clips: clips of sequence 06bbd65b-687d-4e3e-bddb-5e0916a7b539 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4042,8 +4042,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_4K_b_intro.png"
       }
     },
     {
@@ -4052,25 +4052,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_Plate_9x16 at 2 s: sequence fa735916-5ac0-4e10-aa84-e306615a15a1 active, playhead at 2 s",
+      "name": "activate TTL_Plate_9x16 at 2 s: sequence fcfda866-6dc4-429c-af68-346ad6581d6f active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_9x16_7",
+        "name": "LIVE_TTL_Plate_9x16",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Plate_9x16 at 20 s: sequence fa735916-5ac0-4e10-aa84-e306615a15a1 active, playhead at 20 s",
+      "name": "activate TTL_Plate_9x16 at 20 s: sequence fcfda866-6dc4-429c-af68-346ad6581d6f active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_9x16_7",
+        "name": "LIVE_TTL_Plate_9x16",
         "player": 20
       }
     },
@@ -4210,7 +4210,7 @@
       }
     },
     {
-      "name": "TTL_Plate_9x16: clips: clips of sequence fa735916-5ac0-4e10-aa84-e306615a15a1 listed",
+      "name": "TTL_Plate_9x16: clips: clips of sequence fcfda866-6dc4-429c-af68-346ad6581d6f listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4314,8 +4314,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_9x16_b_intro.png"
       }
     },
     {
@@ -4324,25 +4324,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_9x16_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_Plate_1x1 at 2 s: sequence b1e788f6-79f6-45a2-bfbc-694da376f203 active, playhead at 2 s",
+      "name": "activate TTL_Plate_1x1 at 2 s: sequence 11f27792-37fd-4220-8722-de833d5c3458 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_1x1_7",
+        "name": "LIVE_TTL_Plate_1x1",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Plate_1x1 at 20 s: sequence b1e788f6-79f6-45a2-bfbc-694da376f203 active, playhead at 20 s",
+      "name": "activate TTL_Plate_1x1 at 20 s: sequence 11f27792-37fd-4220-8722-de833d5c3458 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Plate_1x1_7",
+        "name": "LIVE_TTL_Plate_1x1",
         "player": 20
       }
     },
@@ -4482,7 +4482,7 @@
       }
     },
     {
-      "name": "TTL_Plate_1x1: clips: clips of sequence b1e788f6-79f6-45a2-bfbc-694da376f203 listed",
+      "name": "TTL_Plate_1x1: clips: clips of sequence 11f27792-37fd-4220-8722-de833d5c3458 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4586,8 +4586,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_1x1_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_1x1_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_1x1_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_1x1_b_intro.png"
       }
     },
     {
@@ -4596,25 +4596,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_1x1_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Plate_1x1_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_1x1_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Plate_1x1_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_Subscribe_16x9 at 2 s: sequence 368f7cc7-6430-4eb5-b672-254a0a4b49cc active, playhead at 2 s",
+      "name": "activate TTL_Subscribe_16x9 at 2 s: sequence 57263e61-d6b2-4461-8156-7c622581941c active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_16x9_7",
+        "name": "LIVE_TTL_Subscribe_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Subscribe_16x9 at 20 s: sequence 368f7cc7-6430-4eb5-b672-254a0a4b49cc active, playhead at 20 s",
+      "name": "activate TTL_Subscribe_16x9 at 20 s: sequence 57263e61-d6b2-4461-8156-7c622581941c active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_16x9_7",
+        "name": "LIVE_TTL_Subscribe_16x9",
         "player": 20
       }
     },
@@ -4746,7 +4746,7 @@
       }
     },
     {
-      "name": "TTL_Subscribe_16x9: clips: clips of sequence 368f7cc7-6430-4eb5-b672-254a0a4b49cc listed",
+      "name": "TTL_Subscribe_16x9: clips: clips of sequence 57263e61-d6b2-4461-8156-7c622581941c listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4850,8 +4850,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_b_intro.png"
       }
     },
     {
@@ -4860,25 +4860,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_Subscribe_16x9_4K at 2 s: sequence 299160e6-2e6b-4357-b4e8-09ea38a01174 active, playhead at 2 s",
+      "name": "activate TTL_Subscribe_16x9_4K at 2 s: sequence 59e13645-db46-429f-adcc-e3a712e26a43 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_16x9_4K_7",
+        "name": "LIVE_TTL_Subscribe_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Subscribe_16x9_4K at 20 s: sequence 299160e6-2e6b-4357-b4e8-09ea38a01174 active, playhead at 20 s",
+      "name": "activate TTL_Subscribe_16x9_4K at 20 s: sequence 59e13645-db46-429f-adcc-e3a712e26a43 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_16x9_4K_7",
+        "name": "LIVE_TTL_Subscribe_16x9_4K",
         "player": 20
       }
     },
@@ -5010,7 +5010,7 @@
       }
     },
     {
-      "name": "TTL_Subscribe_16x9_4K: clips: clips of sequence 299160e6-2e6b-4357-b4e8-09ea38a01174 listed",
+      "name": "TTL_Subscribe_16x9_4K: clips: clips of sequence 59e13645-db46-429f-adcc-e3a712e26a43 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5114,8 +5114,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_4K_b_intro.png"
       }
     },
     {
@@ -5124,25 +5124,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_Subscribe_9x16 at 2 s: sequence 55ea89d8-8266-48fb-bcef-6c27118ffec8 active, playhead at 2 s",
+      "name": "activate TTL_Subscribe_9x16 at 2 s: sequence fec2290f-babc-42cc-863c-bed9b6f984aa active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_9x16_7",
+        "name": "LIVE_TTL_Subscribe_9x16",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Subscribe_9x16 at 20 s: sequence 55ea89d8-8266-48fb-bcef-6c27118ffec8 active, playhead at 20 s",
+      "name": "activate TTL_Subscribe_9x16 at 20 s: sequence fec2290f-babc-42cc-863c-bed9b6f984aa active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_9x16_7",
+        "name": "LIVE_TTL_Subscribe_9x16",
         "player": 20
       }
     },
@@ -5274,7 +5274,7 @@
       }
     },
     {
-      "name": "TTL_Subscribe_9x16: clips: clips of sequence 55ea89d8-8266-48fb-bcef-6c27118ffec8 listed",
+      "name": "TTL_Subscribe_9x16: clips: clips of sequence fec2290f-babc-42cc-863c-bed9b6f984aa listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5378,8 +5378,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_9x16_b_intro.png"
       }
     },
     {
@@ -5388,25 +5388,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_9x16_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_Subscribe_1x1 at 2 s: sequence b13d377c-360a-431d-bed2-47258ec91081 active, playhead at 2 s",
+      "name": "activate TTL_Subscribe_1x1 at 2 s: sequence ef00c1e9-058e-4865-9a57-a2ea2400ef60 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_1x1_7",
+        "name": "LIVE_TTL_Subscribe_1x1",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Subscribe_1x1 at 20 s: sequence b13d377c-360a-431d-bed2-47258ec91081 active, playhead at 20 s",
+      "name": "activate TTL_Subscribe_1x1 at 20 s: sequence ef00c1e9-058e-4865-9a57-a2ea2400ef60 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Subscribe_1x1_7",
+        "name": "LIVE_TTL_Subscribe_1x1",
         "player": 20
       }
     },
@@ -5538,7 +5538,7 @@
       }
     },
     {
-      "name": "TTL_Subscribe_1x1: clips: clips of sequence b13d377c-360a-431d-bed2-47258ec91081 listed",
+      "name": "TTL_Subscribe_1x1: clips: clips of sequence ef00c1e9-058e-4865-9a57-a2ea2400ef60 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5642,8 +5642,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_1x1_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_1x1_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_1x1_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_1x1_b_intro.png"
       }
     },
     {
@@ -5652,25 +5652,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_1x1_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Subscribe_1x1_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_1x1_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Subscribe_1x1_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_PlateSwap_16x9 at 2 s: sequence b2b7c086-1d20-49df-9f28-59fc22b3ac4b active, playhead at 2 s",
+      "name": "activate TTL_PlateSwap_16x9 at 2 s: sequence eee945f8-b3b5-4f76-ad2e-2e138cf50f52 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_16x9_7",
+        "name": "LIVE_TTL_PlateSwap_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_PlateSwap_16x9 at 20 s: sequence b2b7c086-1d20-49df-9f28-59fc22b3ac4b active, playhead at 20 s",
+      "name": "activate TTL_PlateSwap_16x9 at 20 s: sequence eee945f8-b3b5-4f76-ad2e-2e138cf50f52 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_16x9_7",
+        "name": "LIVE_TTL_PlateSwap_16x9",
         "player": 20
       }
     },
@@ -5822,7 +5822,7 @@
       }
     },
     {
-      "name": "TTL_PlateSwap_16x9: clips: clips of sequence b2b7c086-1d20-49df-9f28-59fc22b3ac4b listed",
+      "name": "TTL_PlateSwap_16x9: clips: clips of sequence eee945f8-b3b5-4f76-ad2e-2e138cf50f52 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -5926,8 +5926,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_b_intro.png"
       }
     },
     {
@@ -5936,25 +5936,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_PlateSwap_16x9_4K at 2 s: sequence 4f2065b3-bf2b-4146-bb8c-21db9088e3c0 active, playhead at 2 s",
+      "name": "activate TTL_PlateSwap_16x9_4K at 2 s: sequence 3142ef1a-8a19-4ba6-8d86-d886e679b736 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_16x9_4K_7",
+        "name": "LIVE_TTL_PlateSwap_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_PlateSwap_16x9_4K at 20 s: sequence 4f2065b3-bf2b-4146-bb8c-21db9088e3c0 active, playhead at 20 s",
+      "name": "activate TTL_PlateSwap_16x9_4K at 20 s: sequence 3142ef1a-8a19-4ba6-8d86-d886e679b736 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_16x9_4K_7",
+        "name": "LIVE_TTL_PlateSwap_16x9_4K",
         "player": 20
       }
     },
@@ -6106,7 +6106,7 @@
       }
     },
     {
-      "name": "TTL_PlateSwap_16x9_4K: clips: clips of sequence 4f2065b3-bf2b-4146-bb8c-21db9088e3c0 listed",
+      "name": "TTL_PlateSwap_16x9_4K: clips: clips of sequence 3142ef1a-8a19-4ba6-8d86-d886e679b736 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -6210,8 +6210,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_4K_b_intro.png"
       }
     },
     {
@@ -6220,25 +6220,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_PlateSwap_9x16 at 2 s: sequence cc504dfb-06a3-489f-95eb-8894ad32ab52 active, playhead at 2 s",
+      "name": "activate TTL_PlateSwap_9x16 at 2 s: sequence 126e3b5d-08b9-4883-9f48-ff9634210d3f active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_9x16_7",
+        "name": "LIVE_TTL_PlateSwap_9x16",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_PlateSwap_9x16 at 20 s: sequence cc504dfb-06a3-489f-95eb-8894ad32ab52 active, playhead at 20 s",
+      "name": "activate TTL_PlateSwap_9x16 at 20 s: sequence 126e3b5d-08b9-4883-9f48-ff9634210d3f active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_9x16_7",
+        "name": "LIVE_TTL_PlateSwap_9x16",
         "player": 20
       }
     },
@@ -6390,7 +6390,7 @@
       }
     },
     {
-      "name": "TTL_PlateSwap_9x16: clips: clips of sequence cc504dfb-06a3-489f-95eb-8894ad32ab52 listed",
+      "name": "TTL_PlateSwap_9x16: clips: clips of sequence 126e3b5d-08b9-4883-9f48-ff9634210d3f listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -6494,8 +6494,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_9x16_b_intro.png"
       }
     },
     {
@@ -6504,25 +6504,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_9x16_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_PlateSwap_1x1 at 2 s: sequence 4e79664b-2d0a-4aec-acf0-85794145fd15 active, playhead at 2 s",
+      "name": "activate TTL_PlateSwap_1x1 at 2 s: sequence 18768361-ef93-40e9-a079-82510f02c5ca active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_1x1_7",
+        "name": "LIVE_TTL_PlateSwap_1x1",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_PlateSwap_1x1 at 20 s: sequence 4e79664b-2d0a-4aec-acf0-85794145fd15 active, playhead at 20 s",
+      "name": "activate TTL_PlateSwap_1x1 at 20 s: sequence 18768361-ef93-40e9-a079-82510f02c5ca active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_PlateSwap_1x1_7",
+        "name": "LIVE_TTL_PlateSwap_1x1",
         "player": 20
       }
     },
@@ -6674,7 +6674,7 @@
       }
     },
     {
-      "name": "TTL_PlateSwap_1x1: clips: clips of sequence 4e79664b-2d0a-4aec-acf0-85794145fd15 listed",
+      "name": "TTL_PlateSwap_1x1: clips: clips of sequence 18768361-ef93-40e9-a079-82510f02c5ca listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -6778,8 +6778,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_1x1_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_1x1_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_1x1_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_1x1_b_intro.png"
       }
     },
     {
@@ -6788,25 +6788,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_1x1_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_1x1_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_1x1_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_PlateSwap_1x1_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_Disclaimer_16x9 at 2 s: sequence b2a8c608-7071-41ff-a8d8-04c0db92e775 active, playhead at 2 s",
+      "name": "activate TTL_Disclaimer_16x9 at 2 s: sequence f95885b0-4a68-4280-8d95-df4d9e5bf30a active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Disclaimer_16x9_7",
+        "name": "LIVE_TTL_Disclaimer_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Disclaimer_16x9 at 20 s: sequence b2a8c608-7071-41ff-a8d8-04c0db92e775 active, playhead at 20 s",
+      "name": "activate TTL_Disclaimer_16x9 at 20 s: sequence f95885b0-4a68-4280-8d95-df4d9e5bf30a active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Disclaimer_16x9_7",
+        "name": "LIVE_TTL_Disclaimer_16x9",
         "player": 20
       }
     },
@@ -6946,7 +6946,7 @@
       }
     },
     {
-      "name": "TTL_Disclaimer_16x9: clips: clips of sequence b2a8c608-7071-41ff-a8d8-04c0db92e775 listed",
+      "name": "TTL_Disclaimer_16x9: clips: clips of sequence f95885b0-4a68-4280-8d95-df4d9e5bf30a listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -7050,8 +7050,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_b_intro.png"
       }
     },
     {
@@ -7060,25 +7060,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate TTL_Disclaimer_16x9_4K at 2 s: sequence a26d78d6-a555-44fc-bc9e-172d3a2f536c active, playhead at 2 s",
+      "name": "activate TTL_Disclaimer_16x9_4K at 2 s: sequence cb700014-1d06-4069-8732-76c988225c90 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Disclaimer_16x9_4K_7",
+        "name": "LIVE_TTL_Disclaimer_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate TTL_Disclaimer_16x9_4K at 20 s: sequence a26d78d6-a555-44fc-bc9e-172d3a2f536c active, playhead at 20 s",
+      "name": "activate TTL_Disclaimer_16x9_4K at 20 s: sequence cb700014-1d06-4069-8732-76c988225c90 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_TTL_Disclaimer_16x9_4K_7",
+        "name": "LIVE_TTL_Disclaimer_16x9_4K",
         "player": 20
       }
     },
@@ -7218,7 +7218,7 @@
       }
     },
     {
-      "name": "TTL_Disclaimer_16x9_4K: clips: clips of sequence a26d78d6-a555-44fc-bc9e-172d3a2f536c listed",
+      "name": "TTL_Disclaimer_16x9_4K: clips: clips of sequence cb700014-1d06-4069-8732-76c988225c90 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -7322,8 +7322,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_4K_b_intro.png"
       }
     },
     {
@@ -7332,25 +7332,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/TTL_Disclaimer_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate POD_Frame_16x9 at 2 s: sequence 3fe26a53-f195-46e6-b59d-6349d8a755ba active, playhead at 2 s",
+      "name": "activate POD_Frame_16x9 at 2 s: sequence b5a72679-886e-485f-8bdf-2bf43e23ba2b active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Frame_16x9_7",
+        "name": "LIVE_POD_Frame_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate POD_Frame_16x9 at 20 s: sequence 3fe26a53-f195-46e6-b59d-6349d8a755ba active, playhead at 20 s",
+      "name": "activate POD_Frame_16x9 at 20 s: sequence b5a72679-886e-485f-8bdf-2bf43e23ba2b active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Frame_16x9_7",
+        "name": "LIVE_POD_Frame_16x9",
         "player": 20
       }
     },
@@ -7478,7 +7478,7 @@
       }
     },
     {
-      "name": "POD_Frame_16x9: clips: clips of sequence 3fe26a53-f195-46e6-b59d-6349d8a755ba listed",
+      "name": "POD_Frame_16x9: clips: clips of sequence b5a72679-886e-485f-8bdf-2bf43e23ba2b listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -7582,8 +7582,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_b_intro.png"
       }
     },
     {
@@ -7592,25 +7592,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate POD_Frame_16x9_4K at 2 s: sequence 9501a0fe-d73f-46a1-bdb9-2e9d0cb39b1c active, playhead at 2 s",
+      "name": "activate POD_Frame_16x9_4K at 2 s: sequence 3110cfb9-3c73-4d70-a66b-db463d2816a9 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Frame_16x9_4K_7",
+        "name": "LIVE_POD_Frame_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate POD_Frame_16x9_4K at 20 s: sequence 9501a0fe-d73f-46a1-bdb9-2e9d0cb39b1c active, playhead at 20 s",
+      "name": "activate POD_Frame_16x9_4K at 20 s: sequence 3110cfb9-3c73-4d70-a66b-db463d2816a9 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Frame_16x9_4K_7",
+        "name": "LIVE_POD_Frame_16x9_4K",
         "player": 20
       }
     },
@@ -7738,7 +7738,7 @@
       }
     },
     {
-      "name": "POD_Frame_16x9_4K: clips: clips of sequence 9501a0fe-d73f-46a1-bdb9-2e9d0cb39b1c listed",
+      "name": "POD_Frame_16x9_4K: clips: clips of sequence 3110cfb9-3c73-4d70-a66b-db463d2816a9 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -7842,8 +7842,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_4K_b_intro.png"
       }
     },
     {
@@ -7852,25 +7852,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Frame_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate POD_Guest_16x9 at 2 s: sequence d6edbe19-fd21-4fea-9cb8-45d619975adf active, playhead at 2 s",
+      "name": "activate POD_Guest_16x9 at 2 s: sequence 2015df77-0c33-4508-9c40-8c208075709b active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Guest_16x9_7",
+        "name": "LIVE_POD_Guest_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate POD_Guest_16x9 at 20 s: sequence d6edbe19-fd21-4fea-9cb8-45d619975adf active, playhead at 20 s",
+      "name": "activate POD_Guest_16x9 at 20 s: sequence 2015df77-0c33-4508-9c40-8c208075709b active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Guest_16x9_7",
+        "name": "LIVE_POD_Guest_16x9",
         "player": 20
       }
     },
@@ -8010,7 +8010,7 @@
       }
     },
     {
-      "name": "POD_Guest_16x9: clips: clips of sequence d6edbe19-fd21-4fea-9cb8-45d619975adf listed",
+      "name": "POD_Guest_16x9: clips: clips of sequence 2015df77-0c33-4508-9c40-8c208075709b listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -8114,8 +8114,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_b_intro.png"
       }
     },
     {
@@ -8124,25 +8124,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate POD_Guest_16x9_4K at 2 s: sequence 94706557-bf29-479a-9101-8dd623e42cb7 active, playhead at 2 s",
+      "name": "activate POD_Guest_16x9_4K at 2 s: sequence 04e19ec4-97a1-40e6-8f27-b7cc5df1a337 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Guest_16x9_4K_7",
+        "name": "LIVE_POD_Guest_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate POD_Guest_16x9_4K at 20 s: sequence 94706557-bf29-479a-9101-8dd623e42cb7 active, playhead at 20 s",
+      "name": "activate POD_Guest_16x9_4K at 20 s: sequence 04e19ec4-97a1-40e6-8f27-b7cc5df1a337 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Guest_16x9_4K_7",
+        "name": "LIVE_POD_Guest_16x9_4K",
         "player": 20
       }
     },
@@ -8282,7 +8282,7 @@
       }
     },
     {
-      "name": "POD_Guest_16x9_4K: clips: clips of sequence 94706557-bf29-479a-9101-8dd623e42cb7 listed",
+      "name": "POD_Guest_16x9_4K: clips: clips of sequence 04e19ec4-97a1-40e6-8f27-b7cc5df1a337 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -8386,8 +8386,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_4K_b_intro.png"
       }
     },
     {
@@ -8396,25 +8396,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Guest_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate POD_Content_16x9 at 2 s: sequence 6ea2a1ed-26ac-4627-8ecc-a575a58fbb41 active, playhead at 2 s",
+      "name": "activate POD_Content_16x9 at 2 s: sequence 6819dc0a-3c0e-4619-95c7-fb5794a65d3a active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Content_16x9_7",
+        "name": "LIVE_POD_Content_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate POD_Content_16x9 at 20 s: sequence 6ea2a1ed-26ac-4627-8ecc-a575a58fbb41 active, playhead at 20 s",
+      "name": "activate POD_Content_16x9 at 20 s: sequence 6819dc0a-3c0e-4619-95c7-fb5794a65d3a active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Content_16x9_7",
+        "name": "LIVE_POD_Content_16x9",
         "player": 20
       }
     },
@@ -8552,7 +8552,7 @@
       }
     },
     {
-      "name": "POD_Content_16x9: clips: clips of sequence 6ea2a1ed-26ac-4627-8ecc-a575a58fbb41 listed",
+      "name": "POD_Content_16x9: clips: clips of sequence 6819dc0a-3c0e-4619-95c7-fb5794a65d3a listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -8656,8 +8656,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_Content_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_Content_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Content_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Content_16x9_b_intro.png"
       }
     },
     {
@@ -8666,25 +8666,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_Content_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_Content_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Content_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Content_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate POD_Content_16x9_4K at 2 s: sequence e550e80a-6911-445f-a253-22b2f257a7b0 active, playhead at 2 s",
+      "name": "activate POD_Content_16x9_4K at 2 s: sequence d9d3a3c0-0980-4d91-9a5d-18ecea712f3e active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Content_16x9_4K_7",
+        "name": "LIVE_POD_Content_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate POD_Content_16x9_4K at 20 s: sequence e550e80a-6911-445f-a253-22b2f257a7b0 active, playhead at 20 s",
+      "name": "activate POD_Content_16x9_4K at 20 s: sequence d9d3a3c0-0980-4d91-9a5d-18ecea712f3e active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_Content_16x9_4K_7",
+        "name": "LIVE_POD_Content_16x9_4K",
         "player": 20
       }
     },
@@ -8822,7 +8822,7 @@
       }
     },
     {
-      "name": "POD_Content_16x9_4K: clips: clips of sequence e550e80a-6911-445f-a253-22b2f257a7b0 listed",
+      "name": "POD_Content_16x9_4K: clips: clips of sequence d9d3a3c0-0980-4d91-9a5d-18ecea712f3e listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -8926,8 +8926,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_Content_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_Content_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Content_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Content_16x9_4K_b_intro.png"
       }
     },
     {
@@ -8936,25 +8936,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_Content_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_Content_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Content_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_Content_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate POD_QR_16x9 at 2 s: sequence c8f20389-950f-4410-b4d0-27d61e0da774 active, playhead at 2 s",
+      "name": "activate POD_QR_16x9 at 2 s: sequence 1d5af674-6af3-4db2-85ed-f599c46f4006 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_QR_16x9_7",
+        "name": "LIVE_POD_QR_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate POD_QR_16x9 at 20 s: sequence c8f20389-950f-4410-b4d0-27d61e0da774 active, playhead at 20 s",
+      "name": "activate POD_QR_16x9 at 20 s: sequence 1d5af674-6af3-4db2-85ed-f599c46f4006 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_QR_16x9_7",
+        "name": "LIVE_POD_QR_16x9",
         "player": 20
       }
     },
@@ -9086,7 +9086,7 @@
       }
     },
     {
-      "name": "POD_QR_16x9: clips: clips of sequence c8f20389-950f-4410-b4d0-27d61e0da774 listed",
+      "name": "POD_QR_16x9: clips: clips of sequence 1d5af674-6af3-4db2-85ed-f599c46f4006 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -9190,8 +9190,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_QR_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_QR_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_QR_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_QR_16x9_b_intro.png"
       }
     },
     {
@@ -9200,25 +9200,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_QR_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_QR_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_QR_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_QR_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate POD_QR_16x9_4K at 2 s: sequence 2d4df173-b120-44ba-830d-d198769d5a14 active, playhead at 2 s",
+      "name": "activate POD_QR_16x9_4K at 2 s: sequence a7bf118b-1f56-4f96-a843-dc57f80a68bd active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_QR_16x9_4K_7",
+        "name": "LIVE_POD_QR_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate POD_QR_16x9_4K at 20 s: sequence 2d4df173-b120-44ba-830d-d198769d5a14 active, playhead at 20 s",
+      "name": "activate POD_QR_16x9_4K at 20 s: sequence a7bf118b-1f56-4f96-a843-dc57f80a68bd active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_POD_QR_16x9_4K_7",
+        "name": "LIVE_POD_QR_16x9_4K",
         "player": 20
       }
     },
@@ -9350,7 +9350,7 @@
       }
     },
     {
-      "name": "POD_QR_16x9_4K: clips: clips of sequence 2d4df173-b120-44ba-830d-d198769d5a14 listed",
+      "name": "POD_QR_16x9_4K: clips: clips of sequence a7bf118b-1f56-4f96-a843-dc57f80a68bd listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -9454,8 +9454,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_QR_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_QR_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_QR_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_QR_16x9_4K_b_intro.png"
       }
     },
     {
@@ -9464,25 +9464,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/POD_QR_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/POD_QR_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_QR_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/POD_QR_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate SMM_ShortsIntro_9x16 at 2 s: sequence 0eca121f-46b9-4ad5-8a7c-da3d355fcd92 active, playhead at 2 s",
+      "name": "activate SMM_ShortsIntro_9x16 at 2 s: sequence e1ebe042-c82a-47b4-9887-d1523a251764 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_SMM_ShortsIntro_9x16_7",
+        "name": "LIVE_SMM_ShortsIntro_9x16",
         "player": 2
       }
     },
     {
-      "name": "activate SMM_ShortsIntro_9x16 at 20 s: sequence 0eca121f-46b9-4ad5-8a7c-da3d355fcd92 active, playhead at 20 s",
+      "name": "activate SMM_ShortsIntro_9x16 at 20 s: sequence e1ebe042-c82a-47b4-9887-d1523a251764 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_SMM_ShortsIntro_9x16_7",
+        "name": "LIVE_SMM_ShortsIntro_9x16",
         "player": 20
       }
     },
@@ -9616,7 +9616,7 @@
       }
     },
     {
-      "name": "SMM_ShortsIntro_9x16: clips: clips of sequence 0eca121f-46b9-4ad5-8a7c-da3d355fcd92 listed",
+      "name": "SMM_ShortsIntro_9x16: clips: clips of sequence e1ebe042-c82a-47b4-9887-d1523a251764 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -9720,8 +9720,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/SMM_ShortsIntro_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/SMM_ShortsIntro_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/SMM_ShortsIntro_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/SMM_ShortsIntro_9x16_b_intro.png"
       }
     },
     {
@@ -9730,25 +9730,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/SMM_ShortsIntro_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/SMM_ShortsIntro_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/SMM_ShortsIntro_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/SMM_ShortsIntro_9x16_b_outro.png"
       }
     },
     {
-      "name": "activate CRS_Cover_16x9 at 2 s: sequence 3b73c3b4-b9d5-451f-97a9-7e44aa8db5e0 active, playhead at 2 s",
+      "name": "activate CRS_Cover_16x9 at 2 s: sequence 10d14165-81d0-43c2-8be5-d694cfb6488d active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_CRS_Cover_16x9_7",
+        "name": "LIVE_CRS_Cover_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate CRS_Cover_16x9 at 20 s: sequence 3b73c3b4-b9d5-451f-97a9-7e44aa8db5e0 active, playhead at 20 s",
+      "name": "activate CRS_Cover_16x9 at 20 s: sequence 10d14165-81d0-43c2-8be5-d694cfb6488d active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_CRS_Cover_16x9_7",
+        "name": "LIVE_CRS_Cover_16x9",
         "player": 20
       }
     },
@@ -9886,7 +9886,7 @@
       }
     },
     {
-      "name": "CRS_Cover_16x9: clips: clips of sequence 3b73c3b4-b9d5-451f-97a9-7e44aa8db5e0 listed",
+      "name": "CRS_Cover_16x9: clips: clips of sequence 10d14165-81d0-43c2-8be5-d694cfb6488d listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -9990,8 +9990,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_b_intro.png"
       }
     },
     {
@@ -10000,25 +10000,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate CRS_Cover_16x9_4K at 2 s: sequence 07719951-ec05-4538-b230-513eed1e53ef active, playhead at 2 s",
+      "name": "activate CRS_Cover_16x9_4K at 2 s: sequence 217d92f6-b3b2-4bef-a7a9-747df8a93a7a active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_CRS_Cover_16x9_4K_7",
+        "name": "LIVE_CRS_Cover_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate CRS_Cover_16x9_4K at 20 s: sequence 07719951-ec05-4538-b230-513eed1e53ef active, playhead at 20 s",
+      "name": "activate CRS_Cover_16x9_4K at 20 s: sequence 217d92f6-b3b2-4bef-a7a9-747df8a93a7a active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_CRS_Cover_16x9_4K_7",
+        "name": "LIVE_CRS_Cover_16x9_4K",
         "player": 20
       }
     },
@@ -10156,7 +10156,7 @@
       }
     },
     {
-      "name": "CRS_Cover_16x9_4K: clips: clips of sequence 07719951-ec05-4538-b230-513eed1e53ef listed",
+      "name": "CRS_Cover_16x9_4K: clips: clips of sequence 217d92f6-b3b2-4bef-a7a9-747df8a93a7a listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -10260,8 +10260,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_4K_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_4K_b_intro.png"
       }
     },
     {
@@ -10270,25 +10270,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_4K_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/CRS_Cover_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate WEB_Screen_16x9 at 2 s: sequence 7aab033a-12a8-4d14-ae86-196037451bfd active, playhead at 2 s",
+      "name": "activate WEB_Screen_16x9 at 2 s: sequence 0efebc86-3c7a-4302-bac9-baefe58b8264 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_WEB_Screen_16x9_7",
+        "name": "LIVE_WEB_Screen_16x9",
         "player": 2
       }
     },
     {
-      "name": "activate WEB_Screen_16x9 at 20 s: sequence 7aab033a-12a8-4d14-ae86-196037451bfd active, playhead at 20 s",
+      "name": "activate WEB_Screen_16x9 at 20 s: sequence 0efebc86-3c7a-4302-bac9-baefe58b8264 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_WEB_Screen_16x9_7",
+        "name": "LIVE_WEB_Screen_16x9",
         "player": 20
       }
     },
@@ -10444,7 +10444,7 @@
       }
     },
     {
-      "name": "WEB_Screen_16x9: clips: clips of sequence 7aab033a-12a8-4d14-ae86-196037451bfd listed",
+      "name": "WEB_Screen_16x9: clips: clips of sequence 0efebc86-3c7a-4302-bac9-baefe58b8264 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -10547,9 +10547,9 @@
       "pass": true,
       "required": true,
       "detail": {
-        "ssim": 0.9898801379168075,
-        "a": "C:/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_b_intro.png"
+        "ssim": 0.9898732383519813,
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_b_intro.png"
       }
     },
     {
@@ -10557,26 +10557,26 @@
       "pass": true,
       "required": true,
       "detail": {
-        "ssim": 0.9892867459032186,
-        "a": "C:/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_b_outro.png"
+        "ssim": 0.9892770799974736,
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_b_outro.png"
       }
     },
     {
-      "name": "activate WEB_Screen_16x9_4K at 2 s: sequence 942ac2cc-0543-4053-b09d-9b0b138864f0 active, playhead at 2 s",
+      "name": "activate WEB_Screen_16x9_4K at 2 s: sequence 141ae6c1-fe61-4be7-89fa-0e35666e89c1 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_WEB_Screen_16x9_4K_7",
+        "name": "LIVE_WEB_Screen_16x9_4K",
         "player": 2
       }
     },
     {
-      "name": "activate WEB_Screen_16x9_4K at 20 s: sequence 942ac2cc-0543-4053-b09d-9b0b138864f0 active, playhead at 20 s",
+      "name": "activate WEB_Screen_16x9_4K at 20 s: sequence 141ae6c1-fe61-4be7-89fa-0e35666e89c1 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_WEB_Screen_16x9_4K_7",
+        "name": "LIVE_WEB_Screen_16x9_4K",
         "player": 20
       }
     },
@@ -10732,7 +10732,7 @@
       }
     },
     {
-      "name": "WEB_Screen_16x9_4K: clips: clips of sequence 942ac2cc-0543-4053-b09d-9b0b138864f0 listed",
+      "name": "WEB_Screen_16x9_4K: clips: clips of sequence 141ae6c1-fe61-4be7-89fa-0e35666e89c1 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -10835,9 +10835,9 @@
       "pass": true,
       "required": true,
       "detail": {
-        "ssim": 0.9926649062110772,
-        "a": "C:/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_4K_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_4K_b_intro.png"
+        "ssim": 0.9926622249523754,
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_4K_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_4K_b_intro.png"
       }
     },
     {
@@ -10845,26 +10845,26 @@
       "pass": true,
       "required": true,
       "detail": {
-        "ssim": 0.9920836902806878,
-        "a": "C:/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_4K_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_4K_b_outro.png"
+        "ssim": 0.9920810880169237,
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_4K_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Screen_16x9_4K_b_outro.png"
       }
     },
     {
-      "name": "activate WEB_Announce_1x1 at 2 s: sequence e60190e7-8fc1-4175-a202-be54b1d92476 active, playhead at 2 s",
+      "name": "activate WEB_Announce_1x1 at 2 s: sequence e00a484a-7538-4547-a260-1dc6ea1d2a60 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_WEB_Announce_1x1_7",
+        "name": "LIVE_WEB_Announce_1x1",
         "player": 2
       }
     },
     {
-      "name": "activate WEB_Announce_1x1 at 20 s: sequence e60190e7-8fc1-4175-a202-be54b1d92476 active, playhead at 20 s",
+      "name": "activate WEB_Announce_1x1 at 20 s: sequence e00a484a-7538-4547-a260-1dc6ea1d2a60 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_WEB_Announce_1x1_7",
+        "name": "LIVE_WEB_Announce_1x1",
         "player": 20
       }
     },
@@ -10992,7 +10992,7 @@
       }
     },
     {
-      "name": "WEB_Announce_1x1: clips: clips of sequence e60190e7-8fc1-4175-a202-be54b1d92476 listed",
+      "name": "WEB_Announce_1x1: clips: clips of sequence e00a484a-7538-4547-a260-1dc6ea1d2a60 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -11096,8 +11096,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/WEB_Announce_1x1_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/WEB_Announce_1x1_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Announce_1x1_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Announce_1x1_b_intro.png"
       }
     },
     {
@@ -11106,25 +11106,25 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/WEB_Announce_1x1_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/WEB_Announce_1x1_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Announce_1x1_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Announce_1x1_b_outro.png"
       }
     },
     {
-      "name": "activate WEB_Announce_9x16 at 2 s: sequence 950f65bf-9eef-4ccc-988c-06f7830442ae active, playhead at 2 s",
+      "name": "activate WEB_Announce_9x16 at 2 s: sequence 73407de9-f0ce-428b-91d7-6a6a5d530d12 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_WEB_Announce_9x16_7",
+        "name": "LIVE_WEB_Announce_9x16",
         "player": 2
       }
     },
     {
-      "name": "activate WEB_Announce_9x16 at 20 s: sequence 950f65bf-9eef-4ccc-988c-06f7830442ae active, playhead at 20 s",
+      "name": "activate WEB_Announce_9x16 at 20 s: sequence 73407de9-f0ce-428b-91d7-6a6a5d530d12 active, playhead at 20 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_WEB_Announce_9x16_7",
+        "name": "LIVE_WEB_Announce_9x16",
         "player": 20
       }
     },
@@ -11252,7 +11252,7 @@
       }
     },
     {
-      "name": "WEB_Announce_9x16: clips: clips of sequence 950f65bf-9eef-4ccc-988c-06f7830442ae listed",
+      "name": "WEB_Announce_9x16: clips: clips of sequence 73407de9-f0ce-428b-91d7-6a6a5d530d12 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -11356,8 +11356,8 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/WEB_Announce_9x16_a_intro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/WEB_Announce_9x16_b_intro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Announce_9x16_a_intro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Announce_9x16_b_intro.png"
       }
     },
     {
@@ -11366,16 +11366,16 @@
       "required": true,
       "detail": {
         "ssim": 1,
-        "a": "C:/CRBK/work/panel-live/pr/frames/WEB_Announce_9x16_a_outro.png",
-        "b": "C:/CRBK/work/panel-live/pr/frames/WEB_Announce_9x16_b_outro.png"
+        "a": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Announce_9x16_a_outro.png",
+        "b": "/Users/Shared/CRBK/work/panel-live/pr/frames/WEB_Announce_9x16_b_outro.png"
       }
     },
     {
-      "name": "activate nearest at 2 s: sequence 6e04707c-ff59-48b7-b365-212f118a0d4b active, playhead at 2 s",
+      "name": "activate nearest at 2 s: sequence e28588bd-f95b-40c3-99ab-9a008cfbf151 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_nearest_2560x1440_7",
+        "name": "LIVE_nearest_2560x1440",
         "player": 2
       }
     },
@@ -11396,11 +11396,11 @@
       ]
     },
     {
-      "name": "activate nearest at 2 s: sequence 6e04707c-ff59-48b7-b365-212f118a0d4b active, playhead at 2 s",
+      "name": "activate nearest at 2 s: sequence e28588bd-f95b-40c3-99ab-9a008cfbf151 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_nearest_2560x1440_7",
+        "name": "LIVE_nearest_2560x1440",
         "player": 2
       }
     },
@@ -11432,7 +11432,7 @@
       }
     },
     {
-      "name": "nearest: clips: clips of sequence 6e04707c-ff59-48b7-b365-212f118a0d4b listed",
+      "name": "nearest: clips: clips of sequence e28588bd-f95b-40c3-99ab-9a008cfbf151 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -11451,31 +11451,31 @@
       }
     },
     {
-      "name": "activate other at 2 s: sequence 0fbf2d6a-88e5-4c86-a30a-bb2d626c609b active, playhead at 2 s",
+      "name": "activate other at 2 s: sequence ef9e25d1-1d63-45ed-bb1d-52066ce7263c active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_other_7",
+        "name": "LIVE_other",
         "player": 2
       }
     },
     {
-      "name": "activate undo at 2 s: sequence 3792f776-29cb-4ff2-a30b-8c3e31cd40a3 active, playhead at 2 s",
+      "name": "activate undo at 2 s: sequence 900ad771-19ba-416c-9173-8656ff31eb59 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_undo_7",
+        "name": "LIVE_undo",
         "player": 2
       }
     },
     {
-      "name": "count: clips of sequence 3792f776-29cb-4ff2-a30b-8c3e31cd40a3 listed",
+      "name": "count: clips of sequence 900ad771-19ba-416c-9173-8656ff31eb59 listed",
       "pass": true,
       "required": true,
       "detail": ""
     },
     {
-      "name": "count: clips of sequence 3792f776-29cb-4ff2-a30b-8c3e31cd40a3 listed",
+      "name": "count: clips of sequence 900ad771-19ba-416c-9173-8656ff31eb59 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -11497,16 +11497,16 @@
       }
     },
     {
-      "name": "activate undo at 2 s: sequence 3792f776-29cb-4ff2-a30b-8c3e31cd40a3 active, playhead at 2 s",
+      "name": "activate undo at 2 s: sequence 900ad771-19ba-416c-9173-8656ff31eb59 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_undo_7",
+        "name": "LIVE_undo",
         "player": 2
       }
     },
     {
-      "name": "count: clips of sequence 3792f776-29cb-4ff2-a30b-8c3e31cd40a3 listed",
+      "name": "count: clips of sequence 900ad771-19ba-416c-9173-8656ff31eb59 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -11518,7 +11518,7 @@
       "detail": ""
     },
     {
-      "name": "count: clips of sequence 3792f776-29cb-4ff2-a30b-8c3e31cd40a3 listed",
+      "name": "count: clips of sequence 900ad771-19ba-416c-9173-8656ff31eb59 listed",
       "pass": true,
       "required": true,
       "detail": ""
@@ -11534,29 +11534,29 @@
       }
     },
     {
-      "name": "activate tracks at 40 s: sequence 760f6372-6291-4f80-9361-5d78b95d15db active, playhead at 40 s",
+      "name": "activate tracks at 40 s: sequence 181dc480-80e4-4aea-bcee-7458dc493f12 active, playhead at 40 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_tracks_7",
+        "name": "LIVE_tracks",
         "player": 40
       }
     },
     {
-      "name": "activate tracks at 41 s: sequence 760f6372-6291-4f80-9361-5d78b95d15db active, playhead at 41 s",
+      "name": "activate tracks at 41 s: sequence 181dc480-80e4-4aea-bcee-7458dc493f12 active, playhead at 41 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_tracks_7",
+        "name": "LIVE_tracks",
         "player": 41
       }
     },
     {
-      "name": "activate tracks at 42 s: sequence 760f6372-6291-4f80-9361-5d78b95d15db active, playhead at 42 s",
+      "name": "activate tracks at 42 s: sequence 181dc480-80e4-4aea-bcee-7458dc493f12 active, playhead at 42 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "LIVE_tracks_7",
+        "name": "LIVE_tracks",
         "player": 42
       }
     },
@@ -11588,5 +11588,5 @@
   ],
   "hostVersion": "26.5.2",
   "frames": true,
-  "outDir": "C:/CRBK/work/panel-live/pr"
+  "outDir": "/Users/Shared/CRBK/work/panel-live/pr"
 }

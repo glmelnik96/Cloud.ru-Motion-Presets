@@ -1,18 +1,18 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-26T08:38:34.093Z",
+  "startedAt": "2026-10-26T09:50:25.579Z",
   "checks": [
     {
       "name": "scratch comp or sequence UI_check 1920x1080 created",
       "pass": true,
       "detail": [
         {
-          "name": "scratch project C:/CRBK/work/panel-live/pr/panel_live.prproj is the active project",
+          "name": "scratch project /Users/Shared/CRBK/work/panel-live/pr/panel_live.prproj is the active project",
           "pass": true,
           "required": true,
           "detail": {
             "how": "opened",
-            "path": "C:\\CRBK\\work\\panel-live\\pr\\panel_live.prproj",
+            "path": "/Users/Shared/CRBK/work/panel-live/pr/panel_live.prproj",
             "ok": true
           }
         },
@@ -21,7 +21,7 @@
           "pass": true,
           "required": true,
           "detail": {
-            "ui": "2d6dfdb0-1a67-4cf1-894b-76a30b9885bf"
+            "ui": "c8cd2e27-986e-4ece-96fe-b4da3b86d13f"
           }
         }
       ]
@@ -82,9 +82,12 @@
       "detail": null
     },
     {
-      "name": "form preview: no previews per style in this library yet",
+      "name": "form preview: «Подкаст» shows its own preview",
       "pass": true,
-      "detail": "file:///C:/ProgramData/CloudRuBrandKit/library/items/TTL_LowerThird/poster_16x9_style-2.jpg"
+      "detail": {
+        "before": "file:///Users/Shared/CloudRuBrandKit/library/items/TTL_LowerThird/poster_16x9_style-1.jpg",
+        "after": "file:///Users/Shared/CloudRuBrandKit/library/items/TTL_LowerThird/poster_16x9_style-2.jpg"
+      }
     },
     {
       "name": "«Вставить на плейхед» clicked",
@@ -163,16 +166,16 @@
       "name": "export: reported as done in the panel",
       "pass": true,
       "detail": {
-        "done": "done: Готово: UI_check_2_FullHD.mp4.Показать в папке",
+        "done": "done: Готово: UI_check_FullHD.mp4.Показать в папке",
         "problems": []
       }
     },
     {
-      "name": "export: the file is in Export next to the project (C:/CRBK/work/panel-live/pr/Export/UI_check_2_FullHD.mp4)",
+      "name": "export: the file is in Export next to the project (/Users/Shared/CRBK/work/panel-live/pr/Export/UI_check_FullHD.mp4)",
       "pass": true,
-      "detail": "C:/CRBK/work/panel-live/pr/Export/UI_check_2_FullHD.mp4"
+      "detail": "/Users/Shared/CRBK/work/panel-live/pr/Export/UI_check_FullHD.mp4"
     }
   ],
-  "finishedAt": "2026-10-26T08:39:42.853Z",
+  "finishedAt": "2026-10-26T09:50:31.381Z",
   "failed": []
 }

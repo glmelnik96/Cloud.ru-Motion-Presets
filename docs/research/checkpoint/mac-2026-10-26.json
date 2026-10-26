@@ -1,0 +1,124 @@
+{
+  "os": "mac",
+  "startedAt": "2026-10-26T09:41:54.856Z",
+  "finishedAt": "2026-10-26T10:12:42.391Z",
+  "ok": false,
+  "tests": {
+    "ok": false,
+    "line": "Tests  2 failed | 895 passed | 70 skipped (967)"
+  },
+  "criteria": [
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "pr",
+      "suite": "base",
+      "what": "каждый элемент библиотеки в каждом формате: вставка, поля, кадры",
+      "ok": true,
+      "checks": 783,
+      "passed": 783,
+      "failed": []
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "pr",
+      "suite": "media",
+      "what": "T2/T3 и компаньоны; AE: эффекты и цвета; перенос проекта; Premiere: «вписать в окно», «Монтаж»",
+      "ok": true,
+      "checks": 329,
+      "passed": 329,
+      "failed": []
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "pr",
+      "suite": "export",
+      "what": "«Экспорт» брендовыми пресетами",
+      "ok": true,
+      "checks": 113,
+      "passed": 113,
+      "failed": []
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "pr",
+      "suite": "ui",
+      "what": "настоящая панель: каталог, превью, форма, вставка из интерфейса",
+      "ok": true,
+      "checks": 22,
+      "passed": 22,
+      "failed": []
+    },
+    {
+      "criterion": "Перенос проекта (на этой машине)",
+      "host": "pr",
+      "suite": "transfer",
+      "what": "копия проекта открывается без пропавших файлов при убранных оригиналах и библиотеке; после перезапуска Premiere",
+      "ok": true,
+      "checks": 4,
+      "failed": []
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "ae",
+      "suite": "base",
+      "what": "каждый элемент библиотеки в каждом формате: вставка, поля, кадры",
+      "ok": true,
+      "checks": 721,
+      "passed": 721,
+      "failed": []
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "ae",
+      "suite": "export",
+      "what": "«Экспорт» брендовыми пресетами",
+      "ok": false,
+      "checks": 7,
+      "passed": 6,
+      "failed": [
+        "export: every «CR …» template is loaded in AE (Edit → Templates → Output Module → Load)"
+      ]
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "ae",
+      "suite": "ui",
+      "what": "настоящая панель: каталог, превью, форма, вставка из интерфейса",
+      "ok": false,
+      "checks": 21,
+      "passed": 19,
+      "failed": [
+        "export: reported as done in the panel",
+        "export: the file is in Export next to the project (null)"
+      ]
+    },
+    {
+      "criterion": "Сквозные сценарии",
+      "host": "ae",
+      "suite": "media",
+      "what": "T2/T3 и компаньоны; AE: эффекты и цвета; перенос проекта; Premiere: «вписать в окно», «Монтаж»",
+      "ok": true,
+      "checks": 472,
+      "passed": 472,
+      "failed": []
+    },
+    {
+      "criterion": "Перенос проекта (на этой машине)",
+      "host": "ae",
+      "suite": "media",
+      "what": "копия проекта открывается без пропавших файлов при убранных оригиналах и библиотеке",
+      "ok": true,
+      "checks": 6,
+      "failed": []
+    }
+  ],
+  "manual": {
+    "Чистая установка": [
+      "docs/research/installer/mac-0.1.30.json"
+    ],
+    "Открытие на другой ОС": [
+      "docs/research/panel-live/ae-open-mac-report.json",
+      "docs/research/panel-live/pr-open-mac-report.json"
+    ]
+  }
+}

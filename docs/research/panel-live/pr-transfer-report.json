@@ -1,7 +1,7 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-26T08:36:27.684Z",
-  "finishedAt": "2026-10-26T08:36:59.908Z",
+  "startedAt": "2026-10-26T09:53:44.338Z",
+  "finishedAt": "2026-10-26T09:53:52.081Z",
   "summary": {
     "checks": 5,
     "passed": 5,
@@ -10,7 +10,7 @@
   "failed": [],
   "checks": [
     {
-      "name": "a staged copy is noted in C:/CRBK/work/panel-live/pr-transfer-staged.json",
+      "name": "a staged copy is noted in /Users/Shared/CRBK/work/panel-live/pr-transfer-staged.json",
       "pass": true,
       "required": true,
       "detail": "run node tools/panel/live.mjs --host pr --media first"
@@ -21,34 +21,34 @@
       "required": true,
       "detail": {
         "renamed": [
-          "C:/CRBK/work/panel-live/media/library",
-          "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media",
-          "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit"
+          "/Users/Shared/CRBK/work/panel-live/media/library",
+          "/Users/Shared/CRBK/work/panel-live/pr/Motion Graphics Template Media",
+          "/Users/Shared/CRBK/work/panel-live/pr/Cloud.ru BrandKit"
         ],
         "retries": {
-          "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit": 0,
-          "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media": 0,
-          "C:/CRBK/work/panel-live/media/library": 0
+          "/Users/Shared/CRBK/work/panel-live/pr/Cloud.ru BrandKit": 0,
+          "/Users/Shared/CRBK/work/panel-live/pr/Motion Graphics Template Media": 0,
+          "/Users/Shared/CRBK/work/panel-live/media/library": 0
         }
       }
     },
     {
-      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/pr-moved-20261026T082943/media_live.prproj",
+      "name": "transfer: open the moved copy: moved project opened: /Users/Shared/CRBK/work/panel-live/pr-moved-20261026T094945/media_live.prproj",
       "pass": true,
       "required": true,
       "detail": {
         "path": "",
-        "clips": 77
+        "clips": 27
       }
     },
     {
-      "name": "transfer: no missing files after the move (77 listed)",
+      "name": "transfer: no missing files after the move (27 listed)",
       "pass": true,
       "required": true,
       "detail": []
     },
     {
-      "name": "transfer: every file the panel put next to the project found inside the moved copy (29)",
+      "name": "transfer: every file the panel put next to the project found inside the moved copy (25)",
       "pass": true,
       "required": true,
       "detail": []
@@ -56,14 +56,14 @@
   ],
   "staged": {
     "host": "pr",
-    "project": "C:/CRBK/work/panel-live/pr/media_live.prproj",
-    "movedDir": "C:/CRBK/work/panel-live/pr-moved-20261026T082943",
-    "moved": "C:/CRBK/work/panel-live/pr-moved-20261026T082943/media_live.prproj",
+    "project": "/Users/Shared/CRBK/work/panel-live/pr/media_live.prproj",
+    "movedDir": "/Users/Shared/CRBK/work/panel-live/pr-moved-20261026T094945",
+    "moved": "/Users/Shared/CRBK/work/panel-live/pr-moved-20261026T094945/media_live.prproj",
     "parts": [
       "Cloud.ru BrandKit",
       "Motion Graphics Template Media"
     ],
-    "libraryRoot": "C:/CRBK/work/panel-live/media/library",
-    "mediaStartedAt": "2026-10-26T08:24:34.066Z"
+    "libraryRoot": "/Users/Shared/CRBK/work/panel-live/media/library",
+    "mediaStartedAt": "2026-10-26T09:49:25.324Z"
   }
 }

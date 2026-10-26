@@ -1,7 +1,7 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-26T08:07:52.158Z",
-  "finishedAt": "2026-10-26T08:08:22.853Z",
+  "startedAt": "2026-10-26T10:12:22.544Z",
+  "finishedAt": "2026-10-26T10:12:42.363Z",
   "summary": {
     "checks": 472,
     "passed": 472,
@@ -10,7 +10,7 @@
   "failed": [],
   "checks": [
     {
-      "name": "synthetic pack built: 0 files made, catalog in C:\\CRBK\\work\\panel-live\\media\\library",
+      "name": "synthetic pack built: 0 files made, catalog in /Users/Shared/CRBK/work/panel-live/media/library",
       "pass": true,
       "required": true,
       "detail": []
@@ -40,7 +40,7 @@
       "required": true,
       "detail": {
         "comps": 19,
-        "path": "C:\\CRBK\\work\\panel-live\\ae\\media_live.aep"
+        "path": "/Users/Shared/CRBK/work/panel-live/ae/media_live.aep"
       }
     },
     {
@@ -92,9 +92,9 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
         ],
         "written": []
       }
@@ -169,7 +169,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 2,
             "endSec": 3,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -181,7 +181,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 3,
             "endSec": 19,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -193,7 +193,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 19,
             "endSec": 20,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -229,7 +229,7 @@
           "name": "BG_Arrows_16x9_intro_v1.mov",
           "startSec": 2,
           "endSec": 3,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -249,7 +249,7 @@
       "name": "loop: intro plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov"
     },
     {
       "name": "loop: loop on the timeline as reported (3 s)",
@@ -269,7 +269,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 2,
             "endSec": 3,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -281,7 +281,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 3,
             "endSec": 19,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -293,7 +293,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 19,
             "endSec": 20,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -329,7 +329,7 @@
           "name": "BG_Arrows_16x9_loop_v1.mov",
           "startSec": 3,
           "endSec": 19,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
           "loop": 2,
           "solid": null,
           "audioOnly": false,
@@ -349,7 +349,7 @@
       "name": "loop: loop plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov"
     },
     {
       "name": "loop: outro on the timeline as reported (19 s)",
@@ -369,7 +369,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 2,
             "endSec": 3,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -381,7 +381,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 3,
             "endSec": 19,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -393,7 +393,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 19,
             "endSec": 20,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -429,7 +429,7 @@
           "name": "BG_Arrows_16x9_outro_v1.mov",
           "startSec": 19,
           "endSec": 20,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -449,7 +449,7 @@
       "name": "loop: outro plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
     },
     {
       "name": "loop: backdrop on the timeline as reported (2 s)",
@@ -469,7 +469,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 2,
             "endSec": 3,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -481,7 +481,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 3,
             "endSec": 19,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -493,7 +493,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 19,
             "endSec": 20,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -622,7 +622,7 @@
           "name": "BG_Arrows_16x9_intro_v1.mov",
           "startSec": 2,
           "endSec": 3,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -651,7 +651,7 @@
         "name": "BG_Arrows_16x9_loop_v1.mov",
         "startSec": 3,
         "endSec": 19,
-        "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+        "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
         "loop": 2,
         "solid": null,
         "audioOnly": false,
@@ -699,9 +699,9 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
         ],
         "written": []
       }
@@ -769,7 +769,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 30,
             "endSec": 31,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -781,7 +781,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 31,
             "endSec": 41,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -793,7 +793,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 41,
             "endSec": 42,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -805,7 +805,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 2,
             "endSec": 3,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -817,7 +817,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 3,
             "endSec": 19,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -829,7 +829,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 19,
             "endSec": 20,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -865,7 +865,7 @@
           "name": "BG_Arrows_16x9_intro_v1.mov",
           "startSec": 30,
           "endSec": 31,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -885,7 +885,7 @@
       "name": "reuse: intro plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov"
     },
     {
       "name": "reuse: loop on the timeline as reported (31 s)",
@@ -905,7 +905,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 30,
             "endSec": 31,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -917,7 +917,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 31,
             "endSec": 41,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -929,7 +929,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 41,
             "endSec": 42,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -941,7 +941,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 2,
             "endSec": 3,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -953,7 +953,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 3,
             "endSec": 19,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -965,7 +965,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 19,
             "endSec": 20,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -1001,7 +1001,7 @@
           "name": "BG_Arrows_16x9_loop_v1.mov",
           "startSec": 31,
           "endSec": 41,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
           "loop": 2,
           "solid": null,
           "audioOnly": false,
@@ -1021,7 +1021,7 @@
       "name": "reuse: loop plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov"
     },
     {
       "name": "reuse: outro on the timeline as reported (41 s)",
@@ -1041,7 +1041,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 30,
             "endSec": 31,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -1053,7 +1053,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 31,
             "endSec": 41,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -1065,7 +1065,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 41,
             "endSec": 42,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -1077,7 +1077,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 2,
             "endSec": 3,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -1089,7 +1089,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 3,
             "endSec": 19,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -1101,7 +1101,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 19,
             "endSec": 20,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -1137,7 +1137,7 @@
           "name": "BG_Arrows_16x9_outro_v1.mov",
           "startSec": 41,
           "endSec": 42,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -1157,7 +1157,7 @@
       "name": "reuse: outro plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
     },
     {
       "name": "reuse: length 12 s",
@@ -1271,7 +1271,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov"
         ],
         "written": []
       }
@@ -1325,7 +1325,7 @@
             "name": "TRN_StepWipe_16x9_dark_v1.mov",
             "startSec": 11.16,
             "endSec": 12.84,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -1345,7 +1345,7 @@
           "name": "TRN_StepWipe_16x9_dark_v1.mov",
           "startSec": 11.16,
           "endSec": 12.84,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -1365,7 +1365,7 @@
       "name": "transition: transition plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov"
     },
     {
       "name": "transition: the form picked 16x9_dark (transition)",
@@ -1435,7 +1435,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_Bars@1/TRN_Bars_16x9_white_logo_v1.mov"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_Bars@1/TRN_Bars_16x9_white_logo_v1.mov"
         ],
         "written": []
       }
@@ -1489,7 +1489,7 @@
             "name": "TRN_Bars_16x9_white_logo_v1.mov",
             "startSec": 11.64,
             "endSec": 12.48,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_Bars@1/TRN_Bars_16x9_white_logo_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_Bars@1/TRN_Bars_16x9_white_logo_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -1509,7 +1509,7 @@
           "name": "TRN_Bars_16x9_white_logo_v1.mov",
           "startSec": 11.64,
           "endSec": 12.48,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_Bars@1/TRN_Bars_16x9_white_logo_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_Bars@1/TRN_Bars_16x9_white_logo_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -1529,7 +1529,7 @@
       "name": "bars: transition plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_Bars@1/TRN_Bars_16x9_white_logo_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/TRN_Bars@1/TRN_Bars_16x9_white_logo_v1.mov"
     },
     {
       "name": "bars: the form picked 16x9_white_logo (transition)",
@@ -1599,7 +1599,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png"
         ],
         "written": []
       }
@@ -1653,7 +1653,7 @@
             "name": "BG_DotGrid_16x9_v1.png",
             "startSec": 2,
             "endSec": 10,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png",
             "loop": null,
             "solid": null,
             "audioOnly": false,
@@ -1673,7 +1673,7 @@
           "name": "BG_DotGrid_16x9_v1.png",
           "startSec": 2,
           "endSec": 10,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png",
           "loop": null,
           "solid": null,
           "audioOnly": false,
@@ -1693,7 +1693,7 @@
       "name": "still: still plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png"
     },
     {
       "name": "still: length 8 s",
@@ -1756,7 +1756,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
         ],
         "written": []
       }
@@ -1810,7 +1810,7 @@
             "name": "SFX_WhooshIn_wav_v1.wav",
             "startSec": 5,
             "endSec": 5.8,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
             "loop": 1,
             "solid": null,
             "audioOnly": true,
@@ -1830,7 +1830,7 @@
           "name": "SFX_WhooshIn_wav_v1.wav",
           "startSec": 5,
           "endSec": 5.8,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
           "loop": 1,
           "solid": null,
           "audioOnly": true,
@@ -1850,7 +1850,7 @@
       "name": "sound: sound plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
     },
     {
       "name": "sound: length 0.8 s",
@@ -1913,7 +1913,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_CyberImpact3@1/SFX_CyberImpact3_wav_v1.wav"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_CyberImpact3@1/SFX_CyberImpact3_wav_v1.wav"
         ],
         "written": []
       }
@@ -1967,7 +1967,7 @@
             "name": "SFX_CyberImpact3_wav_v1.wav",
             "startSec": 5,
             "endSec": 7.353,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_CyberImpact3@1/SFX_CyberImpact3_wav_v1.wav",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_CyberImpact3@1/SFX_CyberImpact3_wav_v1.wav",
             "loop": 1,
             "solid": null,
             "audioOnly": true,
@@ -1987,7 +1987,7 @@
           "name": "SFX_CyberImpact3_wav_v1.wav",
           "startSec": 5,
           "endSec": 7.353,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_CyberImpact3@1/SFX_CyberImpact3_wav_v1.wav",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_CyberImpact3@1/SFX_CyberImpact3_wav_v1.wav",
           "loop": 1,
           "solid": null,
           "audioOnly": true,
@@ -2007,7 +2007,7 @@
       "name": "sfx_real: sound plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_CyberImpact3@1/SFX_CyberImpact3_wav_v1.wav"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_CyberImpact3@1/SFX_CyberImpact3_wav_v1.wav"
     },
     {
       "name": "sfx_real: length 2.353 s",
@@ -2070,10 +2070,10 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
         ],
         "written": []
       }
@@ -2173,7 +2173,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 2,
             "endSec": 3,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -2185,7 +2185,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 3,
             "endSec": 7,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -2197,7 +2197,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 7,
             "endSec": 8,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -2209,7 +2209,7 @@
             "name": "SFX_WhooshIn_wav_v1.wav",
             "startSec": 7.2,
             "endSec": 8,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
             "loop": 1,
             "solid": null,
             "audioOnly": true,
@@ -2229,7 +2229,7 @@
           "name": "BG_Arrows_16x9_intro_v1.mov",
           "startSec": 2,
           "endSec": 3,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -2249,7 +2249,7 @@
       "name": "companions: intro plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov"
     },
     {
       "name": "companions: loop on the timeline as reported (3 s)",
@@ -2281,7 +2281,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 2,
             "endSec": 3,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -2293,7 +2293,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 3,
             "endSec": 7,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -2305,7 +2305,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 7,
             "endSec": 8,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -2317,7 +2317,7 @@
             "name": "SFX_WhooshIn_wav_v1.wav",
             "startSec": 7.2,
             "endSec": 8,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
             "loop": 1,
             "solid": null,
             "audioOnly": true,
@@ -2337,7 +2337,7 @@
           "name": "BG_Arrows_16x9_loop_v1.mov",
           "startSec": 3,
           "endSec": 7,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
           "loop": 2,
           "solid": null,
           "audioOnly": false,
@@ -2357,7 +2357,7 @@
       "name": "companions: loop plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov"
     },
     {
       "name": "companions: outro on the timeline as reported (7 s)",
@@ -2389,7 +2389,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 2,
             "endSec": 3,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -2401,7 +2401,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 3,
             "endSec": 7,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -2413,7 +2413,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 7,
             "endSec": 8,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -2425,7 +2425,7 @@
             "name": "SFX_WhooshIn_wav_v1.wav",
             "startSec": 7.2,
             "endSec": 8,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
             "loop": 1,
             "solid": null,
             "audioOnly": true,
@@ -2445,7 +2445,7 @@
           "name": "BG_Arrows_16x9_outro_v1.mov",
           "startSec": 7,
           "endSec": 8,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -2465,7 +2465,7 @@
       "name": "companions: outro plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov"
     },
     {
       "name": "companions: sound on the timeline as reported (7.2 s)",
@@ -2497,7 +2497,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 2,
             "endSec": 3,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -2509,7 +2509,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 3,
             "endSec": 7,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -2521,7 +2521,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 7,
             "endSec": 8,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -2533,7 +2533,7 @@
             "name": "SFX_WhooshIn_wav_v1.wav",
             "startSec": 7.2,
             "endSec": 8,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
             "loop": 1,
             "solid": null,
             "audioOnly": true,
@@ -2553,7 +2553,7 @@
           "name": "SFX_WhooshIn_wav_v1.wav",
           "startSec": 7.2,
           "endSec": 8,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
           "loop": 1,
           "solid": null,
           "audioOnly": true,
@@ -2573,7 +2573,7 @@
       "name": "companions: sound plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav"
     },
     {
       "name": "companions: companions placed: intro, loop, outro, sound",
@@ -2645,7 +2645,7 @@
             "name": "BG_Arrows_16x9_intro_v1.mov",
             "startSec": 2,
             "endSec": 3,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -2657,7 +2657,7 @@
             "name": "BG_Arrows_16x9_loop_v1.mov",
             "startSec": 3,
             "endSec": 7,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -2669,7 +2669,7 @@
             "name": "BG_Arrows_16x9_outro_v1.mov",
             "startSec": 7,
             "endSec": 8,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -2728,7 +2728,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_spkL_v1.png"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_spkL_v1.png"
         ],
         "written": []
       }
@@ -2782,7 +2782,7 @@
             "name": "CRS_LectureFrame_16x9_spkL_v1.png",
             "startSec": 2,
             "endSec": 30,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_spkL_v1.png",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_spkL_v1.png",
             "loop": null,
             "solid": null,
             "audioOnly": false,
@@ -2802,7 +2802,7 @@
           "name": "CRS_LectureFrame_16x9_spkL_v1.png",
           "startSec": 2,
           "endSec": 30,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_spkL_v1.png",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_spkL_v1.png",
           "loop": null,
           "solid": null,
           "audioOnly": false,
@@ -2822,7 +2822,7 @@
       "name": "frame: still plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_spkL_v1.png"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_spkL_v1.png"
     },
     {
       "name": "frame: length 28 s",
@@ -2899,7 +2899,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov"
         ],
         "written": []
       }
@@ -2953,7 +2953,7 @@
             "name": "CRS_LectureFrame_16x9_s169_drift_v1.mov",
             "startSec": 2,
             "endSec": 92,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -2973,7 +2973,7 @@
           "name": "CRS_LectureFrame_16x9_s169_drift_v1.mov",
           "startSec": 2,
           "endSec": 92,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov",
           "loop": 2,
           "solid": null,
           "audioOnly": false,
@@ -2993,7 +2993,7 @@
       "name": "frame_drift: loop plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov"
     },
     {
       "name": "frame_drift: length 90 s",
@@ -3039,7 +3039,7 @@
         "name": "CRS_LectureFrame_16x9_s169_drift_v1.mov",
         "startSec": 2,
         "endSec": 92,
-        "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov",
+        "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov",
         "loop": 2,
         "solid": null,
         "audioOnly": false,
@@ -3087,7 +3087,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov"
         ],
         "written": []
       }
@@ -3141,7 +3141,7 @@
             "name": "BG_Rack_16x9_dark_v1.mov",
             "startSec": 2,
             "endSec": 22,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
             "loop": 3,
             "solid": null,
             "audioOnly": false,
@@ -3161,7 +3161,7 @@
           "name": "BG_Rack_16x9_dark_v1.mov",
           "startSec": 2,
           "endSec": 22,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
           "loop": 3,
           "solid": null,
           "audioOnly": false,
@@ -3181,7 +3181,7 @@
       "name": "rack: loop plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov"
     },
     {
       "name": "rack: length 20 s",
@@ -3241,7 +3241,7 @@
         "name": "BG_Rack_16x9_dark_v1.mov",
         "startSec": 2,
         "endSec": 22,
-        "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
+        "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
         "loop": 3,
         "solid": null,
         "audioOnly": false,
@@ -3289,7 +3289,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov"
         ],
         "written": []
       }
@@ -3343,7 +3343,7 @@
             "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
             "startSec": 2,
             "endSec": 32,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -3363,7 +3363,7 @@
           "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
           "startSec": 2,
           "endSec": 32,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -3383,7 +3383,7 @@
       "name": "portal: loop plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov"
     },
     {
       "name": "portal: length 30 s",
@@ -3429,7 +3429,7 @@
         "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
         "startSec": 2,
         "endSec": 32,
-        "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+        "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
         "loop": 1,
         "solid": null,
         "audioOnly": false,
@@ -3477,7 +3477,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov"
         ],
         "written": []
       }
@@ -3531,7 +3531,7 @@
             "name": "SMM_FrameNotched_16x9_green_drift_v1.mov",
             "startSec": 2,
             "endSec": 77,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -3551,7 +3551,7 @@
           "name": "SMM_FrameNotched_16x9_green_drift_v1.mov",
           "startSec": 2,
           "endSec": 77,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov",
           "loop": 2,
           "solid": null,
           "audioOnly": false,
@@ -3571,7 +3571,7 @@
       "name": "notched: loop plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov"
     },
     {
       "name": "notched: length 75 s",
@@ -3617,7 +3617,7 @@
         "name": "SMM_FrameNotched_16x9_green_drift_v1.mov",
         "startSec": 2,
         "endSec": 77,
-        "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov",
+        "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov",
         "loop": 2,
         "solid": null,
         "audioOnly": false,
@@ -3665,7 +3665,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov"
         ],
         "written": []
       }
@@ -3719,7 +3719,7 @@
             "name": "POD_Intro_16x9_v1.mov",
             "startSec": 2,
             "endSec": 9,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -3739,7 +3739,7 @@
           "name": "POD_Intro_16x9_v1.mov",
           "startSec": 2,
           "endSec": 9,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -3759,7 +3759,7 @@
       "name": "intro: clip plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov"
     },
     {
       "name": "intro: length 7 s",
@@ -3850,7 +3850,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov"
         ],
         "written": []
       }
@@ -3904,7 +3904,7 @@
             "name": "POD_Outro_16x9_v1.mov",
             "startSec": 2,
             "endSec": 12,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov",
             "loop": 1,
             "solid": null,
             "audioOnly": false,
@@ -3924,7 +3924,7 @@
           "name": "POD_Outro_16x9_v1.mov",
           "startSec": 2,
           "endSec": 12,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov",
           "loop": 1,
           "solid": null,
           "audioOnly": false,
@@ -3944,7 +3944,7 @@
       "name": "outro: clip plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov"
     },
     {
       "name": "outro: length 10 s",
@@ -4021,7 +4021,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov"
         ],
         "written": []
       }
@@ -4104,7 +4104,7 @@
             "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
             "startSec": 2,
             "endSec": 67,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -4124,7 +4124,7 @@
           "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
           "startSec": 2,
           "endSec": 67,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
           "loop": 2,
           "solid": null,
           "audioOnly": false,
@@ -4144,7 +4144,7 @@
       "name": "screen: loop plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov"
     },
     {
       "name": "screen: length 65 s",
@@ -4221,7 +4221,7 @@
             "name": "BG_WebinarPortal_16x9_speaker_timer_v1.mov",
             "startSec": 2,
             "endSec": 67,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -4258,8 +4258,8 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav"
         ],
         "written": []
       }
@@ -4348,7 +4348,7 @@
             "name": "BG_WebinarPortal_16x9_visual_timer_v1.mov",
             "startSec": 2,
             "endSec": 67,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -4360,7 +4360,7 @@
             "name": "SFX_MusicWebinar5min_wav_v1.wav",
             "startSec": 2,
             "endSec": 67,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav",
             "loop": 1,
             "solid": null,
             "audioOnly": true,
@@ -4401,7 +4401,7 @@
           "name": "BG_WebinarPortal_16x9_visual_timer_v1.mov",
           "startSec": 2,
           "endSec": 67,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
           "loop": 2,
           "solid": null,
           "audioOnly": false,
@@ -4421,7 +4421,7 @@
       "name": "screen_music: loop plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov"
     },
     {
       "name": "screen_music: sound on the timeline as reported (2 s)",
@@ -4454,7 +4454,7 @@
             "name": "BG_WebinarPortal_16x9_visual_timer_v1.mov",
             "startSec": 2,
             "endSec": 67,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
             "loop": 2,
             "solid": null,
             "audioOnly": false,
@@ -4466,7 +4466,7 @@
             "name": "SFX_MusicWebinar5min_wav_v1.wav",
             "startSec": 2,
             "endSec": 67,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav",
             "loop": 1,
             "solid": null,
             "audioOnly": true,
@@ -4507,7 +4507,7 @@
           "name": "SFX_MusicWebinar5min_wav_v1.wav",
           "startSec": 2,
           "endSec": 67,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav",
           "loop": 1,
           "solid": null,
           "audioOnly": true,
@@ -4549,7 +4549,7 @@
       "name": "screen_music: sound plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav"
     },
     {
       "name": "screen_music: length 65 s",
@@ -4655,7 +4655,7 @@
           "name": "SFX_MusicWebinar5min_wav_v1.wav",
           "startSec": 2,
           "endSec": 67,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav",
           "loop": 1,
           "solid": null,
           "audioOnly": true,
@@ -4742,8 +4742,8 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav",
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav",
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav"
         ],
         "written": []
       }
@@ -4829,7 +4829,7 @@
             "name": "SFX_PodcastGuestIn_wav_v1.wav",
             "startSec": 2,
             "endSec": 3.07,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav",
             "loop": 1,
             "solid": null,
             "audioOnly": true,
@@ -4841,7 +4841,7 @@
             "name": "SFX_PodcastGuestOut_wav_v1.wav",
             "startSec": 8.46,
             "endSec": 10,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav",
             "loop": 1,
             "solid": null,
             "audioOnly": true,
@@ -4861,7 +4861,7 @@
           "name": "SFX_PodcastGuestIn_wav_v1.wav",
           "startSec": 2,
           "endSec": 3.07,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav",
           "loop": 1,
           "solid": null,
           "audioOnly": true,
@@ -4881,7 +4881,7 @@
       "name": "podcast_sfx: sound plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav"
     },
     {
       "name": "podcast_sfx: sound on the timeline as reported (8.46 s)",
@@ -4913,7 +4913,7 @@
             "name": "SFX_PodcastGuestIn_wav_v1.wav",
             "startSec": 2,
             "endSec": 3.07,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav",
             "loop": 1,
             "solid": null,
             "audioOnly": true,
@@ -4925,7 +4925,7 @@
             "name": "SFX_PodcastGuestOut_wav_v1.wav",
             "startSec": 8.46,
             "endSec": 10,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav",
             "loop": 1,
             "solid": null,
             "audioOnly": true,
@@ -4945,7 +4945,7 @@
           "name": "SFX_PodcastGuestOut_wav_v1.wav",
           "startSec": 8.46,
           "endSec": 10,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav",
           "loop": 1,
           "solid": null,
           "audioOnly": true,
@@ -4965,7 +4965,7 @@
       "name": "podcast_sfx: sound plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav"
     },
     {
       "name": "podcast_sfx: length 8 s",
@@ -5102,7 +5102,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/LOGO_Files@1/LOGO_Files_16x9_light_v1.png"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/LOGO_Files@1/LOGO_Files_16x9_light_v1.png"
         ],
         "written": []
       }
@@ -5156,7 +5156,7 @@
             "name": "LOGO_Files_16x9_light_v1.png",
             "startSec": 2,
             "endSec": 14,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/LOGO_Files@1/LOGO_Files_16x9_light_v1.png",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/LOGO_Files@1/LOGO_Files_16x9_light_v1.png",
             "loop": null,
             "solid": null,
             "audioOnly": false,
@@ -5176,7 +5176,7 @@
           "name": "LOGO_Files_16x9_light_v1.png",
           "startSec": 2,
           "endSec": 14,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/LOGO_Files@1/LOGO_Files_16x9_light_v1.png",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/LOGO_Files@1/LOGO_Files_16x9_light_v1.png",
           "loop": null,
           "solid": null,
           "audioOnly": false,
@@ -5196,7 +5196,7 @@
       "name": "logo_files: still plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/LOGO_Files@1/LOGO_Files_16x9_light_v1.png"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/LOGO_Files@1/LOGO_Files_16x9_light_v1.png"
     },
     {
       "name": "logo_files: length 12 s",
@@ -5273,7 +5273,7 @@
       "detail": {
         "copied": [],
         "reused": [
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Patterns@1/BG_Patterns_16x9_globe_light_v1.png"
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Patterns@1/BG_Patterns_16x9_globe_light_v1.png"
         ],
         "written": []
       }
@@ -5327,7 +5327,7 @@
             "name": "BG_Patterns_16x9_globe_light_v1.png",
             "startSec": 2,
             "endSec": 8,
-            "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Patterns@1/BG_Patterns_16x9_globe_light_v1.png",
+            "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Patterns@1/BG_Patterns_16x9_globe_light_v1.png",
             "loop": null,
             "solid": null,
             "audioOnly": false,
@@ -5347,7 +5347,7 @@
           "name": "BG_Patterns_16x9_globe_light_v1.png",
           "startSec": 2,
           "endSec": 8,
-          "file": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Patterns@1/BG_Patterns_16x9_globe_light_v1.png",
+          "file": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Patterns@1/BG_Patterns_16x9_globe_light_v1.png",
           "loop": null,
           "solid": null,
           "audioOnly": false,
@@ -5367,7 +5367,7 @@
       "name": "patterns: still plays the copy in «Cloud.ru BrandKit» next to the project",
       "pass": true,
       "required": true,
-      "detail": "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Patterns@1/BG_Patterns_16x9_globe_light_v1.png"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit/BG_Patterns@1/BG_Patterns_16x9_globe_light_v1.png"
     },
     {
       "name": "patterns: length 6 s",
@@ -5427,10 +5427,10 @@
       "name": "transfer: release the project: project saved and released",
       "pass": true,
       "required": true,
-      "detail": "C:\\CRBK\\work\\panel-live\\ae\\media_live.aep"
+      "detail": "/Users/Shared/CRBK/work/panel-live/ae/media_live.aep"
     },
     {
-      "name": "transfer: copied the project and Cloud.ru BrandKit to C:/CRBK/work/panel-live/ae-moved-20261026T080812",
+      "name": "transfer: copied the project and Cloud.ru BrandKit to /Users/Shared/CRBK/work/panel-live/ae-moved-20261026T101236",
       "pass": true,
       "required": true,
       "detail": [
@@ -5443,21 +5443,21 @@
       "required": true,
       "detail": {
         "renamed": [
-          "C:/CRBK/work/panel-live/media/library",
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit"
+          "/Users/Shared/CRBK/work/panel-live/media/library",
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit"
         ],
         "retries": {
-          "C:/CRBK/work/panel-live/ae/Cloud.ru BrandKit": 0,
-          "C:/CRBK/work/panel-live/media/library": 0
+          "/Users/Shared/CRBK/work/panel-live/ae/Cloud.ru BrandKit": 0,
+          "/Users/Shared/CRBK/work/panel-live/media/library": 0
         }
       }
     },
     {
-      "name": "transfer: open the moved copy: moved project opened: C:/CRBK/work/panel-live/ae-moved-20261026T080812/media_live.aep",
+      "name": "transfer: open the moved copy: moved project opened: /Users/Shared/CRBK/work/panel-live/ae-moved-20261026T101236/media_live.aep",
       "pass": true,
       "required": true,
       "detail": {
-        "path": "C:/CRBK/work/panel-live/ae-moved-20261026T080812/media_live.aep",
+        "path": "/Users/Shared/CRBK/work/panel-live/ae-moved-20261026T101236/media_live.aep",
         "footage": 21
       }
     },
@@ -5485,7 +5485,7 @@
       "required": true,
       "detail": {
         "comps": 1,
-        "path": "C:\\CRBK\\work\\panel-live\\ae\\effects_live.aep"
+        "path": "/Users/Shared/CRBK/work/panel-live/ae/effects_live.aep"
       }
     },
     {
@@ -5900,7 +5900,7 @@
       "required": true,
       "detail": {
         "comps": 1,
-        "path": "C:\\CRBK\\work\\panel-live\\ae\\colors_live.aep"
+        "path": "/Users/Shared/CRBK/work/panel-live/ae/colors_live.aep"
       }
     },
     {
@@ -6770,7 +6770,7 @@
       "required": true,
       "detail": {
         "comps": 1,
-        "path": "C:\\CRBK\\work\\panel-live\\ae\\ease_live.aep"
+        "path": "/Users/Shared/CRBK/work/panel-live/ae/ease_live.aep"
       }
     },
     {
@@ -6998,7 +6998,7 @@
       "required": true,
       "detail": {
         "comps": 1,
-        "path": "C:\\CRBK\\work\\panel-live\\ae\\rigs_live.aep"
+        "path": "/Users/Shared/CRBK/work/panel-live/ae/rigs_live.aep"
       }
     },
     {
@@ -7203,7 +7203,7 @@
           "name": "BrandKit M2",
           "position": [
             0,
-            44.1600036621094,
+            34.5,
             0
           ],
           "basedOn": 3,
@@ -7247,10 +7247,10 @@
           ]
         },
         "rect": {
-          "top": 15.3600025177002,
-          "left": -185.699999943376,
-          "width": 369.800023213029,
-          "height": 38.4000015258789
+          "top": 5.09999942779541,
+          "left": -190.239993229508,
+          "width": 380.479991570115,
+          "height": 30.0000005960464
         }
       }
     },
@@ -7302,7 +7302,7 @@
               "t": 1,
               "v": [
                 0,
-                42.2400016784668,
+                33,
                 0
               ],
               "inEase": [
@@ -7347,10 +7347,10 @@
           "start": []
         },
         "rect": {
-          "top": 13.4400005340576,
-          "left": -185.699999943376,
-          "width": 369.800023213029,
-          "height": 38.4000015258789
+          "top": 3.59999942779541,
+          "left": -190.239993229508,
+          "width": 380.479991570115,
+          "height": 30.0000005960464
         }
       }
     },
@@ -7366,20 +7366,20 @@
             "t": 1.36,
             "v": [
               [
-                -195.096008300781,
-                -38.1959991455078
+                -199.849609375,
+                -39.0095977783203
               ],
               [
-                193.496032714844,
-                -38.1959991455078
+                199.849609375,
+                -39.0095977783203
               ],
               [
-                193.496032714844,
-                9.27336120605469
+                199.849609375,
+                1.84233093261719
               ],
               [
-                -195.096008300781,
-                9.27336120605469
+                -199.849609375,
+                1.84233093261719
               ]
             ],
             "inEase": [
@@ -7401,20 +7401,20 @@
             "t": 1.64,
             "v": [
               [
-                -195.096008300781,
-                -38.1959991455078
+                -199.849609375,
+                -39.0095977783203
               ],
               [
-                193.496032714844,
-                -38.1959991455078
+                199.849609375,
+                -39.0095977783203
               ],
               [
-                193.496032714844,
-                18.9960021972656
+                199.849609375,
+                10.2095947265625
               ],
               [
-                -195.096008300781,
-                18.9960021972656
+                -199.849609375,
+                10.2095947265625
               ]
             ],
             "inEase": [
@@ -8985,5 +8985,5 @@
     }
   ],
   "hostVersion": "26.5x89",
-  "outDir": "C:/CRBK/work/panel-live/ae"
+  "outDir": "/Users/Shared/CRBK/work/panel-live/ae"
 }
