@@ -30,12 +30,14 @@ async function library({ ids, version = 1, libraryVersion = '2026.10.05', extra 
   for (const item of src.items) {
     for (const f of itemFiles(item)) {
       if (f.optional) continue;
-      // a file of any extension: the export presets .epr or .aom by the variant key, a sound .wav, the loops .mov
+      // a file of any extension: the export presets .epr or .aom by the variant key, a sound .wav, the loops .mov;
+      // its text names the extension and, when it is another word, the variant key: «epr AME_FullHD», «mov 16x9_4K BG_Plus»
       const ext = ['epr', 'aom', 'wav'].includes(f.key) ? f.key : 'mov';
+      const tag = ext === f.key ? ext : `${ext} ${f.key}`;
       const p = path.join(buildDir, f.anyExt ? `${f.from}.${ext}` : f.from);
       mkdirSync(path.dirname(p), { recursive: true });
       if (!f.from.endsWith('.mogrt')) {
-        writeFileSync(p, (f.anyExt ? ext + ' ' + f.key : 'aep') + ' ' + item.id);
+        writeFileSync(p, (f.anyExt ? tag : 'aep') + ' ' + item.id);
         continue;
       }
       const zip = new AdmZip();
@@ -345,7 +347,7 @@ describe.skipIf(!IS_WIN)('install.cmd (Windows)', () => {
     // the second option on top: the first stays
     const withMusic = winInstall(r.dir, sb, {}, { launcher: 'install-music.cmd' });
     expect(withMusic.status, withMusic.out).toBe(0);
-    expect([existsSync(four), readFileSync(track, 'utf8')]).toEqual([true, 'wav wav SFX_MusicTest']);
+    expect([existsSync(four), readFileSync(track, 'utf8')]).toEqual([true, 'wav SFX_MusicTest']);
     expect(readFileSync(path.join(w.state, 'installed.txt'), 'utf8')).toMatch(/\r?\npacks=4k,music\r?\n$/);
     // a later plain install keeps the options while the archives are unpacked here
     const again = winInstall(r.dir, sb);
