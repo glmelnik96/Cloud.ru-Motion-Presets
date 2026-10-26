@@ -76,8 +76,13 @@ export async function checkTransfer(o, staged) {
     if (lost.length) throw new Error(`the staged copy is gone: ${lost.join(', ')}`);
     const retries = {};
     for (const p of away) {
+      // A previous run that died after the rename leaves <folder>.away. macOS then refuses the new
+      // rename with ENOTEMPTY (the destination exists and is not empty). The live folder is the
+      // current original, so the leftover is removed first.
+      const dest = `${p}.away`;
+      if (fs.exists(dest) && typeof fs.remove === 'function') fs.remove(dest);
       try {
-        retries[p] = await renameRetry(fs, p, `${p}.away`, sleep);
+        retries[p] = await renameRetry(fs, p, dest, sleep);
       } catch (e) {
         // who holds it: handle.exe of Sysinternals when it is on PATH (o.holders), else only the error
         throw new Error(`${p}: ${String(e && e.message ? e.message : e)}${o.holders ? `; held by: ${o.holders(p)}` : ''}${staged.host === 'pr' ? `; ${RESTART_HINT}` : ''}`);

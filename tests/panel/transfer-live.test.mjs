@@ -22,6 +22,7 @@ function disk(paths) {
       for (const x of xs) { set.delete(x); set.add(to + x.slice(from.length)); }
       log.push(`rename ${from} -> ${to}`);
     },
+    remove: (p) => { for (const x of under(p)) set.delete(x); log.push(`remove ${p}`); },
   };
 }
 
@@ -57,6 +58,16 @@ describe('transfer check, dry', () => {
     expect(transferVerdict([{ name: 'c', file: 'C:\\CRBK\\work\\panel-live\\pr-moved\\Cloud.ru BrandKit\\c.mov', missing: false }], 'C:/CRBK/work/panel-live/pr-moved')).toMatchObject({ outside: [], ours: 1 });
     // a file of the test bed at its old place is not the panel's
     expect(transferVerdict([{ name: 'cut', file: 'C:/CRBK/work/panel-live/pr/cut-clip.png', missing: false }], 'C:/CRBK/work/panel-live/pr-moved')).toMatchObject({ outside: [], ours: 0 });
+  });
+
+  it('a leftover .away from a run that died is removed so the rename can proceed', async () => {
+    const fs = disk([...files, `${W}/pr/Cloud.ru BrandKit.away/old.mov`, `${W}/media/library.away/library.json`]);
+    const R = new Report('pr');
+    await runTransferLive({ host: 'pr', hostRun: async (op, p) => ok(op === 'transferOpen' ? { items: [{ name: 'l', file: `${W}/pr-moved/Cloud.ru BrandKit/x.mov`, missing: false }] } : {}), R, fs, sleep: async () => undefined,
+      project: `${W}/pr/media_live.prproj`, movedDir: `${W}/pr-moved`, libraryRoot: `${W}/media/library` });
+    expect(R.failed()).toEqual([]);
+    expect([...fs.set].some((p) => p.includes('.away'))).toBe(false);
+    expect(fs.log.some((l) => l.startsWith('remove '))).toBe(true);
   });
 
   it('a folder still busy after the release is renamed once it is free', async () => {

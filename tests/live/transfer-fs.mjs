@@ -17,10 +17,17 @@ export const nodeTransferFs = {
   },
   copy: (from, to) => (statSync(from).isDirectory() ? copyTree(from, to) : copyFileSync(from, to)),
   rename: (from, to) => renameSync(from, to),
+  remove: (p) => rmSync(p, { recursive: true, force: true }),
 };
 
 // handle.exe from PATH, else BRANDKIT_HANDLE, else the Sysinternals folder of the build PC (C:/CRBK/tools/sysinternals).
 export function handleHolders(p) {
+  if (process.platform !== 'win32') {
+    const r = spawnSync('lsof', ['+D', p], { encoding: 'utf8' });
+    if (r.error) return `lsof: ${r.error.message}`;
+    const lines = (r.stdout || '').trim().split(/\r?\n/).filter(Boolean);
+    return lines.slice(0, 8).join(' | ') || 'no holder found';
+  }
   const tries = ['handle', process.env.BRANDKIT_HANDLE, 'C:/CRBK/tools/sysinternals/handle.exe'].filter(Boolean);
   for (const exe of tries) {
     const r = spawnSync(exe, ['-accepteula', '-nobanner', p.replace(/\//g, '\\')], { encoding: 'utf8' });
