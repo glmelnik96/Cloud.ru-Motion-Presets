@@ -127,11 +127,13 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
 
   it('greys out the minutes until the timer is on and offers file slots in AE', async () => {
     await go('?host=ae&open=WEB_Screen');
-    await waitFor(s, `!!document.getElementById('f-title')`);
+    await waitFor(s, `!!document.getElementById('f-title1')`);
     expect(await evaluate(s, `document.getElementById('f-minutes').disabled`)).toBe(true);
     await evaluate(s, `[...document.querySelectorAll('.check')].find((e) => e.textContent === 'Таймер').querySelector('input').click()`);
     expect(await evaluate(s, `document.getElementById('f-minutes').disabled`)).toBe(false);
-    expect(await evaluate(s, `[...document.querySelectorAll('.media button')].length`)).toBe(2);
+    // the visual, the speaker's photo and the QR code
+    expect(await evaluate(s, `[...document.querySelectorAll('.media button')].length`)).toBe(3);
+    // five minutes of the timer and «Начинаем»
     expect(await evaluate(s, `document.getElementById('f-length').placeholder`)).toBe('305');
   }, 60000);
 
@@ -140,8 +142,10 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     await waitFor(s, `!!document.getElementById('f-length')`);
     const backdrop = `[...document.querySelectorAll('.check')].find((e) => e.textContent === 'Подложка #222222')`;
     expect(await evaluate(s, `${backdrop}.querySelector('input').checked`)).toBe(true);
-    expect(await evaluate(s, `document.getElementById('f-length').placeholder`)).toBe('12');
-    expect(await evaluate(s, `[...document.getElementById('f-format').options].map((o) => o.value)`)).toEqual(['', '16x9', '9x16']);
+    // one pass of the loop (375 frames): the demo sequence has no out point to run up to
+    expect(await evaluate(s, `document.getElementById('f-length').placeholder`)).toBe('15');
+    // «Авто» and the formats of the loop; 4K is an installer option (D24): the demo checks no files, so it counts as installed
+    expect(await evaluate(s, `[...document.getElementById('f-format').options].map((o) => o.value)`)).toEqual(['', '9x16', '1x1', '16x9', '16x9_4K']);
     expect(await evaluate(s, page.insert)).toBe(true);
     expect(await waitFor(s, page.outcome)).toBe('done: Вставлено: клип выделен на таймлайне.');
     await go('?host=pr&open=SFX_WhooshIn');
@@ -220,13 +224,18 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
   }, 60000);
 
   it('«Вписать в окно» in the form of a frame template, Premiere only', async () => {
-    await go('?host=pr&open=WEB_Screen');
+    // the lecture frame: its screen window in every layout, the speaker's next to it in «Спикер слева»
+    await go('?host=pr&open=CRS_LectureFrame');
     await waitFor(s, `!!document.querySelector('.fit')`);
+    expect(await evaluate(s, `[...document.querySelectorAll('.fit .seg button')].map((b) => b.textContent)`)).toEqual(['Экран']);
+    await evaluate(s, `(() => { const f = document.getElementById('f-layout'); f.value = '3'; f.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+    await waitFor(s, `document.querySelectorAll('.fit .seg button').length === 2`);
     expect(await evaluate(s, `[...document.querySelectorAll('.fit .seg button')].map((b) => b.textContent)`)).toEqual(['Экран', 'Спикер']);
     await evaluate(s, `[...document.querySelectorAll('.fit .seg button')].find((b) => b.textContent === 'Спикер').click()`);
     await waitFor(s, `!!document.querySelector('.actions .done')`, { timeoutMs: 10000 });
-    expect(await evaluate(s, `document.querySelector('.actions .done').textContent`)).toBe('«Запись спикера.mp4» вписан в окно «Спикер»: масштаб 66,67 %, обрезка по бокам 35 %.');
-    await go('?host=ae&open=WEB_Screen');
+    // a 16:9 recording into the 500×750 window: by its height (750 / 1080), the sides cut to its width
+    expect(await evaluate(s, `document.querySelector('.actions .done').textContent`)).toBe('«Запись спикера.mp4» вписан в окно «Спикер»: масштаб 69,44 %, обрезка по бокам 31,25 %.');
+    await go('?host=ae&open=CRS_LectureFrame');
     await waitFor(s, `!!document.querySelector('.form-head')`);
     expect(await evaluate(s, `!!document.querySelector('.fit')`)).toBe(false);
   }, 60000);
@@ -331,17 +340,26 @@ describe.skipIf(!CHROME)('panel UI in Chromium (demo host)', () => {
     expect(await evaluate(s, `document.querySelector('.jobs li.done span').textContent`)).toBe('Готово: Монтаж_FullHD.mp4');
   }, 60000);
 
-  it.skipIf(!HAS_FFMPEG)('a sound plays in its card, one at a time, without opening the form', async () => {
+  it.skipIf(!HAS_FFMPEG)('a sound plays in its row, one at a time, without opening the form; a row shows its group and length', async () => {
     const mediaUrl = encodeURIComponent('/@fs/' + media.replace(/\\/g, '/').replace(/^\//, '') + '/');
     await go(`?host=pr&media=${mediaUrl}`);
-    const card = (title) => `[...document.querySelectorAll('.card')].find((c) => c.querySelector('.title').textContent === ${JSON.stringify(title)})`;
-    await waitFor(s, `!!${card('Звук входа плашки')}.querySelector('.sound-length')`, { timeoutMs: 10000 });
-    expect(await evaluate(s, `${card('Звук входа плашки')}.querySelector('.sound-length').textContent`)).toBe('0,8 с');
-    await evaluate(s, `${card('Подложка вебинара')}.querySelector('.sound-play').click()`);
-    await waitFor(s, `!${card('Подложка вебинара')}.querySelector('audio').paused`, { timeoutMs: 5000 });
-    await evaluate(s, `${card('Звук входа плашки')}.querySelector('.sound-play').click()`);
-    await waitFor(s, `!${card('Звук входа плашки')}.querySelector('audio').paused`, { timeoutMs: 5000 });
-    expect(await evaluate(s, `${card('Подложка вебинара')}.querySelector('audio').paused`)).toBe(true);
+    // sounds are listed in «Звуки», not in the whole catalog
+    expect(await evaluate(s, `document.querySelectorAll('.sound-row').length`)).toBe(0);
+    await evaluate(s, `[...document.querySelectorAll('.chip')].find((c) => c.textContent === 'Звуки').click()`);
+    const row = (title) => `[...document.querySelectorAll('.sound-row')].find((r) => r.querySelector('.title').textContent === ${JSON.stringify(title)})`;
+    const on = (title) => `${row(title)}.querySelector('.sound-play').classList.contains('on')`;
+    await waitFor(s, `!!${row('Звук входа плашки')}`, { timeoutMs: 10000 });
+    expect(await evaluate(s, `${row('Подкаст: о госте — появление')}.querySelector('.meta').textContent`)).toBe('Фирменные · 1,07 с');
+    // one player for the list: the bed plays (its file is in the media folder), the whoosh takes over from it
+    await evaluate(s, `${row('Подложка вебинара')}.querySelector('.sound-play').click()`);
+    await waitFor(s, on('Подложка вебинара'), { timeoutMs: 5000 });
+    await new Promise((r) => setTimeout(r, 400));
+    expect(await evaluate(s, on('Подложка вебинара'))).toBe(true);
+    await evaluate(s, `${row('Звук входа плашки')}.querySelector('.sound-play').click()`);
+    await waitFor(s, on('Звук входа плашки'), { timeoutMs: 5000 });
+    expect(await evaluate(s, on('Подложка вебинара'))).toBe(false);
+    // the 0.8 s whoosh ends by itself and its ▶ comes back
+    await waitFor(s, `!${on('Звук входа плашки')}`, { timeoutMs: 5000 });
     expect(await evaluate(s, `!!document.querySelector('.form-head')`)).toBe(false);
   }, 60000);
 });

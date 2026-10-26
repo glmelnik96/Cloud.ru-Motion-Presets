@@ -1,5 +1,6 @@
-// The panel UI in a browser, without a host (vite dev server only): the first pack from library.src.json and
-// a pretend Premiere sequence. For layout work and screenshots; never part of the CEP build.
+// The panel UI in a browser, without a host (vite dev server only): the library source, the example's items the
+// library lacks (the effect stand-ins, two short sounds) and a pretend Premiere sequence. For layout work, screenshots
+// and tests/panel/ui-dom.test.mjs; never part of the CEP build.
 import { render, h } from 'preact';
 import src from '../../library/library.src.json';
 import example from '../../docs/library/example.src.json';
@@ -109,7 +110,8 @@ export function startDemo(el: HTMLElement, version: string): void {
   const items = [
     // the templates with their companions: the sounds they name are below
     ...(src.items as unknown[]).map((i) => toItem(i, true)),
-    ...(example.items as unknown[]).filter((i) => (i as Item).id !== 'TTL_LowerThird').map((i) => toItem(i, true)),
+    // the example only where the library has no item of the id: one item per id, `?open=` opens the library's
+    ...(example.items as unknown[]).filter((i) => !(src.items as unknown[]).some((r) => (r as Item).id === (i as Item).id)).map((i) => toItem(i, true)),
     // the sound library as tools/library/source.mjs merges it
     ...sounds.sounds.map((e) => toItem({ id: e.id, title_ru: e.title_ru, category: MUSIC_GROUPS.some((g) => g.key === e.group) ? 'music' : 'sounds', tier: 'T3', hosts: ['ae', 'pr'], version: 1, group: e.group, keywords: e.keywords,
       duration: { introSec: 0, holdSec: e.sec, outroSec: 0 }, variants: [{ key: 'wav' }] }, false)),
