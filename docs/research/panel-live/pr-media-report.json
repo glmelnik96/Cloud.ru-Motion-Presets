@@ -1,10 +1,10 @@
 {
   "host": "pr",
-  "startedAt": "2026-10-26T04:51:51.135Z",
-  "finishedAt": "2026-10-26T04:56:21.961Z",
+  "startedAt": "2026-10-26T07:20:29.041Z",
+  "finishedAt": "2026-10-26T07:27:00.414Z",
   "summary": {
-    "checks": 313,
-    "passed": 313,
+    "checks": 331,
+    "passed": 331,
     "failed": 0
   },
   "failed": [],
@@ -30,7 +30,7 @@
         "data": {
           "app": "pr",
           "version": "26.5.2",
-          "bk": "0.1.28"
+          "bk": "0.1.30"
         }
       }
     },
@@ -45,28 +45,29 @@
       }
     },
     {
-      "name": "setup: sequences created: 18",
+      "name": "setup: sequences created: 19",
       "pass": true,
       "required": true,
       "detail": {
-        "loop": "37c490aa-34a2-4259-a07e-7fb563b38881",
-        "transition": "63589771-e478-4907-aa90-2bdf654d7e73",
-        "bars": "f1875b40-ce9d-4948-926e-77a8fbf1e56f",
-        "still": "6856f1ea-6889-4bf2-8f1d-c625b5c91052",
-        "sound": "4a607678-2ca7-42d1-9b53-1c22e1de5ccd",
-        "sfx_real": "c050ec61-195c-4dae-bd8d-ee81dd2e9e94",
-        "companions": "9fdefcdb-9ad3-434a-82f0-1dd340f32544",
-        "frame": "91cb668e-ddd7-4e0a-8dff-5ae5a1325b7c",
-        "frame_drift": "3ea23689-1572-4dcc-934b-524cc8ec5d07",
-        "rack": "3fbc46be-8b3e-4e09-9846-f9e73deffd76",
-        "portal": "60f6c60c-3352-417b-974d-c61235e5cf18",
-        "notched": "1f9fbf7c-65fd-4a33-8d26-619fe5699bbb",
-        "intro": "088ef111-5ea2-4c47-bd81-b93b01c14c3e",
-        "outro": "ce1fcce8-3272-4668-a198-88799bf4b5cc",
-        "screen": "bae95ef9-cae2-4730-802c-edfb33fe1082",
-        "screen_music": "2c6e5956-5182-462f-9071-282afbf8eac1",
-        "logo_files": "19d78f9e-40e5-4dea-af80-e10d0ca429ab",
-        "patterns": "24c3d15d-1143-4bef-89c3-8e131f018fea"
+        "loop": "f1f0df8c-8b5b-4dd0-a941-86bef6ed0b77",
+        "transition": "8804b9b2-7372-4eee-91eb-5511337ffc2e",
+        "bars": "266816e9-65fb-4305-8d07-7969dc4d12c4",
+        "still": "5b5bae01-d561-4dcb-b748-02f82a0f9a87",
+        "sound": "5b53cd71-2f99-41c4-bf9c-adbb65b2a948",
+        "sfx_real": "1d1798ff-a479-4551-8164-2863e84dad9f",
+        "companions": "b9e7baef-df15-422e-8966-76ef3409e236",
+        "frame": "ab02e08a-4243-47b4-a354-6d65ffced815",
+        "frame_drift": "20d32f79-2143-44b4-973a-ad0131d09912",
+        "rack": "628ec1a4-276a-41f9-beb8-b70077caba17",
+        "portal": "82756892-91a6-470a-a0e7-4e05534e9f54",
+        "notched": "f19d667e-1303-428e-a978-abaf202e2652",
+        "intro": "32967931-14c8-4d78-ba64-614cd6c942ac",
+        "outro": "7f42125b-8e36-4da8-9406-270edb803c70",
+        "screen": "104bc153-052c-493a-beed-ef24b977e8c4",
+        "screen_music": "0c5bf8c9-5513-4290-a956-f6aeffc96ed7",
+        "podcast_sfx": "5bb1d8af-4e51-43a0-9d53-fc67ecb8b2a2",
+        "logo_files": "cda39a90-cd63-456c-8564-3b559078be6c",
+        "patterns": "4509b64e-089c-47cb-b9a3-2e4a11d3d797"
       }
     },
     {
@@ -76,7 +77,7 @@
       "detail": "BG_Arrows"
     },
     {
-      "name": "loop: range: out point of sequence 37c490aa-34a2-4259-a07e-7fb563b38881 at 20 s",
+      "name": "loop: range: out point of sequence f1f0df8c-8b5b-4dd0-a941-86bef6ed0b77 at 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -85,11 +86,11 @@
       }
     },
     {
-      "name": "loop: activate: sequence 37c490aa-34a2-4259-a07e-7fb563b38881 active, playhead at 2 s",
+      "name": "loop: activate: sequence f1f0df8c-8b5b-4dd0-a941-86bef6ed0b77 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media loop_25",
+        "name": "BK media loop_27",
         "player": 2
       }
     },
@@ -99,8 +100,8 @@
       "required": true,
       "detail": {
         "kind": "sequence",
-        "id": "37c490aa-34a2-4259-a07e-7fb563b38881",
-        "name": "BK media loop_25",
+        "id": "f1f0df8c-8b5b-4dd0-a941-86bef6ed0b77",
+        "name": "BK media loop_27",
         "w": 1920,
         "h": 1080,
         "fps": 25,
@@ -186,7 +187,7 @@
       }
     },
     {
-      "name": "loop: timeline: clips of sequence 37c490aa-34a2-4259-a07e-7fb563b38881 listed with their files",
+      "name": "loop: timeline: clips of sequence f1f0df8c-8b5b-4dd0-a941-86bef6ed0b77 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -213,6 +214,8 @@
             "startSec": 2,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/backdrop_222222_1920x1080.png",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -222,6 +225,8 @@
             "startSec": 2,
             "endSec": 3,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -231,6 +236,8 @@
             "startSec": 3,
             "endSec": 13,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -240,6 +247,8 @@
             "startSec": 13,
             "endSec": 19,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -249,6 +258,8 @@
             "startSec": 19,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -282,6 +293,8 @@
             "startSec": 2,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/backdrop_222222_1920x1080.png",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -291,6 +304,8 @@
             "startSec": 2,
             "endSec": 3,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -300,6 +315,8 @@
             "startSec": 3,
             "endSec": 13,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -309,6 +326,8 @@
             "startSec": 13,
             "endSec": 19,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -318,6 +337,8 @@
             "startSec": 19,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -351,6 +372,8 @@
             "startSec": 2,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/backdrop_222222_1920x1080.png",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -360,6 +383,8 @@
             "startSec": 2,
             "endSec": 3,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -369,6 +394,8 @@
             "startSec": 3,
             "endSec": 13,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -378,6 +405,8 @@
             "startSec": 13,
             "endSec": 19,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -387,6 +416,8 @@
             "startSec": 19,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -420,6 +451,8 @@
             "startSec": 2,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/backdrop_222222_1920x1080.png",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -429,6 +462,8 @@
             "startSec": 2,
             "endSec": 3,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -438,6 +473,8 @@
             "startSec": 3,
             "endSec": 13,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -447,6 +484,8 @@
             "startSec": 13,
             "endSec": 19,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -456,6 +495,8 @@
             "startSec": 19,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -637,6 +678,8 @@
             "startSec": 2,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/backdrop_222222_1920x1080.png",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -646,6 +689,8 @@
             "startSec": 2,
             "endSec": 3,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -655,6 +700,8 @@
             "startSec": 3,
             "endSec": 13,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -664,6 +711,8 @@
             "startSec": 13,
             "endSec": 19,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -673,6 +722,8 @@
             "startSec": 19,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -698,11 +749,11 @@
       "detail": "BG_Arrows"
     },
     {
-      "name": "reuse: activate: sequence 37c490aa-34a2-4259-a07e-7fb563b38881 active, playhead at 30 s",
+      "name": "reuse: activate: sequence f1f0df8c-8b5b-4dd0-a941-86bef6ed0b77 active, playhead at 30 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media loop_25",
+        "name": "BK media loop_27",
         "player": 30
       }
     },
@@ -773,7 +824,7 @@
       }
     },
     {
-      "name": "reuse: timeline: clips of sequence 37c490aa-34a2-4259-a07e-7fb563b38881 listed with their files",
+      "name": "reuse: timeline: clips of sequence f1f0df8c-8b5b-4dd0-a941-86bef6ed0b77 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -800,6 +851,8 @@
             "startSec": 2,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/backdrop_222222_1920x1080.png",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -809,6 +862,8 @@
             "startSec": 30,
             "endSec": 31,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -818,6 +873,8 @@
             "startSec": 31,
             "endSec": 41,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -827,6 +884,8 @@
             "startSec": 41,
             "endSec": 42,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -836,6 +895,8 @@
             "startSec": 2,
             "endSec": 3,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -845,6 +906,8 @@
             "startSec": 3,
             "endSec": 13,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -854,6 +917,8 @@
             "startSec": 13,
             "endSec": 19,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -863,6 +928,8 @@
             "startSec": 19,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -896,6 +963,8 @@
             "startSec": 2,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/backdrop_222222_1920x1080.png",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -905,6 +974,8 @@
             "startSec": 30,
             "endSec": 31,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -914,6 +985,8 @@
             "startSec": 31,
             "endSec": 41,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -923,6 +996,8 @@
             "startSec": 41,
             "endSec": 42,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -932,6 +1007,8 @@
             "startSec": 2,
             "endSec": 3,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -941,6 +1018,8 @@
             "startSec": 3,
             "endSec": 13,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -950,6 +1029,8 @@
             "startSec": 13,
             "endSec": 19,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -959,6 +1040,8 @@
             "startSec": 19,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -992,6 +1075,8 @@
             "startSec": 2,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/backdrop_222222_1920x1080.png",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -1001,6 +1086,8 @@
             "startSec": 30,
             "endSec": 31,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -1010,6 +1097,8 @@
             "startSec": 31,
             "endSec": 41,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -1019,6 +1108,8 @@
             "startSec": 41,
             "endSec": 42,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -1028,6 +1119,8 @@
             "startSec": 2,
             "endSec": 3,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -1037,6 +1130,8 @@
             "startSec": 3,
             "endSec": 13,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -1046,6 +1141,8 @@
             "startSec": 13,
             "endSec": 19,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -1055,6 +1152,8 @@
             "startSec": 19,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -1148,7 +1247,7 @@
       "required": true,
       "detail": {
         "imported": 0,
-        "bin": 25
+        "bin": 29
       }
     },
     {
@@ -1171,7 +1270,7 @@
       "detail": "TRN_StepWipe"
     },
     {
-      "name": "transition: cuts on V1: clips on V1 of sequence 63589771-e478-4907-aa90-2bdf654d7e73 cut at 0, 10, 20 s",
+      "name": "transition: cuts on V1: clips on V1 of sequence 8804b9b2-7372-4eee-91eb-5511337ffc2e cut at 0, 10, 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -1179,11 +1278,11 @@
       }
     },
     {
-      "name": "transition: activate: sequence 63589771-e478-4907-aa90-2bdf654d7e73 active, playhead at 12 s",
+      "name": "transition: activate: sequence 8804b9b2-7372-4eee-91eb-5511337ffc2e active, playhead at 12 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media transition_25",
+        "name": "BK media transition_27",
         "player": 12
       }
     },
@@ -1247,7 +1346,7 @@
       }
     },
     {
-      "name": "transition: timeline: clips of sequence 63589771-e478-4907-aa90-2bdf654d7e73 listed with their files",
+      "name": "transition: timeline: clips of sequence 8804b9b2-7372-4eee-91eb-5511337ffc2e listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1274,6 +1373,8 @@
             "startSec": 0,
             "endSec": 10,
             "file": "C:/CRBK/work/panel-live/pr/cut-clip.png",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -1283,6 +1384,8 @@
             "startSec": 10,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/cut-clip.png",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -1292,6 +1395,8 @@
             "startSec": 9.16,
             "endSec": 10.84,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/TRN_StepWipe@1/TRN_StepWipe_16x9_dark_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           }
         ]
@@ -1353,7 +1458,7 @@
       "detail": "TRN_Bars"
     },
     {
-      "name": "bars: cuts on V1: clips on V1 of sequence f1875b40-ce9d-4948-926e-77a8fbf1e56f cut at 0, 10, 20 s",
+      "name": "bars: cuts on V1: clips on V1 of sequence 266816e9-65fb-4305-8d07-7969dc4d12c4 cut at 0, 10, 20 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -1361,11 +1466,11 @@
       }
     },
     {
-      "name": "bars: activate: sequence f1875b40-ce9d-4948-926e-77a8fbf1e56f active, playhead at 12 s",
+      "name": "bars: activate: sequence 266816e9-65fb-4305-8d07-7969dc4d12c4 active, playhead at 12 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media bars_9",
+        "name": "BK media bars_11",
         "player": 12
       }
     },
@@ -1429,7 +1534,7 @@
       }
     },
     {
-      "name": "bars: timeline: clips of sequence f1875b40-ce9d-4948-926e-77a8fbf1e56f listed with their files",
+      "name": "bars: timeline: clips of sequence 266816e9-65fb-4305-8d07-7969dc4d12c4 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1456,6 +1561,8 @@
             "startSec": 0,
             "endSec": 10,
             "file": "C:/CRBK/work/panel-live/pr/cut-clip.png",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -1465,6 +1572,8 @@
             "startSec": 10,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/cut-clip.png",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -1474,6 +1583,8 @@
             "startSec": 9.64,
             "endSec": 10.48,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/TRN_Bars@1/TRN_Bars_16x9_white_logo_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           }
         ]
@@ -1535,11 +1646,11 @@
       "detail": "BG_DotGrid"
     },
     {
-      "name": "still: activate: sequence 6856f1ea-6889-4bf2-8f1d-c625b5c91052 active, playhead at 2 s",
+      "name": "still: activate: sequence 5b5bae01-d561-4dcb-b748-02f82a0f9a87 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media still_25",
+        "name": "BK media still_27",
         "player": 2
       }
     },
@@ -1590,7 +1701,7 @@
       }
     },
     {
-      "name": "still: timeline: clips of sequence 6856f1ea-6889-4bf2-8f1d-c625b5c91052 listed with their files",
+      "name": "still: timeline: clips of sequence 5b5bae01-d561-4dcb-b748-02f82a0f9a87 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1617,6 +1728,8 @@
             "startSec": 2,
             "endSec": 10,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_DotGrid@1/BG_DotGrid_16x9_v1.png",
+            "inSec": null,
+            "levels": null,
             "selected": true
           }
         ]
@@ -1672,11 +1785,11 @@
       "detail": "SFX_WhooshIn"
     },
     {
-      "name": "sound: activate: sequence 4a607678-2ca7-42d1-9b53-1c22e1de5ccd active, playhead at 5 s",
+      "name": "sound: activate: sequence 5b53cd71-2f99-41c4-bf9c-adbb65b2a948 active, playhead at 5 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media sound_25",
+        "name": "BK media sound_27",
         "player": 5
       }
     },
@@ -1727,7 +1840,7 @@
       }
     },
     {
-      "name": "sound: timeline: clips of sequence 4a607678-2ca7-42d1-9b53-1c22e1de5ccd listed with their files",
+      "name": "sound: timeline: clips of sequence 5b53cd71-2f99-41c4-bf9c-adbb65b2a948 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1754,6 +1867,8 @@
             "startSec": 5,
             "endSec": 5.8,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "inSec": 0,
+            "levels": [],
             "selected": true
           }
         ]
@@ -1809,11 +1924,11 @@
       "detail": "SFX_CyberImpact3"
     },
     {
-      "name": "sfx_real: activate: sequence c050ec61-195c-4dae-bd8d-ee81dd2e9e94 active, playhead at 5 s",
+      "name": "sfx_real: activate: sequence 1d1798ff-a479-4551-8164-2863e84dad9f active, playhead at 5 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media sfx_real_2",
+        "name": "BK media sfx_real_4",
         "player": 5
       }
     },
@@ -1864,7 +1979,7 @@
       }
     },
     {
-      "name": "sfx_real: timeline: clips of sequence c050ec61-195c-4dae-bd8d-ee81dd2e9e94 listed with their files",
+      "name": "sfx_real: timeline: clips of sequence 1d1798ff-a479-4551-8164-2863e84dad9f listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -1891,6 +2006,8 @@
             "startSec": 5,
             "endSec": 7.36,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_CyberImpact3@1/SFX_CyberImpact3_wav_v1.wav",
+            "inSec": 0,
+            "levels": [],
             "selected": true
           }
         ]
@@ -1946,11 +2063,11 @@
       "detail": "TTL_LowerThird"
     },
     {
-      "name": "companions: activate: sequence 9fdefcdb-9ad3-434a-82f0-1dd340f32544 active, playhead at 2 s",
+      "name": "companions: activate: sequence b9e7baef-df15-422e-8966-76ef3409e236 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media companions_25",
+        "name": "BK media companions_27",
         "player": 2
       }
     },
@@ -2041,7 +2158,7 @@
       }
     },
     {
-      "name": "companions: timeline: clips of sequence 9fdefcdb-9ad3-434a-82f0-1dd340f32544 listed with their files",
+      "name": "companions: timeline: clips of sequence b9e7baef-df15-422e-8966-76ef3409e236 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2068,6 +2185,8 @@
             "startSec": 2,
             "endSec": 3,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2077,6 +2196,8 @@
             "startSec": 3,
             "endSec": 7,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2086,6 +2207,8 @@
             "startSec": 7,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2095,6 +2218,8 @@
             "startSec": 2,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media/0be60449-91e8-4650-a671-a6b3f0ae19a3/TTL_LowerThird_16x9_v1.aegraphic",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -2104,6 +2229,8 @@
             "startSec": 7.2,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "inSec": 0,
+            "levels": [],
             "selected": false
           }
         ]
@@ -2137,6 +2264,8 @@
             "startSec": 2,
             "endSec": 3,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2146,6 +2275,8 @@
             "startSec": 3,
             "endSec": 7,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2155,6 +2286,8 @@
             "startSec": 7,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2164,6 +2297,8 @@
             "startSec": 2,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media/0be60449-91e8-4650-a671-a6b3f0ae19a3/TTL_LowerThird_16x9_v1.aegraphic",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -2173,6 +2308,8 @@
             "startSec": 7.2,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "inSec": 0,
+            "levels": [],
             "selected": false
           }
         ]
@@ -2206,6 +2343,8 @@
             "startSec": 2,
             "endSec": 3,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2215,6 +2354,8 @@
             "startSec": 3,
             "endSec": 7,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2224,6 +2365,8 @@
             "startSec": 7,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2233,6 +2376,8 @@
             "startSec": 2,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media/0be60449-91e8-4650-a671-a6b3f0ae19a3/TTL_LowerThird_16x9_v1.aegraphic",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -2242,6 +2387,8 @@
             "startSec": 7.2,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "inSec": 0,
+            "levels": [],
             "selected": false
           }
         ]
@@ -2275,6 +2422,8 @@
             "startSec": 2,
             "endSec": 3,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_intro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2284,6 +2433,8 @@
             "startSec": 3,
             "endSec": 7,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_loop_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2293,6 +2444,8 @@
             "startSec": 7,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Arrows@1/BG_Arrows_16x9_outro_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2302,6 +2455,8 @@
             "startSec": 2,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media/0be60449-91e8-4650-a671-a6b3f0ae19a3/TTL_LowerThird_16x9_v1.aegraphic",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -2311,6 +2466,8 @@
             "startSec": 7.2,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_WhooshIn@1/SFX_WhooshIn_wav_v1.wav",
+            "inSec": 0,
+            "levels": [],
             "selected": false
           }
         ]
@@ -2403,7 +2560,7 @@
       "detail": "CRS_LectureFrame"
     },
     {
-      "name": "frame: range: out point of sequence 91cb668e-ddd7-4e0a-8dff-5ae5a1325b7c at 30 s",
+      "name": "frame: range: out point of sequence ab02e08a-4243-47b4-a354-6d65ffced815 at 30 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -2412,11 +2569,11 @@
       }
     },
     {
-      "name": "frame: activate: sequence 91cb668e-ddd7-4e0a-8dff-5ae5a1325b7c active, playhead at 2 s",
+      "name": "frame: activate: sequence ab02e08a-4243-47b4-a354-6d65ffced815 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media frame_13",
+        "name": "BK media frame_15",
         "player": 2
       }
     },
@@ -2426,8 +2583,8 @@
       "required": true,
       "detail": {
         "kind": "sequence",
-        "id": "91cb668e-ddd7-4e0a-8dff-5ae5a1325b7c",
-        "name": "BK media frame_13",
+        "id": "ab02e08a-4243-47b4-a354-6d65ffced815",
+        "name": "BK media frame_15",
         "w": 1920,
         "h": 1080,
         "fps": 25,
@@ -2483,7 +2640,7 @@
       }
     },
     {
-      "name": "frame: timeline: clips of sequence 91cb668e-ddd7-4e0a-8dff-5ae5a1325b7c listed with their files",
+      "name": "frame: timeline: clips of sequence ab02e08a-4243-47b4-a354-6d65ffced815 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2510,6 +2667,8 @@
             "startSec": 2,
             "endSec": 30,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_spkL_v1.png",
+            "inSec": null,
+            "levels": null,
             "selected": true
           }
         ]
@@ -2579,11 +2738,11 @@
       "detail": "CRS_LectureFrame"
     },
     {
-      "name": "frame_drift: activate: sequence 3ea23689-1572-4dcc-934b-524cc8ec5d07 active, playhead at 2 s",
+      "name": "frame_drift: activate: sequence 20d32f79-2143-44b4-973a-ad0131d09912 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media frame_drift_13",
+        "name": "BK media frame_drift_15",
         "player": 2
       }
     },
@@ -2634,7 +2793,7 @@
       }
     },
     {
-      "name": "frame_drift: timeline: clips of sequence 3ea23689-1572-4dcc-934b-524cc8ec5d07 listed with their files",
+      "name": "frame_drift: timeline: clips of sequence 20d32f79-2143-44b4-973a-ad0131d09912 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2661,6 +2820,8 @@
             "startSec": 2,
             "endSec": 62,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -2670,6 +2831,8 @@
             "startSec": 62,
             "endSec": 92,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -2741,6 +2904,8 @@
             "startSec": 2,
             "endSec": 62,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -2750,6 +2915,8 @@
             "startSec": 62,
             "endSec": 92,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/CRS_LectureFrame@1/CRS_LectureFrame_16x9_s169_drift_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -2775,11 +2942,11 @@
       "detail": "BG_Rack"
     },
     {
-      "name": "rack: activate: sequence 3fbc46be-8b3e-4e09-9846-f9e73deffd76 active, playhead at 2 s",
+      "name": "rack: activate: sequence 628ec1a4-276a-41f9-beb8-b70077caba17 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media rack_7",
+        "name": "BK media rack_9",
         "player": 2
       }
     },
@@ -2830,7 +2997,7 @@
       }
     },
     {
-      "name": "rack: timeline: clips of sequence 3fbc46be-8b3e-4e09-9846-f9e73deffd76 listed with their files",
+      "name": "rack: timeline: clips of sequence 628ec1a4-276a-41f9-beb8-b70077caba17 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -2857,6 +3024,8 @@
             "startSec": 2,
             "endSec": 11,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -2866,6 +3035,8 @@
             "startSec": 11,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2875,6 +3046,8 @@
             "startSec": 20,
             "endSec": 22,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -2962,6 +3135,8 @@
             "startSec": 2,
             "endSec": 11,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -2971,6 +3146,8 @@
             "startSec": 11,
             "endSec": 20,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -2980,6 +3157,8 @@
             "startSec": 20,
             "endSec": 22,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Rack@1/BG_Rack_16x9_dark_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -3005,11 +3184,11 @@
       "detail": "BG_WebinarPortal"
     },
     {
-      "name": "portal: activate: sequence 60f6c60c-3352-417b-974d-c61235e5cf18 active, playhead at 2 s",
+      "name": "portal: activate: sequence 82756892-91a6-470a-a0e7-4e05534e9f54 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media portal_6",
+        "name": "BK media portal_8",
         "player": 2
       }
     },
@@ -3060,7 +3239,7 @@
       }
     },
     {
-      "name": "portal: timeline: clips of sequence 60f6c60c-3352-417b-974d-c61235e5cf18 listed with their files",
+      "name": "portal: timeline: clips of sequence 82756892-91a6-470a-a0e7-4e05534e9f54 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3087,6 +3266,8 @@
             "startSec": 2,
             "endSec": 32,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           }
         ]
@@ -3158,6 +3339,8 @@
             "startSec": 2,
             "endSec": 32,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           }
         ]
@@ -3183,11 +3366,11 @@
       "detail": "SMM_FrameNotched"
     },
     {
-      "name": "notched: activate: sequence 1f9fbf7c-65fd-4a33-8d26-619fe5699bbb active, playhead at 2 s",
+      "name": "notched: activate: sequence f19d667e-1303-428e-a978-abaf202e2652 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media notched_8",
+        "name": "BK media notched_10",
         "player": 2
       }
     },
@@ -3238,7 +3421,7 @@
       }
     },
     {
-      "name": "notched: timeline: clips of sequence 1f9fbf7c-65fd-4a33-8d26-619fe5699bbb listed with their files",
+      "name": "notched: timeline: clips of sequence f19d667e-1303-428e-a978-abaf202e2652 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3265,6 +3448,8 @@
             "startSec": 2,
             "endSec": 62,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -3274,6 +3459,8 @@
             "startSec": 62,
             "endSec": 77,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -3345,6 +3532,8 @@
             "startSec": 2,
             "endSec": 62,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -3354,6 +3543,8 @@
             "startSec": 62,
             "endSec": 77,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SMM_FrameNotched@1/SMM_FrameNotched_16x9_green_drift_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           }
         ]
@@ -3379,11 +3570,11 @@
       "detail": "POD_Intro"
     },
     {
-      "name": "intro: activate: sequence 088ef111-5ea2-4c47-bd81-b93b01c14c3e active, playhead at 2 s",
+      "name": "intro: activate: sequence 32967931-14c8-4d78-ba64-614cd6c942ac active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media intro_5",
+        "name": "BK media intro_7",
         "player": 2
       }
     },
@@ -3434,7 +3625,7 @@
       }
     },
     {
-      "name": "intro: timeline: clips of sequence 088ef111-5ea2-4c47-bd81-b93b01c14c3e listed with their files",
+      "name": "intro: timeline: clips of sequence 32967931-14c8-4d78-ba64-614cd6c942ac listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3461,6 +3652,8 @@
             "startSec": 2,
             "endSec": 9,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/POD_Intro@1/POD_Intro_16x9_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           }
         ]
@@ -3546,11 +3739,11 @@
       "detail": "POD_Outro"
     },
     {
-      "name": "outro: activate: sequence ce1fcce8-3272-4668-a198-88799bf4b5cc active, playhead at 2 s",
+      "name": "outro: activate: sequence 7f42125b-8e36-4da8-9406-270edb803c70 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media outro_5",
+        "name": "BK media outro_7",
         "player": 2
       }
     },
@@ -3601,7 +3794,7 @@
       }
     },
     {
-      "name": "outro: timeline: clips of sequence ce1fcce8-3272-4668-a198-88799bf4b5cc listed with their files",
+      "name": "outro: timeline: clips of sequence 7f42125b-8e36-4da8-9406-270edb803c70 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3628,6 +3821,8 @@
             "startSec": 2,
             "endSec": 12,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/POD_Outro@1/POD_Outro_16x9_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": true
           }
         ]
@@ -3697,11 +3892,11 @@
       "detail": "WEB_Screen"
     },
     {
-      "name": "screen: activate: sequence bae95ef9-cae2-4730-802c-edfb33fe1082 active, playhead at 2 s",
+      "name": "screen: activate: sequence 104bc153-052c-493a-beed-ef24b977e8c4 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media screen_4",
+        "name": "BK media screen_6",
         "player": 2
       }
     },
@@ -3766,7 +3961,7 @@
       }
     },
     {
-      "name": "screen: timeline: clips of sequence bae95ef9-cae2-4730-802c-edfb33fe1082 listed with their files",
+      "name": "screen: timeline: clips of sequence 104bc153-052c-493a-beed-ef24b977e8c4 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -3793,6 +3988,8 @@
             "startSec": 2,
             "endSec": 62,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -3802,6 +3999,8 @@
             "startSec": 62,
             "endSec": 67,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_speaker_timer_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -3811,6 +4010,8 @@
             "startSec": 2,
             "endSec": 67,
             "file": "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media/264adb72-dfe7-46d2-a21d-d41decbbd7ce/WEB_Screen_16x9_v1.aegraphic",
+            "inSec": null,
+            "levels": null,
             "selected": true
           }
         ]
@@ -3902,11 +4103,11 @@
       "detail": "WEB_Screen"
     },
     {
-      "name": "screen_music: activate: sequence 2c6e5956-5182-462f-9071-282afbf8eac1 active, playhead at 2 s",
+      "name": "screen_music: activate: sequence 0c5bf8c9-5513-4290-a956-f6aeffc96ed7 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media screen_music",
+        "name": "BK media screen_music_3",
         "player": 2
       }
     },
@@ -3917,15 +4118,15 @@
       "detail": []
     },
     {
-      "name": "screen_music: files copied next to the project (2 copied, 0 reused, 0 written)",
+      "name": "screen_music: files copied next to the project (0 copied, 2 reused, 0 written)",
       "pass": true,
       "required": true,
       "detail": {
-        "copied": [
+        "copied": [],
+        "reused": [
           "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
           "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav"
         ],
-        "reused": [],
         "written": []
       }
     },
@@ -3956,7 +4157,8 @@
               "audio": true,
               "clips": 1,
               "startSec": 2,
-              "lengthSec": 65
+              "lengthSec": 65,
+              "fadeSec": 2
             }
           ],
           "startSec": 2,
@@ -3981,7 +4183,7 @@
       }
     },
     {
-      "name": "screen_music: timeline: clips of sequence 2c6e5956-5182-462f-9071-282afbf8eac1 listed with their files",
+      "name": "screen_music: timeline: clips of sequence 0c5bf8c9-5513-4290-a956-f6aeffc96ed7 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4008,6 +4210,8 @@
             "startSec": 2,
             "endSec": 62,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -4017,6 +4221,8 @@
             "startSec": 62,
             "endSec": 67,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -4026,6 +4232,8 @@
             "startSec": 2,
             "endSec": 67,
             "file": "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media/264adb72-dfe7-46d2-a21d-d41decbbd7ce/WEB_Screen_16x9_v1.aegraphic",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -4035,6 +4243,18 @@
             "startSec": 2,
             "endSec": 67,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav",
+            "inSec": 0,
+            "levels": [
+              [
+                63,
+                0.17782793939114
+              ],
+              [
+                65,
+                0,
+                0.03781308978796
+              ]
+            ],
             "selected": false
           }
         ]
@@ -4058,7 +4278,8 @@
           "audio": true,
           "clips": 1,
           "startSec": 2,
-          "lengthSec": 65
+          "lengthSec": 65,
+          "fadeSec": 2
         },
         "rows": [
           {
@@ -4068,6 +4289,8 @@
             "startSec": 2,
             "endSec": 62,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -4077,6 +4300,8 @@
             "startSec": 62,
             "endSec": 67,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_WebinarPortal@1/BG_WebinarPortal_16x9_visual_timer_v1.mov",
+            "inSec": null,
+            "levels": null,
             "selected": false
           },
           {
@@ -4086,6 +4311,8 @@
             "startSec": 2,
             "endSec": 67,
             "file": "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media/264adb72-dfe7-46d2-a21d-d41decbbd7ce/WEB_Screen_16x9_v1.aegraphic",
+            "inSec": null,
+            "levels": null,
             "selected": true
           },
           {
@@ -4095,6 +4322,18 @@
             "startSec": 2,
             "endSec": 67,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav",
+            "inSec": 0,
+            "levels": [
+              [
+                63,
+                0.17782793939114
+              ],
+              [
+                65,
+                0,
+                0.03781308978796
+              ]
+            ],
             "selected": false
           }
         ]
@@ -4130,7 +4369,8 @@
             "audio": true,
             "clips": 1,
             "startSec": 2,
-            "lengthSec": 65
+            "lengthSec": 65,
+            "fadeSec": 2
           }
         ],
         "startSec": 2,
@@ -4165,7 +4405,8 @@
           "audio": true,
           "clips": 1,
           "startSec": 2,
-          "lengthSec": 65
+          "lengthSec": 65,
+          "fadeSec": 2
         }
       ]
     },
@@ -4181,7 +4422,403 @@
           "audio": true,
           "clips": 1,
           "startSec": 2,
-          "lengthSec": 65
+          "lengthSec": 65,
+          "fadeSec": 2
+        }
+      ]
+    },
+    {
+      "name": "screen_music: the music fades out over its last 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "role": "sound",
+        "name": "SFX_MusicWebinar5min_wav_v1.wav",
+        "track": 2,
+        "audio": true,
+        "clips": 1,
+        "startSec": 2,
+        "lengthSec": 65,
+        "fadeSec": 2
+      }
+    },
+    {
+      "name": "screen_music: the level is keyed down from the gain of 0 dB to silence over the last 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "keys": [
+          [
+            63,
+            0.17782793939114
+          ],
+          [
+            65,
+            0,
+            0.03781308978796
+          ]
+        ],
+        "row": {
+          "track": 2,
+          "audio": true,
+          "name": "SFX_MusicWebinar5min_wav_v1.wav",
+          "startSec": 2,
+          "endSec": 67,
+          "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_MusicWebinar5min@1/SFX_MusicWebinar5min_wav_v1.wav",
+          "inSec": 0,
+          "levels": [
+            [
+              63,
+              0.17782793939114
+            ],
+            [
+              65,
+              0,
+              0.03781308978796
+            ]
+          ],
+          "selected": false
+        }
+      }
+    },
+    {
+      "name": "screen_music: halfway through the fade the level is -13.4 dB, alike in both hosts",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "half": -13.447156602467423,
+        "keys": [
+          [
+            63,
+            0.17782793939114
+          ],
+          [
+            65,
+            0,
+            0.03781308978796
+          ]
+        ]
+      }
+    },
+    {
+      "name": "podcast_sfx: POD_Guest is in the catalog",
+      "pass": true,
+      "required": true,
+      "detail": "POD_Guest"
+    },
+    {
+      "name": "podcast_sfx: activate: sequence 5bb1d8af-4e51-43a0-9d53-fc67ecb8b2a2 active, playhead at 2 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "BK media podcast_sfx_2",
+        "player": 2
+      }
+    },
+    {
+      "name": "podcast_sfx: planned without errors",
+      "pass": true,
+      "required": true,
+      "detail": []
+    },
+    {
+      "name": "podcast_sfx: files copied next to the project (0 copied, 2 reused, 0 written)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "copied": [],
+        "reused": [
+          "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav",
+          "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav"
+        ],
+        "written": []
+      }
+    },
+    {
+      "name": "podcast_sfx: inserted, every piece where the plan put it",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "ok": true,
+        "problems": [],
+        "reply": {
+          "name": "POD_Guest_16x9_v1",
+          "track": 2,
+          "companions": [
+            {
+              "role": "sound",
+              "name": "SFX_PodcastGuestIn_wav_v1.wav",
+              "track": 2,
+              "audio": true,
+              "clips": 1,
+              "startSec": 2,
+              "lengthSec": 1.08
+            },
+            {
+              "role": "sound",
+              "name": "SFX_PodcastGuestOut_wav_v1.wav",
+              "track": 2,
+              "audio": true,
+              "clips": 1,
+              "startSec": 8.44,
+              "lengthSec": 1.56
+            }
+          ],
+          "startSec": 2,
+          "lengthSec": 8,
+          "readback": {
+            "Имя": "Имя Фамилия",
+            "Должность": "Должность, компания",
+            "Био, абзац 1": "- Где работал и чем руководил",
+            "Био, абзац 2": "- Чем занимается сейчас",
+            "Био, абзац 3": "",
+            "Сторона": 0,
+            "Скорость": 1
+          },
+          "retried": false,
+          "addedTracks": 0,
+          "notes": []
+        }
+      }
+    },
+    {
+      "name": "podcast_sfx: timeline: clips of sequence 5bb1d8af-4e51-43a0-9d53-fc67ecb8b2a2 listed with their files",
+      "pass": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "podcast_sfx: sound on the timeline as reported (2 s, A2)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "sound",
+          "name": "SFX_PodcastGuestIn_wav_v1.wav",
+          "track": 2,
+          "audio": true,
+          "clips": 1,
+          "startSec": 2,
+          "lengthSec": 1.08
+        },
+        "rows": [
+          {
+            "track": 2,
+            "audio": false,
+            "name": "POD_Guest_16x9_v1",
+            "startSec": 2,
+            "endSec": 10,
+            "file": "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media/653e8827-d332-48ac-8cf6-273a7a38b6ec/POD_Guest_16x9_v1.aegraphic",
+            "inSec": null,
+            "levels": null,
+            "selected": true
+          },
+          {
+            "track": 2,
+            "audio": true,
+            "name": "SFX_PodcastGuestIn_wav_v1.wav",
+            "startSec": 2,
+            "endSec": 3.08,
+            "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav",
+            "inSec": 0,
+            "levels": [],
+            "selected": false
+          },
+          {
+            "track": 2,
+            "audio": true,
+            "name": "SFX_PodcastGuestOut_wav_v1.wav",
+            "startSec": 8.44,
+            "endSec": 10,
+            "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav",
+            "inSec": 0,
+            "levels": [],
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "podcast_sfx: sound plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav"
+    },
+    {
+      "name": "podcast_sfx: sound on the timeline as reported (8.44 s, A2)",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "placed": {
+          "role": "sound",
+          "name": "SFX_PodcastGuestOut_wav_v1.wav",
+          "track": 2,
+          "audio": true,
+          "clips": 1,
+          "startSec": 8.44,
+          "lengthSec": 1.56
+        },
+        "rows": [
+          {
+            "track": 2,
+            "audio": false,
+            "name": "POD_Guest_16x9_v1",
+            "startSec": 2,
+            "endSec": 10,
+            "file": "C:/CRBK/work/panel-live/pr/Motion Graphics Template Media/653e8827-d332-48ac-8cf6-273a7a38b6ec/POD_Guest_16x9_v1.aegraphic",
+            "inSec": null,
+            "levels": null,
+            "selected": true
+          },
+          {
+            "track": 2,
+            "audio": true,
+            "name": "SFX_PodcastGuestIn_wav_v1.wav",
+            "startSec": 2,
+            "endSec": 3.08,
+            "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_PodcastGuestIn@1/SFX_PodcastGuestIn_wav_v1.wav",
+            "inSec": 0,
+            "levels": [],
+            "selected": false
+          },
+          {
+            "track": 2,
+            "audio": true,
+            "name": "SFX_PodcastGuestOut_wav_v1.wav",
+            "startSec": 8.44,
+            "endSec": 10,
+            "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav",
+            "inSec": 0,
+            "levels": [],
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "podcast_sfx: sound plays the copy in «Cloud.ru BrandKit» next to the project",
+      "pass": true,
+      "required": true,
+      "detail": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/SFX_PodcastGuestOut@1/SFX_PodcastGuestOut_wav_v1.wav"
+    },
+    {
+      "name": "podcast_sfx: length 8 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "name": "POD_Guest_16x9_v1",
+        "track": 2,
+        "companions": [
+          {
+            "role": "sound",
+            "name": "SFX_PodcastGuestIn_wav_v1.wav",
+            "track": 2,
+            "audio": true,
+            "clips": 1,
+            "startSec": 2,
+            "lengthSec": 1.08
+          },
+          {
+            "role": "sound",
+            "name": "SFX_PodcastGuestOut_wav_v1.wav",
+            "track": 2,
+            "audio": true,
+            "clips": 1,
+            "startSec": 8.44,
+            "lengthSec": 1.56
+          }
+        ],
+        "startSec": 2,
+        "lengthSec": 8,
+        "readback": {
+          "Имя": "Имя Фамилия",
+          "Должность": "Должность, компания",
+          "Био, абзац 1": "- Где работал и чем руководил",
+          "Био, абзац 2": "- Чем занимается сейчас",
+          "Био, абзац 3": "",
+          "Сторона": 0,
+          "Скорость": 1
+        },
+        "retried": false,
+        "addedTracks": 0,
+        "notes": []
+      }
+    },
+    {
+      "name": "podcast_sfx: the template's sounds placed: SFX_PodcastGuestIn_wav_v1, SFX_PodcastGuestOut_wav_v1",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "role": "sound",
+          "name": "SFX_PodcastGuestIn_wav_v1.wav",
+          "track": 2,
+          "audio": true,
+          "clips": 1,
+          "startSec": 2,
+          "lengthSec": 1.08
+        },
+        {
+          "role": "sound",
+          "name": "SFX_PodcastGuestOut_wav_v1.wav",
+          "track": 2,
+          "audio": true,
+          "clips": 1,
+          "startSec": 8.44,
+          "lengthSec": 1.56
+        }
+      ]
+    },
+    {
+      "name": "podcast_sfx: the in part plays from the template's start",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "role": "sound",
+        "name": "SFX_PodcastGuestIn_wav_v1.wav",
+        "track": 2,
+        "audio": true,
+        "clips": 1,
+        "startSec": 2,
+        "lengthSec": 1.08
+      }
+    },
+    {
+      "name": "podcast_sfx: the out part ends with the template, at 10 s",
+      "pass": true,
+      "required": true,
+      "detail": {
+        "role": "sound",
+        "name": "SFX_PodcastGuestOut_wav_v1.wav",
+        "track": 2,
+        "audio": true,
+        "clips": 1,
+        "startSec": 8.44,
+        "lengthSec": 1.56
+      }
+    },
+    {
+      "name": "podcast_sfx: the sounds are on audio tracks",
+      "pass": true,
+      "required": true,
+      "detail": [
+        {
+          "role": "sound",
+          "name": "SFX_PodcastGuestIn_wav_v1.wav",
+          "track": 2,
+          "audio": true,
+          "clips": 1,
+          "startSec": 2,
+          "lengthSec": 1.08
+        },
+        {
+          "role": "sound",
+          "name": "SFX_PodcastGuestOut_wav_v1.wav",
+          "track": 2,
+          "audio": true,
+          "clips": 1,
+          "startSec": 8.44,
+          "lengthSec": 1.56
         }
       ]
     },
@@ -4192,7 +4829,7 @@
       "detail": "LOGO_Files"
     },
     {
-      "name": "logo_files: range: out point of sequence 19d78f9e-40e5-4dea-af80-e10d0ca429ab at 14 s",
+      "name": "logo_files: range: out point of sequence cda39a90-cd63-456c-8564-3b559078be6c at 14 s",
       "pass": true,
       "required": true,
       "detail": {
@@ -4201,11 +4838,11 @@
       }
     },
     {
-      "name": "logo_files: activate: sequence 19d78f9e-40e5-4dea-af80-e10d0ca429ab active, playhead at 2 s",
+      "name": "logo_files: activate: sequence cda39a90-cd63-456c-8564-3b559078be6c active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media logo_files_3",
+        "name": "BK media logo_files_5",
         "player": 2
       }
     },
@@ -4215,8 +4852,8 @@
       "required": true,
       "detail": {
         "kind": "sequence",
-        "id": "19d78f9e-40e5-4dea-af80-e10d0ca429ab",
-        "name": "BK media logo_files_3",
+        "id": "cda39a90-cd63-456c-8564-3b559078be6c",
+        "name": "BK media logo_files_5",
         "w": 1920,
         "h": 1080,
         "fps": 25,
@@ -4272,7 +4909,7 @@
       }
     },
     {
-      "name": "logo_files: timeline: clips of sequence 19d78f9e-40e5-4dea-af80-e10d0ca429ab listed with their files",
+      "name": "logo_files: timeline: clips of sequence cda39a90-cd63-456c-8564-3b559078be6c listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4299,6 +4936,8 @@
             "startSec": 2,
             "endSec": 14,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/LOGO_Files@1/LOGO_Files_16x9_light_v1.png",
+            "inSec": null,
+            "levels": null,
             "selected": true
           }
         ]
@@ -4368,11 +5007,11 @@
       "detail": "BG_Patterns"
     },
     {
-      "name": "patterns: activate: sequence 24c3d15d-1143-4bef-89c3-8e131f018fea active, playhead at 2 s",
+      "name": "patterns: activate: sequence 4509b64e-089c-47cb-b9a3-2e4a11d3d797 active, playhead at 2 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK media patterns_3",
+        "name": "BK media patterns_5",
         "player": 2
       }
     },
@@ -4423,7 +5062,7 @@
       }
     },
     {
-      "name": "patterns: timeline: clips of sequence 24c3d15d-1143-4bef-89c3-8e131f018fea listed with their files",
+      "name": "patterns: timeline: clips of sequence 4509b64e-089c-47cb-b9a3-2e4a11d3d797 listed with their files",
       "pass": true,
       "required": true,
       "detail": ""
@@ -4450,6 +5089,8 @@
             "startSec": 2,
             "endSec": 8,
             "file": "C:/CRBK/work/panel-live/pr/Cloud.ru BrandKit/BG_Patterns@1/BG_Patterns_16x9_globe_light_v1.png",
+            "inSec": null,
+            "levels": null,
             "selected": true
           }
         ]
@@ -4525,7 +5166,7 @@
       "detail": "C:\\CRBK\\work\\panel-live\\pr\\media_live.prproj"
     },
     {
-      "name": "transfer: copied the project and Cloud.ru BrandKit, Motion Graphics Template Media to C:/CRBK/work/panel-live/pr-moved-20261026T045520",
+      "name": "transfer: copied the project and Cloud.ru BrandKit, Motion Graphics Template Media to C:/CRBK/work/panel-live/pr-moved-20261026T072549",
       "pass": true,
       "required": true,
       "detail": [
@@ -4534,14 +5175,14 @@
       ]
     },
     {
-      "name": "transfer: the check of C:/CRBK/work/panel-live/pr-moved-20261026T045520/media_live.prproj waits for a restart of Premiere (node tools/panel/live.mjs --host pr --transfer)",
+      "name": "transfer: the check of C:/CRBK/work/panel-live/pr-moved-20261026T072549/media_live.prproj waits for a restart of Premiere (node tools/panel/live.mjs --host pr --transfer)",
       "pass": true,
       "required": false,
       "detail": {
         "host": "pr",
         "project": "C:/CRBK/work/panel-live/pr/media_live.prproj",
-        "movedDir": "C:/CRBK/work/panel-live/pr-moved-20261026T045520",
-        "moved": "C:/CRBK/work/panel-live/pr-moved-20261026T045520/media_live.prproj",
+        "movedDir": "C:/CRBK/work/panel-live/pr-moved-20261026T072549",
+        "moved": "C:/CRBK/work/panel-live/pr-moved-20261026T072549/media_live.prproj",
         "parts": [
           "Cloud.ru BrandKit",
           "Motion Graphics Template Media"
@@ -4564,7 +5205,7 @@
       "pass": true,
       "required": true,
       "detail": {
-        "fit": "ca9cefc2-29a2-404b-8cca-eeea8b70034d"
+        "fit": "d5f33c23-ff4b-401e-bc14-2bb1eef7cd18"
       }
     },
     {
@@ -4576,11 +5217,11 @@
       }
     },
     {
-      "name": "fit screen: activate: sequence ca9cefc2-29a2-404b-8cca-eeea8b70034d active, playhead at 1 s",
+      "name": "fit screen: activate: sequence d5f33c23-ff4b-401e-bc14-2bb1eef7cd18 active, playhead at 1 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK fit_19",
+        "name": "BK fit_21",
         "player": 1
       }
     },
@@ -4703,11 +5344,11 @@
       }
     },
     {
-      "name": "fit speaker: activate: sequence ca9cefc2-29a2-404b-8cca-eeea8b70034d active, playhead at 11 s",
+      "name": "fit speaker: activate: sequence d5f33c23-ff4b-401e-bc14-2bb1eef7cd18 active, playhead at 11 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK fit_19",
+        "name": "BK fit_21",
         "player": 11
       }
     },
@@ -4867,7 +5508,7 @@
       "pass": true,
       "required": true,
       "detail": {
-        "fit": "437cec53-46ac-489e-9215-390340d319d9"
+        "fit": "08581258-a9b9-4fea-9ccf-eab613e22b3c"
       }
     },
     {
@@ -4879,11 +5520,11 @@
       }
     },
     {
-      "name": "fit frame screen: activate: sequence 437cec53-46ac-489e-9215-390340d319d9 active, playhead at 1 s",
+      "name": "fit frame screen: activate: sequence 08581258-a9b9-4fea-9ccf-eab613e22b3c active, playhead at 1 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK fit frame_13",
+        "name": "BK fit frame_15",
         "player": 1
       }
     },
@@ -5006,11 +5647,11 @@
       }
     },
     {
-      "name": "fit frame speaker: activate: sequence 437cec53-46ac-489e-9215-390340d319d9 active, playhead at 11 s",
+      "name": "fit frame speaker: activate: sequence 08581258-a9b9-4fea-9ccf-eab613e22b3c active, playhead at 11 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK fit frame_13",
+        "name": "BK fit frame_15",
         "player": 11
       }
     },
@@ -5164,7 +5805,7 @@
       "pass": true,
       "required": true,
       "detail": {
-        "blur": "81f97462-8d5d-479f-9524-3953b6e775df"
+        "blur": "46ce257b-f1a5-45ee-a4c8-504006d506e1"
       }
     },
     {
@@ -5193,11 +5834,11 @@
       }
     },
     {
-      "name": "blur: activate: sequence 81f97462-8d5d-479f-9524-3953b6e775df active, playhead at 1 s",
+      "name": "blur: activate: sequence 46ce257b-f1a5-45ee-a4c8-504006d506e1 active, playhead at 1 s",
       "pass": true,
       "required": true,
       "detail": {
-        "name": "BK blur_17",
+        "name": "BK blur_19",
         "player": 1
       }
     },

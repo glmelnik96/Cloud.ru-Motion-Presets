@@ -1,7 +1,7 @@
 {
   "host": "ae",
-  "startedAt": "2026-10-26T04:57:10.234Z",
-  "finishedAt": "2026-10-26T05:02:41.449Z",
+  "startedAt": "2026-10-26T07:02:07.693Z",
+  "finishedAt": "2026-10-26T07:07:37.508Z",
   "summary": {
     "checks": 721,
     "passed": 721,
@@ -10,7 +10,7 @@
   "failed": [],
   "checks": [
     {
-      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, LOGO_Header, LOGO_Files, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap, TTL_Disclaimer, POD_Frame, POD_Guest, POD_Content, POD_QR, POD_Intro, POD_Outro, SMM_ShortsIntro, SMM_FrameNotched, CRS_Cover, CRS_LectureFrame, CRS_Subtitles, TRN_StepWipe, TRN_Bars, BG_Arrows, BG_Plus, BG_Rack, BG_Patterns, BG_WebinarPortal, WEB_Screen, WEB_Announce, SFX_MusicCourseIntro, SFX_MusicWebinar5min, SFX_MusicWebinar30s",
+      "name": "catalog built from C:/CRBK/work/build: LOGO_Shot, LOGO_Mark, LOGO_Header, LOGO_Files, TTL_LowerThird, TTL_Plate, TTL_Subscribe, TTL_PlateSwap, TTL_Disclaimer, POD_Frame, POD_Guest, POD_Content, POD_QR, POD_Intro, POD_Outro, SMM_ShortsIntro, SMM_FrameNotched, CRS_Cover, CRS_LectureFrame, CRS_Subtitles, TRN_StepWipe, TRN_Bars, BG_Arrows, BG_Plus, BG_Rack, BG_Patterns, BG_WebinarPortal, WEB_Screen, WEB_Announce, SFX_PodcastLowerThirdIn, SFX_PodcastLowerThirdOut, SFX_PodcastTextPlateIn, SFX_PodcastTextPlateOut, SFX_PodcastDisclaimer, SFX_PodcastFrameIn, SFX_PodcastFrameOut, SFX_PodcastGuestIn, SFX_PodcastGuestOut, SFX_PodcastContent1In, SFX_PodcastContent1Out, SFX_PodcastContent2In, SFX_PodcastContent2Out, SFX_PodcastContent3In, SFX_PodcastContent3Out, SFX_PodcastQR1In, SFX_PodcastQR1Out, SFX_PodcastQR2In, SFX_PodcastQR2Out, SFX_PodcastSubscribeIn, SFX_PodcastSubscribeOut, SFX_MusicCourseIntro, SFX_MusicWebinar5min, SFX_MusicWebinar30s",
       "pass": true,
       "required": true,
       "detail": []
@@ -30,7 +30,7 @@
         "data": {
           "app": "ae",
           "version": "26.5x89",
-          "bk": "0.1.28"
+          "bk": "0.1.30"
         }
       }
     },
