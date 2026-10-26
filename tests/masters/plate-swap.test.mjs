@@ -14,6 +14,8 @@ const metrics = JSON.parse(readFileSync(path.join(REPO, 'masters/TTL_Plate/sourc
 const PHRASES = { TXT_LINE1: 'Разверните свой сервис', TXT_LINE2: 'видеоконференций', TXT_LINE3: '', TXT_PHRASE2_LINE1: 'На виртуальной машине', TXT_PHRASE2_LINE2: 'Cloud.ru Evolution', TXT_PHRASE2_LINE3: '' };
 
 describe.skipIf(!HAS_DUMPS)('TTL_PlateSwap', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve } = await import('../../masters/TTL_PlateSwap/resolve.mjs');
   const p = resolve();
   const plate = (await import('../../masters/TTL_Plate/resolve.mjs')).resolve();

@@ -14,6 +14,8 @@ const FN = (n) => `ADBE Fractal Noise-${String(n).padStart(4, '0')}`;
 const sizes = [[1080, 1920], [1080, 1080], [1920, 1080]];
 
 describe.skipIf(!HAS(['smm/bg_pattern_9x16_2', 'smm/bg_pattern_1x1_2', 'smm/plus']))('BG_Plus', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS(['smm/bg_pattern_9x16_2', 'smm/bg_pattern_1x1_2', 'smm/plus'])) return;
   const { resolve, libraryEntry } = await import('../../masters/BG_Plus/resolve.mjs');
   const p = resolve();
   const comp = (w, h) => exprComp(p.spec, { w, h, ctrl: {}, ink: () => ({ l: 0, w: 0, b: 0 }) });
@@ -54,6 +56,8 @@ describe.skipIf(!HAS(['smm/bg_pattern_9x16_2', 'smm/bg_pattern_1x1_2', 'smm/plus
 });
 
 describe.skipIf(!HAS(['smm/pattern_edit_2', 'smm/bg_pattern_9x16_1', 'smm/bg_pattern_1x1_1']))('BG_Arrows', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS(['smm/pattern_edit_2', 'smm/bg_pattern_9x16_1', 'smm/bg_pattern_1x1_1'])) return;
   const { resolve, libraryEntry, loopWiggleJs } = await import('../../masters/BG_Arrows/resolve.mjs');
   const p = resolve();
   const comp = (w, h) => exprComp(p.spec, { w, h, ctrl: {}, ink: () => ({ l: 0, w: 0, b: 0 }) });
@@ -91,6 +95,8 @@ describe.skipIf(!HAS(['smm/pattern_edit_2', 'smm/bg_pattern_9x16_1', 'smm/bg_pat
 });
 
 describe.skipIf(!HAS(['webinars/pattern_rack_animation', 'webinars/pattern_rack']))('BG_Rack', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS(['webinars/pattern_rack_animation', 'webinars/pattern_rack'])) return;
   const { resolve, libraryEntry } = await import('../../masters/BG_Rack/resolve.mjs');
   const p = resolve();
   const comp = (w, h, Colour = 1) => exprComp(p.spec, { w, h, ctrl: { Colour }, ink: () => ({ l: 0, w: 0, b: 0 }) });

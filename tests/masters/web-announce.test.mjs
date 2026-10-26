@@ -20,6 +20,8 @@ const VERTICAL = { w: 1080, h: 1920 };
 const ink = (layer, s) => (s ? { l: 2, w: s.length * 20 } : { l: 0, w: 0 });
 
 describe.skipIf(!HAS_DUMPS)('WEB_Announce', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve, libraryEntry } = await import('../../masters/WEB_Announce/resolve.mjs');
   const p = resolve();
   const { square: A, vertical: V, arrow } = p.layout;

@@ -11,6 +11,8 @@ const HAS_DUMPS = existsSync('C:/CRBK/work/dumps/courses/perekhod.json');
 const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
 
 describe.skipIf(!HAS_DUMPS)('TRN_StepWipe', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve, libraryEntry, loadSources, wipeModel, rectsAt, COLOURS, FORMATS, HOLD } = await import('../../masters/TRN_StepWipe/resolve.mjs');
   const p = resolve();
   const comp = (Colour, w = 1920, h = 1080) => exprComp(p.spec, { w, h, ctrl: { Colour }, ink: () => ({ l: 0, w: 0, b: 0 }) });

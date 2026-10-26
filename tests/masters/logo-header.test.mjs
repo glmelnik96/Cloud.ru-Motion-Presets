@@ -16,6 +16,8 @@ const rect = (c, t) => {
 };
 
 describe.skipIf(!HAS_DUMPS)('LOGO_Header', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve, libraryEntry } = await import('../../masters/LOGO_Header/resolve.mjs');
   const p = resolve();
   const L = p.layout;

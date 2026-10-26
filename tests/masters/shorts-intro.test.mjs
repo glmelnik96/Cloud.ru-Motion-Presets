@@ -19,6 +19,8 @@ const TXT = ['TXT_LINE1', 'TXT_LINE2', 'TXT_LINE3', 'TXT_LINE4'];
 const PACK = { TXT_LINE1: 'Как быстро создать', TXT_LINE2: 'Telegram-бота с AI', TXT_LINE3: 'под обучение', TXT_LINE4: 'сотрудников?' };
 
 describe.skipIf(!HAS_DUMPS)('SMM_ShortsIntro', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve } = await import('../../masters/SMM_ShortsIntro/resolve.mjs');
   const p = resolve();
   const comp = (opts = {}) => exprComp(p.spec, { w: 1080, h: 1920, ink, ...opts });

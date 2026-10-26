@@ -53,6 +53,8 @@ describe('POD_Intro measuring', () => {
 });
 
 describe.skipIf(!HAS_DUMPS)('POD_Intro', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve, libraryEntry, loadSources, introModel, hatchPeriod, LOGO_FRAMES, TALL } = await import('../../masters/POD_Intro/resolve.mjs');
   const sources = loadSources();
   const p = resolve(sources);

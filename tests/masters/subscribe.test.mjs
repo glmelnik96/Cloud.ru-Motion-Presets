@@ -32,6 +32,8 @@ const plateOf = (c, n, t) => {
 };
 
 describe.skipIf(!HAS_DUMPS)('TTL_Subscribe', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve } = await import('../../masters/TTL_Subscribe/resolve.mjs');
   const p = resolve();
   const comp = (opts) => exprComp(p.spec, { ink: packInk(), ...opts });

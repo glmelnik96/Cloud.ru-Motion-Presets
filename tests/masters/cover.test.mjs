@@ -27,6 +27,8 @@ const START_P = ['selector', 'Rise', 'ADBE Text Percent Start'];
 const FILL = ['animator', 'Ink', 'ADBE Text Fill Color'];
 
 describe.skipIf(!HAS_DUMPS)('CRS_Cover', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve } = await import('../../masters/CRS_Cover/resolve.mjs');
   const p = resolve();
   const L = p.layout;

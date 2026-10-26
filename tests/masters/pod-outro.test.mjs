@@ -10,6 +10,8 @@ import { exprComp } from '../helpers/master-expr.mjs';
 const HAS_DUMPS = existsSync('C:/CRBK/work/dumps/podcast/outro.json');
 
 describe.skipIf(!HAS_DUMPS)('POD_Outro', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve, libraryEntry, loadSources, outroModel, SHOT } = await import('../../masters/POD_Outro/resolve.mjs');
   const p = resolve();
   const comp = (w, h) => exprComp(p.spec, { w, h, ctrl: {}, ink: () => ({ l: 0, w: 0, b: 0 }) });

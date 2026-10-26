@@ -16,6 +16,8 @@ const PACK = { TXT_LINE1: 'текст появляется тут', TXT_LINE2: '
 const SMM = { TXT_LINE1: 'Разверните свой сервис', TXT_LINE2: 'видеоконференций', TXT_LINE3: '' };
 
 describe.skipIf(!HAS_DUMPS)('TTL_Plate', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve } = await import('../../masters/TTL_Plate/resolve.mjs');
   const p = resolve();
   const comp = (opts) => exprComp(p.spec, { ink: packInk(metrics), ...opts });

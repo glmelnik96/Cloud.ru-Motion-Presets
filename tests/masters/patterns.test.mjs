@@ -15,6 +15,8 @@ const box = (sps) => bbox(sps.flatMap((s) => samplePolyline(s)));
 const round = (b) => Object.fromEntries(Object.entries(b).map(([k, v]) => [k, Math.round(v * 100) / 100]));
 
 describe.skipIf(!HAS_DUMPS)('BG_Patterns', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve, libraryEntry, pathD } = await import('../../masters/BG_Patterns/resolve.mjs');
   const p = resolve();
   const S = p.stills;

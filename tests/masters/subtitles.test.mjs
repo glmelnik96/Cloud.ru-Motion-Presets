@@ -13,6 +13,8 @@ const HAS_DUMPS = ['courses/overley_16_na_9.json', 'courses/overley_3_na_2.json'
 const ink = (layer, s) => (s ? { l: 1, w: s.length * 17, b: 0 } : { l: 0, w: 0, b: 0 });
 
 describe.skipIf(!HAS_DUMPS)('CRS_Subtitles', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve } = await import('../../masters/CRS_Subtitles/resolve.mjs');
   const p = resolve();
   const L = p.layout;

@@ -14,6 +14,8 @@ const HAS_DUMPS = ['titles/podpis_spikerov.json', 'podcast/podpis_spikera_1.json
 const ink = (layer, s) => (s ? { l: 2, w: s.length * 24, b: 0 } : { l: 0, w: 0, b: 0 });
 
 describe.skipIf(!HAS_DUMPS)('TTL_LowerThird «Титры»', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve } = await import('../../masters/TTL_LowerThird/resolve.mjs');
   const p = resolve();
   const L = p.layout.titles;

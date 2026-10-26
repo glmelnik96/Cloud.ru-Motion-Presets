@@ -13,6 +13,8 @@ const HAS_DUMPS = existsSync('C:/CRBK/work/dumps/webinars/logoblok_s_chelkoy.jso
 const rgba = (h) => [1, 3, 5].map((i) => Math.round((parseInt(h.slice(i, i + 2), 16) / 255) * 1e6) / 1e6).concat(1);
 
 describe.skipIf(!HAS_DUMPS)('LOGO_Files', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve, libraryEntry, logoSvg } = await import('../../masters/LOGO_Files/resolve.mjs');
   const { resolve: header } = await import('../../masters/LOGO_Header/resolve.mjs');
   const p = resolve();

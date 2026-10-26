@@ -13,6 +13,8 @@ const HAS_DUMPS = ['transition_gray', 'transition_green', 'transition_white', 't
 const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
 
 describe.skipIf(!HAS_DUMPS)('TRN_Bars', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve, libraryEntry, loadSources, barsModel, rectsAt, COLOURS, FORMATS, HOLD, DEFAULT_COLOUR } = await import('../../masters/TRN_Bars/resolve.mjs');
   const p = resolve();
   const comp = (Colour, Logo = 0, w = 1080, h = 1920) => exprComp(p.spec, { w, h, ctrl: { Colour, Logo }, ink: () => ({ l: 0, w: 0, b: 0 }) });

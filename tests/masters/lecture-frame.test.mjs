@@ -16,6 +16,8 @@ const rectOf = (c, layer, group, t) => {
 const close = (r) => Object.fromEntries(Object.entries(r).map(([k, v]) => [k, expect.closeTo(v, 6)]));
 
 describe.skipIf(!HAS_DUMPS)('CRS_LectureFrame', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve, libraryEntry, LAYOUTS, windowOf } = await import('../../masters/CRS_LectureFrame/resolve.mjs');
   const p = resolve();
   const W = p.layout.windows;

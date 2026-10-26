@@ -11,6 +11,8 @@ const HAS_DUMPS = FILES.every((f) => existsSync(`C:/CRBK/work/dumps/webinars/${f
 const FN = (n) => `ADBE Fractal Noise-${String(n).padStart(4, '0')}`;
 
 describe.skipIf(!HAS_DUMPS)('BG_WebinarPortal', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve, libraryEntry, turningPoints, SCREENS } = await import('../../masters/BG_WebinarPortal/resolve.mjs');
   const p = resolve();
   const tp = p.spec.transplant.comps;

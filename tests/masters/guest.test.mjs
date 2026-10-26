@@ -29,6 +29,8 @@ const rectOf = (c, layer, group, t) => {
 };
 
 describe.skipIf(!HAS_DUMPS)('POD_Guest', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve } = await import('../../masters/POD_Guest/resolve.mjs');
   const p = resolve();
   const comp = (lines, opts = {}) => exprComp(p.spec, { ink: boxInk(p, lines), ...opts });

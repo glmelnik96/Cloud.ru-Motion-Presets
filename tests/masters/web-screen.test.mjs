@@ -22,6 +22,8 @@ const rectOf = (c, layer, t) => {
 };
 
 describe.skipIf(!HAS_DUMPS)('WEB_Screen', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve, libraryEntry, MINUTES } = await import('../../masters/WEB_Screen/resolve.mjs');
   const p = resolve();
   const L = p.layout;

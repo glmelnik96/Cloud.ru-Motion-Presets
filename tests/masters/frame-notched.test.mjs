@@ -11,6 +11,8 @@ const HAS_DUMPS = ['shape_layer_2_comp_1', 'shape_layer_5_comp_1'].every((f) => 
 const close = (v, d = 3) => (Array.isArray(v) ? v.map((x) => expect.closeTo(x, d)) : expect.closeTo(v, d));
 
 describe.skipIf(!HAS_DUMPS)('SMM_FrameNotched', async () => {
+  // vitest runs a skipped body to collect its tests: without the dumps it must not read them
+  if (!HAS_DUMPS) return;
   const { resolve, libraryEntry, restBoxes, WAYPOINTS, COLOURS, FORMATS, PERIOD, DEFAULT_COLOUR } = await import('../../masters/SMM_FrameNotched/resolve.mjs');
   const p = resolve();
   const comp = (Colour = 2, w = 1080, h = 1920) => exprComp(p.spec, { w, h, ctrl: { Colour }, ink: () => ({ l: 0, w: 0, b: 0 }) });
